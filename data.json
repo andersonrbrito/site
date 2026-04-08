@@ -1,0 +1,197 @@
+{
+  "personal": {
+    "firstName": "ANDERSON",
+    "lastName": "DE SOUSA BRITO",
+    "fullName": "ANDERSON DE SOUSA BRITO",
+    "email": "contato@andersonbrito.com",
+    "phone": "5511948577950",
+    "status": "DISPONÍVEL"
+  },
+  "hero": {
+    "eyebrow": "AUDIOVISUAL · MARKETING",
+    "role": "Editor de Vídeo · Criativos · VSL · Direct Response · Fotógrafo",
+    "subtitle": "Trabalho na interseção entre criatividade e performance — criando vídeos que não só impressionam, mas convertem.",
+    "ctaPrimary": "Ver Portfólio",
+    "ctaSecondary": "Quero Aumentar Minhas Vendas"
+  },
+  "about": {
+    "heading": "Trabalho na interseção entre criatividade e performance",
+    "bio1": "Sou Anderson Brito, editor audiovisual especializado em criativos, VSL e direct response. Atuo com marcas que entendem que a qualidade do vídeo faz a diferença — criando conteúdos que não apenas impressionam, mas geram resultado real.",
+    "bio2": "Paralelamente, desenvolvo trabalho fotográfico profissional, atuando em cobertura de eventos, shows, cerimônias e fotografia esportiva. Essa experiência refinou meu olhar para composição, luz e narrativa visual — elementos que elevam a qualidade do meu trabalho em vídeo.",
+    "photo": "assets/foto-perfil.jpg",
+    "academic": [
+      {
+        "school": "FGV Educação Executiva",
+        "degree": "Executive MBA",
+        "field": "Gestão com Ênfase em Marketing e Mídias Digitais",
+        "period": "set de 2024 – dez de 2025"
+      },
+      {
+        "school": "FGV Educação Executiva",
+        "degree": "Bacharelado",
+        "field": "Marketing",
+        "period": "abr de 2021 – mai de 2024"
+      },
+      {
+        "school": "Instituto de Cinema",
+        "degree": "Certificação",
+        "field": "Cinema",
+        "period": "nov de 2017"
+      },
+      {
+        "school": "Centro Universitário FAM",
+        "degree": "Curso",
+        "field": "Comunicação Audiovisual",
+        "period": "2016 – 2017"
+      }
+    ]
+  },
+  "stats": [
+    {
+      "value": "+50",
+      "label": "Projetos Entregues"
+    },
+    {
+      "value": "Foco em retenção",
+      "label": "e conversão"
+    },
+    {
+      "value": "Experiência com",
+      "label": "criativos e VSL"
+    },
+    {
+      "value": "10+",
+      "label": "Anos na indústria"
+    }
+  ],
+  "process": [
+    {
+      "title": "Briefing",
+      "description": "Você envia o material e o objetivo. Eu estruturo o vídeo com foco em retenção e resultado — sem enrolação."
+    },
+    {
+      "title": "Edição",
+      "description": "Primeiro corte com foco em retenção. Gráficos, animações e trilha sonora estruturada estrategicamente."
+    },
+    {
+      "title": "Revisão",
+      "description": "Rodada de ajustes com feedback direto seu. Refinamos até atingir a perfeição e o resultado esperado."
+    },
+    {
+      "title": "Entrega",
+      "description": "Arquivo final em alta resolução, otimizado para o canal certo (YouTube, Reels, TikTok, etc)."
+    }
+  ],
+  "services": [
+    {
+      "title": "Marketing & Direct Response",
+      "description": "Criativos, VSL e direct response com foco em retenção e conversão. Feitos para vender.",
+      "tags": "Criativos, VSL, DR, Reels, Shorts"
+    },
+    {
+      "title": "Fotografia",
+      "description": "Cobertura fotográfica de shows, cerimônias, eventos corporativos e fotografia esportiva com qualidade profissional.",
+      "tags": "Shows, Eventos, Esportes, Retratos"
+    },
+    {
+      "title": "Packs & Cursos",
+      "description": "Templates, packs de efeitos e cursos. Ferramentas pra você editar com qualidade profissional.",
+      "tags": "Templates, Packs, Cursos, Kiwify"
+    }
+  ],
+  "social": {
+    "instagram": "https://www.instagram.com/andersonbrito.mp4",
+    "whatsapp": "https://wa.me/5511948577950",
+    "linkedin": "https://www.linkedin.com/in/andbrito/",
+    "vimeo": "https://vimeo.com/andersonilmar",
+    "fotop": "https://andersonbritofoto.fotop.com"
+  },
+  "portfolio": {
+    "title": "ANDERSON DE SOUSA BRITO",
+    "resolution": "3840 x 2160",
+    "frameRate": "30fps",
+    "subtitle": "Criativos, VSL e direct response com foco em retenção e conversão.",
+    "videos": [
+      {
+        "id": 1,
+        "title": "Criativo de Lançamento",
+        "client": "Cliente A",
+        "category": "criativo",
+        "description": "Vídeo promocional com foco em retenção e conversão. Objetivo: conversão | Estratégia: hook direto + ritmo acelerado + CTA forte",
+        "formats": ["Reels", "9:16", "30s"],
+        "duration": "0:30",
+        "thumbnail": "assets/thumb-01.jpg",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": 2,
+        "title": "VSL de Produto",
+        "client": "Cliente B",
+        "category": "vsl",
+        "description": "Video Sales Letter para e-commerce. Objetivo: vendas | Estratégia: storytelling + urgência + CTA conversão",
+        "formats": ["YouTube", "16:9", "2:00"],
+        "duration": "2:00",
+        "thumbnail": "assets/thumb-02.jpg",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": 3,
+        "title": "Direct Response",
+        "client": "Cliente C",
+        "category": "dr",
+        "description": "Vídeo com call-to-action direto. Objetivo: ação imediata | Estratégia: mensagem clara + CTA forte",
+        "formats": ["Instagram", "9:16", "15s"],
+        "duration": "0:15",
+        "thumbnail": "assets/thumb-03.jpg",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": 4,
+        "title": "Making Of",
+        "client": "Behind the Scenes",
+        "category": "criativo",
+        "description": "Bastidores da produção. Objetivo: engajamento | Estratégia: transparência + humanização",
+        "formats": ["Reels", "9:16", "60s"],
+        "duration": "1:00",
+        "thumbnail": "assets/thumb-04.jpg",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": 5,
+        "title": "Testimonial",
+        "client": "Cliente D",
+        "category": "vsl",
+        "description": "Depoimento de cliente satisfeito. Objetivo: confiança | Estratégia: prova social + storytelling",
+        "formats": ["YouTube", "16:9", "90s"],
+        "duration": "1:30",
+        "thumbnail": "assets/thumb-05.jpg",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      },
+      {
+        "id": 6,
+        "title": "Promo Geral",
+        "client": "Branding",
+        "category": "criativo",
+        "description": "Vídeo promocional multi-plataforma. Objetivo: brand awareness | Estratégia: identidade visual + ritmo + impacto",
+        "formats": ["Reels", "YouTube", "9:16"],
+        "duration": "0:45",
+        "thumbnail": "assets/thumb-06.jpg",
+        "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+      }
+    ]
+  },
+  "seo": {
+    "title": "Anderson Brito — Editor de Vídeo | Criativos, VSL e Direct Response",
+    "description": "Editor audiovisual especializado em criativos, VSL e Direct Response. Portfolio com projetos de marketing digital focados em performance e conversão.",
+    "keywords": "editor de vídeo, criativos, vsl, direct response, marketing digital, videomaker, fotógrafo"
+  },
+  "address": {
+    "city": "Alphaville",
+    "state": "SP",
+    "country": "Brasil"
+  },
+  "assets": {
+    "logo": "assets/logo.svg",
+    "favicon": "assets/favicon.ico"
+  }
+}

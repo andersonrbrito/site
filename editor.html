@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor Profissional - Anderson Brito</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0e27;
+      color: #e0e0e0;
+      overflow: hidden;
+    }
+
+    .main-container {
+      display: flex;
+      height: 100vh;
+      gap: 0;
+    }
+
+    /* ========== SIDEBAR ========== */
+    .sidebar {
+      width: 220px;
+      background: #0f1428;
+      border-right: 1px solid #2d3561;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      border-bottom: 1px solid #2d3561;
+      text-align: center;
+    }
+
+    .sidebar-header h1 {
+      font-size: 14px;
+      color: #4da3ff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+    }
+
+    .sidebar-header p {
+      font-size: 11px;
+      color: #888;
+    }
+
+    .sidebar-menu {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      margin-bottom: 5px;
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.3s ease;
+      text-align: left;
+      width: 100%;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .menu-item:hover {
+      color: #4da3ff;
+      background: rgba(77, 163, 255, 0.05);
+      border-left-color: #4da3ff;
+    }
+
+    .menu-item.active {
+      color: #4da3ff;
+      background: rgba(77, 163, 255, 0.1);
+      border-left-color: #4da3ff;
+    }
+
+    .menu-icon {
+      margin-right: 10px;
+      font-size: 14px;
+    }
+
+    /* ========== EDITOR PANEL ========== */
+    .editor-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #1a1f3a;
+      border-right: 1px solid #2d3561;
+    }
+
+    .editor-header {
+      padding: 15px 20px;
+      background: #0f1428;
+      border-bottom: 1px solid #2d3561;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .editor-title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4da3ff;
+    }
+
+    .editor-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4da3ff;
+      margin: 25px 0 15px 0;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2d3561;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4da3ff;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      background: #0f1428;
+      border: 1px solid #2d3561;
+      color: #e0e0e0;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 13px;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #4da3ff;
+      background: #141a2f;
+      box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 70px;
+      font-family: 'DM Sans', sans-serif;
+      line-height: 1.4;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    /* ========== PREVIEW PANEL ========== */
+    .preview-panel {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      background: #1a1f3a;
+    }
+
+    .preview-header {
+      padding: 15px 20px;
+      background: #0f1428;
+      border-bottom: 1px solid #2d3561;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .preview-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #4da3ff;
+    }
+
+    .preview-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .preview-btn {
+      padding: 6px 12px;
+      background: #2d3561;
+      border: none;
+      color: #4da3ff;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 10px;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .preview-btn:hover {
+      background: #3d4571;
+    }
+
+    .preview-btn.active {
+      background: #4da3ff;
+      color: #0a0e27;
+    }
+
+    .preview-content {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: white;
+    }
+
+    .preview-loading {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 14, 39, 0.8);
+      backdrop-filter: blur(3px);
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .spinner {
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(77, 163, 255, 0.2);
+      border-top-color: #4da3ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ========== FOOTER ========== */
+    .editor-footer {
+      padding: 15px 20px;
+      background: #0f1428;
+      border-top: 1px solid #2d3561;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 11px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #4da3ff;
+      color: #0a0e27;
+    }
+
+    .btn-primary:hover {
+      background: #6bb3ff;
+      box-shadow: 0 0 20px rgba(77, 163, 255, 0.3);
+    }
+
+    .btn-secondary {
+      background: #2d3561;
+      color: #e0e0e0;
+    }
+
+    .btn-secondary:hover {
+      background: #3d4571;
+    }
+
+    /* ========== STATUS MESSAGE ========== */
+    .status-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      animation: slideIn 0.3s ease;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .status-message.success {
+      background: #22c55e;
+      color: white;
+    }
+
+    .status-message.error {
+      background: #ff5757;
+      color: white;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 1400px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .preview-panel {
+        display: none;
+      }
+    }
+
+    .content-hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h1>🎬 Editor</h1>
+        <p>v2.0 Profissional</p>
+      </div>
+
+      <div class="sidebar-menu">
+        <button class="menu-item active" data-section="pessoal">
+          <span class="menu-icon">👤</span>
+          <span>Pessoal</span>
+        </button>
+        <button class="menu-item" data-section="home">
+          <span class="menu-icon">🏠</span>
+          <span>Home</span>
+        </button>
+        <button class="menu-item" data-section="sobre">
+          <span class="menu-icon">📖</span>
+          <span>Sobre</span>
+        </button>
+        <button class="menu-item" data-section="stats">
+          <span class="menu-icon">📊</span>
+          <span>Stats</span>
+        </button>
+        <button class="menu-item" data-section="redes">
+          <span class="menu-icon">🔗</span>
+          <span>Redes</span>
+        </button>
+        <button class="menu-item" data-section="seo">
+          <span class="menu-icon">🔍</span>
+          <span>SEO</span>
+        </button>
+        <button class="menu-item" data-section="endereco">
+          <span class="menu-icon">📍</span>
+          <span>Endereço</span>
+        </button>
+        <button class="menu-item" data-section="portfolio">
+          <span class="menu-icon">🎥</span>
+          <span>Portfolio</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- EDITOR PANEL -->
+    <div class="editor-panel">
+      <div class="editor-header">
+        <div class="editor-title">Editando seu site</div>
+      </div>
+
+      <div class="editor-content" id="editorContent">
+        <!-- Conteúdo será carregado aqui via JavaScript -->
+        <div style="text-align: center; padding: 40px; color: #888;">
+          <div class="spinner" style="margin: 0 auto 20px;"></div>
+          <p>Carregando dados...</p>
+        </div>
+      </div>
+
+      <div class="editor-footer">
+        <button class="btn btn-primary" onclick="saveData()">💾 Salvar</button>
+        <button class="btn btn-secondary" onclick="resetForm()">🔄 Resetar</button>
+      </div>
+    </div>
+
+    <!-- PREVIEW PANEL -->
+    <div class="preview-panel">
+      <div class="preview-header">
+        <div class="preview-title">👁️ Preview em Tempo Real</div>
+        <div class="preview-controls">
+          <button class="preview-btn active" onclick="setPreviewMode('desktop')">🖥️</button>
+          <button class="preview-btn" onclick="setPreviewMode('mobile')">📱</button>
+          <button class="preview-btn" onclick="openPreviewInNewTab()">↗️</button>
+        </div>
+      </div>
+      <div class="preview-content">
+        <div class="preview-loading">
+          <div class="spinner"></div>
+          <p>Carregando preview...</p>
+        </div>
+        <iframe class="preview-iframe" id="previewFrame"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATUS MESSAGE -->
+  <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+  <script>
+    // ============================================
+    // VARIÁVEIS GLOBAIS
+    // ============================================
+    let allData = {};
+    const API_BASE = 'http://localhost:3001/api';
+
+    // ============================================
+    // INICIALIZAÇÃO
+    // ============================================
+    async function initEditor() {
+      try {
+        const response = await fetch(`${API_BASE}/data`);
+        allData = await response.json();
+        renderForm('pessoal');
+        loadPreview();
+        setupMenuListeners();
+      } catch (error) {
+        showStatus('Erro ao carregar dados do servidor', 'error');
+        console.error(error);
+      }
+    }
+
+    // ============================================
+    // RENDERIZAR FORMULÁRIO
+    // ============================================
+    function renderForm(section) {
+      const content = document.getElementById('editorContent');
+
+      let html = '';
+
+      if (section === 'pessoal') {
+        html = `
+          <div class="section-title">Informações Pessoais</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Primeiro Nome</label>
+              <input type="text" id="firstName" value="${allData.personal.firstName}" onchange="updatePreview()">
+            </div>
+            <div class="form-group">
+              <label>Sobrenome</label>
+              <input type="text" id="lastName" value="${allData.personal.lastName}" onchange="updatePreview()">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" value="${allData.personal.email}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Telefone</label>
+            <input type="tel" id="phone" value="${allData.personal.phone}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Status (No Menu)</label>
+            <input type="text" id="status" value="${allData.personal.status}" onchange="updatePreview()">
+          </div>
+        `;
+      }
+
+      if (section === 'home') {
+        html = `
+          <div class="section-title">Seção Home</div>
+          <div class="form-group">
+            <label>Eyebrow Text</label>
+            <input type="text" id="eyebrow" value="${allData.hero.eyebrow}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Sua Profissão / Role</label>
+            <textarea id="role" onchange="updatePreview()">${allData.hero.role}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Botão Primário</label>
+            <input type="text" id="ctaPrimary" value="${allData.hero.ctaPrimary}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Botão Secundário</label>
+            <input type="text" id="ctaSecondary" value="${allData.hero.ctaSecondary}" onchange="updatePreview()">
+          </div>
+        `;
+      }
+
+      if (section === 'sobre') {
+        html = `
+          <div class="section-title">Seção Sobre</div>
+          <div class="form-group">
+            <label>Heading (Título)</label>
+            <input type="text" id="aboutHeading" value="${allData.about.heading}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Parágrafo 1</label>
+            <textarea id="aboutBio1" onchange="updatePreview()">${allData.about.bio1}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Parágrafo 2</label>
+            <textarea id="aboutBio2" onchange="updatePreview()">${allData.about.bio2}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Foto de Perfil (Caminho)</label>
+            <input type="text" id="photo" value="${allData.about.photo}" onchange="updatePreview()">
+          </div>
+        `;
+      }
+
+      if (section === 'stats') {
+        html = `
+          <div class="section-title">Estatísticas</div>
+          ${allData.stats.map((stat, idx) => `
+            <div style="background: #0f1428; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
+              <h3 style="color: #4da3ff; font-size: 12px; margin-bottom: 10px;">Stat ${idx + 1}</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Valor</label>
+                  <input type="text" id="stat${idx}Value" value="${stat.value}" onchange="updatePreview()">
+                </div>
+                <div class="form-group">
+                  <label>Label</label>
+                  <input type="text" id="stat${idx}Label" value="${stat.label}" onchange="updatePreview()">
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        `;
+      }
+
+      if (section === 'redes') {
+        html = `
+          <div class="section-title">Redes Sociais</div>
+          <div class="form-group">
+            <label>Instagram</label>
+            <input type="url" id="instagram" value="${allData.social.instagram}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="url" id="whatsapp" value="${allData.social.whatsapp}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>LinkedIn</label>
+            <input type="url" id="linkedin" value="${allData.social.linkedin}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Vimeo</label>
+            <input type="url" id="vimeo" value="${allData.social.vimeo}" onchange="updatePreview()">
+          </div>
+        `;
+      }
+
+      if (section === 'seo') {
+        html = `
+          <div class="section-title">SEO & Metadados</div>
+          <div class="form-group">
+            <label>Título da Página</label>
+            <input type="text" id="seoTitle" value="${allData.seo.title}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Descrição (Meta Description)</label>
+            <textarea id="seoDescription" onchange="updatePreview()">${allData.seo.description}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Keywords</label>
+            <textarea id="seoKeywords" onchange="updatePreview()">${allData.seo.keywords}</textarea>
+          </div>
+        `;
+      }
+
+      if (section === 'endereco') {
+        html = `
+          <div class="section-title">Localização</div>
+          <div class="form-group">
+            <label>Cidade</label>
+            <input type="text" id="city" value="${allData.address.city}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Estado</label>
+            <input type="text" id="state" value="${allData.address.state}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>País</label>
+            <input type="text" id="country" value="${allData.address.country}" onchange="updatePreview()">
+          </div>
+        `;
+      }
+
+      if (section === 'portfolio') {
+        html = `
+          <div class="section-title">Portfolio - Title & Subtitle</div>
+          <div class="form-group">
+            <label>Título do Portfolio</label>
+            <input type="text" id="portfolioTitle" value="${allData.portfolio.title}" onchange="updatePreview()">
+          </div>
+          <div class="form-group">
+            <label>Subtítulo</label>
+            <textarea id="portfolioSubtitle" onchange="updatePreview()">${allData.portfolio.subtitle}</textarea>
+          </div>
+
+          <div class="section-title">Vídeos (${allData.portfolio.videos.length} total)</div>
+          <div id="videosContainer">
+            ${allData.portfolio.videos.map((video, idx) => `
+              <div style="background: #0f1428; padding: 15px; border-radius: 4px; margin-bottom: 15px; border-left: 3px solid #4da3ff;">
+                <h3 style="color: #4da3ff; font-size: 13px; margin-bottom: 10px;">
+                  ${video.title} <span style="color: #888; font-size: 11px;">(ID: ${video.id})</span>
+                </h3>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Título</label>
+                    <input type="text" id="video${idx}Title" value="${video.title}" onchange="updatePreview()">
+                  </div>
+                  <div class="form-group">
+                    <label>Cliente</label>
+                    <input type="text" id="video${idx}Client" value="${video.client}" onchange="updatePreview()">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Categoria</label>
+                    <select id="video${idx}Category" onchange="updatePreview()">
+                      <option value="criativo" ${video.category === 'criativo' ? 'selected' : ''}>Criativo</option>
+                      <option value="vsl" ${video.category === 'vsl' ? 'selected' : ''}>VSL</option>
+                      <option value="dr" ${video.category === 'dr' ? 'selected' : ''}>Direct Response</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Duração</label>
+                    <input type="text" id="video${idx}Duration" value="${video.duration}" onchange="updatePreview()">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Descrição</label>
+                  <textarea id="video${idx}Description" onchange="updatePreview()">${video.description}</textarea>
+                </div>
+                <div class="form-group">
+                  <label>URL do Vídeo (YouTube/Vimeo embed)</label>
+                  <input type="url" id="video${idx}VideoUrl" value="${video.videoUrl}" onchange="updatePreview()">
+                </div>
+                <div class="form-group">
+                  <label>Thumbnail (Caminho)</label>
+                  <input type="text" id="video${idx}Thumbnail" value="${video.thumbnail}" onchange="updatePreview()">
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+
+      content.innerHTML = html;
+    }
+
+    // ============================================
+    // SETUP MENU LISTENERS
+    // ============================================
+    function setupMenuListeners() {
+      document.querySelectorAll('.menu-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.menu-item').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderForm(btn.dataset.section);
+        });
+      });
+    }
+
+    // ============================================
+    // COLETAR DADOS DO FORMULÁRIO
+    // ============================================
+    function collectFormData() {
+      const data = JSON.parse(JSON.stringify(allData)); // Deep copy
+
+      // Pessoal
+      data.personal.firstName = document.getElementById('firstName')?.value || allData.personal.firstName;
+      data.personal.lastName = document.getElementById('lastName')?.value || allData.personal.lastName;
+      data.personal.email = document.getElementById('email')?.value || allData.personal.email;
+      data.personal.phone = document.getElementById('phone')?.value || allData.personal.phone;
+      data.personal.status = document.getElementById('status')?.value || allData.personal.status;
+
+      // Home
+      data.hero.eyebrow = document.getElementById('eyebrow')?.value || allData.hero.eyebrow;
+      data.hero.role = document.getElementById('role')?.value || allData.hero.role;
+      data.hero.ctaPrimary = document.getElementById('ctaPrimary')?.value || allData.hero.ctaPrimary;
+      data.hero.ctaSecondary = document.getElementById('ctaSecondary')?.value || allData.hero.ctaSecondary;
+
+      // Sobre
+      data.about.heading = document.getElementById('aboutHeading')?.value || allData.about.heading;
+      data.about.bio1 = document.getElementById('aboutBio1')?.value || allData.about.bio1;
+      data.about.bio2 = document.getElementById('aboutBio2')?.value || allData.about.bio2;
+      data.about.photo = document.getElementById('photo')?.value || allData.about.photo;
+
+      // Stats
+      data.stats = allData.stats.map((stat, idx) => ({
+        value: document.getElementById(`stat${idx}Value`)?.value || stat.value,
+        label: document.getElementById(`stat${idx}Label`)?.value || stat.label
+      }));
+
+      // Redes
+      data.social.instagram = document.getElementById('instagram')?.value || allData.social.instagram;
+      data.social.whatsapp = document.getElementById('whatsapp')?.value || allData.social.whatsapp;
+      data.social.linkedin = document.getElementById('linkedin')?.value || allData.social.linkedin;
+      data.social.vimeo = document.getElementById('vimeo')?.value || allData.social.vimeo;
+
+      // SEO
+      data.seo.title = document.getElementById('seoTitle')?.value || allData.seo.title;
+      data.seo.description = document.getElementById('seoDescription')?.value || allData.seo.description;
+      data.seo.keywords = document.getElementById('seoKeywords')?.value || allData.seo.keywords;
+
+      // Endereço
+      data.address.city = document.getElementById('city')?.value || allData.address.city;
+      data.address.state = document.getElementById('state')?.value || allData.address.state;
+      data.address.country = document.getElementById('country')?.value || allData.address.country;
+
+      // Portfolio
+      data.portfolio.title = document.getElementById('portfolioTitle')?.value || allData.portfolio.title;
+      data.portfolio.subtitle = document.getElementById('portfolioSubtitle')?.value || allData.portfolio.subtitle;
+
+      data.portfolio.videos = allData.portfolio.videos.map((video, idx) => ({
+        ...video,
+        title: document.getElementById(`video${idx}Title`)?.value || video.title,
+        client: document.getElementById(`video${idx}Client`)?.value || video.client,
+        category: document.getElementById(`video${idx}Category`)?.value || video.category,
+        description: document.getElementById(`video${idx}Description`)?.value || video.description,
+        duration: document.getElementById(`video${idx}Duration`)?.value || video.duration,
+        videoUrl: document.getElementById(`video${idx}VideoUrl`)?.value || video.videoUrl,
+        thumbnail: document.getElementById(`video${idx}Thumbnail`)?.value || video.thumbnail
+      }));
+
+      return data;
+    }
+
+    // ============================================
+    // SALVAR DADOS
+    // ============================================
+    async function saveData() {
+      try {
+        const newData = collectFormData();
+        const response = await fetch(`${API_BASE}/save`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newData)
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          allData = newData;
+          loadPreview();
+          showStatus('✅ Alterações salvas com sucesso!', 'success');
+        } else {
+          showStatus('❌ Erro ao salvar', 'error');
+        }
+      } catch (error) {
+        showStatus('❌ Erro na conexão', 'error');
+        console.error(error);
+      }
+    }
+
+    // ============================================
+    // RESETAR FORMULÁRIO
+    // ============================================
+    function resetForm() {
+      const section = document.querySelector('.menu-item.active').dataset.section;
+      renderForm(section);
+      showStatus('🔄 Formulário resetado', 'success');
+    }
+
+    // ============================================
+    // CARREGAR PREVIEW
+    // ============================================
+    function loadPreview() {
+      const iframe = document.getElementById('previewFrame');
+      const loading = document.querySelector('.preview-loading');
+      const src = `${API_BASE}/preview?t=${Date.now()}`;
+
+      iframe.onload = () => {
+        loading.style.display = 'none';
+      };
+
+      iframe.src = src;
+    }
+
+    function updatePreview() {
+      loadPreview();
+    }
+
+    // ============================================
+    // PREVIEW CONTROLS
+    // ============================================
+    function setPreviewMode(mode) {
+      const iframe = document.getElementById('previewFrame');
+      const btns = document.querySelectorAll('.preview-btn');
+
+      btns.forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      if (mode === 'mobile') {
+        iframe.style.width = '375px';
+        iframe.style.height = '812px';
+      } else {
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+      }
+    }
+
+    function openPreviewInNewTab() {
+      window.open(`${API_BASE}/preview`, '_blank');
+    }
+
+    // ============================================
+    // STATUS MESSAGE
+    // ============================================
+    function showStatus(message, type) {
+      const el = document.getElementById('statusMessage');
+      el.textContent = message;
+      el.className = `status-message ${type}`;
+      el.style.display = 'block';
+
+      setTimeout(() => {
+        el.style.display = 'none';
+      }, 3000);
+    }
+
+    // ============================================
+    // INICIAR
+    // ============================================
+    initEditor();
+  </script>
+</body>
+</html>
