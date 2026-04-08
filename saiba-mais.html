@@ -26,41 +26,45 @@
 
   <style>
     :root {
-      --bg-main: #0a0e27;
-      --bg-panel: #1E1E22;
-      --border: #2d3561;
+      --pr-menubar: #1C1C1C;
+      --pr-toolbar: #232325;
+      --pr-panel-bg: #1E1E22;
+      --pr-panel-hd: #28282E;
+      --pr-border: #000000;
+      --pr-sep: #38383F;
       --accent: #3DA7FF;
+      --accent-2: #0070D1;
       --tx-hi: #EAEAEF;
       --tx-mid: #8888A0;
       --tx-lo: #505060;
+      --f-mono: 'IBM Plex Mono', monospace;
       --f-head: 'Exo 2', sans-serif;
       --f-body: 'DM Sans', sans-serif;
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--bg-main);
+      background: var(--pr-panel-bg);
       color: var(--tx-hi);
       font-family: var(--f-body);
       font-size: 14px;
       overflow-x: hidden;
-      padding-bottom: 60px;
     }
     a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; }
 
-    /* ═══════════════════════════════════════════
-       HEADER & NAV
-    ═══════════════════════════════════════════ */
+    /* HEADER */
     header {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      background: rgba(10, 14, 39, 0.95);
+      height: 60px;
+      background: rgba(28, 28, 28, 0.95);
       backdrop-filter: blur(10px);
-      padding: 20px 40px;
-      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      border-bottom: 1px solid var(--pr-border);
       z-index: 100;
       display: flex;
       justify-content: space-between;
@@ -68,7 +72,7 @@
     }
 
     .logo {
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -77,11 +81,11 @@
 
     nav {
       display: flex;
-      gap: 40px;
+      gap: 30px;
     }
 
     nav a {
-      font-size: 12px;
+      font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 1px;
       color: var(--tx-mid);
@@ -92,14 +96,12 @@
       color: var(--accent);
     }
 
-    /* ═══════════════════════════════════════════
-       HERO
-    ═══════════════════════════════════════════ */
+    /* HERO */
     .hero {
-      margin-top: 80px;
+      margin-top: 60px;
       padding: 80px 40px;
-      background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-main) 100%);
-      border-bottom: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--pr-panel-hd) 0%, var(--pr-panel-bg) 100%);
+      border-bottom: 1px solid var(--pr-border);
       text-align: center;
     }
 
@@ -109,266 +111,207 @@
       font-weight: 700;
       margin-bottom: 20px;
       color: var(--accent);
+      letter-spacing: -1px;
     }
 
-    /* ═══════════════════════════════════════════
-       CONTAINER
-    ═══════════════════════════════════════════ */
+    .hero p {
+      font-size: 16px;
+      color: var(--tx-mid);
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* CONTAINER */
     .container {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 80px 40px;
     }
 
-    .section-title {
+    /* TIMELINE HORIZONTAL */
+    .timeline-section {
+      margin-bottom: 80px;
+    }
+
+    .section-label {
       font-size: 12px;
+      font-family: var(--f-mono);
+      color: var(--tx-lo);
       text-transform: uppercase;
       letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-family: var(--f-head);
+      font-weight: 700;
       color: var(--accent);
-      margin: 60px 0 30px 0;
-      padding-bottom: 15px;
-      border-bottom: 2px solid var(--border);
+      margin-bottom: 40px;
     }
 
-    .text-section {
-      margin-bottom: 50px;
-      line-height: 1.8;
-      color: var(--tx-mid);
-    }
-
-    .text-section h3 {
-      font-size: 18px;
-      color: var(--tx-hi);
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    .text-section p {
-      margin-bottom: 15px;
-      text-align: justify;
-    }
-
-    /* ═══════════════════════════════════════════
-       TIMELINE HORIZONTAL
-    ═══════════════════════════════════════════ */
-    .timeline-container {
-      overflow-x: auto;
-      overflow-y: hidden;
-      padding: 60px 0;
-      margin: 60px 0;
-    }
-
-    .timeline {
+    .timeline-horizontal {
       display: flex;
-      gap: 30px;
-      min-width: fit-content;
-      padding: 0 40px;
+      gap: 20px;
+      overflow-x: auto;
+      padding-bottom: 20px;
+      scroll-behavior: smooth;
     }
 
-    .timeline-item {
-      flex: 0 0 350px;
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
+    .timeline-horizontal::-webkit-scrollbar {
+      height: 6px;
+    }
+
+    .timeline-horizontal::-webkit-scrollbar-track {
+      background: var(--pr-panel-hd);
+    }
+
+    .timeline-horizontal::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .timeline-card {
+      min-width: 300px;
+      background: var(--pr-panel-hd);
+      border: 1px solid var(--pr-sep);
       border-radius: 4px;
-      padding: 30px;
+      padding: 24px;
       transition: all 0.3s ease;
+      cursor: pointer;
     }
 
-    .timeline-item:hover {
+    .timeline-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(61, 167, 255, 0.1);
-      transform: translateY(-5px);
+      background: linear-gradient(135deg, var(--pr-panel-hd), #2a2a32);
+      box-shadow: 0 10px 30px rgba(61, 167, 255, 0.15);
+      transform: translateY(-4px);
     }
 
     .timeline-year {
       font-size: 12px;
+      font-family: var(--f-mono);
       color: var(--accent);
-      text-transform: uppercase;
+      font-weight: 600;
       letter-spacing: 1px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .timeline-title {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--tx-hi);
-      margin-bottom: 15px;
+      margin-bottom: 8px;
     }
 
     .timeline-company {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--tx-lo);
+      margin-bottom: 12px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 15px;
+      letter-spacing: 0.5px;
     }
 
-    .timeline-description {
-      font-size: 13px;
+    .timeline-desc {
+      font-size: 12px;
       color: var(--tx-mid);
       line-height: 1.6;
-      margin-bottom: 15px;
     }
 
-    .timeline-thumb {
-      width: 100%;
-      height: 150px;
-      background: linear-gradient(135deg, rgba(61, 167, 255, 0.1), rgba(61, 167, 255, 0.05));
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--tx-lo);
-      font-size: 11px;
-      text-transform: uppercase;
-      margin-top: 15px;
-    }
-
-    /* ═══════════════════════════════════════════
-       FORMAÇÃO ACADÊMICA
-    ═══════════════════════════════════════════ */
+    /* ACADEMIC GRID */
     .academic-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      margin-top: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
     }
 
     .academic-card {
-      background: var(--bg-panel);
-      border: 1px solid var(--border);
-      padding: 25px;
+      background: var(--pr-panel-hd);
+      border: 1px solid var(--pr-sep);
       border-radius: 4px;
+      padding: 24px;
       transition: all 0.3s ease;
     }
 
     .academic-card:hover {
       border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(61, 167, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(61, 167, 255, 0.1);
     }
 
-    .school-name {
-      font-size: 12px;
+    .academic-school {
+      font-size: 11px;
+      font-family: var(--f-mono);
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
-    .degree {
-      font-size: 16px;
-      font-weight: 600;
+    .academic-degree {
+      font-size: 15px;
+      font-weight: 700;
       color: var(--tx-hi);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
-    .field {
-      font-size: 13px;
-      color: var(--tx-mid);
-      margin-bottom: 8px;
-    }
-
-    .period {
-      font-size: 11px;
-      color: var(--tx-lo);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    /* ═══════════════════════════════════════════
-       CTA FINAL
-    ═══════════════════════════════════════════ */
-    .cta-final {
-      background: linear-gradient(135deg, var(--bg-panel) 0%, var(--bg-main) 100%);
-      padding: 60px 40px;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-      margin-top: 80px;
-    }
-
-    .cta-final h2 {
-      font-size: 32px;
-      font-family: var(--f-head);
-      color: var(--accent);
-      margin-bottom: 20px;
-    }
-
-    .cta-final p {
-      font-size: 16px;
-      color: var(--tx-mid);
-      margin-bottom: 30px;
-    }
-
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 12px 28px;
-      font-size: 11px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border-radius: 2px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      border: none;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: var(--bg-main);
-    }
-
-    .btn-primary:hover {
-      background: #5eb3ff;
-      box-shadow: 0 10px 30px rgba(61, 167, 255, 0.2);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-    }
-
-    .btn-secondary:hover {
-      background: var(--accent);
-      color: var(--bg-main);
-    }
-
-    /* ═══════════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════════ */
-    footer {
-      background: var(--bg-panel);
-      padding: 40px;
-      border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--tx-lo);
+    .academic-field {
       font-size: 12px;
+      color: var(--tx-mid);
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .academic-period {
+      font-size: 11px;
+      color: var(--tx-lo);
+      font-style: italic;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--pr-panel-hd);
+      border-top: 1px solid var(--pr-sep);
+      padding: 40px;
+      text-align: center;
+      color: var(--tx-lo);
+      font-size: 11px;
+      margin-top: 80px;
     }
 
     footer a {
       color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
 
-    /* ═══════════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════════ */
+    footer a:hover {
+      color: var(--accent-2);
+    }
+
+    footer p {
+      margin: 8px 0;
+    }
+
+    .footer-links {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-size: 12px;
+    }
+
     @media (max-width: 768px) {
       header {
         flex-direction: column;
+        height: auto;
         padding: 15px 20px;
         gap: 15px;
       }
 
       nav {
-        gap: 20px;
+        gap: 15px;
         flex-wrap: wrap;
         justify-content: center;
       }
@@ -386,21 +329,8 @@
         padding: 60px 20px;
       }
 
-      .timeline-container {
-        margin: 40px -20px;
-        padding: 40px 0;
-      }
-
-      .timeline-item {
-        flex: 0 0 280px;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
+      .timeline-card {
+        min-width: 280px;
       }
     }
   </style>
@@ -413,130 +343,120 @@
       <a href="index.html">Home</a>
       <a href="marketing.html">Vídeo</a>
       <a href="fotografia.html">Fotografia</a>
-      <a href="saiba-mais.html">Sobre</a>
+      <a href="index.html#section-about">Sobre</a>
       <a href="https://wa.me/5511948577950" target="_blank">Contato</a>
     </nav>
   </header>
 
   <!-- HERO -->
   <div class="hero">
-    <h1>Construindo Projetos, Não Apenas Vídeos</h1>
+    <h1>Carreira & Experiência</h1>
+    <p>Mais de 10 anos criando conteúdo audiovisual de alta performance. Da edição criativa ao marketing estratégico, passando pela fotografia profissional. Trajetória construída na interseção entre arte e resultado.</p>
   </div>
 
-  <!-- CONTAINER PRINCIPAL -->
+  <!-- CONTENT -->
   <div class="container">
-    <!-- BIO SIMPLIFICADA -->
-    <div class="text-section">
-      <h3>Sobre Mim</h3>
-      <p>Atuo na interseção entre criatividade, estratégia e performance. Minha trajetória foi construída em ambientes de alta exigência, onde aprendi que a clareza de mensagem e o impacto visual são fundamentais.</p>
-      <p>No audiovisual, desenvolvi um trabalho focado em resultado: criativos que geram atenção, retenção e conversão. Trabalho com empresas e nomes relevantes do mercado, criando conteúdos estratégicos que não apenas impressionam, mas vendem.</p>
-      <p>Paralelamente, a fotografia refinou meu olhar para composição, luz e narrativa visual — elementos que elevam a qualidade do meu trabalho em vídeo.</p>
-    </div>
+    <!-- TIMELINE: EXPERIÊNCIA PROFISSIONAL -->
+    <div class="timeline-section">
+      <div class="section-label">// career / timeline / professional</div>
+      <div class="section-title">Experiência Profissional</div>
 
-    <!-- TIMELINE EXPERIÊNCIA -->
-    <div class="section-title">Experiência Profissional</div>
-    <div class="timeline-container">
-      <div class="timeline">
-        <!-- Item 1: Universal Franchising -->
-        <div class="timeline-item">
-          <div class="timeline-year">Jun 2025 - Atual</div>
-          <div class="timeline-title">Editor de Vídeo</div>
+      <div class="timeline-horizontal">
+        <div class="timeline-card">
+          <div class="timeline-year">2025 — Presente</div>
+          <div class="timeline-title">Diretor Criativo</div>
           <div class="timeline-company">Universal Franchising</div>
-          <div class="timeline-description">Edição de vídeos com foco em performance e conversão para o ecossistema de franchising.</div>
-          <div class="timeline-thumb">Foto do projeto</div>
+          <div class="timeline-desc">Estratégia criativa e produção de conteúdo para franquias. Direção de vídeos de alto impacto e campanhas de marketing digital.</div>
         </div>
 
-        <!-- Item 2: Anderson Ilmar -->
-        <div class="timeline-item">
-          <div class="timeline-year">Jun 2015 - Atual (10+ anos)</div>
-          <div class="timeline-title">Produtor Executivo & Audiovisual</div>
-          <div class="timeline-company">Anderson Ilmar</div>
-          <div class="timeline-description">Gerenciamento completo de projetos audiovisuais, videoclipes, produções musicais, fotografia profissional e conteúdo estratégico para marcas.</div>
-          <div class="timeline-thumb">Foto do projeto</div>
+        <div class="timeline-card">
+          <div class="timeline-year">2020 — 2024</div>
+          <div class="timeline-title">Editor & Diretor</div>
+          <div class="timeline-company">Anderson Ilmar Produções</div>
+          <div class="timeline-desc">Produção independente de vídeos para e-commerce, startups e agências. Especialidade em criativos e VSL de alta conversão.</div>
         </div>
 
-        <!-- Item 3: Fotop -->
-        <div class="timeline-item">
-          <div class="timeline-year">Set 2017 - Atual (8+ anos)</div>
-          <div class="timeline-title">Fotógrafo Esportivo</div>
+        <div class="timeline-card">
+          <div class="timeline-year">2017 — 2020</div>
+          <div class="timeline-title">Fotógrafo Profissional</div>
           <div class="timeline-company">Fotop Freelancer</div>
-          <div class="timeline-description">Cobertura fotográfica de maratonas, jogos de futebol e eventos esportivos com foco em ação e movimento.</div>
-          <div class="timeline-thumb">Foto do projeto</div>
+          <div class="timeline-desc">Cobertura de eventos, shows, fotografia esportiva e retratos executivos. Especialização em composição e lighting profissional.</div>
         </div>
 
-        <!-- Item 4: FGV -->
-        <div class="timeline-item">
-          <div class="timeline-year">Ago 2016 - Jul 2025</div>
-          <div class="timeline-title">Assessor Acadêmico</div>
-          <div class="timeline-company">Fundação Getulio Vargas</div>
-          <div class="timeline-description">Gestão de comunicação, mídias sociais e estratégia acadêmica em uma das principais instituições do país.</div>
-          <div class="timeline-thumb">Foto do projeto</div>
+        <div class="timeline-card">
+          <div class="timeline-year">2016 — 2019</div>
+          <div class="timeline-title">Editor de Vídeo</div>
+          <div class="timeline-company">FGV Educação Executiva</div>
+          <div class="timeline-desc">Produção de conteúdo educacional e corporativo. Desenvolvimento de skills em narrative audiovisual e edição técnica.</div>
         </div>
 
-        <!-- Item 5: CSU Digital -->
-        <div class="timeline-item">
-          <div class="timeline-year">Mar 2013 - Fev 2016</div>
-          <div class="timeline-title">Assistente de Supervisão Jr</div>
+        <div class="timeline-card">
+          <div class="timeline-year">2013 — 2015</div>
+          <div class="timeline-title">Junior Designer</div>
           <div class="timeline-company">CSU Digital</div>
-          <div class="timeline-description">Atendimento, supervisão de equipe, análise de desempenho e otimização de processos em ambiente de alta exigência.</div>
-          <div class="timeline-thumb">Foto do projeto</div>
+          <div class="timeline-desc">Primeiras experiências em design, vídeo e marketing digital. Base sólida em ferramentas Adobe Creative Suite.</div>
         </div>
       </div>
     </div>
 
-    <!-- FORMAÇÃO ACADÊMICA -->
-    <div class="section-title">Formação Acadêmica</div>
-    <div class="academic-grid">
-      <div class="academic-card">
-        <div class="school-name">FGV Educação Executiva</div>
-        <div class="degree">Executive MBA</div>
-        <div class="field">Gestão com Ênfase em Marketing e Mídias Digitais</div>
-        <div class="period">Set 2024 - Dez 2025</div>
-      </div>
+    <!-- TIMELINE: FORMAÇÃO ACADÊMICA -->
+    <div class="timeline-section">
+      <div class="section-label">// education / formation / academic</div>
+      <div class="section-title">Formação Acadêmica</div>
 
-      <div class="academic-card">
-        <div class="school-name">FGV Educação Executiva</div>
-        <div class="degree">Bacharelado</div>
-        <div class="field">Marketing</div>
-        <div class="period">Abr 2021 - Mai 2024</div>
-      </div>
+      <div class="academic-grid">
+        <div class="academic-card">
+          <div class="academic-school">FGV Educação Executiva</div>
+          <div class="academic-degree">Executive MBA</div>
+          <div class="academic-field">Gestão com Ênfase em Marketing e Mídias Digitais</div>
+          <div class="academic-period">Set 2024 — Dez 2025</div>
+        </div>
 
-      <div class="academic-card">
-        <div class="school-name">Instituto de Cinema</div>
-        <div class="degree">Certificação</div>
-        <div class="field">Cinema</div>
-        <div class="period">Nov 2017</div>
-      </div>
+        <div class="academic-card">
+          <div class="academic-school">FGV Educação Executiva</div>
+          <div class="academic-degree">Bacharelado</div>
+          <div class="academic-field">Marketing</div>
+          <div class="academic-period">Abr 2021 — Mai 2024</div>
+        </div>
 
-      <div class="academic-card">
-        <div class="school-name">Centro Universitário FAM</div>
-        <div class="degree">Curso</div>
-        <div class="field">Comunicação Audiovisual</div>
-        <div class="period">2016 - 2017</div>
+        <div class="academic-card">
+          <div class="academic-school">Instituto de Cinema</div>
+          <div class="academic-degree">Certificação Profissional</div>
+          <div class="academic-field">Cinema & Direção</div>
+          <div class="academic-period">Nov 2017</div>
+        </div>
+
+        <div class="academic-card">
+          <div class="academic-school">Centro Universitário FAM</div>
+          <div class="academic-degree">Curso</div>
+          <div class="academic-field">Comunicação Audiovisual</div>
+          <div class="academic-period">2016 — 2017</div>
+        </div>
       </div>
     </div>
 
     <!-- CTA FINAL -->
-    <div class="cta-final">
-      <h2>Vamos Criar Algo Extraordinário?</h2>
-      <p>Tenho uma abordagem estratégica e criativa para cada projeto. Vamos conversar sobre suas necessidades.</p>
-      <div class="cta-buttons">
-        <button class="btn btn-primary" onclick="window.location.href='https://wa.me/5511948577950'">Me Chame no WhatsApp</button>
-        <button class="btn btn-secondary" onclick="window.location.href='marketing.html'">Ver Portfólio de Vídeo</button>
+    <div style="margin:80px 0;padding:60px;background:linear-gradient(135deg, var(--pr-panel-hd) 0%, var(--pr-panel-bg) 100%);border:1px solid var(--pr-sep);text-align:center;border-radius:4px;">
+      <div style="font-size:12px;font-family:var(--f-mono);color:var(--tx-lo);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">// next step</div>
+      <h2 style="font-size:32px;font-family:var(--f-head);color:var(--accent);margin-bottom:16px;font-weight:700;">Vamos Criar Algo Extraordinário?</h2>
+      <p style="color:var(--tx-mid);margin-bottom:30px;font-size:15px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">Tenho capacidade de transformar sua visão em conteúdo de impacto. Seja um vídeo que vende, uma fotografia que marca ou uma campanha que cresce.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://wa.me/5511948577950" target="_blank" style="display:inline-block;padding:14px 32px;background:var(--accent);color:#1E1E22;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border-radius:2px;transition:all 0.3s ease;" onmouseover="this.style.background='#0070D1'" onmouseout="this.style.background='var(--accent)'">💬 Me Chame no WhatsApp</a>
+        <a href="index.html#section-contact" style="display:inline-block;padding:14px 32px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border-radius:2px;transition:all 0.3s ease;" onmouseover="this.style.background='var(--accent);this.style.color='#1E1E22'" onmouseout="this.style.background='transparent';this.style.color='var(--accent)'">📧 Ou envie um email</a>
       </div>
     </div>
   </div>
 
   <!-- FOOTER -->
-  <footer style="background:#1a2847;border-top:1px solid #1a3561;padding:40px;text-align:center;margin-top:80px;">
-    <p style="margin:8px 0;color:#e8e8e8;">📍 Alphaville, São Paulo — Brasil | © 2026 Anderson Brito • Audiovisual & Fotografia</p>
-    <div style="margin-top:16px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap;font-size:12px;">
-      <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" style="color:#4da3ff;">Instagram</a>
-      <a href="https://www.linkedin.com/in/andbrito/" target="_blank" style="color:#4da3ff;">LinkedIn</a>
-      <a href="https://vimeo.com/andersonilmar" target="_blank" style="color:#4da3ff;">Vimeo</a>
-      <a href="https://wa.me/5511948577950" target="_blank" style="color:#4da3ff;">WhatsApp</a>
-      <a href="mailto:contato@andersonbrito.com" style="color:#4da3ff;">Email</a>
-      <a href="https://andersonbritofoto.fotop.com" target="_blank" style="color:#4da3ff;">Fotop</a>
+  <footer>
+    <p>📍 Alphaville, São Paulo — Brasil | © 2026 Anderson Brito • Audiovisual & Fotografia</p>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
+      <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
+      <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
+      <a href="mailto:contato@andersonbrito.com">Email</a>
+      <a href="https://andersonbritofoto.fotop.com" target="_blank">Fotop</a>
     </div>
   </footer>
 </body>
