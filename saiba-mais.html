@@ -8,456 +8,888 @@
   <meta name="keywords" content="Anderson Brito, carreira, experiência, audiovisual, marketing digital, fotografia, MBA FGV">
   <meta name="author" content="Anderson Brito">
   <meta name="robots" content="index, follow">
-
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://andersonbrito.com/saiba-mais.html">
   <meta property="og:title" content="Sobre Anderson Brito — Carreira e Experiência">
   <meta property="og:description" content="Trajetória profissional em audiovisual, marketing digital e fotografia. +10 anos de experiência em São Paulo.">
   <meta property="og:image" content="https://andersonbrito.com/assets/foto-perfil.jpg">
-
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="canonical" href="https://andersonbrito.com/saiba-mais.html">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --pr-menubar: #1C1C1C;
-      --pr-toolbar: #232325;
-      --pr-panel-bg: #1E1E22;
-      --pr-panel-hd: #28282E;
-      --pr-border: #000000;
-      --pr-sep: #38383F;
-      --accent: #3DA7FF;
-      --accent-2: #0070D1;
-      --tx-hi: #EAEAEF;
-      --tx-mid: #8888A0;
-      --tx-lo: #505060;
-      --f-mono: 'IBM Plex Mono', monospace;
-      --f-head: 'Exo 2', sans-serif;
-      --f-body: 'DM Sans', sans-serif;
+      --pr-menubar:    #1C1C1C;
+      --pr-toolbar:    #232325;
+      --pr-panel-bg:   #1E1E22;
+      --pr-panel-hd:   #28282E;
+      --pr-panel-hd2:  #222226;
+      --pr-timeline-bg:#191919;
+      --pr-track-bg:   #202024;
+      --pr-card:       #26262C;
+      --pr-input:      #141416;
+      --pr-border:     #000;
+      --pr-sep:        #38383F;
+      --pr-sep-light:  #45454F;
+      --clip-v1:    #2B5280;
+      --clip-v2:    #1A4D35;
+      --clip-grfx:  #5A2D7A;
+      --clip-audio: #4A3010;
+      --accent:     #3DA7FF;
+      --accent-2:   #0070D1;
+      --accent-gr:  #22c55e;
+      --orange:     #FF6B35;
+      --playhead:   #A8D0FF;
+      --tx-hi:      #EAEAEF;
+      --tx-mid:     #8888A0;
+      --tx-lo:      #505060;
+      --f-mono:     'IBM Plex Mono', monospace;
+      --f-head:     'Exo 2', sans-serif;
+      --f-body:     'DM Sans', sans-serif;
+      --menubar-h:  28px;
+      --toolbar-h:  40px;
+      --timeline-h: 88px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--pr-panel-bg);
+      background: var(--pr-timeline-bg);
       color: var(--tx-hi);
       font-family: var(--f-body);
       font-size: 14px;
       overflow-x: hidden;
+      padding-bottom: var(--timeline-h);
     }
     a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; border: none; background: none; }
 
-    /* HEADER */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: rgba(28, 28, 28, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 0 40px;
+    /* ── MENU BAR ─────────────────────────────── */
+    .menu-bar {
+      position: fixed; top:0; left:0; right:0;
+      height: var(--menubar-h);
+      background: var(--pr-menubar);
       border-bottom: 1px solid var(--pr-border);
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      z-index: 1000;
+      display: flex; align-items: center;
     }
-
-    .logo {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
+    .menu-appname {
+      display: flex; align-items: center; gap: 7px;
+      padding: 0 14px; height: 100%;
+      border-right: 1px solid var(--pr-sep); flex-shrink: 0;
     }
-
-    nav {
-      display: flex;
-      gap: 30px;
+    .menu-pr-icon {
+      width: 16px; height: 16px;
+      background: var(--accent-2); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-head); font-size: 9px; font-weight: 900; color: #fff;
     }
-
-    nav a {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--tx-mid);
-      transition: color 0.3s ease;
+    .menu-appname span { font-family: var(--f-mono); font-size: 10px; color: var(--tx-mid); }
+    .menu-items { display: flex; align-items: center; height: 100%; }
+    .menu-item {
+      height: 100%; display: flex; align-items: center;
+      padding: 0 10px; font-family: var(--f-head); font-size: 11px;
+      color: var(--tx-mid); cursor: pointer;
+      transition: color .15s, background .15s;
+      position: relative;
     }
-
-    nav a:hover {
-      color: var(--accent);
+    .menu-item:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
+    .menu-dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: var(--pr-panel-hd); border: 1px solid var(--pr-sep);
+      min-width: 180px; z-index: 1001;
     }
+    .menu-item:hover .menu-dropdown { display: flex; flex-direction: column; }
+    .menu-dropdown-item {
+      padding: 8px 12px; color: var(--tx-mid); font-size: 11px;
+      cursor: pointer; border-bottom: 1px solid var(--pr-border);
+      transition: background .1s, color .1s;
+    }
+    .menu-dropdown-item:last-child { border-bottom: none; }
+    .menu-dropdown-item:hover { background: rgba(61,167,255,.15); color: var(--accent); }
+    .menu-project {
+      flex: 1; text-align: center;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      pointer-events: none;
+    }
+    .menu-right { display: flex; align-items: center; gap: 10px; padding: 0 12px; border-left: 1px solid var(--pr-sep); }
+    .menu-status-dot { width:6px;height:6px;border-radius:50%;background:var(--accent-gr);animation:blink 3s infinite; }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    .menu-status-text { font-family:var(--f-mono);font-size:9px;color:var(--tx-lo); }
 
-    /* HERO */
-    .hero {
-      margin-top: 60px;
-      padding: 80px 40px;
-      background: linear-gradient(135deg, var(--pr-panel-hd) 0%, var(--pr-panel-bg) 100%);
+    /* ── TOOLBAR ──────────────────────────────── */
+    .toolbar {
+      position: fixed; top: var(--menubar-h); left:0; right:0;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
       border-bottom: 1px solid var(--pr-border);
-      text-align: center;
+      z-index: 999;
+      display: flex; align-items: center; padding: 0 12px; gap: 8px;
     }
+    .toolbar-back {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-mid);
+      background: rgba(255,255,255,.04); border: 1px solid var(--pr-sep);
+      border-radius: 3px; padding: 4px 10px;
+      transition: color .15s; letter-spacing: .03em;
+    }
+    .toolbar-back:hover { color: var(--tx-hi); }
+    .toolbar-title { font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid); letter-spacing: .06em; }
+    .toolbar-title .seq { color: var(--tx-lo); }
+    .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+    .tn-link {
+      font-family: var(--f-head); font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--tx-mid); padding: 5px 10px; border-radius: 3px;
+      transition: color .15s, background .15s;
+    }
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
+    .tn-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
+    .tn-link.cta:hover { background: var(--accent); }
+    .hamburger-btn { display:none; margin-left:auto; flex-direction:column; gap:4px; padding:6px; cursor:pointer; border:none; background:none; }
+    .hamburger-btn span { display:block;width:18px;height:1.5px;background:var(--tx-mid);border-radius:2px; }
+    .mobile-drawer {
+      display:none; position:fixed;
+      top:calc(var(--menubar-h) + var(--toolbar-h)); left:0; right:0;
+      background:var(--pr-panel-hd); border-bottom:1px solid var(--pr-sep);
+      z-index:998; flex-direction:column; padding:8px 12px 16px; gap:2px;
+    }
+    .mobile-drawer.open { display:flex; }
+    .mobile-drawer a {
+      font-family:var(--f-head);font-size:13px;font-weight:600;
+      letter-spacing:.06em;text-transform:uppercase;
+      color:var(--tx-mid);padding:10px 12px;border-radius:4px;
+      transition:color .15s,background .15s;
+    }
+    .mobile-drawer a:hover{color:var(--tx-hi);background:rgba(255,255,255,.05);}
+    .mobile-drawer .cta{color:var(--accent);}
 
-    .hero h1 {
-      font-size: 48px;
+    .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h)); }
+
+    /* ── PANEL ────────────────────────────────── */
+    .panel { border:1px solid var(--pr-border); background:var(--pr-panel-bg); display:flex; flex-direction:column; }
+    .panel-header {
+      height:26px; background:var(--pr-panel-hd); border-bottom:1px solid var(--pr-border);
+      display:flex; align-items:center; padding:0 10px; gap:6px; flex-shrink:0;
+    }
+    .panel-hd-icon { width:10px;height:10px;border-radius:2px;flex-shrink:0; }
+    .panel-title { font-family:var(--f-head);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx-mid); }
+    .panel-hd-right { margin-left:auto;display:flex;gap:4px; }
+    .panel-hd-btn { width:16px;height:16px;border-radius:2px;display:flex;align-items:center;justify-content:center;color:var(--tx-lo);font-size:9px;transition:color .1s;cursor:pointer; }
+    .panel-hd-btn:hover{color:var(--tx-mid);}
+
+    /* ── PAGE HEADER ──────────────────────────── */
+    .page-header {
+      background: #0A0A0C;
+      padding: 40px 24px 32px;
+      border-bottom: 1px solid var(--pr-sep);
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 100% at 0% 50%, rgba(61,167,255,.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ph-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; position: relative;
+    }
+    .ph-label {
+      font-family: var(--f-mono);font-size:9px;letter-spacing:.14em;
+      text-transform:uppercase;color:var(--accent);margin-bottom:10px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .ph-label::before { content:'//'; color:var(--tx-lo); }
+    .ph-h1 {
       font-family: var(--f-head);
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--accent);
-      letter-spacing: -1px;
-    }
-
-    .hero p {
-      font-size: 16px;
-      color: var(--tx-mid);
-      max-width: 700px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    /* CONTAINER */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 80px 40px;
-    }
-
-    /* TIMELINE HORIZONTAL */
-    .timeline-section {
-      margin-bottom: 80px;
-    }
-
-    .section-label {
-      font-size: 12px;
-      font-family: var(--f-mono);
-      color: var(--tx-lo);
-      text-transform: uppercase;
-      letter-spacing: 2px;
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900; font-style: italic; line-height: 1.05;
       margin-bottom: 8px;
     }
+    .ph-sub { font-size:13px; color:var(--tx-mid); max-width:420px; }
+    .ph-stats { display:flex;gap:20px;flex-wrap:wrap; }
+    .ph-stat { text-align:right; }
+    .ph-stat .n { font-family:var(--f-mono);font-size:26px;font-weight:600;color:var(--accent);line-height:1; }
+    .ph-stat .l { font-family:var(--f-mono);font-size:9px;color:var(--tx-lo);letter-spacing:.06em; }
 
-    .section-title {
-      font-size: 24px;
-      font-family: var(--f-head);
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 40px;
+    /* ── SECTION HEADER ─────────────────────── */
+    .section-block {
+      max-width: 1200px; margin: 0 auto; padding: 40px 24px 20px;
+    }
+    .section-label-bar {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 24px;
+    }
+    .section-label-bar .track-id {
+      font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      color: var(--tx-lo); letter-spacing: .08em;
+      background: var(--pr-panel-hd2); border: 1px solid var(--pr-sep);
+      padding: 3px 8px; border-radius: 2px;
+    }
+    .section-label-bar .section-name {
+      font-family: var(--f-head); font-size: 18px; font-weight: 700;
+      color: var(--tx-hi); letter-spacing: .04em;
+    }
+    .section-label-bar::after {
+      content: ''; flex: 1; height: 1px; background: var(--pr-sep);
     }
 
-    .timeline-horizontal {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      padding-bottom: 20px;
-      scroll-behavior: smooth;
+    /* ── EXPERIENCE TIMELINE (horizontal scroll) */
+    .experience-strip {
+      background: var(--pr-panel-hd2);
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-border);
+      position: relative;
     }
-
-    .timeline-horizontal::-webkit-scrollbar {
-      height: 6px;
-    }
-
-    .timeline-horizontal::-webkit-scrollbar-track {
+    .exp-track-header {
+      display: flex; align-items: center;
+      height: 26px;
       background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .exp-track-label {
+      width: 64px; flex-shrink: 0;
+      border-right: 1px solid var(--pr-sep);
+      height: 100%; display: flex; align-items: center;
+      padding: 0 10px;
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); font-weight: 600;
+    }
+    .exp-ruler {
+      flex: 1; display: flex; align-items: flex-end;
+      padding: 0 4px; overflow: hidden;
+    }
+    .exp-ruler-mark {
+      flex: 1; font-family: var(--f-mono); font-size: 8px; color: var(--tx-lo);
+      padding: 0 0 2px 3px; border-left: 1px solid var(--pr-sep);
     }
 
-    .timeline-horizontal::-webkit-scrollbar-thumb {
-      background: var(--accent);
-      border-radius: 3px;
+    .exp-scroll-area {
+      display: flex; overflow-x: auto; scroll-behavior: smooth;
+      padding: 20px 24px 24px;
+      gap: 2px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--pr-panel-hd);
+    }
+    .exp-scroll-area::-webkit-scrollbar { height: 4px; }
+    .exp-scroll-area::-webkit-scrollbar-track { background: var(--pr-panel-hd); }
+    .exp-scroll-area::-webkit-scrollbar-thumb { background: var(--accent-2); border-radius: 2px; }
+
+    /* Clip cards inside the track */
+    .exp-card {
+      min-width: 300px; max-width: 300px;
+      background: var(--pr-card);
+      border: 1px solid var(--pr-border);
+      border-radius: 2px;
+      display: flex; flex-direction: column;
+      cursor: default;
+      transition: background .2s, border-color .2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card:hover { background: #30303A; border-color: rgba(61,167,255,.3); }
+    .exp-card-strip {
+      height: 3px; width: 100%;
+    }
+    .exp-card-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 14px 0;
+    }
+    .exp-card-dot {
+      width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0;
+    }
+    .exp-card-period {
+      font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      color: var(--accent); letter-spacing: .06em;
+    }
+    .exp-card-body { padding: 10px 14px 16px; display: flex; flex-direction: column; gap: 4px; }
+    .exp-card-title {
+      font-family: var(--f-head); font-size: 15px; font-weight: 700; line-height: 1.2;
+    }
+    .exp-card-company {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--tx-lo); margin-bottom: 6px;
+    }
+    .exp-card-desc {
+      font-size: 12px; color: var(--tx-mid); line-height: 1.55;
+    }
+    .exp-card-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .exp-tag {
+      font-family: var(--f-mono); font-size: 8px; letter-spacing: .04em;
+      background: rgba(255,255,255,.04); border: 1px solid var(--pr-sep);
+      border-radius: 2px; padding: 2px 6px; color: var(--tx-lo);
     }
 
-    .timeline-card {
-      min-width: 300px;
-      background: var(--pr-panel-hd);
-      border: 1px solid var(--pr-sep);
-      border-radius: 4px;
-      padding: 24px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-
-    .timeline-card:hover {
-      border-color: var(--accent);
-      background: linear-gradient(135deg, var(--pr-panel-hd), #2a2a32);
-      box-shadow: 0 10px 30px rgba(61, 167, 255, 0.15);
-      transform: translateY(-4px);
-    }
-
-    .timeline-year {
-      font-size: 12px;
-      font-family: var(--f-mono);
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-
-    .timeline-title {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--tx-hi);
-      margin-bottom: 8px;
-    }
-
-    .timeline-company {
-      font-size: 13px;
-      color: var(--tx-lo);
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .timeline-desc {
-      font-size: 12px;
-      color: var(--tx-mid);
-      line-height: 1.6;
-    }
-
-    /* ACADEMIC GRID */
+    /* ── ACADEMIC GRID ────────────────────────── */
     .academic-grid {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px 60px;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--pr-border);
+      border: 1px solid var(--pr-border);
     }
-
-    .academic-card {
-      background: var(--pr-panel-hd);
-      border: 1px solid var(--pr-sep);
-      border-radius: 4px;
-      padding: 24px;
-      transition: all 0.3s ease;
+    .acad-card {
+      background: var(--pr-card);
+      padding: 0;
+      display: flex; flex-direction: column;
+      transition: background .2s;
     }
-
-    .academic-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 10px 30px rgba(61, 167, 255, 0.1);
-    }
-
-    .academic-school {
-      font-size: 11px;
-      font-family: var(--f-mono);
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
-    }
-
-    .academic-degree {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--tx-hi);
+    .acad-card:hover { background: #30303A; }
+    .acad-card-strip { height: 3px; }
+    .acad-card-body { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 4px; }
+    .acad-school {
+      font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--accent);
       margin-bottom: 6px;
     }
-
-    .academic-field {
-      font-size: 12px;
-      color: var(--tx-mid);
-      margin-bottom: 8px;
-      line-height: 1.5;
+    .acad-degree { font-family: var(--f-head); font-size: 15px; font-weight: 700; }
+    .acad-field { font-size: 12px; color: var(--tx-mid); line-height: 1.5; margin-top: 2px; }
+    .acad-period {
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+      margin-top: 8px; letter-spacing: .04em;
     }
 
-    .academic-period {
-      font-size: 11px;
-      color: var(--tx-lo);
-      font-style: italic;
+    /* ── CTA SECTION ──────────────────────────── */
+    .cta-strip {
+      background: #0A0A0C; border-top: 2px solid var(--pr-sep);
+      padding: 56px 20px; text-align: center;
     }
+    .cta-strip h2 {
+      font-family: var(--f-head); font-size: clamp(22px,4vw,36px);
+      font-weight: 900; font-style: italic; margin-bottom: 10px;
+    }
+    .cta-strip p { color: var(--tx-mid); margin-bottom: 28px; font-size: 13px; }
+    .cta-buttons { display:flex;gap:10px;justify-content:center;flex-wrap:wrap; }
+    .btn-prim {
+      display:inline-flex;align-items:center;gap:8px;
+      background:var(--accent-2);color:#fff;
+      font-family:var(--f-head);font-size:12px;font-weight:700;
+      letter-spacing:.08em;text-transform:uppercase;
+      padding:11px 22px;border-radius:3px;
+      transition:background .2s,transform .15s;
+    }
+    .btn-prim:hover{background:var(--accent);transform:translateY(-2px);}
+    .btn-ghost {
+      display:inline-flex;align-items:center;gap:8px;
+      background:transparent;color:var(--tx-mid);
+      font-family:var(--f-head);font-size:12px;font-weight:600;
+      letter-spacing:.08em;text-transform:uppercase;
+      padding:10px 20px;border-radius:3px;border:1px solid var(--pr-sep);
+      transition:color .15s,border-color .15s;
+    }
+    .btn-ghost:hover{color:var(--tx-hi);border-color:var(--pr-sep-light);}
 
-    /* FOOTER */
-    footer {
+    /* ── FOOTER ADDRESS ───────────────────────── */
+    .page-footer {
       background: var(--pr-panel-hd);
       border-top: 1px solid var(--pr-sep);
-      padding: 40px;
-      text-align: center;
-      color: var(--tx-lo);
-      font-size: 11px;
-      margin-top: 80px;
+      padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
     }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: color 0.3s ease;
+    .page-footer-left {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); letter-spacing: .04em;
     }
-
-    footer a:hover {
-      color: var(--accent-2);
+    .page-footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .page-footer-links a {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .04em; transition: color .15s;
     }
+    .page-footer-links a:hover { color: var(--accent); }
 
-    footer p {
-      margin: 8px 0;
+    /* ── FIXED TIMELINE ───────────────────────── */
+    .timeline-panel {
+      position:fixed;bottom:0;left:0;right:0;
+      height:var(--timeline-h);
+      background:var(--pr-timeline-bg);
+      border-top:1px solid var(--pr-border);
+      z-index:900;
+      display:flex;flex-direction:column;
     }
-
-    .footer-links {
-      margin-top: 16px;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      font-size: 12px;
+    .tl-hd {
+      height:20px;background:var(--pr-panel-hd2);border-bottom:1px solid var(--pr-border);
+      display:flex;align-items:center;
     }
+    .tl-lbl-hd { width:64px;flex-shrink:0;border-right:1px solid var(--pr-sep);height:100%; }
+    .tl-ruler { flex:1;position:relative;overflow:hidden; }
+    .tl-ruler-row { display:flex;height:100%;align-items:flex-end;padding:0 4px; }
+    .tl-rm { font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);flex:1;text-align:left;padding:0 0 2px 3px;border-left:1px solid var(--pr-sep); }
+    .tl-ph { position:absolute;top:0;bottom:0;width:1px;background:var(--playhead);z-index:10;pointer-events:none; }
+    .tl-ph::before { content:'';position:absolute;top:-4px;left:-4px;width:9px;height:7px;background:var(--playhead);clip-path:polygon(50% 100%,0 0,100% 0); }
+    .tl-tracks { flex:1;display:flex;flex-direction:column; }
+    .tl-tr { display:flex;align-items:stretch;border-bottom:1px solid var(--pr-border);flex:1; }
+    .tl-tr:last-child{border-bottom:none;}
+    .tl-lbl { width:64px;flex-shrink:0;background:var(--pr-panel-hd2);border-right:1px solid var(--pr-sep);display:flex;align-items:center;padding:0 8px; }
+    .tl-lbl span { font-family:var(--f-mono);font-size:9px;font-weight:600;color:var(--tx-mid);letter-spacing:.04em; }
+    .tl-tc { flex:1;position:relative;background:var(--pr-track-bg); }
+    .tl-tr:nth-child(even) .tl-tc { background:var(--pr-timeline-bg); }
+    .tl-clip {
+      position:absolute;top:2px;bottom:2px;border-radius:2px;
+      display:flex;align-items:center;overflow:hidden;
+      border:1px solid rgba(0,0,0,.4);cursor:pointer;
+      transition:filter .15s;
+    }
+    .tl-clip:hover { filter:brightness(1.2); }
+    .tl-clip span { font-family:var(--f-mono);font-size:8px;font-weight:600;letter-spacing:.06em;color:rgba(255,255,255,.85);padding:0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .wv { position:absolute;inset:0;display:flex;align-items:center;gap:1px;padding:2px 3px;overflow:hidden; }
+    .wv b { width:1.5px;background:rgba(255,150,50,.55);border-radius:1px;flex-shrink:0; }
 
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        height: auto;
-        padding: 15px 20px;
-        gap: 15px;
-      }
+    /* reveal */
+    .reveal{opacity:0;transform:translateY(12px);transition:opacity .5s,transform .5s;}
+    .reveal.visible{opacity:1;transform:translateY(0);}
 
-      nav {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .hero {
-        padding: 60px 20px;
-        margin-top: 120px;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .container {
-        padding: 60px 20px;
-      }
-
-      .timeline-card {
-        min-width: 280px;
-      }
+    /* ── RESPONSIVE ───────────────────────────── */
+    @media(max-width:720px){
+      .toolbar-nav{display:none;}
+      .hamburger-btn{display:flex;}
+      .ph-stats{display:none;}
+    }
+    @media(max-width:480px){
+      .academic-grid{grid-template-columns:1fr;}
+      .exp-card{min-width:260px;}
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo">🎬 ANDERSON BRITO</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="marketing.html">Vídeo</a>
-      <a href="fotografia.html">Fotografia</a>
-      <a href="index.html#section-about">Sobre</a>
-      <a href="https://wa.me/5511948577950" target="_blank">Contato</a>
-    </nav>
-  </header>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Carreira & Experiência</h1>
-    <p>Mais de 10 anos criando conteúdo audiovisual de alta performance. Da edição criativa ao marketing estratégico, passando pela fotografia profissional. Trajetória construída na interseção entre arte e resultado.</p>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="container">
-    <!-- TIMELINE: EXPERIÊNCIA PROFISSIONAL -->
-    <div class="timeline-section">
-      <div class="section-label">// career / timeline / professional</div>
-      <div class="section-title">Experiência Profissional</div>
-
-      <div class="timeline-horizontal">
-        <div class="timeline-card">
-          <div class="timeline-year">2025 — Presente</div>
-          <div class="timeline-title">Diretor Criativo</div>
-          <div class="timeline-company">Universal Franchising</div>
-          <div class="timeline-desc">Estratégia criativa e produção de conteúdo para franquias. Direção de vídeos de alto impacto e campanhas de marketing digital.</div>
+  <!-- ══ MENU BAR ══════════════════════════════ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Ir para Home</div>
+          <div class="menu-dropdown-item" onclick="window.print()">Imprimir Portfólio</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='mailto:contato@andersonbrito.com'">Enviar Mensagem</div>
         </div>
-
-        <div class="timeline-card">
-          <div class="timeline-year">2020 — 2024</div>
-          <div class="timeline-title">Editor & Diretor</div>
-          <div class="timeline-company">Anderson Ilmar Produções</div>
-          <div class="timeline-desc">Produção independente de vídeos para e-commerce, startups e agências. Especialidade em criativos e VSL de alta conversão.</div>
+      </div>
+      <div class="menu-item">
+        Editar
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.execCommand('selectAll')">Selecionar Tudo</div>
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen()">Tela Cheia</div>
         </div>
-
-        <div class="timeline-card">
-          <div class="timeline-year">2017 — 2020</div>
-          <div class="timeline-title">Fotógrafo Profissional</div>
-          <div class="timeline-company">Fotop Freelancer</div>
-          <div class="timeline-desc">Cobertura de eventos, shows, fotografia esportiva e retratos executivos. Especialização em composição e lighting profissional.</div>
+      </div>
+      <div class="menu-item">
+        Clipe
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.getElementById('exp-section').scrollIntoView({behavior:'smooth'})">Ir para EXPERIÊNCIA</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('acad-section').scrollIntoView({behavior:'smooth'})">Ir para FORMAÇÃO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('cta-section').scrollIntoView({behavior:'smooth'})">Ir para CONTATO</div>
         </div>
-
-        <div class="timeline-card">
-          <div class="timeline-year">2016 — 2019</div>
-          <div class="timeline-title">Editor de Vídeo</div>
-          <div class="timeline-company">FGV Educação Executiva</div>
-          <div class="timeline-desc">Produção de conteúdo educacional e corporativo. Desenvolvimento de skills em narrative audiovisual e edição técnica.</div>
+      </div>
+      <div class="menu-item">
+        Sequência
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequência 1 — Marketing DR</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 2 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 3 — Sobre</div>
         </div>
-
-        <div class="timeline-card">
-          <div class="timeline-year">2013 — 2015</div>
-          <div class="timeline-title">Junior Designer</div>
-          <div class="timeline-company">CSU Digital</div>
-          <div class="timeline-desc">Primeiras experiências em design, vídeo e marketing digital. Base sólida em ferramentas Adobe Creative Suite.</div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar','_blank')">Vimeo</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">WhatsApp</div>
         </div>
       </div>
     </div>
-
-    <!-- TIMELINE: FORMAÇÃO ACADÊMICA -->
-    <div class="timeline-section">
-      <div class="section-label">// education / formation / academic</div>
-      <div class="section-title">Formação Acadêmica</div>
-
-      <div class="academic-grid">
-        <div class="academic-card">
-          <div class="academic-school">FGV Educação Executiva</div>
-          <div class="academic-degree">Executive MBA</div>
-          <div class="academic-field">Gestão com Ênfase em Marketing e Mídias Digitais</div>
-          <div class="academic-period">Set 2024 — Dez 2025</div>
-        </div>
-
-        <div class="academic-card">
-          <div class="academic-school">FGV Educação Executiva</div>
-          <div class="academic-degree">Bacharelado</div>
-          <div class="academic-field">Marketing</div>
-          <div class="academic-period">Abr 2021 — Mai 2024</div>
-        </div>
-
-        <div class="academic-card">
-          <div class="academic-school">Instituto de Cinema</div>
-          <div class="academic-degree">Certificação Profissional</div>
-          <div class="academic-field">Cinema & Direção</div>
-          <div class="academic-period">Nov 2017</div>
-        </div>
-
-        <div class="academic-card">
-          <div class="academic-school">Centro Universitário FAM</div>
-          <div class="academic-degree">Curso</div>
-          <div class="academic-field">Comunicação Audiovisual</div>
-          <div class="academic-period">2016 — 2017</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA FINAL -->
-    <div style="margin:80px 0;padding:60px;background:linear-gradient(135deg, var(--pr-panel-hd) 0%, var(--pr-panel-bg) 100%);border:1px solid var(--pr-sep);text-align:center;border-radius:4px;">
-      <div style="font-size:12px;font-family:var(--f-mono);color:var(--tx-lo);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;">// next step</div>
-      <h2 style="font-size:32px;font-family:var(--f-head);color:var(--accent);margin-bottom:16px;font-weight:700;">Vamos Criar Algo Extraordinário?</h2>
-      <p style="color:var(--tx-mid);margin-bottom:30px;font-size:15px;max-width:600px;margin-left:auto;margin-right:auto;line-height:1.6;">Tenho capacidade de transformar sua visão em conteúdo de impacto. Seja um vídeo que vende, uma fotografia que marca ou uma campanha que cresce.</p>
-      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
-        <a href="https://wa.me/5511948577950" target="_blank" style="display:inline-block;padding:14px 32px;background:var(--accent);color:#1E1E22;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border-radius:2px;transition:all 0.3s ease;" onmouseover="this.style.background='#0070D1'" onmouseout="this.style.background='var(--accent)'">💬 Me Chame no WhatsApp</a>
-        <a href="index.html#section-contact" style="display:inline-block;padding:14px 32px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;border-radius:2px;transition:all 0.3s ease;" onmouseover="this.style.background='var(--accent);this.style.color='#1E1E22'" onmouseout="this.style.background='transparent';this.style.color='var(--accent)'">📧 Ou envie um email</a>
-      </div>
+    <div class="menu-project">anderson_ilmar_brito_2026.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONÍVEL</div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>📍 Alphaville, São Paulo — Brasil | © 2026 Anderson Brito • Audiovisual & Fotografia</p>
-    <div class="footer-links">
-      <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
-      <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
-      <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
-      <a href="mailto:contato@andersonbrito.com">Email</a>
-      <a href="https://andersonbritofoto.fotop.com" target="_blank">Fotop</a>
+  <!-- ══ TOOLBAR ═══════════════════════════════ -->
+  <div class="toolbar">
+    <a href="index.html" class="toolbar-back">
+      <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      VOLTAR
+    </a>
+    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_ILMAR · 3840×2160 · 30fps</div>
+    <div class="toolbar-nav">
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="marketing.html" class="tn-link">Marketing DR</a>
+      <a href="fotografia.html" class="tn-link">Fotografia</a>
+      <a href="index.html#section-about" class="tn-link">Sobre</a>
+      <a href="index.html#section-contact" class="tn-link cta">Contato</a>
     </div>
-  </footer>
+    <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
+  </div>
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">← Home</a>
+    <a href="marketing.html">Marketing DR</a>
+    <a href="fotografia.html">Fotografia</a>
+    <a href="index.html#section-about">Sobre</a>
+    <a href="index.html#section-contact" class="cta">Contato</a>
+  </div>
+
+  <!-- ══ CONTENT ════════════════════════════════ -->
+  <div class="page-content">
+
+    <!-- PAGE HEADER -->
+    <div class="panel" style="background:#0A0A0C;">
+      <div class="panel-header">
+        <div class="panel-hd-icon" style="background:var(--clip-grfx);"></div>
+        <span class="panel-title">Bin: Sobre — Anderson Ilmar</span>
+        <div class="panel-hd-right">
+          <div class="panel-hd-btn">⊞</div>
+          <div class="panel-hd-btn">≡</div>
+        </div>
+      </div>
+      <div class="page-header">
+        <div class="ph-inner">
+          <div>
+            <div class="ph-label">Carreira & Trajetória</div>
+            <h1 class="ph-h1">Sobre Anderson<br>Ilmar Brito</h1>
+            <p class="ph-sub">+10 anos criando conteúdo audiovisual de impacto. Da câmera à edição, da foto ao frame — sempre com foco em resultado.</p>
+          </div>
+          <div class="ph-stats">
+            <div class="ph-stat">
+              <div class="n">+10</div>
+              <div class="l">anos_industria</div>
+            </div>
+            <div class="ph-stat">
+              <div class="n">+50</div>
+              <div class="l">projetos_entregues</div>
+            </div>
+            <div class="ph-stat">
+              <div class="n">MBA</div>
+              <div class="l">FGV_marketing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ EXPERIENCE SECTION ══════════════════ -->
+    <div id="exp-section">
+      <div class="section-block reveal">
+        <div class="section-label-bar">
+          <span class="track-id">V1</span>
+          <span class="section-name">Experiência Profissional</span>
+        </div>
+      </div>
+
+      <!-- Track header (ruler style) -->
+      <div class="experience-strip">
+        <div class="exp-track-header">
+          <div class="exp-track-label">EXP</div>
+          <div class="exp-ruler">
+            <div class="exp-ruler-mark">2013</div>
+            <div class="exp-ruler-mark">2015</div>
+            <div class="exp-ruler-mark">2017</div>
+            <div class="exp-ruler-mark">2019</div>
+            <div class="exp-ruler-mark">2021</div>
+            <div class="exp-ruler-mark">2023</div>
+            <div class="exp-ruler-mark">2025</div>
+            <div class="exp-ruler-mark">▶ NOW</div>
+          </div>
+        </div>
+
+        <div class="exp-scroll-area" id="expScroll">
+
+          <div class="exp-card reveal">
+            <div class="exp-card-strip" style="background:var(--accent-2);"></div>
+            <div class="exp-card-header">
+              <div class="exp-card-dot" style="background:var(--accent-2);"></div>
+              <div class="exp-card-period">2025 — PRESENTE</div>
+            </div>
+            <div class="exp-card-body">
+              <div class="exp-card-title">Diretor Criativo</div>
+              <div class="exp-card-company">Universal Franchising</div>
+              <div class="exp-card-desc">Estratégia criativa e produção de conteúdo para franquias. Direção de vídeos de alto impacto e campanhas de marketing digital de performance.</div>
+              <div class="exp-card-tags">
+                <span class="exp-tag">Marketing</span>
+                <span class="exp-tag">VSL</span>
+                <span class="exp-tag">Direção</span>
+                <span class="exp-tag">Franquias</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-card reveal">
+            <div class="exp-card-strip" style="background:var(--clip-v1);"></div>
+            <div class="exp-card-header">
+              <div class="exp-card-dot" style="background:var(--clip-v1);"></div>
+              <div class="exp-card-period">2020 — 2024</div>
+            </div>
+            <div class="exp-card-body">
+              <div class="exp-card-title">Editor & Diretor</div>
+              <div class="exp-card-company">Anderson Ilmar Produções</div>
+              <div class="exp-card-desc">Produção independente de vídeos para e-commerce, startups e agências digitais. Especialidade em criativos e VSL de alta conversão.</div>
+              <div class="exp-card-tags">
+                <span class="exp-tag">Criativos</span>
+                <span class="exp-tag">VSL</span>
+                <span class="exp-tag">Direct Response</span>
+                <span class="exp-tag">Reels</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-card reveal">
+            <div class="exp-card-strip" style="background:var(--clip-grfx);"></div>
+            <div class="exp-card-header">
+              <div class="exp-card-dot" style="background:var(--clip-grfx);"></div>
+              <div class="exp-card-period">2017 — 2020</div>
+            </div>
+            <div class="exp-card-body">
+              <div class="exp-card-title">Fotógrafo Profissional</div>
+              <div class="exp-card-company">Fotop Freelancer</div>
+              <div class="exp-card-desc">Cobertura de eventos, shows, fotografia esportiva e retratos executivos. Especialização em composição, lighting profissional e edição no Lightroom.</div>
+              <div class="exp-card-tags">
+                <span class="exp-tag">Shows</span>
+                <span class="exp-tag">Esportes</span>
+                <span class="exp-tag">Retratos</span>
+                <span class="exp-tag">Lightroom</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-card reveal">
+            <div class="exp-card-strip" style="background:var(--clip-v2);"></div>
+            <div class="exp-card-header">
+              <div class="exp-card-dot" style="background:var(--clip-v2);"></div>
+              <div class="exp-card-period">2016 — 2019</div>
+            </div>
+            <div class="exp-card-body">
+              <div class="exp-card-title">Editor de Vídeo</div>
+              <div class="exp-card-company">FGV Educação Executiva</div>
+              <div class="exp-card-desc">Produção de conteúdo educacional e corporativo. Desenvolvimento de skills em narrative audiovisual e edição técnica para plataformas digitais.</div>
+              <div class="exp-card-tags">
+                <span class="exp-tag">Corporativo</span>
+                <span class="exp-tag">Educacional</span>
+                <span class="exp-tag">Premiere</span>
+                <span class="exp-tag">After Effects</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="exp-card reveal">
+            <div class="exp-card-strip" style="background:var(--clip-audio);"></div>
+            <div class="exp-card-header">
+              <div class="exp-card-dot" style="background:var(--clip-audio);"></div>
+              <div class="exp-card-period">2013 — 2015</div>
+            </div>
+            <div class="exp-card-body">
+              <div class="exp-card-title">Junior Designer</div>
+              <div class="exp-card-company">CSU Digital</div>
+              <div class="exp-card-desc">Primeiras experiências em design digital, produção de vídeo e marketing. Base sólida em Adobe Creative Suite e fundamentos de comunicação visual.</div>
+              <div class="exp-card-tags">
+                <span class="exp-tag">Design</span>
+                <span class="exp-tag">Adobe CC</span>
+                <span class="exp-tag">Marketing</span>
+                <span class="exp-tag">Vídeo</span>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- end exp-scroll-area -->
+      </div><!-- end experience-strip -->
+    </div>
+
+    <!-- ══ ACADEMIC SECTION ════════════════════ -->
+    <div id="acad-section" style="margin-top:2px;">
+      <div class="section-block reveal">
+        <div class="section-label-bar">
+          <span class="track-id">V2</span>
+          <span class="section-name">Formação Acadêmica</span>
+        </div>
+      </div>
+      <div class="academic-grid reveal">
+
+        <div class="acad-card">
+          <div class="acad-card-strip" style="background:var(--accent-2);"></div>
+          <div class="acad-card-body">
+            <div class="acad-school">FGV Educação Executiva</div>
+            <div class="acad-degree">Executive MBA</div>
+            <div class="acad-field">Gestão com Ênfase em Marketing e Mídias Digitais</div>
+            <div class="acad-period">Set 2024 — Dez 2025</div>
+          </div>
+        </div>
+
+        <div class="acad-card">
+          <div class="acad-card-strip" style="background:var(--clip-v1);"></div>
+          <div class="acad-card-body">
+            <div class="acad-school">FGV Educação Executiva</div>
+            <div class="acad-degree">Bacharelado</div>
+            <div class="acad-field">Marketing</div>
+            <div class="acad-period">Abr 2021 — Mai 2024</div>
+          </div>
+        </div>
+
+        <div class="acad-card">
+          <div class="acad-card-strip" style="background:var(--clip-grfx);"></div>
+          <div class="acad-card-body">
+            <div class="acad-school">Instituto de Cinema</div>
+            <div class="acad-degree">Certificação Profissional</div>
+            <div class="acad-field">Cinema & Direção</div>
+            <div class="acad-period">Nov 2017</div>
+          </div>
+        </div>
+
+        <div class="acad-card">
+          <div class="acad-card-strip" style="background:var(--clip-v2);"></div>
+          <div class="acad-card-body">
+            <div class="acad-school">Centro Universitário FAM</div>
+            <div class="acad-degree">Curso</div>
+            <div class="acad-field">Comunicação Audiovisual</div>
+            <div class="acad-period">2016 — 2017</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ══ CTA ════════════════════════════════= -->
+    <div class="cta-strip reveal" id="cta-section">
+      <h2>Vamos Criar Algo<br>Extraordinário?</h2>
+      <p>Tenho experiência, formação e foco para transformar sua visão em conteúdo de impacto.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/5511948577950" target="_blank" class="btn-prim">💬 WhatsApp</a>
+        <a href="marketing.html" class="btn-ghost">🎬 Ver Portfolio</a>
+        <a href="fotografia.html" class="btn-ghost">📸 Ver Fotografia</a>
+      </div>
+    </div>
+
+    <!-- PAGE FOOTER -->
+    <div class="page-footer">
+      <div class="page-footer-left">📍 Alphaville, São Paulo — Brasil &nbsp;|&nbsp; © 2026 Anderson Ilmar • Audiovisual & Fotografia</div>
+      <div class="page-footer-links">
+        <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
+        <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
+        <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
+        <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
+        <a href="mailto:contato@andersonbrito.com">Email</a>
+        <a href="https://andersonbritofoto.fotop.com" target="_blank">Fotop</a>
+      </div>
+    </div>
+
+  </div><!-- end page-content -->
+
+  <!-- ══ FIXED TIMELINE ════════════════════════ -->
+  <div class="timeline-panel">
+    <div class="tl-hd">
+      <div class="tl-lbl-hd"></div>
+      <div class="tl-ruler">
+        <div class="tl-ruler-row" id="tlRulerRow"></div>
+        <div class="tl-ph" id="tlPh" style="left:0"></div>
+      </div>
+    </div>
+    <div class="tl-tracks">
+      <div class="tl-tr">
+        <div class="tl-lbl"><span>V1</span></div>
+        <div class="tl-tc" id="tlV1"></div>
+      </div>
+      <div class="tl-tr">
+        <div class="tl-lbl"><span>V2</span></div>
+        <div class="tl-tc" id="tlV2"></div>
+      </div>
+      <div class="tl-tr">
+        <div class="tl-lbl"><span>A1</span></div>
+        <div class="tl-tc" id="tlA1"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Mobile menu ──────────────────────────
+    document.getElementById('hamburgerBtn').addEventListener('click', () => {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    });
+
+    // ── Build ruler ───────────────────────────
+    const rulerRow = document.getElementById('tlRulerRow');
+    ['INTRO','EXP','FORMAÇÃO','CTA','FIM'].forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'tl-rm';
+      el.textContent = m;
+      rulerRow.appendChild(el);
+    });
+
+    // ── Build V1 clips (section nav) ─────────
+    const v1Data = [
+      { left:'0%',    width:'20%',  label:'INTRO',   color:'#2B5280', target:'page-content' },
+      { left:'20%',   width:'35%',  label:'EXP',     color:'#5A2D7A', target:'exp-section'  },
+      { left:'55%',   width:'30%',  label:'FORMAÇÃO', color:'#1A4D35', target:'acad-section' },
+      { left:'85%',   width:'15%',  label:'CTA',     color:'#0070D1', target:'cta-section'  },
+    ];
+    const tlV1 = document.getElementById('tlV1');
+    v1Data.forEach(c => {
+      const el = document.createElement('div');
+      el.className = 'tl-clip';
+      el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};`;
+      el.innerHTML = `<span>${c.label}</span>`;
+      el.addEventListener('click', () => {
+        document.getElementById(c.target)?.scrollIntoView({ behavior:'smooth' });
+      });
+      tlV1.appendChild(el);
+    });
+
+    // ── Build V2 clips (social links) ────────
+    const v2Data = [
+      { left:'4%',  width:'20%', label:'Instagram', color:'#1A3A50', url:'https://www.instagram.com/andersonbrito.mp4' },
+      { left:'28%', width:'18%', label:'LinkedIn',  color:'#1A3A20', url:'https://www.linkedin.com/in/andbrito/' },
+      { left:'50%', width:'20%', label:'Vimeo',     color:'#3A1A50', url:'https://vimeo.com/andersonilmar' },
+      { left:'74%', width:'18%', label:'WhatsApp',  color:'#1A2A1A', url:'https://wa.me/5511948577950' },
+    ];
+    const tlV2 = document.getElementById('tlV2');
+    v2Data.forEach(c => {
+      const el = document.createElement('button');
+      el.className = 'tl-clip';
+      el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};border:none;cursor:pointer;`;
+      el.innerHTML = `<span>${c.label}</span>`;
+      el.addEventListener('click', () => window.open(c.url, '_blank'));
+      el.addEventListener('mouseenter', () => { el.style.filter = 'brightness(1.4)'; el.style.boxShadow = '0 0 10px rgba(61,167,255,.3)'; });
+      el.addEventListener('mouseleave', () => { el.style.filter = ''; el.style.boxShadow = ''; });
+      tlV2.appendChild(el);
+    });
+
+    // ── Build A1 waveform ─────────────────────
+    const tlA1 = document.getElementById('tlA1');
+    const audioClip = document.createElement('div');
+    audioClip.className = 'tl-clip';
+    audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg,#3A2A10,#4A3A20,#3A2A10);cursor:default;';
+    const wv = document.createElement('div');
+    wv.className = 'wv';
+    const heights = [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55];
+    heights.forEach(h => {
+      const b = document.createElement('b');
+      b.style.cssText = `height:${h}%;background:linear-gradient(180deg,#FF9632,#FF6B35);opacity:.7;width:1.5px;border-radius:1px;flex-shrink:0;transition:opacity .2s;`;
+      b.addEventListener('mouseenter', () => { b.style.opacity='1'; b.style.filter='drop-shadow(0 0 3px rgba(255,107,53,.7))'; });
+      b.addEventListener('mouseleave', () => { b.style.opacity='.7'; b.style.filter=''; });
+      wv.appendChild(b);
+    });
+    audioClip.appendChild(wv);
+    audioClip.addEventListener('mouseenter', () => { audioClip.style.boxShadow='0 0 14px rgba(255,107,53,.25)'; });
+    audioClip.addEventListener('mouseleave', () => { audioClip.style.boxShadow=''; });
+    tlA1.appendChild(audioClip);
+
+    // ── Playhead sync with scroll ─────────────
+    const ph = document.getElementById('tlPh');
+    function updatePlayhead() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? window.scrollY / max : 0;
+      ph.style.left = (p * 100) + '%';
+    }
+    window.addEventListener('scroll', updatePlayhead, { passive: true });
+    updatePlayhead();
+
+    // ── Scroll reveal ─────────────────────────
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+  </script>
 </body>
 </html>

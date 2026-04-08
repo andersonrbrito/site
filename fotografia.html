@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fotografia — Anderson Brito | Shows, Eventos e Retratos Profissionais</title>
-  <meta name="description" content="Portfólio fotográfico profissional: cobertura de shows, eventos, fotografia esportiva e retratos executivos. Qualidade premium em São Paulo.">
-  <meta name="keywords" content="fotografia profissional, fotógrafo São Paulo, shows, eventos, fotografia esportiva, retratos executivos, Alphaville">
+  <meta name="description" content="Portfolio de fotografia profissional: cobertura de shows ao vivo, fotografia esportiva e retratos executivos. Qualidade premium em Sao Paulo, Alphaville.">
+  <meta name="keywords" content="fotografia profissional, fotografo Sao Paulo, shows, eventos, fotografia esportiva, retratos executivos, Alphaville">
   <meta name="author" content="Anderson Brito">
   <meta name="robots" content="index, follow">
 
@@ -26,30 +26,56 @@
 
   <style>
     /* ═══════════════════════════════════════════
-       TOKENS — Paleta Lightroom Classic
+       TOKENS — Paleta Premiere Pro
     ═══════════════════════════════════════════ */
     :root {
       /* backgrounds */
-      --lr-bg-main: #1a1a1a;
-      --lr-bg-panel: #242424;
-      --lr-bg-card: #2d2d2d;
-      --lr-border: #3d3d3d;
-      --lr-border-light: #4d4d4d;
+      --pr-menubar:     #1C1C1C;
+      --pr-toolbar:     #232325;
+      --pr-panel-bg:    #1E1E22;
+      --pr-panel-hd:    #28282E;
+      --pr-panel-hd2:   #222226;
+      --pr-timeline-bg: #191919;
+      --pr-track-bg:    #202024;
+      --pr-track-odd:   #1C1C20;
+      --pr-card:        #26262C;
+      --pr-input:       #141416;
+
+      /* borders */
+      --pr-border:      #000000;
+      --pr-sep:         #38383F;
+      --pr-sep-light:   #45454F;
+
+      /* clip colors */
+      --clip-v1:   #2B5280;
+      --clip-v2:   #1A4D35;
+      --clip-grfx: #5A2D7A;
+      --clip-audio:#4A3010;
+      --clip-sel:  #3DA7FF;
 
       /* accent */
-      --accent: #d4af37;
-      --accent-light: #e8c547;
-      --accent-dark: #b8932b;
+      --accent:    #3DA7FF;
+      --accent-2:  #0070D1;
+      --accent-gr: #22c55e;
+      --orange:    #FF6B35;
+      --playhead:  #A8D0FF;
 
       /* text */
-      --tx-hi: #e8e8e8;
-      --tx-mid: #b8b8b8;
-      --tx-lo: #888888;
+      --tx-hi:     #EAEAEF;
+      --tx-mid:    #8888A0;
+      --tx-lo:     #505060;
+      --tx-blue:   #6BAEFF;
 
       /* fonts */
-      --f-mono: 'IBM Plex Mono', monospace;
-      --f-head: 'Exo 2', sans-serif;
-      --f-body: 'DM Sans', sans-serif;
+      --f-mono:    'IBM Plex Mono', monospace;
+      --f-head:    'Exo 2', sans-serif;
+      --f-body:    'DM Sans', sans-serif;
+
+      /* layout */
+      --menubar-h: 28px;
+      --toolbar-h: 40px;
+      --timeline-h: 110px;
+      --track-h:  24px;
     }
 
     /* ═══════════════════════════════════════════
@@ -58,405 +84,1355 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--lr-bg-main);
+      background: var(--pr-panel-bg);
       color: var(--tx-hi);
       font-family: var(--f-body);
       font-size: 14px;
       overflow-x: hidden;
+      padding-bottom: var(--timeline-h);
     }
     a { color: inherit; text-decoration: none; }
-    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    button { cursor: pointer; border: none; background: none; }
 
     /* ═══════════════════════════════════════════
-       HEADER & NAV
+       MENU BAR (Premiere top bar)
     ═══════════════════════════════════════════ */
-    header {
+    .menu-bar {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(26, 26, 26, 0.95);
-      backdrop-filter: blur(10px);
-      padding: 20px 40px;
-      border-bottom: 1px solid var(--lr-border);
-      z-index: 100;
+      top: 0; left: 0; right: 0;
+      height: var(--menubar-h);
+      background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 1000;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-    }
-
-    .logo {
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    nav {
-      display: flex;
-      gap: 40px;
-    }
-
-    nav a {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--tx-mid);
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    /* ═══════════════════════════════════════════
-       HERO
-    ═══════════════════════════════════════════ */
-    .hero {
-      margin-top: 80px;
-      padding: 80px 40px;
-      background: linear-gradient(135deg, var(--lr-bg-panel) 0%, var(--lr-bg-main) 100%);
-      border-bottom: 1px solid var(--lr-border);
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 48px;
-      font-family: var(--f-head);
-      font-weight: 700;
-      margin-bottom: 20px;
-      color: var(--accent);
-      letter-spacing: -1px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: var(--tx-mid);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* ═══════════════════════════════════════════
-       GRID FOTOGRAFIA
-    ═══════════════════════════════════════════ */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 80px 40px;
-    }
-
-    .photos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 40px;
-      margin-bottom: 80px;
-    }
-
-    .photo-card {
-      background: var(--lr-bg-card);
-      border: 1px solid var(--lr-border);
-      border-radius: 4px;
+      gap: 0;
       overflow: hidden;
-      transition: all 0.3s ease;
+    }
+    .menu-appname {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+      height: 100%;
+      border-right: 1px solid var(--pr-sep);
+      flex-shrink: 0;
+    }
+    .menu-pr-icon {
+      width: 16px; height: 16px;
+      background: var(--accent-2);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-head);
+      font-size: 9px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .menu-appname span {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-mid);
+      letter-spacing: 0.04em;
+    }
+    .menu-items {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+    .menu-item {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--tx-mid);
       cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .menu-item:hover { color: var(--tx-hi); background: rgba(255,255,255,0.05); }
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--pr-panel-hd);
+      border: 1px solid var(--pr-sep);
+      border-radius: 0;
+      min-width: 180px;
+      z-index: 1001;
+      margin-top: -1px;
+    }
+    .menu-item:hover .menu-dropdown {
+      display: flex;
+      flex-direction: column;
+    }
+    .menu-dropdown-item {
+      padding: 8px 12px;
+      color: var(--tx-mid);
+      font-size: 11px;
+      cursor: pointer;
+      transition: background 0.1s, color 0.1s;
+      border-bottom: 1px solid var(--pr-border);
+      letter-spacing: 0.02em;
+    }
+    .menu-dropdown-item:last-child { border-bottom: none; }
+    .menu-dropdown-item:hover {
+      background: rgba(61,167,255,0.15);
+      color: var(--accent);
+    }
+    .menu-project {
+      flex: 1;
+      text-align: center;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-lo);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+    }
+    .menu-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 12px;
+      border-left: 1px solid var(--pr-sep);
+    }
+    .menu-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-gr);
+      animation: blink 3s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .menu-status-text {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
     }
 
-    .photo-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+    /* ═══════════════════════════════════════════
+       TOOLBAR
+    ═══════════════════════════════════════════ */
+    .toolbar {
+      position: fixed;
+      top: var(--menubar-h);
+      left: 0; right: 0;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 2px;
+    }
+    .tool-group {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 0 8px;
+      border-right: 1px solid var(--pr-sep);
+      height: 100%;
+    }
+    .tool-group:last-child { border-right: none; }
+    .tool-btn {
+      width: 28px; height: 26px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tx-mid);
+      font-size: 12px;
+      transition: background 0.1s, color 0.1s;
+    }
+    .tool-btn:hover { background: rgba(255,255,255,0.07); color: var(--tx-hi); }
+    .tool-btn.active { background: rgba(61,167,255,0.15); color: var(--accent); }
+    .timecode-display {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tx-hi);
+      background: var(--pr-input);
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      padding: 3px 10px;
+      letter-spacing: 0.08em;
+      min-width: 110px;
+      text-align: center;
+      cursor: default;
+      user-select: none;
+    }
+    .timecode-display .tc-sep { color: var(--pr-sep-light); }
+    .seq-info {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-lo);
+      letter-spacing: 0.04em;
+      padding-left: 10px;
+    }
+    .toolbar-nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .toolbar-nav-link {
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+      padding: 5px 10px;
+      border-radius: 3px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,0.06); }
+    .toolbar-nav-link.cta {
+      background: var(--accent-2);
+      color: #fff;
+      font-weight: 700;
+    }
+    .toolbar-nav-link.cta:hover { background: var(--accent); }
+    .toolbar-hamburger {
+      display: none;
+      margin-left: auto;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px;
+    }
+    .toolbar-hamburger span {
+      display: block;
+      width: 18px; height: 1.5px;
+      background: var(--tx-mid);
+      border-radius: 2px;
+    }
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: calc(var(--menubar-h) + var(--toolbar-h));
+      left: 0; right: 0;
+      background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-sep);
+      z-index: 998;
+      flex-direction: column;
+      padding: 8px 12px 16px;
+      gap: 2px;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+      padding: 10px 12px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .mobile-drawer a:hover { color: var(--tx-hi); background: rgba(255,255,255,0.05); }
+    .mobile-drawer .cta { color: var(--accent); }
+
+    /* ═══════════════════════════════════════════
+       PAGE OFFSET
+    ═══════════════════════════════════════════ */
+    .page-content {
+      margin-top: calc(var(--menubar-h) + var(--toolbar-h));
     }
 
-    .photo-thumb {
-      width: 100%;
-      height: 280px;
-      background: linear-gradient(135deg, var(--lr-bg-panel) 0%, var(--lr-bg-main) 100%);
+    /* ═══════════════════════════════════════════
+       PANEL
+    ═══════════════════════════════════════════ */
+    .panel {
+      border: 1px solid var(--pr-border);
+      background: var(--pr-panel-bg);
+      display: flex;
+      flex-direction: column;
+    }
+    .panel-header {
+      height: 26px;
+      background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .panel-header-icon {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-family: var(--f-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+    }
+    .panel-header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 4px;
+    }
+    .panel-action {
+      width: 16px; height: 16px;
+      border-radius: 2px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--tx-lo);
-      font-size: 12px;
+      font-size: 9px;
+      transition: color 0.1s, background 0.1s;
+    }
+    .panel-action:hover { color: var(--tx-mid); background: rgba(255,255,255,0.06); }
+
+    /* ═══════════════════════════════════════════
+       PAGE HEADER
+    ═══════════════════════════════════════════ */
+    .page-header {
+      background: #0A0A0C;
+      padding: 40px 24px 32px;
+      border-bottom: 1px solid var(--pr-sep);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 100% at 0% 50%, rgba(90,45,122,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ph-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; position: relative;
+    }
+    .ph-label {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .ph-label::before { content: '//'; color: var(--tx-lo); }
+    .ph-h1 {
+      font-family: var(--f-head);
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900; font-style: italic; line-height: 1.05;
+      margin-bottom: 8px;
+    }
+    .ph-sub { font-size: 13px; color: var(--tx-mid); max-width: 420px; }
+    .ph-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .ph-stat { text-align: right; }
+    .ph-stat .n {
+      font-family: var(--f-mono); font-size: 26px; font-weight: 600; color: var(--accent); line-height: 1;
+    }
+    .ph-stat .l { font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); letter-spacing: .06em; }
+
+    /* ═══════════════════════════════════════════
+       CATEGORY CARDS — styled as Premiere panels
+    ═══════════════════════════════════════════ */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--pr-border);
+      border-top: 1px solid var(--pr-border);
+    }
+    .cat-card {
+      background: var(--pr-card);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--clip-color, var(--pr-sep));
+      transition: width 0.2s;
+    }
+    .cat-card:hover { background: #2E2E36; }
+    .cat-card:hover::before { width: 4px; }
+    .cat-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .cat-clip-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .cat-type {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      border-bottom: 1px solid var(--lr-border);
-    }
-
-    .photo-info {
-      padding: 25px;
-    }
-
-    .photo-title {
-      font-size: 14px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .photo-category {
-      font-size: 11px;
       color: var(--tx-lo);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
     }
-
-    .photo-description {
+    .cat-card-title {
+      font-family: var(--f-head);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .cat-card-desc {
       font-size: 13px;
       color: var(--tx-mid);
-      line-height: 1.6;
-      margin-bottom: 15px;
+      line-height: 1.65;
     }
-
-    .photo-btn {
-      display: inline-block;
-      padding: 8px 16px;
-      background: var(--lr-border);
-      color: var(--accent);
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .cat-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: auto;
+    }
+    .cat-tag {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--pr-sep);
       border-radius: 2px;
-      transition: all 0.3s ease;
+      padding: 2px 7px;
+      color: var(--tx-lo);
+    }
+    .cat-icon {
+      width: 48px; height: 48px;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--pr-sep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 4px;
     }
 
-    .photo-btn:hover {
-      background: var(--accent);
-      color: var(--lr-bg-main);
+    /* ═══════════════════════════════════════════
+       PROCESS TRACKS
+    ═══════════════════════════════════════════ */
+    .process-tracks {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--pr-border);
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .process-track {
+      background: var(--pr-track-bg);
+      display: flex;
+      align-items: stretch;
+    }
+    .process-track-hd {
+      width: 180px;
+      flex-shrink: 0;
+      background: var(--pr-panel-hd);
+      border-right: 1px solid var(--pr-sep);
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .process-track-num {
+      font-family: var(--f-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .process-track-name {
+      font-family: var(--f-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tx-hi);
+    }
+    .process-track-body {
+      padding: 20px 24px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .process-track-desc {
+      font-size: 14px;
+      color: var(--tx-mid);
+      line-height: 1.6;
+    }
+    .process-clip {
+      width: 6px;
+      align-self: stretch;
+      margin: 8px 16px 8px 0;
+      border-radius: 2px;
+      flex-shrink: 0;
     }
 
     /* ═══════════════════════════════════════════
        CTA SECTION
     ═══════════════════════════════════════════ */
     .cta-section {
-      background: linear-gradient(135deg, var(--lr-bg-panel) 0%, var(--lr-bg-main) 100%);
-      padding: 80px 40px;
+      background: #0A0A0C;
+      padding: 72px 20px;
       text-align: center;
-      border-top: 1px solid var(--lr-border);
-      border-bottom: 1px solid var(--lr-border);
+      position: relative;
+      overflow: hidden;
     }
-
-    .cta-section h2 {
-      font-size: 36px;
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(90,45,122,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner { position: relative; max-width: 560px; margin: 0 auto; }
+    .cta-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .cta-heading {
       font-family: var(--f-head);
-      margin-bottom: 20px;
-      color: var(--accent);
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.05;
     }
-
-    .cta-section p {
-      font-size: 16px;
+    .cta-sub {
+      font-size: 14px;
       color: var(--tx-mid);
-      margin-bottom: 30px;
+      margin-bottom: 36px;
     }
+    .cta-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
 
-    .cta-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      padding: 14px 32px;
-      background: var(--accent);
-      color: var(--lr-bg-main);
+    .btn-pr-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-2);
+      color: #fff;
+      font-family: var(--f-head);
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      border-radius: 2px;
-      transition: all 0.3s ease;
+      padding: 11px 22px;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     }
-
-    .btn-primary:hover {
-      background: var(--accent-light);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+    .btn-pr-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(61,167,255,0.3);
     }
-
-    .btn-secondary {
-      padding: 14px 32px;
+    .btn-pr-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
+      color: var(--tx-mid);
+      font-family: var(--f-head);
       font-size: 12px;
       font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      border-radius: 2px;
-      transition: all 0.3s ease;
+      padding: 10px 20px;
+      border-radius: 3px;
+      border: 1px solid var(--pr-sep);
+      transition: color 0.15s, border-color 0.15s;
     }
+    .btn-pr-ghost:hover { color: var(--tx-hi); border-color: var(--pr-sep-light); }
 
-    .btn-secondary:hover {
-      background: var(--accent);
-      color: var(--lr-bg-main);
+    /* ═══════════════════════════════════════════
+       FOOTER INFO
+    ═══════════════════════════════════════════ */
+    .footer-info {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--pr-sep);
+      font-size: 11px;
+      color: var(--tx-lo);
+    }
+    .footer-info p { margin: 8px 0; }
+    .footer-social { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+    .footer-social a {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-mid);
+      padding: 4px 10px;
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .footer-social a:hover { color: var(--tx-hi); border-color: var(--pr-sep-light); }
+
+    /* ═══════════════════════════════════════════
+       STATUS BAR
+    ═══════════════════════════════════════════ */
+    .status-bar {
+      position: fixed;
+      bottom: var(--timeline-h);
+      left: 0; right: 0;
+      height: 20px;
+      background: var(--pr-menubar);
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-sep);
+      z-index: 895;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 16px;
+    }
+    .sb-item {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sb-item .val { color: var(--tx-mid); }
+    .sb-section-label {
+      margin-left: auto;
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
     }
 
     /* ═══════════════════════════════════════════
-       FOOTER
+       FIXED TIMELINE
     ═══════════════════════════════════════════ */
-    footer {
-      background: var(--lr-bg-panel);
-      padding: 40px;
-      border-top: 1px solid var(--lr-border);
-      text-align: center;
-      color: var(--tx-lo);
-      font-size: 12px;
+    .timeline-panel {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--timeline-h);
+      background: var(--pr-timeline-bg);
+      border-top: 1px solid var(--pr-border);
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
     }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: underline;
+    .tl-header {
+      height: 22px;
+      background: var(--pr-panel-hd2);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .tl-track-labels-hd {
+      width: 64px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--pr-sep);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+    }
+    .tl-ruler {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .tl-ruler-inner {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      padding: 0 4px;
+      gap: 0;
+    }
+    .tl-ruler-mark {
+      font-family: var(--f-mono);
+      font-size: 8px;
+      color: var(--tx-lo);
+      letter-spacing: 0.03em;
+      flex: 1;
+      text-align: left;
+      padding-left: 3px;
+      padding-bottom: 3px;
+      border-left: 1px solid var(--pr-sep);
+    }
+    .tl-tracks {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .tl-track {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--pr-border);
+      flex: 1;
+    }
+    .tl-track:last-child { border-bottom: none; }
+    .tl-label {
+      width: 64px;
+      flex-shrink: 0;
+      background: var(--pr-panel-hd2);
+      border-right: 1px solid var(--pr-sep);
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 5px;
+    }
+    .tl-label-text {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--tx-mid);
+      letter-spacing: 0.04em;
+    }
+    .tl-lock { font-size: 8px; color: var(--tx-lo); }
+    .tl-track-content {
+      flex: 1;
+      position: relative;
+      background: var(--pr-track-bg);
+    }
+    .tl-track:nth-child(odd) .tl-track-content { background: var(--pr-track-odd); }
+    .tl-clip {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: filter 0.15s, top 0.15s, bottom 0.15s;
+      border: 1px solid rgba(0,0,0,0.4);
+    }
+    .tl-clip:hover { top: 1px; bottom: 1px; filter: brightness(1.2); }
+    .tl-clip-label {
+      font-family: var(--f-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.85);
+      padding: 0 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .tl-waveform {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      padding: 2px 4px;
+      overflow: hidden;
+    }
+    .wv-bar {
+      width: 1.5px;
+      background: rgba(255,150,50,0.6);
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+    .tl-playhead {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--playhead);
+      z-index: 10;
+      pointer-events: none;
+      transition: left 0.1s linear;
+    }
+    .tl-playhead::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      width: 11px; height: 8px;
+      background: var(--playhead);
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
     }
 
     /* ═══════════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════════ */
-    @media (max-width: 768px) {
-      header {
-        flex-direction: column;
-        padding: 15px 20px;
-        gap: 15px;
+    @media (max-width: 720px) {
+      :root {
+        --timeline-h: 88px;
       }
+      .toolbar-nav { display: none; }
+      .toolbar-hamburger { display: flex; }
+      .menu-items .menu-item:nth-child(n+4) { display: none; }
+      .process-track-hd { width: 100px; padding: 14px 12px; }
+      .process-track-num { font-size: 16px; }
+      .tl-waveform { display: none; }
+      .categories-grid { grid-template-columns: 1fr; }
+    }
 
-      nav {
-        gap: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
+    @media (max-width: 480px) {
+      :root {
+        --timeline-h: 80px;
       }
+      .menu-items { display: none; }
+      .tl-label { width: 42px; padding: 0 5px; }
+      .tl-track-labels-hd { width: 42px; }
+      .ph-stats { display: none; }
+    }
 
-      .hero {
-        padding: 60px 20px;
-        margin-top: 120px;
-      }
+    /* ═══════════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .container {
-        padding: 60px 20px;
-      }
-
-      .photos-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .btn-primary, .btn-secondary {
-        width: 100%;
-      }
+    /* ═══════════════════════════════════════════
+       WORKSPACE SECTIONS
+    ═══════════════════════════════════════════ */
+    .ws-section {
+      border-top: 2px solid var(--pr-border);
     }
   </style>
 </head>
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="logo">🎬 ANDERSON BRITO</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="marketing.html">Vídeo</a>
-      <a href="fotografia.html">Fotografia</a>
-      <a href="index.html#section-about">Sobre</a>
-      <a href="https://wa.me/5511948577950" target="_blank">Contato</a>
-    </nav>
-  </header>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h1>Fotografia</h1>
-    <p>Cobertura profissional de shows, eventos, fotografia esportiva e retratos executivos.<br>Composição, luz e narrativa visual em cada frame.</p>
-  </div>
-
-  <!-- CONTAINER -->
-  <div class="container">
-    <!-- GRID DE FOTOS -->
-    <div class="photos-grid" id="photosGrid">
-      <div class="photo-card">
-        <div class="photo-thumb" style="background:linear-gradient(135deg,#2a1f15,#1a0f08);display:flex;align-items:center;justify-content:center;font-size:48px;">📸</div>
-        <div class="photo-info">
-          <div class="photo-title">Shows ao Vivo</div>
-          <div class="photo-category">EVENTOS & PERFORMANCES</div>
-          <div class="photo-description">Captura de momentos de alta energia. Cobertura profissional de shows, festas, cerimônias e eventos corporativos com luz de qualidade premium.</div>
-          <button class="photo-btn" onclick="window.location.href='https://andersonbritofoto.fotop.com'">Ver Portfolio Completo</button>
+  <!-- ═══════════════════════════════════════════
+       MENU BAR
+  ═══════════════════════════════════════════ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="alert('Novo Projeto — Em breve')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="alert('Abrir Projeto — Em breve')">Abrir Projeto</div>
+          <div class="menu-dropdown-item" onclick="window.print()">Imprimir Portfolio</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='mailto:contato@andersonbrito.com'">Enviar Feedback</div>
         </div>
       </div>
-
-      <div class="photo-card">
-        <div class="photo-thumb" style="background:linear-gradient(135deg,#1a2a3a,#0a1520);display:flex;align-items:center;justify-content:center;font-size:48px;">⚽</div>
-        <div class="photo-info">
-          <div class="photo-title">Fotografia Esportiva</div>
-          <div class="photo-category">AÇÃO & MOVIMENTO</div>
-          <div class="photo-description">Especialista em capturar momentos decisivos. Cobertura de maratonas, futebol e esportes com foco em tensão, ação e emoção dos atletas.</div>
-          <button class="photo-btn" onclick="window.location.href='https://andersonbritofoto.fotop.com'">Ver Portfolio Completo</button>
+      <div class="menu-item">
+        Editar
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.execCommand('undo')">Desfazer</div>
+          <div class="menu-dropdown-item" onclick="document.execCommand('redo')">Refazer</div>
+          <div class="menu-dropdown-item" onclick="document.execCommand('selectAll')">Selecionar Tudo</div>
+          <div class="menu-dropdown-item" onclick="alert('Preferencias — Em breve')">Preferencias</div>
         </div>
       </div>
-
-      <div class="photo-card">
-        <div class="photo-thumb" style="background:linear-gradient(135deg,#2a1a2a,#1a0a1a);display:flex;align-items:center;justify-content:center;font-size:48px;">👤</div>
-        <div class="photo-info">
-          <div class="photo-title">Retratos Executivos</div>
-          <div class="photo-category">CORPORATE & BRANDING</div>
-          <div class="photo-description">Retratos profissionais com lighting sofisticado. Material para LinkedIn, portfólios e branding pessoal. Composição moderna e impactante.</div>
-          <button class="photo-btn" onclick="window.location.href='https://andersonbritofoto.fotop.com'">Ver Portfolio Completo</button>
+      <div class="menu-item">
+        Clipe
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.querySelector('.page-content')?.scrollIntoView({behavior:'smooth'})">Ir para TOPO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('section-categories')?.scrollIntoView({behavior:'smooth'})">Ir para CATEGORIAS</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('section-process')?.scrollIntoView({behavior:'smooth'})">Ir para PROCESSO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('section-cta')?.scrollIntoView({behavior:'smooth'})">Ir para CONTATO</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Sequencia
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequencia Principal</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequencia Marketing DR</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequencia Fotografia</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e => alert('Fullscreen nao suportado'))">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="document.querySelector('.page-content').scrollIntoView({behavior:'smooth'})">Resetar Zoom</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4', '_blank')">Abrir Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Contato via WhatsApp</div>
         </div>
       </div>
     </div>
-
-    <!-- SECTION: PROCESS -->
-    <div style="margin:80px 0;padding:40px;background:var(--lr-bg-panel);border:1px solid var(--lr-border);border-radius:8px;">
-      <h3 style="color:var(--accent);font-size:18px;margin-bottom:24px;text-transform:uppercase;letter-spacing:2px;">PROCESSO FOTOGRÁFICO</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;">
-        <div style="padding:16px;background:var(--lr-bg-card);border:1px solid var(--lr-border);border-radius:4px;">
-          <div style="color:var(--accent);font-weight:700;margin-bottom:8px;">01 • BRIEFING</div>
-          <div style="color:var(--tx-mid);font-size:12px;line-height:1.6;">Entendo sua visão, tipo de evento, estilo desejado e objetivos da cobertura.</div>
-        </div>
-        <div style="padding:16px;background:var(--lr-bg-card);border:1px solid var(--lr-border);border-radius:4px;">
-          <div style="color:var(--accent);font-weight:700;margin-bottom:8px;">02 • PRODUÇÃO</div>
-          <div style="color:var(--tx-mid);font-size:12px;line-height:1.6;">Captura profissional com equipamento de ponta. Composição, luz e timing perfeitos.</div>
-        </div>
-        <div style="padding:16px;background:var(--lr-bg-card);border:1px solid var(--lr-border);border-radius:4px;">
-          <div style="color:var(--accent);font-weight:700;margin-bottom:8px;">03 • EDIÇÃO</div>
-          <div style="color:var(--tx-mid);font-size:12px;line-height:1.6;">Seleção e edição cuidadosa em Lightroom. Cor, contraste e atmosfera ajustados.</div>
-        </div>
-        <div style="padding:16px;background:var(--lr-bg-card);border:1px solid var(--lr-border);border-radius:4px;">
-          <div style="color:var(--accent);font-weight:700;margin-bottom:8px;">04 • ENTREGA</div>
-          <div style="color:var(--tx-mid);font-size:12px;line-height:1.6;">Arquivo de alta resolução, otimizado para web, impressão e redes sociais.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- CTA SECTION -->
-    <div class="cta-section">
-      <h2>Quer Contar sua História em Imagens?</h2>
-      <p>Vamos criar fotografias que transmitem emoção, movimento e propósito.</p>
-      <div class="cta-buttons">
-        <button class="btn-primary" onclick="window.location.href='https://wa.me/5511948577950'">Me Chame no WhatsApp</button>
-        <button class="btn-secondary" onclick="window.location.href='https://andersonbritofoto.fotop.com'">Ver Portfolio Fotop</button>
-      </div>
+    <div class="menu-project">anderson_ilmar_brito_2026.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONIVEL</div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>📍 Alphaville, São Paulo — Brasil | © 2026 Anderson Brito • Audiovisual & Fotografia</p>
-    <div style="margin-top: 12px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
-      <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
-      <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
-      <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
-      <a href="mailto:contato@andersonbrito.com">Email</a>
+  <!-- ═══════════════════════════════════════════
+       TOOLBAR
+  ═══════════════════════════════════════════ -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <div class="tool-btn active" title="Ferramenta de selecao">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><path d="M1 1l9 4.5-4.5 1L4 10z"/></svg>
+      </div>
+      <div class="tool-btn" title="Corte">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2l7 7M2 9l7-7"/></svg>
+      </div>
+      <div class="tool-btn" title="Escorregamento">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 5h10M8 2l3 3-3 3M4 2L1 5l3 3"/></svg>
+      </div>
     </div>
-  </footer>
 
+    <div class="tool-group">
+      <div class="timecode-display" id="tcDisplay">
+        <span id="tcH">00</span><span class="tc-sep">:</span><span id="tcM">00</span><span class="tc-sep">:</span><span id="tcS">00</span><span class="tc-sep">;</span><span id="tcF">00</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="seq-info">&#9658; ANDERSON_ILMAR &middot; 3840x2160 &middot; 30fps</div>
+    </div>
+
+    <!-- Desktop nav -->
+    <div class="toolbar-nav">
+      <a href="index.html" class="toolbar-nav-link">Home</a>
+      <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
+      <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
+      <a href="index.html#section-about" class="toolbar-nav-link">Sobre</a>
+      <a href="index.html#section-contact" class="toolbar-nav-link cta">Contato</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="toolbar-hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="marketing.html">Marketing & DR</a>
+    <a href="fotografia.html">Fotografia</a>
+    <a href="index.html#section-about">Sobre</a>
+    <a href="index.html#section-contact" class="cta">Contato</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONTENT
+  ═══════════════════════════════════════════ -->
+  <div class="page-content">
+
+    <!-- ── PAGE HEADER ────────────────────────── -->
+    <section class="ws-section">
+      <div class="panel" style="background:#0A0A0C;">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--clip-grfx);"></div>
+          <span class="panel-title">Bin: Fotografia Profissional</span>
+          <div class="panel-header-actions">
+            <div class="panel-action">&#8862;</div>
+            <div class="panel-action">&#8801;</div>
+          </div>
+        </div>
+        <div class="page-header">
+          <div class="ph-inner">
+            <div>
+              <div class="ph-label">Portfolio Fotografico</div>
+              <h1 class="ph-h1">Fotografia</h1>
+              <p class="ph-sub">Shows ao vivo, eventos, fotografia esportiva e retratos executivos. Olhar autoral com obsessao por luz e composicao.</p>
+            </div>
+            <div class="ph-stats">
+              <div class="ph-stat">
+                <div class="n">3</div>
+                <div class="l">categorias</div>
+              </div>
+              <div class="ph-stat">
+                <div class="n">4K</div>
+                <div class="l">resolucao</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CATEGORY CARDS ─────────────────────── -->
+    <section id="section-categories" class="ws-section">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--clip-v2);"></div>
+          <span class="panel-title">Painel do Projeto — Categorias</span>
+          <div class="panel-header-actions">
+            <div class="panel-action">&#8801;</div>
+          </div>
+        </div>
+        <div class="categories-grid">
+
+          <!-- CARD 1 — Shows ao Vivo -->
+          <div class="cat-card reveal" style="--clip-color: var(--clip-grfx);">
+            <div class="cat-card-top">
+              <div class="cat-clip-dot" style="background:var(--clip-grfx);"></div>
+              <span class="cat-type">V1 &middot; Cobertura ao Vivo</span>
+            </div>
+            <div class="cat-icon">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+            </div>
+            <div class="cat-card-title">Shows ao Vivo</div>
+            <div class="cat-card-desc">
+              Cobertura fotografica de shows, festivais e eventos musicais. Captura de energia, iluminacao cenica e momentos unicos no palco e na plateia.
+            </div>
+            <div class="cat-tags">
+              <span class="cat-tag">Shows</span>
+              <span class="cat-tag">Festivais</span>
+              <span class="cat-tag">Eventos</span>
+              <span class="cat-tag">Low Light</span>
+              <span class="cat-tag">Backstage</span>
+            </div>
+          </div>
+
+          <!-- CARD 2 — Fotografia Esportiva -->
+          <div class="cat-card reveal" style="--clip-color: var(--clip-v1);">
+            <div class="cat-card-top">
+              <div class="cat-clip-dot" style="background:var(--clip-v1);"></div>
+              <span class="cat-type">V2 &middot; Acao e Movimento</span>
+            </div>
+            <div class="cat-icon">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 17l4-4 2 2 4-6 6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="cat-card-title">Fotografia Esportiva</div>
+            <div class="cat-card-desc">
+              Registro de alta velocidade para esportes e atividades fisicas. Foco em congelar o momento decisivo com nitidez e impacto visual.
+            </div>
+            <div class="cat-tags">
+              <span class="cat-tag">Esportes</span>
+              <span class="cat-tag">Alta Velocidade</span>
+              <span class="cat-tag">Acao</span>
+              <span class="cat-tag">Competicoes</span>
+            </div>
+          </div>
+
+          <!-- CARD 3 — Retratos Executivos -->
+          <div class="cat-card reveal" style="--clip-color: var(--accent-2);">
+            <div class="cat-card-top">
+              <div class="cat-clip-dot" style="background:var(--accent-2);"></div>
+              <span class="cat-type">GRFX &middot; Profissional</span>
+            </div>
+            <div class="cat-icon">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div class="cat-card-title">Retratos Executivos</div>
+            <div class="cat-card-desc">
+              Retratos corporativos e pessoais com iluminacao profissional. Para LinkedIn, sites institucionais, materiais de imprensa e branding pessoal.
+            </div>
+            <div class="cat-tags">
+              <span class="cat-tag">Corporativo</span>
+              <span class="cat-tag">LinkedIn</span>
+              <span class="cat-tag">Branding</span>
+              <span class="cat-tag">Studio</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROCESSO FOTOGRAFICO ───────────────── -->
+    <section id="section-process" class="ws-section">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:#6366f1;"></div>
+          <span class="panel-title">Controles de Efeito — Processo Fotografico</span>
+        </div>
+        <div class="process-tracks">
+
+          <div class="process-track reveal">
+            <div class="process-track-hd">
+              <div class="process-track-num">01</div>
+              <div class="process-track-name">Briefing</div>
+            </div>
+            <div class="process-clip" style="background:var(--clip-grfx);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Entendo o contexto, o objetivo e o estilo visual desejado. Alinhamos expectativas, referencias e logistica do evento ou sessao.</p>
+            </div>
+          </div>
+
+          <div class="process-track reveal">
+            <div class="process-track-hd">
+              <div class="process-track-num">02</div>
+              <div class="process-track-name">Producao</div>
+            </div>
+            <div class="process-clip" style="background:var(--clip-v1);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Dia da captura com equipamento profissional. Olhar atento a composicao, iluminacao e momentos decisivos. Sem retrabalho, sem amadorismo.</p>
+            </div>
+          </div>
+
+          <div class="process-track reveal">
+            <div class="process-track-hd">
+              <div class="process-track-num">03</div>
+              <div class="process-track-name">Edicao</div>
+            </div>
+            <div class="process-clip" style="background:var(--clip-v2);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Selecao criteriosa, tratamento de cor e retoques profissionais. Cada imagem passa por um fluxo de edicao que respeita a identidade visual do projeto.</p>
+            </div>
+          </div>
+
+          <div class="process-track reveal">
+            <div class="process-track-hd">
+              <div class="process-track-num">04</div>
+              <div class="process-track-name">Entrega</div>
+            </div>
+            <div class="process-clip" style="background:var(--accent-gr);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Galeria online com download em alta resolucao. Formatos otimizados para web, impressao e redes sociais. Prazo cumprido, sempre.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CTA / CONTATO ──────────────────────── -->
+    <section id="section-cta" class="ws-section">
+      <div class="panel" style="background:#0A0A0C;">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--accent-gr);"></div>
+          <span class="panel-title">Exportar — Solicitar Orcamento</span>
+        </div>
+        <div class="cta-section">
+          <div class="cta-inner">
+            <div class="cta-label">// solicitar / orcamento / agendar</div>
+            <h2 class="cta-heading">Precisa de um<br>fotografo?</h2>
+            <p class="cta-sub">Me chame no WhatsApp ou confira meu portfolio completo no Fotop. Resposta rapida, sem enrolacao.</p>
+            <div class="cta-buttons">
+              <a href="https://wa.me/5511948577950" target="_blank" class="btn-pr-primary">
+                WhatsApp
+              </a>
+              <a href="https://www.fotop.com.br/andersonilmar" target="_blank" class="btn-pr-ghost">
+                Portfolio Fotop
+              </a>
+              <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="btn-pr-ghost">
+                Instagram
+              </a>
+            </div>
+            <div class="footer-info">
+              <p>Alphaville, Sao Paulo — Brasil</p>
+              <p>&copy; 2026 Anderson Ilmar &bull; Audiovisual & Fotografia</p>
+              <div class="footer-social">
+                <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
+                <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
+                <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
+                <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
+                <a href="mailto:contato@andersonbrito.com">E-mail</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end .page-content -->
+
+  <!-- ═══════════════════════════════════════════
+       STATUS BAR
+  ═══════════════════════════════════════════ -->
+  <div class="status-bar">
+    <div class="sb-item">SEQ <span class="val">ANDERSON_ILMAR</span></div>
+    <div class="sb-item">FPS <span class="val">30</span></div>
+    <div class="sb-item">RES <span class="val">3840x2160</span></div>
+    <div class="sb-item">CODEC <span class="val">H.264</span></div>
+    <div class="sb-section-label" id="sbSection">&#9658; FOTOGRAFIA</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FIXED TIMELINE
+  ═══════════════════════════════════════════ -->
+  <div class="timeline-panel" id="timelinePanel">
+
+    <!-- Header row with ruler -->
+    <div class="tl-header">
+      <div class="tl-track-labels-hd">
+        <span style="font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);">TRACK</span>
+      </div>
+      <div class="tl-ruler" id="tlRuler">
+        <div class="tl-ruler-inner" id="tlRulerInner"></div>
+        <div class="tl-playhead" id="tlPlayhead" style="left:0;"></div>
+      </div>
+    </div>
+
+    <!-- Tracks -->
+    <div class="tl-tracks">
+
+      <!-- V1 — main clips -->
+      <div class="tl-track">
+        <div class="tl-label">
+          <span class="tl-label-text">V1</span>
+          <span class="tl-lock">&#128274;</span>
+        </div>
+        <div class="tl-track-content" id="trackV1"></div>
+      </div>
+
+      <!-- V2 — b-roll -->
+      <div class="tl-track">
+        <div class="tl-label">
+          <span class="tl-label-text">V2</span>
+        </div>
+        <div class="tl-track-content" id="trackV2"></div>
+      </div>
+
+      <!-- A1 — audio -->
+      <div class="tl-track">
+        <div class="tl-label">
+          <span class="tl-label-text">A1</span>
+        </div>
+        <div class="tl-track-content" id="trackA1"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════ -->
   <script>
-    // Aqui você pode adicionar scripts para carregar as fotos dinamicamente quando fornecer
-    console.log('Página de Fotografia carregada. Aguardando fotos para exibição.');
+    // ── Build ruler marks ─────────────────────────────────────
+    const rulerEl = document.getElementById('tlRulerInner');
+    const MARKS = ['00:00', '00:15', '00:30', '00:45', '01:00', '01:15', '01:30', '01:45', '02:00'];
+    MARKS.forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'tl-ruler-mark';
+      el.textContent = m;
+      rulerEl.appendChild(el);
+    });
+
+    // ── Build timeline clips ──────────────────────────────────
+    function buildClips() {
+      const v1 = document.getElementById('trackV1');
+      const v2 = document.getElementById('trackV2');
+      const a1 = document.getElementById('trackA1');
+
+      // V1 clips — page sections
+      const v1Clips = [
+        { left:'0%',   width:'30%',  label:'HEADER',     color:'#5A2D7A' },
+        { left:'30%',  width:'30%',  label:'CATEGORIAS', color:'#2B5280' },
+        { left:'60%',  width:'25%',  label:'PROCESSO',   color:'#6366f1' },
+        { left:'85%',  width:'15%',  label:'CONTATO',    color:'#0070D1' },
+      ];
+      v1Clips.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = 'left:'+c.left+';width:'+c.width+';background:'+c.color+';';
+        el.innerHTML = '<span class="tl-clip-label">'+c.label+'</span>';
+        v1.appendChild(el);
+      });
+
+      // V2 clips — categories
+      const v2Data = [
+        { left:'5%',  width:'25%', color:'#5A2D7A88', label:'SHOWS' },
+        { left:'35%', width:'25%', color:'#2B528088', label:'ESPORTIVA' },
+        { left:'65%', width:'20%', color:'#0070D188', label:'RETRATOS' },
+      ];
+      v2Data.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = 'left:'+c.left+';width:'+c.width+';background:'+c.color+';';
+        el.innerHTML = '<span class="tl-clip-label">'+c.label+'</span>';
+        v2.appendChild(el);
+      });
+
+      // A1 — audio waveform
+      const audioClip = document.createElement('div');
+      audioClip.className = 'tl-clip';
+      audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg, #3A2A10 0%, #4A3A20 50%, #3A2A10 100%);cursor:pointer;transition:all 0.3s ease;';
+
+      const waveDiv = document.createElement('div');
+      waveDiv.className = 'tl-waveform';
+      const heights = [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55];
+      heights.forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'wv-bar';
+        bar.style.cssText = 'height:'+h+'%;background:linear-gradient(180deg,#FF9632 0%,#FF6B35 100%);opacity:0.7;';
+        waveDiv.appendChild(bar);
+      });
+      audioClip.appendChild(waveDiv);
+
+      audioClip.addEventListener('mouseenter', function() {
+        this.style.background = 'linear-gradient(90deg, #5A4A30 0%, #6A5A40 50%, #5A4A30 100%)';
+      });
+      audioClip.addEventListener('mouseleave', function() {
+        this.style.background = 'linear-gradient(90deg, #3A2A10 0%, #4A3A20 50%, #3A2A10 100%)';
+      });
+
+      a1.appendChild(audioClip);
+    }
+    buildClips();
+
+    // ── Scroll → playhead + timecode ─────────────────────────
+    function getScrollProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      return max > 0 ? window.scrollY / max : 0;
+    }
+
+    function progressToTC(p) {
+      const totalFrames = 120 * 30;
+      const f = Math.floor(p * totalFrames);
+      const secs = Math.floor(f / 30);
+      const frames = f % 30;
+      const mins = Math.floor(secs / 60);
+      const sec = secs % 60;
+      var pad = function(n) { return String(n).padStart(2,'0'); };
+      return pad(mins) + ':' + pad(sec) + ';' + pad(frames);
+    }
+
+    function updatePlayhead() {
+      var p = getScrollProgress();
+
+      // move playhead
+      var rulerW = document.getElementById('tlRuler').clientWidth;
+      var playhead = document.getElementById('tlPlayhead');
+      playhead.style.left = (p * rulerW) + 'px';
+
+      // update timecode
+      var tc = progressToTC(p);
+      var parts = tc.split(':');
+      var sfParts = parts[1].split(';');
+      document.getElementById('tcH').textContent = '00';
+      document.getElementById('tcM').textContent = parts[0];
+      document.getElementById('tcS').textContent = sfParts[0];
+      document.getElementById('tcF').textContent = sfParts[1] || '00';
+    }
+
+    window.addEventListener('scroll', updatePlayhead, { passive: true });
+    window.addEventListener('resize', updatePlayhead);
+    updatePlayhead();
+
+    // ── Mobile hamburger ──────────────────────────────────────
+    document.getElementById('hamburgerBtn').addEventListener('click', function() {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-drawer a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.getElementById('mobileDrawer').classList.remove('open');
+      });
+    });
+
+    // ── Reveal on scroll ──────────────────────────────────────
+    var revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
+
   </script>
 </body>
 </html>
