@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anderson Brito — Audiovisual & Marketing Digital</title>
+  <meta name="description" content="Editor de vídeo especializado em criativos, VSL e Direct Response.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════════════════════════════════
+       TOKENS — Paleta Premiere Pro
+    ═══════════════════════════════════════════ */
+    :root {
+      /* backgrounds */
+      --pr-menubar:     #1C1C1C;
+      --pr-toolbar:     #232325;
+      --pr-panel-bg:    #1E1E22;
+      --pr-panel-hd:    #28282E;
+      --pr-panel-hd2:   #222226;
+      --pr-timeline-bg: #191919;
+      --pr-track-bg:    #202024;
+      --pr-track-odd:   #1C1C20;
+      --pr-card:        #26262C;
+      --pr-input:       #141416;
+
+      /* borders */
+      --pr-border:      #000000;
+      --pr-sep:         #38383F;
+      --pr-sep-light:   #45454F;
+
+      /* clip colors */
+      --clip-v1:   #2B5280;   /* video azul */
+      --clip-v2:   #1A4D35;   /* b-roll verde */
+      --clip-grfx: #5A2D7A;   /* gráficos roxo */
+      --clip-audio:#4A3010;   /* áudio âmbar */
+      --clip-sel:  #3DA7FF;
+
+      /* accent */
+      --accent:    #3DA7FF;
+      --accent-2:  #0070D1;
+      --accent-gr: #22c55e;
+      --orange:    #FF6B35;
+      --playhead:  #A8D0FF;
+
+      /* text */
+      --tx-hi:     #EAEAEF;
+      --tx-mid:    #8888A0;
+      --tx-lo:     #505060;
+      --tx-blue:   #6BAEFF;
+
+      /* fonts */
+      --f-mono:    'IBM Plex Mono', monospace;
+      --f-head:    'Exo 2', sans-serif;
+      --f-body:    'DM Sans', sans-serif;
+
+      /* layout */
+      --menubar-h: 28px;
+      --toolbar-h: 40px;
+      --timeline-h: 110px;
+      --track-h:  24px;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--pr-panel-bg);
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      overflow-x: hidden;
+      /* space for fixed bottom timeline */
+      padding-bottom: var(--timeline-h);
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; }
+
+    /* ═══════════════════════════════════════════
+       MENU BAR (Premiere top bar)
+    ═══════════════════════════════════════════ */
+    .menu-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--menubar-h);
+      background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow: hidden;
+    }
+
+    /* app icon area */
+    .menu-appname {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 14px;
+      height: 100%;
+      border-right: 1px solid var(--pr-sep);
+      flex-shrink: 0;
+    }
+    .menu-pr-icon {
+      width: 16px; height: 16px;
+      background: var(--accent-2);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--f-head);
+      font-size: 9px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+    .menu-appname span {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-mid);
+      letter-spacing: 0.04em;
+    }
+
+    /* menu items */
+    .menu-items {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+    .menu-item {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--tx-mid);
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+      letter-spacing: 0.02em;
+    }
+    .menu-item:hover { color: var(--tx-hi); background: rgba(255,255,255,0.05); }
+
+    /* project name in center */
+    .menu-project {
+      flex: 1;
+      text-align: center;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-lo);
+      letter-spacing: 0.05em;
+      pointer-events: none;
+    }
+
+    /* right side status */
+    .menu-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 12px;
+      border-left: 1px solid var(--pr-sep);
+    }
+    .menu-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent-gr);
+      animation: blink 3s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .menu-status-text {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+    }
+
+    /* ═══════════════════════════════════════════
+       TOOLBAR
+    ═══════════════════════════════════════════ */
+    .toolbar {
+      position: fixed;
+      top: var(--menubar-h);
+      left: 0; right: 0;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 2px;
+    }
+
+    /* transport controls group */
+    .tool-group {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      padding: 0 8px;
+      border-right: 1px solid var(--pr-sep);
+      height: 100%;
+    }
+    .tool-group:last-child { border-right: none; }
+
+    .tool-btn {
+      width: 28px; height: 26px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tx-mid);
+      font-size: 12px;
+      transition: background 0.1s, color 0.1s;
+    }
+    .tool-btn:hover { background: rgba(255,255,255,0.07); color: var(--tx-hi); }
+    .tool-btn.active { background: rgba(61,167,255,0.15); color: var(--accent); }
+
+    /* timecode display */
+    .timecode-display {
+      font-family: var(--f-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--tx-hi);
+      background: var(--pr-input);
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      padding: 3px 10px;
+      letter-spacing: 0.08em;
+      min-width: 110px;
+      text-align: center;
+      cursor: default;
+      user-select: none;
+    }
+    .timecode-display .tc-sep { color: var(--pr-sep-light); }
+
+    /* sequence info */
+    .seq-info {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-lo);
+      letter-spacing: 0.04em;
+      padding-left: 10px;
+    }
+
+    /* nav links as toolbar items */
+    .toolbar-nav {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .toolbar-nav-link {
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+      padding: 5px 10px;
+      border-radius: 3px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,0.06); }
+    .toolbar-nav-link.cta {
+      background: var(--accent-2);
+      color: #fff;
+      font-weight: 700;
+    }
+    .toolbar-nav-link.cta:hover { background: var(--accent); }
+
+    /* hamburger for mobile */
+    .toolbar-hamburger {
+      display: none;
+      margin-left: auto;
+      flex-direction: column;
+      gap: 4px;
+      padding: 6px;
+    }
+    .toolbar-hamburger span {
+      display: block;
+      width: 18px; height: 1.5px;
+      background: var(--tx-mid);
+      border-radius: 2px;
+    }
+
+    /* mobile nav drawer */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: calc(var(--menubar-h) + var(--toolbar-h));
+      left: 0; right: 0;
+      background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-sep);
+      z-index: 998;
+      flex-direction: column;
+      padding: 8px 12px 16px;
+      gap: 2px;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+      padding: 10px 12px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .mobile-drawer a:hover { color: var(--tx-hi); background: rgba(255,255,255,0.05); }
+    .mobile-drawer .cta { color: var(--accent); }
+
+    /* ═══════════════════════════════════════════
+       PAGE OFFSET (below fixed bars)
+    ═══════════════════════════════════════════ */
+    .page-content {
+      margin-top: calc(var(--menubar-h) + var(--toolbar-h));
+    }
+
+    /* ═══════════════════════════════════════════
+       PANEL — componente base
+    ═══════════════════════════════════════════ */
+    .panel {
+      border: 1px solid var(--pr-border);
+      background: var(--pr-panel-bg);
+      display: flex;
+      flex-direction: column;
+    }
+    .panel-header {
+      height: 26px;
+      background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .panel-header-icon {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-family: var(--f-head);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+    }
+    .panel-header-actions {
+      margin-left: auto;
+      display: flex;
+      gap: 4px;
+    }
+    .panel-action {
+      width: 16px; height: 16px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tx-lo);
+      font-size: 9px;
+      transition: color 0.1s, background 0.1s;
+    }
+    .panel-action:hover { color: var(--tx-mid); background: rgba(255,255,255,0.06); }
+
+    /* ═══════════════════════════════════════════
+       PROGRAM MONITOR (hero)
+    ═══════════════════════════════════════════ */
+    #section-home {
+      min-height: calc(100svh - var(--menubar-h) - var(--toolbar-h));
+      display: flex;
+      flex-direction: column;
+    }
+
+    .program-monitor {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .monitor-screen {
+      flex: 1;
+      background: #0A0A0C;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* scanline texture */
+    .monitor-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,0.008) 3px,
+        rgba(255,255,255,0.008) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* glow */
+    .monitor-screen::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 50%, rgba(61,167,255,0.07) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 75% 60%, rgba(90,45,122,0.06) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* corner guides */
+    .monitor-corner {
+      position: absolute;
+      width: 20px; height: 20px;
+      border-color: rgba(61,167,255,0.3);
+      border-style: solid;
+      opacity: 0.6;
+    }
+    .monitor-corner.tl { top: 14px; left: 14px; border-width: 1px 0 0 1px; }
+    .monitor-corner.tr { top: 14px; right: 14px; border-width: 1px 1px 0 0; }
+    .monitor-corner.bl { bottom: 14px; left: 14px; border-width: 0 0 1px 1px; }
+    .monitor-corner.br { bottom: 14px; right: 14px; border-width: 0 1px 1px 0; }
+
+    /* safe-area guide */
+    .monitor-safe {
+      position: absolute;
+      inset: 8%;
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 1px;
+    }
+
+    .monitor-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    /* timecode overlay in corner */
+    .monitor-tc-overlay {
+      position: absolute;
+      bottom: 10px; left: 14px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      z-index: 3;
+    }
+    .monitor-tc-overlay span { color: rgba(255,255,255,0.1); }
+
+    /* sequence label top right */
+    .monitor-seq-label {
+      position: absolute;
+      top: 10px; right: 14px;
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 0.1em;
+      z-index: 3;
+    }
+
+    /* hero text */
+    .hero-eyebrow {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-blue);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+      opacity: 0.8;
+    }
+
+    .hero-name {
+      font-family: var(--f-head);
+      font-size: clamp(38px, 9vw, 88px);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      text-shadow: 0 0 80px rgba(61,167,255,0.15);
+    }
+    .hero-name .last { color: var(--accent); }
+
+    .hero-role {
+      font-family: var(--f-head);
+      font-size: clamp(11px, 1.8vw, 14px);
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tx-mid);
+      margin-bottom: 36px;
+    }
+    .hero-role strong { color: var(--tx-hi); font-weight: 600; }
+
+    /* tool badges */
+    .hero-tools {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .tool-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      padding: 4px 10px;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-mid);
+      letter-spacing: 0.04em;
+    }
+    .chip-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+    }
+
+    /* CTAs */
+    .hero-ctas {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-pr-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-2);
+      color: #fff;
+      font-family: var(--f-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 11px 22px;
+      border-radius: 3px;
+      border: 1px solid transparent;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-pr-primary:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(61,167,255,0.3);
+    }
+    .btn-pr-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--tx-mid);
+      font-family: var(--f-head);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 3px;
+      border: 1px solid var(--pr-sep);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .btn-pr-ghost:hover { color: var(--tx-hi); border-color: var(--pr-sep-light); }
+
+    /* transport bar below monitor */
+    .monitor-transport {
+      height: 36px;
+      background: var(--pr-panel-hd2);
+      border-top: 1px solid var(--pr-border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 6px;
+    }
+    .transport-btn {
+      width: 26px; height: 22px;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--tx-mid);
+      font-size: 10px;
+      transition: background 0.1s, color 0.1s;
+    }
+    .transport-btn:hover { background: rgba(255,255,255,0.07); color: var(--tx-hi); }
+    .transport-btn.play-btn { color: var(--accent); }
+    .transport-tc {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--tx-hi);
+      background: var(--pr-input);
+      border: 1px solid var(--pr-sep);
+      border-radius: 2px;
+      padding: 2px 8px;
+      letter-spacing: 0.06em;
+      min-width: 96px;
+      text-align: center;
+      margin-left: 4px;
+    }
+    .transport-dur {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-lo);
+      margin-left: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    /* scrolldown hint */
+    .scroll-hint {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      letter-spacing: 0.08em;
+      animation: fadePulse 2s ease-in-out infinite;
+    }
+    .scroll-arrow { animation: scrollBounce 1.5s ease-in-out infinite; }
+    @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(3px)} }
+    @keyframes fadePulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+    /* ═══════════════════════════════════════════
+       SECTION — workspace panel sections
+    ═══════════════════════════════════════════ */
+    .ws-section {
+      border-top: 2px solid var(--pr-border);
+    }
+
+    /* ═══════════════════════════════════════════
+       SERVICES — project panel
+    ═══════════════════════════════════════════ */
+    #section-services {
+      background: var(--pr-panel-bg);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--pr-border);
+      border-top: 1px solid var(--pr-border);
+    }
+    .svc-card {
+      background: var(--pr-card);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: background 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--clip-color, var(--pr-sep));
+      transition: width 0.2s;
+    }
+    .svc-card:hover { background: #2E2E36; }
+    .svc-card:hover::before { width: 4px; }
+
+    .svc-clip-dot {
+      width: 10px; height: 10px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .svc-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .svc-type {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tx-lo);
+    }
+    .svc-card-title {
+      font-family: var(--f-head);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+    .svc-card-desc {
+      font-size: 13px;
+      color: var(--tx-mid);
+      line-height: 1.65;
+    }
+    .svc-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: auto;
+    }
+    .svc-tag {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.06em;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--pr-sep);
+      border-radius: 2px;
+      padding: 2px 7px;
+      color: var(--tx-lo);
+    }
+    .svc-arrow {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-blue);
+      letter-spacing: 0.04em;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      transform: translateX(-4px);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .svc-card:hover .svc-arrow { opacity: 1; transform: translateX(0); }
+
+    /* ═══════════════════════════════════════════
+       ABOUT — source monitor split
+    ═══════════════════════════════════════════ */
+    #section-about {
+      background: var(--pr-timeline-bg);
+    }
+    .about-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--pr-border);
+      gap: 1px;
+    }
+    .about-photo-panel {
+      background: var(--pr-card);
+      display: flex;
+      flex-direction: column;
+    }
+    .about-photo-area {
+      flex: 1;
+      background: #0A0A0C;
+      position: relative;
+      min-height: 340px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* photo placeholder */
+    .photo-placeholder-v2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--tx-lo);
+    }
+    .photo-placeholder-v2 .ph-icon {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      border: 1px dashed var(--pr-sep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .photo-placeholder-v2 span {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* photo corner guides */
+    .photo-corner { position: absolute; width: 16px; height: 16px; border-color: rgba(61,167,255,0.25); border-style: solid; }
+    .photo-corner.tl { top:8px; left:8px; border-width:1px 0 0 1px; }
+    .photo-corner.tr { top:8px; right:8px; border-width:1px 1px 0 0; }
+    .photo-corner.bl { bottom:8px; left:8px; border-width:0 0 1px 1px; }
+    .photo-corner.br { bottom:8px; right:8px; border-width:0 1px 1px 0; }
+
+    .about-text-panel {
+      background: var(--pr-panel-bg);
+      display: flex;
+      flex-direction: column;
+    }
+    .about-text-content {
+      padding: 32px 28px;
+      flex: 1;
+    }
+
+    .about-label {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .about-label::before {
+      content: '//';
+      color: var(--tx-lo);
+    }
+    .about-heading {
+      font-family: var(--f-head);
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .about-body {
+      font-size: 14px;
+      color: var(--tx-mid);
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    /* stats in code style */
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--pr-sep);
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .stat-cell {
+      background: var(--pr-card);
+      padding: 14px 16px;
+    }
+    .stat-val {
+      font-family: var(--f-mono);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+    .stat-key {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      letter-spacing: 0.06em;
+    }
+
+    /* ═══════════════════════════════════════════
+       PROCESS — effects controls style
+    ═══════════════════════════════════════════ */
+    #section-process {
+      background: var(--pr-panel-bg);
+    }
+    .process-tracks {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--pr-border);
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .process-track {
+      background: var(--pr-track-bg);
+      display: flex;
+      align-items: stretch;
+    }
+    .process-track-hd {
+      width: 180px;
+      flex-shrink: 0;
+      background: var(--pr-panel-hd);
+      border-right: 1px solid var(--pr-sep);
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4px;
+    }
+    .process-track-num {
+      font-family: var(--f-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .process-track-name {
+      font-family: var(--f-head);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tx-hi);
+    }
+    .process-track-body {
+      padding: 20px 24px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .process-track-desc {
+      font-size: 14px;
+      color: var(--tx-mid);
+      line-height: 1.6;
+    }
+    /* clip decoration */
+    .process-clip {
+      width: 6px;
+      align-self: stretch;
+      margin: 8px 16px 8px 0;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════
+       CONTACT
+    ═══════════════════════════════════════════ */
+    #section-contact {
+      background: #0A0A0C;
+      padding: 72px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #section-contact::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(61,167,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contact-inner { position: relative; max-width: 560px; margin: 0 auto; }
+    .contact-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .contact-heading {
+      font-family: var(--f-head);
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.05;
+    }
+    .contact-sub {
+      font-size: 14px;
+      color: var(--tx-mid);
+      margin-bottom: 36px;
+    }
+    .contact-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+    /* ═══════════════════════════════════════════
+       STATUS BAR (above timeline)
+    ═══════════════════════════════════════════ */
+    .status-bar {
+      position: fixed;
+      bottom: var(--timeline-h);
+      left: 0; right: 0;
+      height: 20px;
+      background: var(--pr-menubar);
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-sep);
+      z-index: 895;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 16px;
+    }
+    .sb-item {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .sb-item .val { color: var(--tx-mid); }
+    .sb-section-label {
+      margin-left: auto;
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════════════════════
+       FIXED TIMELINE (bottom)
+    ═══════════════════════════════════════════ */
+    .timeline-panel {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: var(--timeline-h);
+      background: var(--pr-timeline-bg);
+      border-top: 1px solid var(--pr-border);
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* timeline header row */
+    .tl-header {
+      height: 22px;
+      background: var(--pr-panel-hd2);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    /* track label area */
+    .tl-track-labels-hd {
+      width: 64px;
+      flex-shrink: 0;
+      border-right: 1px solid var(--pr-sep);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+    }
+    /* timecode ruler */
+    .tl-ruler {
+      flex: 1;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .tl-ruler-inner {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      padding: 0 4px;
+      gap: 0;
+    }
+    .tl-ruler-mark {
+      font-family: var(--f-mono);
+      font-size: 8px;
+      color: var(--tx-lo);
+      letter-spacing: 0.03em;
+      flex: 1;
+      text-align: left;
+      padding-left: 3px;
+      padding-bottom: 3px;
+      border-left: 1px solid var(--pr-sep);
+    }
+
+    /* track rows */
+    .tl-tracks {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .tl-track {
+      display: flex;
+      align-items: stretch;
+      border-bottom: 1px solid var(--pr-border);
+      flex: 1;
+    }
+    .tl-track:last-child { border-bottom: none; }
+
+    /* track label */
+    .tl-label {
+      width: 64px;
+      flex-shrink: 0;
+      background: var(--pr-panel-hd2);
+      border-right: 1px solid var(--pr-sep);
+      display: flex;
+      align-items: center;
+      padding: 0 8px;
+      gap: 5px;
+    }
+    .tl-label-text {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      font-weight: 600;
+      color: var(--tx-mid);
+      letter-spacing: 0.04em;
+    }
+    .tl-lock { font-size: 8px; color: var(--tx-lo); }
+
+    /* track content */
+    .tl-track-content {
+      flex: 1;
+      position: relative;
+      background: var(--pr-track-bg);
+    }
+    .tl-track:nth-child(odd) .tl-track-content { background: var(--pr-track-odd); }
+
+    /* clip */
+    .tl-clip {
+      position: absolute;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      cursor: pointer;
+      transition: filter 0.15s, top 0.15s, bottom 0.15s;
+      border: 1px solid rgba(0,0,0,0.4);
+    }
+    .tl-clip:hover { top: 1px; bottom: 1px; filter: brightness(1.2); }
+    .tl-clip-label {
+      font-family: var(--f-mono);
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.85);
+      padding: 0 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* waveform bars inside audio clip */
+    .tl-waveform {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      padding: 2px 4px;
+      overflow: hidden;
+    }
+    .wv-bar {
+      width: 1.5px;
+      background: rgba(255,150,50,0.6);
+      border-radius: 1px;
+      flex-shrink: 0;
+    }
+
+    /* PLAYHEAD */
+    .tl-playhead {
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: var(--playhead);
+      z-index: 10;
+      pointer-events: none;
+      transition: left 0.1s linear;
+    }
+    .tl-playhead::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      width: 11px; height: 8px;
+      background: var(--playhead);
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+
+    /* current section indicator on ruler */
+    .tl-section-indicator {
+      position: absolute;
+      top: 0; height: 100%;
+      background: rgba(61,167,255,0.08);
+      pointer-events: none;
+      transition: left 0.3s, width 0.3s;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .about-panels { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --timeline-h: 88px;
+        --track-h: 20px;
+      }
+      .toolbar-nav { display: none; }
+      .toolbar-hamburger { display: flex; }
+      .menu-items .menu-item:nth-child(n+4) { display: none; }
+      .process-track-hd { width: 100px; padding: 14px 12px; }
+      .process-track-num { font-size: 16px; }
+
+      /* hide waveform on small screens for performance */
+      .tl-waveform { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --timeline-h: 80px;
+      }
+      .menu-items { display: none; }
+      .tl-label { width: 42px; padding: 0 5px; }
+      .tl-track-labels-hd { width: 42px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       ANIMATIONS
+    ═══════════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       MENU BAR
+  ═══════════════════════════════════════════ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <!-- 📌 Trocar por <img src="assets/logo.svg" height="14"> se tiver logo -->
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">Arquivo</div>
+      <div class="menu-item">Editar</div>
+      <div class="menu-item">Clipe</div>
+      <div class="menu-item">Sequência</div>
+      <div class="menu-item">Janela</div>
+    </div>
+    <div class="menu-project" id="menuProject">Sem título — anderson_brito_portfolio_2026.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONÍVEL</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TOOLBAR
+  ═══════════════════════════════════════════ -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <!-- selection tool icon -->
+      <div class="tool-btn active" title="Ferramenta de seleção">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><path d="M1 1l9 4.5-4.5 1L4 10z"/></svg>
+      </div>
+      <div class="tool-btn" title="Corte">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2l7 7M2 9l7-7"/></svg>
+      </div>
+      <div class="tool-btn" title="Escorregamento">
+        <svg width="12" height="10" viewBox="0 0 12 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 5h10M8 2l3 3-3 3M4 2L1 5l3 3"/></svg>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <!-- timecode -->
+      <div class="timecode-display" id="tcDisplay">
+        <span id="tcH">00</span><span class="tc-sep">:</span><span id="tcM">00</span><span class="tc-sep">:</span><span id="tcS">00</span><span class="tc-sep">;</span><span id="tcF">00</span>
+      </div>
+    </div>
+
+    <div class="tool-group">
+      <div class="seq-info" id="seqInfo">▸ PORTFOLIO_2026 · 1920x1080 · 30fps</div>
+    </div>
+
+    <!-- Desktop nav -->
+    <div class="toolbar-nav">
+      <a href="index.html" class="toolbar-nav-link">Home</a>
+      <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
+      <a href="#section-about" class="toolbar-nav-link">Sobre</a>
+      <a href="#section-contact" class="toolbar-nav-link cta">Contato</a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="toolbar-hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="marketing.html">Marketing & DR</a>
+    <a href="#section-about">Sobre</a>
+    <a href="#section-contact" class="cta">Contato →</a>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONTENT
+  ═══════════════════════════════════════════ -->
+  <div class="page-content">
+
+    <!-- ── HERO / PROGRAM MONITOR ────────────── -->
+    <section id="section-home" class="ws-section" data-section="INTRO" data-tc="00:00:00;00">
+      <div class="panel program-monitor">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--accent-2);"></div>
+          <span class="panel-title">Monitor de Programa — Portfolio_2026</span>
+          <div class="panel-header-actions">
+            <div class="panel-action">⚙</div>
+            <div class="panel-action">⊞</div>
+          </div>
+        </div>
+
+        <div class="monitor-screen">
+          <!-- Corner guides -->
+          <div class="monitor-corner tl"></div>
+          <div class="monitor-corner tr"></div>
+          <div class="monitor-corner bl"></div>
+          <div class="monitor-corner br"></div>
+          <div class="monitor-safe"></div>
+
+          <!-- TC overlay -->
+          <div class="monitor-tc-overlay"><span>TC </span><span id="monitorTc">00:00:00;00</span></div>
+          <div class="monitor-seq-label">PORTFOLIO_2026 ▸</div>
+
+          <div class="monitor-content">
+            <div class="hero-eyebrow">// andersonbrito.mp4 · AUDIOVISUAL · MARKETING</div>
+            <h1 class="hero-name">
+              ANDERSON<br><span class="last">BRITO</span>
+            </h1>
+            <div class="hero-role">
+              <strong>Editor de Vídeo</strong> · Criativos · VSL · Direct Response
+            </div>
+            <div class="hero-tools">
+              <div class="tool-chip">
+                <div class="chip-dot" style="background:#9B59B6;"></div>
+                Adobe Premiere
+              </div>
+              <div class="tool-chip">
+                <div class="chip-dot" style="background:#E74C3C;"></div>
+                CapCut
+              </div>
+              <div class="tool-chip">
+                <div class="chip-dot" style="background:#F39C12;"></div>
+                DaVinci Resolve
+              </div>
+            </div>
+            <div class="hero-ctas">
+              <a href="marketing.html" class="btn-pr-primary">
+                Ver Portfolio
+                <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+              <a href="#section-contact" class="btn-pr-ghost">Solicitar Orçamento</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transport bar -->
+        <div class="monitor-transport">
+          <div class="transport-btn">⏮</div>
+          <div class="transport-btn">⏪</div>
+          <div class="transport-btn play-btn">▶</div>
+          <div class="transport-btn">⏩</div>
+          <div class="transport-btn">⏭</div>
+          <div class="transport-tc" id="transportTc">00:00:00;00</div>
+          <div class="transport-dur">/ 00:02:00;00</div>
+          <div class="scroll-hint">
+            SCROLL PARA NAVEGAR
+            <svg class="scroll-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 1v8M2 6l3 3 3-3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SERVICES / PROJECT PANEL ──────────── -->
+    <section id="section-services" class="ws-section" data-section="SERVICES" data-tc="00:00:30;00">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--clip-v2);"></div>
+          <span class="panel-title">Painel do Projeto — Serviços</span>
+          <div class="panel-header-actions">
+            <div class="panel-action">≡</div>
+          </div>
+        </div>
+        <div class="services-grid">
+
+          <!-- CARD 1 — Marketing -->
+          <a href="marketing.html" class="svc-card" style="--clip-color: var(--clip-v1);">
+            <div class="svc-card-top">
+              <div class="svc-clip-dot" style="background:var(--clip-v1);"></div>
+              <span class="svc-type">V1 · Vídeo Principal</span>
+            </div>
+            <div class="svc-card-title">Marketing &<br>Direct Response</div>
+            <div class="svc-card-desc">
+              Criativos, VSL e direct response com foco em retenção e conversão. 2 cliques pra ver o level.
+            </div>
+            <div class="svc-tags">
+              <span class="svc-tag">Criativos</span>
+              <span class="svc-tag">VSL</span>
+              <span class="svc-tag">DR</span>
+              <span class="svc-tag">Reels</span>
+              <span class="svc-tag">Shorts</span>
+            </div>
+            <div class="svc-arrow">→ Ver portfolio</div>
+          </a>
+
+          <!-- CARD 2 — Fotografia -->
+          <a href="#" class="svc-card" style="--clip-color: var(--clip-grfx);">
+            <div class="svc-card-top">
+              <div class="svc-clip-dot" style="background:var(--clip-grfx);"></div>
+              <span class="svc-type">V2 · Gráficos · Em breve</span>
+            </div>
+            <div class="svc-card-title">Fotografia</div>
+            <div class="svc-card-desc">
+              Retratos, shows, conceituais. Olhar autoral com obsessão por luz e composição.
+            </div>
+            <div class="svc-tags">
+              <span class="svc-tag">Retratos</span>
+              <span class="svc-tag">Shows</span>
+              <span class="svc-tag">Conceitual</span>
+            </div>
+            <div class="svc-arrow" style="opacity:0.4;">Em produção</div>
+          </a>
+
+          <!-- CARD 3 — Produtos -->
+          <a href="produto.html" class="svc-card" style="--clip-color: var(--orange);">
+            <div class="svc-card-top">
+              <div class="svc-clip-dot" style="background:var(--orange);"></div>
+              <span class="svc-type">GRFX · Produtos Digitais</span>
+            </div>
+            <div class="svc-card-title">Packs &<br>Cursos</div>
+            <div class="svc-card-desc">
+              Templates, packs de efeitos e cursos pra quem quer elevar a produção sem partir do zero.
+            </div>
+            <div class="svc-tags">
+              <span class="svc-tag">Templates</span>
+              <span class="svc-tag">Packs</span>
+              <span class="svc-tag">Cursos</span>
+              <span class="svc-tag">Kiwify</span>
+            </div>
+            <div class="svc-arrow">→ Ver produtos</div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ABOUT / SOURCE MONITOR ────────────── -->
+    <section id="section-about" class="ws-section" data-section="ABOUT" data-tc="00:01:00;00">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--clip-v2);"></div>
+          <span class="panel-title">Monitor de Origem — anderson_brito_bio.mp4</span>
+          <div class="panel-header-actions">
+            <div class="panel-action">⚙</div>
+          </div>
+        </div>
+        <div class="about-panels">
+          <!-- Photo panel -->
+          <div class="about-photo-panel">
+            <div class="panel-header" style="background:var(--pr-panel-hd2);">
+              <span class="panel-title">Clipe de Origem</span>
+            </div>
+            <div class="about-photo-area">
+              <!--
+                📌 FOTO: substitua o bloco abaixo por:
+                <img src="assets/foto-perfil.jpg" alt="Anderson Brito"
+                  style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;">
+              -->
+              <div class="photo-corner tl"></div>
+              <div class="photo-corner tr"></div>
+              <div class="photo-corner bl"></div>
+              <div class="photo-corner br"></div>
+              <div class="photo-placeholder-v2">
+                <div class="ph-icon">👤</div>
+                <span>📌 Sua foto aqui</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text panel -->
+          <div class="about-text-panel">
+            <div class="panel-header" style="background:var(--pr-panel-hd2);">
+              <span class="panel-title">Metadados do Clipe</span>
+            </div>
+            <div class="about-text-content reveal">
+              <div class="about-label">Sobre mim</div>
+              <!-- 📌 Edite o título e o texto abaixo -->
+              <h2 class="about-heading">Editor de vídeo com foco em resultado</h2>
+              <p class="about-body">
+                Sou Anderson Brito, editor audiovisual especializado em conteúdo de marketing digital. Trabalho na interseção entre criatividade e conversão — edito criativos, VSLs e direct response que retém atenção e geram resultado real.
+              </p>
+              <p class="about-body" style="margin-top:-14px;">
+                Nas horas vagas, fotografo. Dentro e fora do estúdio, meu olhar busca o que é autêntico.
+              </p>
+
+              <!-- Stats -->
+              <div class="about-stats">
+                <!-- 📌 Atualize os números -->
+                <div class="stat-cell">
+                  <div class="stat-val">+50</div>
+                  <div class="stat-key">projetos_entregues</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-val">3</div>
+                  <div class="stat-key">ferramentas</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-val">100%</div>
+                  <div class="stat-key">comprometimento</div>
+                </div>
+                <div class="stat-cell">
+                  <div class="stat-val">0</div>
+                  <div class="stat-key">sumiços_sem_aviso</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROCESS / EFFECTS CONTROLS ──────────── -->
+    <section id="section-process" class="ws-section" data-section="PROCESS" data-tc="00:01:30;00">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--clip-audio); background:#6366f1;"></div>
+          <span class="panel-title">Controles de Efeito — Processo de Trabalho</span>
+        </div>
+        <div class="process-tracks">
+
+          <div class="process-track">
+            <div class="process-track-hd">
+              <div class="process-track-num">01</div>
+              <div class="process-track-name">Briefing</div>
+            </div>
+            <div class="process-clip" style="background:var(--clip-v1);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Você envia o material e os objetivos. Eu pergunto o que preciso — sem enrolação.</p>
+            </div>
+          </div>
+
+          <div class="process-track">
+            <div class="process-track-hd">
+              <div class="process-track-num">02</div>
+              <div class="process-track-name">Edição</div>
+            </div>
+            <div class="process-clip" style="background:var(--clip-v2);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Primeiro corte com foco em retenção, ritmo e estratégia de conteúdo. Você vê antes de aprovar.</p>
+            </div>
+          </div>
+
+          <div class="process-track">
+            <div class="process-track-hd">
+              <div class="process-track-num">03</div>
+              <div class="process-track-name">Revisão</div>
+            </div>
+            <div class="process-clip" style="background:var(--clip-grfx);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Rodada de ajustes com feedback direto. Sem ruído, sem retrabalho desnecessário.</p>
+            </div>
+          </div>
+
+          <div class="process-track">
+            <div class="process-track-hd">
+              <div class="process-track-num">04</div>
+              <div class="process-track-name">Entrega</div>
+            </div>
+            <div class="process-clip" style="background:var(--accent-gr);"></div>
+            <div class="process-track-body">
+              <p class="process-track-desc">Arquivo final em alta, otimizado pro canal de destino. Prazo cumprido.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── CONTACT ──────────────────────────────── -->
+    <section id="section-contact" class="ws-section" data-section="CONTACT" data-tc="00:02:00;00">
+      <div class="panel" style="background:#0A0A0C;">
+        <div class="panel-header">
+          <div class="panel-header-icon" style="background:var(--accent-gr);"></div>
+          <span class="panel-title">Exportar — Iniciar Projeto</span>
+        </div>
+        <div id="section-contact-inner" style="padding:72px 20px; text-align:center; position:relative; overflow:hidden;">
+          <div class="contact-inner">
+            <div class="contact-label">// export / render / send</div>
+            <h2 class="contact-heading">Pronto pra<br>render?</h2>
+            <p class="contact-sub">Me chame no Instagram ou WhatsApp. Resposta rápida, sem ruído.</p>
+            <div class="contact-btns">
+              <!-- 📌 Substitua pelos seus links -->
+              <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="btn-pr-primary">
+                Instagram
+              </a>
+              <a href="https://wa.me/5511948577950" target="_blank" class="btn-pr-ghost">
+                WhatsApp
+              </a>
+              <a href="mailto:contato@andersonbrito.com" class="btn-pr-ghost">
+                E-mail
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end .page-content -->
+
+  <!-- ═══════════════════════════════════════════
+       STATUS BAR
+  ═══════════════════════════════════════════ -->
+  <div class="status-bar">
+    <div class="sb-item">SEQ <span class="val">PORTFOLIO_2026</span></div>
+    <div class="sb-item">FPS <span class="val">29.97</span></div>
+    <div class="sb-item">RES <span class="val">1920×1080</span></div>
+    <div class="sb-item">CODEC <span class="val">H.264</span></div>
+    <div class="sb-section-label" id="sbSection">▸ INTRO</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FIXED TIMELINE
+  ═══════════════════════════════════════════ -->
+  <div class="timeline-panel" id="timelinePanel">
+
+    <!-- Header row with ruler -->
+    <div class="tl-header">
+      <div class="tl-track-labels-hd">
+        <span style="font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);">TRACK</span>
+      </div>
+      <div class="tl-ruler" id="tlRuler">
+        <div class="tl-ruler-inner" id="tlRulerInner">
+          <!-- generated by JS -->
+        </div>
+        <!-- section highlight -->
+        <div class="tl-section-indicator" id="sectionIndicator" style="left:0;width:0;"></div>
+        <!-- playhead -->
+        <div class="tl-playhead" id="tlPlayhead" style="left:0;"></div>
+      </div>
+    </div>
+
+    <!-- Tracks -->
+    <div class="tl-tracks">
+
+      <!-- V1 — main video -->
+      <div class="tl-track">
+        <div class="tl-label">
+          <span class="tl-label-text">V1</span>
+          <span class="tl-lock">🔒</span>
+        </div>
+        <div class="tl-track-content" id="trackV1">
+          <!-- clips generated by JS -->
+        </div>
+      </div>
+
+      <!-- V2 — b-roll / graphics -->
+      <div class="tl-track">
+        <div class="tl-label">
+          <span class="tl-label-text">V2</span>
+        </div>
+        <div class="tl-track-content" id="trackV2">
+        </div>
+      </div>
+
+      <!-- A1 — audio -->
+      <div class="tl-track">
+        <div class="tl-label">
+          <span class="tl-label-text">A1</span>
+        </div>
+        <div class="tl-track-content" id="trackA1">
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════ -->
+  <script>
+    // ── Section definitions (position as % of page) ──────────
+    const SECTIONS = [
+      { id: 'section-home',     label: 'INTRO',    tc: '00:00:00;00', color: '#2B5280', pct: 0    },
+      { id: 'section-services', label: 'SERVICES', tc: '00:00:30;00', color: '#1A4D35', pct: 0.25 },
+      { id: 'section-about',    label: 'ABOUT',    tc: '00:01:00;00', color: '#5A2D7A', pct: 0.50 },
+      { id: 'section-process',  label: 'PROCESS',  tc: '00:01:30;00', color: '#6366f1', pct: 0.75 },
+      { id: 'section-contact',  label: 'EXPORT',   tc: '00:02:00;00', color: '#0070D1', pct: 0.95 },
+    ];
+
+    // ── Build ruler ───────────────────────────────────────────
+    const rulerEl = document.getElementById('tlRulerInner');
+    const MARKS = ['00:00', '00:15', '00:30', '00:45', '01:00', '01:15', '01:30', '01:45', '02:00'];
+    MARKS.forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'tl-ruler-mark';
+      el.textContent = m;
+      rulerEl.appendChild(el);
+    });
+
+    // ── Build timeline clips ──────────────────────────────────
+    function buildClips() {
+      const v1 = document.getElementById('trackV1');
+      const v2 = document.getElementById('trackV2');
+      const a1 = document.getElementById('trackA1');
+
+      // V1 clips
+      const v1Clips = [
+        { left:'0%',   width:'25%',  label:'INTRO',    color:'#2B5280', section:'section-home' },
+        { left:'25%',  width:'25%',  label:'SERVICES', color:'#1A4D35', section:'section-services' },
+        { left:'50%',  width:'25%',  label:'ABOUT',    color:'#5A2D7A', section:'section-about' },
+        { left:'75%',  width:'12.5%',label:'PROCESS',  color:'#6366f1', section:'section-process' },
+        { left:'87.5%',width:'12.5%',label:'EXPORT',   color:'#0070D1', section:'section-contact' },
+      ];
+      v1Clips.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};`;
+        el.innerHTML = `<span class="tl-clip-label">${c.label}</span>`;
+        el.addEventListener('click', () => {
+          document.getElementById(c.section)?.scrollIntoView({ behavior:'smooth' });
+        });
+        v1.appendChild(el);
+      });
+
+      // V2 clips (b-roll, offset)
+      const v2Data = [
+        { left:'5%',   width:'18%', color:'#1A3A50' },
+        { left:'28%',  width:'14%', color:'#1A3A20' },
+        { left:'52%',  width:'20%', color:'#3A1A50' },
+        { left:'77%',  width:'15%', color:'#1A1A50' },
+      ];
+      v2Data.forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};`;
+        v2.appendChild(el);
+      });
+
+      // A1 — audio waveform clip
+      const audioClip = document.createElement('div');
+      audioClip.className = 'tl-clip';
+      audioClip.style.cssText = 'left:0;width:100%;background:#3A2A10;';
+      // waveform bars
+      const waveDiv = document.createElement('div');
+      waveDiv.className = 'tl-waveform';
+      const heights = [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55];
+      heights.forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'wv-bar';
+        bar.style.height = h + '%';
+        waveDiv.appendChild(bar);
+      });
+      audioClip.appendChild(waveDiv);
+      a1.appendChild(audioClip);
+    }
+    buildClips();
+
+    // ── Scroll → playhead + timecode ─────────────────────────
+    let scrollProgress = 0;
+
+    function getScrollProgress() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      return max > 0 ? window.scrollY / max : 0;
+    }
+
+    function progressToTC(p) {
+      // total sequence: 2 minutes = 120 seconds at 30fps
+      const totalFrames = 120 * 30;
+      const f = Math.floor(p * totalFrames);
+      const secs = Math.floor(f / 30);
+      const frames = f % 30;
+      const mins = Math.floor(secs / 60);
+      const sec = secs % 60;
+      const pad = n => String(n).padStart(2,'0');
+      return `${pad(mins)}:${pad(sec)};${pad(frames)}`;
+    }
+
+    function formatTCFull(tc) {
+      // tc string like "00:30;15" → object with h,m,s,f
+      const parts = tc.split(':');
+      const sfParts = parts[parts.length-1].split(';');
+      if (parts.length === 3) {
+        return { h: parts[0], m: parts[1], s: sfParts[0], f: sfParts[1]||'00' };
+      } else {
+        return { h: '00', m: parts[0], s: sfParts[0], f: sfParts[1]||'00' };
+      }
+    }
+
+    function updatePlayhead() {
+      const p = getScrollProgress();
+      scrollProgress = p;
+
+      // move playhead in ruler
+      const rulerW = document.getElementById('tlRuler').clientWidth;
+      const playhead = document.getElementById('tlPlayhead');
+      const px = p * rulerW;
+      playhead.style.left = px + 'px';
+
+      // update timecode
+      const tc = progressToTC(p);
+      const parts = tc.split(':');
+      const sfParts = parts[1].split(';');
+      document.getElementById('tcM').textContent = parts[0];
+      document.getElementById('tcS').textContent = sfParts[0];
+      document.getElementById('tcF').textContent = sfParts[1] || '00';
+      document.getElementById('tcH').textContent = '00';
+
+      const tcFull = `00:${tc}`;
+      document.getElementById('monitorTc').textContent = tcFull;
+      document.getElementById('transportTc').textContent = tcFull;
+
+      // find current section
+      let current = SECTIONS[0];
+      for (let i = SECTIONS.length - 1; i >= 0; i--) {
+        if (p >= SECTIONS[i].pct - 0.01) {
+          current = SECTIONS[i];
+          break;
+        }
+      }
+      document.getElementById('sbSection').textContent = `▸ ${current.label}`;
+
+      // section indicator highlight
+      const nextIdx = SECTIONS.indexOf(current) + 1;
+      const nextPct = nextIdx < SECTIONS.length ? SECTIONS[nextIdx].pct : 1;
+      const ind = document.getElementById('sectionIndicator');
+      ind.style.left = (current.pct * rulerW) + 'px';
+      ind.style.width = ((nextPct - current.pct) * rulerW) + 'px';
+    }
+
+    window.addEventListener('scroll', updatePlayhead, { passive: true });
+    window.addEventListener('resize', updatePlayhead);
+    updatePlayhead();
+
+    // ── Mobile hamburger ──────────────────────────────────────
+    document.getElementById('hamburgerBtn').addEventListener('click', () => {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-drawer a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('mobileDrawer').classList.remove('open'));
+    });
+
+    // ── Reveal on scroll ──────────────────────────────────────
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    // ── Clip click nav from timeline ──────────────────────────
+    // (already attached above in buildClips)
+
+  </script>
+</body>
+</html>
