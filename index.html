@@ -382,24 +382,31 @@
       position: fixed;
       top: calc(var(--menubar-h) + var(--toolbar-h));
       left: 0; right: 0;
-      background: var(--pr-panel-hd);
+      background: var(--pr-panel-bg);
+      border-top: 1px solid var(--pr-sep);
       border-bottom: 1px solid var(--pr-sep);
       z-index: 998;
-      flex-direction: column;
-      padding: 8px 12px 16px;
-      gap: 2px;
+      flex-direction: row;
+      padding: 8px 12px;
+      gap: 6px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
     }
     .mobile-drawer.open { display: flex; }
     .mobile-drawer a {
       font-family: var(--f-head);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--tx-mid);
-      padding: 10px 12px;
-      border-radius: 4px;
+      padding: 8px 10px;
+      border-radius: 3px;
       transition: color 0.15s, background 0.15s;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .mobile-drawer a:hover { color: var(--tx-hi); background: rgba(255,255,255,0.05); }
     .mobile-drawer .cta { color: var(--accent); }
@@ -1301,10 +1308,12 @@
         --track-h: 20px;
       }
       .toolbar-nav { display: none; }
-      .toolbar-hamburger { display: flex; }
+      .toolbar-hamburger { display: none; }
+      .mobile-drawer { display: flex !important; }
       .menu-items .menu-item:nth-child(n+4) { display: none; }
       .process-track-hd { width: 100px; padding: 14px 12px; }
       .process-track-num { font-size: 16px; }
+      .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h) + 48px); }
 
       /* hide waveform on small screens for performance */
       .tl-waveform { display: none; }
@@ -1475,7 +1484,7 @@
           <div class="monitor-seq-label">ANDERSON_BRITO_2026 ▸</div>
 
           <div class="monitor-content">
-            <div class="hero-eyebrow">// andersonbrito.mp4 · AUDIOVISUAL · MARKETING</div>
+            <div class="hero-eyebrow">// AUDIOVISUAL · MARKETING · FOTOGRAFIA</div>
             <h1 class="hero-name">
               ANDERSON<br><span class="last">BRITO</span>
             </h1>
@@ -1654,6 +1663,7 @@
             <div class="about-text-content reveal">
               <div class="about-label">Sobre mim</div>
               <h2 class="about-heading">Anderson Rotiroti Brito</h2>
+              <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Videógrafo • Fotógrafo • Editor</p>
               <p class="about-body">
                 Especialista em edição de vídeo para marketing digital e direct response. Foco em conteúdo que prende atenção e gera resultado.
               </p>
@@ -1793,6 +1803,14 @@
                 <a href="https://wa.me/5511948577950" target="_blank" class="btn-pr-ghost" style="gap:8px;">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.5 15l-1.5.5c-.5.2-1-.2-1-.7V13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
                   WhatsApp
+                </a>
+                <a href="https://discord.gg/JgXMGxUG" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.32 3.75a19 19 0 0 0-4.7-1.47c-.22.4-.46.92-.63 1.34a17.5 17.5 0 0 0-5.28 0c-.17-.42-.41-.93-.63-1.34a19 19 0 0 0-4.7 1.47C2.74 8.6 1.97 13.3 2.76 17.9c2 1.5 3.94 2.4 5.86 3 .5-.68.95-1.4 1.3-2.15a12.2 12.2 0 0 1-1.87-.9c.16-.11.31-.23.46-.35 3.6 2.1 7.5 2.1 11.1 0 .15.12.3.24.46.35-.59.35-1.23.67-1.87.9.35.75.8 1.47 1.3 2.15 1.92-.6 3.86-1.5 5.86-3 .88-5.2-.15-9.7-3.87-13.7z" stroke="currentColor" stroke-width="1.2" fill="currentColor"/></svg>
+                  Discord
+                </a>
+                <a href="https://t.me/andersondbrito" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.4-1.13 7.16-.16.86-.48 1.14-.79 1.18-.67.06-1.18-.44-1.82-.86-1.02-.67-1.6-1.08-2.59-1.73-1.14-.75-.4-1.16.25-1.84.17-.18 3.13-2.87 3.19-3.12.01-.05.01-.23-.09-.34-.1-.11-.27-.07-.38-.04-.16.05-2.71 1.73-7.64 5.07-.72.5-1.37.74-1.95.72-.64-.02-1.88-.36-2.79-.67-.74-.25-1.32-.37-1.27-.79.02-.43.54-.86 1.49-1.31 5.83-2.54 7.74-3.35 9.3-4.41 2.47-1.74 2.94-2.04 3.27-2.09.36-.06.72.08.9.24.15.13.24.32.26.52z" stroke="currentColor" stroke-width="1.2" fill="currentColor"/></svg>
+                  Telegram
                 </a>
                 <a href="mailto:contato@andersonbrito.com" class="btn-pr-ghost" style="gap:8px;">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
@@ -2081,14 +2099,6 @@
     window.addEventListener('scroll', updatePlayhead, { passive: true });
     window.addEventListener('resize', updatePlayhead);
     updatePlayhead();
-
-    // ── Mobile hamburger ──────────────────────────────────────
-    document.getElementById('hamburgerBtn').addEventListener('click', () => {
-      document.getElementById('mobileDrawer').classList.toggle('open');
-    });
-    document.querySelectorAll('.mobile-drawer a').forEach(a => {
-      a.addEventListener('click', () => document.getElementById('mobileDrawer').classList.remove('open'));
-    });
 
     // ── Reveal on scroll ──────────────────────────────────────
     const revealObs = new IntersectionObserver(entries => {

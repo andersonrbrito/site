@@ -162,7 +162,7 @@
       display:none; position:fixed;
       top:calc(var(--menubar-h) + var(--toolbar-h)); left:0; right:0;
       background:var(--pr-panel-hd); border-bottom:1px solid var(--pr-sep);
-      z-index:998; flex-direction:column; padding:8px 12px 16px; gap:2px;
+      z-index:998; flex-direction: row; padding:8px 12px 16px; gap:2px;
     }
     .mobile-drawer.open { display:flex; }
     .mobile-drawer a {
@@ -530,10 +530,10 @@
         Arquivo
         <div class="menu-dropdown">
           <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-home'">Ir para INTRO</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-services'">Ir para SERVICES</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-about'">Ir para ABOUT</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-contact'">Ir para CONTATO</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Ir para Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Ir para Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Ir para Sobre</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Ir para IA</div>
         </div>
       </div>
       <div class="menu-item">
@@ -666,9 +666,10 @@
       <p>Me chame. Resposta rápida, sem ruído.</p>
       <div class="cta-buttons">
         <a href="https://wa.me/5511948577950" target="_blank" class="btn-prim">💬 WhatsApp</a>
+        <a href="https://discord.gg/JgXMGxUG" target="_blank" class="btn-ghost">🎮 Discord</a>
+        <a href="https://t.me/andersondbrito" target="_blank" class="btn-ghost">📱 Telegram</a>
         <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="btn-ghost">📸 Instagram</a>
         <a href="https://www.linkedin.com/in/andbrito/" target="_blank" class="btn-ghost">💼 LinkedIn</a>
-        <a href="https://vimeo.com/andersonilmar" target="_blank" class="btn-ghost">🎬 Vimeo</a>
       </div>
       <div style="margin-top:32px;padding-top:20px;border-top:1px solid var(--pr-sep);font-family:var(--f-mono);font-size:10px;color:var(--tx-lo);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;max-width:700px;margin-left:auto;margin-right:auto;">
         <span>📍 Alphaville, São Paulo — Brasil</span>
@@ -924,10 +925,7 @@
   document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 
   // ── Mobile menu ──────────────────────────────────────────────
-  document.getElementById('hamburgerBtn').addEventListener('click',()=>{
-    document.getElementById('mobileDrawer').classList.toggle('open');
-  });
-
+  
   // ── INIT ─────────────────────────────────────────────────────
   updateCounts();
   render('all');

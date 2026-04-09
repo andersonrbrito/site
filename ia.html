@@ -171,8 +171,7 @@
     .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
     .toolbar-nav-link.cta { color: var(--ai-cyan); border: 1px solid var(--ai-cyan); }
     .toolbar-nav-link.cta:hover { background: rgba(0,200,255,.1); }
-    .toolbar-hamburger {
-      display: none; flex-direction: column; gap: 4px;
+    .toolbar-hamburger { display: none; flex-direction: column; gap: 4px;
       margin-left: auto; margin-right: 10px;
       background: none; border: none; cursor: pointer; padding: 6px;
     }
@@ -180,7 +179,13 @@
       display: block; width: 18px; height: 1.5px; background: var(--tx-mid); transition: .2s;
     }
     .mobile-drawer {
-      display: none; flex-direction: column;
+      display: none; flex-direction: row;
+      padding: 8px 12px;
+      gap: 6px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      white-space: nowrap;
       position: fixed; top: var(--top-offset); left: 0; right: 0;
       background: var(--pr-panel-hd); border-bottom: 1px solid var(--pr-sep);
       z-index: 998; padding: 8px 0;
@@ -500,7 +505,9 @@
     @media (max-width: 720px) {
       :root { --timeline-h: 88px; }
       .toolbar-nav { display: none; }
-      .toolbar-hamburger { display: flex; }
+      .toolbar-hamburger { display: none; }
+      .mobile-drawer { display: flex !important; }
+      .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h) + 48px); }
       .menu-items .menu-item:nth-child(n+4) { display: none; }
       .ph-stats { display: none; }
       .page-header { padding: 40px 20px; }
@@ -890,6 +897,12 @@
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
                 WhatsApp
               </a>
+              <a href="https://discord.gg/JgXMGxUG" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                Discord
+              </a>
+              <a href="https://t.me/andersondbrito" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                Telegram
+              </a>
               <a href="marketing.html" class="btn-pr-ghost" style="gap:8px;">
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 Ver Portfólio de Vídeo
@@ -902,6 +915,8 @@
                 <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
                 <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
                 <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
+                <a href="https://discord.gg/JgXMGxUG" target="_blank">Discord</a>
+                <a href="https://t.me/andersondbrito" target="_blank">Telegram</a>
                 <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
                 <a href="mailto:contato@andersonbrito.com">E-mail</a>
               </div>
@@ -1058,8 +1073,7 @@
     }, { threshold: 0.1 });
     revealEls.forEach(el => io.observe(el));
 
-    // ── Mobile hamburger ───────────────────────────
-    const hamburger = document.getElementById('hamburgerBtn');
+        const hamburger = document.getElementById('hamburgerBtn');
     const drawer = document.getElementById('mobileDrawer');
     if (hamburger && drawer) {
       hamburger.addEventListener('click', () => drawer.classList.toggle('open'));

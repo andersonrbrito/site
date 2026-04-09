@@ -153,7 +153,7 @@
       display:none; position:fixed;
       top:calc(var(--menubar-h) + var(--toolbar-h)); left:0; right:0;
       background:var(--pr-panel-hd); border-bottom:1px solid var(--pr-sep);
-      z-index:998; flex-direction:column; padding:8px 12px 16px; gap:2px;
+      z-index:998; flex-direction: row; padding:8px 12px 16px; gap:2px;
     }
     .mobile-drawer.open { display:flex; }
     .mobile-drawer a {
@@ -764,6 +764,8 @@
         <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
         <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
         <a href="https://vimeo.com/andersonilmar" target="_blank">Vimeo</a>
+        <a href="https://discord.gg/JgXMGxUG" target="_blank">Discord</a>
+        <a href="https://t.me/andersondbrito" target="_blank">Telegram</a>
         <a href="https://wa.me/5511948577950" target="_blank">WhatsApp</a>
         <a href="mailto:contato@andersonbrito.com">Email</a>
         <a href="https://andersonbritofoto.fotop.com" target="_blank">Fotop</a>
@@ -799,10 +801,7 @@
 
   <script>
     // ── Mobile menu ──────────────────────────
-    document.getElementById('hamburgerBtn').addEventListener('click', () => {
-      document.getElementById('mobileDrawer').classList.toggle('open');
-    });
-
+    
     // ── Build ruler ───────────────────────────
     const rulerRow = document.getElementById('tlRulerRow');
     ['INTRO','EXP','FORMAÇÃO','CTA','FIM'].forEach(m => {
