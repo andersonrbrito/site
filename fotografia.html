@@ -107,7 +107,7 @@
       display: flex;
       align-items: center;
       gap: 0;
-      overflow: hidden;
+      overflow: visible;
     }
     .menu-appname {
       display: flex;
@@ -954,20 +954,22 @@
         </div>
       </div>
       <div class="menu-item">
-        Sequencia
+        Sequência
         <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequencia Principal</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequencia Marketing DR</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequencia Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequência 2 — Marketing DR</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
         </div>
       </div>
       <div class="menu-item">
         Janela
         <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e => alert('Fullscreen nao suportado'))">Tela Cheia</div>
-          <div class="menu-dropdown-item" onclick="document.querySelector('.page-content').scrollIntoView({behavior:'smooth'})">Resetar Zoom</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4', '_blank')">Abrir Instagram</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Contato via WhatsApp</div>
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e => {})">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar','_blank')">Vimeo</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">WhatsApp</div>
         </div>
       </div>
     </div>

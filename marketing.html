@@ -99,7 +99,21 @@
       padding: 0 10px; font-family: var(--f-head); font-size: 11px;
       color: var(--tx-mid); cursor: pointer; transition: color .15s;
     }
-    .menu-item:hover { color: var(--tx-hi); }
+    .menu-item:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
+    .menu-item { position: relative; }
+    .menu-dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: var(--pr-panel-hd); border: 1px solid var(--pr-sep);
+      min-width: 200px; z-index: 1001; flex-direction: column;
+    }
+    .menu-item:hover .menu-dropdown { display: flex; }
+    .menu-dropdown-item {
+      padding: 8px 12px; color: var(--tx-mid); font-size: 11px;
+      cursor: pointer; border-bottom: 1px solid var(--pr-border);
+      transition: background .1s, color .1s; font-family: var(--f-head);
+    }
+    .menu-dropdown-item:last-child { border-bottom: none; }
+    .menu-dropdown-item:hover { background: rgba(61,167,255,.15); color: var(--accent); }
     .menu-project {
       flex: 1; text-align: center;
       font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
@@ -512,14 +526,54 @@
       <span>andersonbrito.com</span>
     </div>
     <div class="menu-items">
-      <div class="menu-item">Arquivo</div>
-      <div class="menu-item">Clipe</div>
-      <div class="menu-item">Sequência</div>
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Ir para Home</div>
+          <div class="menu-dropdown-item" onclick="window.print()">Imprimir Portfólio</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='mailto:contato@andersonbrito.com'">Enviar Mensagem</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Editar
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.execCommand('selectAll')">Selecionar Tudo</div>
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(()=>{})">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="document.querySelector('.filter-bar-tracks')?.scrollIntoView({behavior:'smooth'})">Ir para Filtros</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Clipe
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.querySelector('[data-cat=criativo]')?.click()">Filtrar: Criativos</div>
+          <div class="menu-dropdown-item" onclick="document.querySelector('[data-cat=vsl]')?.click()">Filtrar: VSL</div>
+          <div class="menu-dropdown-item" onclick="document.querySelector('[data-cat=dr]')?.click()">Filtrar: Direct Response</div>
+          <div class="menu-dropdown-item" onclick="document.querySelector('[data-cat=all]')?.click()">Ver Todos</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Sequência
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequência 2 — Marketing DR</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar','_blank')">Vimeo</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">WhatsApp</div>
+        </div>
+      </div>
     </div>
     <div class="menu-project">anderson_ilmar_brito_2026.prproj</div>
     <div class="menu-right">
       <div class="menu-status-dot"></div>
-      <div class="menu-status-text">ABERTO PARA PROJETOS</div>
+      <div class="menu-status-text">DISPONÍVEL</div>
     </div>
   </div>
 
