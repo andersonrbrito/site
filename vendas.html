@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos — Anderson Brito | Cursos e Pacotes Exclusivos</title>
+  <meta name="description" content="Cursos e pacotes exclusivos de edição de vídeo, criativos e direct response. Acesse agora e domine a arte de vender com vídeos.">
+  <meta name="keywords" content="curso edição vídeo, cursos criativos, VSL, direct response, pacote exclusivo">
+  <meta name="author" content="Anderson Brito">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pr-menubar:   #1C1C1C;
+      --pr-toolbar:   #232325;
+      --pr-panel-bg:  #1E1E22;
+      --pr-panel-hd:  #28282E;
+      --pr-panel-hd2: #222226;
+      --pr-card:      #26262C;
+      --pr-border:    #000;
+      --pr-sep:       #38383F;
+      --accent:       #3DA7FF;
+      --accent-2:     #0070D1;
+      --accent-gr:    #22c55e;
+      --orange:       #FF6B35;
+      --tx-hi:        #EAEAEF;
+      --tx-mid:       #8888A0;
+      --tx-lo:        #505060;
+      --f-mono:       'IBM Plex Mono', monospace;
+      --f-head:       'Exo 2', sans-serif;
+      --f-body:       'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0A0A0C;
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══════════════════════════════════════════
+       HEADER / NAVIGATION
+    ═══════════════════════════════════════════ */
+    .header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 60px;
+      background: rgba(28, 28, 28, 0.95);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 1000;
+      display: flex; align-items: center;
+      padding: 0 24px;
+      gap: 40px;
+      backdrop-filter: blur(8px);
+    }
+    .logo {
+      font-family: var(--f-head);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+    }
+    .logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex: 1;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12px;
+      color: var(--tx-mid);
+      font-family: var(--f-mono);
+      transition: color 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 700;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background 0.2s;
+      letter-spacing: 0.06em;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+    .cta-btn:hover { background: var(--accent-2); }
+
+    /* ═══════════════════════════════════════════
+       HERO SECTION
+    ═══════════════════════════════════════════ */
+    .hero {
+      margin-top: 60px;
+      padding: 80px 40px;
+      background: linear-gradient(135deg, #0A0A0C 0%, #1A1A24 50%, #0A0A0C 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 100% at 50% 50%, rgba(61,167,255,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .hero-label {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .hero-label::before { content: '//'; color: var(--tx-lo); }
+    .hero-h1 {
+      font-family: var(--f-head);
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.01em;
+    }
+    .hero-h1 .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 16px;
+      color: var(--tx-mid);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero-cta {
+      display: inline-flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: #000;
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .btn-primary:hover {
+      background: var(--accent-2);
+      transform: translateY(-2px);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      background: transparent;
+      color: var(--tx-mid);
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ═══════════════════════════════════════════
+       PRODUCTS SECTION
+    ═══════════════════════════════════════════ */
+    .products-section {
+      padding: 80px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .section-h2 {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .section-desc {
+      font-size: 15px;
+      color: var(--tx-mid);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--pr-panel-bg);
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px rgba(61,167,255,0.2);
+      transform: translateY(-4px);
+    }
+    .product-header {
+      padding: 24px 24px 16px;
+      border-bottom: 1px solid var(--pr-sep);
+      background: var(--pr-panel-hd);
+    }
+    .product-badge {
+      display: inline-block;
+      font-family: var(--f-mono);
+      font-size: 8px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--tx-lo);
+      margin-bottom: 8px;
+    }
+    .product-title {
+      font-family: var(--f-head);
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--tx-hi);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .product-price {
+      font-family: var(--f-mono);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .product-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-desc {
+      font-size: 13px;
+      color: var(--tx-mid);
+      line-height: 1.6;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .product-features {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+    .product-features li {
+      font-size: 12px;
+      color: var(--tx-mid);
+      padding-left: 16px;
+      margin-bottom: 8px;
+      position: relative;
+    }
+    .product-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent-gr);
+      font-weight: bold;
+    }
+    .product-cta {
+      padding-top: 16px;
+      border-top: 1px solid var(--pr-sep);
+    }
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 10px;
+      background: var(--pr-card);
+      color: var(--accent);
+      font-family: var(--f-head);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--accent);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .product-link:hover {
+      background: var(--accent);
+      color: #000;
+    }
+
+    /* ═══════════════════════════════════════════
+       BENEFITS SECTION
+    ═══════════════════════════════════════════ */
+    .benefits-section {
+      padding: 80px 40px;
+      background: var(--pr-panel-bg);
+      margin-top: 60px;
+    }
+    .benefits-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .benefit-card {
+      text-align: center;
+    }
+    .benefit-icon {
+      width: 56px;
+      height: 56px;
+      background: rgba(61,167,255,0.1);
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin: 0 auto 16px;
+    }
+    .benefit-title {
+      font-family: var(--f-head);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--tx-hi);
+      margin-bottom: 8px;
+    }
+    .benefit-desc {
+      font-size: 13px;
+      color: var(--tx-mid);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════
+       CTA SECTION
+    ═══════════════════════════════════════════ */
+    .final-cta {
+      padding: 80px 40px;
+      text-align: center;
+      background: linear-gradient(135deg, #1A1A24 0%, #0A0A0C 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(61,167,255,.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta-content {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .final-cta h2 {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .final-cta p {
+      font-size: 16px;
+      color: var(--tx-mid);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    .footer {
+      padding: 40px;
+      background: #0A0A0C;
+      border-top: 1px solid var(--pr-border);
+      text-align: center;
+    }
+    .footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--tx-mid);
+      transition: color 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .social-icon {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 16px;
+    }
+    .social-icon:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .footer-text {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      color: var(--tx-lo);
+      letter-spacing: 0.05em;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 16px;
+        gap: 16px;
+      }
+      .nav-links { gap: 16px; }
+      .cta-btn { display: none; }
+      .hero { padding: 60px 24px; }
+      .hero-h1 { margin-bottom: 16px; }
+      .hero-sub { font-size: 14px; margin-bottom: 32px; }
+      .products-section { padding: 60px 24px; }
+      .section-header { margin-bottom: 40px; }
+      .products-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+      }
+      .benefits-section { padding: 60px 24px; }
+      .benefits-grid { gap: 24px; }
+      .final-cta { padding: 60px 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .header { height: 50px; padding: 0 12px; }
+      .logo { font-size: 12px; }
+      .nav-links { gap: 12px; font-size: 10px; }
+      .hero { padding: 40px 16px; margin-top: 50px; }
+      .hero-h1 { font-size: clamp(28px, 4vw, 36px); }
+      .hero-sub { font-size: 13px; margin-bottom: 24px; }
+      .hero-cta { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; }
+      .products-section { padding: 40px 16px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+      .final-cta { padding: 40px 16px; }
+      .footer-links { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">anderson<span>brito</span></div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="marketing.html">Portfolio</a>
+      <a href="#products">Produtos</a>
+      <a href="index.html#section-contact">Contato</a>
+    </nav>
+    <a href="#products" class="cta-btn">Explorar</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-label">Produtos Exclusivos</div>
+      <h1 class="hero-h1">Domine a arte de<br><span class="accent">vender com vídeos</span></h1>
+      <p class="hero-sub">Cursos, pacotes e recursos criados para editores, criativos e empreendedores que querem dominar criativos, VSL e direct response. Acesso imediato, aulas 100% práticas e templates profissionais.</p>
+      <div class="hero-cta">
+        <a href="#products" class="btn-primary">Ver Produtos</a>
+        <a href="index.html#section-contact" class="btn-secondary">Fale Comigo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="products-section">
+    <div class="section-header">
+      <div class="section-label">// Catálogo Completo</div>
+      <h2 class="section-h2">Produtos em Destaque</h2>
+      <p class="section-desc">Escolha o pacote ideal para seu nível e objetivos. Todos incluem suporte, atualizações contínuas e comunidade exclusiva.</p>
+    </div>
+
+    <div class="products-grid" id="productsGrid">
+      <!-- Produtos serão inseridos aqui via JavaScript -->
+      <!-- Template de exemplo:
+      <div class="product-card">
+        <div class="product-header">
+          <div class="product-badge">NOVO</div>
+          <h3 class="product-title">Nome do Produto</h3>
+          <div class="product-price">R$ 0,00</div>
+        </div>
+        <div class="product-body">
+          <p class="product-desc">Descrição breve do produto</p>
+          <ul class="product-features">
+            <li>Feature 1</li>
+            <li>Feature 2</li>
+            <li>Feature 3</li>
+          </ul>
+          <div class="product-cta">
+            <a href="#" class="product-link" target="_blank">Acessar Agora</a>
+          </div>
+        </div>
+      </div>
+      -->
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-header" style="margin-bottom: 60px;">
+      <h2 class="section-h2">Por Que Investir?</h2>
+    </div>
+
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🎬</div>
+        <h3 class="benefit-title">Aulas 100% Práticas</h3>
+        <p class="benefit-desc">Aprenda fazendo. Cada aula vem com exemplos reais, templates prontos e projetos que você pode usar imediatamente.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">⚡</div>
+        <h3 class="benefit-title">Acesso Imediato</h3>
+        <p class="benefit-desc">Comece agora mesmo. Nenhuma espera, nenhuma burocracia. Seus materiais estão disponíveis assim que confirmar a compra.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎯</div>
+        <h3 class="benefit-title">Foco em Resultado</h3>
+        <p class="benefit-desc">Não é teoria. Cada técnica foi testada em mercado e gera resultado. Você aprende o que realmente funciona.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🚀</div>
+        <h3 class="benefit-title">Comunidade Ativa</h3>
+        <p class="benefit-desc">Faça parte de uma comunidade de criadores. Compartilhe projetos, tire dúvidas e cresça junto com outros profissionais.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🔄</div>
+        <h3 class="benefit-title">Atualizações Contínuas</h3>
+        <p class="benefit-desc">O conteúdo é constantemente atualizado. Novos templates, técnicas e case studies chegam regularmente.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💬</div>
+        <h3 class="benefit-title">Suporte Dedicado</h3>
+        <p class="benefit-desc">Dúvidas? Estou aqui. Respondo todas as perguntas e dou feedback personalizado nos seus projetos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-content">
+      <h2>Pronto para Evoluir?</h2>
+      <p>Escolha seu pacote agora e começe a transformar suas ideias em vídeos que vendem. Acesso imediato, sem limitações.</p>
+      <a href="#products" class="btn-primary">Acessar Catálogo Completo</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-social">
+      <a href="https://www.instagram.com/andersonbrito.mp4" class="social-icon" target="_blank">📸</a>
+      <a href="https://www.linkedin.com/in/andbrito/" class="social-icon" target="_blank">💼</a>
+      <a href="https://wa.me/5511948577950" class="social-icon" target="_blank">💬</a>
+      <a href="https://vimeo.com/andersonilmar" class="social-icon" target="_blank">🎥</a>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="marketing.html">Portfolio</a>
+      <a href="saiba-mais.html">Sobre</a>
+      <a href="index.html#section-contact">Contato</a>
+    </div>
+    <p class="footer-text">© 2024 Anderson Brito. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // ── Products Data (será preenchido com os links do Kiwify) ──
+    const PRODUCTS = [
+      // Exemplo de estrutura:
+      // {
+      //   title: "Nome do Produto",
+      //   badge: "NOVO",
+      //   price: "R$ 197,00",
+      //   desc: "Descrição breve",
+      //   features: ["Feature 1", "Feature 2", "Feature 3"],
+      //   link: "https://kiwify.com.br/..."
+      // }
+    ];
+
+    // ── Render products ──
+    function renderProducts() {
+      const grid = document.getElementById('productsGrid');
+      if (!PRODUCTS || PRODUCTS.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; padding: 60px 40px; text-align: center; color: var(--tx-mid);">Produtos serão adicionados em breve. Fique atento!</div>';
+        return;
+      }
+
+      grid.innerHTML = PRODUCTS.map(product => `
+        <div class="product-card">
+          <div class="product-header">
+            ${product.badge ? `<div class="product-badge">${product.badge}</div>` : ''}
+            <h3 class="product-title">${product.title}</h3>
+            <div class="product-price">${product.price}</div>
+          </div>
+          <div class="product-body">
+            <p class="product-desc">${product.desc}</p>
+            <ul class="product-features">
+              ${product.features.map(f => `<li>${f}</li>`).join('')}
+            </ul>
+            <div class="product-cta">
+              <a href="${product.link}" class="product-link" target="_blank">Acessar Agora →</a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    renderProducts();
+
+    // ── Smooth scroll para #products ──
+    document.querySelectorAll('a[href="#products"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
