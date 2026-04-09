@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /editor.html
+
+Sitemap: https://andersonbrito.com/sitemap.xml
+Sitemap: https://andersonrbrito.github.io/site/sitemap.xml
