@@ -46,7 +46,7 @@
       --accent:     #3DA7FF;
       --accent-2:   #0070D1;
       --accent-gr:  #22c55e;
-      --ai-cyan:    #00C8FF;
+      --accent:    #00C8FF;
       --ai-teal:    #00E5CC;
       --orange:     #FF6B35;
       --playhead:   #A8D0FF;
@@ -93,7 +93,7 @@
       color: var(--tx-hi); letter-spacing: 0.05em;
     }
     .menu-pr-icon {
-      width: 16px; height: 16px; background: var(--ai-cyan);
+      width: 16px; height: 16px; background: var(--accent);
       border-radius: 2px; display: flex; align-items: center; justify-content: center;
       font-size: 7px; font-weight: 800; color: #000; letter-spacing: -0.5px; flex-shrink: 0;
     }
@@ -120,7 +120,7 @@
       letter-spacing: 0.02em;
     }
     .menu-dropdown-item:last-child { border-bottom: none; }
-    .menu-dropdown-item:hover { background: rgba(0,200,255,.1); color: var(--ai-cyan); }
+    .menu-dropdown-item:hover { background: rgba(0,200,255,.1); color: var(--accent); }
     .menu-project {
       flex: 1; text-align: center;
       font-family: var(--f-mono); font-size: 10px;
@@ -130,8 +130,8 @@
       display: flex; align-items: center; gap: 8px;
       padding: 0 14px; flex-shrink: 0;
     }
-    .menu-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ai-cyan); }
-    .menu-status-text { font-family: var(--f-mono); font-size: 9px; color: var(--ai-cyan); letter-spacing: .1em; }
+    .menu-status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+    .menu-status-text { font-family: var(--f-mono); font-size: 9px; color: var(--accent); letter-spacing: .1em; }
 
     /* ── TOOLBAR ─── */
     .toolbar {
@@ -149,7 +149,7 @@
       display: flex; align-items: center; justify-content: center;
       color: var(--tx-mid); cursor: pointer; transition: background .1s, color .1s;
     }
-    .tool-btn:hover, .tool-btn.active { background: rgba(0,200,255,.12); color: var(--ai-cyan); }
+    .tool-btn:hover, .tool-btn.active { background: rgba(0,200,255,.12); color: var(--accent); }
     .timecode-display {
       font-family: var(--f-mono); font-size: 13px; color: var(--tx-hi);
       background: var(--pr-input); padding: 3px 10px; border-radius: 2px;
@@ -157,7 +157,7 @@
     }
     .tc-sep { color: var(--tx-lo); margin: 0 1px; }
     .seq-info {
-      font-family: var(--f-mono); font-size: 10px; color: var(--ai-cyan);
+      font-family: var(--f-mono); font-size: 10px; color: var(--accent);
       letter-spacing: .05em; white-space: nowrap;
     }
     .toolbar-nav {
@@ -169,7 +169,7 @@
       transition: color .15s, background .15s; letter-spacing: .03em;
     }
     .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
-    .toolbar-nav-link.cta { color: var(--ai-cyan); border: 1px solid var(--ai-cyan); }
+    .toolbar-nav-link.cta { color: var(--accent); border: 1px solid var(--accent); }
     .toolbar-nav-link.cta:hover { background: rgba(0,200,255,.1); }
     .toolbar-hamburger { display: none; flex-direction: column; gap: 4px;
       margin-left: auto; margin-right: 10px;
@@ -195,8 +195,8 @@
       padding: 12px 20px; font-family: var(--f-head); font-size: 13px;
       color: var(--tx-mid); text-decoration: none; border-bottom: 1px solid var(--pr-border);
     }
-    .mobile-drawer a:hover { color: var(--ai-cyan); }
-    .mobile-drawer a.cta { color: var(--ai-cyan); }
+    .mobile-drawer a:hover { color: var(--accent); }
+    .mobile-drawer a.cta { color: var(--accent); }
 
     /* ── STATUS BAR ─── */
     .status-bar {
@@ -212,7 +212,7 @@
     .sb-item .val { color: var(--tx-mid); margin-left: 4px; }
     .sb-section-label {
       margin-left: auto; font-family: var(--f-mono); font-size: 9px;
-      color: var(--ai-cyan); letter-spacing: .1em;
+      color: var(--accent); letter-spacing: .1em;
     }
 
     /* ── TIMELINE ─── */
@@ -319,7 +319,7 @@
     }
     .ph-label {
       font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--ai-cyan); margin-bottom: 10px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
       display: flex; align-items: center; gap: 8px;
     }
     .ph-label::before { content: '//'; color: var(--tx-lo); }
@@ -329,7 +329,7 @@
       font-weight: 900; line-height: 1.05;
       margin-bottom: 8px;
     }
-    .ph-h1 span { color: var(--ai-cyan); }
+    .ph-h1 span { color: var(--accent); }
     .ph-sub {
       font-size: 13px; color: var(--tx-mid); max-width: 420px;
     }
@@ -341,7 +341,7 @@
     }
     .ph-stat .n {
       font-family: var(--f-mono); font-size: 26px; font-weight: 600;
-      color: var(--ai-cyan); line-height: 1;
+      color: var(--accent); line-height: 1;
     }
     .ph-stat .l {
       font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
@@ -366,7 +366,7 @@
       border: 1px solid var(--pr-sep); cursor: pointer; text-decoration: none;
       transition: border-color .15s, color .15s; border-radius: 2px;
     }
-    .btn-pr-ghost:hover { border-color: var(--ai-cyan); color: var(--ai-cyan); }
+    .btn-pr-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
     /* ── CARDS GRID ─── */
     .ws-section { border-top: 2px solid var(--pr-border); }
@@ -399,7 +399,7 @@
       pointer-events: none;
     }
     .ia-card:hover {
-      border-color: var(--card-color, var(--ai-cyan));
+      border-color: var(--card-color, var(--accent));
       box-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
       transform: translateY(-6px);
     }
@@ -422,20 +422,20 @@
       height: 60px;
       border-radius: 10px;
       background: rgba(0, 200, 255, 0.1);
-      border: 2px solid var(--card-color, var(--ai-cyan));
+      border: 2px solid var(--card-color, var(--accent));
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 28px;
       margin-bottom: 12px;
-      color: var(--card-color, var(--ai-cyan));
+      color: var(--card-color, var(--accent));
     }
     .ia-card-title {
       font-family: var(--f-head);
       font-size: 14px;
       font-weight: 700;
       line-height: 1.3;
-      color: var(--card-color, var(--ai-cyan));
+      color: var(--card-color, var(--accent));
       margin-bottom: 8px;
     }
     .ia-card-desc { display: none; }
@@ -460,7 +460,7 @@
       justify-content: center;
       font-size: 24px;
       margin-bottom: 12px;
-      color: var(--card-color, var(--ai-cyan));
+      color: var(--card-color, var(--accent));
       position: relative;
       z-index: 2;
     }
@@ -469,7 +469,7 @@
       font-size: 16px;
       font-weight: 700;
       line-height: 1.3;
-      color: var(--card-color, var(--ai-cyan));
+      color: var(--card-color, var(--accent));
       margin-bottom: 8px;
       position: relative;
       z-index: 2;
@@ -483,7 +483,7 @@
     }
     .ia-status {
       margin-top: auto; font-family: var(--f-mono); font-size: 10px;
-      color: var(--ai-cyan); letter-spacing: .05em;
+      color: var(--accent); letter-spacing: .05em;
     }
     .ia-status.soon { color: var(--tx-lo); }
 
@@ -501,11 +501,11 @@
     .prompt-card {
       background: var(--pr-card); padding: 20px 24px;
       display: flex; gap: 20px; align-items: flex-start;
-      border-left: 3px solid var(--ai-cyan); transition: background .2s;
+      border-left: 3px solid var(--accent); transition: background .2s;
     }
     .prompt-card:hover { background: #2A2A32; }
     .prompt-num {
-      font-family: var(--f-mono); font-size: 11px; color: var(--ai-cyan);
+      font-family: var(--f-mono); font-size: 11px; color: var(--accent);
       opacity: .5; flex-shrink: 0; margin-top: 2px;
     }
     .prompt-tool {
@@ -516,7 +516,7 @@
       font-family: var(--f-mono); font-size: 12px; color: var(--tx-mid);
       line-height: 1.7; font-style: italic;
     }
-    .prompt-text strong { color: var(--ai-cyan); font-style: normal; }
+    .prompt-text strong { color: var(--accent); font-style: normal; }
     .prompt-result {
       margin-top: 10px; font-size: 12px; color: var(--tx-lo);
     }
@@ -535,7 +535,7 @@
     }
     .process-track-num {
       font-family: var(--f-mono); font-size: 18px; font-weight: 600;
-      color: var(--ai-cyan); opacity: .4;
+      color: var(--accent); opacity: .4;
     }
     .process-track-name {
       font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
@@ -561,7 +561,7 @@
       font-family: var(--f-head); font-size: clamp(28px, 5vw, 48px);
       font-weight: 900; color: var(--tx-hi); line-height: 1; margin-bottom: 16px;
     }
-    .cta-heading span { color: var(--ai-cyan); }
+    .cta-heading span { color: var(--accent); }
     .cta-sub { font-size: 13px; color: var(--tx-mid); line-height: 1.7; margin-bottom: 32px; }
     .cta-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
     .footer-info { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--pr-sep); }
@@ -572,7 +572,7 @@
       text-decoration: none; letter-spacing: .08em;
       transition: color .15s;
     }
-    .footer-social a:hover { color: var(--ai-cyan); }
+    .footer-social a:hover { color: var(--accent); }
 
     /* ── RESPONSIVE ─── */
     @media (max-width: 720px) {
@@ -689,7 +689,7 @@
       <a href="index.html" class="toolbar-nav-link">Home</a>
       <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
       <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
-      <a href="ia.html" class="toolbar-nav-link" style="color:var(--ai-cyan);">IA</a>
+      <a href="ia.html" class="toolbar-nav-link" style="color:var(--accent);">IA</a>
       <a href="index.html#section-contact" class="toolbar-nav-link cta">Contato</a>
     </div>
     <button class="toolbar-hamburger" id="hamburgerBtn">
@@ -702,7 +702,7 @@
     <a href="index.html">Home</a>
     <a href="marketing.html">Marketing DR</a>
     <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html" style="color:var(--ai-cyan);">Projetos de IA</a>
+    <a href="ia.html" style="color:var(--accent);">Projetos de IA</a>
     <a href="index.html#section-contact" class="cta">Contato</a>
   </div>
 
@@ -713,7 +713,7 @@
     <section class="ws-section">
       <div class="panel" style="background:#050F14;">
         <div class="panel-header">
-          <div class="panel-header-icon" style="background:var(--ai-cyan);"></div>
+          <div class="panel-header-icon" style="background:var(--accent);"></div>
           <span class="panel-title">Bin: Projetos de Inteligência Artificial</span>
           <div class="panel-header-actions">
             <div class="panel-action">&#8862;</div>
@@ -723,23 +723,18 @@
         <div class="page-header">
           <div class="ph-inner">
             <div>
-              <div class="ph-label">AI · Inteligência Artificial Aplicada ao Audiovisual</div>
+              <div class="ph-label">Inteligência Artificial Aplicada ao Audiovisual</div>
               <h1 class="ph-h1">Projetos<br><span>de IA</span></h1>
               <p class="ph-sub">Prompts, artes e experimentos com inteligência artificial aplicada ao audiovisual e à criação visual. Uma nova camada criativa que amplia — não substitui — o trabalho humano.</p>
-              <p class="ph-sub" style="margin-top:12px; color:var(--tx-lo);">Este espaço evolui continuamente. Os projetos aqui são experimentos reais, com prompts documentados e resultados que mostram o potencial da IA como ferramenta criativa.</p>
             </div>
             <div class="ph-stats">
               <div class="ph-stat">
-                <div class="n" style="color:var(--ai-cyan);">IA</div>
-                <div class="l">ferramenta_criativa</div>
+                <div class="n">+4</div>
+                <div class="l">ferramentas_ia</div>
               </div>
               <div class="ph-stat">
-                <div class="n" style="color:var(--ai-cyan);">4K</div>
-                <div class="l">resolucao_saida</div>
-              </div>
-              <div class="ph-stat">
-                <div class="n" style="color:var(--ai-cyan);">∞</div>
-                <div class="l">possibilidades</div>
+                <div class="n">100%</div>
+                <div class="l">criativo</div>
               </div>
             </div>
           </div>
@@ -751,7 +746,7 @@
     <section id="section-projects" class="ws-section">
       <div class="panel">
         <div class="panel-header">
-          <div class="panel-header-icon" style="background:var(--ai-cyan);"></div>
+          <div class="panel-header-icon" style="background:var(--accent);"></div>
           <span class="panel-title">Painel do Projeto — Categorias IA</span>
           <div class="panel-header-actions">
             <div class="panel-action">&#8801;</div>
@@ -915,7 +910,7 @@
               <div class="process-track-num">01</div>
               <div class="process-track-name">Conceito</div>
             </div>
-            <div class="process-clip" style="background:var(--ai-cyan);"></div>
+            <div class="process-clip" style="background:var(--accent);"></div>
             <div class="process-track-body">
               <p class="process-track-desc">Uso IA para explorar referências visuais e ângulos narrativos antes da produção. Gera mood boards, paletas e estruturas de roteiro — acelerando o processo criativo sem travar a intuição.</p>
             </div>

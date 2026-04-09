@@ -1661,7 +1661,7 @@
             <div class="panel-header" style="background:var(--pr-panel-hd2);">
               <span class="panel-title">Metadados do Clipe</span>
             </div>
-            <div class="about-text-content reveal">
+            <div class="about-text-content">
               <div class="about-label">Sobre mim</div>
               <h2 class="about-heading">Anderson Rotiroti Brito</h2>
               <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Filmmaker • Editor • Fotógrafo</p>
@@ -1921,6 +1921,9 @@
       rulerEl.appendChild(el);
     });
 
+    // ── Global variable for waveform bars (accessible in updatePlayhead) ──
+    let waveformBars = [];
+
     // ── Build timeline clips ──────────────────────────────────
     function buildClips() {
       const v1 = document.getElementById('trackV1');
@@ -1986,7 +1989,7 @@
       const waveDiv = document.createElement('div');
       waveDiv.className = 'tl-waveform';
       const heights = [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55];
-      const waveformBars = []; // Store bar references for scroll-based fill
+      waveformBars = []; // Reset and populate global waveformBars array
 
       heights.forEach((h, idx) => {
         const bar = document.createElement('div');
