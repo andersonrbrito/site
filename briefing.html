@@ -562,18 +562,18 @@
 
         <form id="briefingForm" novalidate>
 
-          <!-- SEÇÃO 1: SOBRE VOCÊ -->
+          <!-- SEÇÃO 1: SEUS DADOS -->
           <div class="form-section">
-            <div class="form-section-label">01 // Sobre você</div>
+            <div class="form-section-label">01 // Seus dados</div>
 
             <div class="field-row two">
               <div class="field-group">
-                <label class="field-label" for="nome">Nome completo <span class="req">*</span></label>
+                <label class="field-label" for="nome">Nome <span class="req">*</span></label>
                 <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="given-name">
                 <span class="error-msg" id="err-nome">Por favor, informe seu nome.</span>
               </div>
               <div class="field-group">
-                <label class="field-label" for="telefone">Telefone / WhatsApp <span class="req">*</span></label>
+                <label class="field-label" for="telefone">WhatsApp <span class="req">*</span></label>
                 <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" autocomplete="tel">
                 <span class="error-msg" id="err-telefone">Por favor, informe seu WhatsApp.</span>
               </div>
@@ -585,143 +585,40 @@
                 <input type="email" id="email" name="email" placeholder="email@empresa.com" autocomplete="email">
               </div>
               <div class="field-group">
-                <label class="field-label" for="empresa">Empresa / Canal / Marca</label>
-                <input type="text" id="empresa" name="empresa" placeholder="Nome do seu negócio ou canal">
-              </div>
-            </div>
-
-            <div class="field-row one">
-              <div class="field-group">
-                <label class="field-label" for="segmento">Segmento / nicho de atuação</label>
-                <select id="segmento" name="segmento">
-                  <option value="">Selecione seu segmento...</option>
-                  <option value="Infoprodutos / Cursos online">Infoprodutos / Cursos online</option>
-                  <option value="E-commerce / Produtos físicos">E-commerce / Produtos físicos</option>
-                  <option value="Serviços / Consultoria">Serviços / Consultoria</option>
-                  <option value="Saúde e bem-estar">Saúde e bem-estar</option>
-                  <option value="Imóveis / Real estate">Imóveis / Real estate</option>
-                  <option value="Fitness / Esporte">Fitness / Esporte</option>
-                  <option value="Alimentação / Restaurante">Alimentação / Restaurante</option>
-                  <option value="Tecnologia / SaaS">Tecnologia / SaaS</option>
-                  <option value="Moda / Beleza">Moda / Beleza</option>
-                  <option value="Agência de marketing">Agência de marketing</option>
-                  <option value="Entretenimento / Influencer">Entretenimento / Influencer</option>
-                  <option value="Outro">Outro</option>
-                </select>
+                <label class="field-label" for="empresa">Empresa / Canal</label>
+                <input type="text" id="empresa" name="empresa" placeholder="Nome do negócio ou canal">
               </div>
             </div>
           </div>
 
-          <!-- SEÇÃO 2: SEU PROJETO -->
+          <!-- SEÇÃO 2: O QUE PRECISA -->
           <div class="form-section">
-            <div class="form-section-label">02 // Tipo de conteúdo</div>
-
-            <div class="field-group" style="margin-bottom: 16px;">
-              <label class="field-label">Que tipo de vídeo você precisa? (pode marcar mais de um)</label>
-              <div style="height:8px;"></div>
-              <div class="check-grid">
-                <div class="check-item">
-                  <input type="checkbox" id="t-criativo" name="tipos" value="Criativo para tráfego pago">
-                  <label for="t-criativo">Criativo para tráfego pago</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-vsl" name="tipos" value="VSL (Video Sales Letter)">
-                  <label for="t-vsl">VSL (Video Sales Letter)</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-dr" name="tipos" value="Direct Response">
-                  <label for="t-dr">Direct Response</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-reels" name="tipos" value="Reels / TikTok / Shorts">
-                  <label for="t-reels">Reels / TikTok / Shorts</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-lancamento" name="tipos" value="Vídeo de lançamento">
-                  <label for="t-lancamento">Vídeo de lançamento</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-inst" name="tipos" value="Vídeo institucional">
-                  <label for="t-inst">Vídeo institucional</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-depo" name="tipos" value="Depoimento / Prova social">
-                  <label for="t-depo">Depoimento / Prova social</label>
-                </div>
-                <div class="check-item">
-                  <input type="checkbox" id="t-outro" name="tipos" value="Outro formato">
-                  <label for="t-outro">Outro formato</label>
-                </div>
-              </div>
-            </div>
+            <div class="form-section-label">02 // O que você precisa</div>
 
             <div class="field-row two">
               <div class="field-group">
-                <label class="field-label" for="plataforma">Plataforma principal</label>
-                <select id="plataforma" name="plataforma">
+                <label class="field-label" for="tipo">Tipo de projeto <span class="req">*</span></label>
+                <select id="tipo" name="tipo">
                   <option value="">Selecione...</option>
-                  <option value="Instagram / Facebook Ads">Instagram / Facebook Ads</option>
-                  <option value="YouTube / Google Ads">YouTube / Google Ads</option>
-                  <option value="TikTok Ads">TikTok Ads</option>
-                  <option value="Múltiplas plataformas">Múltiplas plataformas</option>
-                  <option value="Não sei ainda">Não sei ainda</option>
-                </select>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="quantidade">Quantidade estimada de vídeos</label>
-                <select id="quantidade" name="quantidade">
-                  <option value="">Selecione...</option>
-                  <option value="1 a 3 vídeos (projeto pontual)">1 a 3 vídeos (projeto pontual)</option>
-                  <option value="4 a 10 vídeos">4 a 10 vídeos</option>
-                  <option value="10+ vídeos por mês (recorrente)">10+ vídeos por mês (recorrente)</option>
-                  <option value="Não sei ainda">Não sei ainda</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <!-- SEÇÃO 3: OBJETIVOS -->
-          <div class="form-section">
-            <div class="form-section-label">03 // Objetivo &amp; Contexto</div>
-
-            <div class="field-row two">
-              <div class="field-group">
-                <label class="field-label" for="objetivo">Objetivo principal do vídeo</label>
-                <select id="objetivo" name="objetivo">
-                  <option value="">Selecione...</option>
-                  <option value="Aumentar vendas diretas">Aumentar vendas diretas</option>
-                  <option value="Gerar leads qualificados">Gerar leads qualificados</option>
-                  <option value="Lançamento de produto / serviço">Lançamento de produto / serviço</option>
-                  <option value="Construir autoridade e marca">Construir autoridade e marca</option>
-                  <option value="Aumentar alcance / awareness">Aumentar alcance / awareness</option>
-                  <option value="Reter e fidelizar clientes">Reter e fidelizar clientes</option>
+                  <option value="Criativo para tráfego pago">Criativo para tráfego pago</option>
+                  <option value="VSL (Video Sales Letter)">VSL (Video Sales Letter)</option>
+                  <option value="Reels / TikTok / Shorts">Reels / TikTok / Shorts</option>
+                  <option value="Vídeo institucional / lançamento">Vídeo institucional / lançamento</option>
+                  <option value="Edição recorrente (mensal)">Edição recorrente (mensal)</option>
+                  <option value="Fotografia profissional">Fotografia profissional</option>
                   <option value="Outro">Outro</option>
                 </select>
               </div>
               <div class="field-group">
-                <label class="field-label" for="prazo">Prazo desejado</label>
-                <select id="prazo" name="prazo">
-                  <option value="">Selecione...</option>
-                  <option value="Urgente (até 7 dias)">Urgente (até 7 dias)</option>
-                  <option value="Curto (até 15 dias)">Curto (até 15 dias)</option>
-                  <option value="Normal (até 30 dias)">Normal (até 30 dias)</option>
-                  <option value="Planejado (+30 dias)">Planejado (+30 dias)</option>
-                  <option value="Sem prazo definido">Sem prazo definido</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field-row one">
-              <div class="field-group">
-                <label class="field-label" for="investimento">Faixa de investimento estimado</label>
+                <label class="field-label" for="investimento">Faixa de investimento</label>
                 <select id="investimento" name="investimento">
-                  <option value="">Prefiro receber uma proposta primeiro</option>
+                  <option value="">Prefiro receber uma proposta</option>
                   <option value="Até R$ 500">Até R$ 500</option>
                   <option value="R$ 500 a R$ 1.500">R$ 500 a R$ 1.500</option>
                   <option value="R$ 1.500 a R$ 3.000">R$ 1.500 a R$ 3.000</option>
                   <option value="R$ 3.000 a R$ 5.000">R$ 3.000 a R$ 5.000</option>
                   <option value="Acima de R$ 5.000">Acima de R$ 5.000</option>
-                  <option value="Retainer / Recorrência mensal">Retainer / Recorrência mensal</option>
+                  <option value="Retainer / Recorrência mensal">Retainer mensal</option>
                 </select>
                 <span class="field-hint">Não precisa ser exato. Só ajuda a calibrar a proposta.</span>
               </div>
@@ -729,42 +626,9 @@
 
             <div class="field-row one">
               <div class="field-group">
-                <label class="field-label" for="descricao">Conte mais sobre o projeto</label>
-                <textarea id="descricao" name="descricao" placeholder="Ex: Preciso de um criativo de 30s para vender meu curso de finanças. Tenho o vídeo gravado e preciso de edição com legendas, motion e música. Já rodei anúncios antes mas quero melhorar a taxa de conversão..." rows="5"></textarea>
-                <span class="field-hint">Quanto mais contexto, melhor. Pode colar roteiro, referências, links...</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- SEÇÃO 4: REFERÊNCIAS -->
-          <div class="form-section">
-            <div class="form-section-label">04 // Referências &amp; Descoberta</div>
-
-            <div class="field-row two">
-              <div class="field-group">
-                <label class="field-label" for="referencia">Tem referência de vídeo? (link)</label>
-                <input type="text" id="referencia" name="referencia" placeholder="youtube.com/watch?v=... ou link de pasta">
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="origem">Como me encontrou?</label>
-                <select id="origem" name="origem">
-                  <option value="">Selecione...</option>
-                  <option value="Instagram">Instagram</option>
-                  <option value="Indicação de alguém">Indicação de alguém</option>
-                  <option value="LinkedIn">LinkedIn</option>
-                  <option value="Google">Google</option>
-                  <option value="YouTube">YouTube</option>
-                  <option value="TikTok">TikTok</option>
-                  <option value="Vimeo">Vimeo</option>
-                  <option value="Outro">Outro</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="field-row one">
-              <div class="field-group">
-                <label class="field-label" for="obs">Alguma observação ou dúvida?</label>
-                <textarea id="obs" name="obs" placeholder="Qualquer detalhe adicional que achar importante..." rows="3"></textarea>
+                <label class="field-label" for="descricao">Descreva o que você precisa</label>
+                <textarea id="descricao" name="descricao" placeholder="Ex: Preciso de 3 criativos de 30s para vender meu curso. Tenho o material gravado e quero edição com legendas, motion e música. Pode incluir referências, links, prazos..." rows="5"></textarea>
+                <span class="field-hint">Quanto mais contexto, melhor a proposta. O resto a gente alinha por WhatsApp.</span>
               </div>
             </div>
           </div>
@@ -880,59 +744,36 @@
     }
 
     function collectData() {
-      const checked = [...document.querySelectorAll('input[name="tipos"]:checked')].map(c => c.value);
       return {
         nome:        document.getElementById('nome').value.trim(),
         telefone:    document.getElementById('telefone').value.trim(),
         email:       document.getElementById('email').value.trim(),
         empresa:     document.getElementById('empresa').value.trim(),
-        segmento:    document.getElementById('segmento').value,
-        tipos:       checked.length ? checked.join(', ') : 'Não informado',
-        plataforma:  document.getElementById('plataforma').value || 'Não informado',
-        quantidade:  document.getElementById('quantidade').value || 'Não informado',
-        objetivo:    document.getElementById('objetivo').value || 'Não informado',
-        prazo:       document.getElementById('prazo').value || 'Não informado',
-        investimento:document.getElementById('investimento').value || 'Prefiro receber proposta primeiro',
+        tipo:        document.getElementById('tipo').value || 'Não informado',
+        investimento:document.getElementById('investimento').value || 'Prefiro receber proposta',
         descricao:   document.getElementById('descricao').value.trim(),
-        referencia:  document.getElementById('referencia').value.trim(),
-        origem:      document.getElementById('origem').value || 'Não informado',
-        obs:         document.getElementById('obs').value.trim(),
       };
     }
 
     function buildMessage(d) {
       const linhas = [
-        '🎬 *BRIEFING DE PROJETO — andersonbrito.com*',
+        '🎬 *BRIEFING — andersonbrito.com*',
         '',
         '━━━━━━━━━━━━━━━━━━━━━━━',
-        '👤 *SOBRE VOCÊ*',
+        '👤 *DADOS*',
         `• Nome: ${d.nome}`,
         `• WhatsApp: ${d.telefone}`,
-        d.email    ? `• E-mail: ${d.email}`    : null,
-        d.empresa  ? `• Empresa / Canal: ${d.empresa}` : null,
-        d.segmento ? `• Segmento: ${d.segmento}` : null,
+        d.email   ? `• E-mail: ${d.email}`   : null,
+        d.empresa ? `• Empresa: ${d.empresa}` : null,
         '',
         '━━━━━━━━━━━━━━━━━━━━━━━',
-        '🎥 *TIPO DE CONTEÚDO*',
-        `• Formato(s): ${d.tipos}`,
-        `• Plataforma: ${d.plataforma}`,
-        `• Quantidade: ${d.quantidade}`,
-        '',
-        '━━━━━━━━━━━━━━━━━━━━━━━',
-        '🎯 *OBJETIVO & CONTEXTO*',
-        `• Objetivo: ${d.objetivo}`,
-        `• Prazo: ${d.prazo}`,
+        '🎯 *PROJETO*',
+        `• Tipo: ${d.tipo}`,
         `• Investimento: ${d.investimento}`,
-        d.descricao ? `• Descrição:\n${d.descricao}` : null,
+        d.descricao ? `\n• Descrição:\n${d.descricao}` : null,
         '',
         '━━━━━━━━━━━━━━━━━━━━━━━',
-        '🔗 *REFERÊNCIAS*',
-        d.referencia ? `• Link de referência: ${d.referencia}` : '• Sem referência informada',
-        `• Como me encontrou: ${d.origem}`,
-        d.obs ? `• Observações:\n${d.obs}` : null,
-        '',
-        '━━━━━━━━━━━━━━━━━━━━━━━',
-        '✅ _Briefing enviado via andersonbrito.com_',
+        '✅ _Enviado via andersonbrito.com_',
       ];
 
       return linhas.filter(l => l !== null).join('\n');
