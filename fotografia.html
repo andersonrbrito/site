@@ -870,6 +870,11 @@
       background: rgba(255,150,50,0.6);
       border-radius: 1px;
       flex-shrink: 0;
+      opacity: 0.6;
+    }
+    .wv-bar[data-filled="true"] {
+      opacity: 1;
+      background: linear-gradient(180deg, #FFB366 0%, #FF8855 100%);
     }
     .tl-playhead {
       position: absolute;
@@ -904,7 +909,6 @@
       .menu-items .menu-item:nth-child(n+4) { display: none; }
       .process-track-hd { width: 100px; padding: 14px 12px; }
       .process-track-num { font-size: 16px; }
-      .tl-waveform { display: none; }
       .categories-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1031,7 +1035,7 @@
       <a href="fotografia.html" class="toolbar-nav-link" style="color:var(--tx-hi);">Fotografia</a>
       <a href="ia.html" class="toolbar-nav-link">IA Prompts</a>
       <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">Packs</a>
-      <a href="#" class="toolbar-nav-link">Aprenda</a>
+      <a href="aprenda.html" class="toolbar-nav-link">Aprenda</a>
       <a href="saiba-mais.html" class="toolbar-nav-link">Sobre</a>
       <a href="briefing.html" class="toolbar-nav-link cta">Contato</a>
     </div>
@@ -1049,7 +1053,7 @@
     <a href="fotografia.html" style="color:var(--tx-hi);">Fotografia</a>
     <a href="ia.html">IA Prompts</a>
     <a href="vendas.html" style="color:var(--orange);">Packs</a>
-    <a href="#">Aprenda</a>
+    <a href="aprenda.html">Aprenda</a>
     <a href="saiba-mais.html">Sobre</a>
     <a href="briefing.html" class="cta">Contato</a>
   </div>

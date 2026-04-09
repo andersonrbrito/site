@@ -271,7 +271,16 @@
       position: absolute; inset: 0; display: flex; align-items: center;
       gap: 1px; padding: 0 4px;
     }
-    .wv-bar { flex: 1; border-radius: 1px; min-height: 2px; }
+    .wv-bar {
+      flex: 1;
+      border-radius: 1px;
+      min-height: 2px;
+      opacity: 0.6;
+    }
+    .wv-bar[data-filled="true"] {
+      opacity: 1;
+      background: linear-gradient(180deg, #FFB366 0%, #FF8855 100%);
+    }
 
     /* ── PAGE LAYOUT ─── */
     .page-content {
@@ -668,7 +677,7 @@
       <a href="fotografia.html" class="tn-link">Fotografia</a>
       <a href="ia.html" class="tn-link" style="color:var(--tx-hi);">IA Prompts</a>
       <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
-      <a href="#" class="tn-link">Aprenda</a>
+      <a href="aprenda.html" class="tn-link">Aprenda</a>
       <a href="saiba-mais.html" class="tn-link">Sobre</a>
       <a href="briefing.html" class="tn-link cta">Contato</a>
     </div>
@@ -682,7 +691,7 @@
     <a href="fotografia.html">Fotografia</a>
     <a href="ia.html" style="color:var(--tx-hi);">IA Prompts</a>
     <a href="vendas.html" style="color:var(--orange);">Packs</a>
-    <a href="#">Aprenda</a>
+    <a href="aprenda.html">Aprenda</a>
     <a href="saiba-mais.html">Sobre</a>
     <a href="briefing.html" class="cta">Contato</a>
   </div>
