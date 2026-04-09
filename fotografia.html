@@ -442,85 +442,94 @@
     ═══════════════════════════════════════════ */
     .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1px;
-      background: var(--pr-border);
-      border-top: 1px solid var(--pr-border);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      padding: 24px;
+      background: var(--pr-panel-bg);
     }
     .cat-card {
-      background: var(--pr-card);
-      padding: 28px 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      transition: background 0.2s;
-      position: relative;
+      aspect-ratio: 9 / 16;
+      background: linear-gradient(135deg, var(--pr-track-bg) 0%, var(--pr-card) 100%);
+      border: 1px solid var(--pr-sep);
+      border-radius: 8px;
       overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cat-card:hover {
+      border-color: var(--clip-color, var(--accent));
+      box-shadow: 0 0 16px rgba(61, 167, 255, 0.2);
+      transform: translateY(-4px);
     }
     .cat-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: var(--clip-color, var(--pr-sep));
-      transition: width 0.2s;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(136,136,160,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.5;
+      pointer-events: none;
     }
-    .cat-card:hover { background: #2E2E36; }
-    .cat-card:hover::before { width: 4px; }
-    .cat-card-top {
+    .cat-card-content {
+      position: relative;
+      z-index: 2;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+    .cat-card-top {
+      display: none;
     }
     .cat-clip-dot {
-      width: 10px; height: 10px;
-      border-radius: 2px;
-      flex-shrink: 0;
+      display: none;
     }
     .cat-type {
       font-family: var(--f-mono);
-      font-size: 9px;
+      font-size: 8px;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--tx-lo);
+      margin-bottom: 12px;
     }
     .cat-card-title {
       font-family: var(--f-head);
-      font-size: 18px;
-      font-weight: 800;
-      line-height: 1.2;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--clip-color, var(--accent));
+      margin-bottom: 8px;
     }
     .cat-card-desc {
-      font-size: 13px;
-      color: var(--tx-mid);
-      line-height: 1.65;
+      font-size: 11px;
+      color: var(--tx-lo);
+      line-height: 1.5;
+      display: none;
     }
     .cat-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: auto;
+      display: none;
     }
     .cat-tag {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      letter-spacing: 0.06em;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid var(--pr-sep);
-      border-radius: 2px;
-      padding: 2px 7px;
-      color: var(--tx-lo);
+      display: none;
     }
     .cat-icon {
-      width: 48px; height: 48px;
-      border-radius: 6px;
-      background: rgba(255,255,255,0.03);
+      width: 56px; height: 56px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
       border: 1px solid var(--pr-sep);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      margin-bottom: 4px;
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--clip-color, var(--accent));
     }
 
     /* ═══════════════════════════════════════════
@@ -929,19 +938,11 @@
       <div class="menu-item">
         Arquivo
         <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="alert('Novo Projeto — Em breve')">Novo Projeto</div>
-          <div class="menu-dropdown-item" onclick="alert('Abrir Projeto — Em breve')">Abrir Projeto</div>
-          <div class="menu-dropdown-item" onclick="window.print()">Imprimir Portfolio</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='mailto:contato@andersonbrito.com'">Enviar Feedback</div>
-        </div>
-      </div>
-      <div class="menu-item">
-        Editar
-        <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="document.execCommand('undo')">Desfazer</div>
-          <div class="menu-dropdown-item" onclick="document.execCommand('redo')">Refazer</div>
-          <div class="menu-dropdown-item" onclick="document.execCommand('selectAll')">Selecionar Tudo</div>
-          <div class="menu-dropdown-item" onclick="alert('Preferencias — Em breve')">Preferencias</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-home'">Ir para INTRO</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-services'">Ir para SERVICES</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-about'">Ir para ABOUT</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-contact'">Ir para CONTATO</div>
         </div>
       </div>
       <div class="menu-item">
@@ -967,14 +968,17 @@
         Janela
         <div class="menu-dropdown">
           <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e => {})">Tela Cheia</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar','_blank')">Vimeo</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">WhatsApp</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4', '_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.tiktok.com/@andersonrotiroti', '_blank')">TikTok</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/', '_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar', '_blank')">Vimeo</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://discord.gg/JgXMGxUG', '_blank')">Discord</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://t.me/andersondbrito', '_blank')">Telegram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">WhatsApp</div>
         </div>
       </div>
     </div>
-    <div class="menu-project">anderson_ilmar_brito_2026.prproj</div>
+    <div class="menu-project">anderson_brito_2026.prproj</div>
     <div class="menu-right">
       <div class="menu-status-dot"></div>
       <div class="menu-status-text">DISPONIVEL</div>
@@ -1004,7 +1008,7 @@
     </div>
 
     <div class="tool-group">
-      <div class="seq-info">&#9658; ANDERSON_ILMAR &middot; 3840x2160 &middot; 30fps</div>
+      <div class="seq-info">&#9658; ANDERSON_BRITO &middot; 3840x2160 &middot; 30fps</div>
     </div>
 
     <!-- Desktop nav -->
@@ -1082,67 +1086,36 @@
         </div>
         <div class="categories-grid">
 
-          <!-- CARD 1 — Shows ao Vivo -->
+          <!-- REEL 1 — Shows ao Vivo -->
           <div class="cat-card reveal" style="--clip-color: var(--clip-grfx);">
-            <div class="cat-card-top">
-              <div class="cat-clip-dot" style="background:var(--clip-grfx);"></div>
-              <span class="cat-type">V1 &middot; Cobertura ao Vivo</span>
-            </div>
-            <div class="cat-icon">
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
-            </div>
-            <div class="cat-card-title">Shows ao Vivo</div>
-            <div class="cat-card-desc">
-              Cobertura fotografica de shows, festivais e eventos musicais. Captura de energia, iluminacao cenica e momentos unicos no palco e na plateia.
-            </div>
-            <div class="cat-tags">
-              <span class="cat-tag">Shows</span>
-              <span class="cat-tag">Festivais</span>
-              <span class="cat-tag">Eventos</span>
-              <span class="cat-tag">Low Light</span>
-              <span class="cat-tag">Backstage</span>
+            <div class="cat-card-content">
+              <div class="cat-icon">
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
+              </div>
+              <div class="cat-card-title">Shows<br>ao Vivo</div>
+              <div class="cat-type">Cobertura Fotografica</div>
             </div>
           </div>
 
-          <!-- CARD 2 — Fotografia Esportiva -->
+          <!-- REEL 2 — Fotografia Esportiva -->
           <div class="cat-card reveal" style="--clip-color: var(--clip-v1);">
-            <div class="cat-card-top">
-              <div class="cat-clip-dot" style="background:var(--clip-v1);"></div>
-              <span class="cat-type">V2 &middot; Acao e Movimento</span>
-            </div>
-            <div class="cat-icon">
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 17l4-4 2 2 4-6 6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="cat-card-title">Fotografia Esportiva</div>
-            <div class="cat-card-desc">
-              Registro de alta velocidade para esportes e atividades fisicas. Foco em congelar o momento decisivo com nitidez e impacto visual.
-            </div>
-            <div class="cat-tags">
-              <span class="cat-tag">Esportes</span>
-              <span class="cat-tag">Alta Velocidade</span>
-              <span class="cat-tag">Acao</span>
-              <span class="cat-tag">Competicoes</span>
+            <div class="cat-card-content">
+              <div class="cat-icon">
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 17l4-4 2 2 4-6 6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="cat-card-title">Fotografia<br>Esportiva</div>
+              <div class="cat-type">Acao e Movimento</div>
             </div>
           </div>
 
-          <!-- CARD 3 — Retratos Executivos -->
+          <!-- REEL 3 — Retratos Executivos -->
           <div class="cat-card reveal" style="--clip-color: var(--accent-2);">
-            <div class="cat-card-top">
-              <div class="cat-clip-dot" style="background:var(--accent-2);"></div>
-              <span class="cat-type">GRFX &middot; Profissional</span>
-            </div>
-            <div class="cat-icon">
-              <svg width="24" height="24" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div class="cat-card-title">Retratos Executivos</div>
-            <div class="cat-card-desc">
-              Retratos corporativos e pessoais com iluminacao profissional. Para LinkedIn, sites institucionais, materiais de imprensa e branding pessoal.
-            </div>
-            <div class="cat-tags">
-              <span class="cat-tag">Corporativo</span>
-              <span class="cat-tag">LinkedIn</span>
-              <span class="cat-tag">Branding</span>
-              <span class="cat-tag">Studio</span>
+            <div class="cat-card-content">
+              <div class="cat-icon">
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              </div>
+              <div class="cat-card-title">Retratos<br>Executivos</div>
+              <div class="cat-type">Corporativo & Pessoal</div>
             </div>
           </div>
 
@@ -1232,7 +1205,7 @@
             </div>
             <div class="footer-info">
               <p>Alphaville, Sao Paulo — Brasil</p>
-              <p>&copy; 2026 Anderson Ilmar &bull; Audiovisual & Fotografia</p>
+              <p>&copy; 2026 Anderson Brito &bull; Audiovisual & Fotografia</p>
               <div class="footer-social">
                 <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank">Instagram</a>
                 <a href="https://www.linkedin.com/in/andbrito/" target="_blank">LinkedIn</a>
@@ -1252,7 +1225,7 @@
        STATUS BAR
   ═══════════════════════════════════════════ -->
   <div class="status-bar">
-    <div class="sb-item">SEQ <span class="val">ANDERSON_ILMAR</span></div>
+    <div class="sb-item">SEQ <span class="val">ANDERSON_BRITO</span></div>
     <div class="sb-item">FPS <span class="val">30</span></div>
     <div class="sb-item">RES <span class="val">3840x2160</span></div>
     <div class="sb-item">CODEC <span class="val">H.264</span></div>
