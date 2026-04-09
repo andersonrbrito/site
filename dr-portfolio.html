@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DR/VSL Portfolio — Anderson Brito | Editor de Vídeo Performance</title>
+  <meta name="description" content="Portfolio exclusivo de Direct Response e VSL. Criativos de alta conversão, case studies e métricas reais.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+
+  <style>
+    :root {
+      --pr-menubar:     #1C1C1C;
+      --pr-toolbar:     #232325;
+      --pr-panel-bg:    #1E1E22;
+      --pr-panel-hd:    #28282E;
+      --pr-card:        #26262C;
+      --pr-border:      #000;
+      --pr-sep:         #38383F;
+      --accent:         #3DA7FF;
+      --accent-2:       #0070D1;
+      --accent-gr:      #22c55e;
+      --orange:         #FF6B35;
+      --tx-hi:          #EAEAEF;
+      --tx-mid:         #8888A0;
+      --tx-lo:          #505060;
+      --f-mono:         'IBM Plex Mono', monospace;
+      --f-head:         'Exo 2', sans-serif;
+      --f-body:         'DM Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #0A0A0C;
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* HEADER */
+    .header {
+      background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-sep);
+      padding: 40px 20px;
+      text-align: center;
+      position: relative;
+    }
+    .header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(61,167,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-content { position: relative; max-width: 720px; margin: 0 auto; }
+    .header-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .header-title {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 12px;
+      line-height: 1.05;
+    }
+    .header-sub {
+      font-size: 15px;
+      color: var(--tx-mid);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+    .header-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(34,197,94,0.1);
+      border: 1px solid rgba(34,197,94,0.2);
+      border-radius: 4px;
+      font-family: var(--f-mono);
+      font-size: 11px;
+      color: var(--accent-gr);
+      letter-spacing: 0.05em;
+    }
+
+    /* FILTER */
+    .filter-bar {
+      background: var(--pr-panel-bg);
+      border-bottom: 1px solid var(--pr-sep);
+      padding: 20px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .filter-btn {
+      padding: 8px 16px;
+      background: var(--pr-card);
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      color: var(--tx-mid);
+      font-family: var(--f-head);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all .2s;
+      text-transform: uppercase;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent-2);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1px;
+      background: var(--pr-border);
+      border: 1px solid var(--pr-border);
+      margin: 40px 20px;
+      max-width: 1400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .video-card {
+      background: var(--pr-card);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background .2s;
+    }
+    .video-card:hover { background: var(--pr-panel-hd); }
+    .video-card.hidden { display: none; }
+
+    /* VIDEO CONTAINER */
+    .video-container {
+      width: 100%;
+      padding-top: 56.25%;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* CARD CONTENT */
+    .card-content {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .card-title {
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tx-hi);
+      flex: 1;
+    }
+    .card-type {
+      display: inline-block;
+      padding: 4px 8px;
+      background: rgba(61,167,255,0.1);
+      border: 1px solid rgba(61,167,255,0.2);
+      border-radius: 2px;
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .card-type.dr { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.2); color: var(--orange); }
+    .card-type.ctr { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.2); color: var(--accent-gr); }
+    .card-type.vsl { background: rgba(61,167,255,0.1); border-color: rgba(61,167,255,0.2); color: var(--accent); }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--tx-mid);
+      line-height: 1.5;
+    }
+    .card-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--pr-sep);
+    }
+    .metric {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .metric-label {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      text-transform: uppercase;
+    }
+    .metric-value {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent-gr);
+    }
+
+    /* FOOTER */
+    .footer {
+      background: var(--pr-menubar);
+      border-top: 1px solid var(--pr-sep);
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .footer-content { max-width: 720px; margin: 0 auto; }
+    .footer-label {
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .footer-heading {
+      font-family: var(--f-head);
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 12px;
+      line-height: 1.05;
+    }
+    .footer-sub {
+      font-size: 14px;
+      color: var(--tx-mid);
+      margin-bottom: 28px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--accent-2);
+      color: #fff;
+      border-radius: 3px;
+      font-family: var(--f-head);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background .15s;
+    }
+    .cta-btn:hover { background: var(--accent); }
+
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; margin: 20px 0; }
+      .filter-bar { padding: 12px; gap: 8px; }
+      .card-metrics { grid-template-columns: 1fr; }
+      .header { padding: 28px 16px; }
+      .footer { padding: 28px 16px; }
+    }
+  </style>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-content">
+      <div class="header-label">// DIRECT RESPONSE · VSL · CRIATIVOS</div>
+      <h1 class="header-title">Portfolio Exclusivo</h1>
+      <p class="header-sub">Criativos e VSLs de alto desempenho. Métricas reais, resultados que convertem. Acesso restrito para recrutadores.</p>
+      <div class="header-badge">
+        ✓ Vídeos com CTR acima da média da plataforma
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTER -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterVideos('all')">Todos</button>
+    <button class="filter-btn" onclick="filterVideos('dr')">Direct Response</button>
+    <button class="filter-btn" onclick="filterVideos('ctr')">High CTR</button>
+    <button class="filter-btn" onclick="filterVideos('vsl')">VSL</button>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid" id="videoGrid">
+    <!-- DR Videos -->
+    <div class="video-card" data-type="dr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/CoLNWRrsCuw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">Criativo DR #01</div>
+          <div class="card-type dr">DR</div>
+        </div>
+        <div class="card-desc">Criativo de 30s focado em retenção e CTA direto. Performance em campanhas de e-commerce.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">CTR</span>
+            <span class="metric-value">4.2%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">68%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="dr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/enlFNG9VjIA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">Criativo DR #02</div>
+          <div class="card-type dr">DR</div>
+        </div>
+        <div class="card-desc">VSL de 45s com hook de 3 segundos. Resultado: alto engajamento em cold traffic.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">Conversão</span>
+            <span class="metric-value">3.8%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">72%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="dr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/Umt2V0Ke8z4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">Criativo DR #03</div>
+          <div class="card-type dr">DR</div>
+        </div>
+        <div class="card-desc">Criativo com transições rápidas e power words. Testado em múltiplas campanhas.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">CTR</span>
+            <span class="metric-value">5.1%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">75%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HIGH CTR Videos -->
+    <div class="video-card" data-type="ctr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/mtWVCZzy7qc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">High CTR #01</div>
+          <div class="card-type ctr">HIGH CTR</div>
+        </div>
+        <div class="card-desc">Criativo com hook viral. Performance acima de 6% CTR em cold traffic.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">CTR</span>
+            <span class="metric-value">6.8%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">82%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="ctr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/8cYbsM5z0nQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">High CTR #02</div>
+          <div class="card-type ctr">HIGH CTR</div>
+        </div>
+        <div class="card-desc">Padrão de edição com cortes rápidos e pattern interrupt. Resultado: leads qualificados.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">CTR</span>
+            <span class="metric-value">7.2%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">79%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="ctr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/OI1bEUcBWeM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">High CTR #03</div>
+          <div class="card-type ctr">HIGH CTR</div>
+        </div>
+        <div class="card-desc">Criativo com texto dinâmico e zoom. Testado em Reels, Shorts e TikTok.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">CTR</span>
+            <span class="metric-value">6.5%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">81%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="ctr">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/SwaB5-llGXc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">High CTR #04</div>
+          <div class="card-type ctr">HIGH CTR</div>
+        </div>
+        <div class="card-desc">Pattern interrupt com movimento. Velocidade de edição otimizada para retenção máxima.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">CTR</span>
+            <span class="metric-value">7.1%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Retenção</span>
+            <span class="metric-value">80%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VSL -->
+    <div class="video-card" data-type="vsl">
+      <div class="video-container">
+        <iframe src="https://player.vimeo.com/video/1180743847" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title">VSL de Vendas</div>
+          <div class="card-type vsl">VSL</div>
+        </div>
+        <div class="card-desc">Video Sales Letter de 8min com estrutura completa: hook, problema, solução, CTA. Resultado: alta taxa de conversão.</div>
+        <div class="card-metrics">
+          <div class="metric">
+            <span class="metric-label">Taxa Conclusão</span>
+            <span class="metric-value">64%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Conversão</span>
+            <span class="metric-value">12.3%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-content">
+      <div class="footer-label">// CONTRATO E PARCERIA</div>
+      <h2 class="footer-heading">Pronto pra um projeto?</h2>
+      <p class="footer-sub">Se seus criativos precisam de performance real e conversão, vamos conversar.</p>
+      <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20estou%20interessado%20em%20contratar%20seus%20servi%C3%A7os%20de%20edi%C3%A7%C3%A3o" target="_blank" class="cta-btn">
+        Agendar Conversa
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    function filterVideos(type) {
+      const cards = document.querySelectorAll('.video-card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (type === 'all' || card.dataset.type === type) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
