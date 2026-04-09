@@ -3,25 +3,54 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anderson Brito — Editor de Vídeo | Criativos, VSL e Direct Response</title>
-  <meta name="description" content="Editor audiovisual especializado em criativos, VSL e direct response. +50 projetos entregues. Fotógrafo profissional. São Paulo, Alphaville.">
-  <meta name="keywords" content="editor de vídeo, criativos, VSL, direct response, marketing digital, videomaker, fotógrafo, São Paulo">
+  <title>Anderson Brito — Editor de Vídeo | Criativos, VSL e Direct Response em São Paulo</title>
+  <meta name="description" content="Procurando editor de vídeo para criativos, VSL ou Direct Response? Anderson Brito é especialista em vídeos de performance e conversão. +50 projetos entregues. Alphaville, São Paulo.">
+  <meta name="keywords" content="editor de vídeo, editor de vídeo São Paulo, editor de criativos, editor VSL, editor direct response, editor DR, pack de edição, edição de vídeo marketing digital, videomaker performance, editor de conteúdo, procuro editor de vídeo, editor reels, editor para infoprodutor, Anderson Brito editor">
   <meta name="author" content="Anderson Brito">
   <meta name="robots" content="index, follow">
+  <meta name="geo.region" content="BR-SP">
+  <meta name="geo.placename" content="Alphaville, São Paulo">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://andersonbrito.com/">
-  <meta property="og:title" content="Anderson Brito — Editor de Vídeo | Audiovisual & Marketing">
-  <meta property="og:description" content="Especialista em criativos, VSL e direct response com foco em retenção e conversão. +50 projetos entregues.">
+  <meta property="og:title" content="Anderson Brito — Editor de Vídeo | Criativos, VSL e Direct Response">
+  <meta property="og:description" content="Vídeos com intenção: cada corte, ritmo e elemento visual existe para prender atenção e gerar resultado. Especialista em criativos, VSL e DR.">
   <meta property="og:image" content="https://andersonbrito.com/assets/foto-perfil.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Anderson Brito — Audiovisual">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image">
   <meta property="twitter:url" content="https://andersonbrito.com/">
-  <meta property="twitter:title" content="Anderson Brito — Editor de Vídeo">
-  <meta property="twitter:description" content="Especialista em criativos, VSL e direct response. Fotógrafo profissional.">
+  <meta property="twitter:title" content="Anderson Brito — Editor de Vídeo | Criativos, VSL e DR">
+  <meta property="twitter:description" content="Vídeos com intenção: cada corte existe para prender atenção e gerar resultado. +50 projetos entregues.">
   <meta property="twitter:image" content="https://andersonbrito.com/assets/foto-perfil.jpg">
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Anderson Brito",
+    "jobTitle": "Editor de Vídeo — Criativos, VSL e Direct Response",
+    "description": "Editor audiovisual especializado em criativos, VSL e Direct Response com foco em performance e conversão.",
+    "url": "https://andersonbrito.com",
+    "image": "https://andersonbrito.com/assets/foto-perfil.jpg",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Alphaville",
+      "addressRegion": "SP",
+      "addressCountry": "BR"
+    },
+    "sameAs": [
+      "https://www.instagram.com/andersonbrito.mp4",
+      "https://www.linkedin.com/in/andbrito/",
+      "https://vimeo.com/andersonilmar"
+    ],
+    "knowsAbout": ["Edição de Vídeo", "Criativos", "VSL", "Direct Response", "Marketing Digital", "Fotografia"]
+  }
+  </script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -560,14 +589,21 @@
 
     .hero-role {
       font-family: var(--f-head);
-      font-size: clamp(11px, 1.8vw, 14px);
-      font-weight: 400;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--tx-mid);
-      margin-bottom: 36px;
+      font-size: clamp(14px, 2.2vw, 20px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--tx-hi);
+      margin-bottom: 10px;
+      line-height: 1.3;
     }
-    .hero-role strong { color: var(--tx-hi); font-weight: 600; }
+    .hero-role strong { color: var(--tx-hi); font-weight: 700; }
+    .hero-sub {
+      font-family: var(--f-body);
+      font-size: clamp(12px, 1.5vw, 15px);
+      color: var(--tx-mid);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
 
     /* tool badges */
     .hero-tools {
@@ -828,6 +864,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+    }
+    .about-photo-area img {
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center center;
+    }
+    .about-photo-area:hover img {
+      transform: scale(1.07);
     }
 
     /* photo placeholder */
@@ -1332,6 +1376,7 @@
           <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequência 2 — Marketing DR</div>
           <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
           <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Sequência 5 — Projetos IA</div>
         </div>
       </div>
       <div class="menu-item">
@@ -1386,6 +1431,7 @@
       <a href="index.html" class="toolbar-nav-link">Home</a>
       <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
       <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
+      <a href="ia.html" class="toolbar-nav-link" style="color:#00C8FF;">IA</a>
       <a href="#section-about" class="toolbar-nav-link">Sobre</a>
       <a href="#section-contact" class="toolbar-nav-link cta">Contato</a>
     </div>
@@ -1440,8 +1486,9 @@
               ANDERSON<br><span class="last">BRITO</span>
             </h1>
             <div class="hero-role">
-              <strong>Editor de Vídeo</strong> · Criativos · VSL · Direct Response
+              <strong>Editor de vídeo focado em performance e conversão</strong>
             </div>
+            <div class="hero-sub">Criativos, VSL e Direct Response que prendem atenção e geram resultado real</div>
             <div class="hero-tools">
               <div class="tool-chip">
                 <div class="chip-dot" style="background:#9B59B6;"></div>
@@ -1458,10 +1505,13 @@
             </div>
             <div class="hero-ctas">
               <a href="marketing.html" class="btn-pr-primary">
-                Ver Portfolio
+                Ver portfólio
                 <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
-              <a href="#section-contact" class="btn-pr-ghost">Solicitar Orçamento</a>
+              <a href="#section-contact" class="btn-pr-ghost">
+                Quero aumentar minhas vendas
+                <svg width="14" height="14" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
             </div>
           </div>
         </div>
@@ -1516,24 +1566,44 @@
           </a>
 
           <!-- CARD 2 — Fotografia -->
-          <a href="#" class="svc-card" style="--clip-color: var(--clip-grfx);">
+          <a href="fotografia.html" class="svc-card" style="--clip-color: var(--clip-grfx);">
             <div class="svc-card-top">
               <div class="svc-clip-dot" style="background:var(--clip-grfx);"></div>
-              <span class="svc-type">V2 · Gráficos · Em breve</span>
+              <span class="svc-type">V2 · Fotografia Profissional</span>
             </div>
             <div class="svc-card-title">Fotografia</div>
             <div class="svc-card-desc">
-              Retratos, shows, conceituais. Olhar autoral com obsessão por luz e composição.
+              Shows, retratos e conceituais. Olhar autoral com obsessão por luz, composição e timing.
             </div>
             <div class="svc-tags">
-              <span class="svc-tag">Retratos</span>
               <span class="svc-tag">Shows</span>
+              <span class="svc-tag">Retratos</span>
+              <span class="svc-tag">Executivo</span>
               <span class="svc-tag">Conceitual</span>
             </div>
-            <div class="svc-arrow" style="opacity:0.4;">Em produção</div>
+            <div class="svc-arrow">→ Ver portfólio</div>
           </a>
 
-          <!-- CARD 3 — Produtos -->
+          <!-- CARD 3 — IA -->
+          <a href="ia.html" class="svc-card" style="--clip-color: #00C8FF;">
+            <div class="svc-card-top">
+              <div class="svc-clip-dot" style="background:#00C8FF;"></div>
+              <span class="svc-type">AI · Projetos de Inteligência Artificial</span>
+            </div>
+            <div class="svc-card-title">Projetos<br>de IA</div>
+            <div class="svc-card-desc">
+              Prompts, artes e experimentos com IA aplicada ao audiovisual e à criação visual.
+            </div>
+            <div class="svc-tags">
+              <span class="svc-tag">Midjourney</span>
+              <span class="svc-tag">Sora</span>
+              <span class="svc-tag">Prompts</span>
+              <span class="svc-tag">IA Criativa</span>
+            </div>
+            <div class="svc-arrow">→ Ver projetos</div>
+          </a>
+
+          <!-- CARD 4 — Produtos -->
           <a href="produto.html" class="svc-card" style="--clip-color: var(--orange);">
             <div class="svc-card-top">
               <div class="svc-clip-dot" style="background:var(--orange);"></div>
@@ -1589,29 +1659,36 @@
             </div>
             <div class="about-text-content reveal">
               <div class="about-label">Sobre mim</div>
-              <!-- 📌 Edite o título e o texto abaixo -->
-              <h2 class="about-heading">Editor de vídeo com foco em resultado</h2>
+              <h2 class="about-heading">Trabalho na interseção entre criatividade e performance — criando vídeos que não só impressionam, mas convertem.</h2>
               <p class="about-body">
-                Sou Anderson Brito, editor audiovisual especializado em conteúdo de marketing digital. Trabalho na interseção entre criatividade e conversão — edito criativos, VSLs e direct response que retém atenção e geram resultado real.
+                Sou Anderson Brito, editor audiovisual especializado em conteúdo de marketing digital e direct response.
               </p>
-              <p class="about-body" style="margin-top:-14px;">
-                Nas horas vagas, fotografo. Dentro e fora do estúdio, meu olhar busca o que é autêntico.
+              <p class="about-body">
+                Construo vídeos com intenção: cada corte, ritmo e elemento visual existe para prender atenção, comunicar com clareza e gerar resultado.
+              </p>
+              <p class="about-body">
+                Atuo na interseção entre criatividade e estratégia, desenvolvendo criativos, VSLs e conteúdos de performance que ajudam marcas e infoprodutores a se posicionarem melhor e venderem mais.
+              </p>
+              <p class="about-body">
+                Trago uma visão que vai além da edição: entendimento de narrativa, retenção, comportamento de audiência e dinâmica de mercado — o que me permite contribuir com decisões que impactam diretamente o resultado final.
+              </p>
+              <p class="about-body">
+                Paralelamente, a fotografia desenvolveu meu olhar estético — composição, luz e timing que hoje elevam a qualidade visual dos meus projetos.
               </p>
 
               <!-- Stats -->
               <div class="about-stats">
-                <!-- 📌 Atualize os números -->
                 <div class="stat-cell">
                   <div class="stat-val">+50</div>
                   <div class="stat-key">projetos_entregues</div>
                 </div>
                 <div class="stat-cell">
-                  <div class="stat-val">3</div>
-                  <div class="stat-key">ferramentas</div>
+                  <div class="stat-val">VSL</div>
+                  <div class="stat-key">+criativos+DR</div>
                 </div>
                 <div class="stat-cell">
                   <div class="stat-val">100%</div>
-                  <div class="stat-key">comprometimento</div>
+                  <div class="stat-key">entrega_no_prazo</div>
                 </div>
                 <div class="stat-cell">
                   <div class="stat-val">0</div>
@@ -1699,23 +1776,44 @@
           <div class="contact-inner">
             <div class="contact-label">// export / render / send</div>
             <h2 class="contact-heading">Pronto pra<br>render?</h2>
-            <p class="contact-sub">Me chame no Instagram, LinkedIn, Vimeo ou WhatsApp. Resposta rápida, sem ruído.</p>
-            <div class="contact-btns">
-              <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="btn-pr-primary">
-                📸 Instagram
-              </a>
-              <a href="https://wa.me/5511948577950" target="_blank" class="btn-pr-ghost">
-                💬 WhatsApp
-              </a>
-              <a href="https://www.linkedin.com/in/andbrito/" target="_blank" class="btn-pr-ghost">
-                💼 LinkedIn
-              </a>
-              <a href="https://vimeo.com/andersonilmar" target="_blank" class="btn-pr-ghost">
-                🎬 Vimeo
-              </a>
-              <a href="mailto:contato@andersonbrito.com" class="btn-pr-ghost">
-                ✉️ E-mail
-              </a>
+            <p class="contact-sub">Resposta rápida, sem ruído. Escolha o canal:</p>
+
+            <!-- Group 1: Social -->
+            <div style="margin-bottom:10px;">
+              <div style="font-family:var(--f-mono);font-size:10px;color:var(--tx-lo);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;">// Redes Sociais</div>
+              <div class="contact-btns">
+                <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="btn-pr-primary" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+                  Instagram
+                </a>
+                <a href="https://www.linkedin.com/in/andbrito/" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.8"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M11 17v-4c0-1.5 1-2 2-2s2 .5 2 2v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M11 10v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  LinkedIn
+                </a>
+                <a href="https://vimeo.com/andersonilmar" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 7.4c-.1 2.4-1.8 5.7-5 9.9C13.5 21.6 10.8 24 8.5 24c-1.4 0-2.6-1.3-3.5-3.8L3.5 14C2.9 11.5 2.2 10.3 1.5 10.3c-.2 0-.7.3-1.5.8L0 10c.9-.8 3.6-3.3 4.8-3.4 1.3-.1 2.1.7 2.4 2.6.3 1.9.7 3 1 3.4.6 1.3 1.3 1.9 2 1.9.7 0 1.4-.6 2.2-1.9.7-1.3 1.1-2.3 1.1-3 0-1.3-.5-2-1.5-2-.5 0-1.1.1-1.7.4.6-1.8 1.6-2.7 3.2-2.7 1.2 0 2.1.4 2.9 1.3.8.9 1.1 2 1.1 3.4 0 1.4-.5 2.9-1.4 4.7 1.6-3.1 2.4-5.3 2.5-6.6.1-1.7-.5-2.6-1.7-2.6-.5 0-.9.2-1.4.5.5-2 1.7-3 3.6-3 1.3.1 1.9.9 1.9 2.4z" fill="currentColor"/></svg>
+                  Vimeo
+                </a>
+                <a href="https://www.fotop.com.br/andersonbrito" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  Fotop
+                </a>
+              </div>
+            </div>
+
+            <!-- Group 2: Contact -->
+            <div>
+              <div style="font-family:var(--f-mono);font-size:10px;color:var(--tx-lo);letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px;">// Contato Direto</div>
+              <div class="contact-btns">
+                <a href="https://wa.me/5511948577950" target="_blank" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15.5 15l-1.5.5c-.5.2-1-.2-1-.7V13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  WhatsApp
+                </a>
+                <a href="mailto:contato@andersonbrito.com" class="btn-pr-ghost" style="gap:8px;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M2 8l10 6 10-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  E-mail
+                </a>
+              </div>
             </div>
             <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--pr-sep);font-size:11px;color:var(--tx-lo);">
               <p style="margin:8px 0;">📍 Alphaville, São Paulo — Brasil</p>
@@ -1844,25 +1942,32 @@
         v1.appendChild(el);
       });
 
-      // V2 clips (social media links)
+      // V2 clips (social media links) — SVG icons
+      const igSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>`;
+      const liSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11 17v-4c0-1.5 1-2 2-2s2 .5 2 2v4M11 10v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const viSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M22 7.4c-.1 2.4-1.8 5.7-5 9.9C13.5 21.6 10.8 24 8.5 24c-1.4 0-2.6-1.3-3.5-3.8L3.5 14C2.9 11.5 2.2 10.3 1.5 10.3c-.2 0-.7.3-1.5.8L0 10c.9-.8 3.6-3.3 4.8-3.4 1.3-.1 2.1.7 2.4 2.6.3 1.9.7 3 1 3.4.6 1.3 1.3 1.9 2 1.9.7 0 1.4-.6 2.2-1.9.7-1.3 1.1-2.3 1.1-3 0-1.3-.5-2-1.5-2-.5 0-1.1.1-1.7.4.6-1.8 1.6-2.7 3.2-2.7 1.2 0 2.1.4 2.9 1.3.8.9 1.1 2 1.1 3.4z" fill="currentColor"/></svg>`;
+      const waSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const fpSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+
       const v2Data = [
-        { left:'5%',   width:'18%', color:'#1A3A50', label:'Instagram', icon:'📸', url:'https://www.instagram.com/andersonbrito.mp4' },
-        { left:'28%',  width:'14%', color:'#1A3A20', label:'LinkedIn', icon:'💼', url:'https://www.linkedin.com/in/andbrito/' },
-        { left:'52%',  width:'20%', color:'#3A1A50', label:'Vimeo', icon:'🎬', url:'https://vimeo.com/andersonilmar' },
-        { left:'77%',  width:'15%', color:'#1A1A50', label:'WhatsApp', icon:'💬', url:'https://wa.me/5511948577950' },
+        { left:'3%',  width:'17%', color:'#3A1A3A', label:'Instagram', svg:igSvg, url:'https://www.instagram.com/andersonbrito.mp4' },
+        { left:'23%', width:'16%', color:'#1A2A4A', label:'LinkedIn',  svg:liSvg, url:'https://www.linkedin.com/in/andbrito/' },
+        { left:'42%', width:'16%', color:'#0A2A3A', label:'Vimeo',     svg:viSvg, url:'https://vimeo.com/andersonilmar' },
+        { left:'61%', width:'16%', color:'#1A3A1A', label:'WhatsApp',  svg:waSvg, url:'https://wa.me/5511948577950' },
+        { left:'80%', width:'17%', color:'#2A2A1A', label:'Fotop',     svg:fpSvg, url:'https://www.fotop.com.br/andersonbrito' },
       ];
       v2Data.forEach(c => {
         const el = document.createElement('button');
         el.className = 'tl-clip';
-        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};cursor:pointer;border:none;transition:all 0.3s ease;`;
-        el.innerHTML = `<span class="tl-clip-label">${c.icon} ${c.label}</span>`;
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};cursor:pointer;border:none;transition:all 0.25s ease;display:flex;align-items:center;gap:5px;justify-content:center;`;
+        el.innerHTML = `${c.svg}<span class="tl-clip-label" style="position:static;transform:none;">${c.label}</span>`;
         el.addEventListener('click', () => window.open(c.url, '_blank'));
         el.addEventListener('mouseenter', () => {
-          el.style.background = c.color.replace('1A', '3A');
-          el.style.boxShadow = '0 0 12px rgba(61,167,255,0.4)';
+          el.style.filter = 'brightness(1.6)';
+          el.style.boxShadow = '0 0 10px rgba(61,167,255,0.35)';
         });
         el.addEventListener('mouseleave', () => {
-          el.style.background = c.color;
+          el.style.filter = 'brightness(1)';
           el.style.boxShadow = 'none';
         });
         v2.appendChild(el);
