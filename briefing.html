@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Briefing de Projeto — Anderson Brito | Editor de Vídeo</title>
+  <meta name="description" content="Preencha o briefing do seu projeto e receba uma proposta personalizada de Anderson Brito, editor de vídeo especializado em criativos, VSL e Direct Response.">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/favicon.ico">
+  <style>
+    /* ═══════════════════════════════════
+       BASE & TOKENS
+    ═══════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Colors */
+      --bg:           #0A0A0C;
+      --bg-card:      #111115;
+      --bg-input:     #161619;
+      --pr-border:    #2A2A30;
+      --pr-sep:       #222228;
+      --accent:       #3DA7FF;
+      --accent-2:     #1A6EBF;
+      --orange:       #FF6B35;
+      --green:        #3BCA6D;
+      --tx-hi:        #F2F2F5;
+      --tx-mid:       #8A8A9A;
+      --tx-lo:        #4A4A5A;
+      --pr-menubar:   #1C1C1C;
+      --pr-toolbar:   #232325;
+      --menubar-h:    26px;
+      --toolbar-h:    40px;
+
+      /* Typography */
+      --f-mono: 'Courier New', Courier, monospace;
+      --f-head: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+      --f-body: 'Arial', 'Helvetica Neue', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ═══════════════════════════════════
+       MENU BAR (topo — estilo Premiere)
+    ═══════════════════════════════════ */
+    .menu-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--menubar-h);
+      background: var(--pr-menubar);
+      border-bottom: 1px solid #111;
+      display: flex; align-items: center;
+      padding: 0 8px; gap: 0; z-index: 1000;
+      user-select: none;
+    }
+    .menu-appname {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--f-head); font-size: 10px; font-weight: 900;
+      color: var(--tx-hi); letter-spacing: 0.5px;
+      padding: 0 8px; border-right: 1px solid #2A2A2A;
+      height: 100%;
+    }
+    .menu-pr-icon {
+      width: 16px; height: 16px;
+      background: var(--accent); color: #fff;
+      font-size: 7px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 2px;
+    }
+    .menu-items { display: flex; height: 100%; }
+    .menu-item {
+      position: relative; padding: 0 10px;
+      font-size: 11px; color: var(--tx-mid);
+      cursor: default; height: 100%;
+      display: flex; align-items: center;
+      transition: background .15s;
+    }
+    .menu-item:hover { background: rgba(255,255,255,.07); color: var(--tx-hi); }
+    .menu-item:hover .menu-dropdown { display: block; }
+    .menu-dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      min-width: 200px; background: #1E1E22;
+      border: 1px solid var(--pr-border); border-top: none;
+      z-index: 200; padding: 4px 0;
+    }
+    .menu-dropdown-item {
+      padding: 6px 16px; font-size: 11px; color: var(--tx-mid);
+      cursor: pointer; transition: background .1s;
+    }
+    .menu-dropdown-item:hover { background: rgba(255,255,255,.06); color: var(--tx-hi); }
+    .menu-project {
+      margin-left: auto; font-family: var(--f-mono);
+      font-size: 10px; color: var(--tx-lo); padding-right: 12px;
+    }
+    .menu-right {
+      display: flex; align-items: center; gap: 6px;
+      padding-left: 12px; border-left: 1px solid #2A2A2A;
+    }
+    .menu-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
+    .menu-status-text { font-family: var(--f-mono); font-size: 10px; color: var(--green); font-weight: 700; }
+
+    /* ═══════════════════════════════════
+       TOOLBAR
+    ═══════════════════════════════════ */
+    .toolbar {
+      position: fixed; top: var(--menubar-h); left: 0; right: 0;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center;
+      padding: 0 10px; gap: 12px; z-index: 999;
+    }
+    .toolbar-back {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--f-mono); font-size: 10px; font-weight: 700;
+      color: var(--tx-mid); text-decoration: none;
+      padding: 4px 8px; border: 1px solid var(--pr-border); border-radius: 2px;
+      transition: color .15s, border-color .15s;
+    }
+    .toolbar-back:hover { color: var(--tx-hi); border-color: var(--accent); }
+    .toolbar-title {
+      font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid);
+      letter-spacing: .5px;
+    }
+    .toolbar-title .seq { color: var(--tx-lo); }
+    .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+    .tn-link {
+      font-family: var(--f-head); font-size: 11px; font-weight: 600;
+      color: var(--tx-mid); text-decoration: none;
+      padding: 4px 9px; border-radius: 2px;
+      transition: color .15s, background .15s;
+    }
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
+    .tn-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
+    .tn-link.cta:hover { background: var(--accent); }
+    .hamburger-btn {
+      display: none; margin-left: auto; flex-direction: column;
+      gap: 4px; padding: 6px; background: none; border: none; cursor: pointer;
+    }
+    .hamburger-btn span { display: block; width: 18px; height: 1.5px; background: var(--tx-mid); border-radius: 2px; }
+    .mobile-drawer {
+      display: none; position: fixed;
+      top: calc(var(--menubar-h) + var(--toolbar-h)); left: 0; right: 0;
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      flex-direction: row; gap: 0; overflow-x: auto;
+      z-index: 998; padding: 0 4px;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      font-family: var(--f-head); font-size: 11px; font-weight: 600;
+      color: var(--tx-mid); text-decoration: none;
+      padding: 10px 12px; white-space: nowrap;
+    }
+    .mobile-drawer a:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
+    .mobile-drawer .cta { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .toolbar-nav { display: none; }
+      .hamburger-btn { display: flex; }
+      .mobile-drawer { display: flex; }
+    }
+
+    /* ═══════════════════════════════════
+       PAGE LAYOUT
+    ═══════════════════════════════════ */
+    .page-wrap {
+      max-width: 760px; margin: 0 auto;
+      padding: calc(var(--menubar-h) + var(--toolbar-h) + 48px) 20px 80px;
+    }
+
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
+    .hero-label {
+      font-family: var(--f-mono); font-size: 11px; color: var(--accent);
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px;
+    }
+    .hero-h1 {
+      font-family: var(--f-head); font-size: clamp(28px, 5vw, 46px);
+      font-weight: 900; line-height: 1.08; color: var(--tx-hi);
+      margin-bottom: 16px;
+    }
+    .hero-h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 15px; color: var(--tx-mid); max-width: 540px;
+      margin-bottom: 32px; line-height: 1.65;
+    }
+
+    /* Trust badges */
+    .trust-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 48px;
+    }
+    .trust-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg-card); border: 1px solid var(--pr-sep);
+      border-radius: 20px; padding: 6px 14px;
+      font-size: 11px; color: var(--tx-mid);
+    }
+    .trust-badge svg { color: var(--accent); flex-shrink: 0; }
+
+    /* ═══════════════════════════════════
+       FORM CARD
+    ═══════════════════════════════════ */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .form-card-header {
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      padding: 10px 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .form-card-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+    }
+    .form-card-title {
+      font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid);
+    }
+    .form-body { padding: 32px 28px; }
+
+    /* Sections */
+    .form-section { margin-bottom: 36px; }
+    .form-section-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--accent);
+      letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 20px; padding-bottom: 8px;
+      border-bottom: 1px solid var(--pr-sep);
+    }
+
+    /* Field groups */
+    .field-row { display: grid; gap: 16px; margin-bottom: 16px; }
+    .field-row.two { grid-template-columns: 1fr 1fr; }
+    .field-row.one { grid-template-columns: 1fr; }
+
+    .field-group { display: flex; flex-direction: column; gap: 6px; }
+    .field-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-mid);
+      letter-spacing: .5px;
+    }
+    .field-label .req { color: var(--orange); margin-left: 2px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select,
+    textarea {
+      background: var(--bg-input);
+      border: 1px solid var(--pr-border);
+      border-radius: 3px;
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      padding: 10px 12px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(61,167,255,.15);
+    }
+    input::placeholder, textarea::placeholder { color: var(--tx-lo); }
+    select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238A8A9A' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+    select option { background: #1C1C22; color: var(--tx-hi); }
+    textarea { resize: vertical; min-height: 100px; }
+
+    /* Checkbox group */
+    .check-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 8px;
+    }
+    .check-item {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--bg-input);
+      border: 1px solid var(--pr-border);
+      border-radius: 3px; padding: 10px 12px;
+      cursor: pointer; transition: border-color .15s, background .15s;
+      user-select: none;
+    }
+    .check-item:hover { border-color: var(--accent); background: rgba(61,167,255,.05); }
+    .check-item input[type="checkbox"] {
+      width: 16px; height: 16px; min-width: 16px;
+      accent-color: var(--accent);
+      cursor: pointer; padding: 0; border: none; border-radius: 0;
+      box-shadow: none;
+    }
+    .check-item input:focus { box-shadow: none; border-color: transparent; }
+    .check-item label {
+      font-size: 13px; color: var(--tx-mid); cursor: pointer;
+      transition: color .15s;
+    }
+    .check-item:has(input:checked) {
+      border-color: var(--accent); background: rgba(61,167,255,.08);
+    }
+    .check-item:has(input:checked) label { color: var(--tx-hi); }
+
+    /* Field helper */
+    .field-hint { font-size: 11px; color: var(--tx-lo); margin-top: 4px; }
+
+    /* ═══════════════════════════════════
+       SUBMIT
+    ═══════════════════════════════════ */
+    .submit-area { margin-top: 12px; }
+    .btn-submit {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 16px 24px;
+      background: #25D366;
+      border: none; border-radius: 3px;
+      font-family: var(--f-head); font-size: 15px; font-weight: 900;
+      color: #fff; cursor: pointer; letter-spacing: .5px;
+      transition: opacity .2s, transform .1s;
+      text-transform: uppercase;
+    }
+    .btn-submit:hover { opacity: .92; }
+    .btn-submit:active { transform: scale(.99); }
+    .submit-note {
+      font-size: 11px; color: var(--tx-lo); text-align: center; margin-top: 10px;
+    }
+    .submit-note a { color: var(--tx-mid); }
+
+    /* ═══════════════════════════════════
+       CONTACT DIRECT STRIP
+    ═══════════════════════════════════ */
+    .contact-strip {
+      margin-top: 48px; padding-top: 36px;
+      border-top: 1px solid var(--pr-sep);
+    }
+    .contact-strip-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: 2px; text-align: center; margin-bottom: 20px;
+    }
+    .contact-strip-label span { color: var(--tx-mid); }
+    .contact-btns {
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    }
+    .contact-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      background: var(--bg-card);
+      border: 1px solid var(--pr-sep);
+      border-radius: 3px;
+      font-family: var(--f-head); font-size: 12px; font-weight: 700;
+      color: var(--tx-mid); text-decoration: none;
+      transition: border-color .15s, color .15s, background .15s;
+      white-space: nowrap;
+    }
+    .contact-btn:hover { color: var(--tx-hi); border-color: var(--accent); background: rgba(61,167,255,.06); }
+    .contact-btn.wpp { border-color: #25D366; }
+    .contact-btn.wpp:hover { background: rgba(37,211,102,.08); color: #25D366; }
+    .contact-btn.ig:hover { border-color: #E1306C; color: #E1306C; background: rgba(225,48,108,.06); }
+
+    /* ═══════════════════════════════════
+       VALIDATION STYLE
+    ═══════════════════════════════════ */
+    input.invalid, select.invalid, textarea.invalid {
+      border-color: var(--orange) !important;
+      box-shadow: 0 0 0 2px rgba(255,107,53,.15) !important;
+    }
+    .error-msg {
+      font-size: 11px; color: var(--orange); margin-top: 4px; display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ═══════════════════════════════════
+       SUCCESS STATE
+    ═══════════════════════════════════ */
+    .success-overlay {
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 60px 32px;
+      gap: 16px;
+    }
+    .success-overlay.show { display: flex; }
+    .success-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(37,211,102,.15);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .success-title {
+      font-family: var(--f-head); font-size: 22px; font-weight: 900;
+    }
+    .success-sub { font-size: 14px; color: var(--tx-mid); max-width: 380px; }
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    .page-footer {
+      margin-top: 60px; padding: 16px 20px;
+      border-top: 1px solid var(--pr-sep);
+      display: flex; flex-wrap: wrap; gap: 6px;
+      justify-content: space-between; align-items: center;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+    }
+
+    /* ═══════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════ */
+    @media (max-width: 600px) {
+      .field-row.two { grid-template-columns: 1fr; }
+      .form-body { padding: 24px 16px; }
+      .hero-h1 { font-size: 28px; }
+      .page-wrap { padding-top: calc(var(--menubar-h) + var(--toolbar-h) + 58px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ MENU BAR ═══ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Ir para INTRO</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Ir para PORTFOLIO</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Clipe
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.scrollTo({top:0,behavior:'smooth'})">Ir para TOPO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('form-start')?.scrollIntoView({behavior:'smooth'})">Ir para FORMULÁRIO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('contact-direct')?.scrollIntoView({behavior:'smooth'})">Ir para CONTATO DIRETO</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Sequência
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='marketing.html'">Sequência 2 — Portfolio</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Sequência 5 — Projetos IA</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='vendas.html'" style="color:var(--accent);font-weight:600;">Sequência 6 — APRENDA ⭐</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e=>{})">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">WhatsApp</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-project">briefing_projeto_2026.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONÍVEL</div>
+    </div>
+  </div>
+
+  <!-- ═══ TOOLBAR ═══ -->
+  <div class="toolbar">
+    <a href="index.html" class="toolbar-back">
+      <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      VOLTAR
+    </a>
+    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · BRIEFING · 3840×2160</div>
+    <div class="toolbar-nav">
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="marketing.html" class="tn-link">Portfolio</a>
+      <a href="fotografia.html" class="tn-link">Fotografia</a>
+      <a href="ia.html" class="tn-link">IA</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">APRENDA</a>
+      <a href="saiba-mais.html" class="tn-link">Sobre</a>
+      <a href="index.html#section-contact" class="tn-link cta">Contato</a>
+    </div>
+    <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">← Home</a>
+    <a href="marketing.html">Portfolio</a>
+    <a href="fotografia.html">Fotografia</a>
+    <a href="ia.html">IA</a>
+    <a href="vendas.html" style="color:var(--orange);">APRENDA</a>
+    <a href="saiba-mais.html">Sobre</a>
+    <a href="index.html#section-contact" class="cta">Contato</a>
+  </div>
+
+  <!-- ═══ CONTENT ═══ -->
+  <div class="page-wrap">
+
+    <!-- HERO -->
+    <div style="margin-bottom: 48px;">
+      <div class="hero-label">// BRIEFING · PROJETO · PROPOSTA</div>
+      <h1 class="hero-h1">
+        Vamos aumentar<br>
+        <span>suas vendas</span> com vídeo?
+      </h1>
+      <p class="hero-sub">
+        Preencha as informações abaixo. Quanto mais detalhes, mais precisa será a proposta.
+        Em até 24h entro em contato com um caminho claro para o seu projeto.
+      </p>
+
+      <!-- Trust badges -->
+      <div class="trust-row">
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M13 4L6.5 11 3 7.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          +50 projetos entregues
+        </div>
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v7l4 2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Resposta em até 24h
+        </div>
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Proposta sem compromisso
+        </div>
+        <div class="trust-badge">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M3 3h10v10H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 6h4M6 9h2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Criativos, VSL &amp; Direct Response
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card" id="form-start">
+      <div class="form-card-header">
+        <div class="form-card-dot" style="background:#FF5F57;"></div>
+        <div class="form-card-dot" style="background:#FFBD2E;"></div>
+        <div class="form-card-dot" style="background:#28CA41;"></div>
+        <div class="form-card-title" style="margin-left:8px;">novo_projeto.prproj — Briefing Completo</div>
+      </div>
+
+      <div class="form-body">
+
+        <!-- SUCCESS STATE (hidden by default) -->
+        <div class="success-overlay" id="successOverlay">
+          <div class="success-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M5 14l7 7L23 7" stroke="#25D366" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="success-title">Perfeito! 🎬</div>
+          <p class="success-sub">Você será redirecionado para o WhatsApp com seu briefing. Se não abrir, <a href="#" id="waFallback" style="color:var(--accent);">clique aqui</a>.</p>
+        </div>
+
+        <form id="briefingForm" novalidate>
+
+          <!-- SEÇÃO 1: SOBRE VOCÊ -->
+          <div class="form-section">
+            <div class="form-section-label">01 // Sobre você</div>
+
+            <div class="field-row two">
+              <div class="field-group">
+                <label class="field-label" for="nome">Nome completo <span class="req">*</span></label>
+                <input type="text" id="nome" name="nome" placeholder="Seu nome" autocomplete="given-name">
+                <span class="error-msg" id="err-nome">Por favor, informe seu nome.</span>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="telefone">Telefone / WhatsApp <span class="req">*</span></label>
+                <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" autocomplete="tel">
+                <span class="error-msg" id="err-telefone">Por favor, informe seu WhatsApp.</span>
+              </div>
+            </div>
+
+            <div class="field-row two">
+              <div class="field-group">
+                <label class="field-label" for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="email@empresa.com" autocomplete="email">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="empresa">Empresa / Canal / Marca</label>
+                <input type="text" id="empresa" name="empresa" placeholder="Nome do seu negócio ou canal">
+              </div>
+            </div>
+
+            <div class="field-row one">
+              <div class="field-group">
+                <label class="field-label" for="segmento">Segmento / nicho de atuação</label>
+                <select id="segmento" name="segmento">
+                  <option value="">Selecione seu segmento...</option>
+                  <option value="Infoprodutos / Cursos online">Infoprodutos / Cursos online</option>
+                  <option value="E-commerce / Produtos físicos">E-commerce / Produtos físicos</option>
+                  <option value="Serviços / Consultoria">Serviços / Consultoria</option>
+                  <option value="Saúde e bem-estar">Saúde e bem-estar</option>
+                  <option value="Imóveis / Real estate">Imóveis / Real estate</option>
+                  <option value="Fitness / Esporte">Fitness / Esporte</option>
+                  <option value="Alimentação / Restaurante">Alimentação / Restaurante</option>
+                  <option value="Tecnologia / SaaS">Tecnologia / SaaS</option>
+                  <option value="Moda / Beleza">Moda / Beleza</option>
+                  <option value="Agência de marketing">Agência de marketing</option>
+                  <option value="Entretenimento / Influencer">Entretenimento / Influencer</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEÇÃO 2: SEU PROJETO -->
+          <div class="form-section">
+            <div class="form-section-label">02 // Tipo de conteúdo</div>
+
+            <div class="field-group" style="margin-bottom: 16px;">
+              <label class="field-label">Que tipo de vídeo você precisa? (pode marcar mais de um)</label>
+              <div style="height:8px;"></div>
+              <div class="check-grid">
+                <div class="check-item">
+                  <input type="checkbox" id="t-criativo" name="tipos" value="Criativo para tráfego pago">
+                  <label for="t-criativo">Criativo para tráfego pago</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-vsl" name="tipos" value="VSL (Video Sales Letter)">
+                  <label for="t-vsl">VSL (Video Sales Letter)</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-dr" name="tipos" value="Direct Response">
+                  <label for="t-dr">Direct Response</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-reels" name="tipos" value="Reels / TikTok / Shorts">
+                  <label for="t-reels">Reels / TikTok / Shorts</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-lancamento" name="tipos" value="Vídeo de lançamento">
+                  <label for="t-lancamento">Vídeo de lançamento</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-inst" name="tipos" value="Vídeo institucional">
+                  <label for="t-inst">Vídeo institucional</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-depo" name="tipos" value="Depoimento / Prova social">
+                  <label for="t-depo">Depoimento / Prova social</label>
+                </div>
+                <div class="check-item">
+                  <input type="checkbox" id="t-outro" name="tipos" value="Outro formato">
+                  <label for="t-outro">Outro formato</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-row two">
+              <div class="field-group">
+                <label class="field-label" for="plataforma">Plataforma principal</label>
+                <select id="plataforma" name="plataforma">
+                  <option value="">Selecione...</option>
+                  <option value="Instagram / Facebook Ads">Instagram / Facebook Ads</option>
+                  <option value="YouTube / Google Ads">YouTube / Google Ads</option>
+                  <option value="TikTok Ads">TikTok Ads</option>
+                  <option value="Múltiplas plataformas">Múltiplas plataformas</option>
+                  <option value="Não sei ainda">Não sei ainda</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="quantidade">Quantidade estimada de vídeos</label>
+                <select id="quantidade" name="quantidade">
+                  <option value="">Selecione...</option>
+                  <option value="1 a 3 vídeos (projeto pontual)">1 a 3 vídeos (projeto pontual)</option>
+                  <option value="4 a 10 vídeos">4 a 10 vídeos</option>
+                  <option value="10+ vídeos por mês (recorrente)">10+ vídeos por mês (recorrente)</option>
+                  <option value="Não sei ainda">Não sei ainda</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEÇÃO 3: OBJETIVOS -->
+          <div class="form-section">
+            <div class="form-section-label">03 // Objetivo &amp; Contexto</div>
+
+            <div class="field-row two">
+              <div class="field-group">
+                <label class="field-label" for="objetivo">Objetivo principal do vídeo</label>
+                <select id="objetivo" name="objetivo">
+                  <option value="">Selecione...</option>
+                  <option value="Aumentar vendas diretas">Aumentar vendas diretas</option>
+                  <option value="Gerar leads qualificados">Gerar leads qualificados</option>
+                  <option value="Lançamento de produto / serviço">Lançamento de produto / serviço</option>
+                  <option value="Construir autoridade e marca">Construir autoridade e marca</option>
+                  <option value="Aumentar alcance / awareness">Aumentar alcance / awareness</option>
+                  <option value="Reter e fidelizar clientes">Reter e fidelizar clientes</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="prazo">Prazo desejado</label>
+                <select id="prazo" name="prazo">
+                  <option value="">Selecione...</option>
+                  <option value="Urgente (até 7 dias)">Urgente (até 7 dias)</option>
+                  <option value="Curto (até 15 dias)">Curto (até 15 dias)</option>
+                  <option value="Normal (até 30 dias)">Normal (até 30 dias)</option>
+                  <option value="Planejado (+30 dias)">Planejado (+30 dias)</option>
+                  <option value="Sem prazo definido">Sem prazo definido</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row one">
+              <div class="field-group">
+                <label class="field-label" for="investimento">Faixa de investimento estimado</label>
+                <select id="investimento" name="investimento">
+                  <option value="">Prefiro receber uma proposta primeiro</option>
+                  <option value="Até R$ 500">Até R$ 500</option>
+                  <option value="R$ 500 a R$ 1.500">R$ 500 a R$ 1.500</option>
+                  <option value="R$ 1.500 a R$ 3.000">R$ 1.500 a R$ 3.000</option>
+                  <option value="R$ 3.000 a R$ 5.000">R$ 3.000 a R$ 5.000</option>
+                  <option value="Acima de R$ 5.000">Acima de R$ 5.000</option>
+                  <option value="Retainer / Recorrência mensal">Retainer / Recorrência mensal</option>
+                </select>
+                <span class="field-hint">Não precisa ser exato. Só ajuda a calibrar a proposta.</span>
+              </div>
+            </div>
+
+            <div class="field-row one">
+              <div class="field-group">
+                <label class="field-label" for="descricao">Conte mais sobre o projeto</label>
+                <textarea id="descricao" name="descricao" placeholder="Ex: Preciso de um criativo de 30s para vender meu curso de finanças. Tenho o vídeo gravado e preciso de edição com legendas, motion e música. Já rodei anúncios antes mas quero melhorar a taxa de conversão..." rows="5"></textarea>
+                <span class="field-hint">Quanto mais contexto, melhor. Pode colar roteiro, referências, links...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEÇÃO 4: REFERÊNCIAS -->
+          <div class="form-section">
+            <div class="form-section-label">04 // Referências &amp; Descoberta</div>
+
+            <div class="field-row two">
+              <div class="field-group">
+                <label class="field-label" for="referencia">Tem referência de vídeo? (link)</label>
+                <input type="text" id="referencia" name="referencia" placeholder="youtube.com/watch?v=... ou link de pasta">
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="origem">Como me encontrou?</label>
+                <select id="origem" name="origem">
+                  <option value="">Selecione...</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Indicação de alguém">Indicação de alguém</option>
+                  <option value="LinkedIn">LinkedIn</option>
+                  <option value="Google">Google</option>
+                  <option value="YouTube">YouTube</option>
+                  <option value="TikTok">TikTok</option>
+                  <option value="Vimeo">Vimeo</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row one">
+              <div class="field-group">
+                <label class="field-label" for="obs">Alguma observação ou dúvida?</label>
+                <textarea id="obs" name="obs" placeholder="Qualquer detalhe adicional que achar importante..." rows="3"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUBMIT -->
+          <div class="submit-area">
+            <button type="submit" class="btn-submit">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.868-1.423A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+              Enviar briefing pelo WhatsApp
+            </button>
+            <div class="submit-note">
+              Ao clicar, você será redirecionado para o WhatsApp com as informações preenchidas.
+              Campos marcados com <span style="color:var(--orange);">*</span> são obrigatórios.
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+    <!-- CONTATO DIRETO -->
+    <div class="contact-strip" id="contact-direct">
+      <div class="contact-strip-label">// ou <span>FALE DIRETO</span> comigo</div>
+      <div class="contact-btns">
+        <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vim%20do%20site%20e%20quero%20conversar%20sobre%20um%20projeto" target="_blank" rel="noopener" class="contact-btn wpp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.868-1.423A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          WhatsApp
+        </a>
+        <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" rel="noopener" class="contact-btn ig">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.linkedin.com/in/andbrito/" target="_blank" rel="noopener" class="contact-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://vimeo.com/andersonilmar" target="_blank" rel="noopener" class="contact-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.977 6.416c-.105 2.338-1.739 5.543-4.894 9.609-3.268 4.247-6.026 6.37-8.29 6.37-1.409 0-2.578-1.294-3.553-3.881L5.322 11.4C4.603 8.816 3.834 7.522 3.01 7.522c-.179 0-.806.378-1.881 1.132L0 7.197a315.065 315.065 0 003.501-3.12C5.08 2.701 6.266 1.984 7.055 1.91c1.867-.18 3.016 1.1 3.447 3.838.465 2.953.789 4.789.971 5.507.539 2.45 1.131 3.674 1.776 3.674.502 0 1.256-.796 2.265-2.385 1.004-1.589 1.54-2.797 1.612-3.628.144-1.371-.395-2.061-1.614-2.061-.574 0-1.167.121-1.777.391 1.186-3.868 3.434-5.757 6.762-5.637 2.473.06 3.628 1.664 3.48 4.807z"/></svg>
+          Vimeo
+        </a>
+        <a href="mailto:contato@andersonbrito.com" class="contact-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7" stroke-linecap="round"/></svg>
+          E-mail
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="page-footer">
+      <span>📍 Alphaville, São Paulo — Brasil &nbsp;|&nbsp; © 2026 Anderson Ilmar ME &nbsp;|&nbsp; contato@andersonbrito.com</span>
+      <span>Made with Claude Code &nbsp;•&nbsp; Hosted on GitHub Pages</span>
+    </div>
+
+  </div><!-- end page-wrap -->
+
+  <script>
+    /* ── Mobile drawer ── */
+    const hamburger = document.getElementById('hamburgerBtn');
+    const drawer    = document.getElementById('mobileDrawer');
+    if (hamburger && drawer) {
+      hamburger.addEventListener('click', () => drawer.classList.toggle('open'));
+    }
+
+    /* ── Form submission → WhatsApp ── */
+    const form = document.getElementById('briefingForm');
+    const successOverlay = document.getElementById('successOverlay');
+    const waFallback = document.getElementById('waFallback');
+    let waUrl = '';
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!validate()) return;
+
+      const data = collectData();
+      const msg  = buildMessage(data);
+      waUrl = 'https://wa.me/5511948577950?text=' + encodeURIComponent(msg);
+
+      // Show success, redirect
+      form.style.display = 'none';
+      successOverlay.classList.add('show');
+      waFallback.href = waUrl;
+
+      setTimeout(() => { window.open(waUrl, '_blank'); }, 600);
+    });
+
+    function validate() {
+      let ok = true;
+
+      const nome = document.getElementById('nome');
+      const tel  = document.getElementById('telefone');
+
+      // Reset
+      [nome, tel].forEach(el => {
+        el.classList.remove('invalid');
+        document.getElementById('err-' + el.id).classList.remove('show');
+      });
+
+      if (!nome.value.trim()) {
+        nome.classList.add('invalid');
+        document.getElementById('err-nome').classList.add('show');
+        ok = false;
+      }
+      if (!tel.value.trim()) {
+        tel.classList.add('invalid');
+        document.getElementById('err-telefone').classList.add('show');
+        ok = false;
+      }
+
+      if (!ok) {
+        nome.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return ok;
+    }
+
+    function collectData() {
+      const checked = [...document.querySelectorAll('input[name="tipos"]:checked')].map(c => c.value);
+      return {
+        nome:        document.getElementById('nome').value.trim(),
+        telefone:    document.getElementById('telefone').value.trim(),
+        email:       document.getElementById('email').value.trim(),
+        empresa:     document.getElementById('empresa').value.trim(),
+        segmento:    document.getElementById('segmento').value,
+        tipos:       checked.length ? checked.join(', ') : 'Não informado',
+        plataforma:  document.getElementById('plataforma').value || 'Não informado',
+        quantidade:  document.getElementById('quantidade').value || 'Não informado',
+        objetivo:    document.getElementById('objetivo').value || 'Não informado',
+        prazo:       document.getElementById('prazo').value || 'Não informado',
+        investimento:document.getElementById('investimento').value || 'Prefiro receber proposta primeiro',
+        descricao:   document.getElementById('descricao').value.trim(),
+        referencia:  document.getElementById('referencia').value.trim(),
+        origem:      document.getElementById('origem').value || 'Não informado',
+        obs:         document.getElementById('obs').value.trim(),
+      };
+    }
+
+    function buildMessage(d) {
+      const linhas = [
+        '🎬 *BRIEFING DE PROJETO — andersonbrito.com*',
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━',
+        '👤 *SOBRE VOCÊ*',
+        `• Nome: ${d.nome}`,
+        `• WhatsApp: ${d.telefone}`,
+        d.email    ? `• E-mail: ${d.email}`    : null,
+        d.empresa  ? `• Empresa / Canal: ${d.empresa}` : null,
+        d.segmento ? `• Segmento: ${d.segmento}` : null,
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━',
+        '🎥 *TIPO DE CONTEÚDO*',
+        `• Formato(s): ${d.tipos}`,
+        `• Plataforma: ${d.plataforma}`,
+        `• Quantidade: ${d.quantidade}`,
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━',
+        '🎯 *OBJETIVO & CONTEXTO*',
+        `• Objetivo: ${d.objetivo}`,
+        `• Prazo: ${d.prazo}`,
+        `• Investimento: ${d.investimento}`,
+        d.descricao ? `• Descrição:\n${d.descricao}` : null,
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━',
+        '🔗 *REFERÊNCIAS*',
+        d.referencia ? `• Link de referência: ${d.referencia}` : '• Sem referência informada',
+        `• Como me encontrou: ${d.origem}`,
+        d.obs ? `• Observações:\n${d.obs}` : null,
+        '',
+        '━━━━━━━━━━━━━━━━━━━━━━━',
+        '✅ _Briefing enviado via andersonbrito.com_',
+      ];
+
+      return linhas.filter(l => l !== null).join('\n');
+    }
+  </script>
+
+</body>
+</html>
