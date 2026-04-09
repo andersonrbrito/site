@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Marketing — Anderson Brito | Criativos, VSL e Direct Response</title>
-  <meta name="description" content="Portfolio de edição de vídeo com projetos em criativos, VSL e direct response. +50 projetos entregues. Foco em retenção e conversão.">
+  <title>Portfolio — Anderson Brito | Editor de Vídeo</title>
+  <meta name="description" content="Portfolio de edição de vídeo de Anderson Brito: criativos, VSL, direct response, fotografia e projetos de IA. +50 projetos entregues com foco em retenção e conversão.">
   <meta name="keywords" content="portfolio vídeo, criativos, VSL, direct response, edição profissional, videomaker">
   <meta name="author" content="Anderson Brito">
   <meta name="robots" content="index, follow">
@@ -12,7 +12,7 @@
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://andersonbrito.com/marketing.html">
-  <meta property="og:title" content="Portfolio Marketing — Anderson Brito">
+  <meta property="og:title" content="Portfolio — Anderson Brito | Editor de Vídeo">
   <meta property="og:description" content="Projetos em criativos, VSL e direct response. Vídeos que retêm, convertem e vendem.">
   <meta property="og:image" content="https://andersonbrito.com/assets/foto-perfil.jpg">
 
@@ -147,6 +147,8 @@
     }
     .toolbar-title .seq { color: var(--tx-lo); }
     .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+    .tn-link, .toolbar-back, .mobile-drawer a { text-decoration: none !important; }
+    a { text-decoration: none; }
     .tn-link {
       font-family: var(--f-head); font-size: 11px; font-weight: 600;
       letter-spacing: .06em; text-transform: uppercase;
@@ -584,26 +586,28 @@
       <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       VOLTAR
     </a>
-    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · 3840×2160 · 30fps</div>
+    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · PORTFOLIO · 3840×2160 · 30fps</div>
     <div class="toolbar-nav">
       <a href="index.html" class="tn-link">Home</a>
-      <a href="marketing.html" class="tn-link">Portfolio</a>
+      <a href="marketing.html" class="tn-link" style="color:var(--tx-hi);">Portfolio</a>
       <a href="fotografia.html" class="tn-link">Fotografia</a>
-      <a href="ia.html" class="tn-link">IA</a>
-      <a href="vendas.html" class="tn-link" style="color:var(--orange);">APRENDA</a>
-      <a href="index.html#section-about" class="tn-link">Sobre</a>
-      <a href="index.html#section-contact" class="tn-link cta">Contato</a>
+      <a href="ia.html" class="tn-link">IA Prompts</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
+      <a href="#" class="tn-link">Aprenda</a>
+      <a href="saiba-mais.html" class="tn-link">Sobre</a>
+      <a href="briefing.html" class="tn-link cta">Contato</a>
     </div>
     <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-drawer" id="mobileDrawer">
-    <a href="index.html">← Home</a>
-    <a href="marketing.html">Portfolio</a>
+    <a href="index.html">Home</a>
+    <a href="marketing.html" style="color:var(--tx-hi);">Portfolio</a>
     <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html">IA</a>
-    <a href="vendas.html" style="color:var(--orange);">APRENDA</a>
-    <a href="index.html#section-about">Sobre</a>
-    <a href="index.html#section-contact" class="cta">Contato</a>
+    <a href="ia.html">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="#">Aprenda</a>
+    <a href="saiba-mais.html">Sobre</a>
+    <a href="briefing.html" class="cta">Contato</a>
   </div>
 
   <!-- CONTENT -->
@@ -620,8 +624,12 @@
         <div class="ph-inner">
           <div>
             <div class="ph-label">Portfolio</div>
-            <h1 class="ph-h1">Marketing &<br>Direct Response</h1>
+            <h1 class="ph-h1">PORTFOLIO</h1>
             <p class="ph-sub">Criativos, VSL e direct response. Dois cliques pro trabalho — zero pra impressionar.</p>
+            <a href="#" class="btn-dr-portfolio" style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(61,167,255,0.1);border:1px solid var(--accent);border-radius:3px;font-family:var(--f-head);font-size:12px;font-weight:700;color:var(--accent);text-decoration:none;letter-spacing:.06em;margin-top:16px;transition:background .15s;">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              ACESSAR PORTFÓLIO MARKETING DIRECT RESPONSE
+            </a>
           </div>
           <div class="ph-stats">
             <div class="ph-stat">
@@ -663,6 +671,14 @@
     <!-- VIDEO BIN -->
     <div class="portfolio-main">
       <div class="video-bin reveal" id="videoBin"></div>
+    </div>
+
+    <!-- CTA Strip -->
+    <div style="padding:40px 24px;text-align:center;background:var(--pr-panel-bg);border-top:1px solid var(--pr-sep);">
+      <a href="briefing.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--accent-2);border-radius:3px;font-family:var(--f-head);font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:background .15s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--accent-2)'">
+        Quero aumentar minhas vendas
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
     </div>
 
     <!-- CTA -->

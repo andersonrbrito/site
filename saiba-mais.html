@@ -137,6 +137,8 @@
     .toolbar-back:hover { color: var(--tx-hi); }
     .toolbar-title { font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid); letter-spacing: .06em; }
     .toolbar-title .seq { color: var(--tx-lo); }
+    .tn-link, .toolbar-back, .mobile-drawer a { text-decoration: none !important; }
+    a { text-decoration: none; }
     .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
     .tn-link {
       font-family: var(--f-head); font-size: 11px; font-weight: 600;
@@ -518,23 +520,25 @@
     <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · 3840×2160 · 30fps</div>
     <div class="toolbar-nav">
       <a href="index.html" class="tn-link">Home</a>
-      <a href="marketing.html" class="tn-link">Marketing DR</a>
+      <a href="marketing.html" class="tn-link">Portfolio</a>
       <a href="fotografia.html" class="tn-link">Fotografia</a>
-      <a href="ia.html" class="tn-link">IA</a>
-      <a href="vendas.html" class="tn-link" style="color:var(--orange);">APRENDA</a>
-      <a href="index.html#section-about" class="tn-link">Sobre</a>
-      <a href="index.html#section-contact" class="tn-link cta">Contato</a>
+      <a href="ia.html" class="tn-link">IA Prompts</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
+      <a href="#" class="tn-link">Aprenda</a>
+      <a href="saiba-mais.html" class="tn-link" style="color:var(--tx-hi);">Sobre</a>
+      <a href="briefing.html" class="tn-link cta">Contato</a>
     </div>
     <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
   </div>
   <div class="mobile-drawer" id="mobileDrawer">
-    <a href="index.html">← Home</a>
-    <a href="marketing.html">Marketing DR</a>
+    <a href="index.html">Home</a>
+    <a href="marketing.html">Portfolio</a>
     <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html">IA</a>
-    <a href="vendas.html" style="color:var(--orange);">APRENDA</a>
-    <a href="saiba-mais.html">Sobre</a>
-    <a href="index.html#section-contact" class="cta">Contato</a>
+    <a href="ia.html">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="#">Aprenda</a>
+    <a href="saiba-mais.html" style="color:var(--tx-hi);">Sobre</a>
+    <a href="briefing.html" class="cta">Contato</a>
   </div>
 
   <!-- ══ CONTENT ════════════════════════════════ -->
@@ -739,6 +743,10 @@
       <h2>Vamos Criar Algo<br>que Converte?</h2>
       <p>Experiência, formação e foco em resultado. Sem enrolação.</p>
       <div class="cta-buttons">
+        <a href="briefing.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--accent-2);border-radius:3px;font-family:var(--f-head);font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:background .15s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--accent-2)'">
+          Quero aumentar minhas vendas
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
         <a href="https://wa.me/5511948577950" target="_blank" class="btn-prim" style="display:inline-flex;align-items:center;gap:8px;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
           WhatsApp

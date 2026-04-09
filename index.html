@@ -342,6 +342,8 @@
       align-items: center;
       gap: 4px;
     }
+    .tn-link, .toolbar-back, .toolbar-nav-link, .mobile-drawer a { text-decoration: none !important; }
+    a { text-decoration: none; }
     .toolbar-nav-link {
       font-family: var(--f-head);
       font-size: 11px;
@@ -1433,13 +1435,14 @@
 
     <!-- Desktop nav -->
     <div class="toolbar-nav">
-      <a href="index.html" class="toolbar-nav-link">Home</a>
-      <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
+      <a href="index.html" class="toolbar-nav-link" style="color:var(--tx-hi);">Home</a>
+      <a href="marketing.html" class="toolbar-nav-link">Portfolio</a>
       <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
-      <a href="ia.html" class="toolbar-nav-link">IA</a>
-      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">APRENDA</a>
-      <a href="#section-about" class="toolbar-nav-link">Sobre</a>
-      <a href="#section-contact" class="toolbar-nav-link cta">Contato</a>
+      <a href="ia.html" class="toolbar-nav-link">IA Prompts</a>
+      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">Packs</a>
+      <a href="#" class="toolbar-nav-link">Aprenda</a>
+      <a href="saiba-mais.html" class="toolbar-nav-link">Sobre</a>
+      <a href="briefing.html" class="toolbar-nav-link cta">Contato</a>
     </div>
 
     <!-- Mobile hamburger (hidden — drawer always shows on mobile) -->
@@ -1450,13 +1453,14 @@
 
   <!-- Mobile nav drawer -->
   <div class="mobile-drawer" id="mobileDrawer">
-    <a href="index.html">Home</a>
-    <a href="marketing.html">Marketing DR</a>
+    <a href="index.html" style="color:var(--tx-hi);">Home</a>
+    <a href="marketing.html">Portfolio</a>
     <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html">IA</a>
-    <a href="vendas.html" style="color:var(--orange);">APRENDA</a>
-    <a href="#section-about">Sobre</a>
-    <a href="#section-contact" class="cta">Contato →</a>
+    <a href="ia.html">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="#">Aprenda</a>
+    <a href="saiba-mais.html">Sobre</a>
+    <a href="briefing.html" class="cta">Contato</a>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -1633,6 +1637,14 @@
         </div>
       </div>
     </section>
+
+    <!-- CTA Strip -->
+    <div style="padding:40px 24px;text-align:center;background:var(--pr-panel-bg);border-top:1px solid var(--pr-sep);">
+      <a href="briefing.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--accent-2);border-radius:3px;font-family:var(--f-head);font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:background .15s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--accent-2)'">
+        Quero aumentar minhas vendas
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
 
     <!-- ── ABOUT / SOURCE MONITOR ────────────── -->
     <section id="section-about" class="ws-section" data-section="ABOUT" data-tc="00:01:00;00">

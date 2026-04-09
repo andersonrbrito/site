@@ -282,6 +282,8 @@
       align-items: center;
       gap: 4px;
     }
+    .tn-link, .toolbar-back, .toolbar-nav-link, .mobile-drawer a { text-decoration: none !important; }
+    a { text-decoration: none; }
     .toolbar-nav-link {
       font-family: var(--f-head);
       font-size: 11px;
@@ -447,13 +449,15 @@
     ═══════════════════════════════════════════ */
     .categories-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
       padding: 24px;
       background: var(--pr-panel-bg);
+      align-items: start;
     }
     .cat-card {
       aspect-ratio: 9 / 16;
+      max-height: 420px;
       background: linear-gradient(135deg, var(--pr-track-bg) 0%, var(--pr-card) 100%);
       border: 1px solid var(--pr-sep);
       border-radius: 8px;
@@ -464,6 +468,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 100%;
     }
     .cat-card:hover {
       border-color: var(--clip-color, var(--accent));
@@ -900,7 +905,7 @@
       .process-track-hd { width: 100px; padding: 14px 12px; }
       .process-track-num { font-size: 16px; }
       .tl-waveform { display: none; }
-      .categories-grid { grid-template-columns: 1fr; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 480px) {
@@ -1022,12 +1027,13 @@
     <!-- Desktop nav -->
     <div class="toolbar-nav">
       <a href="index.html" class="toolbar-nav-link">Home</a>
-      <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
-      <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
-      <a href="ia.html" class="toolbar-nav-link">IA</a>
-      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">APRENDA</a>
-      <a href="index.html#section-about" class="toolbar-nav-link">Sobre</a>
-      <a href="index.html#section-contact" class="toolbar-nav-link cta">Contato</a>
+      <a href="marketing.html" class="toolbar-nav-link">Portfolio</a>
+      <a href="fotografia.html" class="toolbar-nav-link" style="color:var(--tx-hi);">Fotografia</a>
+      <a href="ia.html" class="toolbar-nav-link">IA Prompts</a>
+      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">Packs</a>
+      <a href="#" class="toolbar-nav-link">Aprenda</a>
+      <a href="saiba-mais.html" class="toolbar-nav-link">Sobre</a>
+      <a href="briefing.html" class="toolbar-nav-link cta">Contato</a>
     </div>
 
     <!-- Mobile hamburger -->
@@ -1038,13 +1044,14 @@
 
   <!-- Mobile nav drawer -->
   <div class="mobile-drawer" id="mobileDrawer">
-    <a href="index.html">← Home</a>
+    <a href="index.html">Home</a>
     <a href="marketing.html">Portfolio</a>
-    <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html">IA</a>
-    <a href="vendas.html" style="color:var(--orange);">APRENDA</a>
+    <a href="fotografia.html" style="color:var(--tx-hi);">Fotografia</a>
+    <a href="ia.html">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="#">Aprenda</a>
     <a href="saiba-mais.html">Sobre</a>
-    <a href="index.html#section-contact" class="cta">Contato</a>
+    <a href="briefing.html" class="cta">Contato</a>
   </div>
 
   <!-- ═══════════════════════════════════════════
@@ -1098,7 +1105,7 @@
         <div class="categories-grid">
 
           <!-- REEL 1 — Shows ao Vivo -->
-          <div class="cat-card reveal" style="--clip-color: var(--clip-grfx);">
+          <div class="cat-card" style="--clip-color: var(--clip-grfx);">
             <div class="cat-card-content">
               <div class="cat-icon">
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.5"/><circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/></svg>
@@ -1109,7 +1116,7 @@
           </div>
 
           <!-- REEL 2 — Fotografia Esportiva -->
-          <div class="cat-card reveal" style="--clip-color: var(--clip-v1);">
+          <div class="cat-card" style="--clip-color: var(--clip-v1);">
             <div class="cat-card-content">
               <div class="cat-icon">
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 17l4-4 2 2 4-6 6 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1120,7 +1127,7 @@
           </div>
 
           <!-- REEL 3 — Retratos Executivos -->
-          <div class="cat-card reveal" style="--clip-color: var(--accent-2);">
+          <div class="cat-card" style="--clip-color: var(--accent-2);">
             <div class="cat-card-content">
               <div class="cat-icon">
                 <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -1223,6 +1230,13 @@
               <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="btn-pr-ghost" style="gap:8px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
                 Instagram
+              </a>
+            </div>
+            <!-- CTA Strip -->
+            <div style="padding:40px 24px;text-align:center;background:var(--pr-panel-bg);border-top:1px solid var(--pr-sep);margin-top:32px;">
+              <a href="briefing.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--accent-2);border-radius:3px;font-family:var(--f-head);font-size:13px;font-weight:900;color:#fff;text-decoration:none;letter-spacing:.06em;text-transform:uppercase;transition:background .15s;" onmouseover="this.style.background='var(--accent)'" onmouseout="this.style.background='var(--accent-2)'">
+                Quero aumentar minhas vendas
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
             <div class="footer-info">
