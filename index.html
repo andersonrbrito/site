@@ -1355,6 +1355,7 @@
         Arquivo
         <div class="menu-dropdown">
           <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="const link=document.createElement('a');link.href='formulario-briefing-anderson-brito.docx';link.download='Formulario-Briefing-AndersonBrito.docx';link.click();">Imprimir Formulário</div>
           <div class="menu-dropdown-item" onclick="document.getElementById('section-home')?.scrollIntoView({behavior:'smooth'})">Ir para INTRO</div>
           <div class="menu-dropdown-item" onclick="document.getElementById('section-services')?.scrollIntoView({behavior:'smooth'})">Ir para SERVICES</div>
           <div class="menu-dropdown-item" onclick="document.getElementById('section-about')?.scrollIntoView({behavior:'smooth'})">Ir para ABOUT</div>
@@ -1663,28 +1664,28 @@
             <div class="about-text-content reveal">
               <div class="about-label">Sobre mim</div>
               <h2 class="about-heading">Anderson Rotiroti Brito</h2>
-              <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Videógrafo • Fotógrafo • Editor</p>
+              <p style="font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px;">Filmmaker • Editor • Fotógrafo</p>
               <p class="about-body">
                 Especialista em edição de vídeo para marketing digital e direct response. Foco em conteúdo que prende atenção e gera resultado.
               </p>
 
-              <!-- Stats Table -->
-              <div class="about-stats" style="display: flex; flex-direction: column; gap: 14px; margin-top: 24px; background: var(--pr-panel-hd2); padding: 16px; border-radius: 2px; border-left: 3px solid var(--accent);">
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-                  <span style="color: var(--tx-mid); font-weight: 500;">Experiência</span>
-                  <span style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600;">+10 anos com audiovisual</span>
+              <!-- Stats Blocks -->
+              <div class="about-stats" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px;">
+                <div style="background: var(--pr-panel-hd2); padding: 14px 12px; border-radius: 4px; border-left: 3px solid var(--accent);">
+                  <div style="color: var(--tx-lo); font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px; text-transform: uppercase;">Experiência</div>
+                  <div style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600; font-size: 12px;">+10 anos</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-                  <span style="color: var(--tx-mid); font-weight: 500;">Especialidade</span>
-                  <span style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600;">Criativos, VSL e Direct Response</span>
+                <div style="background: var(--pr-panel-hd2); padding: 14px 12px; border-radius: 4px; border-left: 3px solid var(--accent);">
+                  <div style="color: var(--tx-lo); font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px; text-transform: uppercase;">Especialidade</div>
+                  <div style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600; font-size: 12px;">Criativos, VSL, DR</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-                  <span style="color: var(--tx-mid); font-weight: 500;">Formação</span>
-                  <span style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600;">MBA em Marketing — FGV</span>
+                <div style="background: var(--pr-panel-hd2); padding: 14px 12px; border-radius: 4px; border-left: 3px solid var(--accent);">
+                  <div style="color: var(--tx-lo); font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px; text-transform: uppercase;">Formação</div>
+                  <div style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600; font-size: 12px;">MBA FGV</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; font-size: 13px;">
-                  <span style="color: var(--tx-mid); font-weight: 500;">Atuação atual</span>
-                  <span style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600;">Conteúdo para marcas e players do digital</span>
+                <div style="background: var(--pr-panel-hd2); padding: 14px 12px; border-radius: 4px; border-left: 3px solid var(--accent);">
+                  <div style="color: var(--tx-lo); font-size: 11px; letter-spacing: 0.05em; margin-bottom: 6px; text-transform: uppercase;">Atuação</div>
+                  <div style="color: var(--tx-hi); font-family: var(--f-mono); font-weight: 600; font-size: 12px;">Marcas & Digital</div>
                 </div>
               </div>
 
@@ -1976,7 +1977,7 @@
         v2.appendChild(el);
       });
 
-      // A1 — audio waveform clip (interactive)
+      // A1 — audio waveform clip (interactive) — fills with scroll
       const audioClip = document.createElement('div');
       audioClip.className = 'tl-clip';
       audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg, #3A2A10 0%, #4A3A20 50%, #3A2A10 100%);cursor:pointer;transition:all 0.3s ease;';
@@ -1985,14 +1986,16 @@
       const waveDiv = document.createElement('div');
       waveDiv.className = 'tl-waveform';
       const heights = [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55];
+      const waveformBars = []; // Store bar references for scroll-based fill
 
       heights.forEach((h, idx) => {
         const bar = document.createElement('div');
         bar.className = 'wv-bar';
+        bar.dataset.filled = 'false';
         bar.style.cssText = `
           height: ${h}%;
           background: linear-gradient(180deg, #FF9632 0%, #FF6B35 100%);
-          opacity: 0.7;
+          opacity: 0.5;
           transition: all 0.2s ease;
         `;
         bar.addEventListener('mouseenter', () => {
@@ -2001,11 +2004,18 @@
           bar.style.filter = 'drop-shadow(0 0 4px rgba(255,107,53,0.6))';
         });
         bar.addEventListener('mouseleave', () => {
-          bar.style.opacity = '0.7';
-          bar.style.background = 'linear-gradient(180deg, #FF9632 0%, #FF6B35 100%)';
+          // Only reset if not filled by scroll
+          if (bar.dataset.filled !== 'true') {
+            bar.style.opacity = '0.5';
+            bar.style.background = 'linear-gradient(180deg, #FF9632 0%, #FF6B35 100%)';
+          } else {
+            bar.style.opacity = '1';
+            bar.style.background = 'linear-gradient(180deg, #FFB366 0%, #FF8855 100%)';
+          }
           bar.style.filter = 'none';
         });
         waveDiv.appendChild(bar);
+        waveformBars.push(bar);
       });
 
       audioClip.appendChild(waveDiv);
@@ -2094,6 +2104,26 @@
       const ind = document.getElementById('sectionIndicator');
       ind.style.left = (current.pct * rulerW) + 'px';
       ind.style.width = ((nextPct - current.pct) * rulerW) + 'px';
+
+      // update waveform fill based on scroll
+      if (waveformBars && waveformBars.length > 0) {
+        const filledCount = Math.ceil(p * waveformBars.length);
+        waveformBars.forEach((bar, idx) => {
+          if (idx < filledCount) {
+            // Filled state
+            bar.dataset.filled = 'true';
+            bar.style.opacity = '1';
+            bar.style.background = 'linear-gradient(180deg, #FFB366 0%, #FF8855 100%)';
+            bar.style.boxShadow = '0 0 6px rgba(255,107,53,0.5)';
+          } else {
+            // Unfilled state
+            bar.dataset.filled = 'false';
+            bar.style.opacity = '0.5';
+            bar.style.background = 'linear-gradient(180deg, #FF9632 0%, #FF6B35 100%)';
+            bar.style.boxShadow = 'none';
+          }
+        });
+      }
     }
 
     window.addEventListener('scroll', updatePlayhead, { passive: true });

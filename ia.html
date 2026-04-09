@@ -300,65 +300,64 @@
 
     /* ── PAGE HEADER ─── */
     .page-header {
-      background: linear-gradient(135deg, #0A0A0C 0%, #0D1A22 50%, #050F14 100%);
-      padding: 56px 40px 48px;
-      border-bottom: 1px solid var(--pr-border);
-      position: relative; overflow: hidden;
+      background: #0A0A0C;
+      padding: 40px 24px 32px;
+      border-bottom: 1px solid var(--pr-sep);
+      position: relative;
+      overflow: hidden;
     }
     .page-header::before {
-      content: 'AI';
-      position: absolute; right: -20px; bottom: -40px;
-      font-family: var(--f-head); font-size: 220px; font-weight: 900;
-      color: rgba(0,200,255,.03); line-height: 1; pointer-events: none;
-    }
-    /* Animated particle grid */
-    .page-header::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 70% 50%, rgba(0,200,255,.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse 50% 100% at 0% 50%, rgba(0,200,255,.05) 0%, transparent 70%);
       pointer-events: none;
     }
     .ph-inner {
-      max-width: 900px; display: flex;
-      justify-content: space-between; align-items: flex-start; gap: 40px;
-      position: relative; z-index: 1;
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; position: relative; z-index: 1;
     }
     .ph-label {
-      font-family: var(--f-mono); font-size: 10px; letter-spacing: .2em;
-      color: var(--ai-cyan); text-transform: uppercase; margin-bottom: 14px;
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--ai-cyan); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
     }
+    .ph-label::before { content: '//'; color: var(--tx-lo); }
     .ph-h1 {
-      font-family: var(--f-head); font-size: clamp(36px, 6vw, 64px);
-      font-weight: 900; line-height: 1; letter-spacing: -.01em;
-      color: var(--tx-hi); margin-bottom: 20px;
+      font-family: var(--f-head);
+      font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900; line-height: 1.05;
+      margin-bottom: 8px;
     }
     .ph-h1 span { color: var(--ai-cyan); }
     .ph-sub {
-      font-size: 14px; color: var(--tx-mid); line-height: 1.7; max-width: 520px;
+      font-size: 13px; color: var(--tx-mid); max-width: 420px;
     }
     .ph-stats {
-      display: flex; flex-direction: column; gap: 16px;
-      flex-shrink: 0; padding-top: 8px;
+      display: flex; gap: 20px; flex-wrap: wrap;
+    }
+    .ph-stat {
+      text-align: right;
     }
     .ph-stat .n {
-      font-family: var(--f-head); font-size: 26px; font-weight: 800;
+      font-family: var(--f-mono); font-size: 26px; font-weight: 600;
       color: var(--ai-cyan); line-height: 1;
     }
     .ph-stat .l {
       font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
-      letter-spacing: .1em; text-transform: uppercase; margin-top: 2px;
+      letter-spacing: .06em; text-transform: uppercase;
     }
 
     /* ── BUTTONS ─── */
     .btn-pr-primary {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; background: var(--ai-cyan); color: #000;
+      padding: 10px 20px; background: var(--accent); color: #000;
       font-family: var(--f-head); font-size: 12px; font-weight: 700;
       letter-spacing: .06em; text-transform: uppercase;
       border: none; cursor: pointer; text-decoration: none;
       transition: background .15s, transform .1s; border-radius: 2px;
     }
-    .btn-pr-primary:hover { background: var(--ai-teal); transform: translateY(-1px); }
+    .btn-pr-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
     .btn-pr-ghost {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 10px 20px; background: transparent;
@@ -371,30 +370,85 @@
 
     /* ── CARDS GRID ─── */
     .ws-section { border-top: 2px solid var(--pr-border); }
-    .cards-grid {
+        .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1px; background: var(--pr-border);
-      border-top: 1px solid var(--pr-border);
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      padding: 24px;
+      background: var(--pr-panel-bg);
     }
     .ia-card {
-      background: var(--pr-card); padding: 28px 24px;
-      display: flex; flex-direction: column; gap: 14px;
-      transition: background .2s; cursor: default;
-      position: relative; overflow: hidden;
+      aspect-ratio: 9 / 16;
+      background: linear-gradient(135deg, #003A4A 0%, #1A1A24 100%);
+      border: 2px solid var(--pr-sep);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
     }
-    .ia-card::before {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: var(--card-color, var(--ai-cyan));
-      transition: width .2s;
+    .ia-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,200,255,0.08)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      pointer-events: none;
     }
-    .ia-card:hover { background: #2A2A32; }
-    .ia-card:hover::before { width: 5px; }
-    .ia-card-top {
-      display: flex; align-items: center; gap: 8px;
+    .ia-card:hover {
+      border-color: var(--card-color, var(--ai-cyan));
+      box-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
+      transform: translateY(-6px);
     }
-    .ia-clip-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    .ia-card::before { display: none; }
+    .ia-card-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+    }
+    .ia-card-top { display: none; }
+    .ia-card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      background: rgba(0, 200, 255, 0.1);
+      border: 2px solid var(--card-color, var(--ai-cyan));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: var(--card-color, var(--ai-cyan));
+    }
+    .ia-card-title {
+      font-family: var(--f-head);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.3;
+      color: var(--card-color, var(--ai-cyan));
+      margin-bottom: 8px;
+    }
+    .ia-card-desc { display: none; }
+    .ia-tags { display: none; }
+    .ia-type {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .ia-status { display: none; }
+    .ia-clip-dot { display: none; }
     .ia-type { font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); letter-spacing: .1em; text-transform: uppercase; }
     .ia-card-icon {
       width: 56px; height: 56px;
@@ -567,6 +621,7 @@
           <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-services'">Ir para SERVICES</div>
           <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-about'">Ir para ABOUT</div>
           <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-contact'">Ir para CONTATO</div>
+          <div class="menu-dropdown-item" onclick="const link=document.createElement('a');link.href='formulario-briefing-anderson-brito.docx';link.download='Formulario-Briefing-AndersonBrito.docx';link.click();">Imprimir Formulário</div>
         </div>
       </div>
       <div class="menu-item">
