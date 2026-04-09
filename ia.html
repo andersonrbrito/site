@@ -135,49 +135,38 @@
 
     /* ── TOOLBAR ─── */
     .toolbar {
-      position: fixed; top: var(--menubar-h); left: 0; right: 0;
-      height: var(--toolbar-h); background: var(--pr-toolbar);
-      border-bottom: 1px solid var(--pr-border); z-index: 999;
-      display: flex; align-items: center; gap: 1px;
+      position: fixed; top: var(--menubar-h); left:0; right:0;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 999;
+      display: flex; align-items: center; padding: 0 12px; gap: 8px;
     }
-    .tool-group {
-      display: flex; align-items: center; gap: 2px;
-      padding: 0 8px; border-right: 1px solid var(--pr-sep); height: 100%;
+    .toolbar-back {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-mid);
+      background: rgba(255,255,255,0.04); border: 1px solid var(--pr-sep);
+      border-radius: 3px; padding: 4px 10px;
+      transition: color .15s; letter-spacing: .03em;
     }
-    .tool-btn {
-      width: 26px; height: 26px; border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--tx-mid); cursor: pointer; transition: background .1s, color .1s;
+    .toolbar-back:hover { color: var(--tx-hi); }
+    .toolbar-title {
+      font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid);
+      letter-spacing: .06em;
     }
-    .tool-btn:hover, .tool-btn.active { background: rgba(0,200,255,.12); color: var(--accent); }
-    .timecode-display {
-      font-family: var(--f-mono); font-size: 13px; color: var(--tx-hi);
-      background: var(--pr-input); padding: 3px 10px; border-radius: 2px;
-      border: 1px solid var(--pr-sep); letter-spacing: .04em;
+    .toolbar-title .seq { color: var(--tx-lo); }
+    .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+    .tn-link {
+      font-family: var(--f-head); font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--tx-mid); padding: 5px 10px; border-radius: 3px;
+      transition: color .15s, background .15s;
     }
-    .tc-sep { color: var(--tx-lo); margin: 0 1px; }
-    .seq-info {
-      font-family: var(--f-mono); font-size: 10px; color: var(--accent);
-      letter-spacing: .05em; white-space: nowrap;
-    }
-    .toolbar-nav {
-      margin-left: auto; display: flex; align-items: center; gap: 2px; padding: 0 10px;
-    }
-    .toolbar-nav-link {
-      padding: 4px 10px; font-family: var(--f-head); font-size: 11px;
-      color: var(--tx-mid); text-decoration: none; border-radius: 2px;
-      transition: color .15s, background .15s; letter-spacing: .03em;
-    }
-    .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
-    .toolbar-nav-link.cta { color: var(--accent); border: 1px solid var(--accent); }
-    .toolbar-nav-link.cta:hover { background: rgba(0,200,255,.1); }
-    .toolbar-hamburger { display: none; flex-direction: column; gap: 4px;
-      margin-left: auto; margin-right: 10px;
-      background: none; border: none; cursor: pointer; padding: 6px;
-    }
-    .toolbar-hamburger span {
-      display: block; width: 18px; height: 1.5px; background: var(--tx-mid); transition: .2s;
-    }
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
+    .tn-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
+    .tn-link.cta:hover { background: var(--accent); }
+    .hamburger-btn { display:none; margin-left:auto; flex-direction:column; gap:4px; padding:6px; background:none; border:none; cursor:pointer; }
+    .hamburger-btn span { display:block;width:18px;height:1.5px;background:var(--tx-mid);border-radius:2px; }
     .mobile-drawer {
       display: none; flex-direction: row;
       padding: 8px 12px;
@@ -578,7 +567,7 @@
     @media (max-width: 720px) {
       :root { --timeline-h: 88px; }
       .toolbar-nav { display: none; }
-      .toolbar-hamburger { display: none; }
+      .hamburger-btn { display: flex; }
       .mobile-drawer { display: flex !important; }
       .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h) + 48px); }
       .menu-items .menu-item:nth-child(n+4) { display: none; }
@@ -664,45 +653,31 @@
     </div>
   </div>
 
-  <!-- ═══ TOOLBAR ═══ -->
+  <!-- TOOLBAR -->
   <div class="toolbar">
-    <div class="tool-group">
-      <div class="tool-btn active" title="Seleção">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><path d="M1 1l9 4.5-4.5 1L4 10z"/></svg>
-      </div>
-      <div class="tool-btn" title="Corte">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2l7 7M2 9l7-7"/></svg>
-      </div>
-      <div class="tool-btn" title="IA">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-      </div>
-    </div>
-    <div class="tool-group">
-      <div class="timecode-display" id="tcDisplay">
-        <span id="tcH">00</span><span class="tc-sep">:</span><span id="tcM">00</span><span class="tc-sep">:</span><span id="tcS">00</span><span class="tc-sep">;</span><span id="tcF">00</span>
-      </div>
-    </div>
-    <div class="tool-group">
-      <div class="seq-info">&#9658; ANDERSON_BRITO &middot; IA_PROJECTS &middot; 3840×2160</div>
-    </div>
+    <a href="index.html" class="toolbar-back">
+      <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      VOLTAR
+    </a>
+    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · IA_PROJECTS · 3840×2160</div>
     <div class="toolbar-nav">
-      <a href="index.html" class="toolbar-nav-link">Home</a>
-      <a href="marketing.html" class="toolbar-nav-link">Marketing DR</a>
-      <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
-      <a href="ia.html" class="toolbar-nav-link" style="color:var(--accent);">IA</a>
-      <a href="index.html#section-contact" class="toolbar-nav-link cta">Contato</a>
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="marketing.html" class="tn-link">Portfolio</a>
+      <a href="fotografia.html" class="tn-link">Fotografia</a>
+      <a href="ia.html" class="tn-link" style="color:var(--accent);">IA</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Produtos</a>
+      <a href="index.html#section-contact" class="tn-link cta">Contato</a>
     </div>
-    <button class="toolbar-hamburger" id="hamburgerBtn">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
   </div>
 
   <!-- Mobile nav -->
   <div class="mobile-drawer" id="mobileDrawer">
-    <a href="index.html">Home</a>
-    <a href="marketing.html">Marketing DR</a>
+    <a href="index.html">← Home</a>
+    <a href="marketing.html">Portfolio</a>
     <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html" style="color:var(--accent);">Projetos de IA</a>
+    <a href="ia.html" style="color:var(--accent);">IA</a>
+    <a href="vendas.html" style="color:var(--orange);">Produtos</a>
     <a href="index.html#section-contact" class="cta">Contato</a>
   </div>
 
