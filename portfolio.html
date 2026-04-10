@@ -13,6 +13,8 @@
   <meta property="og:title" content="Portfolio — Anderson Brito | Editor de Vídeo">
   <meta property="og:description" content="Projetos em criativos, VSL e direct response. Vídeos que retêm, convertem e vendem.">
   <meta property="og:image" content="https://andersonbrito.com/assets/foto-perfil.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Anderson Brito">
 
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="canonical" href="https://andersonbrito.com/portfolio.html">
@@ -23,451 +25,657 @@
 
   <style>
     :root {
-      --pr-menubar:   #1C1C1C;
-      --pr-toolbar:   #232325;
-      --pr-panel-bg:  #1E1E22;
-      --pr-panel-hd:  #28282E;
-      --pr-card:      #26262C;
-      --pr-border:    #000;
-      --pr-sep:       #38383F;
-      --accent:       #3DA7FF;
-      --accent-2:     #0070D1;
-      --accent-gr:    #22c55e;
-      --orange:       #FF6B35;
-      --purple:       #5A2D7A;
-      --tx-hi:        #EAEAEF;
-      --tx-mid:       #8888A0;
-      --tx-lo:        #505060;
-      --f-mono:       'IBM Plex Mono', monospace;
-      --f-head:       'Exo 2', sans-serif;
-      --f-body:       'DM Sans', sans-serif;
+      --pr-menubar:    #1C1C1C;
+      --pr-toolbar:    #232325;
+      --pr-panel-bg:   #1E1E22;
+      --pr-panel-hd:   #28282E;
+      --pr-panel-hd2:  #222226;
+      --pr-timeline-bg:#191919;
+      --pr-track-bg:   #202024;
+      --pr-track-odd:  #1C1C20;
+      --pr-card:       #26262C;
+      --pr-input:      #141416;
+      --pr-border:     #000;
+      --pr-sep:        #38383F;
+      --pr-sep-light:  #45454F;
+      --accent:        #3DA7FF;
+      --accent-2:      #0070D1;
+      --accent-gr:     #22c55e;
+      --orange:        #FF6B35;
+      --purple:        #5A2D7A;
+      --playhead:      #A8D0FF;
+      --tx-hi:         #EAEAEF;
+      --tx-mid:        #8888A0;
+      --tx-lo:         #505060;
+      --f-mono:        'IBM Plex Mono', monospace;
+      --f-head:        'Exo 2', sans-serif;
+      --f-body:        'DM Sans', sans-serif;
+      --menubar-h:     28px;
+      --toolbar-h:     40px;
+      --timeline-h:    110px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: #0A0A0C;
+      background: var(--pr-timeline-bg);
       color: var(--tx-hi);
       font-family: var(--f-body);
       font-size: 14px;
       overflow-x: hidden;
+      padding-bottom: var(--timeline-h);
     }
-    a { color: inherit; text-decoration: none; }
+    a { text-decoration: none !important; color: inherit; }
 
-    /* LANG TOGGLE */
+    /* ═══════════════════════════════════════
+       MENU BAR
+    ═══════════════════════════════════════ */
+    .menu-bar {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--menubar-h);
+      background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 1000;
+      display: flex; align-items: center;
+      overflow: visible;
+    }
+    .menu-appname {
+      display: flex; align-items: center; gap: 7px;
+      padding: 0 14px; height: 100%;
+      border-right: 1px solid var(--pr-sep); flex-shrink: 0;
+    }
+    .menu-pr-icon {
+      width: 16px; height: 16px; background: var(--accent-2);
+      border-radius: 3px; display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-head); font-size: 9px; font-weight: 900; color: #fff;
+    }
+    .menu-appname span { font-family: var(--f-mono); font-size: 10px; color: var(--tx-mid); }
+    .menu-items { display: flex; align-items: center; height: 100%; }
+    .menu-item {
+      position: relative; height: 100%;
+      display: flex; align-items: center;
+      padding: 0 10px; font-family: var(--f-head); font-size: 11px;
+      color: var(--tx-mid); cursor: pointer; transition: color .15s, background .15s;
+    }
+    .menu-item:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
+    .menu-dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: var(--pr-panel-hd); border: 1px solid var(--pr-sep);
+      min-width: 180px; z-index: 1001; margin-top: -1px;
+    }
+    .menu-item:hover .menu-dropdown { display: flex; flex-direction: column; }
+    .menu-dropdown-item {
+      padding: 8px 12px; color: var(--tx-mid); font-size: 11px;
+      cursor: pointer; transition: background .1s, color .1s;
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .menu-dropdown-item:last-child { border-bottom: none; }
+    .menu-dropdown-item:hover { background: rgba(61,167,255,.15); color: var(--accent); }
+    .menu-project {
+      flex: 1; text-align: center; font-family: var(--f-mono);
+      font-size: 10px; color: var(--tx-lo); pointer-events: none;
+    }
+    .menu-right {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0 12px; border-left: 1px solid var(--pr-sep);
+    }
+    .menu-status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-gr); animation: blink 3s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .menu-status-text { font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); }
+
+    /* ═══════════════════════════════════════
+       TOOLBAR
+    ═══════════════════════════════════════ */
+    .toolbar {
+      position: fixed; top: var(--menubar-h); left: 0; right: 0;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      z-index: 999;
+      display: flex; align-items: center; padding: 0 12px; gap: 2px;
+    }
+    .tool-group {
+      display: flex; align-items: center; gap: 2px;
+      padding: 0 8px; border-right: 1px solid var(--pr-sep); height: 100%;
+    }
+    .tool-group:last-child { border-right: none; }
+    .tool-btn {
+      width: 28px; height: 26px; border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--tx-mid); font-size: 12px; transition: background .1s, color .1s;
+    }
+    .tool-btn:hover { background: rgba(255,255,255,.07); color: var(--tx-hi); }
+    .tool-btn.active { background: rgba(61,167,255,.15); color: var(--accent); }
+    .timecode-display {
+      font-family: var(--f-mono); font-size: 13px; font-weight: 500;
+      color: var(--tx-hi); background: var(--pr-input); border: 1px solid var(--pr-sep);
+      border-radius: 3px; padding: 3px 10px; letter-spacing: .08em;
+      min-width: 110px; text-align: center; user-select: none;
+    }
+    .timecode-display .tc-sep { color: var(--pr-sep-light); }
+    .seq-info { font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); padding-left: 10px; }
+    .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+    .toolbar-nav-link {
+      font-family: var(--f-head); font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--tx-mid); padding: 5px 10px; border-radius: 3px;
+      transition: color .15s, background .15s;
+    }
+    .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
+    .toolbar-nav-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
+    .toolbar-nav-link.cta:hover { background: var(--accent); }
+
+    /* LANG TOGGLE inside toolbar */
     .lang-toggle {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 2px;
-      background: rgba(61,167,255,0.1);
-      border: 1px solid rgba(61,167,255,0.2);
-      border-radius: 3px;
-      z-index: 100;
+      display: flex; gap: 2px;
+      background: rgba(61,167,255,.1); border: 1px solid rgba(61,167,255,.2);
+      border-radius: 3px; margin-left: 10px;
     }
     .lang-btn {
-      padding: 8px 12px;
-      background: transparent;
-      border: none;
-      color: var(--tx-mid);
-      font-family: var(--f-mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all .2s;
-      text-transform: uppercase;
+      padding: 5px 9px; background: transparent; border: none;
+      color: var(--tx-mid); font-family: var(--f-mono);
+      font-size: 9px; font-weight: 600; letter-spacing: .06em;
+      cursor: pointer; transition: all .2s; text-transform: uppercase;
     }
-    .lang-btn.active {
-      background: var(--accent);
-      color: #000;
-    }
-    .lang-btn:hover:not(.active) {
-      color: var(--accent);
-    }
+    .lang-btn.active { background: var(--accent); color: #000; }
+    .lang-btn:hover:not(.active) { color: var(--accent); }
 
-    /* PAGE HEADER */
-    .header {
-      background: #0A0A0C;
-      padding: 60px 24px 40px;
-      border-bottom: 1px solid var(--pr-sep);
-      position: relative;
-      overflow: hidden;
+    /* Mobile hamburger */
+    .toolbar-hamburger {
+      display: none; margin-left: auto;
+      flex-direction: column; gap: 4px; padding: 6px; background: none; border: none; cursor: pointer;
     }
-    .header::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 50% 100% at 50% 0%, rgba(61,167,255,.08) 0%, transparent 70%);
+    .toolbar-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--tx-mid); border-radius: 2px; }
+
+    /* Mobile nav drawer */
+    .mobile-drawer {
+      display: none; position: fixed;
+      top: calc(var(--menubar-h) + var(--toolbar-h)); left: 0; right: 0;
+      background: var(--pr-panel-bg); border-bottom: 1px solid var(--pr-sep);
+      z-index: 998; flex-direction: row; padding: 8px 12px; gap: 6px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      font-family: var(--f-head); font-size: 12px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--tx-mid); padding: 8px 10px; border-radius: 3px;
+      transition: color .15s, background .15s; flex-shrink: 0;
+    }
+    .mobile-drawer a:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
+    .mobile-drawer .cta { color: var(--accent); }
+
+    /* ═══════════════════════════════════════
+       PAGE OFFSET
+    ═══════════════════════════════════════ */
+    .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h)); }
+
+    /* ═══════════════════════════════════════
+       PAGE HEADER
+    ═══════════════════════════════════════ */
+    .page-header {
+      background: #0A0A0C;
+      padding: 40px 24px 32px;
+      border-bottom: 1px solid var(--pr-sep);
+      position: relative; overflow: hidden;
+    }
+    .page-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 100% at 0% 50%, rgba(61,167,255,.05) 0%, transparent 70%);
       pointer-events: none;
     }
-    .header-content {
-      max-width: 1000px;
-      margin: 0 auto;
-      position: relative;
+    .ph-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; position: relative;
     }
-    .h-label {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .ph-label {
+      font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
+      display: flex; align-items: center; gap: 8px;
     }
-    .h-label::before { content: '//'; color: var(--tx-lo); }
-    .h-title {
-      font-family: var(--f-head);
-      font-size: clamp(32px, 6vw, 52px);
-      font-weight: 900;
-      font-style: italic;
-      line-height: 1.05;
-      margin-bottom: 12px;
+    .ph-label::before { content: '//'; color: var(--tx-lo); }
+    .ph-h1 {
+      font-family: var(--f-head); font-size: clamp(26px, 5vw, 44px);
+      font-weight: 900; font-style: italic; line-height: 1.05; margin-bottom: 8px;
     }
-    .h-sub {
-      font-size: 15px;
-      color: var(--tx-mid);
-      max-width: 500px;
-      line-height: 1.6;
-      margin-bottom: 28px;
-    }
-    .h-stats {
-      display: flex;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .stat-n {
-      font-family: var(--f-mono);
-      font-size: 24px;
-      font-weight: 600;
-      color: var(--accent);
-    }
-    .stat-l {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      color: var(--tx-lo);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+    .ph-sub { font-size: 13px; color: var(--tx-mid); max-width: 420px; }
+    .ph-stats { display: flex; gap: 20px; flex-wrap: wrap; }
+    .ph-stat { text-align: right; }
+    .ph-stat .n { font-family: var(--f-mono); font-size: 26px; font-weight: 600; color: var(--accent); line-height: 1; }
+    .ph-stat .l { font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); letter-spacing: .06em; }
 
-    /* FILTER BAR */
+    /* ═══════════════════════════════════════
+       FILTER BAR
+    ═══════════════════════════════════════ */
     .filter-bar {
-      background: var(--pr-panel-hd);
-      border-bottom: 1px solid var(--pr-sep);
-      position: sticky;
-      top: 0;
+      background: var(--pr-panel-hd2);
+      border-bottom: 1px solid var(--pr-border);
+      position: sticky; top: calc(var(--menubar-h) + var(--toolbar-h));
       z-index: 90;
-      padding: 16px 20px;
-      display: flex;
-      gap: 8px;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: flex; align-items: center;
     }
-    .filter-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 16px;
-      background: var(--pr-card);
-      border: 1px solid var(--pr-sep);
-      border-radius: 3px;
-      font-family: var(--f-mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--tx-mid);
-      cursor: pointer;
-      transition: all .2s;
+    .filter-track-label {
+      width: 64px; flex-shrink: 0; border-right: 1px solid var(--pr-sep);
+      height: 38px; display: flex; align-items: center;
+      padding: 0 10px; font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
     }
-    .filter-btn:hover { background: rgba(61,167,255,.15); color: var(--accent); border-color: var(--accent); }
-    .filter-btn.active {
-      background: var(--accent-2);
-      color: #fff;
-      border-color: var(--accent);
+    .filter-clips { display: flex; align-items: center; padding: 0 12px; gap: 4px; height: 38px; overflow-x: auto; }
+    .filter-clip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: transparent; border: 1px solid transparent; border-radius: 3px;
+      padding: 5px 12px; font-family: var(--f-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase; color: var(--tx-mid);
+      cursor: pointer; transition: all .2s; white-space: nowrap;
     }
-    .filter-swatch {
-      width: 8px;
-      height: 8px;
-      border-radius: 2px;
-    }
+    .filter-clip:hover { color: var(--tx-hi); background: rgba(255,255,255,.04); border-color: var(--pr-sep); }
+    .filter-clip.active { background: rgba(61,167,255,.12); border-color: rgba(61,167,255,.3); color: var(--accent); }
+    .filter-swatch { width: 8px; height: 8px; border-radius: 2px; }
     .filter-count {
-      font-size: 9px;
-      background: rgba(255,255,255,.1);
-      padding: 0px 5px;
-      border-radius: 8px;
-      color: var(--tx-lo);
+      background: rgba(255,255,255,.07); border-radius: 10px;
+      padding: 1px 6px; font-size: 9px; color: var(--tx-lo);
+    }
+    .filter-clip.active .filter-count { background: rgba(61,167,255,.2); color: var(--accent); }
+
+    /* ═══════════════════════════════════════
+       PORTFOLIO GRID
+    ═══════════════════════════════════════ */
+    .portfolio-main { max-width: 1280px; margin: 0 auto; padding: 32px 20px 60px; }
+
+    /* Section titles */
+    .section-label {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px; margin-top: 40px;
+    }
+    .section-label:first-child { margin-top: 0; }
+    .section-label-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    .section-label-text {
+      font-family: var(--f-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--tx-mid);
+    }
+    .section-label-line { flex: 1; height: 1px; background: var(--pr-sep); }
+    .section-label-count {
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
     }
 
-    /* GRID */
-    .portfolio-main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-    .video-grid {
+    /* VERTICAL grid (9:16 shorts) */
+    .grid-vertical {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* HORIZONTAL grid (16:9) */
+    .grid-horizontal {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
     }
 
     /* VIDEO CARD */
     .video-card {
       background: var(--pr-card);
       border: 1px solid var(--pr-sep);
-      border-radius: 4px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: all .2s;
+      border-radius: 4px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color .2s, background .2s, box-shadow .2s;
       cursor: pointer;
     }
     .video-card:hover {
-      background: #30303A;
-      border-color: var(--accent);
-      box-shadow: 0 8px 32px rgba(61,167,255,.1);
+      background: #30303A; border-color: var(--accent);
+      box-shadow: 0 8px 24px rgba(61,167,255,.1);
     }
     .video-card.hidden { display: none; }
 
     /* VIDEO CONTAINER */
-    .video-wrapper {
-      position: relative;
-      overflow: hidden;
-      background: #000;
-    }
-    .video-wrapper.vertical {
-      aspect-ratio: 9/16;
-    }
-    .video-wrapper.horizontal {
-      aspect-ratio: 16/9;
-    }
+    .video-wrapper { position: relative; overflow: hidden; background: #000; }
+    .video-wrapper.vertical  { aspect-ratio: 9/16; }
+    .video-wrapper.horizontal { aspect-ratio: 16/9; }
     .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
     }
 
     /* CARD CONTENT */
-    .card-content {
-      padding: 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .card-title {
-      font-family: var(--f-head);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--tx-hi);
-      flex: 1;
-    }
+    .card-content { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+    .card-title { font-family: var(--f-head); font-size: 13px; font-weight: 700; flex: 1; }
     .card-cat {
-      display: inline-block;
-      padding: 3px 8px;
-      background: rgba(61,167,255,.15);
-      border: 1px solid rgba(61,167,255,.3);
-      border-radius: 2px;
-      font-family: var(--f-mono);
-      font-size: 8px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      white-space: nowrap;
-      flex-shrink: 0;
+      display: inline-block; padding: 3px 8px;
+      border-radius: 2px; font-family: var(--f-mono);
+      font-size: 8px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: .05em; white-space: nowrap; flex-shrink: 0;
     }
-    .card-cat.criativo { background: rgba(43,82,128,.2); border-color: rgba(43,82,128,.4); color: #5BA3FF; }
-    .card-cat.vsl { background: rgba(90,45,122,.2); border-color: rgba(90,45,122,.4); color: #D48EFF; }
-    .card-cat.dr { background: rgba(255,107,53,.2); border-color: rgba(255,107,53,.4); color: #FF8A6B; }
-
-    .card-desc {
-      font-size: 12px;
-      color: var(--tx-mid);
-      line-height: 1.5;
-    }
+    .card-cat.criativo { background: rgba(43,82,128,.2); border: 1px solid rgba(43,82,128,.4); color: #5BA3FF; }
+    .card-cat.vsl      { background: rgba(90,45,122,.2); border: 1px solid rgba(90,45,122,.4); color: #D48EFF; }
+    .card-cat.dr       { background: rgba(255,107,53,.2); border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
+    .card-desc { font-size: 12px; color: var(--tx-mid); line-height: 1.5; }
     .card-meta {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      color: var(--tx-lo);
-      padding-top: 10px;
-      border-top: 1px solid var(--pr-sep);
-      display: flex;
-      gap: 16px;
-      text-transform: uppercase;
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+      padding-top: 8px; border-top: 1px solid var(--pr-sep);
+      display: flex; gap: 16px; text-transform: uppercase;
     }
 
-    /* MODAL */
+    /* EMPTY STATE */
+    .empty-state {
+      grid-column: 1/-1; padding: 60px 20px;
+      text-align: center; color: var(--tx-lo);
+    }
+
+    /* ═══════════════════════════════════════
+       MODAL
+    ═══════════════════════════════════════ */
     .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.95);
-      z-index: 200;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      overflow-y: auto;
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.95); z-index: 200;
+      align-items: center; justify-content: center;
+      padding: 40px 20px; overflow-y: auto;
     }
     .modal.open { display: flex; }
     .modal-content {
-      background: var(--pr-panel-bg);
-      border: 1px solid var(--pr-sep);
-      border-radius: 8px;
-      max-width: 900px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      max-height: 90vh;
-      overflow-y: auto;
+      background: var(--pr-panel-bg); border: 1px solid var(--pr-sep);
+      border-radius: 6px; max-width: 900px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
     }
     .modal-header {
-      padding: 20px;
-      border-bottom: 1px solid var(--pr-sep);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      padding: 16px 20px; border-bottom: 1px solid var(--pr-sep);
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .modal-title {
-      font-family: var(--f-head);
-      font-size: 16px;
-      font-weight: 700;
-    }
+    .modal-title { font-family: var(--f-head); font-size: 15px; font-weight: 700; }
     .modal-close {
-      width: 32px;
-      height: 32px;
-      border: none;
-      background: rgba(255,255,255,.1);
-      color: var(--tx-hi);
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all .2s;
+      width: 28px; height: 28px; border: none;
+      background: rgba(255,255,255,.1); color: var(--tx-hi);
+      border-radius: 3px; cursor: pointer; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; transition: all .2s;
     }
     .modal-close:hover { background: rgba(61,167,255,.2); color: var(--accent); }
-    .modal-video {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #000;
-      overflow: hidden;
-    }
-    .modal-video iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .modal-video { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
+    .modal-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
     .modal-footer {
-      padding: 20px;
-      border-top: 1px solid var(--pr-sep);
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+      padding: 16px 20px; border-top: 1px solid var(--pr-sep);
+      display: flex; gap: 8px; flex-wrap: wrap;
     }
     .modal-tag {
-      display: inline-block;
-      padding: 6px 12px;
-      background: rgba(61,167,255,.15);
-      border: 1px solid rgba(61,167,255,.3);
-      border-radius: 3px;
-      font-family: var(--f-mono);
-      font-size: 9px;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      display: inline-block; padding: 5px 10px;
+      background: rgba(61,167,255,.15); border: 1px solid rgba(61,167,255,.3);
+      border-radius: 3px; font-family: var(--f-mono); font-size: 9px;
+      font-weight: 600; color: var(--accent); text-transform: uppercase;
     }
 
+    /* ═══════════════════════════════════════
+       STATUS BAR
+    ═══════════════════════════════════════ */
+    .status-bar {
+      position: fixed; bottom: var(--timeline-h); left: 0; right: 0;
+      height: 20px; background: var(--pr-menubar);
+      border-top: 1px solid var(--pr-border); border-bottom: 1px solid var(--pr-sep);
+      z-index: 895; display: flex; align-items: center; padding: 0 12px; gap: 16px;
+    }
+    .sb-item {
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+      letter-spacing: .05em; display: flex; align-items: center; gap: 5px;
+    }
+    .sb-item .val { color: var(--tx-mid); }
+    .sb-section-label { margin-left: auto; font-family: var(--f-mono); font-size: 9px; color: var(--accent); letter-spacing: .1em; }
+
+    /* ═══════════════════════════════════════
+       FIXED TIMELINE
+    ═══════════════════════════════════════ */
+    .timeline-panel {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      height: var(--timeline-h); background: var(--pr-timeline-bg);
+      border-top: 1px solid var(--pr-border); z-index: 900;
+      display: flex; flex-direction: column; overflow: hidden;
+    }
+    .tl-header {
+      height: 22px; background: var(--pr-panel-hd2);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center; flex-shrink: 0;
+    }
+    .tl-track-labels-hd {
+      width: 64px; flex-shrink: 0; border-right: 1px solid var(--pr-sep);
+      height: 100%; display: flex; align-items: center; padding: 0 8px;
+    }
+    .tl-ruler { flex: 1; height: 100%; position: relative; overflow: hidden; }
+    .tl-ruler-inner { display: flex; align-items: flex-end; height: 100%; padding: 0 4px; }
+    .tl-ruler-mark {
+      font-family: var(--f-mono); font-size: 8px; color: var(--tx-lo);
+      flex: 1; text-align: left; padding-left: 3px; padding-bottom: 3px;
+      border-left: 1px solid var(--pr-sep);
+    }
+    .tl-tracks { flex: 1; display: flex; flex-direction: column; }
+    .tl-track { display: flex; align-items: stretch; border-bottom: 1px solid var(--pr-border); flex: 1; }
+    .tl-track:last-child { border-bottom: none; }
+    .tl-label {
+      width: 64px; flex-shrink: 0; background: var(--pr-panel-hd2);
+      border-right: 1px solid var(--pr-sep);
+      display: flex; align-items: center; padding: 0 8px; gap: 5px;
+    }
+    .tl-label-text { font-family: var(--f-mono); font-size: 9px; font-weight: 600; color: var(--tx-mid); }
+    .tl-lock { font-size: 8px; color: var(--tx-lo); }
+    .tl-track-content { flex: 1; position: relative; background: var(--pr-track-bg); }
+    .tl-track:nth-child(odd) .tl-track-content { background: var(--pr-track-odd); }
+    .tl-clip {
+      position: absolute; top: 3px; bottom: 3px;
+      border-radius: 3px; display: flex; align-items: center; overflow: hidden;
+      cursor: pointer; transition: filter .15s, top .15s, bottom .15s;
+      border: 1px solid rgba(0,0,0,.4);
+    }
+    .tl-clip:hover { top: 1px; bottom: 1px; filter: brightness(1.2); }
+    .tl-clip-label {
+      font-family: var(--f-mono); font-size: 8px; font-weight: 600;
+      letter-spacing: .08em; color: rgba(255,255,255,.85);
+      padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .tl-waveform { position: absolute; inset: 0; display: flex; align-items: center; gap: 1px; padding: 2px 4px; overflow: hidden; }
+    .wv-bar { width: 1.5px; background: rgba(255,150,50,.6); border-radius: 1px; flex-shrink: 0; }
+    .wv-bar[data-filled="true"] { opacity: 1; background: linear-gradient(180deg,#FFB366 0%,#FF8855 100%); }
+    .tl-playhead {
+      position: absolute; top: 0; bottom: 0; width: 1px;
+      background: var(--playhead); z-index: 10; pointer-events: none;
+    }
+    .tl-playhead::before {
+      content: ''; position: absolute; top: -5px; left: -5px;
+      width: 11px; height: 8px; background: var(--playhead);
+      clip-path: polygon(50% 100%, 0 0, 100% 0);
+    }
+    .tl-section-indicator {
+      position: absolute; top: 0; height: 100%;
+      background: rgba(61,167,255,.08); pointer-events: none;
+    }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
     @media (max-width: 768px) {
-      .header { padding: 40px 20px 30px; }
-      .h-title { font-size: 32px; }
-      .h-stats { gap: 24px; }
-      .video-grid { grid-template-columns: 1fr; }
-      .filter-bar { padding: 12px; }
-      .lang-toggle { top: 10px; right: 10px; }
+      :root { --timeline-h: 80px; }
+      .menu-items .menu-item:nth-child(n+3) { display: none; }
+      .toolbar-nav { display: none; }
+      .toolbar-hamburger { display: flex; }
+      .lang-toggle { margin-left: auto; }
+      .ph-inner { flex-direction: column; align-items: flex-start; }
+      .ph-stats { display: none; }
+      .grid-vertical { grid-template-columns: repeat(2, 1fr); }
+      .grid-horizontal { grid-template-columns: 1fr; }
+      .tl-clip-label { font-size: 7px; }
+    }
+    @media (max-width: 480px) {
+      .grid-vertical { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- LANGUAGE TOGGLE -->
-  <div class="lang-toggle">
-    <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
-    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-  </div>
-
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-content">
-      <div class="h-label" data-pt="// CRIATIVOS · VSL · DIRECT RESPONSE" data-en="// CREATIVES · VSL · DIRECT RESPONSE"></div>
-      <h1 class="h-title" data-pt="Portfolio de Vídeo" data-en="Video Portfolio"></h1>
-      <p class="h-sub" data-pt="Projetos focados em retenção, conversão e vendas. Criativos, VSL e Direct Response testados em campanhas reais." data-en="Projects focused on retention, conversion, and sales. Creatives, VSLs and Direct Response tested in real campaigns."></p>
-      <div class="h-stats">
-        <div class="stat-item">
-          <div class="stat-n" id="totalVideos">12</div>
-          <div class="stat-l" data-pt="VÍDEOS" data-en="VIDEOS"></div>
+  <!-- ═══════════════════════════════════════
+       MENU BAR
+  ═══════════════════════════════════════ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='briefing.html'">Briefing</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-n" data-pt="50+" data-en="50+"></div>
-          <div class="stat-l" data-pt="PROJETOS" data-en="PROJECTS"></div>
+      </div>
+      <div class="menu-item">
+        Sequência
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='portfolio.html'" style="color:var(--accent)">Sequência 2 — Portfolio ◀</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Sequência 5 — Projetos IA</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='vendas.html'" style="color:var(--orange);font-weight:600;">Sequência 6 — APRENDA ⭐</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-n" data-pt="100%" data-en="100%"></div>
-          <div class="stat-l" data-pt="PERFORMANCE" data-en="PERFORMANCE"></div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e=>{})">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar','_blank')">Vimeo</div>
         </div>
       </div>
     </div>
+    <div class="menu-project">anderson_brito_portfolio.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text" id="statusText">DISPONÍVEL</div>
+    </div>
   </div>
 
-  <!-- FILTER BAR -->
-  <div class="filter-bar">
-    <button class="filter-btn active" data-filter="all" onclick="filterVideos('all')">
-      <span data-pt="Todos" data-en="All"></span>
-      <span class="filter-count" id="count-all">12</span>
-    </button>
-    <button class="filter-btn" data-filter="criativo" onclick="filterVideos('criativo')">
-      <div class="filter-swatch" style="background: #2B5280;"></div>
-      <span data-pt="Criativo" data-en="Creative"></span>
-      <span class="filter-count" id="count-criativo">4</span>
-    </button>
-    <button class="filter-btn" data-filter="vsl" onclick="filterVideos('vsl')">
-      <div class="filter-swatch" style="background: #5A2D7A;"></div>
-      <span data-pt="VSL" data-en="VSL"></span>
-      <span class="filter-count" id="count-vsl">4</span>
-    </button>
-    <button class="filter-btn" data-filter="dr" onclick="filterVideos('dr')">
-      <div class="filter-swatch" style="background: #FF6B35;"></div>
-      <span data-pt="Direct Response" data-en="Direct Response"></span>
-      <span class="filter-count" id="count-dr">4</span>
+  <!-- ═══════════════════════════════════════
+       TOOLBAR
+  ═══════════════════════════════════════ -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <div class="tool-btn active" title="Seleção">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><path d="M1 1l9 4.5-4.5 1L4 10z"/></svg>
+      </div>
+      <div class="tool-btn" title="Corte">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2l7 7M2 9l7-7"/></svg>
+      </div>
+    </div>
+    <div class="tool-group">
+      <div class="timecode-display">
+        <span id="tcH">00</span><span class="tc-sep">:</span><span id="tcM">00</span><span class="tc-sep">:</span><span id="tcS">00</span><span class="tc-sep">;</span><span id="tcF">00</span>
+      </div>
+    </div>
+    <div class="tool-group">
+      <div class="seq-info">▸ PORTFOLIO · 3840×2160 · 30fps</div>
+    </div>
+
+    <!-- Desktop nav -->
+    <div class="toolbar-nav">
+      <a href="index.html" class="toolbar-nav-link">Home</a>
+      <a href="portfolio.html" class="toolbar-nav-link" style="color:var(--tx-hi);">Portfolio</a>
+      <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
+      <a href="ia.html" class="toolbar-nav-link">IA Prompts</a>
+      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">Packs</a>
+      <a href="aprenda.html" class="toolbar-nav-link">Aprenda</a>
+      <a href="saiba-mais.html" class="toolbar-nav-link">Sobre</a>
+      <a href="briefing.html" class="toolbar-nav-link cta">Contato</a>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
+        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+      </div>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="toolbar-hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
     </button>
   </div>
 
-  <!-- PORTFOLIO GRID -->
-  <div class="portfolio-main">
-    <div class="video-grid" id="videoGrid"></div>
+  <!-- Mobile nav drawer -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html" style="color:var(--tx-hi);">Portfolio</a>
+    <a href="fotografia.html">Fotografia</a>
+    <a href="ia.html">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="aprenda.html">Aprenda</a>
+    <a href="saiba-mais.html">Sobre</a>
+    <a href="briefing.html" class="cta">Contato</a>
+    <div class="lang-toggle" style="align-self:center;">
+      <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+    </div>
   </div>
+
+  <!-- ═══════════════════════════════════════
+       PAGE CONTENT
+  ═══════════════════════════════════════ -->
+  <div class="page-content">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+      <div class="ph-inner">
+        <div>
+          <div class="ph-label" data-pt="CRIATIVOS · VSL · DIRECT RESPONSE" data-en="CREATIVES · VSL · DIRECT RESPONSE"></div>
+          <h1 class="ph-h1" data-pt="Portfolio de Vídeo" data-en="Video Portfolio"></h1>
+          <p class="ph-sub" data-pt="Criativos, VSLs e Direct Response testados em campanhas reais. Resultados que convertem." data-en="Creatives, VSLs and Direct Response tested in real campaigns. Results that convert."></p>
+        </div>
+        <div class="ph-stats">
+          <div class="ph-stat">
+            <div class="n" id="videoCountEl">9</div>
+            <div class="l" data-pt="VÍDEOS" data-en="VIDEOS"></div>
+          </div>
+          <div class="ph-stat">
+            <div class="n">50+</div>
+            <div class="l" data-pt="PROJETOS" data-en="PROJECTS"></div>
+          </div>
+          <div class="ph-stat">
+            <div class="n">100%</div>
+            <div class="l" data-pt="PERFORMANCE" data-en="PERFORMANCE"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="filter-track-label" data-pt="FILTRO" data-en="FILTER"></div>
+      <div class="filter-clips">
+        <button class="filter-clip active" data-filter="all">
+          <span data-pt="Todos" data-en="All"></span>
+          <span class="filter-count" id="c-all">9</span>
+        </button>
+        <button class="filter-clip" data-filter="criativo">
+          <div class="filter-swatch" style="background:#2B5280;"></div>
+          <span data-pt="Criativo" data-en="Creative"></span>
+          <span class="filter-count" id="c-criativo">5</span>
+        </button>
+        <button class="filter-clip" data-filter="vsl">
+          <div class="filter-swatch" style="background:#5A2D7A;"></div>
+          <span>VSL</span>
+          <span class="filter-count" id="c-vsl">2</span>
+        </button>
+        <button class="filter-clip" data-filter="dr">
+          <div class="filter-swatch" style="background:#FF6B35;"></div>
+          <span>Direct Response</span>
+          <span class="filter-count" id="c-dr">2</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PORTFOLIO MAIN -->
+    <div class="portfolio-main" id="portfolioMain">
+      <!-- JS renders here -->
+    </div>
+
+  </div><!-- /page-content -->
 
   <!-- MODAL -->
   <div class="modal" id="modal">
@@ -483,205 +691,292 @@
     </div>
   </div>
 
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="sb-item">SEQ <span class="val">PORTFOLIO_2026</span></div>
+    <div class="sb-item">CLIPS <span class="val" id="sb-clips">9</span></div>
+    <div class="sb-item">30fps</div>
+    <div class="sb-section-label" id="sb-cat">ALL</div>
+  </div>
+
+  <!-- FIXED TIMELINE -->
+  <div class="timeline-panel" id="timelinePanel">
+    <div class="tl-header">
+      <div class="tl-track-labels-hd">
+        <span style="font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);">TRACK</span>
+      </div>
+      <div class="tl-ruler" id="tlRuler">
+        <div class="tl-ruler-inner" id="tlRulerInner"></div>
+        <div class="tl-section-indicator" id="sectionIndicator" style="left:0;width:0;"></div>
+        <div class="tl-playhead" id="tlPlayhead" style="left:0;"></div>
+      </div>
+    </div>
+    <div class="tl-tracks">
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">V1</span><span class="tl-lock">🔒</span></div>
+        <div class="tl-track-content" id="trackV1"></div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">V2</span></div>
+        <div class="tl-track-content" id="trackV2"></div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">A1</span></div>
+        <div class="tl-track-content" id="trackA1"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════ -->
   <script>
-    // ════════════════════════════════════════════
-    // VIDEO DATABASE
-    // ════════════════════════════════════════════
+    // ════════════════════════════════════════
+    // VIDEO DATA
+    // ════════════════════════════════════════
     const VIDEOS = [
-      // CRIATIVOS
       {
-        id: 1,
-        titlePt: 'Short Criativo #01',
-        titleEn: 'Creative Short #01',
-        category: 'criativo',
-        format: 'vertical',
-        descPt: 'Criativo de 15s com hook viral e padrão de cortes rápidos.',
-        descEn: '15-second creative with viral hook and fast-cut editing pattern.',
-        videoUrl: 'https://www.youtube.com/embed/mrk7y-do9AA'
+        id:1, category:'criativo', format:'vertical',
+        titlePt:'Short Criativo #01', titleEn:'Creative Short #01',
+        descPt:'Hook viral e cortes rápidos. Formato nativo para Reels e Shorts.',
+        descEn:'Viral hook and fast cuts. Native format for Reels and Shorts.',
+        videoUrl:'https://www.youtube.com/embed/mrk7y-do9AA'
       },
       {
-        id: 2,
-        titlePt: 'Short Criativo #02',
-        titleEn: 'Creative Short #02',
-        category: 'criativo',
-        format: 'vertical',
-        descPt: 'Padrão de edição com transições rápidas e power words.',
-        descEn: 'Editing pattern with fast transitions and power words.',
-        videoUrl: 'https://www.youtube.com/embed/cOftoraPrjE'
+        id:2, category:'criativo', format:'vertical',
+        titlePt:'Short Criativo #02', titleEn:'Creative Short #02',
+        descPt:'Transições dinâmicas com power words e retenção acima de 70%.',
+        descEn:'Dynamic transitions with power words and 70%+ retention.',
+        videoUrl:'https://www.youtube.com/embed/cOftoraPrjE'
       },
       {
-        id: 3,
-        titlePt: 'Short Criativo #03',
-        titleEn: 'Creative Short #03',
-        category: 'criativo',
-        format: 'vertical',
-        descPt: 'Criativo com movimento e pattern interrupt para retenção máxima.',
-        descEn: 'Creative with movement and pattern interrupt for maximum retention.',
-        videoUrl: 'https://www.youtube.com/embed/U0nkvS7UgX8'
+        id:3, category:'criativo', format:'vertical',
+        titlePt:'Short Criativo #03', titleEn:'Creative Short #03',
+        descPt:'Pattern interrupt e movimento para retenção máxima em cold traffic.',
+        descEn:'Pattern interrupt and motion for maximum retention on cold traffic.',
+        videoUrl:'https://www.youtube.com/embed/U0nkvS7UgX8'
       },
       {
-        id: 4,
-        titlePt: 'Short Criativo #04',
-        titleEn: 'Creative Short #04',
-        category: 'criativo',
-        format: 'vertical',
-        descPt: 'Formato nativo para Reels com copy visual impactante.',
-        descEn: 'Native format for Reels with impactful visual copy.',
-        videoUrl: 'https://www.youtube.com/embed/vmr2n1r1AAQ'
-      },
-
-      // VSL
-      {
-        id: 5,
-        titlePt: 'VSL de Vendas — Full',
-        titleEn: 'Sales VSL — Full',
-        category: 'vsl',
-        format: 'horizontal',
-        descPt: 'Video Sales Letter completo: hook, problema, solução, CTA e oferta bônus.',
-        descEn: 'Complete Video Sales Letter: hook, problem, solution, CTA and bonus offer.',
-        videoUrl: 'https://vimeo.com/1047582530'
+        id:4, category:'criativo', format:'vertical',
+        titlePt:'Short Criativo #04', titleEn:'Creative Short #04',
+        descPt:'Copy visual impactante com estrutura de 3 segundos de hook.',
+        descEn:'Impactful visual copy with 3-second hook structure.',
+        videoUrl:'https://www.youtube.com/embed/vmr2n1r1AAQ'
       },
       {
-        id: 6,
-        titlePt: 'Short VSL #01',
-        titleEn: 'Short VSL #01',
-        category: 'vsl',
-        format: 'vertical',
-        descPt: 'VSL curta focada em retenção e conversão em cold traffic.',
-        descEn: 'Short VSL focused on retention and conversion on cold traffic.',
-        videoUrl: 'https://www.youtube.com/embed/BH3zYlYnjJA'
-      },
-
-      // DIRECT RESPONSE
-      {
-        id: 7,
-        titlePt: 'Video de Apresentação',
-        titleEn: 'Presentation Video',
-        category: 'dr',
-        format: 'horizontal',
-        descPt: 'Vídeo horizontal de apresentação com estrutura de storytelling e CTA direto.',
-        descEn: 'Horizontal presentation video with storytelling structure and direct CTA.',
-        videoUrl: 'https://www.youtube.com/embed/6ANWvn9R2yY'
+        id:5, category:'vsl', format:'horizontal',
+        titlePt:'VSL Completo', titleEn:'Full Sales VSL',
+        descPt:'Video Sales Letter com estrutura completa: hook, problema, solução, CTA e oferta.',
+        descEn:'Full Video Sales Letter: hook, problem, solution, CTA and offer.',
+        videoUrl:'https://player.vimeo.com/video/1047582530'
       },
       {
-        id: 8,
-        titlePt: 'DR Short #01',
-        titleEn: 'DR Short #01',
-        category: 'dr',
-        format: 'vertical',
-        descPt: 'Direct Response em formato Shorts com oferta clara e urgência real.',
-        descEn: 'Direct Response in Shorts format with clear offer and real urgency.',
-        videoUrl: 'https://www.youtube.com/embed/cOftoraPrjE'
+        id:6, category:'vsl', format:'vertical',
+        titlePt:'Short VSL', titleEn:'Short VSL',
+        descPt:'VSL condensada em formato vertical. Alta conversão em cold traffic.',
+        descEn:'Condensed VSL in vertical format. High conversion on cold traffic.',
+        videoUrl:'https://www.youtube.com/embed/BH3zYlYnjJA'
+      },
+      {
+        id:7, category:'dr', format:'horizontal',
+        titlePt:'Vídeo de Apresentação', titleEn:'Presentation Video',
+        descPt:'Vídeo de apresentação com storytelling e CTA direto para geração de leads.',
+        descEn:'Presentation video with storytelling and direct CTA for lead generation.',
+        videoUrl:'https://www.youtube.com/embed/6ANWvn9R2yY'
+      },
+      {
+        id:8, category:'dr', format:'vertical',
+        titlePt:'Short DR', titleEn:'DR Short',
+        descPt:'Direct Response vertical com oferta clara, urgência e CTR acima da média.',
+        descEn:'Vertical Direct Response with clear offer, urgency and above-average CTR.',
+        videoUrl:'https://www.youtube.com/embed/vmr2n1r1AAQ'
+      },
+      {
+        id:9, category:'criativo', format:'horizontal',
+        titlePt:'Criativo — Drive', titleEn:'Creative — Drive',
+        descPt:'Criativo horizontal com edição dinâmica e foco em conversão.',
+        descEn:'Horizontal creative with dynamic editing and conversion focus.',
+        videoUrl:'https://drive.google.com/file/d/1-oYewLrlFuUjirLc1TVjmUFpYP2Xx-oJ/preview'
       },
     ];
 
-    let currentLang = localStorage.getItem('portfolio-lang') || 'pt';
+    const CAT_CONFIG = {
+      criativo: { labelPt:'Criativo', labelEn:'Creative', color:'#2B5280' },
+      vsl:      { labelPt:'VSL',      labelEn:'VSL',      color:'#5A2D7A' },
+      dr:       { labelPt:'Direct Response', labelEn:'Direct Response', color:'#FF6B35' },
+    };
 
-    // ════════════════════════════════════════════
-    // LANGUAGE SYSTEM
-    // ════════════════════════════════════════════
+    let currentLang = localStorage.getItem('portfolio-lang') || 'pt';
+    let currentFilter = 'all';
+
+    // ════════════════════════════════════════
+    // LANGUAGE
+    // ════════════════════════════════════════
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('portfolio-lang', lang);
-
       document.querySelectorAll('[data-pt][data-en]').forEach(el => {
-        const text = lang === 'pt' ? el.getAttribute('data-pt') : el.getAttribute('data-en');
-        if (el.tagName === 'SPAN' || el.tagName === 'P' || el.tagName === 'DIV' && !el.querySelector('[data-pt]')) {
-          el.textContent = text;
-        }
+        el.textContent = lang === 'pt' ? el.getAttribute('data-pt') : el.getAttribute('data-en');
       });
-
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
-
-      // Re-render videos with new language
-      renderVideos(document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all');
+      document.getElementById('statusText') && (document.getElementById('statusText').textContent = lang === 'pt' ? 'DISPONÍVEL' : 'AVAILABLE');
+      renderGrid(currentFilter);
     }
 
-    // ════════════════════════════════════════════
-    // RENDER VIDEOS
-    // ════════════════════════════════════════════
-    function renderVideos(filter) {
-      const grid = document.getElementById('videoGrid');
+    // ════════════════════════════════════════
+    // RENDER
+    // ════════════════════════════════════════
+    function renderGrid(filter) {
+      currentFilter = filter;
+      const container = document.getElementById('portfolioMain');
       const filtered = filter === 'all' ? VIDEOS : VIDEOS.filter(v => v.category === filter);
 
-      grid.innerHTML = '';
+      if (!filtered.length) {
+        container.innerHTML = '<div class="empty-state"><p style="font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;">NO CLIPS IN THIS CATEGORY</p></div>';
+        updateCounts(filter);
+        return;
+      }
 
-      filtered.forEach((v, i) => {
-        const card = document.createElement('div');
-        card.className = `video-card`;
-        card.dataset.filter = v.category;
-        card.style.animationDelay = (i * 0.06) + 's';
+      // Group by category
+      const cats = filter === 'all'
+        ? Object.keys(CAT_CONFIG)
+        : [filter];
 
-        const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
-        const desc = currentLang === 'pt' ? v.descPt : v.descEn;
+      let html = '';
+      cats.forEach(cat => {
+        const catVideos = filtered.filter(v => v.category === cat);
+        if (!catVideos.length) return;
 
-        const catColors = {
-          criativo: { bg: '#2B5280', text: '#5BA3FF' },
-          vsl: { bg: '#5A2D7A', text: '#D48EFF' },
-          dr: { bg: '#FF6B35', text: '#FFB399' }
-        };
+        const cfg = CAT_CONFIG[cat];
+        const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
 
-        const catLabel = {
-          criativo: currentLang === 'pt' ? 'Criativo' : 'Creative',
-          vsl: 'VSL',
-          dr: 'Direct Response'
-        };
+        html += `
+          <div class="section-label">
+            <div class="section-label-dot" style="background:${cfg.color};"></div>
+            <div class="section-label-text">${catLabel}</div>
+            <div class="section-label-line"></div>
+            <div class="section-label-count">${catVideos.length} ${currentLang === 'pt' ? 'vídeos' : 'videos'}</div>
+          </div>`;
 
-        card.innerHTML = `
+        // Separate by format
+        const verticals = catVideos.filter(v => v.format === 'vertical');
+        const horizontals = catVideos.filter(v => v.format === 'horizontal');
+
+        if (verticals.length) {
+          html += `<div class="grid-vertical">`;
+          verticals.forEach(v => { html += buildCard(v); });
+          html += `</div>`;
+        }
+
+        if (horizontals.length) {
+          if (verticals.length) {
+            html += `<div style="margin-top:12px;"></div>`;
+          }
+          html += `<div class="grid-horizontal">`;
+          horizontals.forEach(v => { html += buildCard(v); });
+          html += `</div>`;
+        }
+      });
+
+      container.innerHTML = html;
+
+      // Attach click events
+      container.querySelectorAll('.video-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const id = parseInt(card.dataset.id);
+          const v = VIDEOS.find(x => x.id === id);
+          if (v) openModal(v);
+        });
+      });
+
+      updateCounts(filter);
+      buildTimelineClips(filtered);
+      document.getElementById('sb-cat').textContent = filter.toUpperCase();
+    }
+
+    function buildCard(v) {
+      const cfg = CAT_CONFIG[v.category];
+      const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
+      const desc  = currentLang === 'pt' ? v.descPt  : v.descEn;
+      const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
+      const ratio = v.format === 'vertical' ? '9:16' : '16:9';
+      const isDrive = v.videoUrl.includes('drive.google.com');
+      const allowAttr = isDrive
+        ? 'autoplay'
+        : 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      const platformLabel = isDrive ? 'Google Drive'
+        : v.videoUrl.includes('vimeo') ? 'Vimeo'
+        : v.format === 'vertical' ? 'YouTube Shorts' : 'YouTube';
+
+      return `
+        <div class="video-card" data-id="${v.id}">
           <div class="video-wrapper ${v.format}">
-            <iframe src="${v.videoUrl}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="${v.videoUrl}"
+              allow="${allowAttr}"
+              allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="card-content">
             <div class="card-header">
               <div class="card-title">${title}</div>
-              <div class="card-cat ${v.category}" style="background: rgba(${hexToRgb(catColors[v.category].bg)}, 0.2); color: ${catColors[v.category].text}; border-color: rgba(${hexToRgb(catColors[v.category].bg)}, 0.4);">
-                ${catLabel[v.category]}
-              </div>
+              <div class="card-cat ${v.category}">${catLabel}</div>
             </div>
             <div class="card-desc">${desc}</div>
             <div class="card-meta">
-              <span>${v.format === 'vertical' ? '9:16' : '16:9'}</span>
-              <span>${currentLang === 'pt' ? 'YouTube/Vimeo' : 'YouTube/Vimeo'}</span>
+              <span>${ratio}</span>
+              <span>${platformLabel}</span>
             </div>
           </div>
-        `;
-
-        card.addEventListener('click', () => openModal(v));
-        grid.appendChild(card);
-      });
-
-      updateCounts();
+        </div>`;
     }
 
-    // ════════════════════════════════════════════
+    // ════════════════════════════════════════
     // FILTER
-    // ════════════════════════════════════════════
-    function filterVideos(filter) {
-      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-      event.target.closest('.filter-btn').classList.add('active');
-      renderVideos(filter);
+    // ════════════════════════════════════════
+    document.querySelectorAll('.filter-clip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-clip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderGrid(btn.dataset.filter);
+      });
+    });
+
+    // ════════════════════════════════════════
+    // COUNTS
+    // ════════════════════════════════════════
+    function updateCounts() {
+      document.getElementById('c-all').textContent = VIDEOS.length;
+      document.getElementById('c-criativo').textContent = VIDEOS.filter(v=>v.category==='criativo').length;
+      document.getElementById('c-vsl').textContent = VIDEOS.filter(v=>v.category==='vsl').length;
+      document.getElementById('c-dr').textContent = VIDEOS.filter(v=>v.category==='dr').length;
+      document.getElementById('videoCountEl').textContent = VIDEOS.length;
+      document.getElementById('sb-clips').textContent = VIDEOS.length;
     }
 
-    // ════════════════════════════════════════════
+    // ════════════════════════════════════════
     // MODAL
-    // ════════════════════════════════════════════
+    // ════════════════════════════════════════
     function openModal(v) {
+      const cfg = CAT_CONFIG[v.category];
       const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
+      const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
       document.getElementById('modalTitle').textContent = title;
       document.getElementById('modalIframe').src = v.videoUrl + '?autoplay=1';
-
-      const catLabel = {
-        criativo: currentLang === 'pt' ? 'Criativo' : 'Creative',
-        vsl: 'VSL',
-        dr: 'Direct Response'
-      };
-
+      // Adjust modal aspect ratio for vertical videos
+      const mv = document.getElementById('modalVideo');
+      mv.style.aspectRatio = v.format === 'vertical' ? '9/16' : '16/9';
+      mv.style.maxHeight = v.format === 'vertical' ? '70vh' : '';
+      mv.style.width = v.format === 'vertical' ? 'auto' : '100%';
+      mv.style.margin = v.format === 'vertical' ? '0 auto' : '';
+      const isDrive = v.videoUrl.includes('drive.google.com');
+      const platform = isDrive ? 'Google Drive'
+        : v.videoUrl.includes('vimeo') ? 'Vimeo'
+        : v.format === 'vertical' ? 'Shorts/Reels' : 'YouTube';
       document.getElementById('modalFooter').innerHTML =
-        `<span class="modal-tag">${catLabel[v.category]}</span>
-         <span class="modal-tag">${v.format === 'vertical' ? '9:16' : '16:9'}</span>`;
-
+        `<span class="modal-tag">${catLabel}</span>
+         <span class="modal-tag">${v.format === 'vertical' ? '9:16' : '16:9'}</span>
+         <span class="modal-tag">${platform}</span>`;
       document.getElementById('modal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -695,36 +990,85 @@
     document.getElementById('modal').addEventListener('click', e => {
       if (e.target.id === 'modal') closeModal();
     });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeModal();
+    // ════════════════════════════════════════
+    // TIMELINE
+    // ════════════════════════════════════════
+    const MARKS = ['00:00','00:10','00:20','00:30','00:40','00:50','01:00','01:10','01:20'];
+    const rulerEl = document.getElementById('tlRulerInner');
+    MARKS.forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'tl-ruler-mark';
+      el.textContent = m;
+      rulerEl.appendChild(el);
     });
 
-    // ════════════════════════════════════════════
-    // COUNTS
-    // ════════════════════════════════════════════
-    function updateCounts() {
-      document.getElementById('count-all').textContent = VIDEOS.length;
-      document.getElementById('count-criativo').textContent = VIDEOS.filter(v => v.category === 'criativo').length;
-      document.getElementById('count-vsl').textContent = VIDEOS.filter(v => v.category === 'vsl').length;
-      document.getElementById('count-dr').textContent = VIDEOS.filter(v => v.category === 'dr').length;
-      document.getElementById('totalVideos').textContent = VIDEOS.length;
+    function buildTimelineClips(videos) {
+      const v1 = document.getElementById('trackV1');
+      const v2 = document.getElementById('trackV2');
+      const a1 = document.getElementById('trackA1');
+      v1.innerHTML = v2.innerHTML = a1.innerHTML = '';
+
+      const catColors = { criativo:'#2B5280', vsl:'#5A2D7A', dr:'#FF6B35' };
+      const perClip = 100 / videos.length;
+
+      videos.forEach((v, i) => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${i*perClip}%;width:${perClip - 0.5}%;background:${catColors[v.category]};`;
+        const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
+        el.innerHTML = `<span class="tl-clip-label">${title}</span>`;
+        el.addEventListener('click', () => openModal(v));
+        v1.appendChild(el);
+      });
+
+      // A1 waveform
+      const a1Clip = document.createElement('div');
+      a1Clip.className = 'tl-clip';
+      a1Clip.style.cssText = `left:0;width:100%;background:#4A3010;`;
+      const wv = document.createElement('div');
+      wv.className = 'tl-waveform';
+      const bars = 60;
+      for (let i = 0; i < bars; i++) {
+        const bar = document.createElement('div');
+        bar.className = 'wv-bar';
+        const h = Math.random() * 80 + 20;
+        bar.style.cssText = `height:${h}%;`;
+        bar.setAttribute('data-filled', Math.random() > 0.4 ? 'true' : 'false');
+        wv.appendChild(bar);
+      }
+      a1Clip.appendChild(wv);
+      a1.appendChild(a1Clip);
     }
 
-    // ════════════════════════════════════════════
-    // UTILS
-    // ════════════════════════════════════════════
-    function hexToRgb(hex) {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)}` : '0,0,0';
-    }
+    // Animated timecode
+    let frame = 0;
+    setInterval(() => {
+      frame++;
+      const f = frame % 30;
+      const s = Math.floor(frame/30) % 60;
+      const m = Math.floor(frame/1800) % 60;
+      const h = Math.floor(frame/108000) % 24;
+      document.getElementById('tcH').textContent = String(h).padStart(2,'0');
+      document.getElementById('tcM').textContent = String(m).padStart(2,'0');
+      document.getElementById('tcS').textContent = String(s).padStart(2,'0');
+      document.getElementById('tcF').textContent = String(f).padStart(2,'0');
+      // Playhead
+      const pct = (frame % 300) / 300 * 100;
+      const ph = document.getElementById('tlPlayhead');
+      if (ph) ph.style.left = pct + '%';
+    }, 33);
 
-    // ════════════════════════════════════════════
+    // Mobile hamburger
+    document.getElementById('hamburgerBtn').addEventListener('click', () => {
+      document.getElementById('mobileDrawer').classList.toggle('open');
+    });
+
+    // ════════════════════════════════════════
     // INIT
-    // ════════════════════════════════════════════
-    document.addEventListener('DOMContentLoaded', () => {
-      setLanguage(currentLang);
-    });
+    // ════════════════════════════════════════
+    setLanguage(currentLang);
   </script>
 
 </body>
