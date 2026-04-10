@@ -29,6 +29,39 @@
       --f-body:         'DM Sans', sans-serif;
     }
 
+    /* LANGUAGE TOGGLE */
+    .lang-toggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 2px;
+      background: rgba(61,167,255,0.1);
+      border: 1px solid rgba(61,167,255,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      padding: 8px 12px;
+      background: transparent;
+      border: none;
+      color: var(--tx-mid);
+      font-family: var(--f-mono);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all .2s;
+      text-transform: uppercase;
+    }
+    .lang-btn.active {
+      background: var(--accent);
+      color: #000;
+    }
+    .lang-btn:hover:not(.active) {
+      color: var(--accent);
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -296,22 +329,26 @@
 
   <!-- HEADER -->
   <div class="header">
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
+      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+    </div>
     <div class="header-content">
-      <div class="header-label">// DIRECT RESPONSE · VSL · CRIATIVOS</div>
-      <h1 class="header-title">Portfolio Exclusivo</h1>
-      <p class="header-sub">Criativos e VSLs de alto desempenho. Métricas reais, resultados que convertem. Acesso restrito para recrutadores.</p>
+      <div class="header-label" data-pt="// DIRECT RESPONSE · VSL · CRIATIVOS" data-en="// DIRECT RESPONSE · VSL · CREATIVES"></div>
+      <h1 class="header-title" data-pt="Portfolio Exclusivo" data-en="Exclusive Portfolio"></h1>
+      <p class="header-sub" data-pt="Criativos e VSLs de alto desempenho. Métricas reais, resultados que convertem. Acesso restrito para recrutadores." data-en="High-performing creatives and VSLs. Real metrics, conversion-focused results. Exclusive access for recruiters."></p>
       <div class="header-badge">
-        ✓ Vídeos com CTR acima da média da plataforma
+        ✓ <span data-pt="Vídeos com CTR acima da média da plataforma" data-en="Videos with above-average platform CTR"></span>
       </div>
     </div>
   </div>
 
   <!-- FILTER -->
   <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterVideos('all')">Todos</button>
-    <button class="filter-btn" onclick="filterVideos('dr')">Direct Response</button>
-    <button class="filter-btn" onclick="filterVideos('ctr')">High CTR</button>
-    <button class="filter-btn" onclick="filterVideos('vsl')">VSL</button>
+    <button class="filter-btn active" onclick="filterVideos('all')" data-pt="Todos" data-en="All"></button>
+    <button class="filter-btn" onclick="filterVideos('dr')" data-pt="Direct Response" data-en="Direct Response"></button>
+    <button class="filter-btn" onclick="filterVideos('ctr')" data-pt="High CTR" data-en="High CTR"></button>
+    <button class="filter-btn" onclick="filterVideos('vsl')" data-pt="VSL" data-en="VSL"></button>
   </div>
 
   <!-- GRID -->
@@ -323,17 +360,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">Criativo DR #01</div>
+          <div class="card-title" data-pt="Criativo DR #01" data-en="Creative DR #01"></div>
           <div class="card-type dr">DR</div>
         </div>
-        <div class="card-desc">Criativo de 30s focado em retenção e CTA direto. Performance em campanhas de e-commerce.</div>
+        <div class="card-desc" data-pt="Criativo de 30s focado em retenção e CTA direto. Performance em campanhas de e-commerce." data-en="30-second creative focused on retention and direct CTA. High performance in e-commerce campaigns."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">CTR</span>
+            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
             <span class="metric-value">4.2%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">68%</span>
           </div>
         </div>
@@ -346,17 +383,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">Criativo DR #02</div>
+          <div class="card-title" data-pt="Criativo DR #02" data-en="Creative DR #02"></div>
           <div class="card-type dr">DR</div>
         </div>
-        <div class="card-desc">VSL de 45s com hook de 3 segundos. Resultado: alto engajamento em cold traffic.</div>
+        <div class="card-desc" data-pt="VSL de 45s com hook de 3 segundos. Resultado: alto engajamento em cold traffic." data-en="45-second VSL with 3-second hook. Result: high engagement on cold traffic."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">Conversão</span>
+            <span class="metric-label" data-pt="Conversão" data-en="Conversion"></span>
             <span class="metric-value">3.8%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">72%</span>
           </div>
         </div>
@@ -369,17 +406,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">Criativo DR #03</div>
+          <div class="card-title" data-pt="Criativo DR #03" data-en="Creative DR #03"></div>
           <div class="card-type dr">DR</div>
         </div>
-        <div class="card-desc">Criativo com transições rápidas e power words. Testado em múltiplas campanhas.</div>
+        <div class="card-desc" data-pt="Criativo com transições rápidas e power words. Testado em múltiplas campanhas." data-en="Creative with fast transitions and power words. Tested across multiple campaigns."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">CTR</span>
+            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
             <span class="metric-value">5.1%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">75%</span>
           </div>
         </div>
@@ -393,17 +430,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">High CTR #01</div>
+          <div class="card-title" data-pt="High CTR #01" data-en="High CTR #01"></div>
           <div class="card-type ctr">HIGH CTR</div>
         </div>
-        <div class="card-desc">Criativo com hook viral. Performance acima de 6% CTR em cold traffic.</div>
+        <div class="card-desc" data-pt="Criativo com hook viral. Performance acima de 6% CTR em cold traffic." data-en="Creative with viral hook. 6%+ CTR performance on cold traffic."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">CTR</span>
+            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
             <span class="metric-value">6.8%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">82%</span>
           </div>
         </div>
@@ -416,17 +453,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">High CTR #02</div>
+          <div class="card-title" data-pt="High CTR #02" data-en="High CTR #02"></div>
           <div class="card-type ctr">HIGH CTR</div>
         </div>
-        <div class="card-desc">Padrão de edição com cortes rápidos e pattern interrupt. Resultado: leads qualificados.</div>
+        <div class="card-desc" data-pt="Padrão de edição com cortes rápidos e pattern interrupt. Resultado: leads qualificados." data-en="Editing pattern with fast cuts and pattern interrupts. Result: qualified leads."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">CTR</span>
+            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
             <span class="metric-value">7.2%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">79%</span>
           </div>
         </div>
@@ -439,17 +476,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">High CTR #03</div>
+          <div class="card-title" data-pt="High CTR #03" data-en="High CTR #03"></div>
           <div class="card-type ctr">HIGH CTR</div>
         </div>
-        <div class="card-desc">Criativo com texto dinâmico e zoom. Testado em Reels, Shorts e TikTok.</div>
+        <div class="card-desc" data-pt="Criativo com texto dinâmico e zoom. Testado em Reels, Shorts e TikTok." data-en="Creative with dynamic text and zoom. Tested on Reels, Shorts, and TikTok."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">CTR</span>
+            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
             <span class="metric-value">6.5%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">81%</span>
           </div>
         </div>
@@ -462,17 +499,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">High CTR #04</div>
+          <div class="card-title" data-pt="High CTR #04" data-en="High CTR #04"></div>
           <div class="card-type ctr">HIGH CTR</div>
         </div>
-        <div class="card-desc">Pattern interrupt com movimento. Velocidade de edição otimizada para retenção máxima.</div>
+        <div class="card-desc" data-pt="Pattern interrupt com movimento. Velocidade de edição otimizada para retenção máxima." data-en="Pattern interrupt with movement. Editing speed optimized for maximum retention."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">CTR</span>
+            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
             <span class="metric-value">7.1%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Retenção</span>
+            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
             <span class="metric-value">80%</span>
           </div>
         </div>
@@ -486,17 +523,17 @@
       </div>
       <div class="card-content">
         <div class="card-header">
-          <div class="card-title">VSL de Vendas</div>
+          <div class="card-title" data-pt="VSL de Vendas" data-en="Sales VSL"></div>
           <div class="card-type vsl">VSL</div>
         </div>
-        <div class="card-desc">Video Sales Letter de 8min com estrutura completa: hook, problema, solução, CTA. Resultado: alta taxa de conversão.</div>
+        <div class="card-desc" data-pt="Video Sales Letter de 8min com estrutura completa: hook, problema, solução, CTA. Resultado: alta taxa de conversão." data-en="8-minute Video Sales Letter with complete structure: hook, problem, solution, CTA. Result: high conversion rate."></div>
         <div class="card-metrics">
           <div class="metric">
-            <span class="metric-label">Taxa Conclusão</span>
+            <span class="metric-label" data-pt="Taxa Conclusão" data-en="Completion Rate"></span>
             <span class="metric-value">64%</span>
           </div>
           <div class="metric">
-            <span class="metric-label">Conversão</span>
+            <span class="metric-label" data-pt="Conversão" data-en="Conversion"></span>
             <span class="metric-value">12.3%</span>
           </div>
         </div>
@@ -507,17 +544,59 @@
   <!-- FOOTER -->
   <div class="footer">
     <div class="footer-content">
-      <div class="footer-label">// CONTRATO E PARCERIA</div>
-      <h2 class="footer-heading">Pronto pra um projeto?</h2>
-      <p class="footer-sub">Se seus criativos precisam de performance real e conversão, vamos conversar.</p>
-      <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20estou%20interessado%20em%20contratar%20seus%20servi%C3%A7os%20de%20edi%C3%A7%C3%A3o" target="_blank" class="cta-btn">
-        Agendar Conversa
+      <div class="footer-label" data-pt="// CONTRATO E PARCERIA" data-en="// CONTRACTS & PARTNERSHIPS"></div>
+      <h2 class="footer-heading" data-pt="Pronto pra um projeto?" data-en="Ready for a project?"></h2>
+      <p class="footer-sub" data-pt="Se seus criativos precisam de performance real e conversão, vamos conversar." data-en="If your creatives need real performance and conversion, let's talk."></p>
+      <a href="https://wa.me/5511948577950?text=Hi%20Anderson%2C%20I'm%20interested%20in%20your%20video%20editing%20services" target="_blank" class="cta-btn" data-pt="Agendar Conversa" data-en="Schedule a Call">
+        <span data-pt="Agendar Conversa" data-en="Schedule a Call"></span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
   </div>
 
   <script>
+    // Language system
+    let currentLang = localStorage.getItem('dr-portfolio-lang') || 'pt';
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('dr-portfolio-lang', lang);
+
+      // Update all elements with data attributes
+      document.querySelectorAll('[data-pt][data-en]').forEach(el => {
+        const text = lang === 'pt' ? el.getAttribute('data-pt') : el.getAttribute('data-en');
+
+        // For header/footer labels that don't contain text nodes
+        if (el.tagName === 'DIV' && el.className === 'header-label') {
+          el.textContent = text;
+        } else if (el.tagName === 'DIV' && el.className === 'footer-label') {
+          el.textContent = text;
+        } else if (el.tagName === 'SPAN' && el.getAttribute('data-pt')) {
+          el.textContent = text;
+        } else if (el.tagName === 'BUTTON' && el.className.includes('filter-btn')) {
+          el.textContent = text;
+        } else if (el.tagName === 'H1' || el.tagName === 'H2') {
+          el.textContent = text;
+        } else if (el.tagName === 'P') {
+          el.textContent = text;
+        } else if (el.tagName === 'DIV' && el.className.includes('card-title')) {
+          el.textContent = text;
+        } else if (el.tagName === 'DIV' && el.className.includes('card-desc')) {
+          el.textContent = text;
+        } else if (el.tagName === 'SPAN' && el.className.includes('metric-label')) {
+          el.textContent = text;
+        }
+      });
+
+      // Update button styles
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-lang') === lang) {
+          btn.classList.add('active');
+        }
+      });
+    }
+
     function filterVideos(type) {
       const cards = document.querySelectorAll('.video-card');
       const buttons = document.querySelectorAll('.filter-btn');
@@ -533,6 +612,11 @@
         }
       });
     }
+
+    // Initialize language on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      setLanguage(currentLang);
+    });
   </script>
 
 </body>
