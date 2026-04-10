@@ -301,19 +301,19 @@
       font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
     }
 
-    /* VERTICAL grid (9:16 shorts) */
+    /* VERTICAL grid (9:16 shorts) — cards estreitos em linha */
     .grid-vertical {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
       gap: 12px;
       margin-bottom: 8px;
     }
 
-    /* HORIZONTAL grid (16:9) */
+    /* HORIZONTAL grid (16:9) — cards largos, max 2 por linha */
     .grid-horizontal {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
+      gap: 16px;
       margin-bottom: 8px;
     }
 
@@ -506,6 +506,7 @@
     }
     @media (max-width: 480px) {
       .grid-vertical { grid-template-columns: 1fr 1fr; }
+      .grid-horizontal { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -629,7 +630,7 @@
         </div>
         <div class="ph-stats">
           <div class="ph-stat">
-            <div class="n" id="videoCountEl">9</div>
+            <div class="n" id="videoCountEl">8</div>
             <div class="l" data-pt="VÍDEOS" data-en="VIDEOS"></div>
           </div>
           <div class="ph-stat">
@@ -650,7 +651,7 @@
       <div class="filter-clips">
         <button class="filter-clip active" data-filter="all">
           <span data-pt="Todos" data-en="All"></span>
-          <span class="filter-count" id="c-all">9</span>
+          <span class="filter-count" id="c-all">8</span>
         </button>
         <button class="filter-clip" data-filter="criativo">
           <div class="filter-swatch" style="background:#2B5280;"></div>
@@ -659,13 +660,13 @@
         </button>
         <button class="filter-clip" data-filter="vsl">
           <div class="filter-swatch" style="background:#5A2D7A;"></div>
-          <span>VSL</span>
+          <span data-pt="VSL / Clipe" data-en="VSL / Music Video"></span>
           <span class="filter-count" id="c-vsl">2</span>
         </button>
         <button class="filter-clip" data-filter="dr">
           <div class="filter-swatch" style="background:#FF6B35;"></div>
-          <span>Direct Response</span>
-          <span class="filter-count" id="c-dr">2</span>
+          <span data-pt="Direct Response" data-en="Direct Response"></span>
+          <span class="filter-count" id="c-dr">1</span>
         </button>
       </div>
     </div>
@@ -694,7 +695,7 @@
   <!-- STATUS BAR -->
   <div class="status-bar">
     <div class="sb-item">SEQ <span class="val">PORTFOLIO_2026</span></div>
-    <div class="sb-item">CLIPS <span class="val" id="sb-clips">9</span></div>
+    <div class="sb-item">CLIPS <span class="val" id="sb-clips">8</span></div>
     <div class="sb-item">30fps</div>
     <div class="sb-section-label" id="sb-cat">ALL</div>
   </div>
@@ -737,66 +738,59 @@
     const VIDEOS = [
       {
         id:1, category:'criativo', format:'vertical',
-        titlePt:'Short Criativo #01', titleEn:'Creative Short #01',
+        titlePt:'Nammi Cafeteria', titleEn:'Nammi Cafeteria',
         descPt:'Hook viral e cortes rápidos. Formato nativo para Reels e Shorts.',
         descEn:'Viral hook and fast cuts. Native format for Reels and Shorts.',
         videoUrl:'https://www.youtube.com/embed/mrk7y-do9AA'
       },
       {
         id:2, category:'criativo', format:'vertical',
-        titlePt:'Short Criativo #02', titleEn:'Creative Short #02',
+        titlePt:'Kascão Sorvetes', titleEn:'Kascão Sorvetes',
         descPt:'Transições dinâmicas com power words e retenção acima de 70%.',
         descEn:'Dynamic transitions with power words and 70%+ retention.',
         videoUrl:'https://www.youtube.com/embed/cOftoraPrjE'
       },
       {
         id:3, category:'criativo', format:'vertical',
-        titlePt:'Short Criativo #03', titleEn:'Creative Short #03',
+        titlePt:'Empório Mineiro Cheirin Bão', titleEn:'Empório Mineiro Cheirin Bão',
         descPt:'Pattern interrupt e movimento para retenção máxima em cold traffic.',
         descEn:'Pattern interrupt and motion for maximum retention on cold traffic.',
         videoUrl:'https://www.youtube.com/embed/U0nkvS7UgX8'
       },
       {
         id:4, category:'criativo', format:'vertical',
-        titlePt:'Short Criativo #04', titleEn:'Creative Short #04',
+        titlePt:'Boali Health Food', titleEn:'Boali Health Food',
         descPt:'Copy visual impactante com estrutura de 3 segundos de hook.',
         descEn:'Impactful visual copy with 3-second hook structure.',
         videoUrl:'https://www.youtube.com/embed/vmr2n1r1AAQ'
       },
       {
-        id:5, category:'vsl', format:'horizontal',
-        titlePt:'VSL Completo', titleEn:'Full Sales VSL',
-        descPt:'Video Sales Letter com estrutura completa: hook, problema, solução, CTA e oferta.',
-        descEn:'Full Video Sales Letter: hook, problem, solution, CTA and offer.',
+        id:5, category:'criativo', format:'horizontal',
+        titlePt:'Criativo — Produção Própria', titleEn:'Creative — Own Production',
+        descPt:'Criativo horizontal com edição dinâmica e foco em conversão.',
+        descEn:'Horizontal creative with dynamic editing and conversion focus.',
+        videoUrl:'https://drive.google.com/file/d/1-oYewLrlFuUjirLc1TVjmUFpYP2Xx-oJ/preview'
+      },
+      {
+        id:6, category:'vsl', format:'horizontal',
+        titlePt:'Videoclipe Musical', titleEn:'Music Video',
+        descPt:'Videoclipe com edição narrativa, corte no ritmo e direção visual criativa.',
+        descEn:'Music video with narrative editing, rhythm cuts and creative visual direction.',
         videoUrl:'https://player.vimeo.com/video/1047582530'
       },
       {
-        id:6, category:'vsl', format:'vertical',
+        id:7, category:'vsl', format:'vertical',
         titlePt:'Short VSL', titleEn:'Short VSL',
         descPt:'VSL condensada em formato vertical. Alta conversão em cold traffic.',
         descEn:'Condensed VSL in vertical format. High conversion on cold traffic.',
         videoUrl:'https://www.youtube.com/embed/BH3zYlYnjJA'
       },
       {
-        id:7, category:'dr', format:'horizontal',
-        titlePt:'Vídeo de Apresentação', titleEn:'Presentation Video',
-        descPt:'Vídeo de apresentação com storytelling e CTA direto para geração de leads.',
-        descEn:'Presentation video with storytelling and direct CTA for lead generation.',
+        id:8, category:'dr', format:'horizontal',
+        titlePt:'Aftermovie — Imersão Visão de Dono', titleEn:'Aftermovie — Visão de Dono Immersion',
+        descPt:'Aftermovie de evento com storytelling emocional e edição cinematográfica.',
+        descEn:'Event aftermovie with emotional storytelling and cinematic editing.',
         videoUrl:'https://www.youtube.com/embed/6ANWvn9R2yY'
-      },
-      {
-        id:8, category:'dr', format:'vertical',
-        titlePt:'Short DR', titleEn:'DR Short',
-        descPt:'Direct Response vertical com oferta clara, urgência e CTR acima da média.',
-        descEn:'Vertical Direct Response with clear offer, urgency and above-average CTR.',
-        videoUrl:'https://www.youtube.com/embed/vmr2n1r1AAQ'
-      },
-      {
-        id:9, category:'criativo', format:'horizontal',
-        titlePt:'Criativo — Drive', titleEn:'Creative — Drive',
-        descPt:'Criativo horizontal com edição dinâmica e foco em conversão.',
-        descEn:'Horizontal creative with dynamic editing and conversion focus.',
-        videoUrl:'https://drive.google.com/file/d/1-oYewLrlFuUjirLc1TVjmUFpYP2Xx-oJ/preview'
       },
     ];
 
@@ -1042,23 +1036,33 @@
       a1.appendChild(a1Clip);
     }
 
-    // Animated timecode
-    let frame = 0;
-    setInterval(() => {
-      frame++;
-      const f = frame % 30;
-      const s = Math.floor(frame/30) % 60;
-      const m = Math.floor(frame/1800) % 60;
-      const h = Math.floor(frame/108000) % 24;
+    // Timecode — driven by scroll position
+    function updateTimecode(pct) {
+      // Map 0-100% scroll to 00:00:00;00 → 00:02:00;00
+      const totalFrames = 2 * 60 * 30; // 2min @ 30fps
+      const f = Math.floor(pct / 100 * totalFrames);
+      const fr = f % 30;
+      const s  = Math.floor(f / 30) % 60;
+      const m  = Math.floor(f / 1800) % 60;
+      const h  = Math.floor(f / 108000);
       document.getElementById('tcH').textContent = String(h).padStart(2,'0');
       document.getElementById('tcM').textContent = String(m).padStart(2,'0');
       document.getElementById('tcS').textContent = String(s).padStart(2,'0');
-      document.getElementById('tcF').textContent = String(f).padStart(2,'0');
-      // Playhead
-      const pct = (frame % 300) / 300 * 100;
+      document.getElementById('tcF').textContent = String(fr).padStart(2,'0');
+    }
+
+    // Playhead follows scroll
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docH > 0 ? Math.min(scrollTop / docH * 100, 100) : 0;
       const ph = document.getElementById('tlPlayhead');
       if (ph) ph.style.left = pct + '%';
-    }, 33);
+      updateTimecode(pct);
+    }, { passive: true });
+
+    // Init timecode at 0
+    updateTimecode(0);
 
     // Mobile hamburger
     document.getElementById('hamburgerBtn').addEventListener('click', () => {
