@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restauração Fotográfica 4K com IA — Parte 1 | Anderson Brito</title>
+  <meta name="description" content="O prompt que uso para restaurar fotos em 4K com IA. Reconstrução analítica de micro-detalhes — sem inventar, sem distorcer. Parte 1 de uma série.">
+  <meta name="keywords" content="restauração de fotos IA, upscale 4K, Freepik AI, prompt restauração fotográfica, Anderson Brito IA">
+  <meta name="author" content="Anderson Brito">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andersonbrito.com/restauracao.html">
+  <meta property="og:title" content="Restauração Fotográfica 4K com IA — Anderson Brito">
+  <meta property="og:description" content="O prompt completo que uso para restaurar fotos em 4K. Antes e depois real — parte 1 da série.">
+  <meta property="og:image" content="https://andersonbrito.com/assets/capa-restauracao.jpg">
+  <meta property="og:locale" content="pt_BR">
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://andersonbrito.com/restauracao.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pr-menubar:     #1C1C1C;
+      --pr-toolbar:     #232325;
+      --pr-panel-bg:    #1E1E22;
+      --pr-panel-hd:    #28282E;
+      --pr-panel-hd2:   #222226;
+      --pr-timeline-bg: #191919;
+      --pr-track-bg:    #202024;
+      --pr-card:        #26262C;
+      --pr-input:       #141416;
+      --pr-border:      #000;
+      --pr-sep:         #38383F;
+      --pr-sep-light:   #45454F;
+      --accent:     #3DA7FF;
+      --accent-2:   #0070D1;
+      --accent-gr:  #22c55e;
+      --ai-cyan:    #00C8FF;
+      --ai-teal:    #00E5CC;
+      --orange:     #FF6B35;
+      --gold:       #F5C842;
+      --playhead:   #A8D0FF;
+      --tx-hi:      #EAEAEF;
+      --tx-mid:     #8888A0;
+      --tx-lo:      #505060;
+      --f-mono:     'IBM Plex Mono', monospace;
+      --f-head:     'Exo 2', sans-serif;
+      --f-body:     'DM Sans', sans-serif;
+      --menubar-h:  26px;
+      --toolbar-h:  40px;
+      --statusbar-h:22px;
+      --timeline-h: 110px;
+      --top-offset: calc(var(--menubar-h) + var(--toolbar-h));
+      --bot-offset: calc(var(--statusbar-h) + var(--timeline-h));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--pr-panel-bg);
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ── MENU BAR ─── */
+    .menu-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      height: var(--menubar-h); background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center;
+      font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid);
+      user-select: none;
+    }
+    .menu-appname {
+      display: flex; align-items: center; gap: 7px;
+      padding: 0 12px; height: 100%; border-right: 1px solid var(--pr-sep); flex-shrink: 0;
+    }
+    .menu-pr-icon {
+      width: 16px; height: 16px; background: var(--orange); border-radius: 3px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7px; font-weight: 900; color: #fff; font-family: var(--f-head);
+    }
+    .menu-items { display: flex; height: 100%; }
+    .menu-item {
+      padding: 0 12px; height: 100%; display: flex; align-items: center;
+      cursor: default; transition: background .1s; position: relative;
+    }
+    .menu-item:hover { background: var(--pr-sep); color: var(--tx-hi); }
+    .menu-dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: #2A2A2E; border: 1px solid var(--pr-sep);
+      min-width: 200px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,.5);
+    }
+    .menu-item:hover .menu-dropdown { display: block; }
+    .menu-dropdown-item {
+      padding: 7px 14px; font-size: 11px; cursor: pointer;
+      white-space: nowrap; transition: background .1s;
+    }
+    .menu-dropdown-item:hover { background: var(--accent-2); color: #fff; }
+    .menu-project { flex: 1; text-align: center; font-size: 10px; color: var(--tx-lo); letter-spacing: .04em; }
+    .menu-right {
+      display: flex; align-items: center; gap: 6px;
+      padding: 0 12px; border-left: 1px solid var(--pr-sep); flex-shrink: 0;
+    }
+    .menu-status-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent-gr);
+      box-shadow: 0 0 6px rgba(34,197,94,.8); animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .menu-status-text { font-size: 9px; color: var(--accent-gr); letter-spacing: .08em; }
+
+    /* ── TOOLBAR ─── */
+    .toolbar {
+      position: fixed; top: var(--menubar-h); left: 0; right: 0; z-index: 890;
+      height: var(--toolbar-h); background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center;
+    }
+    .toolbar-back {
+      display: flex; align-items: center; gap: 5px;
+      padding: 0 14px; height: 100%; border-right: 1px solid var(--pr-sep);
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-mid);
+      text-decoration: none; letter-spacing: .08em;
+      transition: color .15s, background .15s; flex-shrink: 0;
+    }
+    .toolbar-back:hover { color: var(--tx-hi); background: rgba(255,255,255,.04); }
+    .toolbar-title {
+      padding: 0 14px; font-family: var(--f-mono); font-size: 9px;
+      color: var(--tx-lo); letter-spacing: .06em; flex-shrink: 0;
+    }
+    .toolbar-title .seq { color: var(--gold); }
+    .toolbar-nav { display: flex; align-items: center; margin-left: auto; height: 100%; }
+    .tn-link {
+      padding: 0 12px; height: 100%; display: flex; align-items: center;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      text-decoration: none; letter-spacing: .05em;
+      transition: color .15s, background .15s; white-space: nowrap;
+    }
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.04); }
+    .tn-link.cta { background: var(--accent-2); color: #fff; padding: 0 16px; font-weight: 600; }
+    .tn-link.cta:hover { background: var(--accent); }
+    .hamburger-btn {
+      display: none; flex-direction: column; gap: 4px;
+      background: none; border: none; padding: 8px 14px; cursor: pointer; margin-left: auto;
+    }
+    .hamburger-btn span { display: block; width: 18px; height: 1.5px; background: var(--tx-mid); border-radius: 1px; }
+
+    /* ── MOBILE DRAWER ─── */
+    .mobile-drawer {
+      display: none; position: fixed; top: var(--top-offset); left: 0; right: 0; z-index: 880;
+      flex-direction: column; background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-sep); padding: 12px 0;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      padding: 10px 20px; font-family: var(--f-mono); font-size: 11px;
+      color: var(--tx-mid); text-decoration: none; letter-spacing: .06em; transition: color .15s;
+    }
+    .mobile-drawer a:hover, .mobile-drawer a.cta { color: var(--tx-hi); background: rgba(255,255,255,.04); }
+
+    /* ── PAGE CONTENT ─── */
+    .page-content { margin-top: var(--top-offset); padding-bottom: var(--bot-offset); }
+
+    /* ── PANEL ─── */
+    .panel { background: var(--pr-panel-bg); border: 1px solid var(--pr-border); }
+    .ws-section-pad { border-top: 2px solid var(--pr-border); }
+    .panel-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 16px; height: 28px; background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); letter-spacing: .06em;
+    }
+    .panel-header-icon { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .panel-title { flex: 1; }
+    .panel-header-actions { display: flex; gap: 4px; }
+    .panel-action {
+      width: 22px; height: 18px; background: var(--pr-panel-hd2);
+      border: 1px solid var(--pr-sep); display: flex; align-items: center;
+      justify-content: center; font-size: 11px; color: var(--tx-lo);
+    }
+
+    /* ── HERO ─── */
+    .hero-section {
+      background: linear-gradient(160deg, #0A0800 0%, #120D00 60%, #0A0A14 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(245,200,66,.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 860px; margin: 0 auto; padding: 60px 40px 52px;
+      position: relative; z-index: 1;
+    }
+    .hero-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      text-decoration: none; letter-spacing: .08em; margin-bottom: 32px; transition: color .15s;
+    }
+    .hero-back:hover { color: var(--tx-mid); }
+    .series-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--f-mono); font-size: 10px; font-weight: 600;
+      color: var(--gold); letter-spacing: .1em; text-transform: uppercase;
+      border: 1px solid rgba(245,200,66,.3); padding: 4px 12px; border-radius: 3px;
+      margin-bottom: 20px;
+    }
+    .series-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+    .hero-project-tag {
+      display: inline-block; font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      color: var(--tx-lo); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .hero-h1 {
+      font-family: var(--f-head); font-size: clamp(28px, 5vw, 50px);
+      font-weight: 900; line-height: 1.05; color: var(--tx-hi); margin-bottom: 20px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 15px; color: var(--tx-mid); line-height: 1.7; max-width: 600px; margin-bottom: 32px; }
+    .hero-meta {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .06em; padding-top: 28px; border-top: 1px solid var(--pr-sep);
+    }
+    .hero-meta-item { display: flex; align-items: center; gap: 6px; }
+    .hero-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
+
+    /* ── BEFORE / AFTER STRIP ─── */
+    .ba-strip {
+      display: flex; gap: 0;
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-border);
+      overflow: hidden;
+    }
+    .ba-panel {
+      flex: 1; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 220px;
+    }
+    .ba-panel img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      display: block;
+    }
+    .ba-panel-before {
+      background: #0A0A0E; filter: grayscale(60%) blur(1px) brightness(.7);
+    }
+    .ba-panel-after { background: #050810; }
+    .ba-divider {
+      width: 2px; background: var(--gold); flex-shrink: 0; position: relative; z-index: 10;
+    }
+    .ba-divider::after {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--gold); display: flex; align-items: center; justify-content: center;
+    }
+    .ba-label {
+      position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+      font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px;
+      border-radius: 2px; white-space: nowrap;
+    }
+    .ba-label-before { background: rgba(0,0,0,.7); color: var(--tx-lo); }
+    .ba-label-after { background: var(--gold); color: #000; }
+
+    /* ── STEPS / CONTENT ─── */
+    .content-wrap { max-width: 860px; margin: 0 auto; padding: 0 40px 60px; }
+    .content-intro {
+      padding: 36px 0 28px;
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .content-intro-tag {
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: 14px;
+    }
+    .content-intro p { font-size: 14px; color: var(--tx-mid); line-height: 1.8; margin-bottom: 12px; }
+    .content-intro strong { color: var(--tx-hi); }
+    .content-intro em { color: var(--tx-lo); font-style: italic; }
+
+    /* concept pills */
+    .concept-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+    .concept-pill {
+      font-family: var(--f-mono); font-size: 10px;
+      border: 1px solid var(--pr-sep); padding: 4px 10px; border-radius: 3px;
+      color: var(--tx-lo); letter-spacing: .06em;
+    }
+    .concept-pill.highlight { border-color: rgba(245,200,66,.35); color: var(--gold); }
+
+    /* how to use */
+    .how-section { padding: 28px 0; border-bottom: 1px solid var(--pr-border); }
+    .how-title {
+      font-family: var(--f-head); font-size: 15px; font-weight: 700;
+      color: var(--tx-hi); margin-bottom: 20px;
+    }
+    .how-steps { display: flex; flex-direction: column; gap: 0; }
+    .how-step {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 14px 0; border-bottom: 1px solid rgba(56,56,63,.5);
+    }
+    .how-step:last-child { border-bottom: none; }
+    .how-num {
+      width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+      background: rgba(245,200,66,.1); border: 1px solid rgba(245,200,66,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-mono); font-size: 11px; font-weight: 600; color: var(--gold);
+    }
+    .how-step-text { font-size: 13px; color: var(--tx-mid); line-height: 1.65; padding-top: 3px; }
+    .how-step-text strong { color: var(--tx-hi); }
+    .how-step-text a { color: var(--accent); text-decoration: none; }
+    .how-step-text a:hover { text-decoration: underline; }
+    .how-step-text code {
+      font-family: var(--f-mono); font-size: 11px;
+      background: rgba(255,255,255,.06); padding: 2px 6px;
+      border-radius: 3px; color: var(--gold);
+    }
+
+    /* prompt block */
+    .prompt-section { padding: 28px 0; }
+    .prompt-section-title {
+      font-family: var(--f-head); font-size: 15px; font-weight: 700;
+      color: var(--tx-hi); margin-bottom: 16px;
+    }
+    .code-block-wrap {
+      border: 1px solid var(--pr-sep); border-radius: 4px; overflow: hidden;
+    }
+    .code-block-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px; background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .code-block-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); letter-spacing: .08em;
+    }
+    .copy-btn {
+      background: rgba(245,200,66,.1); border: 1px solid rgba(245,200,66,.25);
+      color: var(--gold); font-family: var(--f-mono); font-size: 10px;
+      padding: 4px 10px; border-radius: 3px; cursor: pointer;
+      letter-spacing: .04em; transition: background .15s, color .15s;
+    }
+    .copy-btn:hover { background: rgba(245,200,66,.25); }
+    .copy-btn.copied { background: rgba(34,197,94,.15); border-color: rgba(34,197,94,.4); color: var(--accent-gr); }
+    .code-block-body {
+      font-family: var(--f-mono); font-size: 12px; color: var(--tx-mid);
+      line-height: 1.8; padding: 18px 20px; background: var(--pr-input);
+      white-space: pre-wrap; word-break: break-word;
+      max-height: 420px; overflow-y: auto;
+    }
+    .code-block-body::-webkit-scrollbar { width: 4px; }
+    .code-block-body::-webkit-scrollbar-thumb { background: var(--pr-sep); border-radius: 4px; }
+
+    /* prompt highlight lines */
+    .code-block-body .hl { color: var(--gold); }
+
+    /* series note */
+    .series-note {
+      margin-top: 28px; padding: 16px 20px;
+      background: rgba(245,200,66,.05); border: 1px solid rgba(245,200,66,.2);
+      border-radius: 4px; display: flex; align-items: flex-start; gap: 12px;
+    }
+    .series-note-icon { font-size: 16px; flex-shrink: 0; margin-top: 2px; }
+    .series-note-text { font-size: 13px; color: var(--tx-mid); line-height: 1.65; }
+    .series-note-text strong { color: var(--gold); }
+
+    /* ── FOOTER CTA ─── */
+    .footer-section { background: #050F14; border-top: 2px solid var(--pr-border); }
+    .footer-inner { max-width: 860px; margin: 0 auto; padding: 60px 40px; text-align: center; }
+    .footer-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .footer-h2 {
+      font-family: var(--f-head); font-size: clamp(22px, 4vw, 36px);
+      font-weight: 900; color: var(--tx-hi); line-height: 1.15; margin-bottom: 12px;
+    }
+    .footer-h2 span { color: var(--accent); }
+    .footer-sub { font-size: 14px; color: var(--tx-mid); line-height: 1.7; max-width: 480px; margin: 0 auto 32px; }
+    .footer-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+      background: var(--orange); color: #fff; font-family: var(--f-head);
+      font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px; transition: background .15s;
+    }
+    .btn-primary:hover { background: #ff825a; }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
+      background: transparent; color: var(--tx-mid); font-family: var(--f-head);
+      font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid var(--pr-sep); border-radius: 3px;
+      transition: color .15s, border-color .15s;
+    }
+    .btn-ghost:hover { color: var(--tx-hi); border-color: var(--pr-sep-light); }
+    .footer-info {
+      margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--pr-sep);
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+    }
+
+    /* ── STATUS BAR ─── */
+    .status-bar {
+      position: fixed; bottom: var(--timeline-h); left: 0; right: 0; z-index: 800;
+      height: var(--statusbar-h); background: var(--pr-panel-hd2);
+      border-top: 1px solid var(--pr-border); border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center;
+      font-family: var(--f-mono); font-size: 9px; overflow: hidden;
+    }
+    .sb-item {
+      padding: 0 12px; height: 100%; display: flex; align-items: center; gap: 5px;
+      border-right: 1px solid var(--pr-sep); color: var(--tx-lo); white-space: nowrap;
+    }
+    .sb-item .val { color: var(--tx-mid); }
+    .sb-section-label { margin-left: auto; padding: 0 12px; color: var(--gold); letter-spacing: .05em; }
+
+    /* ── FIXED TIMELINE ─── */
+    .timeline-panel {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 800;
+      height: var(--timeline-h); background: var(--pr-timeline-bg);
+      border-top: 1px solid var(--pr-border); display: flex; flex-direction: column;
+    }
+    .tl-header { height: 22px; display: flex; flex-shrink: 0; border-bottom: 1px solid var(--pr-border); }
+    .tl-track-labels-hd {
+      width: 52px; flex-shrink: 0; padding: 0 8px;
+      display: flex; align-items: center; background: var(--pr-panel-hd2); border-right: 1px solid var(--pr-border);
+    }
+    .tl-ruler { flex: 1; position: relative; overflow: hidden; background: var(--pr-panel-hd2); }
+    .tl-ruler-inner {
+      position: absolute; inset: 0; display: flex; align-items: center;
+      padding: 0 8px; justify-content: space-between;
+    }
+    .tl-ruler-mark { font-family: var(--f-mono); font-size: 8px; color: var(--tx-lo); white-space: nowrap; }
+    .tl-playhead {
+      position: absolute; top: 0; bottom: 0; width: 1px;
+      background: var(--gold); box-shadow: 0 0 4px var(--gold);
+      transition: left .05s linear; z-index: 10;
+    }
+    .tl-playhead::before {
+      content: ''; position: absolute; top: 0; left: -4px;
+      border: 4px solid transparent; border-top: 6px solid var(--gold);
+    }
+    .tl-tracks { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+    .tl-track {
+      flex: 1; display: flex; min-height: 0; border-bottom: 1px solid var(--pr-border);
+    }
+    .tl-track:last-child { border-bottom: none; }
+    .tl-label {
+      width: 52px; flex-shrink: 0; padding: 0 8px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--pr-panel-hd2); border-right: 1px solid var(--pr-border);
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+    }
+    .tl-lock { font-size: 7px; opacity: .5; }
+    .tl-track-content { flex: 1; position: relative; overflow: hidden; background: var(--pr-track-bg); }
+    .tl-clip {
+      position: absolute; top: 1px; bottom: 1px; border-radius: 2px; overflow: hidden;
+      display: flex; align-items: center; font-family: var(--f-mono); font-size: 9px;
+      transition: filter .15s;
+    }
+    .tl-clip:hover { filter: brightness(1.4); }
+    .tl-clip-label {
+      position: absolute; left: 6px; color: rgba(255,255,255,.45);
+      font-size: 8px; letter-spacing: .04em; white-space: nowrap; text-transform: uppercase;
+    }
+    .tl-waveform { position: absolute; inset: 2px; display: flex; align-items: center; gap: 1px; }
+    .wv-bar { width: 2px; border-radius: 1px; flex-shrink: 0; }
+
+    /* ── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ─── */
+    @media (max-width: 720px) {
+      :root { --timeline-h: 88px; }
+      .toolbar-nav { display: none; }
+      .hamburger-btn { display: flex; }
+      .mobile-drawer { display: flex !important; }
+      .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h) + 48px); }
+      .menu-items .menu-item:nth-child(n+4) { display: none; }
+      .hero-inner { padding: 40px 20px 36px; }
+      .content-wrap { padding: 0 20px 48px; }
+      .footer-inner { padding: 48px 20px; }
+    }
+    @media (max-width: 480px) { .menu-items { display: none; } }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ MENU BAR ═══ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-home'">Ir para INTRO</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-contact'">Ir para CONTATO</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Clipe
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.scrollTo({top:0,behavior:'smooth'})">Ir para TOPO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('como-usar')?.scrollIntoView({behavior:'smooth'})">Como Usar</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('o-prompt')?.scrollIntoView({behavior:'smooth'})">O Prompt</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Sequência
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='portfolio.html'">Sequência 2 — Portfolio DR</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Sequência 5 — Projetos IA</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(()=>{})">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950','_blank')">WhatsApp</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-project">anderson_brito_2026.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONÍVEL</div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <a href="ia.html" class="toolbar-back">
+      <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      PROJETOS IA
+    </a>
+    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · RESTAURAÇÃO_4K · PARTE_1</div>
+    <div class="toolbar-nav">
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="portfolio.html" class="tn-link">Portfolio</a>
+      <a href="fotografia.html" class="tn-link">Fotografia</a>
+      <a href="ia.html" class="tn-link" style="color:var(--gold);">IA Prompts</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
+      <a href="aprenda.html" class="tn-link">Aprenda</a>
+      <a href="saiba-mais.html" class="tn-link">Sobre</a>
+      <a href="briefing.html" class="tn-link cta">Contato</a>
+    </div>
+    <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="fotografia.html">Fotografia</a>
+    <a href="ia.html" style="color:var(--gold);">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="aprenda.html">Aprenda</a>
+    <a href="saiba-mais.html">Sobre</a>
+    <a href="briefing.html" class="cta">Contato</a>
+  </div>
+
+  <!-- ═══ CONTENT ═══ -->
+  <div class="page-content">
+
+    <!-- HERO -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--gold);"></div>
+        <span class="panel-title">Bin: Projeto 02 — Restauração Fotográfica 4K com IA</span>
+        <div class="panel-header-actions">
+          <div class="panel-action">&#8862;</div>
+          <div class="panel-action">&#8801;</div>
+        </div>
+      </div>
+      <div class="hero-section">
+        <div class="hero-inner">
+          <a href="ia.html" class="hero-back">
+            <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            ← Voltar para Projetos IA
+          </a>
+
+          <div class="series-badge">
+            <div class="series-dot"></div>
+            Série · Parte 1 de ?
+          </div>
+
+          <div class="hero-project-tag">Projeto 02 · Restauração · Nano Banana · IA Generativa</div>
+
+          <h1 class="hero-h1">Antes e depois.<br>Restauração de fotos<br>em <em>4K com IA.</em></h1>
+
+          <p class="hero-sub">O prompt que uso para recuperar detalhes que a foto original nunca teve. A IA age como restaurador técnico — sem inventar identidade, sem distorcer expressão, sem reinventar a cena.</p>
+
+          <div class="hero-meta">
+            <div class="hero-meta-item">
+              <div class="hero-meta-dot"></div>
+              <span>Nano Banana (Freepik AI)</span>
+            </div>
+            <div class="hero-meta-item">
+              <div class="hero-meta-dot" style="background:var(--accent);"></div>
+              <span>Fidelidade 100% de identidade</span>
+            </div>
+            <div class="hero-meta-item">
+              <div class="hero-meta-dot" style="background:var(--accent-gr);"></div>
+              <span>Saída 8K · ProRes · Estúdio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULT IMAGE -->
+    <div class="panel ws-section-pad">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--gold);"></div>
+        <span class="panel-title">Monitor: Resultado — Restauração Fotográfica</span>
+      </div>
+      <div style="background:#050810;display:flex;justify-content:center;padding:32px 20px;">
+        <img src="assets/capa-restauracao.jpg"
+             alt="Resultado da restauração fotográfica em 4K com IA"
+             style="max-width:360px;width:100%;border-radius:6px;box-shadow:0 0 40px rgba(245,200,66,.15);"
+             onerror="this.style.display='none'">
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="panel ws-section-pad">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--ai-cyan);"></div>
+        <span class="panel-title">Controles de Efeito — O Método e o Prompt</span>
+      </div>
+
+      <div class="content-wrap">
+
+        <!-- INTRO -->
+        <div class="content-intro reveal">
+          <div class="content-intro-tag">// o que é isso</div>
+          <p>A maioria dos prompts de IA pede pra ferramenta <strong>"melhorar" a foto</strong> — e aí ela inventa: muda a expressão, altera o rosto, troca detalhes. O resultado parece bonito, mas não é mais a pessoa original.</p>
+          <p>Este prompt funciona diferente. Ele instrui a IA a agir como um <strong>restaurador técnico, não um artista.</strong> A função é reconstruir o que já estava lá — poros, fios de cabelo, reflexos nos olhos — a partir da imagem de referência como único guia.</p>
+          <p><em>Rosto, expressão, postura e roupa têm que sair idênticos. O que muda é só a qualidade técnica.</em></p>
+          <div class="concept-pills">
+            <div class="concept-pill highlight">Fidelidade 100%</div>
+            <div class="concept-pill highlight">Micro-detalhes reais</div>
+            <div class="concept-pill">Sem distorção de identidade</div>
+            <div class="concept-pill">Saída 8K</div>
+            <div class="concept-pill">Bokeh natural</div>
+            <div class="concept-pill">Iluminação cinematográfica</div>
+          </div>
+        </div>
+
+        <!-- HOW TO USE -->
+        <div class="how-section reveal" id="como-usar">
+          <div class="how-title">Como usar o prompt</div>
+          <div class="how-steps">
+            <div class="how-step">
+              <div class="how-num">1</div>
+              <div class="how-step-text">
+                Acesse o <a href="https://www.freepik.com/ai/image-generator" target="_blank" rel="noopener">Freepik AI Image Generator</a> (Nano Banana) — plano gratuito funciona, plano Pro gera em resolução maior.
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-num">2</div>
+              <div class="how-step-text">
+                <strong>Anexe a foto original</strong> que você quer restaurar como imagem de referência. Quanto melhor o rosto estiver visível, mais precisa será a reconstrução.
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-num">3</div>
+              <div class="how-step-text">
+                Copie o prompt abaixo, cole no campo de texto e <strong>não altere nada</strong>. Ele já está calibrado para máxima fidelidade. A IA vai identificar o sujeito automaticamente.
+              </div>
+            </div>
+            <div class="how-step">
+              <div class="how-num">4</div>
+              <div class="how-step-text">
+                Gere. Se o resultado alterar expressão ou feição, tente novamente — às vezes leva 2 ou 3 gerações até a fidelidade estar 100%. <strong>Use o Prompt Negativo junto</strong> quando a ferramenta permitir campo separado.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROMPT -->
+        <div class="prompt-section reveal" id="o-prompt">
+          <div class="prompt-section-title">O Prompt Completo</div>
+          <div class="code-block-wrap">
+            <div class="code-block-header">
+              <span class="code-block-label">Prompt de Restauração 4K — Cole no Nano Banana (Freepik AI)</span>
+              <button class="copy-btn" onclick="copyBlock(this,'prompt-restauracao')">📋 Copiar</button>
+            </div>
+            <div class="code-block-body" id="prompt-restauracao">DIRETIVA: Executar uma restauração de ultra-fidelidade e re-renderização cinematográfica da imagem de referência. O objetivo principal é a "Reconstrução Analítica de Micro-Detalhes" a partir de uma fonte de baixa qualidade.
+
+DEFINIÇÕES DE SUJEITO/PERSONAGEM: [Identificar Sujeito Principal da Imagem].
+CRÍTICO: A estrutura facial, a expressão idêntica e a pose exata devem COINCIDIR ESTRICTAMENTE com a imagem de referência fornecida. É exigida uma fidelidade de identidade de 100%.
+DETALHES RECONSTRUIDOS: Recuperação extrema de texturas de pele natural (poros visíveis, micro-rugas), mechas de cabelo realistas e individualizadas, olhos cristalinos com reflexos nítidos, e bordas limpas e definidas em roupas e acessórios.
+
+CENA & DISPOSIÇÃO: Réplica exata da composição original.
+ENQUADRE: Plano Médio (Medium Shot) baseado no enquadramento original, respeitando a Regra dos Terços.
+AMBIENTE: Reconstrução nítida do fundo original. Aumentar a profundidade de campo para uma separação sutil mas clara entre o sujeito e o ambiente, eliminando artefatos e ruído.
+
+ESPECIFICAÇÕES TÉCNICAS:
+CÂMERA: Lente de 85mm com abertura f/1.8 para um desfoque sutil (bokeh) de fundo.
+ILUMINAÇÃO: Iluminação Cinematográfica Equilibrada (ex. Iluminação Rembrandt) com alto contraste mas sem perder detalhes nas sombras. Reflexos especulares dramáticos e precisos.
+QUALIDADE DE SAÍDA: Resolução 8K, Texturas Fotorrealistas, Qualidade ProRes, Nitidez de Estúdio. Realismo de pôster.
+REFERÊNCIA: Utilizar a imagem anexada como ÚNICO referente estrutural e de identidade.
+
+PROMPT NEGATIVO: Embaçado, desfocado, ruído visual, artefatos de compressão, mudança de identidade, mudança de expressão, alteração de pose, mudança de roupa, adicionar objetos, redesenhar, aspecto de desenho ou pintura, baixa resolução.</div>
+          </div>
+
+          <!-- SERIES NOTE -->
+          <div class="series-note reveal">
+            <div class="series-note-icon">🔖</div>
+            <div class="series-note-text">
+              <strong>Essa é a Parte 1 de uma série.</strong> Novos prompts de restauração e experimentos com IA serão publicados aqui. Salva a página pra acompanhar. Cada parte traz um caso diferente — fotos antigas, baixa resolução, iluminação ruim, motion blur.
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content-wrap -->
+    </div>
+
+    <!-- FOOTER CTA -->
+    <div class="footer-section">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--accent-gr);"></div>
+        <span class="panel-title">Exportar — Quer IA aplicada nos seus projetos?</span>
+      </div>
+      <div class="footer-inner">
+        <div class="footer-label">// audiovisual · direct response · IA · resultado</div>
+        <h2 class="footer-h2">IA como ferramenta.<br><span>Estratégia como base.</span></h2>
+        <p class="footer-sub">Uso inteligência artificial para ampliar entregas, acelerar produção e gerar mais resultado. Sem substituir o raciocínio humano.</p>
+        <div class="footer-btns">
+          <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20o%20projeto%20de%20restaura%C3%A7%C3%A3o%20e%20quero%20conversar" target="_blank" rel="noopener" class="btn-primary">
+            Me chama no WhatsApp →
+          </a>
+          <a href="dr-portfolio.html" class="btn-ghost">
+            Ver portfólio DR →
+          </a>
+          <a href="ia.html" class="btn-ghost">
+            ← Todos os Projetos IA
+          </a>
+        </div>
+        <div class="footer-info">
+          <span>📍 Alphaville, São Paulo — Brasil &nbsp;|&nbsp; © 2026 Anderson Ilmar ME &nbsp;|&nbsp; contato@andersonbrito.com</span>
+          <br><span style="margin-top:6px;display:inline-block;">Made with Claude Code &nbsp;•&nbsp; Hosted on GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end .page-content -->
+
+  <!-- ═══ STATUS BAR ═══ -->
+  <div class="status-bar">
+    <div class="sb-item">SEQ <span class="val">ANDERSON_BRITO</span></div>
+    <div class="sb-item">FPS <span class="val">30</span></div>
+    <div class="sb-item">RES <span class="val">8K · 7680×4320</span></div>
+    <div class="sb-item">CODEC <span class="val">ProRes 4444</span></div>
+    <div class="sb-section-label">&#9658; RESTAURAÇÃO_4K · PT.1</div>
+  </div>
+
+  <!-- ═══ FIXED TIMELINE ═══ -->
+  <div class="timeline-panel">
+    <div class="tl-header">
+      <div class="tl-track-labels-hd">
+        <span style="font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);">TRACK</span>
+      </div>
+      <div class="tl-ruler">
+        <div class="tl-ruler-inner" id="tlRulerInner"></div>
+        <div class="tl-playhead" id="tlPlayhead" style="left:0;"></div>
+      </div>
+    </div>
+    <div class="tl-tracks">
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">V1</span><span class="tl-lock">&#128274;</span></div>
+        <div class="tl-track-content" id="trackV1"></div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">V2</span></div>
+        <div class="tl-track-content" id="trackV2"></div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">A1</span></div>
+        <div class="tl-track-content" id="trackA1"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Ruler ──
+    const rulerEl = document.getElementById('tlRulerInner');
+    ['00:00','00:15','00:30','00:45','01:00','01:15','01:30','01:45','02:00'].forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'tl-ruler-mark'; el.textContent = m;
+      rulerEl.appendChild(el);
+    });
+
+    // ── Build clips ──
+    function buildClips() {
+      const v1 = document.getElementById('trackV1');
+      const v2 = document.getElementById('trackV2');
+      const a1 = document.getElementById('trackA1');
+
+      // V1 — sections
+      [
+        { left:'0%',  width:'22%', label:'HERO',        color:'#1A1200', id:null },
+        { left:'22%', width:'28%', label:'RESULTADO',   color:'#0A1020' },
+        { left:'50%', width:'28%', label:'PROMPT',      color:'#001A10' },
+        { left:'78%', width:'22%', label:'CONTATO',     color:'#0070D1' },
+      ].forEach(c => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};cursor:pointer;`;
+        el.innerHTML = `<span class="tl-clip-label">${c.label}</span>`;
+        v1.appendChild(el);
+      });
+
+      // V2 — social / tools
+      const igSvg  = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>`;
+      const fpSvg  = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3.5" stroke="currentColor" stroke-width="1.8"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const waSvg  = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const liSvg  = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11 17v-4c0-1.5 1-2 2-2s2 .5 2 2v4M11 10v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const drSvg  = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" opacity=".7"/></svg>`;
+
+      [
+        { left:'3%',  width:'17%', color:'#3A1A3A', label:'Instagram', svg:igSvg, url:'https://www.instagram.com/andersonbrito.mp4' },
+        { left:'23%', width:'16%', color:'#2A1A00', label:'Freepik AI', svg:fpSvg, url:'https://www.freepik.com/ai/image-generator' },
+        { left:'42%', width:'16%', color:'#1A3A1A', label:'WhatsApp',  svg:waSvg, url:'https://wa.me/5511948577950' },
+        { left:'61%', width:'16%', color:'#1A2A4A', label:'LinkedIn',  svg:liSvg, url:'https://www.linkedin.com/in/andbrito/' },
+        { left:'80%', width:'17%', color:'#002A4A', label:'Portfólio', svg:drSvg, url:'dr-portfolio.html' },
+      ].forEach(c => {
+        const el = document.createElement('button');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};cursor:pointer;border:none;transition:all .25s;display:flex;align-items:center;gap:5px;justify-content:center;`;
+        el.innerHTML = `${c.svg}<span class="tl-clip-label" style="position:static;transform:none;">${c.label}</span>`;
+        el.addEventListener('click', () => {
+          if (c.url.startsWith('http')) window.open(c.url,'_blank');
+          else window.location.href = c.url;
+        });
+        el.addEventListener('mouseenter', () => { el.style.filter='brightness(1.6)'; el.style.boxShadow='0 0 10px rgba(245,200,66,.35)'; });
+        el.addEventListener('mouseleave', () => { el.style.filter='brightness(1)'; el.style.boxShadow='none'; });
+        v2.appendChild(el);
+      });
+
+      // A1 — waveform
+      const audioClip = document.createElement('div');
+      audioClip.className = 'tl-clip';
+      audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg,#1A1000 0%,#2A1A00 50%,#1A1000 100%);';
+      const waveDiv = document.createElement('div');
+      waveDiv.className = 'tl-waveform';
+      [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55].forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'wv-bar';
+        bar.style.cssText = `height:${h}%;background:linear-gradient(180deg,#F5C842 0%,#FF9800 100%);opacity:0.55;`;
+        waveDiv.appendChild(bar);
+      });
+      audioClip.appendChild(waveDiv);
+      a1.appendChild(audioClip);
+    }
+    buildClips();
+
+    // ── Scroll → playhead ──
+    window.addEventListener('scroll', () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? window.scrollY / max : 0;
+      const ph = document.getElementById('tlPlayhead');
+      if (ph) ph.style.left = (p * 100) + '%';
+    }, { passive: true });
+
+    // ── Copy ──
+    function copyBlock(btn, id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copied'); }, 2200);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = el.textContent.trim();
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+        btn.textContent = '✅ Copiado!'; btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = '📋 Copiar'; btn.classList.remove('copied'); }, 2200);
+      });
+    }
+
+    // ── Reveal ──
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ── Hamburger ──
+    const hamburger = document.getElementById('hamburgerBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    if (hamburger && drawer) hamburger.addEventListener('click', () => drawer.classList.toggle('open'));
+  </script>
+</body>
+</html>
