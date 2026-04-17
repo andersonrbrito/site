@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrossel Viral com IA — Anderson Brito | Prompt Completo</title>
+  <meta name="description" content="O prompt completo para criar carrosseis virais no Instagram em menos de 5 minutos. Claude + Gemini + Canva. Por Anderson Brito.">
+  <meta name="keywords" content="prompt carrossel Instagram, IA criativa, Claude prompt, Gemini imagem, carrossel viral, Anderson Brito">
+  <meta name="author" content="Anderson Brito">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://andersonbrito.com/opus.html">
+  <meta property="og:title" content="Carrossel Viral com IA — Anderson Brito">
+  <meta property="og:description" content="Prompt completo para carrossel viral no Instagram. Zero a publicação em 15 minutos.">
+  <meta property="og:image" content="https://andersonbrito.com/assets/capa-opus.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Anderson Brito">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://andersonbrito.com/opus.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --pr-menubar:     #1C1C1C;
+      --pr-toolbar:     #232325;
+      --pr-panel-bg:    #1E1E22;
+      --pr-panel-hd:    #28282E;
+      --pr-panel-hd2:   #222226;
+      --pr-timeline-bg: #191919;
+      --pr-track-bg:    #202024;
+      --pr-card:        #26262C;
+      --pr-input:       #141416;
+      --pr-border:      #000;
+      --pr-sep:         #38383F;
+      --pr-sep-light:   #45454F;
+      --accent:     #3DA7FF;
+      --accent-2:   #0070D1;
+      --accent-gr:  #22c55e;
+      --ai-cyan:    #00C8FF;
+      --ai-teal:    #00E5CC;
+      --orange:     #FF6B35;
+      --playhead:   #A8D0FF;
+      --tx-hi:      #EAEAEF;
+      --tx-mid:     #8888A0;
+      --tx-lo:      #505060;
+      --f-mono:     'IBM Plex Mono', monospace;
+      --f-head:     'Exo 2', sans-serif;
+      --f-body:     'DM Sans', sans-serif;
+      --menubar-h:  26px;
+      --toolbar-h:  40px;
+      --statusbar-h:22px;
+      --timeline-h: 110px;
+      --top-offset: calc(var(--menubar-h) + var(--toolbar-h));
+      --bot-offset: calc(var(--statusbar-h) + var(--timeline-h));
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--pr-panel-bg);
+      color: var(--tx-hi);
+      font-family: var(--f-body);
+      font-size: 14px;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ── MENU BAR ─── */
+    .menu-bar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+      height: var(--menubar-h);
+      background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center;
+      font-family: var(--f-mono); font-size: 11px; color: var(--tx-mid);
+      user-select: none;
+    }
+    .menu-appname {
+      display: flex; align-items: center; gap: 7px;
+      padding: 0 12px; height: 100%; border-right: 1px solid var(--pr-sep);
+      flex-shrink: 0;
+    }
+    .menu-pr-icon {
+      width: 16px; height: 16px; background: var(--orange);
+      border-radius: 3px; display: flex; align-items: center;
+      justify-content: center; font-size: 7px; font-weight: 900;
+      color: #fff; letter-spacing: -.5px; font-family: var(--f-head);
+    }
+    .menu-items { display: flex; height: 100%; }
+    .menu-item {
+      padding: 0 12px; height: 100%;
+      display: flex; align-items: center; cursor: default;
+      transition: background .1s; position: relative;
+    }
+    .menu-item:hover { background: var(--pr-sep); color: var(--tx-hi); }
+    .menu-dropdown {
+      display: none; position: absolute; top: 100%; left: 0;
+      background: #2A2A2E; border: 1px solid var(--pr-sep);
+      min-width: 200px; z-index: 999; box-shadow: 0 4px 20px rgba(0,0,0,.5);
+    }
+    .menu-item:hover .menu-dropdown { display: block; }
+    .menu-dropdown-item {
+      padding: 7px 14px; font-size: 11px; cursor: pointer;
+      white-space: nowrap; transition: background .1s;
+    }
+    .menu-dropdown-item:hover { background: var(--accent-2); color: #fff; }
+    .menu-project {
+      flex: 1; text-align: center; font-size: 10px;
+      color: var(--tx-lo); letter-spacing: .04em;
+    }
+    .menu-right {
+      display: flex; align-items: center; gap: 6px;
+      padding: 0 12px; height: 100%; border-left: 1px solid var(--pr-sep);
+      flex-shrink: 0;
+    }
+    .menu-status-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent-gr); box-shadow: 0 0 6px rgba(34,197,94,.8);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity: 1; } 50% { opacity: .3; }
+    }
+    .menu-status-text { font-size: 9px; color: var(--accent-gr); letter-spacing: .08em; }
+
+    /* ── TOOLBAR ─── */
+    .toolbar {
+      position: fixed; top: var(--menubar-h); left: 0; right: 0; z-index: 890;
+      height: var(--toolbar-h);
+      background: var(--pr-toolbar);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center; gap: 0;
+    }
+    .toolbar-back {
+      display: flex; align-items: center; gap: 5px;
+      padding: 0 14px; height: 100%;
+      border-right: 1px solid var(--pr-sep);
+      font-family: var(--f-mono); font-size: 9px;
+      color: var(--tx-mid); text-decoration: none;
+      letter-spacing: .08em; transition: color .15s, background .15s;
+      flex-shrink: 0;
+    }
+    .toolbar-back:hover { color: var(--tx-hi); background: rgba(255,255,255,.04); }
+    .toolbar-title {
+      padding: 0 14px; font-family: var(--f-mono);
+      font-size: 9px; color: var(--tx-lo); letter-spacing: .06em;
+      flex-shrink: 0;
+    }
+    .toolbar-title .seq { color: var(--orange); }
+    .toolbar-nav {
+      display: flex; align-items: center; gap: 0;
+      margin-left: auto; height: 100%;
+    }
+    .tn-link {
+      padding: 0 12px; height: 100%; display: flex; align-items: center;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      text-decoration: none; letter-spacing: .05em;
+      transition: color .15s, background .15s; white-space: nowrap;
+    }
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.04); }
+    .tn-link.cta {
+      background: var(--accent-2); color: #fff; padding: 0 16px;
+      font-weight: 600; letter-spacing: .08em;
+    }
+    .tn-link.cta:hover { background: var(--accent); color: #fff; }
+    .hamburger-btn {
+      display: none; flex-direction: column; gap: 4px;
+      background: none; border: none; padding: 8px 14px;
+      cursor: pointer; margin-left: auto;
+    }
+    .hamburger-btn span {
+      display: block; width: 18px; height: 1.5px;
+      background: var(--tx-mid); border-radius: 1px; transition: .2s;
+    }
+
+    /* ── MOBILE DRAWER ─── */
+    .mobile-drawer {
+      display: none;
+      position: fixed; top: var(--top-offset); left: 0; right: 0; z-index: 880;
+      flex-direction: column;
+      background: var(--pr-menubar);
+      border-bottom: 1px solid var(--pr-sep);
+      padding: 12px 0;
+    }
+    .mobile-drawer.open { display: flex; }
+    .mobile-drawer a {
+      padding: 10px 20px; font-family: var(--f-mono); font-size: 11px;
+      color: var(--tx-mid); text-decoration: none; letter-spacing: .06em;
+      transition: color .15s, background .15s;
+    }
+    .mobile-drawer a:hover, .mobile-drawer a.cta { color: var(--tx-hi); background: rgba(255,255,255,.04); }
+    .mobile-drawer a.cta { color: var(--accent); }
+
+    /* ── PAGE CONTENT ─── */
+    .page-content {
+      margin-top: var(--top-offset);
+      padding-bottom: var(--bot-offset);
+    }
+
+    /* ── PANEL ─── */
+    .panel {
+      background: var(--pr-panel-bg);
+      border: 1px solid var(--pr-border);
+    }
+    .panel-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 0 16px; height: 28px;
+      background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .06em;
+    }
+    .panel-header-icon {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--orange); flex-shrink: 0;
+    }
+    .panel-title { flex: 1; }
+    .panel-header-actions { display: flex; gap: 4px; }
+    .panel-action {
+      width: 22px; height: 18px;
+      background: var(--pr-panel-hd2);
+      border: 1px solid var(--pr-sep);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; color: var(--tx-lo);
+    }
+
+    /* ── HERO SECTION ─── */
+    .opus-hero-section {
+      padding: 0;
+      background: linear-gradient(160deg, #08101A 0%, #050F14 60%, #0A0A14 100%);
+      position: relative; overflow: hidden;
+    }
+    .opus-hero-section::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255,107,53,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .opus-hero-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 60px 40px 52px;
+      position: relative; z-index: 1;
+    }
+    .opus-back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      text-decoration: none; letter-spacing: .08em;
+      margin-bottom: 32px; transition: color .15s;
+    }
+    .opus-back-link:hover { color: var(--tx-mid); }
+    .opus-ig-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      text-decoration: none; letter-spacing: .06em;
+      border: 1px solid var(--pr-sep);
+      padding: 5px 12px; border-radius: 3px;
+      margin-bottom: 28px;
+      transition: color .15s, border-color .15s;
+    }
+    .opus-ig-badge:hover { color: var(--tx-mid); border-color: var(--pr-sep-light); }
+    .opus-project-tag {
+      display: inline-block;
+      font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      color: var(--orange); letter-spacing: .12em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .opus-h1 {
+      font-family: var(--f-head);
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 900; line-height: 1.05;
+      color: var(--tx-hi); margin-bottom: 20px;
+    }
+    .opus-h1 em { font-style: italic; color: var(--orange); }
+    .opus-sub {
+      font-size: 15px; color: var(--tx-mid); line-height: 1.7;
+      max-width: 600px; margin-bottom: 32px;
+    }
+    .opus-meta {
+      display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .06em; padding-top: 28px;
+      border-top: 1px solid var(--pr-sep);
+    }
+    .opus-meta-item { display: flex; align-items: center; gap: 6px; }
+    .opus-meta-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); }
+
+    /* ── STEPS ─── */
+    .opus-steps {
+      max-width: 860px; margin: 0 auto;
+      padding: 0 40px 60px;
+    }
+    .ws-section-pad { border-top: 2px solid var(--pr-border); }
+
+    .opus-step {
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .opus-step:last-child { border-bottom: none; }
+    .opus-step-hd {
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 0 12px;
+      cursor: default;
+    }
+    .opus-step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(255,107,53,.12);
+      border: 1px solid rgba(255,107,53,.35);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--f-mono); font-size: 13px; font-weight: 600;
+      color: var(--orange); flex-shrink: 0;
+    }
+    .opus-step-title {
+      font-family: var(--f-head); font-size: 16px; font-weight: 700;
+      color: var(--tx-hi); line-height: 1.3;
+    }
+    .opus-step-body {
+      padding: 0 0 24px 48px;
+    }
+    .opus-step-body p {
+      font-size: 14px; color: var(--tx-mid); line-height: 1.75;
+      margin-bottom: 12px;
+    }
+    .opus-step-body p:last-child { margin-bottom: 0; }
+    .opus-step-body strong { color: var(--tx-hi); }
+    .opus-step-body a { color: var(--accent); text-decoration: none; }
+    .opus-step-body a:hover { text-decoration: underline; }
+    .opus-step-body code {
+      font-family: var(--f-mono); font-size: 12px;
+      background: rgba(255,255,255,.06); padding: 2px 6px;
+      border-radius: 3px; color: var(--ai-cyan);
+    }
+    .opus-step-body em { color: var(--tx-lo); font-style: italic; }
+
+    /* ── CODE BLOCKS ─── */
+    .code-block-wrap {
+      margin: 0 0 20px 48px;
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px; overflow: hidden;
+    }
+    .code-block-wrap:first-child { margin-top: 4px; }
+    .code-block-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 14px;
+      background: var(--pr-panel-hd);
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .code-block-label {
+      font-family: var(--f-mono); font-size: 10px;
+      color: var(--tx-lo); letter-spacing: .08em;
+    }
+    .copy-btn {
+      background: rgba(61,167,255,.12); border: 1px solid rgba(61,167,255,.25);
+      color: var(--accent); font-family: var(--f-mono); font-size: 10px;
+      padding: 4px 10px; border-radius: 3px; cursor: pointer;
+      letter-spacing: .04em; transition: background .15s, color .15s;
+    }
+    .copy-btn:hover { background: var(--accent-2); color: #fff; border-color: var(--accent-2); }
+    .copy-btn.copied { background: rgba(34,197,94,.15); border-color: rgba(34,197,94,.4); color: var(--accent-gr); }
+    .code-block-body {
+      font-family: var(--f-mono); font-size: 12px; color: var(--tx-mid);
+      line-height: 1.8; padding: 18px 20px;
+      background: var(--pr-input);
+      white-space: pre-wrap; word-break: break-word;
+      max-height: 340px; overflow-y: auto;
+    }
+    .code-block-body::-webkit-scrollbar { width: 4px; }
+    .code-block-body::-webkit-scrollbar-track { background: transparent; }
+    .code-block-body::-webkit-scrollbar-thumb { background: var(--pr-sep); border-radius: 4px; }
+
+    /* ── IMAGE PROMPTS GRID ─── */
+    .image-prompts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+      padding: 0 0 24px 48px;
+    }
+    .img-prompt-item { display: flex; flex-direction: column; gap: 8px; }
+    .img-prompt-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .06em; padding-left: 2px;
+    }
+    .image-prompts-grid .code-block-wrap { margin: 0; }
+
+    /* ── FOOTER CTA ─── */
+    .opus-footer-section {
+      background: #050F14;
+      border-top: 2px solid var(--pr-border);
+    }
+    .opus-footer-inner {
+      max-width: 860px; margin: 0 auto;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .opus-footer-label {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .15em; text-transform: uppercase; margin-bottom: 20px;
+    }
+    .opus-footer-h2 {
+      font-family: var(--f-head); font-size: clamp(22px, 4vw, 36px);
+      font-weight: 900; color: var(--tx-hi); line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .opus-footer-h2 span { color: var(--accent); }
+    .opus-footer-sub {
+      font-size: 14px; color: var(--tx-mid); line-height: 1.7;
+      max-width: 480px; margin: 0 auto 32px;
+    }
+    .opus-footer-btns {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-pr-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      background: var(--orange); color: #fff;
+      font-family: var(--f-head); font-size: 12px; font-weight: 900;
+      letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      transition: background .15s;
+    }
+    .btn-pr-primary:hover { background: #ff825a; }
+    .btn-pr-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      background: transparent; color: var(--tx-mid);
+      font-family: var(--f-head); font-size: 12px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid var(--pr-sep); border-radius: 3px;
+      transition: color .15s, border-color .15s;
+    }
+    .btn-pr-ghost:hover { color: var(--tx-hi); border-color: var(--pr-sep-light); }
+    .opus-footer-info {
+      margin-top: 48px; padding-top: 24px;
+      border-top: 1px solid var(--pr-sep);
+      font-family: var(--f-mono); font-size: 10px;
+      color: var(--tx-lo); letter-spacing: .04em;
+    }
+
+    /* ── STATUS BAR ─── */
+    .status-bar {
+      position: fixed; bottom: var(--timeline-h); left: 0; right: 0; z-index: 800;
+      height: var(--statusbar-h);
+      background: var(--pr-panel-hd2);
+      border-top: 1px solid var(--pr-border);
+      border-bottom: 1px solid var(--pr-border);
+      display: flex; align-items: center; gap: 0;
+      font-family: var(--f-mono); font-size: 9px;
+      overflow: hidden;
+    }
+    .sb-item {
+      padding: 0 12px; height: 100%;
+      display: flex; align-items: center; gap: 5px;
+      border-right: 1px solid var(--pr-sep);
+      color: var(--tx-lo); white-space: nowrap;
+    }
+    .sb-item .val { color: var(--tx-mid); }
+    .sb-section-label {
+      margin-left: auto; padding: 0 12px;
+      color: var(--orange); letter-spacing: .05em;
+    }
+
+    /* ── FIXED TIMELINE ─── */
+    .timeline-panel {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 800;
+      height: var(--timeline-h);
+      background: var(--pr-timeline-bg);
+      border-top: 1px solid var(--pr-border);
+      display: flex; flex-direction: column;
+    }
+    .tl-header {
+      height: 22px; display: flex; flex-shrink: 0;
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .tl-track-labels-hd {
+      width: 52px; flex-shrink: 0; padding: 0 8px;
+      display: flex; align-items: center;
+      background: var(--pr-panel-hd2);
+      border-right: 1px solid var(--pr-border);
+    }
+    .tl-ruler {
+      flex: 1; position: relative; overflow: hidden;
+      background: var(--pr-panel-hd2);
+    }
+    .tl-ruler-inner {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; padding: 0 8px;
+      gap: 0; justify-content: space-between;
+    }
+    .tl-ruler-mark {
+      font-family: var(--f-mono); font-size: 8px; color: var(--tx-lo);
+      white-space: nowrap;
+    }
+    .tl-playhead {
+      position: absolute; top: 0; bottom: 0; width: 1px;
+      background: var(--playhead);
+      box-shadow: 0 0 4px var(--playhead);
+      transition: left .05s linear; z-index: 10;
+    }
+    .tl-playhead::before {
+      content: '';
+      position: absolute; top: 0; left: -4px;
+      border: 4px solid transparent;
+      border-top: 6px solid var(--playhead);
+    }
+    .tl-tracks {
+      flex: 1; display: flex; flex-direction: column; overflow: hidden;
+    }
+    .tl-track {
+      flex: 1; display: flex; min-height: 0;
+      border-bottom: 1px solid var(--pr-border);
+    }
+    .tl-track:last-child { border-bottom: none; }
+    .tl-label {
+      width: 52px; flex-shrink: 0; padding: 0 8px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--pr-panel-hd2);
+      border-right: 1px solid var(--pr-border);
+      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+    }
+    .tl-label-text { }
+    .tl-lock { font-size: 7px; opacity: .5; }
+    .tl-track-content {
+      flex: 1; position: relative; overflow: hidden;
+      background: var(--pr-track-bg);
+    }
+    .tl-clip {
+      position: absolute; top: 1px; bottom: 1px;
+      border-radius: 2px; overflow: hidden;
+      display: flex; align-items: center;
+      font-family: var(--f-mono); font-size: 9px;
+      transition: filter .15s;
+    }
+    .tl-clip:hover { filter: brightness(1.4); }
+    .tl-clip-label {
+      position: absolute; left: 6px;
+      color: rgba(255,255,255,.45); font-size: 8px;
+      letter-spacing: .04em; white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .tl-waveform {
+      position: absolute; inset: 2px; display: flex; align-items: center; gap: 1px;
+    }
+    .wv-bar { width: 2px; border-radius: 1px; flex-shrink: 0; }
+
+    /* ── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ─── */
+    @media (max-width: 720px) {
+      :root { --timeline-h: 88px; }
+      .toolbar-nav { display: none; }
+      .hamburger-btn { display: flex; }
+      .mobile-drawer { display: flex !important; }
+      .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h) + 48px); }
+      .menu-items .menu-item:nth-child(n+4) { display: none; }
+      .opus-hero-inner { padding: 40px 20px 36px; }
+      .opus-steps { padding: 0 20px 48px; }
+      .opus-step-body { padding-left: 0; }
+      .code-block-wrap { margin-left: 0; }
+      .image-prompts-grid { margin-left: 0; grid-template-columns: 1fr; }
+      .opus-footer-inner { padding: 48px 20px; }
+    }
+    @media (max-width: 480px) {
+      .menu-items { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ MENU BAR ═══ -->
+  <div class="menu-bar">
+    <div class="menu-appname">
+      <div class="menu-pr-icon">AB</div>
+      <span>andersonbrito.com</span>
+    </div>
+    <div class="menu-items">
+      <div class="menu-item">
+        Arquivo
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-home'">Ir para INTRO</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-services'">Ir para SERVICES</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-about'">Ir para ABOUT</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html#section-contact'">Ir para CONTATO</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Clipe
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.scrollTo({top:0,behavior:'smooth'})">Ir para TOPO</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('step-1')?.scrollIntoView({behavior:'smooth'})">Passo 1</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('step-2')?.scrollIntoView({behavior:'smooth'})">Passo 2 — Prompt</div>
+          <div class="menu-dropdown-item" onclick="document.getElementById('step-3')?.scrollIntoView({behavior:'smooth'})">Passo 3 — Imagens</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Sequência
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='portfolio.html'">Sequência 2 — Portfolio DR</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
+          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Sequência 5 — Projetos IA</div>
+        </div>
+      </div>
+      <div class="menu-item">
+        Janela
+        <div class="menu-dropdown">
+          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e => {})">Tela Cheia</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4', '_blank')">Instagram</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/', '_blank')">LinkedIn</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar', '_blank')">Vimeo</div>
+          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">WhatsApp</div>
+        </div>
+      </div>
+    </div>
+    <div class="menu-project">anderson_brito_2026.prproj</div>
+    <div class="menu-right">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONÍVEL</div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <a href="ia.html" class="toolbar-back">
+      <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      PROJETOS IA
+    </a>
+    <div class="toolbar-title"><span class="seq">SEQ</span> ANDERSON_BRITO · CARROSSEL_VIRAL · IA_PROMPTS</div>
+    <div class="toolbar-nav">
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="portfolio.html" class="tn-link">Portfolio</a>
+      <a href="fotografia.html" class="tn-link">Fotografia</a>
+      <a href="ia.html" class="tn-link" style="color:var(--orange);">IA Prompts</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
+      <a href="aprenda.html" class="tn-link">Aprenda</a>
+      <a href="saiba-mais.html" class="tn-link">Sobre</a>
+      <a href="briefing.html" class="tn-link cta">Contato</a>
+    </div>
+    <button class="hamburger-btn" id="hamburgerBtn"><span></span><span></span><span></span></button>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-drawer" id="mobileDrawer">
+    <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
+    <a href="fotografia.html">Fotografia</a>
+    <a href="ia.html" style="color:var(--orange);">IA Prompts</a>
+    <a href="vendas.html" style="color:var(--orange);">Packs</a>
+    <a href="aprenda.html">Aprenda</a>
+    <a href="saiba-mais.html">Sobre</a>
+    <a href="briefing.html" class="cta">Contato</a>
+  </div>
+
+  <!-- ═══ CONTENT ═══ -->
+  <div class="page-content">
+
+    <!-- HERO -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--orange);"></div>
+        <span class="panel-title">Bin: Projeto 01 — Carrossel Viral com IA</span>
+        <div class="panel-header-actions">
+          <div class="panel-action">&#8862;</div>
+          <div class="panel-action">&#8801;</div>
+        </div>
+      </div>
+      <div class="opus-hero-section">
+        <div class="opus-hero-inner">
+          <a href="ia.html" class="opus-back-link">
+            <svg width="10" height="10" fill="none" viewBox="0 0 10 10"><path d="M8 5H2M4 2L1 5l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            ← Voltar para Projetos IA
+          </a>
+
+          <a href="https://www.instagram.com/p/DXNDzkaDyW9/?img_index=1" target="_blank" rel="noopener" class="opus-ig-badge">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+            Ver carrossel original no Instagram →
+          </a>
+
+          <div class="opus-project-tag">Projeto 01 · IA Criativa · Claude · Gemini · Canva</div>
+
+          <h1 class="opus-h1">O prompt que estrutura<br>um carrossel viral em<br><em>menos de 5 minutos.</em></h1>
+
+          <p class="opus-sub">Mesmo método que usei no carrossel do Opus 4.7. Funciona pra qualquer nicho — edição de vídeo, tráfego, nutrição, cosméticos, infoprodutos.</p>
+
+          <div class="opus-meta">
+            <div class="opus-meta-item">
+              <div class="opus-meta-dot"></div>
+              <span>Claude (texto)</span>
+            </div>
+            <div class="opus-meta-item">
+              <div class="opus-meta-dot" style="background:var(--ai-cyan);"></div>
+              <span>Gemini (imagem)</span>
+            </div>
+            <div class="opus-meta-item">
+              <div class="opus-meta-dot" style="background:var(--accent);"></div>
+              <span>Canva (montagem)</span>
+            </div>
+            <div class="opus-meta-item">
+              <div class="opus-meta-dot" style="background:var(--accent-gr);"></div>
+              <span>Tempo: 15–20 min</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEPS -->
+    <div class="panel ws-section-pad">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--ai-cyan);"></div>
+        <span class="panel-title">Controles de Efeito — Passo a Passo</span>
+      </div>
+
+      <div class="opus-steps">
+
+        <!-- STEP 1 -->
+        <div class="opus-step reveal" id="step-1">
+          <div class="opus-step-hd">
+            <div class="opus-step-num">1</div>
+            <div class="opus-step-title">Abra o Claude e prepare-se para as perguntas</div>
+          </div>
+          <div class="opus-step-body">
+            <p>Acesse <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> (free funciona, Pro entrega melhor). Cole o prompt completo do Passo 2 numa nova conversa.</p>
+            <p>Ele vai te fazer <strong>5 perguntas, uma de cada vez</strong>. Responda com calma — quanto mais específico, mais forte o carrossel. Se você tiver dados, links, transcrições ou referências sobre o tema, já deixe separado pra colar quando ele pedir.</p>
+            <p>Se você não tiver referência, ele pesquisa antes de escrever — <strong>não inventa dado.</strong></p>
+          </div>
+        </div>
+
+        <!-- STEP 2 — PROMPT PRINCIPAL -->
+        <div class="opus-step reveal" id="step-2">
+          <div class="opus-step-hd">
+            <div class="opus-step-num">2</div>
+            <div class="opus-step-title">Cole este prompt no Claude</div>
+          </div>
+          <div class="code-block-wrap">
+            <div class="code-block-header">
+              <span class="code-block-label">Prompt do Carrossel — Cole numa nova conversa no Claude</span>
+              <button class="copy-btn" onclick="copyBlock(this,'prompt-carrossel')">📋 Copiar</button>
+            </div>
+            <div class="code-block-body" id="prompt-carrossel">Você é um estrategista de conteúdo para Instagram especializado em carrosséis virais de alta performance. Sua missão é me entregar um carrossel completo de 5 slides no padrão de quem trabalha com performance e conversão, não com estética genérica.
+
+═══════════════════════════════════════════
+FASE 1 — DIAGNÓSTICO (pergunte uma por vez)
+═══════════════════════════════════════════
+
+Antes de produzir qualquer coisa, me faça as 5 perguntas abaixo UMA DE CADA VEZ, esperando minha resposta antes de seguir pra próxima. Não me faça todas juntas.
+
+1. Qual é o seu nicho e posicionamento em 1 frase?
+   (Ex: "editor de vídeo focado em performance e conversão", "nutricionista esportiva pra corredores amadores", "gestor de tráfego pra infoprodutos")
+
+2. Qual o tema exato desse carrossel?
+   (Ex: "nova ferramenta de IA", "erro comum do meu nicho", "caso de sucesso", "tendência do mercado")
+
+3. Você tem referências, dados ou transcrição sobre o tema?
+   - Se SIM: me cole aqui (link, texto, transcrição, benchmark, print). Vou usar como base real.
+   - Se NÃO: me diga, que eu pesquiso e te mostro o dado antes de escrever. Nunca invento número.
+
+4. Qual a dor, objeção ou crença errada mais comum do seu público sobre esse tema?
+   (Ex: "acham que IA vai roubar emprego", "acham que dieta restritiva é necessária", "acham que tráfego é só subir campanha")
+
+5. Qual o objetivo do post?
+   ( ) Autoridade / posicionamento
+   ( ) Geração de lead via DM
+   ( ) Venda direta de serviço/produto
+   ( ) Crescimento de seguidores
+
+═══════════════════════════════════════════
+FASE 2 — PRODUÇÃO DOS 5 SLIDES
+═══════════════════════════════════════════
+
+Com base nas respostas, entregue os 5 slides seguindo EXATAMENTE essa estrutura:
+
+SLIDE 1 — GANCHO AGRESSIVO
+- Headline curta (máx 12 palavras), contraintuitiva, polêmica
+- Subtítulo que ameace a identidade do leitor ou crie tensão
+- Rodapé "👇 arrasta"
+- Precisa gerar comentário de quem CONCORDA e de quem DISCORDA
+
+SLIDE 2 — PROVA CONCRETA
+- Headline é um dado numérico específico
+- Traduzir o dado pra ganho prático (tempo, dinheiro, dor resolvida)
+- Mostrar "antes vs agora" em formato direto
+- Fechar com frase curta que ancora na memória
+
+SLIDE 3 — APLICAÇÃO NO DIA A DIA
+- Headline tipo "o que eu parei de fazer" ou "o que agora é possível"
+- Lista de 4-5 itens curtos com ❌ ou ✅
+- Fechar com ganho concreto em destaque
+
+SLIDE 4 — BENEFÍCIO DUPLO
+- Resolver a objeção da pergunta 4
+- Mostrar que a mudança beneficia o profissional E o cliente
+- Lista de 4 entregas concretas com ✅
+- Frase que provoca quem ainda faz do jeito antigo
+
+SLIDE 5 — CTA FORTE
+- Headline final que amarra o tema (meta-referência funciona)
+- Provocação direta
+- 3 CTAs: 💾 salvar (com motivo específico), 💬 comentar (palavra-gatilho curta), 👤 seguir (assinatura de posicionamento)
+
+═══════════════════════════════════════════
+REGRAS INEGOCIÁVEIS
+═══════════════════════════════════════════
+
+- Linguagem direta. Zero motivação genérica.
+- Nada de empty praise ou floreio.
+- Cada slide precisa funcionar sozinho.
+- Apenas dados reais. Se não souber, pesquise antes.
+- Gancho precisa polarizar. Post morno não engaja.
+- Frases curtas. Quebra de linha a cada 1-2 frases.
+- Negrito apenas no destaque de cada slide.
+
+═══════════════════════════════════════════
+FASE 3 — ENTREGÁVEIS FINAIS
+═══════════════════════════════════════════
+
+Depois dos 5 slides, entregue nesta ordem:
+
+A) LEGENDA DO POST
+- Abertura com gancho específico (data, acontecimento, dado)
+- Bullets (→) traduzindo o conteúdo do carrossel
+- 3 CTAs (salvar / comentar / compartilhar)
+- Assinatura com nome + posicionamento
+- 5 hashtags ULTRA específicas do nicho (nada genérico)
+
+B) JUSTIFICATIVA ESTRATÉGICA
+- 2-3 linhas por slide explicando por que ele vai performar
+- Qual gatilho psicológico ele ativa
+- Que tipo de comentário tende a gerar
+
+═══════════════════════════════════════════
+
+Comece agora pela pergunta 1 da FASE 1. Espere minha resposta antes de seguir.</div>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div class="opus-step reveal" id="step-3">
+          <div class="opus-step-hd">
+            <div class="opus-step-num">3</div>
+            <div class="opus-step-title">Gere as imagens no Gemini</div>
+          </div>
+          <div class="opus-step-body">
+            <p>Com os textos prontos, abra o <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a> (gratuito). <strong>Anexe 1 selfie sua com rosto bem iluminado e de frente</strong> — essa foto mantém você igual nos 5 slides.</p>
+            <p>Cole os prompts do Passo 4 <strong>um por vez</strong>. Antes de colar, substitua <code>[SEU NICHO]</code> pelo seu nicho em inglês.<br><em>Ex: "video editor with dual monitor setup", "media buyer at a workstation with dashboards"</em></p>
+          </div>
+        </div>
+
+        <!-- STEP 4 — 5 IMAGE PROMPTS -->
+        <div class="opus-step reveal" id="step-4">
+          <div class="opus-step-hd">
+            <div class="opus-step-num">4</div>
+            <div class="opus-step-title">Os 5 prompts de imagem — um por slide</div>
+          </div>
+          <div class="image-prompts-grid">
+
+            <div class="img-prompt-item">
+              <div class="img-prompt-label">🎬 Slide 1 — Gancho Agressivo</div>
+              <div class="code-block-wrap">
+                <div class="code-block-header">
+                  <span class="code-block-label">Imagem 1</span>
+                  <button class="copy-btn" onclick="copyBlock(this,'img-1')">📋 Copiar</button>
+                </div>
+                <div class="code-block-body" id="img-1">Use the attached photo as the main subject reference. Keep the person's face, skin tone, hair and identity exactly as in the reference.
+
+Cinematic portrait of this person as a [SEU NICHO]. Arms crossed, standing in front of their workspace. Serious, challenging expression, direct eye contact with camera. Dark moody lighting with subtle cyan and magenta accents. Shallow depth of field, 50mm lens. High contrast, editorial tone. Leave clean negative space on the top third for bold text overlay.
+
+4:5 vertical format. Photorealistic, no stylization.</div>
+              </div>
+            </div>
+
+            <div class="img-prompt-item">
+              <div class="img-prompt-label">🎬 Slide 2 — Prova Concreta</div>
+              <div class="code-block-wrap">
+                <div class="code-block-header">
+                  <span class="code-block-label">Imagem 2</span>
+                  <button class="copy-btn" onclick="copyBlock(this,'img-2')">📋 Copiar</button>
+                </div>
+                <div class="code-block-body" id="img-2">Use the attached photo as the main subject reference. Keep the person's face and identity exactly as in the reference.
+
+Medium shot of this person as a [SEU NICHO] at their workspace, looking at a screen with a subtle surprised smirk — the "I just found a shortcut" expression. Warm drink in hand. Workspace softly blurred behind. Mix of warm desk lamp and cool screen glow. Shot from slightly above, 35mm lens. Shallow focus on the face.
+
+4:5 vertical format, clean space on the left for text. Photorealistic, editorial photography.</div>
+              </div>
+            </div>
+
+            <div class="img-prompt-item">
+              <div class="img-prompt-label">🎬 Slide 3 — Aplicação no Dia a Dia</div>
+              <div class="code-block-wrap">
+                <div class="code-block-header">
+                  <span class="code-block-label">Imagem 3</span>
+                  <button class="copy-btn" onclick="copyBlock(this,'img-3')">📋 Copiar</button>
+                </div>
+                <div class="code-block-body" id="img-3">Use the attached photo as the main subject reference. Keep the person's face and identity exactly as in the reference.
+
+Wide shot of this person as a [SEU NICHO] leaning back in their chair at their workspace. Relaxed posture, holding a warm drink, casually glancing at their phone with a calm half-smile. Background shows work actively happening (monitor, screen, or workspace detail). Soft warm ambient light, late afternoon studio vibe. Natural color grading, 35mm lens, realistic photography.
+
+4:5 vertical format with clean space on the right for a text list.</div>
+              </div>
+            </div>
+
+            <div class="img-prompt-item">
+              <div class="img-prompt-label">🎬 Slide 4 — Benefício Duplo</div>
+              <div class="code-block-wrap">
+                <div class="code-block-header">
+                  <span class="code-block-label">Imagem 4</span>
+                  <button class="copy-btn" onclick="copyBlock(this,'img-4')">📋 Copiar</button>
+                </div>
+                <div class="code-block-body" id="img-4">Use the attached photo as the main subject reference. The SAME person appears on both sides of a split-screen composition. Keep face and identity identical in both halves.
+
+LEFT SIDE: tired version of this person as a [SEU NICHO], slouched, messy cluttered workspace, single screen with one task, cold blue lighting, tense frustrated expression.
+
+RIGHT SIDE: confident version of the same person, upright relaxed posture, clean organized workspace with multiple outputs visible (variations, multiple tabs, finished work), warm cinematic lighting, focused sharp look.
+
+Strong visual contrast between the two states. Realistic cinematic photography, clear color separation (cold left, warm right).
+
+4:5 vertical format.</div>
+              </div>
+            </div>
+
+            <div class="img-prompt-item">
+              <div class="img-prompt-label">🎬 Slide 5 — CTA Forte</div>
+              <div class="code-block-wrap">
+                <div class="code-block-header">
+                  <span class="code-block-label">Imagem 5</span>
+                  <button class="copy-btn" onclick="copyBlock(this,'img-5')">📋 Copiar</button>
+                </div>
+                <div class="code-block-body" id="img-5">Use the attached photo as the main subject reference. Keep the person's face and identity exactly as in the reference.
+
+Close-up to medium shot of this person as a [SEU NICHO], leaning casually against their workspace. Arms relaxed, looking directly at the camera with a subtle knowing half-smile — confident "I told you so" energy. Blurred workspace behind with soft glowing screens. Dramatic key light on the face, dark moody background. 50mm lens, shallow depth of field. Cinematic color grade with teal and orange tones.
+
+4:5 vertical format with clean space above and below for headline and CTA text. Photorealistic, editorial style.</div>
+              </div>
+            </div>
+
+          </div><!-- /image-prompts-grid -->
+        </div>
+
+        <!-- STEP 5 -->
+        <div class="opus-step reveal" id="step-5">
+          <div class="opus-step-hd">
+            <div class="opus-step-num">5</div>
+            <div class="opus-step-title">Monte no Canva e publique</div>
+          </div>
+          <div class="opus-step-body">
+            <p>Abra o <strong>Canva ou Figma</strong> em formato 4:5 (1080×1350px). Jogue cada imagem em um slide e sobreponha os textos que o Claude gerou. Fonte grande, negrito nos destaques, espaço em branco suficiente.</p>
+            <p>Publique no Instagram usando a legenda e as hashtags que o Claude também gerou.</p>
+            <p><strong>Tempo médio do zero à publicação: 15 a 20 minutos.</strong></p>
+          </div>
+        </div>
+
+      </div><!-- /opus-steps -->
+    </div>
+
+    <!-- FOOTER CTA -->
+    <div class="opus-footer-section">
+      <div class="panel-header">
+        <div class="panel-header-icon" style="background:var(--accent-gr);"></div>
+        <span class="panel-title">Exportar — Quer isso aplicado nos seus vídeos?</span>
+      </div>
+      <div class="opus-footer-inner">
+        <div class="opus-footer-label">// direct response · vsl · criativos · resultado</div>
+        <h2 class="opus-footer-h2">Quer essa estratégia<br><span>nos seus vídeos?</span></h2>
+        <p class="opus-footer-sub">Editor especializado em direct response, VSL e retenção. Se o seu vídeo não converte, a edição faz parte do problema.</p>
+        <div class="opus-footer-btns">
+          <a href="dr-portfolio.html" class="btn-pr-primary">
+            Ver portfólio DR →
+          </a>
+          <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20o%20prompt%20do%20carrossel%20e%20quero%20conversar" target="_blank" rel="noopener" class="btn-pr-ghost">
+            Me chama no WhatsApp →
+          </a>
+          <a href="ia.html" class="btn-pr-ghost">
+            ← Todos os Projetos IA
+          </a>
+        </div>
+        <div class="opus-footer-info">
+          <span>📍 Alphaville, São Paulo — Brasil &nbsp;|&nbsp; © 2026 Anderson Ilmar ME &nbsp;|&nbsp; contato@andersonbrito.com</span>
+          <br><span style="margin-top:6px;display:inline-block;">Made with Claude Code &nbsp;•&nbsp; Hosted on GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end .page-content -->
+
+  <!-- ═══ STATUS BAR ═══ -->
+  <div class="status-bar">
+    <div class="sb-item">SEQ <span class="val">ANDERSON_BRITO</span></div>
+    <div class="sb-item">FPS <span class="val">30</span></div>
+    <div class="sb-item">RES <span class="val">3840×2160</span></div>
+    <div class="sb-item">CODEC <span class="val">H.264</span></div>
+    <div class="sb-section-label" id="sbSection">&#9658; CARROSSEL_VIRAL</div>
+  </div>
+
+  <!-- ═══ FIXED TIMELINE ═══ -->
+  <div class="timeline-panel" id="timelinePanel">
+    <div class="tl-header">
+      <div class="tl-track-labels-hd">
+        <span style="font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);">TRACK</span>
+      </div>
+      <div class="tl-ruler" id="tlRuler">
+        <div class="tl-ruler-inner" id="tlRulerInner"></div>
+        <div class="tl-playhead" id="tlPlayhead" style="left:0;"></div>
+      </div>
+    </div>
+    <div class="tl-tracks">
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">V1</span><span class="tl-lock">&#128274;</span></div>
+        <div class="tl-track-content" id="trackV1"></div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">V2</span></div>
+        <div class="tl-track-content" id="trackV2"></div>
+      </div>
+      <div class="tl-track">
+        <div class="tl-label"><span class="tl-label-text">A1</span></div>
+        <div class="tl-track-content" id="trackA1"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Ruler ──────────────────────────────────────
+    const rulerEl = document.getElementById('tlRulerInner');
+    ['00:00','00:15','00:30','00:45','01:00','01:15','01:30','01:45','02:00'].forEach(m => {
+      const el = document.createElement('div');
+      el.className = 'tl-ruler-mark'; el.textContent = m;
+      rulerEl.appendChild(el);
+    });
+
+    // ── Build clips ─────────────────────────────────
+    function buildClips() {
+      const v1 = document.getElementById('trackV1');
+      const v2 = document.getElementById('trackV2');
+      const a1 = document.getElementById('trackA1');
+
+      // V1 — steps as clips
+      [
+        { left:'0%',  width:'20%', label:'HERO',      color:'#003A4A' },
+        { left:'20%', width:'20%', label:'PASSO 1',   color:'#002A3A' },
+        { left:'40%', width:'20%', label:'PROMPT',    color:'#1A0025' },
+        { left:'60%', width:'20%', label:'IMAGENS',   color:'#0A0030' },
+        { left:'80%', width:'20%', label:'CANVA',     color:'#0070D1' },
+      ].forEach((c, i) => {
+        const el = document.createElement('div');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};cursor:pointer;`;
+        el.innerHTML = `<span class="tl-clip-label">${c.label}</span>`;
+        const stepId = ['step-1','step-1','step-2','step-3','step-5'][i];
+        el.addEventListener('click', () => document.getElementById(stepId)?.scrollIntoView({behavior:'smooth'}));
+        v1.appendChild(el);
+      });
+
+      // V2 — social links
+      const igSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>`;
+      const liSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="2"/><path d="M7 10v7M7 7v.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M11 17v-4c0-1.5 1-2 2-2s2 .5 2 2v4M11 10v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const waSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.38 5.07L2 22l5.11-1.35A9.96 9.96 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 9c.5 2 2.5 4.5 7 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const clSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>`;
+      const drSvg = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" opacity=".7"/></svg>`;
+
+      [
+        { left:'3%',  width:'17%', color:'#3A1A3A', label:'Instagram', svg:igSvg, url:'https://www.instagram.com/andersonbrito.mp4' },
+        { left:'23%', width:'16%', color:'#1A2A4A', label:'LinkedIn',  svg:liSvg, url:'https://www.linkedin.com/in/andbrito/' },
+        { left:'42%', width:'16%', color:'#1A3A1A', label:'WhatsApp',  svg:waSvg, url:'https://wa.me/5511948577950' },
+        { left:'61%', width:'16%', color:'#1A1A40', label:'Claude.ai', svg:clSvg, url:'https://claude.ai' },
+        { left:'80%', width:'17%', color:'#002A4A', label:'Portfólio', svg:drSvg, url:'dr-portfolio.html' },
+      ].forEach(c => {
+        const el = document.createElement('button');
+        el.className = 'tl-clip';
+        el.style.cssText = `left:${c.left};width:${c.width};background:${c.color};cursor:pointer;border:none;transition:all 0.25s ease;display:flex;align-items:center;gap:5px;justify-content:center;`;
+        el.innerHTML = `${c.svg}<span class="tl-clip-label" style="position:static;transform:none;">${c.label}</span>`;
+        el.addEventListener('click', () => {
+          if (c.url.startsWith('http')) window.open(c.url, '_blank');
+          else window.location.href = c.url;
+        });
+        el.addEventListener('mouseenter', () => { el.style.filter='brightness(1.6)'; el.style.boxShadow='0 0 10px rgba(0,200,255,.35)'; });
+        el.addEventListener('mouseleave', () => { el.style.filter='brightness(1)'; el.style.boxShadow='none'; });
+        v2.appendChild(el);
+      });
+
+      // A1 — waveform
+      const audioClip = document.createElement('div');
+      audioClip.className = 'tl-clip';
+      audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg,#002A3A 0%,#003A4A 50%,#002A3A 100%);';
+      const waveDiv = document.createElement('div');
+      waveDiv.className = 'tl-waveform';
+      [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55].forEach(h => {
+        const bar = document.createElement('div');
+        bar.className = 'wv-bar';
+        bar.style.cssText = `height:${h}%;background:linear-gradient(180deg,#00E5CC 0%,#00C8FF 100%);opacity:0.6;`;
+        waveDiv.appendChild(bar);
+      });
+      audioClip.appendChild(waveDiv);
+      a1.appendChild(audioClip);
+    }
+    buildClips();
+
+    // ── Scroll → playhead ──────────────────────────
+    function updateUI() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? window.scrollY / max : 0;
+      const ph = document.getElementById('tlPlayhead');
+      if (ph) ph.style.left = (p * 100) + '%';
+    }
+    window.addEventListener('scroll', updateUI, { passive: true });
+
+    // ── Copy to clipboard ──────────────────────────
+    function copyBlock(btn, id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      navigator.clipboard.writeText(el.textContent.trim()).then(() => {
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copiar';
+          btn.classList.remove('copied');
+        }, 2200);
+      }).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = el.textContent.trim();
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copiar';
+          btn.classList.remove('copied');
+        }, 2200);
+      });
+    }
+
+    // ── IntersectionObserver ───────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.05 });
+    revealEls.forEach(el => io.observe(el));
+
+    // ── Hamburger ──────────────────────────────────
+    const hamburger = document.getElementById('hamburgerBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    if (hamburger && drawer) {
+      hamburger.addEventListener('click', () => drawer.classList.toggle('open'));
+    }
+  </script>
+</body>
+</html>

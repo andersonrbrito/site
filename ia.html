@@ -392,51 +392,81 @@
 
     /* ── CARDS GRID ─── */
     .ws-section { border-top: 2px solid var(--pr-border); }
-        .cards-grid {
+    .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
       padding: 24px;
       background: var(--pr-panel-bg);
     }
     .ia-card {
-      aspect-ratio: 9 / 16;
-      background: linear-gradient(135deg, #003A4A 0%, #1A1A24 100%);
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(160deg, #0E1820 0%, #1A1A24 100%);
       border: 2px solid var(--pr-sep);
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 0;
+      text-decoration: none !important;
     }
+    .ia-card.active-card {
+      border-color: var(--orange);
+    }
+    .ia-card.active-card:hover {
+      border-color: var(--orange);
+      box-shadow: 0 0 24px rgba(255,107,53, 0.35);
+      transform: translateY(-5px);
+    }
+    .ia-card:not(.active-card):hover {
+      border-color: var(--pr-sep-light);
+      transform: translateY(-3px);
+    }
+    /* cover image card */
+    .ia-card-cover {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .ia-card-cover-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.82) 0%, rgba(0,0,0,.1) 60%, transparent 100%);
+      z-index: 1;
+    }
+    .ia-card-cover-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 2; padding: 16px 14px 14px;
+      font-family: var(--f-head); font-size: 12px; font-weight: 700;
+      line-height: 1.3; color: #fff;
+    }
+    .ia-card-cover-badge {
+      display: inline-block; padding: 3px 8px;
+      background: var(--orange); border-radius: 3px;
+      font-family: var(--f-mono); font-size: 9px; font-weight: 600;
+      color: #fff; letter-spacing: .06em; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    /* Em breve grid pattern */
     .ia-card::after {
       content: '';
-      position: absolute;
-      inset: 0;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,200,255,0.08)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      position: absolute; inset: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(0,200,255,0.06)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
       pointer-events: none;
     }
-    .ia-card:hover {
-      border-color: var(--card-color, var(--accent));
-      box-shadow: 0 0 20px rgba(0, 200, 255, 0.3);
-      transform: translateY(-6px);
-    }
+    .ia-card.active-card::after { display: none; }
     .ia-card::before { display: none; }
     .ia-card-content {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 20px;
-      width: 100%;
-      height: 100%;
+      position: relative; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 20px;
+      width: 100%; height: 100%;
     }
     .ia-card-top { display: none; }
     .ia-card-icon {
@@ -624,6 +654,19 @@
       50% { box-shadow: 0 0 20px rgba(0,200,255,.35); }
     }
     .ia-card:hover { animation: glow-pulse 2s ease-in-out infinite; }
+
+    /* ── EM BREVE BADGE ─── */
+    .ia-em-breve {
+      margin-top: 10px;
+      font-family: var(--f-mono);
+      font-size: 9px;
+      color: var(--tx-lo);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      border: 1px solid var(--pr-sep);
+      padding: 3px 8px;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body>
@@ -754,102 +797,95 @@
       </div>
     </section>
 
-    <!-- PROJECTS / CATEGORIES -->
+    <!-- PROJECTS GALLERY -->
     <section id="section-projects" class="ws-section">
       <div class="panel">
         <div class="panel-header">
-          <div class="panel-header-icon" style="background:var(--accent);"></div>
-          <span class="panel-title">Painel do Projeto — Categorias IA</span>
+          <div class="panel-header-icon" style="background:var(--orange);"></div>
+          <span class="panel-title">Bin: Projetos com IA — Selecione um projeto</span>
           <div class="panel-header-actions">
             <div class="panel-action">&#8801;</div>
           </div>
         </div>
         <div class="cards-grid">
 
-          <!-- Geração de Imagem -->
-          <div class="ia-card reveal" style="--card-color: #00C8FF;"><div class="ia-card-content">
-            <div class="ia-card-top">
-              <div class="ia-clip-dot" style="background:#00C8FF;"></div>
-              <span class="ia-type">V1 · Imagem Generativa</span>
+          <!-- PROJETO 1: CARROSSEL VIRAL — ATIVO -->
+          <div class="ia-card active-card reveal" onclick="window.location.href='opus.html'" title="Ver prompts completos" style="cursor:pointer;">
+            <img src="assets/capa-opus.jpg" alt="Crie Carrosseis que Prendem e Convertem" class="ia-card-cover" onerror="this.style.display='none'">
+            <div class="ia-card-cover-overlay"></div>
+            <div class="ia-card-cover-label">
+              <div class="ia-card-cover-badge">✦ Disponível</div>
+              <div>Carrossel Viral com IA</div>
+              <div style="font-size:10px;color:rgba(255,255,255,.6);margin-top:4px;font-family:var(--f-mono);">Claude · Gemini · Canva</div>
             </div>
-            <div class="ia-card-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <!-- fallback content se imagem não carregar -->
+            <div class="ia-card-content" style="display:none;" id="fallback-carrossel">
+              <div class="ia-card-icon" style="background:rgba(255,107,53,.15);border-color:var(--orange);">
+                <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 17l4-6 3 4 2-3 3 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="ia-card-title" style="color:var(--orange);">Carrossel Viral com IA</div>
             </div>
-            <div class="ia-card-title">Geração de Imagem</div>
-            <div class="ia-card-desc">Artes visuais criadas com Midjourney, DALL-E e Stable Diffusion. Prompts documentados, resultados reais. Aplicados a thumbnails, mood boards e conceitos visuais para vídeo.</div>
-            <div class="ia-tags">
-              <span class="ia-tag">Midjourney</span>
-              <span class="ia-tag">DALL-E</span>
-              <span class="ia-tag">Stable Diffusion</span>
-              <span class="ia-tag">Thumbnails</span>
-            </div>
-            <div class="ia-status">// Em desenvolvimento</div>
-          </div></div>
+          </div>
 
-          <!-- Vídeo com IA -->
-          <div class="ia-card reveal" style="--card-color: #00E5CC;"><div class="ia-card-content">
-            <div class="ia-card-top">
-              <div class="ia-clip-dot" style="background:#00E5CC;"></div>
-              <span class="ia-type">V2 · Vídeo Generativo</span>
+          <!-- Em Breve #2 -->
+          <div class="ia-card reveal" style="cursor:default;">
+            <div class="ia-card-content">
+              <div class="ia-card-icon" style="background:rgba(0,200,255,.08);border-color:rgba(0,200,255,.2);">
+                <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.3"/><circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/><path d="M3 16l5-5 4 4 3-3 6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="ia-card-title" style="color:var(--tx-lo);font-size:12px;">Geração de Imagem</div>
+              <div class="ia-em-breve">Em breve</div>
             </div>
-            <div class="ia-card-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M10 9l5 3-5 3V9z" fill="currentColor"/></svg>
-            </div>
-            <div class="ia-card-title">Vídeo com IA</div>
-            <div class="ia-card-desc">Experimentos com Sora, Runway e Pika Labs para geração e extensão de vídeos. Integração com edição tradicional no Premiere — IA como camada criativa adicional, não substituta.</div>
-            <div class="ia-tags">
-              <span class="ia-tag">Sora</span>
-              <span class="ia-tag">Runway</span>
-              <span class="ia-tag">Pika Labs</span>
-              <span class="ia-tag">Motion</span>
-            </div>
-            <div class="ia-status">// Em desenvolvimento</div>
-          </div></div>
+          </div>
 
-          <!-- Copywriting e Roteiro -->
-          <div class="ia-card reveal" style="--card-color: #7B61FF;"><div class="ia-card-content">
-            <div class="ia-card-top">
-              <div class="ia-clip-dot" style="background:#7B61FF;"></div>
-              <span class="ia-type">GRFX · Texto e Roteiro</span>
+          <!-- Em Breve #3 -->
+          <div class="ia-card reveal" style="cursor:default;">
+            <div class="ia-card-content">
+              <div class="ia-card-icon" style="background:rgba(0,229,204,.08);border-color:rgba(0,229,204,.2);">
+                <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M10 9l5 3-5 3V9z" fill="currentColor" opacity=".6"/></svg>
+              </div>
+              <div class="ia-card-title" style="color:var(--tx-lo);font-size:12px;">Vídeo Generativo</div>
+              <div class="ia-em-breve">Em breve</div>
             </div>
-            <div class="ia-card-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M4 6h16M4 10h10M4 14h12M4 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-            </div>
-            <div class="ia-card-title">Copy & Roteiro com IA</div>
-            <div class="ia-card-desc">Uso de Claude, ChatGPT e Gemini para estruturar roteiros de VSL, hooks de criativos e scripts de direct response. A IA acelera o processo — a estratégia e a visão final são humanas.</div>
-            <div class="ia-tags">
-              <span class="ia-tag">ChatGPT</span>
-              <span class="ia-tag">Claude</span>
-              <span class="ia-tag">Gemini</span>
-              <span class="ia-tag">VSL</span>
-              <span class="ia-tag">Hook</span>
-            </div>
-            <div class="ia-status">// Ativo</div>
-          </div></div>
+          </div>
 
-          <!-- IA + Vídeo Marketing -->
-          <div class="ia-card reveal" style="--card-color: #FF6B35;"><div class="ia-card-content">
-            <div class="ia-card-top">
-              <div class="ia-clip-dot" style="background:#FF6B35;"></div>
-              <span class="ia-type">A1 · IA + Performance</span>
+          <!-- Em Breve #4 -->
+          <div class="ia-card reveal" style="cursor:default;">
+            <div class="ia-card-content">
+              <div class="ia-card-icon" style="background:rgba(123,97,255,.08);border-color:rgba(123,97,255,.2);">
+                <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M4 6h16M4 10h10M4 14h12M4 18h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="ia-card-title" style="color:var(--tx-lo);font-size:12px;">Copy & Roteiro</div>
+              <div class="ia-em-breve">Em breve</div>
             </div>
-            <div class="ia-card-icon">
-              <svg width="28" height="28" fill="none" viewBox="0 0 24 24"><path d="M2 12h4l3-8 4 16 3-12 2 4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+
+          <!-- Em Breve #5 -->
+          <div class="ia-card reveal" style="cursor:default;">
+            <div class="ia-card-content">
+              <div class="ia-card-icon" style="background:rgba(255,107,53,.08);border-color:rgba(255,107,53,.2);">
+                <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><path d="M2 12h4l3-8 4 16 3-12 2 4h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="ia-card-title" style="color:var(--tx-lo);font-size:12px;">IA + Performance</div>
+              <div class="ia-em-breve">Em breve</div>
             </div>
-            <div class="ia-card-title">IA + Marketing de Performance</div>
-            <div class="ia-card-desc">Aplicação de ferramentas de IA para otimização de criativos: análise de retenção, sugestões de corte, teste de variações de hook e métricas de conversão. Dados + intuição criativa.</div>
-            <div class="ia-tags">
-              <span class="ia-tag">Analytics</span>
-              <span class="ia-tag">A/B Tests</span>
-              <span class="ia-tag">Retenção</span>
-              <span class="ia-tag">Conversão</span>
+          </div>
+
+          <!-- Em Breve #6 -->
+          <div class="ia-card reveal" style="cursor:default;">
+            <div class="ia-card-content">
+              <div class="ia-card-icon" style="background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.2);">
+                <svg width="26" height="26" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.3"/><path d="M12 8v4l3 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="ia-card-title" style="color:var(--tx-lo);font-size:12px;">Em Breve</div>
+              <div class="ia-em-breve">Em breve</div>
             </div>
-            <div class="ia-status">// Ativo</div>
           </div>
 
         </div>
       </div>
     </section>
+
 
     <!-- PROMPTS SHOWCASE -->
     <section id="section-prompts" class="ws-section">
