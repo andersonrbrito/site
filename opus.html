@@ -265,6 +265,16 @@
       transition: color .15s, border-color .15s;
     }
     .opus-ig-badge:hover { color: var(--tx-mid); border-color: var(--pr-sep-light); }
+    .opus-ig-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: var(--f-head); font-size: 12px; font-weight: 700;
+      color: #fff; text-decoration: none; letter-spacing: .06em;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      padding: 10px 20px; border-radius: 4px;
+      margin-bottom: 28px;
+      transition: opacity .15s, transform .15s;
+    }
+    .opus-ig-btn:hover { opacity: .88; transform: translateY(-1px); }
     .opus-project-tag {
       display: inline-block;
       font-family: var(--f-mono); font-size: 9px; font-weight: 600;
@@ -679,12 +689,12 @@
             ← Voltar para Projetos IA
           </a>
 
-          <a href="https://www.instagram.com/p/DXNDzkaDyW9/?img_index=1" target="_blank" rel="noopener" class="opus-ig-badge">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
-            Ver carrossel original no Instagram →
+          <a href="https://www.instagram.com/p/DXNDzkaDyW9/?img_index=1" target="_blank" rel="noopener" class="opus-ig-btn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+            Ver post original no Instagram
           </a>
 
-          <div class="opus-project-tag">Projeto 01 · IA Criativa · Claude · Gemini · Canva</div>
+          <div class="opus-project-tag">Projeto 01 · IA Criativa · Claude · ChatGPT · Gemini</div>
 
           <h1 class="opus-h1">O prompt que estrutura<br>um carrossel viral em<br><em>menos de 5 minutos.</em></h1>
 
@@ -697,11 +707,7 @@
             </div>
             <div class="opus-meta-item">
               <div class="opus-meta-dot" style="background:var(--ai-cyan);"></div>
-              <span>Gemini (imagem)</span>
-            </div>
-            <div class="opus-meta-item">
-              <div class="opus-meta-dot" style="background:var(--accent);"></div>
-              <span>Canva (montagem)</span>
+              <span>ChatGPT ou Gemini (slide completo)</span>
             </div>
             <div class="opus-meta-item">
               <div class="opus-meta-dot" style="background:var(--accent-gr);"></div>
@@ -846,11 +852,12 @@ Comece agora pela pergunta 1 da FASE 1. Espere minha resposta antes de seguir.</
         <div class="opus-step reveal" id="step-3">
           <div class="opus-step-hd">
             <div class="opus-step-num">3</div>
-            <div class="opus-step-title">Gere as imagens no Gemini</div>
+            <div class="opus-step-title">Abra o ChatGPT ou Gemini e anexe uma selfie</div>
           </div>
           <div class="opus-step-body">
-            <p>Com os textos prontos, abra o <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a> (gratuito). <strong>Anexe 1 selfie sua com rosto bem iluminado e de frente</strong> — essa foto mantém você igual nos 5 slides.</p>
-            <p>Cole os prompts do Passo 4 <strong>um por vez</strong>. Antes de colar, substitua <code>[SEU NICHO]</code> pelo seu nicho em inglês.<br><em>Ex: "video editor with dual monitor setup", "media buyer at a workstation with dashboards"</em></p>
+            <p>Com o texto dos 5 slides gerado pelo Claude, abra o <a href="https://chatgpt.com" target="_blank" rel="noopener">ChatGPT</a> (DALL-E) ou o <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a> (gratuito). <strong>Anexe 1 selfie sua com rosto bem iluminado e de frente.</strong></p>
+            <p>Para cada slide: vá ao Passo 4, copie o prompt correspondente, cole o texto que o Claude gerou no campo <code>[TEXTO DO SLIDE]</code> e substitua <code>[SEU NICHO]</code> pelo seu nicho em inglês. O modelo gera o slide <strong>completo — imagem e texto já incluídos, prontos para publicar.</strong></p>
+            <p><em>Ex de nicho: "video editor with dual monitor setup" · "media buyer at a workstation" · "nutritionist in a modern clinic"</em></p>
           </div>
         </div>
 
@@ -858,7 +865,7 @@ Comece agora pela pergunta 1 da FASE 1. Espere minha resposta antes de seguir.</
         <div class="opus-step reveal" id="step-4">
           <div class="opus-step-hd">
             <div class="opus-step-num">4</div>
-            <div class="opus-step-title">Os 5 prompts de imagem — um por slide</div>
+            <div class="opus-step-title">Os 5 prompts de slide completo — copie, cole o texto do Claude e gere</div>
           </div>
           <div class="image-prompts-grid">
 
@@ -866,14 +873,19 @@ Comece agora pela pergunta 1 da FASE 1. Espere minha resposta antes de seguir.</
               <div class="img-prompt-label">🎬 Slide 1 — Gancho Agressivo</div>
               <div class="code-block-wrap">
                 <div class="code-block-header">
-                  <span class="code-block-label">Imagem 1</span>
+                  <span class="code-block-label">Slide 1 · ChatGPT ou Gemini</span>
                   <button class="copy-btn" onclick="copyBlock(this,'img-1')">📋 Copiar</button>
                 </div>
                 <div class="code-block-body" id="img-1">Use the attached photo as the main subject reference. Keep the person's face, skin tone, hair and identity exactly as in the reference.
 
-Cinematic portrait of this person as a [SEU NICHO]. Arms crossed, standing in front of their workspace. Serious, challenging expression, direct eye contact with camera. Dark moody lighting with subtle cyan and magenta accents. Shallow depth of field, 50mm lens. High contrast, editorial tone. Leave clean negative space on the top third for bold text overlay.
+Cinematic portrait of this person as a [SEU NICHO]. Arms crossed, standing in front of their workspace. Serious, challenging expression, direct eye contact with camera. Dark moody lighting with subtle cyan and magenta accents. Shallow depth of field, 50mm lens. High contrast, editorial tone.
 
-4:5 vertical format. Photorealistic, no stylization.</div>
+Overlay this slide's text directly on the image. Top area: bold white headline, very large, heavy weight. Below: smaller subtitle. Bottom edge: small "👇 arrasta" label. Dark semi-transparent background behind the text for legibility.
+
+Text to overlay:
+[COLE AQUI O TEXTO DO SLIDE 1 QUE O CLAUDE GEROU]
+
+4:5 vertical format (1080×1350px). Photorealistic, no stylization. Text must be readable and correctly spelled.</div>
               </div>
             </div>
 
@@ -881,14 +893,19 @@ Cinematic portrait of this person as a [SEU NICHO]. Arms crossed, standing in fr
               <div class="img-prompt-label">🎬 Slide 2 — Prova Concreta</div>
               <div class="code-block-wrap">
                 <div class="code-block-header">
-                  <span class="code-block-label">Imagem 2</span>
+                  <span class="code-block-label">Slide 2 · ChatGPT ou Gemini</span>
                   <button class="copy-btn" onclick="copyBlock(this,'img-2')">📋 Copiar</button>
                 </div>
                 <div class="code-block-body" id="img-2">Use the attached photo as the main subject reference. Keep the person's face and identity exactly as in the reference.
 
 Medium shot of this person as a [SEU NICHO] at their workspace, looking at a screen with a subtle surprised smirk — the "I just found a shortcut" expression. Warm drink in hand. Workspace softly blurred behind. Mix of warm desk lamp and cool screen glow. Shot from slightly above, 35mm lens. Shallow focus on the face.
 
-4:5 vertical format, clean space on the left for text. Photorealistic, editorial photography.</div>
+Overlay this slide's text on the left side of the image. Large bold headline at top-left, followed by bullet points or "before vs now" comparison. White text with semi-transparent dark panel behind it for legibility.
+
+Text to overlay:
+[COLE AQUI O TEXTO DO SLIDE 2 QUE O CLAUDE GEROU]
+
+4:5 vertical format (1080×1350px). Photorealistic, editorial photography. Text must be readable and correctly spelled.</div>
               </div>
             </div>
 
@@ -896,14 +913,19 @@ Medium shot of this person as a [SEU NICHO] at their workspace, looking at a scr
               <div class="img-prompt-label">🎬 Slide 3 — Aplicação no Dia a Dia</div>
               <div class="code-block-wrap">
                 <div class="code-block-header">
-                  <span class="code-block-label">Imagem 3</span>
+                  <span class="code-block-label">Slide 3 · ChatGPT ou Gemini</span>
                   <button class="copy-btn" onclick="copyBlock(this,'img-3')">📋 Copiar</button>
                 </div>
                 <div class="code-block-body" id="img-3">Use the attached photo as the main subject reference. Keep the person's face and identity exactly as in the reference.
 
 Wide shot of this person as a [SEU NICHO] leaning back in their chair at their workspace. Relaxed posture, holding a warm drink, casually glancing at their phone with a calm half-smile. Background shows work actively happening (monitor, screen, or workspace detail). Soft warm ambient light, late afternoon studio vibe. Natural color grading, 35mm lens, realistic photography.
 
-4:5 vertical format with clean space on the right for a text list.</div>
+Overlay this slide's text on the right side of the image as a vertical list. Bold headline at top-right. List items with ✅ or ❌ icons below. White text with subtle dark overlay behind for readability.
+
+Text to overlay:
+[COLE AQUI O TEXTO DO SLIDE 3 QUE O CLAUDE GEROU]
+
+4:5 vertical format (1080×1350px). Photorealistic. Text must be readable and correctly spelled.</div>
               </div>
             </div>
 
@@ -911,18 +933,22 @@ Wide shot of this person as a [SEU NICHO] leaning back in their chair at their w
               <div class="img-prompt-label">🎬 Slide 4 — Benefício Duplo</div>
               <div class="code-block-wrap">
                 <div class="code-block-header">
-                  <span class="code-block-label">Imagem 4</span>
+                  <span class="code-block-label">Slide 4 · ChatGPT ou Gemini</span>
                   <button class="copy-btn" onclick="copyBlock(this,'img-4')">📋 Copiar</button>
                 </div>
                 <div class="code-block-body" id="img-4">Use the attached photo as the main subject reference. The SAME person appears on both sides of a split-screen composition. Keep face and identity identical in both halves.
 
-LEFT SIDE: tired version of this person as a [SEU NICHO], slouched, messy cluttered workspace, single screen with one task, cold blue lighting, tense frustrated expression.
-
-RIGHT SIDE: confident version of the same person, upright relaxed posture, clean organized workspace with multiple outputs visible (variations, multiple tabs, finished work), warm cinematic lighting, focused sharp look.
+LEFT SIDE: tired version of this person as a [SEU NICHO], slouched, messy cluttered workspace, single screen, cold blue lighting, frustrated expression.
+RIGHT SIDE: confident version of the same person, upright posture, clean organized workspace, warm cinematic lighting, focused look.
 
 Strong visual contrast between the two states. Realistic cinematic photography, clear color separation (cold left, warm right).
 
-4:5 vertical format.</div>
+Overlay this slide's text centered at the top of the image — bold headline, then a list of ✅ items below. White text, large and bold, dark semi-transparent background behind the text.
+
+Text to overlay:
+[COLE AQUI O TEXTO DO SLIDE 4 QUE O CLAUDE GEROU]
+
+4:5 vertical format (1080×1350px). Text must be readable and correctly spelled.</div>
               </div>
             </div>
 
@@ -930,14 +956,19 @@ Strong visual contrast between the two states. Realistic cinematic photography, 
               <div class="img-prompt-label">🎬 Slide 5 — CTA Forte</div>
               <div class="code-block-wrap">
                 <div class="code-block-header">
-                  <span class="code-block-label">Imagem 5</span>
+                  <span class="code-block-label">Slide 5 · ChatGPT ou Gemini</span>
                   <button class="copy-btn" onclick="copyBlock(this,'img-5')">📋 Copiar</button>
                 </div>
                 <div class="code-block-body" id="img-5">Use the attached photo as the main subject reference. Keep the person's face and identity exactly as in the reference.
 
 Close-up to medium shot of this person as a [SEU NICHO], leaning casually against their workspace. Arms relaxed, looking directly at the camera with a subtle knowing half-smile — confident "I told you so" energy. Blurred workspace behind with soft glowing screens. Dramatic key light on the face, dark moody background. 50mm lens, shallow depth of field. Cinematic color grade with teal and orange tones.
 
-4:5 vertical format with clean space above and below for headline and CTA text. Photorealistic, editorial style.</div>
+Overlay this slide's text on the image. Bold headline centered at top. Provocation line below. 3 CTA lines at the bottom (💾 💬 👤). White text, heavy weight, dark semi-transparent background behind text for legibility.
+
+Text to overlay:
+[COLE AQUI O TEXTO DO SLIDE 5 QUE O CLAUDE GEROU]
+
+4:5 vertical format (1080×1350px). Photorealistic, editorial style. Text must be readable and correctly spelled.</div>
               </div>
             </div>
 
@@ -948,12 +979,12 @@ Close-up to medium shot of this person as a [SEU NICHO], leaning casually agains
         <div class="opus-step reveal" id="step-5">
           <div class="opus-step-hd">
             <div class="opus-step-num">5</div>
-            <div class="opus-step-title">Monte no Canva e publique</div>
+            <div class="opus-step-title">Salve os 5 slides e publique no Instagram</div>
           </div>
           <div class="opus-step-body">
-            <p>Abra o <strong>Canva ou Figma</strong> em formato 4:5 (1080×1350px). Jogue cada imagem em um slide e sobreponha os textos que o Claude gerou. Fonte grande, negrito nos destaques, espaço em branco suficiente.</p>
-            <p>Publique no Instagram usando a legenda e as hashtags que o Claude também gerou.</p>
-            <p><strong>Tempo médio do zero à publicação: 15 a 20 minutos.</strong></p>
+            <p>Cada slide sai do ChatGPT ou Gemini <strong>pronto</strong> — imagem e texto já incluídos. Salve as 5 imagens geradas e publique como carrossel no Instagram.</p>
+            <p>Use a <strong>legenda e as hashtags</strong> que o Claude gerou no final da Fase 3. Já estão formatadas para engajamento.</p>
+            <p><strong>Tempo médio do zero à publicação: 15 a 20 minutos. Sem Canva. Sem Figma.</strong></p>
           </div>
         </div>
 
@@ -1047,7 +1078,7 @@ Close-up to medium shot of this person as a [SEU NICHO], leaning casually agains
         { left:'20%', width:'20%', label:'PASSO 1',   color:'#002A3A' },
         { left:'40%', width:'20%', label:'PROMPT',    color:'#1A0025' },
         { left:'60%', width:'20%', label:'IMAGENS',   color:'#0A0030' },
-        { left:'80%', width:'20%', label:'CANVA',     color:'#0070D1' },
+        { left:'80%', width:'20%', label:'PUBLICAR',  color:'#0070D1' },
       ].forEach((c, i) => {
         const el = document.createElement('div');
         el.className = 'tl-clip';
