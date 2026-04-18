@@ -470,6 +470,57 @@
     .tl-waveform { position: absolute; inset: 2px; display: flex; align-items: center; gap: 1px; }
     .wv-bar { width: 2px; border-radius: 1px; flex-shrink: 0; }
 
+    /* ── BEFORE / AFTER SLIDER ─── */
+    .ba-wrap {
+      background: #050810; padding: 32px 24px;
+      display: flex; justify-content: center; align-items: center;
+    }
+    .ba-container {
+      position: relative; max-width: 900px; width: 100%;
+      aspect-ratio: 16 / 9; overflow: hidden; border-radius: 5px;
+      cursor: col-resize; user-select: none;
+      box-shadow: 0 0 40px rgba(245,200,66,.1);
+    }
+    .ba-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block; pointer-events: none;
+    }
+    .ba-after {
+      clip-path: inset(0 50% 0 0);
+      transition: clip-path 0s;
+    }
+    .ba-line {
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 2px; background: #fff;
+      z-index: 10; pointer-events: none;
+      box-shadow: 0 0 8px rgba(255,255,255,.6);
+    }
+    .ba-line::before {
+      content: ''; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #fff; box-shadow: 0 0 12px rgba(0,0,0,.4);
+    }
+    .ba-line::after {
+      content: '◂ ▸'; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 9px; color: #333; letter-spacing: -2px; font-weight: 900;
+      z-index: 1;
+    }
+    .ba-label {
+      position: absolute; bottom: 14px;
+      font-family: var(--f-mono); font-size: 10px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px; z-index: 5;
+      pointer-events: none;
+    }
+    .ba-label-left  { left: 14px;  background: rgba(0,0,0,.65); color: var(--tx-lo); }
+    .ba-label-right { right: 14px; background: var(--gold); color: #000; }
+    @media (max-width: 600px) {
+      .ba-wrap { padding: 16px 12px; }
+    }
+
     /* ── REVEAL ─── */
     .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -622,17 +673,24 @@
       </div>
     </div>
 
-    <!-- RESULT IMAGE -->
+    <!-- BEFORE / AFTER SLIDER -->
     <div class="panel ws-section-pad">
       <div class="panel-header">
         <div class="panel-header-icon" style="background:var(--gold);"></div>
-        <span class="panel-title">Monitor: Resultado — Restauração Fotográfica</span>
+        <span class="panel-title">Monitor: Antes × Depois — Passe o mouse para revelar</span>
       </div>
-      <div style="background:#050810;display:flex;justify-content:center;padding:32px 20px;">
-        <img src="assets/capa-restauracao.jpg"
-             alt="Resultado da restauração fotográfica em 4K com IA"
-             style="max-width:360px;width:100%;border-radius:6px;box-shadow:0 0 40px rgba(245,200,66,.15);"
-             onerror="this.style.display='none'">
+      <div class="ba-wrap">
+        <div class="ba-container" id="baContainer">
+          <!-- ANTES -->
+          <img class="ba-img" src="assets/before-restauracao.webp" alt="Foto original (antes da restauração)">
+          <!-- DEPOIS — clip revela ao mover mouse -->
+          <img class="ba-img ba-after" id="baAfter" src="assets/after-restauracao.webp" alt="Foto restaurada em 4K (depois)">
+          <!-- Linha divisora -->
+          <div class="ba-line" id="baLine"></div>
+          <!-- Labels -->
+          <div class="ba-label ba-label-left">ANTES</div>
+          <div class="ba-label ba-label-right">DEPOIS ✦</div>
+        </div>
       </div>
     </div>
 
@@ -668,25 +726,25 @@
             <div class="how-step">
               <div class="how-num">1</div>
               <div class="how-step-text">
-                Acesse o <a href="https://www.freepik.com/ai/image-generator" target="_blank" rel="noopener">Freepik AI Image Generator</a> (Nano Banana) — plano gratuito funciona, plano Pro gera em resolução maior.
+                Acesse o <a href="https://gemini.google.com" target="_blank" rel="noopener">Gemini</a> — plano gratuito funciona, plano Pro entrega em resolução e qualidade maiores.
               </div>
             </div>
             <div class="how-step">
               <div class="how-num">2</div>
               <div class="how-step-text">
-                <strong>Anexe a foto original</strong> que você quer restaurar como imagem de referência. Quanto melhor o rosto estiver visível, mais precisa será a reconstrução.
+                <strong>Anexe a foto original</strong> que você quer restaurar. Quanto mais nítido o rosto e os detalhes principais, mais precisa será a reconstrução.
               </div>
             </div>
             <div class="how-step">
               <div class="how-num">3</div>
               <div class="how-step-text">
-                Copie o prompt abaixo, cole no campo de texto e <strong>não altere nada</strong>. Ele já está calibrado para máxima fidelidade. A IA vai identificar o sujeito automaticamente.
+                Copie um dos prompts abaixo, cole junto com a foto e <strong>não altere as instruções</strong>. A IA identifica o sujeito automaticamente pela imagem de referência.
               </div>
             </div>
             <div class="how-step">
               <div class="how-num">4</div>
               <div class="how-step-text">
-                Gere. Se o resultado alterar expressão ou feição, tente novamente — às vezes leva 2 ou 3 gerações até a fidelidade estar 100%. <strong>Use o Prompt Negativo junto</strong> quando a ferramenta permitir campo separado.
+                Gere. Se o resultado alterar expressão ou feição, tente novamente — 2 ou 3 gerações geralmente chegam na fidelidade certa. O <strong>Prompt Negativo</strong> (Prompt 1) ajuda muito quando a ferramenta aceita campo separado.
               </div>
             </div>
           </div>
@@ -694,10 +752,10 @@
 
         <!-- PROMPT -->
         <div class="prompt-section reveal" id="o-prompt">
-          <div class="prompt-section-title">O Prompt Completo</div>
+          <div class="prompt-section-title">Os 2 Prompts</div>
           <div class="code-block-wrap">
             <div class="code-block-header">
-              <span class="code-block-label">Prompt de Restauração 4K — Cole no Nano Banana (Freepik AI)</span>
+              <span class="code-block-label">Prompt 1 — Restauração com ultra-fidelidade (PT) · Cole no Gemini</span>
               <button class="copy-btn" onclick="copyBlock(this,'prompt-restauracao')">📋 Copiar</button>
             </div>
             <div class="code-block-body" id="prompt-restauracao">DIRETIVA: Executar uma restauração de ultra-fidelidade e re-renderização cinematográfica da imagem de referência. O objetivo principal é a "Reconstrução Analítica de Micro-Detalhes" a partir de uma fonte de baixa qualidade.
@@ -717,6 +775,23 @@ QUALIDADE DE SAÍDA: Resolução 8K, Texturas Fotorrealistas, Qualidade ProRes, 
 REFERÊNCIA: Utilizar a imagem anexada como ÚNICO referente estrutural e de identidade.
 
 PROMPT NEGATIVO: Embaçado, desfocado, ruído visual, artefatos de compressão, mudança de identidade, mudança de expressão, alteração de pose, mudança de roupa, adicionar objetos, redesenhar, aspecto de desenho ou pintura, baixa resolução.</div>
+          </div>
+
+          <!-- PROMPT 2 -->
+          <div class="code-block-wrap" style="margin-top:16px;">
+            <div class="code-block-header">
+              <span class="code-block-label">Prompt 2 — Reconstrução realista com micro-detalhes (EN) · Cole no Gemini</span>
+              <button class="copy-btn" onclick="copyBlock(this,'prompt-restauracao-2')">📋 Copiar</button>
+            </div>
+            <div class="code-block-body" id="prompt-restauracao-2">Rebuild the image in ultra high resolution, enhancing realism and micro-details while keeping the character perfectly consistent with the reference. Preserve facial identity, proportions, and overall style with absolute fidelity.
+
+Upgrade material quality: add more realistic clothing fabric texture (weave, stitching, folds) and improve the environment surfaces (materials, reflections, roughness, depth) without altering the scene.
+
+Do NOT change composition, camera angle, framing, setting, pose, or action. Everything must remain identical only refine detail quality and realism.
+
+Maintain the same realistic documentary lighting, filmed from the shadow side, with natural contrast and subtle highlights.
+
+Use a cinematic camera/lens look (shallow depth of field, natural bokeh). Keep the original environment and lighting exactly the same.</div>
           </div>
 
           <!-- SERIES NOTE -->
@@ -901,6 +976,38 @@ PROMPT NEGATIVO: Embaçado, desfocado, ruído visual, artefatos de compressão, 
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.05 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ── Before / After Slider ──
+    (function() {
+      const container = document.getElementById('baContainer');
+      const after     = document.getElementById('baAfter');
+      const line      = document.getElementById('baLine');
+      if (!container || !after || !line) return;
+
+      function setPos(pct) {
+        pct = Math.max(0, Math.min(100, pct));
+        after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+        line.style.left = pct + '%';
+      }
+
+      // default: 30% revealed so it's obvious there's something to reveal
+      setPos(30);
+
+      container.addEventListener('mousemove', e => {
+        const r = container.getBoundingClientRect();
+        setPos((e.clientX - r.left) / r.width * 100);
+      });
+
+      // touch support
+      container.addEventListener('touchmove', e => {
+        e.preventDefault();
+        const r = container.getBoundingClientRect();
+        setPos((e.touches[0].clientX - r.left) / r.width * 100);
+      }, { passive: false });
+
+      // reset on mouse leave
+      container.addEventListener('mouseleave', () => setPos(30));
+    })();
 
     // ── Hamburger ──
     const hamburger = document.getElementById('hamburgerBtn');
