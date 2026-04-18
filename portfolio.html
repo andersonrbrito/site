@@ -158,15 +158,15 @@
     .timecode-display .tc-sep { color: var(--pr-sep-light); }
     .seq-info { font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); padding-left: 10px; }
     .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
-    .toolbar-nav-link {
+    .tn-link {
       font-family: var(--f-head); font-size: 11px; font-weight: 600;
       letter-spacing: .06em; text-transform: uppercase;
       color: var(--tx-mid); padding: 5px 10px; border-radius: 3px;
       transition: color .15s, background .15s;
     }
-    .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
-    .toolbar-nav-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
-    .toolbar-nav-link.cta:hover { background: var(--accent); }
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
+    .tn-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
+    .tn-link.cta:hover { background: var(--accent); }
 
     /* LANG TOGGLE inside toolbar */
     .lang-toggle {
@@ -184,11 +184,11 @@
     .lang-btn:hover:not(.active) { color: var(--accent); }
 
     /* Mobile hamburger */
-    .toolbar-hamburger {
+    .hamburger-btn {
       display: none; margin-left: auto;
       flex-direction: column; gap: 4px; padding: 6px; background: none; border: none; cursor: pointer;
     }
-    .toolbar-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--tx-mid); border-radius: 2px; }
+    .hamburger-btn span { display: block; width: 18px; height: 1.5px; background: var(--tx-mid); border-radius: 2px; }
 
     /* Mobile nav drawer */
     .mobile-drawer {
@@ -496,7 +496,7 @@
       :root { --timeline-h: 80px; }
       .menu-items .menu-item:nth-child(n+3) { display: none; }
       .toolbar-nav { display: none; }
-      .toolbar-hamburger { display: flex; }
+      .hamburger-btn { display: flex; }
       .lang-toggle { margin-left: auto; }
       .ph-inner { flex-direction: column; align-items: flex-start; }
       .ph-stats { display: none; }
@@ -579,14 +579,14 @@
 
     <!-- Desktop nav -->
     <div class="toolbar-nav">
-      <a href="index.html" class="toolbar-nav-link">Home</a>
-      <a href="portfolio.html" class="toolbar-nav-link" style="color:var(--tx-hi);">Portfolio</a>
-      <a href="fotografia.html" class="toolbar-nav-link">Fotografia</a>
-      <a href="ia.html" class="toolbar-nav-link">IA Prompts</a>
-      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">Packs</a>
-      <a href="aprenda.html" class="toolbar-nav-link">Aprenda</a>
-      <a href="saiba-mais.html" class="toolbar-nav-link">Sobre</a>
-      <a href="briefing.html" class="toolbar-nav-link cta">Contato</a>
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="portfolio.html" class="tn-link" style="color:var(--tx-hi);">Portfolio</a>
+      <a href="fotografia.html" class="tn-link">Fotografia</a>
+      <a href="ia.html" class="tn-link">IA Prompts</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
+      <a href="aprenda.html" class="tn-link">Aprenda</a>
+      <a href="saiba-mais.html" class="tn-link">Sobre</a>
+      <a href="briefing.html" class="tn-link cta">Contato</a>
       <div class="lang-toggle">
         <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
         <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
@@ -594,7 +594,7 @@
     </div>
 
     <!-- Mobile hamburger -->
-    <button class="toolbar-hamburger" id="hamburgerBtn">
+    <button class="hamburger-btn" id="hamburgerBtn">
       <span></span><span></span><span></span>
     </button>
   </div>

@@ -305,9 +305,9 @@
       align-items: center;
       gap: 4px;
     }
-    .tn-link, .toolbar-back, .toolbar-nav-link, .mobile-drawer a { text-decoration: none !important; }
+    .tn-link, .toolbar-back, .mobile-drawer a { text-decoration: none !important; }
     a { text-decoration: none; }
-    .toolbar-nav-link {
+    .tn-link {
       font-family: var(--f-head);
       font-size: 11px;
       font-weight: 600;
@@ -318,20 +318,20 @@
       border-radius: 3px;
       transition: color 0.15s, background 0.15s;
     }
-    .toolbar-nav-link:hover { color: var(--tx-hi); background: rgba(255,255,255,0.06); }
-    .toolbar-nav-link.cta {
+    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,0.06); }
+    .tn-link.cta {
       background: var(--accent-2);
       color: #fff;
       font-weight: 700;
     }
-    .toolbar-nav-link.cta:hover { background: var(--accent); }
-    .toolbar-hamburger { display: none;
+    .tn-link.cta:hover { background: var(--accent); }
+    .hamburger-btn { display: none;
       margin-left: auto;
       flex-direction: column;
       gap: 4px;
       padding: 6px;
     }
-    .toolbar-hamburger span {
+    .hamburger-btn span {
       display: block;
       width: 18px; height: 1.5px;
       background: var(--tx-mid);
@@ -926,7 +926,7 @@
         --timeline-h: 88px;
       }
       .toolbar-nav { display: none; }
-      .toolbar-hamburger { display: none; }
+      .hamburger-btn { display: none; }
       .mobile-drawer { display: flex !important; }
       .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h) + 48px); }
       .menu-items .menu-item:nth-child(n+4) { display: none; }
@@ -1053,18 +1053,17 @@
 
     <!-- Desktop nav -->
     <div class="toolbar-nav">
-      <a href="index.html" class="toolbar-nav-link">Home</a>
-      
-      <a href="fotografia.html" class="toolbar-nav-link" style="color:var(--tx-hi);">Fotografia</a>
-      <a href="ia.html" class="toolbar-nav-link">IA Prompts</a>
-      <a href="vendas.html" class="toolbar-nav-link" style="color:var(--orange);">Packs</a>
-      <a href="aprenda.html" class="toolbar-nav-link">Aprenda</a>
-      <a href="saiba-mais.html" class="toolbar-nav-link">Sobre</a>
-      <a href="briefing.html" class="toolbar-nav-link cta">Contato</a>
+      <a href="index.html" class="tn-link">Home</a>
+      <a href="fotografia.html" class="tn-link" style="color:var(--tx-hi);">Fotografia</a>
+      <a href="ia.html" class="tn-link">IA Prompts</a>
+      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
+      <a href="aprenda.html" class="tn-link">Aprenda</a>
+      <a href="saiba-mais.html" class="tn-link">Sobre</a>
+      <a href="briefing.html" class="tn-link cta">Contato</a>
     </div>
 
     <!-- Mobile hamburger -->
-    <button class="toolbar-hamburger" id="hamburgerBtn">
+    <button class="hamburger-btn" id="hamburgerBtn">
       <span></span><span></span><span></span>
     </button>
   </div>
