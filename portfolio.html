@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portfolio — Anderson Brito | Editor de Vídeo</title>
-  <meta name="description" content="Portfolio de edição de vídeo: criativos, VSL, direct response. Vídeos que retêm, convertem e vendem.">
-  <meta name="keywords" content="portfolio vídeo, criativos, VSL, direct response, edição profissional">
+  <meta name="description" content="Portfolio de edição de vídeo: criativos, aftermovies, videoclipes, vídeos com IA e curta-metragens.">
+  <meta name="keywords" content="portfolio vídeo, criativos, aftermovie, videoclipe, vídeos IA, edição profissional">
   <meta name="robots" content="index, follow">
 
   <meta property="og:type" content="website">
@@ -351,9 +351,11 @@
       font-size: 8px; font-weight: 600; text-transform: uppercase;
       letter-spacing: .05em; white-space: nowrap; flex-shrink: 0;
     }
-    .card-cat.criativo { background: rgba(43,82,128,.2); border: 1px solid rgba(43,82,128,.4); color: #5BA3FF; }
-    .card-cat.vsl      { background: rgba(90,45,122,.2); border: 1px solid rgba(90,45,122,.4); color: #D48EFF; }
-    .card-cat.dr       { background: rgba(255,107,53,.2); border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
+    .card-cat.criativo   { background: rgba(43,82,128,.2);  border: 1px solid rgba(43,82,128,.4);  color: #5BA3FF; }
+    .card-cat.aftermovie { background: rgba(42,74,26,.2);   border: 1px solid rgba(42,74,26,.4);   color: #6FCF65; }
+    .card-cat.videoclip  { background: rgba(90,45,122,.2);  border: 1px solid rgba(90,45,122,.4);  color: #D48EFF; }
+    .card-cat.ia         { background: rgba(255,107,53,.2); border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
+    .card-cat.curta      { background: rgba(138,106,42,.2); border: 1px solid rgba(138,106,42,.4); color: #D4A84B; }
     .card-desc { font-size: 12px; color: var(--tx-mid); line-height: 1.5; }
     .card-meta {
       font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
@@ -624,13 +626,13 @@
     <div class="page-header">
       <div class="ph-inner">
         <div>
-          <div class="ph-label" data-pt="CRIATIVOS · VSL · DIRECT RESPONSE" data-en="CREATIVES · VSL · DIRECT RESPONSE"></div>
+          <div class="ph-label" data-pt="CRIATIVOS · AFTERMOVIE · VIDEOCLIPES · IA" data-en="CREATIVES · AFTERMOVIE · VIDEO CLIPS · AI"></div>
           <h1 class="ph-h1" data-pt="Portfolio de Vídeo" data-en="Video Portfolio"></h1>
-          <p class="ph-sub" data-pt="Criativos, VSLs e Direct Response testados em campanhas reais. Resultados que convertem." data-en="Creatives, VSLs and Direct Response tested in real campaigns. Results that convert."></p>
+          <p class="ph-sub" data-pt="Criativos, aftermovies, videoclipes e vídeos com IA. Edição que retém e converte." data-en="Creatives, aftermovies, video clips and AI videos. Editing that retains and converts."></p>
         </div>
         <div class="ph-stats">
           <div class="ph-stat">
-            <div class="n" id="videoCountEl">8</div>
+            <div class="n" id="videoCountEl">16</div>
             <div class="l" data-pt="VÍDEOS" data-en="VIDEOS"></div>
           </div>
           <div class="ph-stat">
@@ -651,22 +653,32 @@
       <div class="filter-clips">
         <button class="filter-clip active" data-filter="all">
           <span data-pt="Todos" data-en="All"></span>
-          <span class="filter-count" id="c-all">8</span>
+          <span class="filter-count" id="c-all">16</span>
         </button>
         <button class="filter-clip" data-filter="criativo">
           <div class="filter-swatch" style="background:#2B5280;"></div>
           <span data-pt="Criativo" data-en="Creative"></span>
-          <span class="filter-count" id="c-criativo">5</span>
+          <span class="filter-count" id="c-criativo">6</span>
         </button>
-        <button class="filter-clip" data-filter="vsl">
+        <button class="filter-clip" data-filter="aftermovie">
+          <div class="filter-swatch" style="background:#2A4A1A;"></div>
+          <span data-pt="Aftermovie" data-en="Aftermovie"></span>
+          <span class="filter-count" id="c-aftermovie">2</span>
+        </button>
+        <button class="filter-clip" data-filter="videoclip">
           <div class="filter-swatch" style="background:#5A2D7A;"></div>
-          <span data-pt="VSL / Clipe" data-en="VSL / Music Video"></span>
-          <span class="filter-count" id="c-vsl">2</span>
+          <span data-pt="Videoclipes" data-en="Video Clips"></span>
+          <span class="filter-count" id="c-videoclip">2</span>
         </button>
-        <button class="filter-clip" data-filter="dr">
+        <button class="filter-clip" data-filter="ia">
           <div class="filter-swatch" style="background:#FF6B35;"></div>
-          <span data-pt="Direct Response" data-en="Direct Response"></span>
-          <span class="filter-count" id="c-dr">1</span>
+          <span data-pt="Vídeos IA" data-en="AI Videos"></span>
+          <span class="filter-count" id="c-ia">5</span>
+        </button>
+        <button class="filter-clip" data-filter="curta">
+          <div class="filter-swatch" style="background:#8A6A2A;"></div>
+          <span data-pt="Curta-Metragens" data-en="Short Films"></span>
+          <span class="filter-count" id="c-curta">1</span>
         </button>
       </div>
     </div>
@@ -695,7 +707,7 @@
   <!-- STATUS BAR -->
   <div class="status-bar">
     <div class="sb-item">SEQ <span class="val">PORTFOLIO_2026</span></div>
-    <div class="sb-item">CLIPS <span class="val" id="sb-clips">8</span></div>
+    <div class="sb-item">CLIPS <span class="val" id="sb-clips">16</span></div>
     <div class="sb-item">30fps</div>
     <div class="sb-section-label" id="sb-cat">ALL</div>
   </div>
@@ -736,6 +748,7 @@
     // VIDEO DATA
     // ════════════════════════════════════════
     const VIDEOS = [
+      // ── CRIATIVOS ──────────────────────────
       {
         id:1, category:'criativo', format:'vertical',
         titlePt:'Nammi Cafeteria', titleEn:'Nammi Cafeteria',
@@ -765,39 +778,101 @@
         videoUrl:'https://www.youtube.com/embed/vmr2n1r1AAQ'
       },
       {
-        id:5, category:'criativo', format:'horizontal',
+        id:5, category:'criativo', format:'vertical',
+        titlePt:'Criativo — YouTube Shorts', titleEn:'Creative — YouTube Shorts',
+        descPt:'Criativo em formato Shorts com edição dinâmica para redes sociais.',
+        descEn:'Shorts format creative with dynamic editing for social media.',
+        videoUrl:'https://www.youtube.com/embed/OI1bEUcBWeM'
+      },
+      {
+        id:6, category:'criativo', format:'vertical',
+        titlePt:'Criativo — YouTube Shorts', titleEn:'Creative — YouTube Shorts',
+        descPt:'Formato nativo vertical com hook de impacto e cortes rápidos.',
+        descEn:'Native vertical format with impact hook and fast cuts.',
+        videoUrl:'https://www.youtube.com/embed/8cYbsM5z0nQ'
+      },
+      // ── AFTERMOVIE ─────────────────────────
+      {
+        id:7, category:'aftermovie', format:'vertical',
         titlePt:'Criativo — Produção Própria', titleEn:'Creative — Own Production',
-        descPt:'Criativo horizontal com edição dinâmica e foco em conversão.',
-        descEn:'Horizontal creative with dynamic editing and conversion focus.',
+        descPt:'Criativo vertical com edição dinâmica e foco em conversão.',
+        descEn:'Vertical creative with dynamic editing and conversion focus.',
         videoUrl:'https://drive.google.com/file/d/1-oYewLrlFuUjirLc1TVjmUFpYP2Xx-oJ/preview'
       },
       {
-        id:6, category:'vsl', format:'horizontal',
-        titlePt:'Videoclipe Musical', titleEn:'Music Video',
-        descPt:'Videoclipe com edição narrativa, corte no ritmo e direção visual criativa.',
-        descEn:'Music video with narrative editing, rhythm cuts and creative visual direction.',
-        videoUrl:'https://player.vimeo.com/video/1047582530'
-      },
-      {
-        id:7, category:'vsl', format:'vertical',
-        titlePt:'Short VSL', titleEn:'Short VSL',
-        descPt:'VSL condensada em formato vertical. Alta conversão em cold traffic.',
-        descEn:'Condensed VSL in vertical format. High conversion on cold traffic.',
-        videoUrl:'https://www.youtube.com/embed/BH3zYlYnjJA'
-      },
-      {
-        id:8, category:'dr', format:'horizontal',
+        id:8, category:'aftermovie', format:'horizontal',
         titlePt:'Aftermovie — Imersão Visão de Dono', titleEn:'Aftermovie — Visão de Dono Immersion',
         descPt:'Aftermovie de evento com storytelling emocional e edição cinematográfica.',
         descEn:'Event aftermovie with emotional storytelling and cinematic editing.',
         videoUrl:'https://www.youtube.com/embed/6ANWvn9R2yY'
       },
+      // ── VIDEOCLIPES ─────────────────────────
+      {
+        id:9, category:'videoclip', format:'horizontal',
+        titlePt:'Videoclipe Musical — rardyss · Crânio de Cera', titleEn:'Music Video — rardyss · Crânio de Cera',
+        descPt:'Videoclipe com edição narrativa, corte no ritmo e direção visual criativa.',
+        descEn:'Music video with narrative editing, rhythm cuts and creative visual direction.',
+        videoUrl:'https://player.vimeo.com/video/1047582530'
+      },
+      {
+        id:10, category:'videoclip', format:'vertical',
+        titlePt:'Short VSL', titleEn:'Short VSL',
+        descPt:'VSL condensada em formato vertical. Alta conversão em cold traffic.',
+        descEn:'Condensed VSL in vertical format. High conversion on cold traffic.',
+        videoUrl:'https://www.youtube.com/embed/BH3zYlYnjJA'
+      },
+      // ── VÍDEOS IA ───────────────────────────
+      {
+        id:11, category:'ia', format:'vertical',
+        titlePt:'Vídeo IA — Shorts', titleEn:'AI Video — Shorts',
+        descPt:'Vídeo gerado com IA. Workflow completo: prompt → imagem → vídeo.',
+        descEn:'AI-generated video. Full workflow: prompt → image → video.',
+        videoUrl:'https://www.youtube.com/embed/wR-MDqYlc6I'
+      },
+      {
+        id:12, category:'ia', format:'vertical',
+        titlePt:'Vídeo IA — Shorts', titleEn:'AI Video — Shorts',
+        descPt:'Geração de vídeo com IA aplicada a criativo de redes sociais.',
+        descEn:'AI video generation applied to social media creatives.',
+        videoUrl:'https://www.youtube.com/embed/z8ZObYod_dU'
+      },
+      {
+        id:13, category:'ia', format:'vertical',
+        titlePt:'Reel IA — Instagram', titleEn:'AI Reel — Instagram',
+        descPt:'Criativo com IA publicado no Instagram. Gerado com Kling AI + edição.',
+        descEn:'AI creative published on Instagram. Generated with Kling AI + editing.',
+        videoUrl:'https://www.instagram.com/reel/DXjkVCFDvYv/embed/'
+      },
+      {
+        id:14, category:'ia', format:'vertical',
+        titlePt:'Reel IA — Instagram', titleEn:'AI Reel — Instagram',
+        descPt:'Trend da Arquibancada com IA: vídeo gerado e editado para Reels.',
+        descEn:'Stadium Trend with AI: video generated and edited for Reels.',
+        videoUrl:'https://www.instagram.com/reel/DYNpANMvXNv/embed/'
+      },
+      {
+        id:15, category:'ia', format:'vertical',
+        titlePt:'Vídeo IA — TikTok', titleEn:'AI Video — TikTok',
+        descPt:'Conteúdo gerado com IA para TikTok. Trend com vídeo sintético.',
+        descEn:'AI-generated content for TikTok. Trend with synthetic video.',
+        videoUrl:'https://www.tiktok.com/embed/v2/7632469864266894600'
+      },
+      // ── CURTA-METRAGENS ─────────────────────
+      {
+        id:16, category:'curta', format:'horizontal',
+        titlePt:'Curta-Metragem', titleEn:'Short Film',
+        descPt:'Curta-metragem com direção de fotografia, edição e cor cinematográfica.',
+        descEn:'Short film with cinematography, editing and cinematic color grading.',
+        videoUrl:'https://player.vimeo.com/video/1047584633'
+      },
     ];
 
     const CAT_CONFIG = {
-      criativo: { labelPt:'Criativo', labelEn:'Creative', color:'#2B5280' },
-      vsl:      { labelPt:'VSL',      labelEn:'VSL',      color:'#5A2D7A' },
-      dr:       { labelPt:'Direct Response', labelEn:'Direct Response', color:'#FF6B35' },
+      criativo:   { labelPt:'Criativo',       labelEn:'Creative',    color:'#2B5280' },
+      aftermovie: { labelPt:'Aftermovie',      labelEn:'Aftermovie',  color:'#2A4A1A' },
+      videoclip:  { labelPt:'Videoclipes',     labelEn:'Video Clips', color:'#5A2D7A' },
+      ia:         { labelPt:'Vídeos IA',       labelEn:'AI Videos',   color:'#FF6B35' },
+      curta:      { labelPt:'Curta-Metragens', labelEn:'Short Films', color:'#8A6A2A' },
     };
 
     let currentLang = localStorage.getItem('portfolio-lang') || 'pt';
@@ -896,13 +971,17 @@
       const desc  = currentLang === 'pt' ? v.descPt  : v.descEn;
       const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
       const ratio = v.format === 'vertical' ? '9:16' : '16:9';
-      const isDrive = v.videoUrl.includes('drive.google.com');
-      const allowAttr = isDrive
+      const isDrive     = v.videoUrl.includes('drive.google.com');
+      const isInstagram = v.videoUrl.includes('instagram.com');
+      const isTikTok    = v.videoUrl.includes('tiktok.com');
+      const allowAttr   = (isDrive || isInstagram || isTikTok)
         ? 'autoplay'
         : 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-      const platformLabel = isDrive ? 'Google Drive'
-        : v.videoUrl.includes('vimeo') ? 'Vimeo'
-        : v.format === 'vertical' ? 'YouTube Shorts' : 'YouTube';
+      const platformLabel = isDrive     ? 'Google Drive'
+        : v.videoUrl.includes('vimeo')  ? 'Vimeo'
+        : isInstagram                   ? 'Instagram'
+        : isTikTok                      ? 'TikTok'
+        : v.format === 'vertical'       ? 'YouTube Shorts' : 'YouTube';
 
       return `
         <div class="video-card" data-id="${v.id}">
@@ -940,12 +1019,14 @@
     // COUNTS
     // ════════════════════════════════════════
     function updateCounts() {
-      document.getElementById('c-all').textContent = VIDEOS.length;
-      document.getElementById('c-criativo').textContent = VIDEOS.filter(v=>v.category==='criativo').length;
-      document.getElementById('c-vsl').textContent = VIDEOS.filter(v=>v.category==='vsl').length;
-      document.getElementById('c-dr').textContent = VIDEOS.filter(v=>v.category==='dr').length;
-      document.getElementById('videoCountEl').textContent = VIDEOS.length;
-      document.getElementById('sb-clips').textContent = VIDEOS.length;
+      document.getElementById('c-all').textContent       = VIDEOS.length;
+      document.getElementById('c-criativo').textContent  = VIDEOS.filter(v=>v.category==='criativo').length;
+      document.getElementById('c-aftermovie').textContent= VIDEOS.filter(v=>v.category==='aftermovie').length;
+      document.getElementById('c-videoclip').textContent = VIDEOS.filter(v=>v.category==='videoclip').length;
+      document.getElementById('c-ia').textContent        = VIDEOS.filter(v=>v.category==='ia').length;
+      document.getElementById('c-curta').textContent     = VIDEOS.filter(v=>v.category==='curta').length;
+      document.getElementById('videoCountEl').textContent= VIDEOS.length;
+      document.getElementById('sb-clips').textContent    = VIDEOS.length;
     }
 
     // ════════════════════════════════════════
@@ -956,17 +1037,20 @@
       const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
       const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
       document.getElementById('modalTitle').textContent = title;
-      document.getElementById('modalIframe').src = v.videoUrl + '?autoplay=1';
+      const isThirdParty = v.videoUrl.includes('instagram') || v.videoUrl.includes('tiktok');
+      document.getElementById('modalIframe').src = isThirdParty ? v.videoUrl : v.videoUrl + '?autoplay=1';
       // Adjust modal aspect ratio for vertical videos
       const mv = document.getElementById('modalVideo');
       mv.style.aspectRatio = v.format === 'vertical' ? '9/16' : '16/9';
       mv.style.maxHeight = v.format === 'vertical' ? '70vh' : '';
       mv.style.width = v.format === 'vertical' ? 'auto' : '100%';
       mv.style.margin = v.format === 'vertical' ? '0 auto' : '';
-      const isDrive = v.videoUrl.includes('drive.google.com');
-      const platform = isDrive ? 'Google Drive'
-        : v.videoUrl.includes('vimeo') ? 'Vimeo'
-        : v.format === 'vertical' ? 'Shorts/Reels' : 'YouTube';
+      const isDrive2    = v.videoUrl.includes('drive.google.com');
+      const platform    = isDrive2                           ? 'Google Drive'
+        : v.videoUrl.includes('vimeo')                      ? 'Vimeo'
+        : v.videoUrl.includes('instagram')                  ? 'Instagram'
+        : v.videoUrl.includes('tiktok')                     ? 'TikTok'
+        : v.format === 'vertical'                           ? 'Shorts/Reels' : 'YouTube';
       document.getElementById('modalFooter').innerHTML =
         `<span class="modal-tag">${catLabel}</span>
          <span class="modal-tag">${v.format === 'vertical' ? '9:16' : '16:9'}</span>
@@ -1004,7 +1088,7 @@
       const a1 = document.getElementById('trackA1');
       v1.innerHTML = v2.innerHTML = a1.innerHTML = '';
 
-      const catColors = { criativo:'#2B5280', vsl:'#5A2D7A', dr:'#FF6B35' };
+      const catColors = { criativo:'#2B5280', aftermovie:'#2A4A1A', videoclip:'#5A2D7A', ia:'#FF6B35', curta:'#8A6A2A' };
       const perClip = 100 / videos.length;
 
       videos.forEach((v, i) => {
