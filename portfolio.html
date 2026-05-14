@@ -594,7 +594,6 @@
     <!-- Desktop nav -->
     <div class="toolbar-nav">
       <a href="index.html" class="tn-link">Home</a>
-      <a href="portfolio.html" class="tn-link" style="color:var(--tx-hi);">Portfolio</a>
       <a href="fotografia.html" class="tn-link">Fotografia</a>
       <a href="ia.html" class="tn-link">IA Prompts</a>
       <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
@@ -616,7 +615,6 @@
   <!-- Mobile nav drawer -->
   <div class="mobile-drawer" id="mobileDrawer">
     <a href="index.html">Home</a>
-    <a href="portfolio.html" style="color:var(--tx-hi);">Portfolio</a>
     <a href="fotografia.html">Fotografia</a>
     <a href="ia.html">IA Prompts</a>
     <a href="vendas.html" style="color:var(--orange);">Packs</a>
@@ -644,16 +642,16 @@
         </div>
         <div class="ph-stats">
           <div class="ph-stat">
-            <div class="n" id="videoCountEl">21</div>
-            <div class="l" data-pt="VÍDEOS" data-en="VIDEOS"></div>
+            <div class="n">+300</div>
+            <div class="l" data-pt="VÍDEOS NO ÚLTIMO ANO" data-en="VIDEOS IN THE LAST YEAR"></div>
+          </div>
+          <div class="ph-stat">
+            <div class="n">+2M</div>
+            <div class="l" data-pt="VIEWS" data-en="VIEWS"></div>
           </div>
           <div class="ph-stat">
             <div class="n">50+</div>
-            <div class="l" data-pt="PROJETOS" data-en="PROJECTS"></div>
-          </div>
-          <div class="ph-stat">
-            <div class="n">100%</div>
-            <div class="l" data-pt="PERFORMANCE" data-en="PERFORMANCE"></div>
+            <div class="l" data-pt="FRANQUIAS VENDIDAS EM 2025" data-en="FRANCHISES SOLD IN 2025"></div>
           </div>
         </div>
       </div>
@@ -767,20 +765,6 @@
     const VIDEOS = [
       // ── CRIATIVOS ──────────────────────────
       {
-        id:1, category:'criativo', format:'vertical',
-        titlePt:'Nammi Cafeteria', titleEn:'Nammi Cafeteria',
-        descPt:'Hook viral e cortes rápidos. Formato nativo para Reels e Shorts.',
-        descEn:'Viral hook and fast cuts. Native format for Reels and Shorts.',
-        videoUrl:'https://www.youtube.com/embed/mrk7y-do9AA'
-      },
-      {
-        id:2, category:'criativo', format:'vertical',
-        titlePt:'Kascão Sorvetes', titleEn:'Kascão Sorvetes',
-        descPt:'Transições dinâmicas com power words e retenção acima de 70%.',
-        descEn:'Dynamic transitions with power words and 70%+ retention.',
-        videoUrl:'https://www.youtube.com/embed/cOftoraPrjE'
-      },
-      {
         id:3, category:'criativo', format:'vertical',
         titlePt:'Empório Mineiro Cheirin Bão', titleEn:'Empório Mineiro Cheirin Bão',
         descPt:'Pattern interrupt e movimento para retenção máxima em cold traffic.',
@@ -814,6 +798,20 @@
         descPt:'Criativo vertical com edição dinâmica e storytelling para redes sociais.',
         descEn:'Vertical creative with dynamic editing and storytelling for social media.',
         videoUrl:'https://www.youtube.com/embed/dNccBfUw3hE'
+      },
+      {
+        id:1, category:'criativo', format:'vertical',
+        titlePt:'Nammi Cafeteria', titleEn:'Nammi Cafeteria',
+        descPt:'Hook viral e cortes rápidos. Formato nativo para Reels e Shorts.',
+        descEn:'Viral hook and fast cuts. Native format for Reels and Shorts.',
+        videoUrl:'https://www.youtube.com/embed/mrk7y-do9AA'
+      },
+      {
+        id:2, category:'criativo', format:'vertical',
+        titlePt:'Kascão Sorvetes', titleEn:'Kascão Sorvetes',
+        descPt:'Transições dinâmicas com power words e retenção acima de 70%.',
+        descEn:'Dynamic transitions with power words and 70%+ retention.',
+        videoUrl:'https://www.youtube.com/embed/cOftoraPrjE'
       },
       // ── AFTERMOVIE ─────────────────────────
       {
@@ -876,11 +874,11 @@
         videoUrl:'https://www.youtube.com/embed/hv7u1qo8GBE'
       },
       {
-        id:14, category:'ia', format:'vertical',
-        titlePt:'Homenagem IA — Produção Própria', titleEn:'AI Tribute — Own Production',
+        id:14, category:'ia', format:'horizontal',
+        titlePt:'Michael Jackson — Homenagem IA 2026', titleEn:'Michael Jackson — AI Tribute 2026',
         descPt:'Homenagem gerada com IA. Recriação visual sintética com edição cinematográfica.',
         descEn:'AI-generated tribute. Synthetic visual recreation with cinematic editing.',
-        videoUrl:'https://drive.google.com/file/d/1LxQMKrl3yMY0K0AL1_CuiGsiqj1cUGNJ/preview'
+        videoUrl:'https://archive.org/embed/michael-jackson-homenagem-ia-2026'
       },
       {
         id:15, category:'ia', format:'vertical',
@@ -988,8 +986,8 @@
         const verticals  = catVideos.filter(v => v.format === 'vertical');
         const horizontals = catVideos.filter(v => v.format === 'horizontal');
 
-        // Aftermovie: vertical + horizontal side by side
-        if (cat === 'aftermovie' && verticals.length && horizontals.length) {
+        // Aftermovie / VSL: vertical + horizontal side by side
+        if ((cat === 'aftermovie' || cat === 'vsl') && verticals.length && horizontals.length) {
           html += `<div class="grid-aftermovie">`;
           verticals.forEach(v  => { html += buildCard(v, 'card-v'); });
           horizontals.forEach(v => { html += buildCard(v, 'card-h'); });
@@ -1086,7 +1084,6 @@
       document.getElementById('c-vsl').textContent       = VIDEOS.filter(v=>v.category==='vsl').length;
       document.getElementById('c-ia').textContent        = VIDEOS.filter(v=>v.category==='ia').length;
       document.getElementById('c-curta').textContent     = VIDEOS.filter(v=>v.category==='curta').length;
-      document.getElementById('videoCountEl').textContent= VIDEOS.length;
       document.getElementById('sb-clips').textContent    = VIDEOS.length;
     }
 
