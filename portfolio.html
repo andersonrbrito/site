@@ -351,11 +351,23 @@
       font-size: 8px; font-weight: 600; text-transform: uppercase;
       letter-spacing: .05em; white-space: nowrap; flex-shrink: 0;
     }
-    .card-cat.criativo   { background: rgba(43,82,128,.2);  border: 1px solid rgba(43,82,128,.4);  color: #5BA3FF; }
-    .card-cat.aftermovie { background: rgba(42,74,26,.2);   border: 1px solid rgba(42,74,26,.4);   color: #6FCF65; }
-    .card-cat.videoclip  { background: rgba(90,45,122,.2);  border: 1px solid rgba(90,45,122,.4);  color: #D48EFF; }
-    .card-cat.ia         { background: rgba(255,107,53,.2); border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
-    .card-cat.curta      { background: rgba(138,106,42,.2); border: 1px solid rgba(138,106,42,.4); color: #D4A84B; }
+    .card-cat.criativo   { background: rgba(43,82,128,.2);   border: 1px solid rgba(43,82,128,.4);  color: #5BA3FF; }
+    .card-cat.aftermovie { background: rgba(42,74,26,.2);    border: 1px solid rgba(42,74,26,.4);   color: #6FCF65; }
+    .card-cat.videoclip  { background: rgba(90,45,122,.2);   border: 1px solid rgba(90,45,122,.4);  color: #D48EFF; }
+    .card-cat.vsl        { background: rgba(122,45,90,.2);   border: 1px solid rgba(122,45,90,.4);  color: #F48ECC; }
+    .card-cat.ia         { background: rgba(255,107,53,.2);  border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
+    .card-cat.curta      { background: rgba(138,106,42,.2);  border: 1px solid rgba(138,106,42,.4); color: #D4A84B; }
+
+    /* Aftermovie side-by-side layout */
+    .grid-aftermovie {
+      display: flex; gap: 16px; align-items: stretch; margin-bottom: 8px;
+    }
+    .grid-aftermovie .card-v { flex: 0 0 210px; }
+    .grid-aftermovie .card-h { flex: 1; min-width: 0; }
+    @media (max-width: 768px) {
+      .grid-aftermovie { flex-direction: column; }
+      .grid-aftermovie .card-v { flex: none; }
+    }
     .card-desc { font-size: 12px; color: var(--tx-mid); line-height: 1.5; }
     .card-meta {
       font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
@@ -658,7 +670,7 @@
         <button class="filter-clip" data-filter="criativo">
           <div class="filter-swatch" style="background:#2B5280;"></div>
           <span data-pt="Criativo" data-en="Creative"></span>
-          <span class="filter-count" id="c-criativo">6</span>
+          <span class="filter-count" id="c-criativo">7</span>
         </button>
         <button class="filter-clip" data-filter="aftermovie">
           <div class="filter-swatch" style="background:#2A4A1A;"></div>
@@ -668,7 +680,12 @@
         <button class="filter-clip" data-filter="videoclip">
           <div class="filter-swatch" style="background:#5A2D7A;"></div>
           <span data-pt="Videoclipes" data-en="Video Clips"></span>
-          <span class="filter-count" id="c-videoclip">3</span>
+          <span class="filter-count" id="c-videoclip">2</span>
+        </button>
+        <button class="filter-clip" data-filter="vsl">
+          <div class="filter-swatch" style="background:#7A2D5A;"></div>
+          <span>VSL</span>
+          <span class="filter-count" id="c-vsl">1</span>
         </button>
         <button class="filter-clip" data-filter="ia">
           <div class="filter-swatch" style="background:#FF6B35;"></div>
@@ -678,7 +695,7 @@
         <button class="filter-clip" data-filter="curta">
           <div class="filter-swatch" style="background:#8A6A2A;"></div>
           <span data-pt="Curta-Metragens" data-en="Short Films"></span>
-          <span class="filter-count" id="c-curta">4</span>
+          <span class="filter-count" id="c-curta">2</span>
         </button>
       </div>
     </div>
@@ -779,17 +796,24 @@
       },
       {
         id:5, category:'criativo', format:'vertical',
-        titlePt:'Criativo — YouTube Shorts', titleEn:'Creative — YouTube Shorts',
+        titlePt:'CTR — Edu · Porsche Cup', titleEn:'CTR — Edu · Porsche Cup',
         descPt:'Criativo em formato Shorts com edição dinâmica para redes sociais.',
         descEn:'Shorts format creative with dynamic editing for social media.',
         videoUrl:'https://www.youtube.com/embed/OI1bEUcBWeM'
       },
       {
         id:6, category:'criativo', format:'vertical',
-        titlePt:'Criativo — YouTube Shorts', titleEn:'Creative — YouTube Shorts',
+        titlePt:'CTR — Berit Lucas e Edu', titleEn:'CTR — Berit Lucas e Edu',
         descPt:'Formato nativo vertical com hook de impacto e cortes rápidos.',
         descEn:'Native vertical format with impact hook and fast cuts.',
         videoUrl:'https://www.youtube.com/embed/8cYbsM5z0nQ'
+      },
+      {
+        id:19, category:'criativo', format:'vertical',
+        titlePt:'Café com Conselho — Joel Jota', titleEn:'Café com Conselho — Joel Jota',
+        descPt:'Criativo vertical com edição dinâmica e storytelling para redes sociais.',
+        descEn:'Vertical creative with dynamic editing and storytelling for social media.',
+        videoUrl:'https://www.youtube.com/embed/dNccBfUw3hE'
       },
       // ── AFTERMOVIE ─────────────────────────
       {
@@ -815,54 +839,55 @@
         videoUrl:'https://player.vimeo.com/video/1047582530'
       },
       {
-        id:10, category:'videoclip', format:'vertical',
-        titlePt:'Short VSL', titleEn:'Short VSL',
+        id:17, category:'videoclip', format:'horizontal',
+        titlePt:'Making Of — Sem Tempo Ruim', titleEn:'Making Of — Sem Tempo Ruim',
+        descPt:'Making of com direção criativa, edição dinâmica e cortes no ritmo.',
+        descEn:'Making of with creative direction, dynamic editing and rhythm cuts.',
+        videoUrl:'https://www.youtube.com/embed/0pZS3y-4yJQ'
+      },
+      // ── VSL ─────────────────────────────────
+      {
+        id:10, category:'vsl', format:'vertical',
+        titlePt:'Edu — Marketing Natural · Cheirin Bão', titleEn:'Edu — Natural Marketing · Cheirin Bão',
         descPt:'VSL condensada em formato vertical. Alta conversão em cold traffic.',
         descEn:'Condensed VSL in vertical format. High conversion on cold traffic.',
         videoUrl:'https://www.youtube.com/embed/BH3zYlYnjJA'
       },
-      {
-        id:17, category:'videoclip', format:'horizontal',
-        titlePt:'Videoclipe Musical', titleEn:'Music Video',
-        descPt:'Videoclipe com direção criativa, edição dinâmica e cortes no ritmo.',
-        descEn:'Music video with creative direction, dynamic editing and rhythm cuts.',
-        videoUrl:'https://www.youtube.com/embed/0pZS3y-4yJQ'
-      },
       // ── VÍDEOS IA ───────────────────────────
       {
         id:11, category:'ia', format:'vertical',
-        titlePt:'Vídeo IA — Shorts', titleEn:'AI Video — Shorts',
+        titlePt:'Clube do Franchising — Jantar de Negócios 1', titleEn:'Clube do Franchising — Business Dinner 1',
         descPt:'Vídeo gerado com IA. Workflow completo: prompt → imagem → vídeo.',
         descEn:'AI-generated video. Full workflow: prompt → image → video.',
         videoUrl:'https://www.youtube.com/embed/wR-MDqYlc6I'
       },
       {
         id:12, category:'ia', format:'vertical',
-        titlePt:'Vídeo IA — Shorts', titleEn:'AI Video — Shorts',
+        titlePt:'Clube do Franchising — Jantar de Negócios 2', titleEn:'Clube do Franchising — Business Dinner 2',
         descPt:'Geração de vídeo com IA aplicada a criativo de redes sociais.',
         descEn:'AI video generation applied to social media creatives.',
         videoUrl:'https://www.youtube.com/embed/z8ZObYod_dU'
       },
       {
         id:13, category:'ia', format:'vertical',
-        titlePt:'Reel IA — Instagram', titleEn:'AI Reel — Instagram',
-        descPt:'Criativo com IA publicado no Instagram. Gerado com Kling AI + edição.',
-        descEn:'AI creative published on Instagram. Generated with Kling AI + editing.',
-        videoUrl:'https://www.instagram.com/reel/DXjkVCFDvYv/embed/'
+        titlePt:'Anderson Veste Prada', titleEn:'Anderson Wears Prada',
+        descPt:'Criativo gerado com IA — imagem sintética com Kling AI e edição profissional.',
+        descEn:'AI-generated creative — synthetic image with Kling AI and professional editing.',
+        videoUrl:'https://www.youtube.com/embed/hv7u1qo8GBE'
       },
       {
         id:14, category:'ia', format:'vertical',
-        titlePt:'Reel IA — Instagram', titleEn:'AI Reel — Instagram',
-        descPt:'Trend da Arquibancada com IA: vídeo gerado e editado para Reels.',
-        descEn:'Stadium Trend with AI: video generated and edited for Reels.',
-        videoUrl:'https://www.instagram.com/reel/DYNpANMvXNv/embed/'
+        titlePt:'Michael Jackson — Homenagem IA 2026', titleEn:'Michael Jackson — AI Tribute 2026',
+        descPt:'Homenagem gerada com IA. Recriação visual sintética com edição cinematográfica.',
+        descEn:'AI-generated tribute. Synthetic visual recreation with cinematic editing.',
+        videoUrl:'https://www.youtube.com/embed/cxEVeZR4z30'
       },
       {
         id:15, category:'ia', format:'vertical',
-        titlePt:'Vídeo IA — TikTok', titleEn:'AI Video — TikTok',
-        descPt:'Conteúdo gerado com IA para TikTok. Trend com vídeo sintético.',
-        descEn:'AI-generated content for TikTok. Trend with synthetic video.',
-        videoUrl:'https://www.tiktok.com/embed/v2/7632469864266894600'
+        titlePt:'Manoel Gomes — SUS com uma Canetada', titleEn:'Manoel Gomes — SUS com uma Canetada',
+        descPt:'Vídeo viral com mais de 230 mil views no TikTok. Gerado e editado com IA.',
+        descEn:'Viral video with over 230K views on TikTok. Generated and edited with AI.',
+        videoUrl:'https://www.youtube.com/embed/AFDkgwqnjqk'
       },
       // ── CURTA-METRAGENS ─────────────────────
       {
@@ -874,17 +899,10 @@
       },
       {
         id:18, category:'curta', format:'horizontal',
-        titlePt:'Curta-Metragem', titleEn:'Short Film',
-        descPt:'Produção independente com edição e montagem narrativa.',
-        descEn:'Independent production with editing and narrative assembly.',
+        titlePt:'Wilton Bezerra — Especial de Apresentação', titleEn:'Wilton Bezerra — Special Presentation',
+        descPt:'Produção audiovisual com edição dinâmica e montagem narrativa.',
+        descEn:'Audiovisual production with dynamic editing and narrative assembly.',
         videoUrl:'https://www.youtube.com/embed/_T_-FoQIj98'
-      },
-      {
-        id:19, category:'curta', format:'vertical',
-        titlePt:'Curta — Vertical', titleEn:'Short Film — Vertical',
-        descPt:'Curta-metragem em formato vertical para plataformas de vídeo curto.',
-        descEn:'Short film in vertical format for short-form video platforms.',
-        videoUrl:'https://www.youtube.com/embed/dNccBfUw3hE'
       },
     ];
 
@@ -892,6 +910,7 @@
       criativo:   { labelPt:'Criativo',       labelEn:'Creative',    color:'#2B5280' },
       aftermovie: { labelPt:'Aftermovie',      labelEn:'Aftermovie',  color:'#2A4A1A' },
       videoclip:  { labelPt:'Videoclipes',     labelEn:'Video Clips', color:'#5A2D7A' },
+      vsl:        { labelPt:'VSL',             labelEn:'VSL',         color:'#7A2D5A' },
       ia:         { labelPt:'Vídeos IA',       labelEn:'AI Videos',   color:'#FF6B35' },
       curta:      { labelPt:'Curta-Metragens', labelEn:'Short Films', color:'#8A6A2A' },
     };
@@ -951,22 +970,27 @@
           </div>`;
 
         // Separate by format
-        const verticals = catVideos.filter(v => v.format === 'vertical');
+        const verticals  = catVideos.filter(v => v.format === 'vertical');
         const horizontals = catVideos.filter(v => v.format === 'horizontal');
 
-        if (verticals.length) {
-          html += `<div class="grid-vertical">`;
-          verticals.forEach(v => { html += buildCard(v); });
+        // Aftermovie: vertical + horizontal side by side
+        if (cat === 'aftermovie' && verticals.length && horizontals.length) {
+          html += `<div class="grid-aftermovie">`;
+          verticals.forEach(v  => { html += buildCard(v, 'card-v'); });
+          horizontals.forEach(v => { html += buildCard(v, 'card-h'); });
           html += `</div>`;
-        }
-
-        if (horizontals.length) {
+        } else {
           if (verticals.length) {
-            html += `<div style="margin-top:12px;"></div>`;
+            html += `<div class="grid-vertical">`;
+            verticals.forEach(v => { html += buildCard(v); });
+            html += `</div>`;
           }
-          html += `<div class="grid-horizontal">`;
-          horizontals.forEach(v => { html += buildCard(v); });
-          html += `</div>`;
+          if (horizontals.length) {
+            if (verticals.length) html += `<div style="margin-top:12px;"></div>`;
+            html += `<div class="grid-horizontal">`;
+            horizontals.forEach(v => { html += buildCard(v); });
+            html += `</div>`;
+          }
         }
       });
 
@@ -986,7 +1010,7 @@
       document.getElementById('sb-cat').textContent = filter.toUpperCase();
     }
 
-    function buildCard(v) {
+    function buildCard(v, extraClass = '') {
       const cfg = CAT_CONFIG[v.category];
       const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
       const desc  = currentLang === 'pt' ? v.descPt  : v.descEn;
@@ -1005,7 +1029,7 @@
         : v.format === 'vertical'       ? 'YouTube Shorts' : 'YouTube';
 
       return `
-        <div class="video-card" data-id="${v.id}">
+        <div class="video-card${extraClass ? ' '+extraClass : ''}" data-id="${v.id}">
           <div class="video-wrapper ${v.format}">
             <iframe src="${v.videoUrl}"
               allow="${allowAttr}"
@@ -1044,6 +1068,7 @@
       document.getElementById('c-criativo').textContent  = VIDEOS.filter(v=>v.category==='criativo').length;
       document.getElementById('c-aftermovie').textContent= VIDEOS.filter(v=>v.category==='aftermovie').length;
       document.getElementById('c-videoclip').textContent = VIDEOS.filter(v=>v.category==='videoclip').length;
+      document.getElementById('c-vsl').textContent       = VIDEOS.filter(v=>v.category==='vsl').length;
       document.getElementById('c-ia').textContent        = VIDEOS.filter(v=>v.category==='ia').length;
       document.getElementById('c-curta').textContent     = VIDEOS.filter(v=>v.category==='curta').length;
       document.getElementById('videoCountEl').textContent= VIDEOS.length;
@@ -1103,24 +1128,49 @@
       rulerEl.appendChild(el);
     });
 
-    function buildTimelineClips(videos) {
+    function buildTimelineClips(filtered) {
       const v1 = document.getElementById('trackV1');
       const v2 = document.getElementById('trackV2');
       const a1 = document.getElementById('trackA1');
       v1.innerHTML = v2.innerHTML = a1.innerHTML = '';
 
-      const catColors = { criativo:'#2B5280', aftermovie:'#2A4A1A', videoclip:'#5A2D7A', ia:'#FF6B35', curta:'#8A6A2A' };
-      const perClip = 100 / videos.length;
-
-      videos.forEach((v, i) => {
+      // V1 — one section block per category (always shows full structure)
+      const total = VIDEOS.length;
+      let pos = 0;
+      Object.keys(CAT_CONFIG).forEach(cat => {
+        const catVids = VIDEOS.filter(v => v.category === cat);
+        if (!catVids.length) return;
+        const pct = (catVids.length / total) * 100;
         const el = document.createElement('div');
         el.className = 'tl-clip';
-        el.style.cssText = `left:${i*perClip}%;width:${perClip - 0.5}%;background:${catColors[v.category]};`;
-        const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
-        el.innerHTML = `<span class="tl-clip-label">${title}</span>`;
-        el.addEventListener('click', () => openModal(v));
+        const cfg = CAT_CONFIG[cat];
+        el.style.cssText = `left:${pos.toFixed(2)}%;width:${Math.max(pct - 0.4, 0.5).toFixed(2)}%;background:${cfg.color};`;
+        const label = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
+        el.innerHTML = `<span class="tl-clip-label">${label}</span>`;
+        el.addEventListener('click', () => {
+          document.querySelectorAll('.filter-clip').forEach(b => b.classList.remove('active'));
+          const btn = document.querySelector(`.filter-clip[data-filter="${cat}"]`);
+          if (btn) btn.classList.add('active');
+          renderGrid(cat);
+        });
         v1.appendChild(el);
+        pos += pct;
       });
+
+      // V2 — individual clips shown only when a category filter is active
+      if (filtered.length < VIDEOS.length && filtered.length > 0) {
+        const perClip = 100 / filtered.length;
+        filtered.forEach((v, i) => {
+          const el = document.createElement('div');
+          el.className = 'tl-clip';
+          const cfg = CAT_CONFIG[v.category];
+          el.style.cssText = `left:${(i*perClip).toFixed(2)}%;width:${(perClip-0.5).toFixed(2)}%;background:${cfg.color};opacity:0.65;`;
+          const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
+          el.innerHTML = `<span class="tl-clip-label">${title}</span>`;
+          el.addEventListener('click', () => openModal(v));
+          v2.appendChild(el);
+        });
+      }
 
       // A1 waveform
       const a1Clip = document.createElement('div');
