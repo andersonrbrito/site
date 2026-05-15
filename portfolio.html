@@ -358,13 +358,21 @@
     .card-cat.ia         { background: rgba(255,107,53,.2);  border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
     .card-cat.curta      { background: rgba(138,106,42,.2);  border: 1px solid rgba(138,106,42,.4); color: #D4A84B; }
 
-    /* Aftermovie side-by-side layout */
+    /* Aftermovie: 2 verticals in paired grid, horizontal below */
+    .aftermovie-verticals {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px; margin-bottom: 12px;
+      max-width: 680px;
+    }
+    /* VSL / single-vertical side-by-side */
     .grid-aftermovie {
       display: flex; gap: 16px; align-items: stretch; margin-bottom: 8px;
     }
-    .grid-aftermovie .card-v { flex: 0 0 210px; }
+    .grid-aftermovie .card-v { flex: 0 0 300px; }
     .grid-aftermovie .card-h { flex: 1; min-width: 0; }
     @media (max-width: 768px) {
+      .aftermovie-verticals { max-width: 100%; grid-template-columns: 1fr 1fr; }
       .grid-aftermovie { flex-direction: column; }
       .grid-aftermovie .card-v { flex: none; }
     }
@@ -759,7 +767,7 @@
       <div class="about-teaser-inner">
         <div>
           <div class="about-teaser-label">SEQUÊNCIA 4 · SOBRE</div>
-          <div class="about-teaser-title">Filmmaker. MBA FGV.<br>Instituto de Cinema de SP.</div>
+          <div class="about-teaser-title">Editor de Vídeos. MBA FGV.<br>Instituto de Cinema de SP.</div>
           <p class="about-teaser-sub" style="max-width:520px;line-height:1.65;">9 anos na Vice-Presidência da FGV. Fotógrafo profissional desde 2015. Hoje por trás de +300 vídeos/ano para a <strong style="color:var(--tx-hi);">Escola do Franchising</strong>, Joel Jota, Flávio Augusto e Caio Carneiro — com resultados de +2M de views e 50+ franquias vendidas em 2025.</p>
         </div>
         <a href="saiba-mais.html" class="about-teaser-btn">
@@ -892,7 +900,7 @@
         titlePt:'Criativo — Produção Própria', titleEn:'Creative — Own Production',
         descPt:'Criativo vertical com edição dinâmica e foco em conversão.',
         descEn:'Vertical creative with dynamic editing and conversion focus.',
-        videoUrl:'https://drive.google.com/file/d/1-oYewLrlFuUjirLc1TVjmUFpYP2Xx-oJ/preview'
+        videoUrl:'https://archive.org/embed/aftermovie-imersao-nov-2025'
       },
       {
         id:8, category:'aftermovie', format:'horizontal',
@@ -1059,8 +1067,16 @@
         const verticals  = catVideos.filter(v => v.format === 'vertical');
         const horizontals = catVideos.filter(v => v.format === 'horizontal');
 
-        // Aftermovie / VSL: vertical + horizontal side by side
-        if ((cat === 'aftermovie' || cat === 'vsl') && verticals.length && horizontals.length) {
+        if (cat === 'aftermovie' && verticals.length >= 2 && horizontals.length) {
+          // 2+ verticals in paired grid, horizontal full-width below
+          html += `<div class="aftermovie-verticals">`;
+          verticals.forEach(v => { html += buildCard(v); });
+          html += `</div>`;
+          html += `<div class="grid-horizontal">`;
+          horizontals.forEach(v => { html += buildCard(v); });
+          html += `</div>`;
+        } else if (cat === 'vsl' && verticals.length && horizontals.length) {
+          // VSL: vertical + horizontal side-by-side (vertical wider)
           html += `<div class="grid-aftermovie">`;
           verticals.forEach(v  => { html += buildCard(v, 'card-v'); });
           horizontals.forEach(v => { html += buildCard(v, 'card-h'); });
