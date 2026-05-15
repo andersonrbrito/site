@@ -360,6 +360,34 @@
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%; border: none;
     }
+    /* Lazy thumbnail (loads iframe only on click via modal) */
+    .thumb-img, .thumb-fallback {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; transition: transform .3s, filter .3s;
+    }
+    .thumb-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.18);
+      transition: background .2s;
+    }
+    .thumb-play-btn {
+      width: 56px; height: 56px;
+      background: rgba(0,0,0,.65);
+      border: 2px solid rgba(255,255,255,.9);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      backdrop-filter: blur(4px);
+      transition: transform .2s, background .2s, border-color .2s;
+    }
+    .video-card:hover .thumb-play-btn {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.12);
+    }
+    .video-card:hover .thumb-img { transform: scale(1.04); filter: brightness(1.1); }
+    .video-card:hover .thumb-overlay { background: rgba(0,0,0,.05); }
 
     /* CARD CONTENT */
     .card-content { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
@@ -1143,6 +1171,23 @@
       const sbCat = document.getElementById('sb-cat'); if (sbCat) sbCat.textContent = filter.toUpperCase();
     }
 
+    // Helpers para thumbnails (lazy-load real iframe só no clique)
+    function getYouTubeId(url) {
+      const m = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
+      return m ? m[1] : null;
+    }
+    function getVimeoId(url) {
+      const m = url.match(/vimeo\.com\/video\/(\d+)/) || url.match(/vimeo\.com\/(\d+)/);
+      return m ? m[1] : null;
+    }
+    function getThumbUrl(v) {
+      const ytId = getYouTubeId(v.videoUrl);
+      if (ytId) return `https://i.ytimg.com/vi/${ytId}/mqdefault.jpg`;
+      const vmId = getVimeoId(v.videoUrl);
+      if (vmId) return `https://vumbnail.com/${vmId}.jpg`;
+      return null;
+    }
+
     function buildCard(v, extraClass = '') {
       const cfg = CAT_CONFIG[v.category];
       const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
@@ -1152,21 +1197,27 @@
       const isDrive     = v.videoUrl.includes('drive.google.com');
       const isInstagram = v.videoUrl.includes('instagram.com');
       const isTikTok    = v.videoUrl.includes('tiktok.com');
-      const allowAttr   = (isDrive || isInstagram || isTikTok)
-        ? 'autoplay'
-        : 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      const isArchive   = v.videoUrl.includes('archive.org');
       const platformLabel = isDrive     ? 'Google Drive'
         : v.videoUrl.includes('vimeo')  ? 'Vimeo'
         : isInstagram                   ? 'Instagram'
         : isTikTok                      ? 'TikTok'
+        : isArchive                     ? 'Archive.org'
         : v.format === 'vertical'       ? 'YouTube Shorts' : 'YouTube';
+      const thumbUrl = getThumbUrl(v);
+      const thumbHtml = thumbUrl
+        ? `<img src="${thumbUrl}" alt="${title}" loading="lazy" class="thumb-img" onerror="this.style.display='none'">`
+        : `<div class="thumb-fallback" style="background:linear-gradient(135deg, ${cfg.color} 0%, #0A0A0C 100%);"></div>`;
 
       return `
         <div class="video-card${extraClass ? ' '+extraClass : ''}" data-id="${v.id}">
           <div class="video-wrapper ${v.format}">
-            <iframe src="${v.videoUrl}"
-              allow="${allowAttr}"
-              allowfullscreen loading="lazy"></iframe>
+            ${thumbHtml}
+            <div class="thumb-overlay">
+              <div class="thumb-play-btn" aria-label="Play">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
           </div>
           <div class="card-content">
             <div class="card-header">
