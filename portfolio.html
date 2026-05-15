@@ -593,36 +593,6 @@
       <div class="menu-pr-icon">AB</div>
       <span>andersonbrito.com</span>
     </div>
-    <div class="menu-items">
-      <div class="menu-item">
-        Arquivo
-        <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="window.open('https://wa.me/5511948577950', '_blank')">Novo Projeto</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='briefing.html'">Briefing</div>
-        </div>
-      </div>
-      <div class="menu-item">
-        Sequência
-        <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="window.location.href='index.html'">Sequência 1 — Home</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='portfolio.html'" style="color:var(--accent)">Sequência 2 — Portfolio ◀</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='fotografia.html'">Sequência 3 — Fotografia</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='saiba-mais.html'">Sequência 4 — Sobre</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='ia.html'">Sequência 5 — Projetos IA</div>
-          <div class="menu-dropdown-item" onclick="window.location.href='vendas.html'" style="color:var(--orange);font-weight:600;">Sequência 6 — APRENDA ⭐</div>
-        </div>
-      </div>
-      <div class="menu-item">
-        Janela
-        <div class="menu-dropdown">
-          <div class="menu-dropdown-item" onclick="document.documentElement.requestFullscreen().catch(e=>{})">Tela Cheia</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://www.instagram.com/andersonbrito.mp4','_blank')">Instagram</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://www.linkedin.com/in/andbrito/','_blank')">LinkedIn</div>
-          <div class="menu-dropdown-item" onclick="window.open('https://vimeo.com/andersonilmar','_blank')">Vimeo</div>
-        </div>
-      </div>
-    </div>
-    <div class="menu-project">anderson_brito_portfolio.prproj</div>
     <div class="menu-right">
       <div class="menu-status-dot"></div>
       <div class="menu-status-text" id="statusText">DISPONÍVEL</div>
@@ -633,22 +603,6 @@
        TOOLBAR
   ═══════════════════════════════════════ -->
   <div class="toolbar">
-    <div class="tool-group">
-      <div class="tool-btn active" title="Seleção">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="currentColor"><path d="M1 1l9 4.5-4.5 1L4 10z"/></svg>
-      </div>
-      <div class="tool-btn" title="Corte">
-        <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 2l7 7M2 9l7-7"/></svg>
-      </div>
-    </div>
-    <div class="tool-group">
-      <div class="timecode-display">
-        <span id="tcH">00</span><span class="tc-sep">:</span><span id="tcM">00</span><span class="tc-sep">:</span><span id="tcS">00</span><span class="tc-sep">;</span><span id="tcF">00</span>
-      </div>
-    </div>
-    <div class="tool-group">
-      <div class="seq-info">▸ PORTFOLIO · 3840×2160 · 30fps</div>
-    </div>
 
     <!-- Desktop nav -->
     <div class="toolbar-nav">
@@ -791,14 +745,6 @@
       </div>
       <div class="modal-footer" id="modalFooter"></div>
     </div>
-  </div>
-
-  <!-- STATUS BAR -->
-  <div class="status-bar">
-    <div class="sb-item">SEQ <span class="val">PORTFOLIO_2026</span></div>
-    <div class="sb-item">CLIPS <span class="val" id="sb-clips">21</span></div>
-    <div class="sb-item">30fps</div>
-    <div class="sb-section-label" id="sb-cat">ALL</div>
   </div>
 
   <!-- FIXED TIMELINE -->
@@ -1109,7 +1055,7 @@
 
       updateCounts(filter);
       buildTimelineClips(filtered);
-      document.getElementById('sb-cat').textContent = filter.toUpperCase();
+      const sbCat = document.getElementById('sb-cat'); if (sbCat) sbCat.textContent = filter.toUpperCase();
     }
 
     function buildCard(v, extraClass = '') {
@@ -1173,7 +1119,7 @@
       document.getElementById('c-vsl').textContent       = VIDEOS.filter(v=>v.category==='vsl').length;
       document.getElementById('c-ia').textContent        = VIDEOS.filter(v=>v.category==='ia').length;
       document.getElementById('c-curta').textContent     = VIDEOS.filter(v=>v.category==='curta').length;
-      document.getElementById('sb-clips').textContent    = VIDEOS.length;
+      const sbClips = document.getElementById('sb-clips'); if (sbClips) sbClips.textContent = VIDEOS.length;
     }
 
     // ════════════════════════════════════════
@@ -1292,16 +1238,16 @@
       a1.appendChild(a1Clip);
     }
 
-    // Timecode — driven by scroll position
+    // Timecode — driven by scroll position (no-op if display elements were removed)
     function updateTimecode(pct) {
-      // Map 0-100% scroll to 00:00:00;00 → 00:02:00;00
+      const tcH = document.getElementById('tcH'); if (!tcH) return;
       const totalFrames = 2 * 60 * 30; // 2min @ 30fps
       const f = Math.floor(pct / 100 * totalFrames);
       const fr = f % 30;
       const s  = Math.floor(f / 30) % 60;
       const m  = Math.floor(f / 1800) % 60;
       const h  = Math.floor(f / 108000);
-      document.getElementById('tcH').textContent = String(h).padStart(2,'0');
+      tcH.textContent = String(h).padStart(2,'0');
       document.getElementById('tcM').textContent = String(m).padStart(2,'0');
       document.getElementById('tcS').textContent = String(s).padStart(2,'0');
       document.getElementById('tcF').textContent = String(fr).padStart(2,'0');
