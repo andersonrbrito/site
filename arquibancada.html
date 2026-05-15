@@ -557,7 +557,7 @@
       font-size: 8px; letter-spacing: .04em; white-space: nowrap; text-transform: uppercase;
     }
     .tl-waveform { position: absolute; inset: 2px; display: flex; align-items: center; gap: 1px; }
-    .wv-bar { width: 2px; border-radius: 1px; flex-shrink: 0; }
+    .wv-bar { flex: 1 1 0; min-width: 2px; max-width: 8px; border-radius: 1px; }
 
     /* ── REVEAL ─── */
     .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
@@ -1087,7 +1087,7 @@ Camera slowly pans through the crowd, finds the subject. Shallow depth of field.
       audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg,#1A0800 0%,#2A1000 50%,#1A0800 100%);';
       const waveDiv = document.createElement('div');
       waveDiv.className = 'tl-waveform';
-      [40,80,55,90,35,70,60,85,45,75,50,95,30,70,65,80,45,60,90,55,40,75,50,85,60,70,45,90,55,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55,70].forEach(h => {
+      [40,80,55,90,35,70,60,85,45,75,50,95,30,70,65,80,45,60,90,55,40,75,50,85,60,70,45,90,55,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55,70,40,80,55,90,35,70,60,85,45,75,50,95,30,70,65,80,45,60,90,55,40,75,50,85,60,70,45,90,55,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55,70,40,80,55,90,35,70,60,85,45,75,50,95,30,70,65,80,45,60,90,55,40,75,50,85,60,70,45,90,55,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55,70].forEach(h => {
         const bar = document.createElement('div');
         bar.className = 'wv-bar';
         bar.style.cssText = `height:${h}%;background:linear-gradient(180deg,#FF8C00 0%,#FF4500 100%);opacity:0.55;`;

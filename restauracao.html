@@ -468,7 +468,7 @@
       font-size: 8px; letter-spacing: .04em; white-space: nowrap; text-transform: uppercase;
     }
     .tl-waveform { position: absolute; inset: 2px; display: flex; align-items: center; gap: 1px; }
-    .wv-bar { width: 2px; border-radius: 1px; flex-shrink: 0; }
+    .wv-bar { flex: 1 1 0; min-width: 2px; max-width: 8px; border-radius: 1px; }
 
     /* ── BEFORE / AFTER SLIDER ─── */
     .ba-wrap {
@@ -883,7 +883,7 @@ Use a cinematic camera/lens look (shallow depth of field, natural bokeh). Keep t
       audioClip.style.cssText = 'left:0;width:100%;background:linear-gradient(90deg,#1A1000 0%,#2A1A00 50%,#1A1000 100%);';
       const waveDiv = document.createElement('div');
       waveDiv.className = 'tl-waveform';
-      [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55].forEach(h => {
+      [30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55,30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55,30,60,80,45,70,55,90,40,65,75,50,85,35,70,60,80,45,55,70,90,40,65,50,80,60,75,45,85,55,70,65,40,80,55,70,90,45,60,50,75,85,40,65,55,80,70,45,60,90,55].forEach(h => {
         const bar = document.createElement('div');
         bar.className = 'wv-bar';
         bar.style.cssText = `height:${h}%;background:linear-gradient(180deg,#F5C842 0%,#FF9800 100%);opacity:0.55;`;

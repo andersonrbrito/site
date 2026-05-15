@@ -543,7 +543,7 @@
       padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
     .tl-waveform { position: absolute; inset: 0; display: flex; align-items: center; gap: 1px; padding: 2px 4px; overflow: hidden; }
-    .wv-bar { width: 1.5px; background: rgba(255,150,50,.6); border-radius: 1px; flex-shrink: 0; }
+    .wv-bar { flex: 1 1 0; min-width: 2px; max-width: 8px; background: rgba(255,150,50,0.6); border-radius: 1px; opacity: 0.6; }
     .wv-bar[data-filled="true"] { opacity: 1; background: linear-gradient(180deg,#FFB366 0%,#FF8855 100%); }
     .tl-playhead {
       position: absolute; top: 0; bottom: 0; width: 1px;
@@ -1361,7 +1361,7 @@
       a1Clip.style.cssText = `left:0;width:100%;background:#4A3010;`;
       const wv = document.createElement('div');
       wv.className = 'tl-waveform';
-      const bars = 60;
+      const bars = 180;
       for (let i = 0; i < bars; i++) {
         const bar = document.createElement('div');
         bar.className = 'wv-bar';
