@@ -16,6 +16,26 @@
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Anderson Brito">
 
+  <!-- Schema.org / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Anderson Brito — Edição de Vídeo",
+    "url": "https://andersonbrito.com/portfolio.html",
+    "image": "https://andersonbrito.com/assets/foto-perfil.jpg",
+    "description": "Portfolio de edição: criativos, aftermovies, videoclipes, VSL, vídeos com IA e curta-metragens.",
+    "provider": {
+      "@type": "Person",
+      "name": "Anderson Brito",
+      "url": "https://andersonbrito.com",
+      "jobTitle": "Editor de Vídeo"
+    },
+    "areaServed": "Brasil",
+    "serviceType": ["Edição de Vídeo", "Criativos para Anúncio", "VSL", "Aftermovie", "Videoclipe", "Curta-Metragem"]
+  }
+  </script>
+
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="canonical" href="https://andersonbrito.com/portfolio.html">
 
@@ -514,6 +534,54 @@
     /* ═══════════════════════════════════════
        ABOUT TEASER CTA
     ═══════════════════════════════════════ */
+    /* ═══════════════════════════════════════
+       PORTFOLIO CONTACT CTA
+    ═══════════════════════════════════════ */
+    .portfolio-contact-cta {
+      background: linear-gradient(135deg, #0F1A2A 0%, #0A0A0C 100%);
+      border-top: 1px solid var(--accent);
+      border-bottom: 1px solid var(--pr-sep);
+      padding: 48px 24px;
+      position: relative; overflow: hidden;
+    }
+    .portfolio-contact-cta::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 50% 80% at 100% 50%, rgba(37,211,102,.08) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .portfolio-contact-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap; position: relative;
+    }
+    .portfolio-contact-label {
+      font-family: var(--f-mono); font-size: 9px; color: #25D366;
+      letter-spacing: .18em; text-transform: uppercase; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .portfolio-contact-title {
+      font-family: var(--f-head); font-size: clamp(22px, 3.5vw, 32px);
+      font-weight: 900; font-style: italic; line-height: 1.1;
+      color: var(--tx-hi); margin-bottom: 10px;
+    }
+    .portfolio-contact-sub { font-size: 14px; color: var(--tx-mid); max-width: 420px; line-height: 1.55; }
+    .portfolio-contact-btn {
+      display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0;
+      background: #25D366; color: #0A0A0C;
+      font-family: var(--f-head); font-size: 14px; font-weight: 800;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: 18px 32px; border-radius: 4px;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 6px 24px rgba(37,211,102,.3);
+    }
+    .portfolio-contact-btn:hover {
+      background: #2AE676; transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(37,211,102,.5);
+    }
+    @media (max-width: 768px) {
+      .portfolio-contact-inner { flex-direction: column; align-items: flex-start; }
+    }
+
     .about-teaser {
       background: #080810;
       border-top: 1px solid var(--pr-sep);
@@ -572,7 +640,10 @@
       .hamburger-btn { display: flex; }
       .lang-toggle { margin-left: auto; }
       .ph-inner { flex-direction: column; align-items: flex-start; }
-      .ph-stats { display: none; }
+      .ph-stats { gap: 16px; width: 100%; justify-content: flex-start; }
+      .ph-stat .n { font-size: 22px; }
+      .ph-stat .l { font-size: 8px; }
+      .ph-stat { text-align: left; }
       .grid-vertical { grid-template-columns: repeat(2, 1fr); }
       .grid-horizontal { grid-template-columns: 1fr; }
       .tl-clip-label { font-size: 7px; }
@@ -714,6 +785,20 @@
     <!-- PORTFOLIO MAIN -->
     <div class="portfolio-main" id="portfolioMain">
       <!-- JS renders here -->
+    </div>
+
+    <!-- CONTACT CTA — inside portfolio for direct conversion -->
+    <div class="portfolio-contact-cta">
+      <div class="portfolio-contact-inner">
+        <div>
+          <div class="portfolio-contact-label">// VAMOS CONVERSAR</div>
+          <div class="portfolio-contact-title">Curtiu o que viu?<br>Bora trabalhar juntos.</div>
+          <p class="portfolio-contact-sub">Resposta em algumas horas. Conta o que tá rolando que te respondo direto no zap.</p>
+        </div>
+        <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20seu%20portfolio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener" class="portfolio-contact-btn">
+          💬 Manda um zap
+        </a>
+      </div>
     </div>
 
     <!-- ABOUT TEASER -->
