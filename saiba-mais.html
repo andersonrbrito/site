@@ -418,6 +418,28 @@
       font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); letter-spacing: .04em;
     }
 
+    /* ── CAROUSEL SOBRE ──────────────────────── */
+    .carousel-sobre {
+      padding: 0 24px 40px;
+      background: #0A0A0C;
+      border-bottom: 1px solid var(--pr-sep);
+    }
+    .carousel-sobre-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .carousel-sobre-label {
+      font-family: var(--f-mono); font-size: 9px; color: var(--accent);
+      letter-spacing: .16em; text-transform: uppercase;
+      padding: 20px 0 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .carousel-sobre-label::before { content: '//'; color: var(--tx-lo); }
+    .carousel-sobre img {
+      width: 100%; border-radius: 4px;
+      border: 1px solid var(--pr-sep);
+      display: block;
+    }
+
     /* ── FIXED TIMELINE ───────────────────────── */
     .timeline-panel {
       position:fixed;bottom:0;left:0;right:0;
@@ -593,6 +615,14 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- ══ CAROUSEL SOBRE ═══════════════════════ -->
+    <div class="carousel-sobre">
+      <div class="carousel-sobre-inner">
+        <div class="carousel-sobre-label">MINHA HISTÓRIA · INSTAGRAM CAROUSEL</div>
+        <img src="assets/carousel-sobre.png" alt="Anderson Brito — trajetória: fotógrafo, cinema, FGV, família e mais" loading="lazy">
       </div>
     </div>
 

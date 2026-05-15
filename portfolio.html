@@ -504,6 +504,57 @@
     }
 
     /* ═══════════════════════════════════════
+       ABOUT TEASER CTA
+    ═══════════════════════════════════════ */
+    .about-teaser {
+      background: #080810;
+      border-top: 1px solid var(--pr-sep);
+      padding: 40px 24px 44px;
+      position: relative; overflow: hidden;
+    }
+    .about-teaser::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 60% 100% at 100% 50%, rgba(61,167,255,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .about-teaser-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap; position: relative;
+    }
+    .about-teaser-label {
+      font-family: var(--f-mono); font-size: 9px; color: var(--accent);
+      letter-spacing: .16em; text-transform: uppercase; margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .about-teaser-label::before { content: '//'; color: var(--tx-lo); }
+    .about-teaser-title {
+      font-family: var(--f-head); font-size: clamp(22px, 3.5vw, 34px);
+      font-weight: 900; font-style: italic; line-height: 1.1;
+      color: var(--tx-hi); margin-bottom: 10px;
+    }
+    .about-teaser-title em { color: var(--accent); font-style: normal; }
+    .about-teaser-sub { font-size: 13px; color: var(--tx-mid); max-width: 380px; }
+    .about-teaser-btn {
+      display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0;
+      background: var(--accent-2); color: #fff;
+      font-family: var(--f-head); font-size: 13px; font-weight: 700;
+      letter-spacing: .07em; text-transform: uppercase;
+      padding: 16px 28px; border-radius: 4px;
+      transition: background .2s, transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 20px rgba(0,112,209,.3);
+    }
+    .about-teaser-btn:hover {
+      background: var(--accent); transform: translateX(4px);
+      box-shadow: 0 4px 28px rgba(61,167,255,.4);
+    }
+    .about-teaser-btn .btn-arrow { font-size: 18px; transition: transform .2s; }
+    .about-teaser-btn:hover .btn-arrow { transform: translateX(5px); }
+    @media (max-width: 768px) {
+      .about-teaser-inner { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ═══════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════ */
     @media (max-width: 768px) {
@@ -663,7 +714,7 @@
       <div class="filter-clips">
         <button class="filter-clip active" data-filter="all">
           <span data-pt="Todos" data-en="All"></span>
-          <span class="filter-count" id="c-all">21</span>
+          <span class="filter-count" id="c-all">22</span>
         </button>
         <button class="filter-clip" data-filter="criativo">
           <div class="filter-swatch" style="background:#2B5280;"></div>
@@ -673,7 +724,7 @@
         <button class="filter-clip" data-filter="aftermovie">
           <div class="filter-swatch" style="background:#2A4A1A;"></div>
           <span data-pt="Aftermovie" data-en="Aftermovie"></span>
-          <span class="filter-count" id="c-aftermovie">2</span>
+          <span class="filter-count" id="c-aftermovie">3</span>
         </button>
         <button class="filter-clip" data-filter="videoclip">
           <div class="filter-swatch" style="background:#5A2D7A;"></div>
@@ -701,6 +752,21 @@
     <!-- PORTFOLIO MAIN -->
     <div class="portfolio-main" id="portfolioMain">
       <!-- JS renders here -->
+    </div>
+
+    <!-- ABOUT TEASER -->
+    <div class="about-teaser">
+      <div class="about-teaser-inner">
+        <div>
+          <div class="about-teaser-label">SEQUÊNCIA 4 · SOBRE</div>
+          <div class="about-teaser-title">Cinema. FGV. Rock Nacional.<br>E um portfolio <em>assim</em>.</div>
+          <p class="about-teaser-sub">Quem é o editor por trás desses frames?</p>
+        </div>
+        <a href="saiba-mais.html" class="about-teaser-btn">
+          Descobrir a trajetória
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
     </div>
 
   </div><!-- /page-content -->
@@ -815,6 +881,13 @@
       },
       // ── AFTERMOVIE ─────────────────────────
       {
+        id:22, category:'aftermovie', format:'vertical',
+        titlePt:'Aftermovie — Jantar de Negócios', titleEn:'Aftermovie — Business Dinner',
+        descPt:'Aftermovie de evento com edição dinâmica e storytelling visual.',
+        descEn:'Event aftermovie with dynamic editing and visual storytelling.',
+        videoUrl:'https://www.youtube.com/embed/g_HCKp2wWnk'
+      },
+      {
         id:7, category:'aftermovie', format:'vertical',
         titlePt:'Criativo — Produção Própria', titleEn:'Creative — Own Production',
         descPt:'Criativo vertical com edição dinâmica e foco em conversão.',
@@ -874,7 +947,7 @@
         videoUrl:'https://www.youtube.com/embed/hv7u1qo8GBE'
       },
       {
-        id:14, category:'ia', format:'horizontal',
+        id:14, category:'ia', format:'vertical',
         titlePt:'Michael Jackson — Homenagem IA 2026', titleEn:'Michael Jackson — AI Tribute 2026',
         descPt:'Homenagem gerada com IA. Recriação visual sintética com edição cinematográfica.',
         descEn:'AI-generated tribute. Synthetic visual recreation with cinematic editing.',
