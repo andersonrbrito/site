@@ -99,7 +99,7 @@
       /* text */
       --tx-hi:     #EAEAEF;
       --tx-mid:    #8888A0;
-      --tx-lo:     #505060;
+      --tx-lo:      #6E6E80;
       --tx-blue:   #6BAEFF;
 
       /* fonts */
@@ -1143,7 +1143,7 @@
     ═══════════════════════════════════════════ */
     #section-faq { background: #0D0D10; }
     .faq-list {
-      max-width: 720px;
+      max-width: 768px;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
@@ -1492,7 +1492,7 @@
       .about-panels { grid-template-columns: 1fr; }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 768px) {
       :root {
         --timeline-h: 88px;
         --track-h: 20px;
@@ -1738,7 +1738,7 @@
         <div class="services-grid">
 
           <!-- CARD 1 — Marketing -->
-          <a href="#" onclick="return false" class="svc-card" style="opacity:.45;pointer-events:none;cursor:default;" title="Em breve" style="--clip-color: var(--clip-v1);">
+          <a href="#" onclick="return false;" class="svc-card" style="--clip-color: var(--clip-v1); cursor:default;">
             <div class="svc-card-top">
               <div class="svc-clip-dot" style="background:var(--clip-v1);"></div>
               <span class="svc-type">V1 · Vídeo Principal</span>
@@ -1787,8 +1787,9 @@
               Prompts, artes e experimentos com IA aplicada ao audiovisual e à criação visual.
             </div>
             <div class="svc-tags">
-              <span class="svc-tag">Midjourney</span>
-              <span class="svc-tag">Sora</span>
+              <span class="svc-tag">Kling</span>
+              <span class="svc-tag">Veo</span>
+              <span class="svc-tag">Seedance</span>
               <span class="svc-tag">Prompts</span>
               <span class="svc-tag">IA Criativa</span>
             </div>
@@ -2058,7 +2059,7 @@
                 <span class="faq-toggle">+</span>
               </div>
               <div class="faq-answer">
-                <div class="faq-answer-inner">Não necessariamente. Trabalho com material que você já tem, banco de imagens e vídeo stock premium. Também posso criar com IA (Midjourney, Sora) ou orientar a gravação pra otimizar o resultado da edição.</div>
+                <div class="faq-answer-inner">Não necessariamente. Trabalho com material que você já tem, banco de imagens e vídeo stock premium. Também posso criar com IA (Kling, Veo, Seedance, Grok) ou orientar a gravação pra otimizar o resultado da edição.</div>
               </div>
             </div>
 
@@ -2168,7 +2169,7 @@
             </div>
             <div style="margin-top:48px;padding-top:32px;border-top:1px solid var(--pr-sep);font-size:11px;color:var(--tx-lo);display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;align-items:center;">
               <span style="font-family:var(--f-mono);font-size:10px;">📍 Alphaville, São Paulo — Brasil &nbsp;|&nbsp; © 2026 Anderson Ilmar ME &nbsp;|&nbsp; contato@andersonbrito.com</span>
-              <span style="font-family:var(--f-mono);font-size:10px;">Made with Claude Code &nbsp;•&nbsp; Hosted on GitHub Pages</span>
+              <span style="font-family:var(--f-mono);font-size:10px;"><!-- Made with Claude Code · Hosted on GitHub Pages --></span>
             </div>
           </div>
         </div>
