@@ -440,6 +440,106 @@
       display: block;
     }
 
+    /* ══ BASTIDORES (gallery) ════════════════════ */
+    .bastidores {
+      max-width: 1200px;
+      margin: 32px auto 48px;
+      padding: 0 16px;
+    }
+    .bastidores-inner { width: 100%; }
+    .bastidores-header {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 18px;
+    }
+    .bastidores-label {
+      font-family: var(--f-mono); font-size: 10px; font-weight: 600;
+      color: var(--accent); letter-spacing: .14em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .bastidores-label::before { content: '//'; color: var(--tx-lo); }
+    .bastidores-line { flex: 1; height: 1px; background: var(--pr-sep); }
+    .bastidores-count {
+      font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo);
+      letter-spacing: .06em;
+    }
+
+    .bastidores-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .bc {
+      background: var(--pr-card);
+      border: 1px solid var(--pr-sep);
+      border-radius: 4px; overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color .25s, transform .25s;
+    }
+    .bc:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+    .bc-media {
+      position: relative;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      background: #000;
+    }
+    .bc-media img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: brightness(0.85) saturate(0.95);
+      transition: filter .35s, transform .5s;
+    }
+    .bc:hover .bc-media img {
+      filter: brightness(1) saturate(1);
+      transform: scale(1.04);
+    }
+    .bc-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.5) 100%);
+      pointer-events: none;
+    }
+    .bc-badge {
+      position: absolute; top: 10px; right: 10px;
+      font-family: var(--f-mono); font-size: 8px; font-weight: 600;
+      letter-spacing: .12em;
+      color: #FFB366; background: rgba(0,0,0,.55);
+      padding: 4px 8px; border: 1px solid rgba(255,179,102,.4);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+    .bc-cap {
+      padding: 12px 14px 14px;
+      display: flex; align-items: flex-start; gap: 10px;
+      border-top: 1px solid var(--pr-sep);
+      background: var(--pr-panel-hd2);
+    }
+    .bc-num {
+      font-family: var(--f-mono); font-size: 13px; font-weight: 600;
+      color: var(--accent); flex-shrink: 0; line-height: 1;
+      padding-top: 1px;
+    }
+    .bc-meta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .bc-title {
+      font-family: var(--f-head); font-size: 11px; font-weight: 700;
+      color: var(--tx-hi); letter-spacing: .06em; text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .bc-desc {
+      font-family: var(--f-body); font-size: 12px; color: var(--tx-mid);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 1024px) {
+      .bastidores-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 520px) {
+      .bastidores-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .bc-cap { padding: 10px 12px 12px; gap: 8px; }
+      .bc-title { font-size: 10px; }
+      .bc-desc { font-size: 11px; }
+    }
+
     /* ── FIXED TIMELINE ───────────────────────── */
     .timeline-panel {
       position:fixed;bottom:0;left:0;right:0;
@@ -580,6 +680,78 @@
         <img src="assets/carousel-sobre.jpg" alt="Anderson Brito — trajetória: fotógrafo, cinema, FGV, família e mais" loading="lazy" width="1400" height="884">
       </div>
     </div>
+
+    <!-- ══ BASTIDORES (Gallery) ═════════════════ -->
+    <section class="bastidores">
+      <div class="bastidores-inner">
+        <div class="bastidores-header">
+          <div class="bastidores-label">BASTIDORES · A PESSOA ATRÁS DAS LENTES</div>
+          <div class="bastidores-line"></div>
+          <div class="bastidores-count" id="bastidoresCount">04 frames</div>
+        </div>
+
+        <div class="bastidores-grid">
+
+          <figure class="bc">
+            <div class="bc-media">
+              <img src="assets/sobre-fotografo.webp" alt="Anderson fotografando ao pôr-do-sol" loading="lazy" width="1024" height="1536">
+              <div class="bc-overlay"></div>
+            </div>
+            <figcaption class="bc-cap">
+              <span class="bc-num">01</span>
+              <div class="bc-meta">
+                <div class="bc-title">FOTÓGRAFO · 2015 →</div>
+                <div class="bc-desc">10 anos atrás de uma lente.</div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="bc">
+            <div class="bc-media">
+              <img src="assets/sobre-editor.webp" alt="Anderson editando ao vivo em evento" loading="lazy" width="1024" height="1536">
+              <div class="bc-overlay"></div>
+            </div>
+            <figcaption class="bc-cap">
+              <span class="bc-num">02</span>
+              <div class="bc-meta">
+                <div class="bc-title">EDIÇÃO AO VIVO</div>
+                <div class="bc-desc">Aftermovie em tempo real, no evento.</div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="bc">
+            <div class="bc-media">
+              <img src="assets/sobre-neve.webp" alt="Anderson trabalhando no MacBook em uma montanha com neve" loading="lazy" width="1024" height="1820">
+              <div class="bc-overlay"></div>
+            </div>
+            <figcaption class="bc-cap">
+              <span class="bc-num">03</span>
+              <div class="bc-meta">
+                <div class="bc-title">TRABALHO REMOTO</div>
+                <div class="bc-desc">De onde inspirar — não importa o lugar.</div>
+              </div>
+            </figcaption>
+          </figure>
+
+          <figure class="bc">
+            <div class="bc-media">
+              <img src="assets/sobre-islandia.webp" alt="Aurora boreal na Islândia — sonho ainda a realizar" loading="lazy" width="1024" height="1280">
+              <div class="bc-overlay"></div>
+              <div class="bc-badge">SONHO · OPEN</div>
+            </div>
+            <figcaption class="bc-cap">
+              <span class="bc-num">04</span>
+              <div class="bc-meta">
+                <div class="bc-title">ISLÂNDIA — AURORA</div>
+                <div class="bc-desc">Um sonho ainda a realizar.</div>
+              </div>
+            </figcaption>
+          </figure>
+
+        </div>
+      </div>
+    </section>
 
     <!-- ══ EXPERIENCE SECTION ══════════════════ -->
     <div id="exp-section">
