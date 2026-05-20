@@ -419,10 +419,23 @@
     }
     .grid-aftermovie .card-v { flex: 0 0 300px; }
     .grid-aftermovie .card-h { flex: 1; min-width: 0; }
+
+    /* VSL: 1 vertical + 2+ horizontals stacked */
+    .grid-vsl-stack {
+      display: flex; gap: 16px; align-items: stretch; margin-bottom: 8px;
+    }
+    .grid-vsl-stack .card-v { flex: 0 0 320px; }
+    .grid-vsl-stack .card-h-stack {
+      flex: 1; display: flex; flex-direction: column; gap: 12px; min-width: 0;
+    }
+    .grid-vsl-stack .card-h-stack > .video-card { flex: 1; min-height: 0; }
+
     @media (max-width: 768px) {
       .aftermovie-verticals { max-width: 100%; grid-template-columns: 1fr 1fr; }
       .grid-aftermovie { flex-direction: column; }
       .grid-aftermovie .card-v { flex: none; }
+      .grid-vsl-stack { flex-direction: column; }
+      .grid-vsl-stack .card-v { flex: none; }
     }
     .card-desc { font-size: 12px; color: var(--tx-mid); line-height: 1.5; }
     .card-meta {
@@ -775,7 +788,7 @@
       <div class="filter-clips">
         <button class="filter-clip active" data-filter="all">
           <span data-pt="Todos" data-en="All"></span>
-          <span class="filter-count" id="c-all">22</span>
+          <span class="filter-count" id="c-all">23</span>
         </button>
         <button class="filter-clip" data-filter="criativo">
           <div class="filter-swatch" style="background:#2B5280;"></div>
@@ -795,7 +808,7 @@
         <button class="filter-clip" data-filter="vsl">
           <div class="filter-swatch" style="background:#7A2D5A;"></div>
           <span>VSL</span>
-          <span class="filter-count" id="c-vsl">2</span>
+          <span class="filter-count" id="c-vsl">3</span>
         </button>
         <button class="filter-clip" data-filter="ia">
           <div class="filter-swatch" style="background:#FF6B35;"></div>
@@ -1042,6 +1055,13 @@
         descEn:'Horizontal VSL with deep storytelling and narrative direction focused on conversion.',
         videoUrl:'https://www.youtube.com/embed/T67vQZmnm6w?start=446'
       },
+      {
+        id:23, category:'vsl', format:'horizontal',
+        titlePt:'Yan — VSL Destrava e Vende', titleEn:'Yan — VSL Destrava e Vende',
+        descPt:'VSL com argumentação direta e estrutura focada em conversão de cold traffic.',
+        descEn:'Direct-argument VSL with conversion-focused structure for cold traffic.',
+        videoUrl:'https://www.youtube.com/embed/NIzovyf-IJ8'
+      },
       // ── CURTA-METRAGENS ─────────────────────
       {
         id:16, category:'curta', format:'horizontal',
@@ -1135,11 +1155,20 @@
           horizontals.forEach(v => { html += buildCard(v); });
           html += `</div>`;
         } else if (cat === 'vsl' && verticals.length && horizontals.length) {
-          // VSL: vertical + horizontal side-by-side (vertical wider)
-          html += `<div class="grid-aftermovie">`;
-          verticals.forEach(v  => { html += buildCard(v, 'card-v'); });
-          horizontals.forEach(v => { html += buildCard(v, 'card-h'); });
-          html += `</div>`;
+          if (horizontals.length === 1) {
+            // 1v + 1h: side-by-side
+            html += `<div class="grid-aftermovie">`;
+            verticals.forEach(v  => { html += buildCard(v, 'card-v'); });
+            horizontals.forEach(v => { html += buildCard(v, 'card-h'); });
+            html += `</div>`;
+          } else {
+            // 1v + 2+h: vertical on left, horizontals stacked on right
+            html += `<div class="grid-vsl-stack">`;
+            verticals.forEach(v => { html += buildCard(v, 'card-v'); });
+            html += `<div class="card-h-stack">`;
+            horizontals.forEach(v => { html += buildCard(v); });
+            html += `</div></div>`;
+          }
         } else {
           if (verticals.length) {
             html += `<div class="grid-vertical">`;
