@@ -56,7 +56,8 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
   <link rel="canonical" href="https://andersonbrito.com/">
 
-  <link rel="preload" as="image" href="assets/sobre-timeline.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/hero-bg-poster.jpg" type="image/jpeg" fetchpriority="high">
+  <link rel="preload" as="video" href="assets/hero-bg.mp4" type="video/mp4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -526,21 +527,16 @@
     /* ═══════════════════════════════════════════
        ANIMATED FACE HERO (Monitor self-portrait)
     ═══════════════════════════════════════════ */
-    .hero-face-bg {
+    video.hero-face-bg {
       position: absolute;
       inset: 0;
-      background-image: url('assets/sobre-timeline.webp');
-      background-size: cover;
-      background-position: center 22%;
-      background-repeat: no-repeat;
-      filter: brightness(0.55) contrast(1.12) saturate(0.95);
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      filter: brightness(0.62) contrast(1.08) saturate(1.02);
       z-index: 0;
-      animation: faceBreathe 9s ease-in-out infinite;
-      transform-origin: center 30%;
-    }
-    @keyframes faceBreathe {
-      0%, 100% { transform: scale(1.02); }
-      50%      { transform: scale(1.06); }
+      pointer-events: none;
+      background: #0A0A0C;
     }
 
     .hero-face-vignette {
@@ -1823,11 +1819,12 @@
 
         <div class="monitor-screen">
           <!-- ── Animated face hero (background layers) ─────── -->
-          <div class="hero-face-bg" aria-hidden="true"></div>
+          <video class="hero-face-bg" autoplay muted loop playsinline preload="metadata" poster="assets/hero-bg-poster.jpg" aria-hidden="true">
+            <source src="assets/hero-bg.mp4" type="video/mp4">
+          </video>
           <div class="hero-face-vignette" aria-hidden="true"></div>
           <div class="hero-smoke hero-smoke-left" aria-hidden="true"></div>
           <div class="hero-smoke hero-smoke-right" aria-hidden="true"></div>
-          <div class="hero-light-beam" aria-hidden="true"></div>
           <div class="hero-grade-overlay" aria-hidden="true"></div>
 
           <!-- Corner guides -->
