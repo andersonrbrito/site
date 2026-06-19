@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Copa do Mundo 2026 — Videos de IA | Ilmar Labs</title>
+<meta name="description" content="Tenha voce na arquibancada da Copa do Mundo 2026 com videos hiperrealistas de IA. Entrega em ate 2 horas. A partir de R$ 27,90.">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0A0C;--card:#111115;--border:#222;
+  --accent:#CAFC01;--gold:#FFD700;--brazil:#FFDF00;
+  --txt:#F2F2F5;--mid:#8A8A9A;--low:#555;
+  --wa:#25D366;--red:#E53935;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;line-height:1.15}
+a{color:inherit;text-decoration:none}
+img,video{max-width:100%;display:block}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* URGENCY BAR */
+.urgency-bar{position:fixed;top:0;left:0;right:0;z-index:1000;background:#1a0000;border-bottom:1px solid #330000;padding:8px 16px;text-align:center;font-size:13px;font-weight:600;color:#fff;letter-spacing:.5px}
+.urgency-bar .dot{display:inline-block;width:8px;height:8px;background:var(--red);border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(229,57,53,.6)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(229,57,53,0)}}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 60px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('assets/copa-hero.jpg') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,12,.55) 0%,rgba(10,10,12,.8) 50%,rgba(10,10,12,.97) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:780px}
+.hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;text-transform:uppercase;margin-bottom:16px;letter-spacing:-0.5px;text-shadow:0 2px 30px rgba(0,0,0,.6)}
+.hero h1 span{color:var(--accent)}
+.hero .subtitle{font-size:clamp(1rem,2.5vw,1.25rem);color:var(--mid);margin-bottom:8px;font-weight:500}
+.hero .price-line{font-size:clamp(.95rem,2vw,1.1rem);color:var(--gold);font-weight:600;margin-bottom:20px}
+.hero .badge{display:inline-block;background:rgba(202,252,1,.1);border:1px solid rgba(202,252,1,.25);border-radius:8px;padding:10px 20px;font-size:.9rem;color:var(--accent);margin-bottom:28px;font-weight:500}
+.btn-primary{display:inline-block;background:var(--accent);color:#0A0A0C;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;padding:16px 40px;border-radius:10px;border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;text-transform:uppercase;letter-spacing:.5px}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(202,252,1,.3)}
+.btn-secondary{display:inline-block;margin-top:14px;color:var(--mid);font-size:.95rem;cursor:pointer;border:none;background:none;transition:color .2s}
+.btn-secondary:hover{color:var(--txt)}
+.btn-secondary svg{vertical-align:middle;margin-right:4px}
+
+/* SOCIAL PROOF */
+.social-proof{padding:50px 0 40px;overflow:hidden}
+.social-proof h2{text-align:center;font-size:1.1rem;color:var(--mid);text-transform:uppercase;letter-spacing:2px;margin-bottom:24px;font-weight:600}
+.proof-scroll{display:flex;gap:16px;overflow-x:auto;padding:0 20px 12px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.proof-scroll::-webkit-scrollbar{display:none}
+.proof-card{flex:0 0 200px;aspect-ratio:9/16;border-radius:14px;position:relative;overflow:hidden;scroll-snap-align:start;cursor:pointer;transition:transform .2s}
+.proof-card:hover{transform:scale(1.03)}
+.proof-card .card-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)}
+.proof-card:nth-child(2) .card-bg{background:linear-gradient(135deg,#1a1a2e,#2d1b4e,#4a1942)}
+.proof-card:nth-child(3) .card-bg{background:linear-gradient(135deg,#1a1a2e,#1b3a2e,#0d4935)}
+.proof-card .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.1) 50%,rgba(0,0,0,.4) 100%);z-index:1}
+.proof-card .views-badge{position:absolute;top:12px;left:12px;z-index:2;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600;color:#fff;display:flex;align-items:center;gap:4px}
+.proof-card .views-badge::before{content:'';display:inline-block;width:6px;height:6px;background:var(--red);border-radius:50%}
+.proof-card .card-title{position:absolute;bottom:14px;left:14px;right:14px;z-index:2;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.85rem;text-transform:uppercase;letter-spacing:.5px}
+.proof-card.soon{opacity:.5;cursor:default}
+.proof-card.soon:hover{transform:none}
+.proof-card .soon-badge{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:3;background:rgba(0,0,0,.7);border:1px solid var(--border);padding:6px 14px;border-radius:6px;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px}
+
+/* VIDEO DEMO */
+.video-demo{padding:40px 0 50px}
+.video-demo .container{text-align:center}
+.video-wrap{position:relative;max-width:480px;margin:0 auto;border-radius:14px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.video-wrap video{width:100%;display:block}
+.video-caption{margin-top:14px;font-size:.85rem;color:var(--mid);font-weight:500}
+
+/* PRICING */
+.pricing{padding:60px 0}
+.pricing .section-title{text-align:center;margin-bottom:40px}
+.pricing .section-title h2{font-size:clamp(1.5rem,4vw,2.2rem);font-weight:800;text-transform:uppercase;margin-bottom:6px}
+.pricing .section-title p{color:var(--mid);font-size:.95rem}
+.pricing-grid{display:flex;gap:16px;overflow-x:auto;padding:0 20px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.pricing-grid::-webkit-scrollbar{display:none}
+.price-card{flex:0 0 300px;background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 24px;scroll-snap-align:start;display:flex;flex-direction:column;position:relative;transition:transform .2s}
+.price-card:hover{transform:translateY(-4px)}
+.price-card.featured{border-color:var(--accent);box-shadow:0 0 40px rgba(202,252,1,.08);transform:scale(1.02)}
+.price-card.featured:hover{transform:scale(1.02) translateY(-4px)}
+.card-badge{position:absolute;top:-12px;right:20px;background:var(--accent);color:#0A0A0C;font-family:'Space Grotesk',sans-serif;font-size:.7rem;font-weight:700;padding:4px 12px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.card-badge.complete{background:var(--gold)}
+.price-card .emoji{font-size:1.8rem;margin-bottom:10px}
+.price-card h3{font-size:1.15rem;font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.price-card .price{font-size:1.8rem;font-weight:800;font-family:'Space Grotesk',sans-serif;color:var(--accent);margin-bottom:16px}
+.price-card .price small{font-size:.9rem;color:var(--mid);font-weight:500}
+.price-card ul{list-style:none;margin-bottom:16px;flex:1}
+.price-card ul li{padding:5px 0;font-size:.88rem;color:var(--txt);padding-left:20px;position:relative}
+.price-card ul li::before{content:'';position:absolute;left:0;top:11px;width:6px;height:6px;background:var(--accent);border-radius:50%}
+.price-card .card-desc{font-size:.82rem;color:var(--mid);font-style:italic;margin-bottom:18px;line-height:1.5}
+.btn-card{display:block;width:100%;text-align:center;background:transparent;border:2px solid var(--accent);color:var(--accent);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;padding:13px;border-radius:10px;cursor:pointer;transition:all .2s;text-transform:uppercase}
+.btn-card:hover{background:var(--accent);color:#0A0A0C}
+.price-card.featured .btn-card{background:var(--accent);color:#0A0A0C}
+.price-card.featured .btn-card:hover{box-shadow:0 4px 20px rgba(202,252,1,.3)}
+
+/* ADD-ONS */
+.addons{padding:40px 0 60px}
+.addons .section-title{text-align:center;margin-bottom:32px}
+.addons .section-title h2{font-size:clamp(1.3rem,3.5vw,1.8rem);font-weight:700;text-transform:uppercase}
+.addons-grid{display:grid;grid-template-columns:1fr;gap:16px;padding:0 20px}
+.addon-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px 22px;position:relative}
+.addon-card .emoji{font-size:1.5rem;margin-bottom:8px}
+.addon-card h3{font-size:1.05rem;font-weight:700;margin-bottom:2px}
+.addon-card .addon-price{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--gold);font-size:1.2rem;margin-bottom:12px}
+.addon-card ul{list-style:none;margin-bottom:14px}
+.addon-card ul li{padding:4px 0;font-size:.85rem;color:var(--txt);padding-left:18px;position:relative}
+.addon-card ul li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;background:var(--gold);border-radius:50%}
+.addon-thumb{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:8px 14px;background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);border-radius:8px;font-size:.82rem;color:var(--gold);font-weight:500;transition:background .2s}
+.addon-thumb:hover{background:rgba(255,215,0,.15)}
+.addon-thumb svg{flex-shrink:0}
+
+/* ORDER FORM */
+.order{padding:60px 0 50px}
+.order .section-title{text-align:center;margin-bottom:36px}
+.order .section-title h2{font-size:clamp(1.5rem,4vw,2rem);font-weight:800;text-transform:uppercase;margin-bottom:6px}
+.order .section-title p{color:var(--mid);font-size:.9rem}
+.order-form{max-width:600px;margin:0 auto;padding:0 20px}
+.field{margin-bottom:20px}
+.field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--txt)}
+.field label .req{color:var(--red);margin-left:2px}
+.field input[type="text"],.field input[type="email"],.field select,.field textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:13px 16px;color:var(--txt);font-size:.95rem;transition:border-color .2s;appearance:none;-webkit-appearance:none}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='%238A8A9A'%3E%3Cpath d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.field textarea{resize:vertical;min-height:80px}
+.field ::placeholder{color:var(--low)}
+.radio-group{display:flex;flex-wrap:wrap;gap:10px}
+.radio-group label{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:11px 16px;cursor:pointer;font-size:.9rem;font-weight:500;transition:border-color .2s;flex:1;min-width:140px}
+.radio-group label:has(input:checked){border-color:var(--accent);background:rgba(202,252,1,.05)}
+.radio-group input[type="radio"]{accent-color:var(--accent);width:16px;height:16px}
+.check-group{display:flex;flex-direction:column;gap:10px}
+.check-group label{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;cursor:pointer;color:var(--txt)}
+.check-group input[type="checkbox"]{accent-color:var(--accent);width:18px;height:18px;margin-top:2px;flex-shrink:0}
+.hidden{display:none}
+.btn-submit{display:block;width:100%;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;padding:18px;border:none;border-radius:12px;cursor:pointer;text-transform:uppercase;letter-spacing:.5px;transition:transform .2s,box-shadow .2s;margin-top:24px}
+.btn-submit:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(37,211,102,.3)}
+.form-note{margin-top:18px;font-size:.82rem;color:var(--mid);line-height:1.6;text-align:center;padding:14px;background:rgba(202,252,1,.04);border:1px solid rgba(202,252,1,.1);border-radius:10px}
+
+/* GUARANTEES */
+.guarantees{padding:50px 0}
+.guarantees-grid{display:grid;grid-template-columns:1fr;gap:14px;padding:0 20px}
+.guarantee-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;display:flex;align-items:flex-start;gap:14px}
+.guarantee-card .g-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.guarantee-card h4{font-size:.95rem;font-weight:700;margin-bottom:2px}
+.guarantee-card p{font-size:.82rem;color:var(--mid)}
+
+/* FAQ */
+.faq{padding:50px 0 60px}
+.faq .section-title{text-align:center;margin-bottom:32px}
+.faq .section-title h2{font-size:clamp(1.3rem,3.5vw,1.8rem);font-weight:700;text-transform:uppercase}
+.faq-list{max-width:700px;margin:0 auto;padding:0 20px}
+.faq-item{border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--card)}
+.faq-q{padding:16px 20px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:600;font-size:.95rem;transition:color .2s;user-select:none}
+.faq-q:hover{color:var(--accent)}
+.faq-q .arrow{transition:transform .3s;font-size:.8rem;color:var(--mid)}
+.faq-item.open .faq-q .arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.faq-item.open .faq-a{max-height:300px;padding:0 20px 18px}
+.faq-a p{font-size:.88rem;color:var(--mid);line-height:1.6}
+
+/* FOOTER */
+.footer{padding:40px 0 120px;border-top:1px solid var(--border);text-align:center}
+.footer .logo{font-family:'Space Grotesk',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:2px;color:var(--txt);margin-bottom:16px}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-bottom:16px}
+.footer-links a{font-size:.85rem;color:var(--mid);transition:color .2s}
+.footer-links a:hover{color:var(--accent)}
+.footer .legal{font-size:.75rem;color:var(--low);line-height:1.6}
+
+/* FLOATING CTA */
+.float-cta{position:fixed;bottom:0;left:0;right:0;z-index:999;background:var(--wa);padding:14px 20px;text-align:center;transform:translateY(0);transition:transform .3s;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
+.float-cta a{color:#fff;font-family:'Space Grotebok',sans-serif;font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:.5px}
+
+/* LIGHTBOX */
+.lightbox{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+.lightbox.active{opacity:1;pointer-events:all}
+.lightbox-close{position:absolute;top:20px;right:24px;width:40px;height:40px;background:rgba(255,255,255,.1);border:none;border-radius:50%;color:#fff;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lightbox-close:hover{background:rgba(255,255,255,.2)}
+.lightbox video{max-width:90vw;max-height:80vh;border-radius:12px}
+
+/* DESKTOP */
+@media(min-width:768px){
+  .pricing-grid{overflow:visible;display:grid;grid-template-columns:repeat(3,1fr);padding:0}
+  .price-card{flex:none}
+  .addons-grid{grid-template-columns:1fr 1fr;padding:0}
+  .guarantees-grid{grid-template-columns:repeat(3,1fr);padding:0}
+  .proof-scroll{justify-content:center;overflow:visible;padding:0}
+  .float-cta{display:none}
+  .footer{padding-bottom:50px}
+}
+@media(min-width:1024px){
+  .hero h1{font-size:3rem}
+}
+</style>
+</head>
+<body>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar">
+  <span class="dot"></span>
+  AO VIVO HOJE &middot; BRASIL &times; HAITI &middot; Pedidos até 22h
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Tenha <span>você, sua marca ou seu produto</span> no meio da torcida!</h1>
+    <p class="subtitle">Videos de IA hiperrealistas — entregamos em até 2 horas</p>
+    <p class="price-line">Pacotes a partir de R$ 27,90 no Pix</p>
+    <div class="badge">&#127873; Peça já e ganhe 4 figurinhas personalizadas de brinde!</div>
+    <br>
+    <a href="#pedido" class="btn-primary">QUERO MEU VIDEO &#8594;</a>
+    <br>
+    <button class="btn-secondary" onclick="openLightbox()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><polygon points="3,1 13,8 3,15"/></svg>
+      Ver vídeo de exemplo
+    </button>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social-proof">
+  <h2>Resultados reais</h2>
+  <div class="proof-scroll">
+    <a href="https://www.instagram.com/p/DZjOjxfNcYm/" target="_blank" rel="noopener" class="proof-card">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="views-badge">1,4M views</div>
+      <div class="card-title">1,4M DE VIEWS</div>
+    </a>
+    <a href="https://www.instagram.com/p/DZvHbcPhJGK/" target="_blank" rel="noopener" class="proof-card">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="views-badge">Viral</div>
+      <div class="card-title">DLC GTA 6 VIRAL</div>
+    </a>
+    <div class="proof-card soon">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="soon-badge">EM BREVE</div>
+      <div class="card-title">ARTISTAS NA ARQUIBANCADA</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO DEMO -->
+<section class="video-demo">
+  <div class="container">
+    <div class="video-wrap">
+      <video src="assets/copa-ad.mp4" muted loop playsinline preload="metadata" id="demoVideo"></video>
+    </div>
+    <p class="video-caption">Exemplo de entrega real &middot; 12 segundos &middot; pronto pra postar</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <div class="container">
+    <div class="section-title">
+      <h2>Escolha seu pacote</h2>
+      <p>Entrega rápida. Qualidade de cinema. Preço justo.</p>
+    </div>
+    <div class="pricing-grid">
+      <!-- TORCEDOR -->
+      <div class="price-card">
+        <div class="emoji">&#9917;</div>
+        <h3>Pacote Torcedor</h3>
+        <div class="price">R$ 27<small>,90</small></div>
+        <ul>
+          <li>1 vídeo de 12s seu na arquibancada da Copa</li>
+          <li>Entrega em 2 horas</li>
+          <li>Pronto pra postar no Reels/TikTok/Stories</li>
+        </ul>
+        <p class="card-desc">Perfeito pra brincar com os amigos e bombar no feed.</p>
+        <a href="#pedido" class="btn-card">PEDIR AGORA</a>
+      </div>
+      <!-- CRAQUE -->
+      <div class="price-card featured">
+        <span class="card-badge">MAIS PEDIDO</span>
+        <div class="emoji">&#127951;</div>
+        <h3>Pacote Craque</h3>
+        <div class="price">R$ 67</div>
+        <ul>
+          <li>1 vídeo de 12s na arquibancada</li>
+          <li>1 foto IA em alta qualidade</li>
+          <li>3 figurinhas personalizadas de brinde</li>
+          <li>Entrega em 24h</li>
+        </ul>
+        <p class="card-desc">O mais pedido. Sai do jogo com conteúdo pra semana inteira.</p>
+        <a href="#pedido" class="btn-card">PEDIR AGORA</a>
+      </div>
+      <!-- VIRAL -->
+      <div class="price-card">
+        <span class="card-badge complete">COMPLETO</span>
+        <div class="emoji">&#127942;</div>
+        <h3>Pacote Viral</h3>
+        <div class="price">R$ 197</div>
+        <ul>
+          <li>1 foto IA na arquibancada</li>
+          <li>1 vídeo IA na arquibancada 10-15s</li>
+          <li>1 vídeo IA 10-15s animado (tema à sua escolha)</li>
+          <li>1 carrossel estático pro Instagram</li>
+          <li>2 fotos no vestiário com jogadores</li>
+          <li>2 fotos no gramado com jogadores</li>
+          <li>3 figurinhas personalizadas de brinde</li>
+          <li>Entrega em 48h</li>
+        </ul>
+        <p class="card-desc">Feito pelo criador do vídeo de 1,4 MILHÃO de views.</p>
+        <a href="#pedido" class="btn-card">PEDIR AGORA</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADD-ONS -->
+<section class="addons">
+  <div class="container">
+    <div class="section-title">
+      <h2>Adicione ao seu pedido</h2>
+    </div>
+    <div class="addons-grid">
+      <div class="addon-card">
+        <div class="emoji">&#127874;</div>
+        <h3>Convite Animado de Aniversário</h3>
+        <div class="addon-price">R$ 37</div>
+        <ul>
+          <li>Vídeo de 15s personalizado com IA</li>
+          <li>Nome, idade, data, local e tema</li>
+          <li>Versão adulto ou infantil</li>
+          <li>Pronto pra mandar no WhatsApp</li>
+          <li>Entrega em 24h</li>
+        </ul>
+        <a href="https://youtube.com/shorts/1f-7QCjc8VE" target="_blank" rel="noopener" class="addon-thumb">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          Ver exemplo no YouTube
+        </a>
+      </div>
+      <div class="addon-card">
+        <div class="emoji">&#127828;</div>
+        <h3>Pacote Vitrine</h3>
+        <div class="addon-price">R$ 47</div>
+        <ul>
+          <li>5 fotos profissionais do seu produto em IA</li>
+          <li>OU 1 cardápio visual completo (10 fotos)</li>
+          <li>Cenários premium (estúdio, lifestyle, temático)</li>
+          <li>Pronto pra Instagram e iFood/Rappi/Keeta/99 Food</li>
+          <li>Entrega em 72h</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ORDER FORM -->
+<section class="order" id="pedido">
+  <div class="container">
+    <div class="section-title">
+      <h2>Faça seu pedido</h2>
+      <p>Preencha e enviaremos a confirmação pelo WhatsApp</p>
+    </div>
+    <form class="order-form" id="orderForm" onsubmit="return handleSubmit(event)">
+      <div class="field">
+        <label>Nome completo <span class="req">*</span></label>
+        <input type="text" name="nome" required placeholder="Seu nome completo">
+      </div>
+      <div class="field">
+        <label>@ do Instagram <span class="req">*</span></label>
+        <input type="text" name="instagram" required placeholder="@seuinsta">
+      </div>
+      <div class="field">
+        <label>Pacote principal <span class="req">*</span></label>
+        <select name="pacote" required>
+          <option value="" disabled selected>Selecione o pacote</option>
+          <option value="Torcedor — R$ 27,90">Torcedor — R$ 27,90</option>
+          <option value="Craque — R$ 67">Craque — R$ 67</option>
+          <option value="Viral — R$ 197">Viral — R$ 197</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Tipo de projeto <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="tipo" value="Pessoal (só eu)" required> Pessoal (só eu)</label>
+          <label><input type="radio" name="tipo" value="Pessoal + acompanhante(s)"> Pessoal + acompanhante(s)</label>
+          <label><input type="radio" name="tipo" value="Marca / Produto / Empresa"> Marca / Produto / Empresa</label>
+        </div>
+      </div>
+      <div class="field hidden" id="empresaField">
+        <label>Nome da empresa/marca/produto</label>
+        <input type="text" name="empresa" placeholder="Nome da sua marca ou produto">
+      </div>
+      <div class="field">
+        <label>Uniforme / Camisa <span class="req">*</span></label>
+        <select name="uniforme" required id="uniformeSelect">
+          <option value="" disabled selected>Selecione o uniforme</option>
+          <optgroup label="&#127463;&#127479; Seleções Copa 2026">
+            <option>Alemanha</option><option>Arábia Saudita</option><option>Argentina</option><option>Austrália</option>
+            <option>Bélgica</option><option>Bolívia</option><option>Brasil</option><option>Camarões</option>
+            <option>Canadá</option><option>Chile</option><option>China</option><option>Colômbia</option>
+            <option>Coreia do Sul</option><option>Costa Rica</option><option>Costa do Marfim</option><option>Croácia</option>
+            <option>Dinamarca</option><option>Equador</option><option>Escócia</option><option>Espanha</option>
+            <option>Estados Unidos</option><option>Fiji</option><option>França</option><option>Gana</option>
+            <option>Guatemala</option><option>Holanda</option><option>Honduras</option><option>Hungria</option>
+            <option>Inglaterra</option><option>Irã</option><option>Irlanda</option><option>Israel</option>
+            <option>Itália</option><option>Jamaica</option><option>Japão</option><option>Marrocos</option>
+            <option>México</option><option>Nigéria</option><option>Noruega</option><option>Nova Zelândia</option>
+            <option>Panamá</option><option>Paraguai</option><option>Peru</option><option>Polônia</option>
+            <option>Portugal</option><option>Qatar</option><option>República Tcheca</option><option>Rússia</option>
+            <option>Senegal</option><option>Sérvia</option><option>Suécia</option><option>Suíça</option>
+            <option>Trinidad e Tobago</option><option>Tunísia</option><option>Turquia</option><option>Ucrânia</option>
+            <option>Uruguai</option><option>Venezuela</option>
+          </optgroup>
+          <optgroup label="&#9917; Série A — Brasileirão">
+            <option>Athletico-PR</option><option>Atlético-MG</option><option>Bahia</option><option>Botafogo</option>
+            <option>Bragantino</option><option>Ceará</option><option>Corinthians</option><option>Cruzeiro</option>
+            <option>Cuiabá</option><option>Flamengo</option><option>Fluminense</option><option>Fortaleza</option>
+            <option>Grêmio</option><option>Internacional</option><option>Juventude</option><option>Mirassol</option>
+            <option>Palmeiras</option><option>Santos</option><option>São Paulo</option><option>Sport</option>
+            <option>Vasco</option><option>Vitória</option>
+          </optgroup>
+          <optgroup label="&#9917; Série B — Brasileirão">
+            <option>América-MG</option><option>Avaí</option><option>Botafogo-SP</option><option>Chapecoense</option>
+            <option>Coritiba</option><option>CRB</option><option>Goiás</option><option>Guarani</option>
+            <option>Ituano</option><option>Londrina</option><option>Novorizontino</option><option>Operário-PR</option>
+            <option>Paysandu</option><option>Ponte Preta</option><option>Remo</option><option>Sampaio Corrêa</option>
+            <option>Tombense</option><option>Vila Nova</option>
+          </optgroup>
+          <option value="Uniforme da minha empresa">Uniforme da minha empresa</option>
+          <option value="Outro time (especificar)">Outro time (especificar)</option>
+        </select>
+      </div>
+      <div class="field hidden" id="outroTimeField">
+        <label>Outro time (qual?)</label>
+        <input type="text" name="outroTime" placeholder="Digite o nome do time">
+      </div>
+      <div class="field">
+        <label>Produtos adicionais</label>
+        <div class="check-group">
+          <label><input type="checkbox" name="adicional" value="Convite Animado de Aniversário (+R$ 37)"> Convite Animado de Aniversário (+R$ 37)</label>
+          <label><input type="checkbox" name="adicional" value="Pacote Vitrine — Fotos de Produto (+R$ 47)"> Pacote Vitrine — Fotos de Produto (+R$ 47)</label>
+        </div>
+      </div>
+      <div class="field">
+        <label>Observações</label>
+        <textarea name="observacoes" placeholder="Algo que devemos saber? Quantas pessoas no vídeo, tema especial, etc."></textarea>
+      </div>
+      <div class="field">
+        <div class="check-group">
+          <label><input type="checkbox" name="termos" required> Li e aceito os termos de uso e política de entrega</label>
+          <label><input type="checkbox" name="promocoes" required> Aceito receber promoções e ofertas da Ilmar Labs</label>
+        </div>
+      </div>
+      <button type="submit" class="btn-submit">ENVIAR PEDIDO NO WHATSAPP &#8594;</button>
+      <div class="form-note">
+        &#128161; <strong>Orientações:</strong> Envie no mínimo 3 fotos de cada pessoa e 3 fotos de cada produto + logo (quando for marca/produto). Fotos pessoais: mínimo 3 fotos do rosto.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- GUARANTEES -->
+<section class="guarantees">
+  <div class="container">
+    <div class="guarantees-grid">
+      <div class="guarantee-card">
+        <div class="g-icon">&#128274;</div>
+        <div>
+          <h4>Garantia de 7 dias por lei</h4>
+          <p>Código de Defesa do Consumidor. Não curtiu? Devolvemos 100%.</p>
+        </div>
+      </div>
+      <div class="guarantee-card">
+        <div class="g-icon">&#9999;&#65039;</div>
+        <div>
+          <h4>Até 3 alterações sem custo</h4>
+          <p>Cada pedido inclui até 3 revisões para ficar exatamente como você quer.</p>
+        </div>
+      </div>
+      <div class="guarantee-card">
+        <div class="g-icon">&#9889;</div>
+        <div>
+          <h4>Entrega expressa</h4>
+          <p>Prazos reais, sem enrolação. A partir de 2 horas no pacote Torcedor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="section-title">
+      <h2>Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Preciso já ter material gravado?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-a"><p>Não! Você só envia suas fotos (mínimo 3) e nós criamos tudo com IA. Para marcas/produtos, envie também fotos do produto e a logo.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Como funciona a entrega?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-a"><p>Após a confirmação do Pix, enviamos o vídeo pronto pelo WhatsApp dentro do prazo do pacote escolhido.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Posso pedir alteração?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-a"><p>Sim! Cada pedido inclui até 3 alterações sem custo adicional.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Tem garantia?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-a"><p>Sim. Garantia de 7 dias conforme o Código de Defesa do Consumidor. Se não ficar satisfeito, devolvemos 100% do valor.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Posso colocar mais de uma pessoa no vídeo?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-a"><p>Sim! Indique no formulário quantas pessoas e envie as fotos de cada uma.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Aceita cartão?</span>
+          <span class="arrow">&#9660;</span>
+        </div>
+        <div class="faq-a"><p>No momento, trabalhamos apenas com Pix para garantir preço promocional e entrega rápida.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="logo">ILMAR LABS</div>
+    <div class="footer-links">
+      <a href="https://instagram.com/ilmarlabs" target="_blank" rel="noopener">@ilmarlabs</a>
+      <a href="https://wa.me/5511991292104" target="_blank" rel="noopener">(11) 99129-2104</a>
+      <a href="mailto:contato@andersonbrito.com">contato@andersonbrito.com</a>
+    </div>
+    <p class="legal">&copy; 2026 Ilmar Labs &middot; CNPJ em processo &middot; Garantia de 7 dias conforme CDC</p>
+  </div>
+</footer>
+
+<!-- FLOATING CTA (mobile) -->
+<div class="float-cta">
+  <a href="#pedido">PEDIR AGORA &middot; A partir de R$ 27,90</a>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+  <video src="assets/copa-ad.mp4" controls id="lightboxVideo"></video>
+</div>
+
+<script>
+// Lightbox
+function openLightbox(){
+  const lb=document.getElementById('lightbox');
+  const v=document.getElementById('lightboxVideo');
+  lb.classList.add('active');
+  v.currentTime=0;v.play();
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(e){
+  if(e&&e.target!==document.getElementById('lightbox')&&!e.target.classList.contains('lightbox-close'))return;
+  const lb=document.getElementById('lightbox');
+  const v=document.getElementById('lightboxVideo');
+  lb.classList.remove('active');
+  v.pause();
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox()});
+
+// Conditional fields
+document.querySelectorAll('input[name="tipo"]').forEach(function(r){
+  r.addEventListener('change',function(){
+    document.getElementById('empresaField').classList.toggle('hidden',this.value!=='Marca / Produto / Empresa');
+  });
+});
+document.getElementById('uniformeSelect').addEventListener('change',function(){
+  document.getElementById('outroTimeField').classList.toggle('hidden',this.value!=='Outro time (especificar)');
+});
+
+// Demo video autoplay on desktop
+(function(){
+  var v=document.getElementById('demoVideo');
+  if(window.innerWidth>=768){v.autoplay=true;v.play().catch(function(){});}
+  else{v.addEventListener('click',function(){if(v.paused)v.play();else v.pause();});}
+})();
+
+// FAQ accordion
+function toggleFaq(el){
+  var item=el.parentElement;
+  var wasOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open')});
+  if(!wasOpen)item.classList.add('open');
+}
+
+// Form submit -> WhatsApp
+function handleSubmit(e){
+  e.preventDefault();
+  var f=document.getElementById('orderForm');
+  var nome=f.nome.value.trim();
+  var insta=f.instagram.value.trim();
+  var pacote=f.pacote.value;
+  var tipo='';
+  f.querySelectorAll('input[name="tipo"]').forEach(function(r){if(r.checked)tipo=r.value});
+  if(!tipo){alert('Selecione o tipo de projeto.');return false;}
+  var empresa=f.empresa?f.empresa.value.trim():'';
+  var uniforme=f.uniforme.value;
+  var outroTime=f.outroTime?f.outroTime.value.trim():'';
+  if(uniforme==='Outro time (especificar)'&&outroTime){uniforme=outroTime;}
+
+  var adicionais=[];
+  f.querySelectorAll('input[name="adicional"]:checked').forEach(function(c){adicionais.push(c.value)});
+
+  var obs=f.observacoes.value.trim();
+  var now=new Date();
+  var ts=now.toLocaleDateString('pt-BR')+' '+now.toLocaleTimeString('pt-BR');
+
+  var msg='🏟️ PEDIDO COPA 2026 — ILMAR LABS\n\n';
+  msg+='📋 Pacote: '+pacote+'\n';
+  msg+='👤 Nome: '+nome+'\n';
+  msg+='📸 Instagram: '+insta+'\n';
+  msg+='🎯 Tipo: '+tipo+'\n';
+  if(empresa)msg+='🏢 Empresa: '+empresa+'\n';
+  msg+='👕 Uniforme: '+uniforme+'\n';
+  if(adicionais.length)msg+='➕ Adicionais: '+adicionais.join(', ')+'\n';
+  if(obs)msg+='📝 Observações: '+obs+'\n';
+  msg+='\n'+ts;
+
+  var url='https://wa.me/5511991292104?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
+  return false;
+}
+</script>
+</body>
+</html>
