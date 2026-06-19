@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <circle cx="100" cy="100" r="96" fill="#0A0A0C" stroke="#fff" stroke-width="4"/>
+  <circle cx="100" cy="100" r="96" fill="none" stroke="#00E5FF" stroke-width="2" opacity=".6" transform="translate(2,-1)"/>
+  <circle cx="100" cy="100" r="96" fill="none" stroke="#FF1744" stroke-width="2" opacity=".6" transform="translate(-2,1)"/>
+  <!-- A with lightning bolt -->
+  <path d="M100 40 L60 160 L78 160 L86 132 L114 132 L122 160 L140 160 Z M92 118 L100 82 L108 118 Z" fill="#E0E0E0"/>
+  <!-- Lightning cut -->
+  <path d="M95 95 L108 80 L102 100 L115 85 L98 115 L104 95 Z" fill="#0A0A0C"/>
+  <!-- Glitch offset copies -->
+  <path d="M100 40 L60 160 L78 160 L86 132 L114 132 L122 160 L140 160 Z M92 118 L100 82 L108 118 Z" fill="#FF1744" opacity=".25" transform="translate(-3,1)"/>
+  <path d="M100 40 L60 160 L78 160 L86 132 L114 132 L122 160 L140 160 Z M92 118 L100 82 L108 118 Z" fill="#00E5FF" opacity=".25" transform="translate(3,-1)"/>
+</svg>

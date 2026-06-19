@@ -55,6 +55,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 .proof-card{flex:0 0 200px;aspect-ratio:9/16;border-radius:14px;position:relative;overflow:hidden;scroll-snap-align:start;cursor:pointer;transition:transform .2s}
 .proof-card:hover{transform:scale(1.03)}
 .proof-card .card-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460)}
+.proof-card .card-thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
 .proof-card:nth-child(2) .card-bg{background:linear-gradient(135deg,#1a1a2e,#2d1b4e,#4a1942)}
 .proof-card:nth-child(3) .card-bg{background:linear-gradient(135deg,#1a1a2e,#1b3a2e,#0d4935)}
 .proof-card .card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,rgba(0,0,0,.1) 50%,rgba(0,0,0,.4) 100%);z-index:1}
@@ -227,28 +228,39 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   <h2>Resultados reais</h2>
   <div class="proof-scroll">
     <a href="https://www.instagram.com/p/DZjOjxfNcYm/" target="_blank" rel="noopener" class="proof-card">
-      <div class="card-bg"></div>
+      <img src="assets/copa-thumb-neymar.jpg" alt="Neymar no plástico bolha — 1,4M views" class="card-thumb" loading="lazy">
       <div class="card-overlay"></div>
-      <div class="views-badge">1,4M views</div>
-      <div class="card-title">1,4M DE VIEWS</div>
+      <div class="views-badge">🔥 1,4M views</div>
+      <div class="card-title">MEME DO NEYMAR<br>NO PLÁSTICO BOLHA</div>
     </a>
     <a href="https://www.instagram.com/p/DZvHbcPhJGK/" target="_blank" rel="noopener" class="proof-card">
-      <div class="card-bg"></div>
+      <img src="assets/copa-thumb-gta6.jpg" alt="DLC GTA 6 — Viral" class="card-thumb" loading="lazy">
       <div class="card-overlay"></div>
-      <div class="views-badge">Viral</div>
+      <div class="views-badge">🔥 Viral</div>
       <div class="card-title">DLC GTA 6 VIRAL</div>
     </a>
     <a href="https://www.instagram.com/reel/DZxdIb1u8Vb/" target="_blank" rel="noopener" class="proof-card">
-      <div class="card-bg"></div>
+      <img src="assets/copa-thumb-artistas.jpg" alt="Artistas na Arquibancada" class="card-thumb" loading="lazy">
       <div class="card-overlay"></div>
-      <div class="views-badge">Novo</div>
-      <div class="card-title">ARTISTAS NA ARQUIBANCADA</div>
+      <div class="views-badge">🔥 Viral</div>
+      <div class="card-title">ARTISTAS NA<br>ARQUIBANCADA</div>
     </a>
     <div class="proof-card soon">
       <div class="card-bg"></div>
       <div class="card-overlay"></div>
       <div class="soon-badge">EM BREVE</div>
-      <div class="card-title">PAUSA PRA HIDRATAÇÃO</div>
+      <div class="card-title">PAUSA PRA<br>HIDRATAÇÃO</div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOCLIPE SECTION -->
+<section style="padding:24px 0;">
+  <div class="container" style="text-align:center;">
+    <p style="font-size:12px;color:var(--mid);letter-spacing:1px;margin-bottom:10px;">VIDEOCLIPE · ILMAR LABS</p>
+    <h3 style="font-size:20px;margin-bottom:16px;">🎬 Volta, Neymar — Videoclipe Oficial</h3>
+    <div style="position:relative;width:100%;max-width:700px;margin:0 auto;aspect-ratio:16/9;border-radius:8px;overflow:hidden;border:1px solid var(--border);">
+      <iframe src="https://www.youtube.com/embed/nJvXsXEzyPI" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
@@ -402,14 +414,18 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <label>Uniforme / Camisa <span class="req">*</span></label>
         <select name="uniforme" required id="uniformeSelect">
           <option value="" disabled selected>Selecione o uniforme</option>
+          <optgroup label="⭐ Destaques">
+            <option>Brasil</option>
+            <option>Argentina</option>
+          </optgroup>
           <optgroup label="&#127463;&#127479; Seleções Copa 2026">
-            <option>Alemanha</option><option>Arábia Saudita</option><option>Argentina</option><option>Austrália</option>
-            <option>Bélgica</option><option>Bolívia</option><option>Brasil</option><option>Camarões</option>
+            <option>Alemanha</option><option>Arábia Saudita</option><option>Austrália</option>
+            <option>Bélgica</option><option>Bolívia</option><option>Camarões</option>
             <option>Canadá</option><option>Chile</option><option>China</option><option>Colômbia</option>
             <option>Coreia do Sul</option><option>Costa Rica</option><option>Costa do Marfim</option><option>Croácia</option>
             <option>Dinamarca</option><option>Equador</option><option>Escócia</option><option>Espanha</option>
             <option>Estados Unidos</option><option>Fiji</option><option>França</option><option>Gana</option>
-            <option>Guatemala</option><option>Holanda</option><option>Honduras</option><option>Hungria</option>
+            <option>Guatemala</option><option>Haiti</option><option>Holanda</option><option>Honduras</option><option>Hungria</option>
             <option>Inglaterra</option><option>Irã</option><option>Irlanda</option><option>Israel</option>
             <option>Itália</option><option>Jamaica</option><option>Japão</option><option>Marrocos</option>
             <option>México</option><option>Nigéria</option><option>Noruega</option><option>Nova Zelândia</option>
@@ -443,10 +459,14 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <input type="text" name="outroTime" placeholder="Digite o nome do time">
       </div>
       <div class="field">
+        <label>Pedidos específicos / múltiplos uniformes</label>
+        <textarea name="pedidoEspecifico" rows="2" placeholder="Ex: 2 uniformes diferentes, 1 Brasil e 1 Corinthians, ou qualquer detalhe extra"></textarea>
+      </div>
+      <div class="field">
         <label>Produtos adicionais</label>
         <div class="check-group">
-          <label><input type="checkbox" name="adicional" value="Convite Animado de Aniversário (+R$ 37)"> Convite Animado de Aniversário (+R$ 37)</label>
-          <label><input type="checkbox" name="adicional" value="Pacote Vitrine — Fotos de Produto (+R$ 47)"> Pacote Vitrine — Fotos de Produto (+R$ 47)</label>
+          <label><input type="checkbox" name="adicional" value="Convite Animado de Aniversário Temático (+R$ 37)"> 🎂 Convite Animado de Aniversário Temático (+R$ 37) <em style="font-size:11px;color:var(--mid);">(selecione e receba uma amostra e mais informações)</em></label>
+          <label><input type="checkbox" name="adicional" value="Pacote Vitrine — Fotos de Produto (+R$ 47)"> 🍔 Pacote Vitrine — Fotos de Produto (+R$ 47)</label>
         </div>
       </div>
       <div class="field">
@@ -552,13 +572,16 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 <!-- FOOTER -->
 <footer class="footer">
   <div class="container">
+    <img src="assets/logo-ilmarlabs.svg" alt="Ilmar Labs" style="width:56px;height:56px;object-fit:contain;margin:0 auto 12px;display:block;">
     <div class="logo">ILMAR LABS</div>
     <div class="footer-links">
-      <a href="https://instagram.com/ilmarlabs" target="_blank" rel="noopener">@ilmarlabs</a>
-      <a href="https://wa.me/5511991292104" target="_blank" rel="noopener">(11) 99129-2104</a>
-      <a href="mailto:contato@andersonbrito.com">contato@andersonbrito.com</a>
+      <a href="https://instagram.com/ilmarlabs" target="_blank" rel="noopener">📸 @ilmarlabs</a>
+      <a href="https://instagram.com/andersonbrito.mp4" target="_blank" rel="noopener">📸 @andersonbrito.mp4</a>
+      <a href="https://wa.me/5511991292104" target="_blank" rel="noopener">💬 (11) 99129-2104</a>
+      <a href="mailto:contato@andersonbrito.com">✉️ contato@andersonbrito.com</a>
+      <a href="https://andersonbrito.com" target="_blank" rel="noopener">🌐 andersonbrito.com</a>
     </div>
-    <p class="legal">&copy; 2026 Ilmar Labs &middot; CNPJ em processo &middot; Garantia de 7 dias conforme CDC</p>
+    <p class="legal">&copy; 2026 Ilmar Labs &middot; CNPJ 61.172.823/0001-99 &middot; Garantia de 7 dias conforme CDC</p>
   </div>
 </footer>
 
@@ -635,6 +658,7 @@ function handleSubmit(e){
   var adicionais=[];
   f.querySelectorAll('input[name="adicional"]:checked').forEach(function(c){adicionais.push(c.value)});
 
+  var pedidoEsp=f.pedidoEspecifico?f.pedidoEspecifico.value.trim():'';
   var obs=f.observacoes.value.trim();
   var now=new Date();
   var ts=now.toLocaleDateString('pt-BR')+' '+now.toLocaleTimeString('pt-BR');
@@ -646,6 +670,7 @@ function handleSubmit(e){
   msg+='🎯 Tipo: '+tipo+'\n';
   if(empresa)msg+='🏢 Empresa: '+empresa+'\n';
   msg+='👕 Uniforme: '+uniforme+'\n';
+  if(pedidoEsp)msg+='⚙️ Pedido específico: '+pedidoEsp+'\n';
   if(adicionais.length)msg+='➕ Adicionais: '+adicionais.join(', ')+'\n';
   if(obs)msg+='📝 Observações: '+obs+'\n';
   msg+='\n'+ts;
