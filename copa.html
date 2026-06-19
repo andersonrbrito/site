@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="robots" content="noindex">
+<meta name="robots" content="index, follow">
 <title>Copa do Mundo 2026 — Videos de IA | Ilmar Labs</title>
 <meta name="description" content="Tenha voce na arquibancada da Copa do Mundo 2026 com videos hiperrealistas de IA. Entrega em ate 2 horas. A partir de R$ 27,90.">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
@@ -472,6 +472,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         </div>
       </div>
       <button type="submit" class="btn-submit">ENVIAR PEDIDO NO WHATSAPP &#8594;</button>
+      <button type="button" class="btn-submit" onclick="enviarPorEmail()" style="background:none;border:2px solid var(--accent);color:var(--accent);margin-top:10px;">&#9993; ENVIAR POR E-MAIL</button>
       <div class="form-note">
         &#128161; <strong>Orientações:</strong> Envie no mínimo 3 fotos de cada pessoa e 3 fotos de cada produto + logo (quando for marca/produto). Fotos pessoais: mínimo 3 fotos do rosto.
       </div>
@@ -492,7 +493,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <p style="margin-top:14px;"><strong style="color:#ddd;">5. Direito de arrependimento</strong><br>Conforme o Código de Defesa do Consumidor (Art. 49), o cliente tem direito ao arrependimento e reembolso integral em até 7 (sete) dias corridos a partir da data da compra.</p>
       <p style="margin-top:14px;"><strong style="color:#ddd;">6. Uso de imagem</strong><br>Ao enviar suas fotos, o cliente autoriza o uso exclusivo para criação do conteúdo contratado. As imagens não serão divulgadas ou utilizadas para outros fins sem autorização expressa do cliente.</p>
       <p style="margin-top:14px;"><strong style="color:#ddd;">7. Resultados</strong><br>Por se tratar de conteúdo gerado com inteligência artificial, os resultados são aproximações artísticas e não representam fotografias ou filmagens reais. A Ilmar Labs não garante que o resultado final será idêntico à expectativa do cliente, mas se compromete a realizar as alterações inclusas para máxima satisfação.</p>
-      <p style="margin-top:14px;"><strong style="color:#ddd;">8. Pagamento</strong><br>Todos os pagamentos são realizados exclusivamente via Pix. O pedido só entra em produção após a confirmação do pagamento.</p>
+      <p style="margin-top:14px;"><strong style="color:#ddd;">8. Pagamento</strong><br>Os pagamentos são realizados via Pix ou cartão de crédito. O pedido só entra em produção após a confirmação do pagamento.</p>
       <p style="margin-top:14px;"><strong style="color:#ddd;">9. Contato</strong><br>WhatsApp: (11) 99239-2104 · E-mail: contato@andersonbrito.com · Instagram: @ilmarlabs</p>
       <p style="margin-top:14px;"><strong style="color:#ddd;">10. Foro</strong><br>Fica eleito o foro da comarca de Barueri/SP para dirimir quaisquer questões oriundas destes termos.</p>
       <p style="margin-top:20px;font-size:11px;color:#666;">Última atualização: 19 de junho de 2026.</p>
@@ -576,7 +577,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           <span>Aceita cartão?</span>
           <span class="arrow">&#9660;</span>
         </div>
-        <div class="faq-a"><p>No momento, trabalhamos apenas com Pix para garantir preço promocional e entrega rápida.</p></div>
+        <div class="faq-a"><p>Sim! Aceitamos Pix e cartão de crédito. O Pix garante o melhor preço promocional e entrega mais rápida, mas também aceitamos cartão para sua comodidade.</p></div>
       </div>
     </div>
   </div>
@@ -703,6 +704,46 @@ function handleSubmit(e){
   var url='https://wa.me/5511992392104?text='+encodeURIComponent(msg);
   window.open(url,'_blank');
   return false;
+}
+
+function buildMsg(){
+  var f=document.getElementById('orderForm');
+  var nome=f.nome.value.trim();
+  var insta=f.instagram.value.trim();
+  var pacote=f.pacote.value;
+  var tipo='';
+  f.querySelectorAll('input[name="tipo"]').forEach(function(r){if(r.checked)tipo=r.value});
+  var empresa=f.empresa?f.empresa.value.trim():'';
+  var uniforme=f.uniforme.value;
+  var outroTime=f.outroTime?f.outroTime.value.trim():'';
+  if(uniforme==='Outro time (especificar)'&&outroTime){uniforme=outroTime;}
+  var adicionais=[];
+  f.querySelectorAll('input[name="adicional"]:checked').forEach(function(c){adicionais.push(c.value)});
+  var pedidoEsp=f.pedidoEspecifico?f.pedidoEspecifico.value.trim():'';
+  var obs=f.observacoes.value.trim();
+  var msg='PEDIDO COPA 2026 — ILMAR LABS\n\n';
+  msg+='Pacote: '+pacote+'\n';
+  msg+='Nome: '+nome+'\n';
+  msg+='Instagram: '+insta+'\n';
+  msg+='Tipo: '+tipo+'\n';
+  if(empresa)msg+='Empresa: '+empresa+'\n';
+  msg+='Uniforme: '+uniforme+'\n';
+  if(pedidoEsp)msg+='Pedido específico: '+pedidoEsp+'\n';
+  if(adicionais.length)msg+='Adicionais: '+adicionais.join(', ')+'\n';
+  if(obs)msg+='Observações: '+obs+'\n';
+  return msg;
+}
+
+function enviarPorEmail(){
+  var f=document.getElementById('orderForm');
+  if(!f.nome.value.trim()||!f.instagram.value.trim()||!f.pacote.value){alert('Preencha os campos obrigatórios.');return;}
+  var tipo='';
+  f.querySelectorAll('input[name="tipo"]').forEach(function(r){if(r.checked)tipo=r.value});
+  if(!tipo){alert('Selecione o tipo de projeto.');return;}
+  if(!f.termos.checked){alert('Aceite os termos de uso para continuar.');return;}
+  var msg=buildMsg();
+  var subject='Pedido Copa 2026 — '+f.nome.value.trim();
+  window.open('mailto:contato@andersonbrito.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(msg),'_blank');
 }
 </script>
 </body>
