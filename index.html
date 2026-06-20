@@ -110,8 +110,8 @@
       --f-body:    'DM Sans', sans-serif;
 
       /* layout */
-      --menubar-h: 28px;
-      --toolbar-h: 40px;
+      --menubar-h: 0px;
+      --toolbar-h: 42px;
       --timeline-h: 110px;
       --track-h:  24px;
     }
@@ -137,16 +137,7 @@
        MENU BAR (Premiere top bar)
     ═══════════════════════════════════════════ */
     .menu-bar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: var(--menubar-h);
-      background: var(--pr-menubar);
-      border-bottom: 1px solid var(--pr-border);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      overflow: visible;
+      display: none;
     }
 
     /* app icon area */
@@ -274,17 +265,37 @@
     ═══════════════════════════════════════════ */
     .toolbar {
       position: fixed;
-      top: var(--menubar-h);
+      top: 0;
       left: 0; right: 0;
       height: var(--toolbar-h);
-      background: var(--pr-toolbar);
+      background: var(--pr-menubar);
       border-bottom: 1px solid var(--pr-border);
-      z-index: 999;
+      z-index: 1000;
       display: flex;
       align-items: center;
       padding: 0 12px;
       gap: 2px;
     }
+    .toolbar .tb-brand {
+      display: flex; align-items: center; gap: 7px;
+      padding-right: 14px; margin-right: 4px;
+      border-right: 1px solid var(--pr-sep);
+      height: 100%; flex-shrink: 0;
+    }
+    .toolbar .tb-brand .menu-pr-icon {
+      width: 18px; height: 18px; font-size: 9px;
+    }
+    .toolbar .tb-brand span {
+      font-family: var(--f-mono); font-size: 10px;
+      color: var(--tx-mid); letter-spacing: .04em;
+    }
+    .toolbar .tb-status {
+      display: flex; align-items: center; gap: 8px;
+      margin-left: 8px; padding-left: 14px;
+      border-left: 1px solid var(--pr-sep); height: 100%;
+    }
+    .toolbar .tb-status .menu-status-dot { width: 6px; height: 6px; }
+    .toolbar .tb-status .menu-status-text { font-size: 9px; }
 
     /* transport controls group */
     .tool-group {
@@ -384,7 +395,7 @@
     .mobile-drawer {
       display: none;
       position: fixed;
-      top: calc(var(--menubar-h) + var(--toolbar-h));
+      top: var(--toolbar-h);
       left: 0; right: 0;
       background: var(--pr-panel-bg);
       border-top: 1px solid var(--pr-sep);
@@ -419,7 +430,7 @@
        PAGE OFFSET (below fixed bars)
     ═══════════════════════════════════════════ */
     .page-content {
-      margin-top: calc(var(--menubar-h) + var(--toolbar-h));
+      margin-top: var(--toolbar-h);
     }
 
     /* ═══════════════════════════════════════════
@@ -475,7 +486,7 @@
        PROGRAM MONITOR (hero)
     ═══════════════════════════════════════════ */
     #section-home {
-      min-height: calc(100svh - var(--menubar-h) - var(--toolbar-h));
+      min-height: calc(100svh - var(--toolbar-h));
       display: flex;
       flex-direction: column;
     }
@@ -1754,24 +1765,13 @@
   <!-- ═══════════════════════════════════════════
        MENU BAR
   ═══════════════════════════════════════════ -->
-  <div class="menu-bar">
-    <div class="menu-appname">
+  <!-- UNIFIED TOOLBAR -->
+  <div class="toolbar">
+    <div class="tb-brand">
       <div class="menu-pr-icon">AB</div>
-      <!-- 📌 Trocar por <img src="assets/logo.svg" height="14"> se tiver logo -->
       <span>andersonbrito.com</span>
     </div>
-    <div class="menu-right">
-      <div class="menu-status-dot"></div>
-      <div class="menu-status-text">DISPONÍVEL</div>
-    </div>
-  </div>
 
-  <!-- ═══════════════════════════════════════════
-       TOOLBAR
-  ═══════════════════════════════════════════ -->
-  <div class="toolbar">
-
-    <!-- Desktop nav -->
     <div class="toolbar-nav">
       <a href="index.html" class="tn-link" style="color:var(--tx-hi);">Home</a>
       <a href="fotografia.html" class="tn-link">Fotografia</a>
@@ -1782,7 +1782,11 @@
       <a href="briefing.html" class="tn-link cta">Contato</a>
     </div>
 
-    <!-- Mobile hamburger (hidden — drawer always shows on mobile) -->
+    <div class="tb-status">
+      <div class="menu-status-dot"></div>
+      <div class="menu-status-text">DISPONÍVEL</div>
+    </div>
+
     <button class="hamburger-btn" id="hamburgerBtn" style="display:none;">
       <span></span><span></span><span></span>
     </button>
@@ -1808,7 +1812,7 @@
     <!-- ── HERO / PROGRAM MONITOR ────────────── -->
     <section id="section-home" class="ws-section" data-section="INTRO" data-tc="00:00:00;00">
       <div class="panel program-monitor">
-        <div class="panel-header">
+        <div class="panel-header" style="display:none;">
           <div class="panel-header-icon" style="background:var(--accent-2);"></div>
           <span class="panel-title">Monitor de Programa — Anderson_Brito_2026</span>
           <div class="panel-header-actions">
@@ -1836,7 +1840,7 @@
 
           <!-- TC overlay -->
           <div class="monitor-tc-overlay"><span>TC </span><span id="monitorTc">00:00:00;00</span></div>
-          <div class="monitor-seq-label">ANDERSON_BRITO_2026 ▸</div>
+          <div class="monitor-seq-label" style="display:none;">ANDERSON_BRITO_2026 ▸</div>
 
           <div class="monitor-content">
             <div class="hero-eyebrow">// MARKETING · AUDIOVISUAL</div>
