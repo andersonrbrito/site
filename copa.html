@@ -48,8 +48,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 
 /* HERO */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 20px 60px;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:url('assets/copa-hero-salon.jpg') center top/cover no-repeat}
-.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,12,.55) 0%,rgba(10,10,12,.8) 50%,rgba(10,10,12,.97) 100%)}
+.hero-bg{position:absolute;inset:0;background:url('assets/copa-hero-salon.jpg') center 20%/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,12,.4) 0%,rgba(10,10,12,.75) 40%,rgba(10,10,12,.97) 100%)}
 .hero-content{position:relative;z-index:2;text-align:center;max-width:780px}
 .hero h1{font-size:clamp(1.8rem,5.5vw,3.2rem);font-weight:800;text-transform:uppercase;margin-bottom:16px;letter-spacing:-0.5px;text-shadow:0 2px 30px rgba(0,0,0,.6)}
 .hero h1 span{color:var(--accent)}
@@ -261,10 +261,23 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   </div>
 </section>
 
+<!-- VIDEO CRIATIVO EM DESTAQUE -->
+<section style="padding:40px 0;background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container" style="text-align:center;">
+    <p style="font-size:12px;color:var(--accent);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;font-weight:600;">🎬 Vídeo de exemplo — Campanha Salão</p>
+    <div class="video-wrap" style="max-width:360px;margin:0 auto;">
+      <video src="assets/copa-ad.mp4" muted loop playsinline preload="metadata" id="demoVideo" style="width:100%;border-radius:14px;border:1px solid var(--border);"></video>
+    </div>
+    <p style="margin-top:12px;font-size:.85rem;color:var(--mid);">Entrega real · pronto pra postar em Reels, Stories e Status</p>
+    <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20um%20v%C3%ADdeo%20assim%20pro%20meu%20sal%C3%A3o!" target="_blank" rel="noopener" style="display:inline-block;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;padding:14px 32px;border-radius:10px;margin-top:16px;text-transform:uppercase;letter-spacing:.5px;" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'Video-CTA'})">💬 QUERO UM ASSIM &#8594;</a>
+  </div>
+</section>
+
 <!-- SOCIAL PROOF -->
 <section class="social-proof">
   <h2 style="margin-bottom:8px;">O vídeo que viralizou o Brasil inteiro</h2>
-  <p style="text-align:center;color:var(--gold);font-size:1.5rem;font-weight:800;font-family:'Space Grotesk',sans-serif;margin-bottom:24px;">+22 MILHÕES DE VIEWS NO TOTAL</p>
+  <p style="text-align:center;color:var(--gold);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;font-family:'Space Grotesk',sans-serif;margin-bottom:6px;">+22 MILHÕES</p>
+  <p style="text-align:center;color:var(--gold);font-size:1rem;font-weight:600;letter-spacing:2px;margin-bottom:24px;">DE VIEWS NO TOTAL</p>
   <div class="proof-scroll">
     <a href="https://www.instagram.com/p/DZ-bPzKho9b/" target="_blank" rel="noopener" class="proof-card" onclick="if(typeof fbq==='function')fbq('track','ViewContent',{content_name:'SouEuNaVida'})">
       <img src="assets/copa-thumb-hidratacao2.jpg" alt="Sou Eu Na Vida — 16,7M views" class="card-thumb" loading="lazy">
@@ -285,6 +298,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <div class="card-title">ILMAR LABS<br>POST ORIGINAL</div>
     </a>
   </div>
+  <div style="text-align:center;margin-top:24px;">
+    <a href="https://wa.me/5511992392104?text=Oi%2C%20vi%20os%20v%C3%ADdeos%20virais%20e%20quero%20o%20meu!" target="_blank" rel="noopener" style="display:inline-block;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.95rem;padding:14px 32px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'AfterProof-CTA'})">💬 QUERO O MEU VÍDEO VIRAL &#8594;</a>
+  </div>
 </section>
 
 <!-- DEPOIMENTO -->
@@ -295,16 +311,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
     <p style="font-weight:700;color:var(--accent);font-family:'Space Grotesk',sans-serif;">Eva de Sousa</p>
     <p style="font-size:.85rem;color:var(--mid);">Cabeleireira</p>
     <img src="assets/copa-eva-resultado.jpg" alt="Eva com jogadores na Copa" style="width:100%;max-width:500px;border-radius:12px;margin-top:20px;border:1px solid var(--border);" loading="lazy">
-  </div>
-</section>
-
-<!-- VIDEO DEMO -->
-<section class="video-demo">
-  <div class="container">
-    <div class="video-wrap">
-      <video src="assets/copa-ad.mp4" muted loop playsinline preload="metadata" id="demoVideo"></video>
-    </div>
-    <p class="video-caption">Exemplo de entrega real &middot; 12 segundos &middot; pronto pra postar</p>
+    <br><br>
+    <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20v%C3%ADdeo%20do%20meu%20sal%C3%A3o!" target="_blank" rel="noopener" style="display:inline-block;background:var(--accent);color:#0A0A0C;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;padding:16px 40px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;">GARANTIR AGORA — R$ 67 &#8594;</a>
   </div>
 </section>
 
@@ -582,6 +590,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         </div>
       </div>
     </div>
+    <div style="text-align:center;margin-top:32px;">
+      <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20garantir%20meu%20v%C3%ADdeo%20com%20garantia!" target="_blank" rel="noopener" style="display:inline-block;background:var(--wa);color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;padding:16px 40px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px;" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'Garantias-CTA'})">💬 GARANTIR AGORA NO WHATSAPP &#8594;</a>
+    </div>
   </div>
 </section>
 
@@ -649,18 +660,6 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         </div>
         <div class="faq-a"><p>Sim! Aceitamos Pix e cartão de crédito. O Pix garante o melhor preço promocional e entrega mais rápida, mas também aceitamos cartão para sua comodidade.</p></div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- VIDEOCLIPE SECTION -->
-<section style="padding:80px 0 60px;border-top:1px solid var(--border);">
-  <div class="container" style="text-align:center;">
-    <p style="font-size:12px;color:var(--mid);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;font-weight:600;">🎬 Videoclipe · Ilmar Labs</p>
-    <h2 style="font-size:clamp(1.8rem,5.5vw,2.6rem);font-weight:800;text-transform:uppercase;margin-bottom:32px;letter-spacing:-0.5px;">Volta, Neymar</h2>
-    <p style="color:var(--mid);margin-bottom:32px;font-size:1.05rem;max-width:640px;margin-left:auto;margin-right:auto;">Videoclipe oficial com produção audiovisual de cinema. Dirija, dirija, dirija. 🎬</p>
-    <div style="position:relative;width:100%;max-width:800px;margin:0 auto;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--border);box-shadow:0 20px 60px rgba(0,0,0,.5);">
-      <iframe src="https://www.youtube.com/embed/nJvXsXEzyPI" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen loading="lazy"></iframe>
     </div>
   </div>
 </section>
