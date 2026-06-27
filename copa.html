@@ -332,9 +332,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   <div class="container">
     <div class="section-title">
       <h2>Para quem é?</h2>
-      <p>Salões, barbearias e marcas de beleza</p>
+      <p>Salões, barbearias, adegas, bares e marcas de beleza</p>
     </div>
-    <div class="pricing-grid">
+    <div class="pricing-grid" style="grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
       <div class="price-card">
         <div class="emoji">💇‍♀️</div>
         <h3>Salão / Cabeleireira</h3>
@@ -345,6 +345,12 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <div class="emoji">💈</div>
         <h3>Barbearia</h3>
         <p class="card-desc">Você aparando a barba do Messi e do Neymar na Copa. Seus clientes vão compartilhar!</p>
+        <a href="#pedido" class="btn-card">QUERO O MEU</a>
+      </div>
+      <div class="price-card">
+        <div class="emoji">🍷</div>
+        <h3>Adega / Bar</h3>
+        <p class="card-desc">Seu motoboy entregando pros craques no estádio com a sua marca em destaque. Você aparece na arquibancada no vídeo bônus!</p>
         <a href="#pedido" class="btn-card">QUERO O MEU</a>
       </div>
       <div class="price-card">
@@ -480,6 +486,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <div class="radio-group">
           <label><input type="radio" name="tipo" value="Salão / Cabeleireira" required> Salão / Cabeleireira</label>
           <label><input type="radio" name="tipo" value="Barbearia"> Barbearia</label>
+          <label><input type="radio" name="tipo" value="Adega / Bar"> Adega / Bar</label>
           <label><input type="radio" name="tipo" value="Marca / Produto"> Marca / Produto de beleza</label>
         </div>
       </div>
