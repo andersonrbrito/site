@@ -324,53 +324,38 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <p>Entrega rápida. Qualidade de cinema. Preço justo.</p>
     </div>
     <div class="pricing-grid">
-      <!-- SALÃO FEMININO -->
+      <!-- VÍDEO -->
       <div class="price-card featured">
-        <span class="card-badge">🪞 PRONTO!</span>
-        <div class="emoji">💇‍♀️</div>
-        <h3>Salão / Cabeleireira</h3>
+        <span class="card-badge">MAIS PEDIDO</span>
+        <div class="emoji">🎬</div>
+        <h3>Pacote Vídeo</h3>
         <div class="price"><s style="color:#999;font-size:0.9em">R$ 147</s> R$ 67</div>
         <ul>
           <li>1 vídeo IA 12-15s: você atendendo os craques da Copa</li>
-          <li>Logo do seu salão incluso no vídeo</li>
+          <li>Logo do seu salão/barbearia incluso</li>
           <li>Pronto pra Reels, Stories e Status do WhatsApp</li>
           <li>Até 3 alterações sem custo</li>
           <li>Entrega em até 4 horas</li>
         </ul>
         <p class="card-desc">Do criador do vídeo de 20 milhões de views. Visto na CazéTV.</p>
-        <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20v%C3%ADdeo%20do%20meu%20sal%C3%A3o!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'Salao'})">GARANTIR AGORA</a>
+        <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20Pacote%20V%C3%ADdeo%20R%2467!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'PacoteVideo'})">GARANTIR AGORA</a>
       </div>
-      <!-- BARBEARIA -->
+      <!-- VÍDEO + CARROSSEL -->
       <div class="price-card">
-        <span class="card-badge" style="background:var(--mid);">EM BREVE</span>
-        <div class="emoji">💈</div>
-        <h3>Barbearia</h3>
-        <div class="price"><s style="color:#999;font-size:0.9em">R$ 147</s> R$ 67</div>
+        <span class="card-badge complete">COMPLETO</span>
+        <div class="emoji">📸</div>
+        <h3>Pacote Vídeo + Carrossel</h3>
+        <div class="price"><s style="color:#999;font-size:0.9em">R$ 197</s> R$ 97</div>
         <ul>
-          <li>1 vídeo IA 12-15s: você aparando barba dos craques</li>
-          <li>Logo da sua barbearia incluso</li>
-          <li>Pronto pra Reels, Stories e Status do WhatsApp</li>
+          <li>Tudo do Pacote Vídeo +</li>
+          <li>1 carrossel de fotos IA (5-10 imagens) pro Instagram</li>
+          <li>Você com os craques em diferentes cenários</li>
+          <li>Logo e identidade do seu negócio em cada foto</li>
           <li>Até 3 alterações sem custo</li>
           <li>Entrega em até 4 horas</li>
         </ul>
-        <p class="card-desc">Imagine seus clientes vendo VOCÊ no comando. Vídeo saindo em breve!</p>
-        <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20v%C3%ADdeo%20da%20minha%20barbearia!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'Barbearia'})">GARANTIR AGORA</a>
-      </div>
-      <!-- PRODUTOS / SKINCARE -->
-      <div class="price-card">
-        <span class="card-badge" style="background:var(--mid);">EM BREVE</span>
-        <div class="emoji">🧴</div>
-        <h3>Produtos de Hidratação</h3>
-        <div class="price"><s style="color:#999;font-size:0.9em">R$ 147</s> R$ 67</div>
-        <ul>
-          <li>1 vídeo IA 12-15s: seu produto na Copa do Mundo</li>
-          <li>Logo e embalagem em destaque</li>
-          <li>Pronto pra Reels, Stories e Status do WhatsApp</li>
-          <li>Até 3 alterações sem custo</li>
-          <li>Entrega em até 4 horas</li>
-        </ul>
-        <p class="card-desc">Shampoos, cremes, produtos capilares — na mão dos craques.</p>
-        <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20v%C3%ADdeo%20do%20meu%20produto!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'Produto'})">GARANTIR AGORA</a>
+        <p class="card-desc">Vídeo + carrossel = conteúdo pra semana inteira no feed.</p>
+        <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20Pacote%20V%C3%ADdeo%20%2B%20Carrossel%20R%2497!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'PacoteCarrossel'})">GARANTIR AGORA</a>
       </div>
     </div>
   </div>
@@ -442,10 +427,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <div class="field">
         <label>Pacote principal <span class="req">*</span></label>
         <select name="pacote" required>
-          <option value="" disabled selected>Selecione a campanha</option>
-          <option value="Salão / Cabeleireira — R$ 67">💇‍♀️ Salão / Cabeleireira — R$ 67</option>
-          <option value="Barbearia — R$ 67">💈 Barbearia — R$ 67</option>
-          <option value="Produtos de Hidratação — R$ 67">🧴 Produtos de Hidratação — R$ 67</option>
+          <option value="" disabled selected>Selecione o pacote</option>
+          <option value="Pacote Vídeo — R$ 67">🎬 Pacote Vídeo — R$ 67</option>
+          <option value="Pacote Vídeo + Carrossel — R$ 97">📸 Pacote Vídeo + Carrossel — R$ 97</option>
         </select>
       </div>
       <div class="field">
