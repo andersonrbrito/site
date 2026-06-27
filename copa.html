@@ -248,8 +248,8 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
     <p class="subtitle" style="color:var(--gold);font-weight:700;font-size:.95rem;margin-bottom:4px;">🪞 Do criador do vídeo de 20 MILHÕES de views</p>
     <h1>Seu <span>salão, barbearia ou marca</span> atendendo os craques da Copa!</h1>
     <p class="subtitle">Vídeo de IA hiperrealista com a sua marca — entrega em até 4 horas</p>
-    <p class="price-line"><s style="color:#666;">De R$ 147</s> &nbsp;por R$ 67 — só até segunda!</p>
-    <div class="badge">🎁 Bônus: vídeo extra GRÁTIS para quem fechar hoje!</div>
+    <p class="price-line"><s style="color:#666;">De R$ 147</s> &nbsp;por R$ 67 — só até o jogo Brasil × Japão (segunda)!</p>
+    <div class="badge">🎁 Bônus: vídeo extra GRÁTIS — você na arquibancada da Copa!</div>
     <br>
     <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20v%C3%ADdeo%20do%20meu%20sal%C3%A3o%20na%20Copa!" target="_blank" rel="noopener" class="btn-primary" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'Hero-WhatsApp'})">💬 GARANTIR AGORA NO WHATSAPP &#8594;</a>
     <br>
@@ -276,8 +276,19 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
 <!-- SOCIAL PROOF -->
 <section class="social-proof">
   <h2 style="margin-bottom:8px;">O vídeo que viralizou o Brasil inteiro</h2>
-  <p style="text-align:center;color:var(--gold);font-size:clamp(1.8rem,5vw,2.5rem);font-weight:800;font-family:'Space Grotesk',sans-serif;margin-bottom:6px;">+22 MILHÕES</p>
-  <p style="text-align:center;color:var(--gold);font-size:1rem;font-weight:600;letter-spacing:2px;margin-bottom:24px;">DE VIEWS NO TOTAL</p>
+  <p style="text-align:center;color:var(--gold);font-size:clamp(2.2rem,6vw,3.2rem);font-weight:800;font-family:'Space Grotesk',sans-serif;margin-bottom:6px;">+<span id="viewCounter">22,0</span> MILHÕES</p>
+  <p style="text-align:center;color:var(--gold);font-size:1rem;font-weight:600;letter-spacing:2px;margin-bottom:24px;">DE VIEWS E CONTANDO...</p>
+  <script>
+  (function(){
+    var el=document.getElementById('viewCounter');
+    var v=22.0;
+    setInterval(function(){
+      v+=Math.random()*0.3;
+      if(v>25)v=22.1;
+      el.textContent=v.toFixed(1).replace('.',',');
+    },3000);
+  })();
+  </script>
   <div class="proof-scroll">
     <a href="https://www.instagram.com/p/DZ-bPzKho9b/" target="_blank" rel="noopener" class="proof-card" onclick="if(typeof fbq==='function')fbq('track','ViewContent',{content_name:'SouEuNaVida'})">
       <img src="assets/copa-thumb-hidratacao2.jpg" alt="Sou Eu Na Vida — 16,7M views" class="card-thumb" loading="lazy">
@@ -316,14 +327,44 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
   </div>
 </section>
 
+<!-- PARA QUEM É -->
+<section style="padding:50px 0;border-top:1px solid var(--border);">
+  <div class="container">
+    <div class="section-title">
+      <h2>Para quem é?</h2>
+      <p>Salões, barbearias e marcas de beleza</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="emoji">💇‍♀️</div>
+        <h3>Salão / Cabeleireira</h3>
+        <p class="card-desc">Você hidratando, cortando ou fazendo escova nos craques da Copa. Suas clientes vão pirar!</p>
+        <a href="#pedido" class="btn-card">QUERO O MEU</a>
+      </div>
+      <div class="price-card">
+        <div class="emoji">💈</div>
+        <h3>Barbearia</h3>
+        <p class="card-desc">Você aparando a barba do Messi e do Neymar na Copa. Seus clientes vão compartilhar!</p>
+        <a href="#pedido" class="btn-card">QUERO O MEU</a>
+      </div>
+      <div class="price-card">
+        <div class="emoji">🧴</div>
+        <h3>Produtos de Beleza</h3>
+        <p class="card-desc">Shampoos, cremes, produtos capilares — na mão dos craques. Vitrine pro seu produto!</p>
+        <a href="#pedido" class="btn-card">QUERO O MEU</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- PRICING -->
 <section class="pricing">
   <div class="container">
     <div class="section-title">
       <h2>Escolha seu pacote</h2>
-      <p>Entrega rápida. Qualidade de cinema. Preço justo.</p>
+      <p>Promoção até o dia do jogo Brasil × Japão (segunda-feira)</p>
     </div>
-    <div class="pricing-grid">
+    <div class="pricing-grid" style="justify-content:center;">
       <!-- VÍDEO -->
       <div class="price-card featured">
         <span class="card-badge">MAIS PEDIDO</span>
@@ -337,6 +378,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           <li>Até 3 alterações sem custo</li>
           <li>Entrega em até 4 horas</li>
         </ul>
+        <div class="badge" style="margin:12px 0;font-size:.8rem;">🎁 Bônus: vídeo extra GRÁTIS — você na arquibancada!</div>
         <p class="card-desc">Do criador do vídeo de 20 milhões de views. Visto na CazéTV.</p>
         <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20Pacote%20V%C3%ADdeo%20R%2467!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'PacoteVideo'})">GARANTIR AGORA</a>
       </div>
@@ -354,6 +396,7 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
           <li>Até 3 alterações sem custo</li>
           <li>Entrega em até 4 horas</li>
         </ul>
+        <div class="badge" style="margin:12px 0;font-size:.8rem;">🎁 Bônus: vídeo extra GRÁTIS — você na arquibancada!</div>
         <p class="card-desc">Vídeo + carrossel = conteúdo pra semana inteira no feed.</p>
         <a href="https://wa.me/5511992392104?text=Oi%2C%20quero%20o%20Pacote%20V%C3%ADdeo%20%2B%20Carrossel%20R%2497!" target="_blank" rel="noopener" class="btn-card" onclick="if(typeof fbq==='function')fbq('track','Lead',{content_name:'PacoteCarrossel'})">GARANTIR AGORA</a>
       </div>
@@ -448,6 +491,9 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
         <label>Uniforme / Camisa <span class="req">*</span></label>
         <select name="uniforme" required id="uniformeSelect">
           <option value="" disabled selected>Selecione o uniforme</option>
+          <optgroup label="🏢 Sua Marca">
+            <option value="Uniforme da minha empresa">Uniforme da minha empresa / salão / barbearia</option>
+          </optgroup>
           <optgroup label="⭐ Destaques">
             <option>Brasil</option>
             <option>Argentina</option>
@@ -484,7 +530,6 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
             <option>Paysandu</option><option>Ponte Preta</option><option>Remo</option><option>Sampaio Corrêa</option>
             <option>Tombense</option><option>Vila Nova</option>
           </optgroup>
-          <option value="Uniforme da minha empresa">Uniforme da minha empresa</option>
           <option value="Outro time (especificar)">Outro time (especificar)</option>
         </select>
       </div>
@@ -506,6 +551,13 @@ button,input,select,textarea{font-family:inherit;font-size:inherit}
       <div class="field">
         <label>Observações</label>
         <textarea name="observacoes" placeholder="Algo que devemos saber? Quantas pessoas no vídeo, tema especial, etc."></textarea>
+      </div>
+      <div class="field">
+        <label>Forma de pagamento <span class="req">*</span></label>
+        <div class="radio-group">
+          <label><input type="radio" name="pagamento" value="PIX via Mercado Pago" required> PIX via Mercado Pago</label>
+          <label><input type="radio" name="pagamento" value="PIX via Nubank"> PIX via Nubank</label>
+        </div>
       </div>
       <div class="field">
         <div class="check-group">
@@ -747,10 +799,13 @@ function handleSubmit(e){
 
   var pedidoEsp=f.pedidoEspecifico?f.pedidoEspecifico.value.trim():'';
   var obs=f.observacoes.value.trim();
+  var pagamento='';
+  f.querySelectorAll('input[name="pagamento"]').forEach(function(r){if(r.checked)pagamento=r.value});
+  if(!pagamento){alert('Selecione a forma de pagamento.');return false;}
   var now=new Date();
   var ts=now.toLocaleDateString('pt-BR')+' '+now.toLocaleTimeString('pt-BR');
 
-  var msg='🏟️ PEDIDO COPA 2026 — ILMAR LABS\n\n';
+  var msg='🏟️ PEDIDO PAUSA PRA HIDRATAÇÃO — ILMAR LABS\n\n';
   msg+='📋 Pacote: '+pacote+'\n';
   msg+='👤 Nome: '+nome+'\n';
   msg+='📸 Instagram: '+insta+'\n';
@@ -759,11 +814,16 @@ function handleSubmit(e){
   msg+='👕 Uniforme: '+uniforme+'\n';
   if(pedidoEsp)msg+='⚙️ Pedido específico: '+pedidoEsp+'\n';
   if(adicionais.length)msg+='➕ Adicionais: '+adicionais.join(', ')+'\n';
+  msg+='💳 Pagamento: '+pagamento+'\n';
   if(obs)msg+='📝 Observações: '+obs+'\n';
+  msg+='\n⚠️ LEMBRE-SE: Envie mínimo 3 fotos reais (sem filtros), logo em PNG e uniforme (se tiver).\n';
   msg+='\n'+ts;
 
+  var linkPag=pagamento.includes('Mercado Pago')?'https://mpago.la/1SzeD6s':'https://checkout.nubank.com.br/2SLbOf75kF6sj6f5';
+  msg+='\n\n🔗 Link de pagamento: '+linkPag;
+
   var url='https://wa.me/5511992392104?text='+encodeURIComponent(msg);
-  if(typeof fbq==='function')fbq('track','Lead',{content_name:pacote,content_category:'Copa2026'});
+  if(typeof fbq==='function')fbq('track','Lead',{content_name:pacote,content_category:'Copa2026-Salon'});
   window.open(url,'_blank');
   return false;
 }
