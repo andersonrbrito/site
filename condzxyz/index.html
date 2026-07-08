@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Anderson Brito — Criador de Conteúdo IA × Futebol</title>
+  <meta property="og:title" content="Anderson Brito · IA × Futebol · 26M+ Views">
+  <meta property="og:description" content="Criador de conteúdo viral com IA para futebol. Collabs CazéTV e @soueunavida. 26M+ views.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #07090f;
+      --bg2:    #0b1019;
+      --bg3:    #101624;
+      --cyan:   #00E5FF;
+      --yellow: #FFE600;
+      --lime:   #B8FF00;
+      --red:    #FF3C00;
+      --green:  #25D366;
+      --text:   #EDF2FF;
+      --muted:  #5A6880;
+      --border: rgba(255,255,255,0.07);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── TICKER ─── */
+    .ticker {
+      background: var(--cyan);
+      color: #000;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 9px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 30s linear infinite;
+    }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 480px 1fr;
+      align-items: stretch;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 55% 70% at 45% 50%, rgba(0,229,255,0.055) 0%, transparent 65%),
+        radial-gradient(ellipse 30% 40% at 80% 20%, rgba(184,255,0,0.04) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-photo {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, transparent 55%, var(--bg) 100%),
+        linear-gradient(to bottom, transparent 85%, var(--bg) 100%);
+    }
+
+    .hero-content {
+      padding: 80px 72px 80px 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0.85;
+    }
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(56px, 5.5vw, 88px);
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .hero-title .hl { color: var(--cyan); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 44px;
+      max-width: 400px;
+    }
+    .hero-sub strong { color: var(--text); }
+    .hero-stats {
+      display: flex;
+      gap: 36px;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-family: 'Anton', sans-serif;
+      font-size: 40px;
+      color: var(--yellow);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 5px;
+      display: block;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--cyan);
+      color: #000;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 16px 30px;
+      text-transform: uppercase;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,229,255,0.3); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      padding: 16px 28px;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.25); color: var(--text); }
+
+    /* ─── SHARED ─── */
+    .section-wrap {
+      padding: 100px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--cyan);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      opacity: 0.8;
+    }
+    .section-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(40px, 4.5vw, 68px);
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 56px;
+    }
+    .section-sub strong { color: var(--text); }
+
+    /* ─── BG VARIANTS ─── */
+    .bg2 { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .bg3 { background: var(--bg3); }
+
+    /* ─── COLLAB CARDS (DESTAQUE HIDRATAÇÃO) ─── */
+    .collab-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .collab-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .collab-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+    .collab-card a { text-decoration: none; color: inherit; display: block; }
+    .collab-thumb {
+      width: 100%;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.88) saturate(0.95);
+      transition: filter 0.25s;
+    }
+    .collab-card:hover .collab-thumb { filter: brightness(1) saturate(1.05); }
+    .collab-body { padding: 22px; }
+    .collab-views {
+      font-family: 'Anton', sans-serif;
+      font-size: 48px;
+      color: var(--yellow);
+      line-height: 1;
+    }
+    .collab-views-unit {
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .collab-tag {
+      font-size: 12px;
+      color: var(--cyan);
+      margin-top: 14px;
+      letter-spacing: 0.03em;
+    }
+    .collab-tag .handle { font-weight: 700; }
+    .play-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 42px; height: 42px;
+      background: rgba(0,0,0,0.72);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      backdrop-filter: blur(4px);
+    }
+    .collab-medal {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: var(--yellow);
+      color: #000;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 8px;
+      text-transform: uppercase;
+    }
+
+    /* ─── YOUTUBE EMBED ─── */
+    .yt-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .yt-embed {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: none;
+      display: block;
+    }
+    .yt-meta {
+      margin-top: 18px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .yt-badge {
+      background: #FF0000;
+      color: #fff;
+      font-size: 9px;
+      padding: 3px 8px;
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── VIDEO GRID ─── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .vid-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .vid-card:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-3px); }
+    .vid-card a { text-decoration: none; color: inherit; display: block; }
+    .vid-thumb {
+      width: 100%;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.82) saturate(0.88);
+      transition: filter 0.25s;
+    }
+    .vid-card:hover .vid-thumb { filter: brightness(0.98) saturate(1); }
+    .vid-placeholder {
+      width: 100%;
+      aspect-ratio: 9/16;
+      background: linear-gradient(145deg, var(--bg3), #090e1a);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 38px;
+    }
+    .vid-info { padding: 14px 16px; }
+    .vid-views {
+      font-family: 'Anton', sans-serif;
+      font-size: 30px;
+      color: var(--lime);
+      line-height: 1;
+    }
+    .vid-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 7px;
+      line-height: 1.45;
+    }
+    .vid-sub {
+      font-size: 10px;
+      color: #3d4a60;
+      margin-top: 3px;
+    }
+    .play-sm {
+      position: absolute;
+      top: 10px; right: 10px;
+      width: 34px; height: 34px;
+      background: rgba(0,0,0,0.65);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+    }
+
+    /* ─── TOOLS ─── */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 10px;
+    }
+    .tool-pill {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 15px 20px;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: border-color 0.2s;
+    }
+    .tool-pill:hover { border-color: rgba(184,255,0,0.3); }
+    .tool-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--lime);
+      flex-shrink: 0;
+    }
+
+    /* ─── WHY ─── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .why-item {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      padding: 24px 28px;
+      transition: border-left-color 0.2s;
+    }
+    .why-item:hover { border-left-color: var(--lime); }
+    .why-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 9px;
+      color: var(--text);
+    }
+    .why-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ─── CTA FINAL ─── */
+    .cta-section {
+      text-align: center;
+      padding: 120px 40px 100px;
+      position: relative;
+    }
+    .cta-line {
+      width: 1px;
+      height: 64px;
+      background: linear-gradient(to bottom, transparent, var(--cyan));
+      margin: 0 auto 60px;
+    }
+    .cta-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(48px, 6vw, 96px);
+      text-transform: uppercase;
+      line-height: 0.92;
+      margin-bottom: 20px;
+    }
+    .cta-title .hl { color: var(--cyan); }
+    .cta-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 52px;
+      line-height: 1.6;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--green);
+      color: #000;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 18px 36px;
+      text-transform: uppercase;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.35); }
+    .btn-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      padding: 18px 36px;
+      text-transform: uppercase;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-email:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--cyan); }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-photo { height: 65vw; max-height: 420px; }
+      .hero-photo::after { background: linear-gradient(to bottom, transparent 55%, var(--bg) 100%); }
+      .hero-content { padding: 40px 24px 60px; }
+      .hero-stats { gap: 24px; }
+      .collab-grid { grid-template-columns: 1fr; }
+      .video-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: 1fr; }
+      .section-wrap { padding: 64px 24px; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 10px; text-align: center; padding: 24px; }
+    }
+    @media (max-width: 500px) {
+      .video-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .collab-views { font-size: 38px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    ANDERSON BRITO &nbsp;·&nbsp; CRIADOR DE CONTEÚDO COM IA &nbsp;·&nbsp; FUTEBOL × VIRAL × RESULTADO &nbsp;·&nbsp; 26M+ VIEWS &nbsp;·&nbsp; COLLAB CAZÉTV &nbsp;·&nbsp; COLLAB @SOUEUNAVIDA &nbsp;·&nbsp; DISPONÍVEL PARA CONTRATAÇÃO &nbsp;·&nbsp;&nbsp;
+    ANDERSON BRITO &nbsp;·&nbsp; CRIADOR DE CONTEÚDO COM IA &nbsp;·&nbsp; FUTEBOL × VIRAL × RESULTADO &nbsp;·&nbsp; 26M+ VIEWS &nbsp;·&nbsp; COLLAB CAZÉTV &nbsp;·&nbsp; COLLAB @SOUEUNAVIDA &nbsp;·&nbsp; DISPONÍVEL PARA CONTRATAÇÃO &nbsp;·&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-photo">
+    <img src="../assets/anderson-camera.jpg" alt="Anderson Brito · Criador de Conteúdo IA">
+  </div>
+  <div class="hero-content">
+    <p class="hero-tag">// PORTFÓLIO · FUTEBOL × IA · 2025</p>
+    <h1 class="hero-title">EU FAÇO<br>FUTEBOL<br><span class="hl">VIRAL</span><br>COM IA</h1>
+    <p class="hero-sub">
+      <strong>Anderson Brito</strong> — criação de conteúdo IA para futebol.
+      Influencers virtuais, Reels e clipes gerados por IA, sempre no ritmo do noticiário.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">26M+</span>
+        <span class="stat-label">Views totais</span>
+      </div>
+      <div>
+        <span class="stat-num">2</span>
+        <span class="stat-label">Collabs grandes</span>
+      </div>
+      <div>
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Virais criados</span>
+      </div>
+    </div>
+    <div class="hero-btns">
+      <a href="https://wa.me/5511992392104?text=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20de%20futebol%20%C3%97%20IA%20e%20quero%20conversar%20sobre%20a%20vaga!" class="btn-primary" target="_blank">
+        💬 CONVERSAR NO WHATSAPP
+      </a>
+      <a href="#portfolio" class="btn-ghost">VER PORTFÓLIO ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CASE: PAUSA PRA HIDRATAÇÃO ═══ -->
+<section class="bg2">
+  <div class="section-wrap">
+    <p class="section-label">// CASE EM DESTAQUE · COLLAB</p>
+    <h2 class="section-title">PAUSA PRA<br>HIDRATAÇÃO</h2>
+    <p class="section-sub">
+      Um meme criado com IA. Três versões publicadas.
+      <strong>25 milhões de views</strong> — com collabs de dois dos maiores perfis de futebol do Brasil.
+    </p>
+
+    <div class="collab-grid">
+
+      <!-- soueunavida -->
+      <div class="collab-card">
+        <a href="https://www.instagram.com/p/DZ-bPzKho9b/" target="_blank">
+          <img src="../assets/copa-thumb-hidratacao2.jpg" alt="Pausa pra Hidratação · soueunavida" class="collab-thumb">
+          <div class="play-badge">▶</div>
+          <div class="collab-medal">MAIOR COLLAB</div>
+          <div class="collab-body">
+            <div class="collab-views">18M</div>
+            <p class="collab-views-unit">views no Instagram</p>
+            <p class="collab-tag"><span class="handle">@soueunavida</span> × anderson brito</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- CazéTV -->
+      <div class="collab-card">
+        <a href="https://www.instagram.com/reel/DaBZyQIDItB/" target="_blank">
+          <img src="../assets/copa-thumb-hidratacao2.jpg" alt="Pausa pra Hidratação · CazéTV" class="collab-thumb" style="filter:brightness(0.78) saturate(0.8) hue-rotate(10deg)">
+          <div class="play-badge">▶</div>
+          <div class="collab-body">
+            <div class="collab-views">4M</div>
+            <p class="collab-views-unit">views no Instagram</p>
+            <p class="collab-tag"><span class="handle">CazéTV</span> × anderson brito</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Próprio -->
+      <div class="collab-card">
+        <a href="https://www.instagram.com/reel/DZ6Wb_FNmQq/" target="_blank">
+          <img src="../assets/copa-thumb-hidratacao.jpg" alt="Pausa pra Hidratação · anderson brito" class="collab-thumb">
+          <div class="play-badge">▶</div>
+          <div class="collab-body">
+            <div class="collab-views">3M</div>
+            <p class="collab-views-unit">views no Instagram</p>
+            <p class="collab-tag"><span class="handle">@andersonbrito.ia</span> (perfil próprio)</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CLIPE EM DESTAQUE ═══ -->
+<section>
+  <div class="section-wrap">
+    <p class="section-label">// VIDEOCLIPE IA · HORIZONTAL</p>
+    <h2 class="section-title">VOLTA,<br>NEYMAR</h2>
+    <p class="section-sub">
+      Clipe conceitual 100% gerado com IA — produção, roteiro, geração de imagem e edição.
+      <strong>ILMAR LABS.</strong>
+    </p>
+    <div class="yt-wrap">
+      <iframe class="yt-embed" src="https://www.youtube.com/embed/nJvXsXEzyPI" allowfullscreen loading="lazy" title="Volta, Neymar — Anderson Brito · ILMAR LABS"></iframe>
+      <div class="yt-meta">
+        <span>ANDERSON BRITO · ILMAR LABS · 2025</span>
+        <span class="yt-badge">YOUTUBE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO GRID ═══ -->
+<section class="bg2" id="portfolio">
+  <div class="section-wrap">
+    <p class="section-label">// PORTFÓLIO · TODOS OS VIRAIS</p>
+    <h2 class="section-title">MAIS<br>CONTEÚDO</h2>
+    <p class="section-sub">Futebol, memes, influencers IA — cada piece criada do conceito à publicação.</p>
+
+    <div class="video-grid">
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/DZjOjxfNcYm/" target="_blank">
+          <img src="../assets/copa-thumb-neymar.jpg" alt="Neymar no Plástico Bolha" class="vid-thumb">
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">1,4M</div>
+            <p class="vid-desc">Neymar no Plástico Bolha · Vol. 1</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/DaX-qYxOHRY/" target="_blank">
+          <div class="vid-placeholder">🏳️‍⬛</div>
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">500K</div>
+            <p class="vid-desc">Haaland · Paródia As Branquelas</p>
+            <p class="vid-sub">250K Instagram + 250K TikTok</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/DaYYweMJSr2/" target="_blank">
+          <div class="vid-placeholder">👻</div>
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">50K</div>
+            <p class="vid-desc">Haaland & Vini Jr · Filme Ghost</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/DaY8BV2pVvu/" target="_blank">
+          <img src="../assets/thumb-prjogo.jpg" alt="Pré-jogo Brasil x Noruega" class="vid-thumb">
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">↑</div>
+            <p class="vid-desc">Pré-jogo · Brasil × Noruega</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/DZutI70OrmX/" target="_blank">
+          <img src="../assets/copa-thumb-neymar2.jpg" alt="Neymar no Plástico Bolha 2" class="vid-thumb">
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">80K</div>
+            <p class="vid-desc">Neymar no Plástico Bolha · Vol. 2</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/Dadvs7bP_lr/" target="_blank">
+          <div class="vid-placeholder">🚇</div>
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">50K</div>
+            <p class="vid-desc">Neymar no Metrô</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/reel/DaYsotNvQjT/" target="_blank">
+          <div class="vid-placeholder">🖼️</div>
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">12K</div>
+            <p class="vid-desc">Haaland · Quadro do Vini Jr</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="vid-card">
+        <a href="https://www.instagram.com/p/DZ_cn0Et4XL/" target="_blank">
+          <img src="../assets/copa-thumb-ovinijr.jpg" alt="OVNI JR" class="vid-thumb">
+          <div class="play-sm">▶</div>
+          <div class="vid-info">
+            <div class="vid-views">★</div>
+            <p class="vid-desc">OVNI JR · Vini Jr no UFO</p>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ARSENAL ═══ -->
+<section>
+  <div class="section-wrap">
+    <p class="section-label">// FERRAMENTAS & SKILLS</p>
+    <h2 class="section-title">ARSENAL<br>IA</h2>
+    <p class="section-sub">Domínio das ferramentas que a vaga pede — e mais. Workflow ajustado pra velocidade e qualidade simultâneas.</p>
+
+    <div class="tools-grid">
+      <div class="tool-pill"><span class="tool-dot"></span>Kling AI</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Seedance 2.0</div>
+      <div class="tool-pill"><span class="tool-dot"></span>ChatGPT / GPT-4o</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Claude (Anthropic)</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Gemini</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Midjourney</div>
+      <div class="tool-pill"><span class="tool-dot"></span>CapCut</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Premiere Pro</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Prompts Avançados</div>
+      <div class="tool-pill"><span class="tool-dot"></span>Instagram Reels</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ POR QUE EU ═══ -->
+<section class="bg2">
+  <div class="section-wrap">
+    <p class="section-label">// ADEQUAÇÃO À VAGA</p>
+    <h2 class="section-title">POR QUE<br>CONTRATAR?</h2>
+    <p class="section-sub">Os requisitos da vaga, verificados no portfólio. Não sou candidato que vai <em>aprender</em> — já entrego.</p>
+
+    <div class="why-grid">
+      <div class="why-item">
+        <p class="why-title">✅ Já criou viral com IA no futebol</p>
+        <p class="why-text">Pausa pra Hidratação, Neymar no Plástico Bolha, Haaland As Branquelas — todos criados com IA, publicados em 2025, com 26M+ views no total.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-title">✅ Domina Kling, Seedance, ChatGPT, Claude</p>
+        <p class="why-text">Geração de imagem e vídeo com IA nas ferramentas listadas na vaga. Workflow já rodando em produção — sem curva de aprendizado.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-title">✅ Faro pra viral e timing de noticiário</p>
+        <p class="why-text">Os conteúdos saíram em cima dos jogos em tempo real. Timing é parte do produto — CazéTV e @soueunavida publicaram porque o conteúdo estava pronto no momento certo.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-title">✅ Collabs com os maiores de futebol no Brasil</p>
+        <p class="why-text">CazéTV (maior canal de futebol do país) e @soueunavida (18M views em uma postagem) divulgaram o conteúdo. A qualidade valida a escolha.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-title">✅ Cria e opera influencers IA do zero</p>
+        <p class="why-text">Além dos virais, produz avatares IA completos — branding, persona, conteúdo recorrente. Exatamente o modelo de @livferreira.tv que a vaga referencia.</p>
+      </div>
+      <div class="why-item">
+        <p class="why-title">✅ Entrega rápida e autônoma</p>
+        <p class="why-text">Todo o conteúdo foi produzido de forma independente — do conceito ao post final. Sem dependência de time ou agência para entregar resultado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="cta-section">
+  <div class="cta-line"></div>
+  <p class="section-label" style="margin-bottom:24px">// VAMOS CONVERSAR</p>
+  <h2 class="cta-title">PRONTO<br>PRA <span class="hl">CRIAR</span></h2>
+  <p class="cta-sub">
+    Anderson Brito · São Paulo<br>
+    Disponível para contratação · Entregando desde hoje
+  </p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/5511992392104?text=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20de%20futebol%20%C3%97%20IA%20e%20quero%20conversar%20sobre%20a%20vaga!" class="btn-wa" target="_blank">
+      💬 CHAMAR NO WHATSAPP
+    </a>
+    <a href="mailto:contato@andersonbrito.com?subject=Portf%C3%B3lio%20Futebol%20%C3%97%20IA&body=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20e%20tenho%20interesse." class="btn-email">
+      ✉ ENVIAR EMAIL
+    </a>
+  </div>
+</section>
+
+<footer>
+  <a href="/">andersonbrito.com</a>
+  <span>CRIADOR DE CONTEÚDO IA · 26M+ VIEWS · 2025</span>
+</footer>
+
+</body>
+</html>
