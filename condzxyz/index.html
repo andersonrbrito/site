@@ -45,7 +45,8 @@
     .hero-sub { font-size:17px; color:var(--muted); line-height:1.65; margin-bottom:44px; max-width:400px; }
     .hero-sub strong { color:var(--text); }
     .hero-stats { display:flex; gap:36px; margin-bottom:52px; flex-wrap:wrap; }
-    .stat-num { font-family:'Anton',sans-serif; font-size:40px; color:var(--yellow); line-height:1; display:block; }
+    .stat-num { font-family:'Anton',sans-serif; font-size:56px; color:var(--yellow); line-height:1; display:block; }
+    .stat-num-big { font-family:'Anton',sans-serif; font-size:clamp(48px,5vw,72px); color:var(--yellow); line-height:1; display:block; }
     .stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-top:5px; display:block; }
     .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
 
@@ -162,8 +163,10 @@
     .vid-placeholder { width:100%; aspect-ratio:9/16; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; font-size:38px; }
     .vid-placeholder.norway { background:linear-gradient(160deg,#ba0c2f 0%,#ba0c2f 38%,#fff 38%,#fff 45%,#003087 45%,#003087 55%,#fff 55%,#fff 62%,#ba0c2f 62%); opacity:.7; }
     .vid-info { padding:14px 16px; }
+    .vid-info-top { position:absolute; top:0; left:0; right:0; padding:12px 14px; background:linear-gradient(to bottom,rgba(0,0,0,.8),transparent); z-index:2; }
     .vid-views { font-family:'Anton',sans-serif; font-size:30px; color:var(--lime); line-height:1; }
     .vid-desc { font-size:12px; color:var(--muted); margin-top:7px; line-height:1.45; }
+    .vid-desc-top { font-size:11px; color:rgba(255,255,255,.85); line-height:1.35; font-weight:600; }
     .vid-sub { font-size:10px; color:#3d4a60; margin-top:3px; }
     .play-sm { position:absolute; top:10px; right:10px; width:34px; height:34px; background:rgba(0,0,0,.65); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; }
     .video-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
@@ -226,7 +229,7 @@
       .section-wrap { padding:64px 24px; }
       footer { flex-direction:column; gap:10px; text-align:center; padding:24px; }
     }
-    @media (max-width:500px) {
+    @media (max-width:600px) {
       .video-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
       .inf-grid { grid-template-columns:repeat(2,1fr); }
     }
@@ -257,9 +260,11 @@
     </p>
     <div class="hero-stats">
       <div>
-        <span class="stat-num">30M+</span>
-        <span class="stat-label">Views totais</span>
+        <span class="stat-num-big">+ DE 30 MILHÕES</span>
+        <span class="stat-label">de views em conteúdo IA de futebol</span>
       </div>
+    </div>
+    <div class="hero-stats" style="margin-top:0;">
       <div>
         <span class="stat-num">2</span>
         <span class="stat-label">Collabs grandes</span>
@@ -289,7 +294,7 @@
     <div class="hidra-layout">
       <div class="hidra-left">
         <div class="hidra-cazetv-bar">
-          <img src="../assets/logo-cazetv.jpg" alt="CazéTV" class="hidra-cazetv-logo">
+          <img src="../assets/logo-cazetv.png" alt="CazéTV" class="hidra-cazetv-logo">
           <div>
             <div class="hidra-cazetv-label">Collab com</div>
             <div style="font-size:13px;font-weight:700;color:var(--text)">CazéTV · @soueunavida</div>
@@ -303,8 +308,13 @@
           <div class="hidra-views-badge">
             25M+<span>views somados</span>
           </div>
-          <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 14px;background:linear-gradient(to top,rgba(0,0,0,.85),transparent);font-size:11px;color:rgba(255,255,255,.6);font-family:'Space Mono',monospace;letter-spacing:.08em;">
-            ✂️ USADO EM CRIATIVOS PARA SALÕES · BARES · ADEGAS
+        </div>
+
+        <div style="margin-top:16px;padding:16px 20px;background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.15);display:flex;align-items:center;gap:14px;">
+          <span style="font-size:22px;">✂️</span>
+          <div>
+            <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Esse vídeo virou criativo comercial</p>
+            <p style="font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.06em;">SALÕES DE BELEZA · BARBEARIAS · BARES · ADEGAS</p>
           </div>
         </div>
       </div>
@@ -371,86 +381,44 @@
       Ainda não criei um influencer de futebol — <strong>mas esses três já operam</strong>, com persona, conteúdo e audiência. É exatamente o formato da vaga.
     </p>
 
-    <!-- India Narah -->
-    <div class="influencer-block">
-      <div class="influencer-header">
-        <div>
-          <p class="influencer-platform">TikTok · Avatar Feminino</p>
-          <h3 class="influencer-name">India Narah</h3>
-          <p class="influencer-handle">@ind1anarah</p>
-          <p class="influencer-desc">Influencer IA feminina criada do zero — identidade visual, voz, conteúdo e estilo.</p>
-        </div>
-      </div>
-      <div class="inf-grid">
-        <div class="vid-card">
-          <a href="https://www.tiktok.com/@ind1anarah/video/7660181451077324049" target="_blank">
-            <img src="../assets/thumb-india1.jpg" alt="India Narah TikTok 1" class="vid-thumb">
-            <div class="play-sm">▶</div>
-            <div class="vid-info">
-              <div class="vid-views">TikTok</div>
-              <p class="vid-desc">India Narah · Vídeo 1</p>
-            </div>
-          </a>
-        </div>
-        <div class="vid-card">
-          <a href="https://www.tiktok.com/@ind1anarah/video/7660155095539010834" target="_blank">
-            <img src="../assets/thumb-india2.jpg" alt="India Narah TikTok 2" class="vid-thumb">
-            <div class="play-sm">▶</div>
-            <div class="vid-info">
-              <div class="vid-views">TikTok</div>
-              <p class="vid-desc">India Narah · Vídeo 2</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
 
-    <!-- Eren Haaland -->
-    <div class="influencer-block">
-      <div class="influencer-header">
-        <div>
-          <p class="influencer-platform">Instagram · Avatar Feminino · Noruega × Futebol</p>
-          <h3 class="influencer-name">Eren Haaland</h3>
-          <p class="influencer-handle">@erenhaaland</p>
-          <p class="influencer-desc">Personagem IA inspirada no universo do futebol norueguês. Identidade, rosto e persona totalmente gerados por IA.</p>
-        </div>
+      <!-- India Narah -->
+      <div class="vid-card" style="overflow:hidden;">
+        <a href="https://www.tiktok.com/@ind1anarah" target="_blank" style="text-decoration:none;color:inherit;display:block;">
+          <img src="../assets/thumb-india1.jpg" alt="India Narah" class="vid-thumb" style="aspect-ratio:3/4;">
+          <div class="vid-info" style="text-align:center;">
+            <p style="font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;color:var(--text);margin-bottom:2px;">India Narah</p>
+            <p style="font-size:12px;color:var(--cyan);font-family:'Space Mono',monospace;">@ind1anarah</p>
+            <p style="font-size:10px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.1em;">TikTok · Avatar Feminino</p>
+          </div>
+        </a>
       </div>
-      <div class="inf-grid">
-        <div class="vid-card">
-          <a href="https://www.instagram.com/erenhaaland/" target="_blank">
-            <div class="vid-placeholder" style="background:linear-gradient(160deg,#ba0c2f 0%,#ba0c2f 35%,#fff 35%,#fff 43%,#002868 43%,#002868 57%,#fff 57%,#fff 65%,#ba0c2f 65%,#ba0c2f 100%); font-size:52px; aspect-ratio:9/16; display:flex; align-items:center; justify-content:center;">🇳🇴</div>
-            <div class="play-sm">↗</div>
-            <div class="vid-info">
-              <div class="vid-views" style="font-size:22px">Instagram</div>
-              <p class="vid-desc">@erenhaaland · Ver perfil</p>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
 
-    <!-- Kairo Cantos -->
-    <div class="influencer-block">
-      <div class="influencer-header">
-        <div>
-          <p class="influencer-platform">Instagram · Avatar Masculino</p>
-          <h3 class="influencer-name">Kairo Cantos</h3>
-          <p class="influencer-handle">@kairocantos</p>
-          <p class="influencer-desc">Influencer IA masculino com identidade de cantor/artista. Persona, rosto e conteúdo gerados por IA.</p>
-        </div>
+      <!-- Eren Haaland -->
+      <div class="vid-card" style="overflow:hidden;">
+        <a href="https://www.instagram.com/erenhaaland/" target="_blank" style="text-decoration:none;color:inherit;display:block;">
+          <img src="../assets/thumb-eren-norway.jpg" alt="Eren Haaland" class="vid-thumb" style="aspect-ratio:3/4;">
+          <div class="vid-info" style="text-align:center;">
+            <p style="font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;color:var(--text);margin-bottom:2px;">Eren Haaland</p>
+            <p style="font-size:12px;color:var(--cyan);font-family:'Space Mono',monospace;">@erenhaaland</p>
+            <p style="font-size:10px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.1em;">Instagram · Noruega × Futebol</p>
+          </div>
+        </a>
       </div>
-      <div class="inf-grid">
-        <div class="vid-card">
-          <a href="https://www.instagram.com/p/DZ55WLMPsNs/" target="_blank">
-            <img src="../assets/thumb-kairo.jpg" alt="Kairo Cantos" class="vid-thumb">
-            <div class="play-sm">▶</div>
-            <div class="vid-info">
-              <div class="vid-views">Instagram</div>
-              <p class="vid-desc">Kairo Cantos · Post</p>
-            </div>
-          </a>
-        </div>
+
+      <!-- Kairo Cantor -->
+      <div class="vid-card" style="overflow:hidden;">
+        <a href="https://www.instagram.com/p/DZ55WLMPsNs/" target="_blank" style="text-decoration:none;color:inherit;display:block;">
+          <img src="../assets/thumb-kairo.jpg" alt="Kairo Cantor" class="vid-thumb" style="aspect-ratio:3/4;">
+          <div class="vid-info" style="text-align:center;">
+            <p style="font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;color:var(--text);margin-bottom:2px;">Kairo Cantor</p>
+            <p style="font-size:12px;color:var(--cyan);font-family:'Space Mono',monospace;">@kairocantor</p>
+            <p style="font-size:10px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.1em;">Instagram · Avatar Masculino</p>
+          </div>
+        </a>
       </div>
+
     </div>
 
   </div>
@@ -466,58 +434,58 @@
     <div class="video-grid">
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DZjOjxfNcYm/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">1,4M</div><p class="vid-desc-top">Neymar no Plástico Bolha · Vol. 1</p></div>
           <img src="../assets/copa-thumb-neymar.jpg" alt="Neymar bolha" class="vid-thumb">
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">1,4M</div><p class="vid-desc">Neymar no Plástico Bolha · Vol. 1</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DaX-qYxOHRY/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">500K</div><p class="vid-desc-top">Haaland · As Branquelas</p></div>
           <div class="vid-placeholder" style="background:linear-gradient(145deg,#111,#0a1020);">🏳️‍⬛</div>
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">500K</div><p class="vid-desc">Haaland · Paródia As Branquelas</p><p class="vid-sub">250K IG + 250K TikTok</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DaYYweMJSr2/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">50K</div><p class="vid-desc-top">Haaland & Vini Jr · Ghost</p></div>
           <div class="vid-placeholder" style="background:linear-gradient(145deg,#111,#0a1020);">👻</div>
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">50K</div><p class="vid-desc">Haaland & Vini Jr · Ghost</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DaY8BV2pVvu/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">↑</div><p class="vid-desc-top">Pré-jogo · Brasil × Noruega</p></div>
           <img src="../assets/thumb-prjogo.jpg" alt="Pré-jogo" class="vid-thumb">
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">↑</div><p class="vid-desc">Pré-jogo · Brasil × Noruega</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DZutI70OrmX/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">80K</div><p class="vid-desc-top">Neymar no Plástico Bolha · Vol. 2</p></div>
           <img src="../assets/copa-thumb-neymar2.jpg" alt="Neymar bolha 2" class="vid-thumb">
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">80K</div><p class="vid-desc">Neymar no Plástico Bolha · Vol. 2</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/Dadvs7bP_lr/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">50K</div><p class="vid-desc-top">Neymar no Metrô</p></div>
           <div class="vid-placeholder" style="background:linear-gradient(145deg,#111,#0a1020);">🚇</div>
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">50K</div><p class="vid-desc">Neymar no Metrô</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/p/DZ_cn0Et4XL/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">★</div><p class="vid-desc-top">OVNI JR · Vini Jr no UFO</p></div>
           <img src="../assets/copa-thumb-ovinijr.jpg" alt="OVNI JR" class="vid-thumb">
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">★</div><p class="vid-desc">OVNI JR · Vini Jr no UFO</p></div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/p/DZOFv2EJEIk/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">70K</div><p class="vid-desc-top">CazéTV · Copa do Mundo</p></div>
           <img src="../assets/thumb-cazetv-copa.jpg" alt="CazéTV Copa" class="vid-thumb">
           <div class="play-sm">▶</div>
-          <div class="vid-info"><div class="vid-views">70K</div><p class="vid-desc">CazéTV · Copa do Mundo</p></div>
         </a>
       </div>
     </div>
@@ -615,7 +583,7 @@
       </div>
       <div class="why-item">
         <p class="why-title">✅ Já opera influencers IA reais</p>
-        <p class="why-text">India Narah, Eren Haaland e Kairo Cantos — avatares com persona, rosto e conteúdo gerados por IA. É exatamente o formato @livferreira.tv.</p>
+        <p class="why-text">India Narah, Eren Haaland e Kairo Cantor — avatares com persona, rosto e conteúdo gerados por IA. É exatamente o formato @livferreira.tv.</p>
       </div>
       <div class="why-item">
         <p class="why-title">✅ Collabs com os maiores de futebol</p>
