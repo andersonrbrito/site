@@ -1141,6 +1141,54 @@
         videoUrl:'https://www.instagram.com/p/DZ_cn0Et4XL/embed',
         thumbUrl:'assets/copa-thumb-ovinijr.jpg'
       },
+      {
+        id:38, category:'ia-viral', format:'vertical',
+        titlePt:'CazéTV — Copa do Mundo', titleEn:'CazéTV — World Cup',
+        descPt:'Collab com CazéTV. Vídeo viral gerado com IA para a Copa 2026.',
+        descEn:'Collab with CazéTV. AI-generated viral video for World Cup 2026.',
+        videoUrl:'https://www.instagram.com/p/DZOFv2EJEIk/embed',
+        thumbUrl:'assets/thumb-cazetv-copa.jpg'
+      },
+      {
+        id:45, category:'ia-viral', format:'vertical',
+        titlePt:'Haaland — As Branquelas', titleEn:'Haaland — White Chicks',
+        descPt:'Paródia viral com Haaland gerada com IA. Mais de 500 mil views.',
+        descEn:'Viral AI-generated parody with Haaland. Over 500K views.',
+        videoUrl:'https://www.instagram.com/reel/DaX-qYxOHRY/embed',
+        thumbUrl:'assets/thumb-branquelas.jpg'
+      },
+      {
+        id:46, category:'ia-viral', format:'vertical',
+        titlePt:'Haaland & Vini Jr — Ghost', titleEn:'Haaland & Vini Jr — Ghost',
+        descPt:'Paródia viral gerada com IA. Mais de 50 mil views.',
+        descEn:'Viral AI-generated parody. Over 50K views.',
+        videoUrl:'https://www.instagram.com/reel/DaYYweMJSr2/embed',
+        thumbUrl:'assets/thumb-ghost.jpg'
+      },
+      {
+        id:47, category:'ia-viral', format:'vertical',
+        titlePt:'Pré-jogo — Brasil x Noruega', titleEn:'Pre-game — Brazil x Norway',
+        descPt:'Vídeo viral pré-jogo gerado com IA para a Copa 2026.',
+        descEn:'AI-generated pre-game viral video for World Cup 2026.',
+        videoUrl:'https://www.instagram.com/reel/DaY8BV2pVvu/embed',
+        thumbUrl:'assets/thumb-prejogo2.jpg'
+      },
+      {
+        id:48, category:'ia-viral', format:'vertical',
+        titlePt:'Neymar no Metrô', titleEn:'Neymar on the Subway',
+        descPt:'Vídeo viral com mais de 50 mil views. Gerado com IA.',
+        descEn:'Viral video with over 50K views. AI-generated.',
+        videoUrl:'https://www.instagram.com/reel/Dadvs7bP_lr/embed',
+        thumbUrl:'assets/thumb-metro.jpg'
+      },
+      {
+        id:49, category:'ia-viral', format:'vertical',
+        titlePt:'Haaland Obcecado pelo Vini Jr', titleEn:'Haaland Obsessed with Vini Jr',
+        descPt:'Vídeo viral gerado com IA para a Copa 2026.',
+        descEn:'AI-generated viral video for World Cup 2026.',
+        videoUrl:'https://www.instagram.com/reel/DaYsotNvQjT/embed',
+        thumbUrl:'assets/thumb-haaland-vinijr.jpg'
+      },
       // ── AVATARES DE IA ──────────────────────
       {
         id:40, category:'avatar-ia', format:'vertical',
@@ -1350,11 +1398,12 @@
       const desc  = currentLang === 'pt' ? v.descPt  : v.descEn;
       const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
       const ratio = v.format === 'vertical' ? '9:16' : '16:9';
-      const isDrive     = v.videoUrl.includes('drive.google.com');
-      const isInstagram = v.videoUrl.includes('instagram.com');
-      const isTikTok    = v.videoUrl.includes('tiktok.com');
-      const isArchive   = v.videoUrl.includes('archive.org');
-      const platformLabel = isDrive     ? 'Google Drive'
+      const isDrive     = !!v.videoUrl && v.videoUrl.includes('drive.google.com');
+      const isInstagram = !!v.videoUrl && v.videoUrl.includes('instagram.com');
+      const isTikTok    = !!v.videoUrl && v.videoUrl.includes('tiktok.com');
+      const isArchive   = !!v.videoUrl && v.videoUrl.includes('archive.org');
+      const platformLabel = !v.videoUrl             ? (currentLang === 'pt' ? 'Em breve' : 'Coming soon')
+        : isDrive                       ? 'Google Drive'
         : v.videoUrl.includes('vimeo')  ? 'Vimeo'
         : isInstagram                   ? 'Instagram'
         : isTikTok                      ? 'TikTok'
