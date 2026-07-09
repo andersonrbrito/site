@@ -236,6 +236,7 @@
     .card-type.dr { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.2); color: var(--orange); }
     .card-type.ctr { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.2); color: var(--accent-gr); }
     .card-type.vsl { background: rgba(61,167,255,0.1); border-color: rgba(61,167,255,0.2); color: var(--accent); }
+    .card-type.avatar-ia { background: rgba(0,191,165,0.1); border-color: rgba(0,191,165,0.2); color: #00BFA5; }
 
     .card-desc {
       font-size: 12px;
@@ -349,6 +350,7 @@
     <button class="filter-btn" onclick="filterVideos('dr')" data-pt="Direct Response" data-en="Direct Response"></button>
     <button class="filter-btn" onclick="filterVideos('ctr')" data-pt="High CTR" data-en="High CTR"></button>
     <button class="filter-btn" onclick="filterVideos('vsl')" data-pt="VSL" data-en="VSL"></button>
+    <button class="filter-btn" onclick="filterVideos('avatar-ia')" data-pt="Avatares IA" data-en="AI Avatars"></button>
   </div>
 
   <!-- GRID -->
@@ -537,6 +539,85 @@
             <span class="metric-value">12.3%</span>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="vsl">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/S_AuqPdyT6w" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title" data-pt="Yan — VSL Destrava e Vende" data-en="Yan — VSL Destrava e Vende"></div>
+          <div class="card-type vsl">VSL</div>
+        </div>
+        <div class="card-desc" data-pt="VSL com argumentação direta e estrutura focada em conversão de cold traffic." data-en="Direct-argument VSL with conversion-focused structure for cold traffic."></div>
+      </div>
+    </div>
+
+    <!-- AVATARES DE IA -->
+    <div class="video-card" data-type="avatar-ia">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/b7Pnom09BjA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title" data-pt="Breno Brito — Cantor de Bachata" data-en="Breno Brito — Bachata Singer"></div>
+          <div class="card-type avatar-ia">AVATAR IA</div>
+        </div>
+        <div class="card-desc" data-pt="Avatar de IA: cantor de bachata piauiense. Identidade visual completa." data-en="AI Avatar: Piauí-born bachata singer. Full visual identity."></div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="avatar-ia">
+      <div class="video-container">
+        <img src="assets/portfolio-avatar-kairos.jpg" alt="Kairos" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title" data-pt="Kairos — Cantor Gospel" data-en="Kairos — Gospel Singer"></div>
+          <div class="card-type avatar-ia">AVATAR IA</div>
+        </div>
+        <div class="card-desc" data-pt="Avatar de IA: artista gospel com identidade visual única." data-en="AI Avatar: gospel artist with unique visual identity."></div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="avatar-ia">
+      <div class="video-container">
+        <img src="assets/portfolio-avatar-pastor.jpg" alt="Pastor" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title" data-pt="Pastor — Avatar em Desenvolvimento" data-en="Pastor — Avatar in Development"></div>
+          <div class="card-type avatar-ia">AVATAR IA</div>
+        </div>
+        <div class="card-desc" data-pt="Avatar de IA: pastor digital com presença nas redes sociais." data-en="AI Avatar: digital pastor with social media presence."></div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="avatar-ia">
+      <div class="video-container">
+        <img src="assets/thumb-eren-norway.jpg" alt="Eren Haaland" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;">
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title" data-pt="Eren Haaland — Influencer Digital" data-en="Eren Haaland — Digital Influencer"></div>
+          <div class="card-type avatar-ia">AVATAR IA</div>
+        </div>
+        <div class="card-desc" data-pt="Avatar de IA: influencer digital com conteúdo lifestyle e futebol." data-en="AI Avatar: digital influencer with lifestyle and football content."></div>
+      </div>
+    </div>
+
+    <div class="video-card" data-type="avatar-ia">
+      <div class="video-container">
+        <img src="assets/portfolio-avatar-vermelhinhos.jpg" alt="Jardim dos Vermelhinhos" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="card-content">
+        <div class="card-header">
+          <div class="card-title" data-pt="Jardim dos Vermelhinhos" data-en="Little Red Garden"></div>
+          <div class="card-type avatar-ia">AVATAR IA</div>
+        </div>
+        <div class="card-desc" data-pt="Avatar de IA: personagem infantil animado em 3D." data-en="AI Avatar: animated 3D children's character."></div>
       </div>
     </div>
   </div>
