@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <title>Anderson Brito — Criador de Conteúdo IA × Futebol</title>
-  <meta property="og:title" content="Anderson Brito · IA × Futebol · 30M+ Views">
-  <meta property="og:description" content="Criador de conteúdo viral com IA para futebol. Collabs CazéTV e @soueunavida. 30M+ views.">
+  <title>Anderson Brito | Criador de Conteudo IA x Futebol</title>
+  <meta property="og:title" content="Anderson Brito | IA x Futebol | 30M+ Views">
+  <meta property="og:description" content="Criador de conteudo viral com IA para futebol. Collabs CazeTV e @soueunavida. 30M+ views.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -27,12 +27,10 @@
     html { scroll-behavior: smooth; }
     body { background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; overflow-x:hidden; }
 
-    /* ─── TICKER ─── */
     .ticker { background:var(--yellow); color:#000; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; padding:9px 0; overflow:hidden; white-space:nowrap; }
     .ticker-inner { display:inline-block; animation:ticker 24s linear infinite; }
     @keyframes ticker { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-    /* ─── HERO ─── */
     .hero { min-height:100vh; display:grid; grid-template-columns:480px 1fr; align-items:stretch; position:relative; overflow:hidden; }
     .hero-glow { position:absolute; inset:0; background:radial-gradient(ellipse 55% 70% at 45% 50%,rgba(0,229,255,.055) 0%,transparent 65%); pointer-events:none; z-index:1; }
     .hero-photo { position:relative; overflow:hidden; }
@@ -50,7 +48,6 @@
     .stat-label { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-top:5px; display:block; }
     .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
 
-    /* ─── BUTTONS ─── */
     .btn-primary { display:inline-flex; align-items:center; gap:10px; background:var(--cyan); color:#000; font-weight:700; font-size:13px; letter-spacing:.08em; text-decoration:none; padding:16px 30px; text-transform:uppercase; transition:transform .15s,box-shadow .15s; }
     .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,229,255,.3); }
     .btn-ghost { display:inline-flex; align-items:center; gap:10px; background:transparent; color:var(--muted); border:1px solid var(--border); font-size:13px; letter-spacing:.05em; text-decoration:none; padding:16px 28px; text-transform:uppercase; transition:border-color .2s,color .2s; }
@@ -60,7 +57,6 @@
     .btn-email { display:inline-flex; align-items:center; gap:10px; background:transparent; color:var(--muted); border:1px solid var(--border); font-size:13px; letter-spacing:.06em; text-decoration:none; padding:18px 36px; text-transform:uppercase; transition:border-color .2s,color .2s; }
     .btn-email:hover { border-color:var(--cyan); color:var(--cyan); }
 
-    /* ─── SECTIONS ─── */
     .section-wrap { padding:100px 40px; max-width:1200px; margin:0 auto; }
     .section-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--cyan); letter-spacing:.28em; text-transform:uppercase; margin-bottom:16px; opacity:.8; }
     .section-title { font-family:'Anton',sans-serif; font-size:clamp(40px,4.5vw,68px); text-transform:uppercase; line-height:.92; margin-bottom:16px; letter-spacing:-.01em; }
@@ -68,69 +64,29 @@
     .section-sub strong { color:var(--text); }
     .bg2 { background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
 
-    /* ─── HIDRATAÇÃO CASE ─── */
-    .hidra-bg {
-      position:relative;
-      overflow:hidden;
-      background:var(--bg2);
-      border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border);
-    }
-    .hidra-bg-img {
-      position:absolute; inset:0;
-      background:url('../assets/copa-thumb-hidratacao2.jpg') center/cover no-repeat;
-      opacity:.07;
-      filter:saturate(.5);
-    }
+    .contact-strip { text-align:center; padding:28px 20px; }
+    .contact-strip-inner { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .contact-strip a { display:inline-flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.06em; text-decoration:none; padding:10px 20px; text-transform:uppercase; font-weight:600; transition:all .2s; }
+    .cs-wa { background:var(--green); color:#000; }
+    .cs-ig { background:transparent; color:var(--muted); border:1px solid var(--border); }
+    .cs-ig:hover { border-color:#E1306C; color:#E1306C; }
+    .cs-x { background:transparent; color:var(--muted); border:1px solid var(--border); }
+    .cs-x:hover { border-color:var(--text); color:var(--text); }
+
+    .hidra-bg { position:relative; overflow:hidden; background:var(--bg2); border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .hidra-bg-img { position:absolute; inset:0; background:url('../assets/copa-thumb-hidratacao2.jpg') center/cover no-repeat; opacity:.07; filter:saturate(.5); }
     .hidra-layout { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:start; position:relative; z-index:1; }
-    .hidra-left {}
     .hidra-cazetv-bar { display:flex; align-items:center; gap:14px; margin-bottom:32px; padding:16px 20px; background:rgba(0,0,0,.5); border:1px solid rgba(255,255,255,.08); backdrop-filter:blur(8px); width:fit-content; }
     .hidra-cazetv-logo { height:40px; width:auto; display:block; }
-    .hidra-cazetv-label { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.15em; text-transform:uppercase; }
-    .hidra-video-card {
-      position:relative;
-      background:var(--bg3);
-      border:1px solid var(--border);
-      overflow:hidden;
-    }
-    .hidra-thumb { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; filter:brightness(.85); }
+    .hidra-video-card { position:relative; background:var(--bg3); border:1px solid var(--border); overflow:hidden; }
     .hidra-video { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; }
-    .hidra-play-overlay {
-      position:absolute; inset:0;
-      display:flex; align-items:center; justify-content:center;
-      background:rgba(0,0,0,.3);
-    }
-    .hidra-play-btn {
-      width:72px; height:72px;
-      background:rgba(0,229,255,.15);
-      border:2px solid var(--cyan);
-      border-radius:50%;
-      display:flex; align-items:center; justify-content:center;
-      font-size:24px;
-      backdrop-filter:blur(4px);
-      cursor:pointer;
-    }
-    .hidra-views-badge {
-      position:absolute; bottom:16px; left:16px;
-      background:rgba(0,0,0,.8);
-      backdrop-filter:blur(8px);
-      padding:8px 14px;
-      font-family:'Anton',sans-serif; font-size:28px; color:var(--yellow);
-      line-height:1;
-    }
+    .hidra-views-badge { position:absolute; bottom:16px; left:16px; background:rgba(0,0,0,.8); backdrop-filter:blur(8px); padding:8px 14px; font-family:'Anton',sans-serif; font-size:28px; color:var(--yellow); line-height:1; }
     .hidra-views-badge span { font-family:'Inter',sans-serif; font-size:11px; color:var(--muted); display:block; text-transform:uppercase; letter-spacing:.1em; }
     .hidra-right { padding-top:16px; }
     .hidra-links-label { font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:.18em; text-transform:uppercase; margin-bottom:20px; }
     .hidra-links { display:flex; flex-direction:column; gap:12px; }
-    .hidra-link-btn {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:20px 24px;
-      background:var(--bg3); border:1px solid var(--border);
-      text-decoration:none; color:var(--text);
-      transition:border-color .2s, background .2s;
-    }
+    .hidra-link-btn { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; background:var(--bg3); border:1px solid var(--border); text-decoration:none; color:var(--text); transition:border-color .2s, background .2s; }
     .hidra-link-btn:hover { border-color:var(--cyan); background:rgba(0,229,255,.04); }
-    .hidra-link-left {}
     .hidra-link-handle { font-family:'Space Mono',monospace; font-size:11px; color:var(--cyan); letter-spacing:.05em; margin-bottom:5px; }
     .hidra-link-desc { font-size:14px; font-weight:600; }
     .hidra-link-views { font-family:'Anton',sans-serif; font-size:32px; color:var(--yellow); }
@@ -138,47 +94,29 @@
     .hidra-total-num { font-family:'Anton',sans-serif; font-size:56px; color:var(--cyan); line-height:1; }
     .hidra-total-label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-top:4px; }
 
-    /* ─── YOUTUBE SECTION ─── */
     .yt-wrap { max-width:900px; margin:0 auto; }
     .yt-embed { width:100%; aspect-ratio:16/9; border:none; display:block; }
     .yt-meta { margin-top:18px; font-family:'Space Mono',monospace; font-size:11px; color:var(--muted); letter-spacing:.1em; display:flex; justify-content:space-between; align-items:center; }
     .yt-badge { background:#FF0000; color:#fff; font-size:9px; padding:3px 8px; letter-spacing:.08em; }
 
-    /* ─── INFLUENCERS ─── */
-    .influencer-block { margin-bottom:72px; }
-    .influencer-block:last-child { margin-bottom:0; }
-    .influencer-header { display:flex; align-items:flex-end; gap:24px; margin-bottom:32px; padding-bottom:20px; border-bottom:1px solid var(--border); }
-    .influencer-platform { font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.15em; text-transform:uppercase; margin-bottom:6px; }
-    .influencer-name { font-family:'Anton',sans-serif; font-size:40px; text-transform:uppercase; line-height:1; margin-bottom:4px; }
-    .influencer-handle { font-size:14px; color:var(--cyan); }
-    .influencer-desc { font-size:14px; color:var(--muted); margin-top:6px; }
-    .inf-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:16px; }
-
-    /* ─── VIDEO CARDS ─── */
     .vid-card { background:var(--bg2); border:1px solid var(--border); overflow:hidden; position:relative; transition:border-color .2s,transform .2s; }
     .vid-card:hover { border-color:rgba(255,255,255,.18); transform:translateY(-3px); }
     .vid-card a { text-decoration:none; color:inherit; display:block; }
     .vid-thumb { width:100%; aspect-ratio:9/16; object-fit:cover; display:block; filter:brightness(.82) saturate(.88); transition:filter .25s; }
     .vid-card:hover .vid-thumb { filter:brightness(.98) saturate(1); }
-    .vid-placeholder { width:100%; aspect-ratio:9/16; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; font-size:38px; }
-    .vid-placeholder.norway { background:linear-gradient(160deg,#ba0c2f 0%,#ba0c2f 38%,#fff 38%,#fff 45%,#003087 45%,#003087 55%,#fff 55%,#fff 62%,#ba0c2f 62%); opacity:.7; }
     .vid-info { padding:14px 16px; }
     .vid-info-top { position:absolute; top:0; left:0; right:0; padding:12px 14px; background:linear-gradient(to bottom,rgba(0,0,0,.8),transparent); z-index:2; }
     .vid-views { font-family:'Anton',sans-serif; font-size:30px; color:var(--lime); line-height:1; }
-    .vid-desc { font-size:12px; color:var(--muted); margin-top:7px; line-height:1.45; }
     .vid-desc-top { font-size:11px; color:rgba(255,255,255,.85); line-height:1.35; font-weight:600; }
-    .vid-sub { font-size:10px; color:#3d4a60; margin-top:3px; }
     .play-sm { position:absolute; top:10px; right:10px; width:34px; height:34px; background:rgba(0,0,0,.65); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; }
     .video-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
 
-    /* ─── SOBRE ─── */
-    .sobre-layout { display:grid; grid-template-columns:1fr 480px; gap:64px; align-items:center; }
-    .sobre-text { order:1; }
-    .sobre-photo { order:2; position:relative; }
-    .sobre-photo img { width:100%; aspect-ratio:16/9; object-fit:cover; object-position:center top; display:block; }
-    .sobre-photo::after { content:''; position:absolute; inset:0; background:linear-gradient(to left,transparent 60%,var(--bg2) 100%); }
+    .sobre-full { position:relative; overflow:hidden; }
+    .sobre-bg { position:absolute; inset:0; }
+    .sobre-bg img { width:100%; height:100%; object-fit:cover; object-position:center top; }
+    .sobre-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(to right,rgba(7,9,15,.95) 0%,rgba(7,9,15,.7) 50%,rgba(7,9,15,.4) 100%); }
+    .sobre-content { position:relative; z-index:2; max-width:600px; }
 
-    /* ─── ARSENAL ─── */
     .arsenal-layout { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
     .arsenal-block { background:var(--bg3); border:1px solid var(--border); padding:28px; }
     .arsenal-block-title { font-family:'Space Mono',monospace; font-size:10px; color:var(--cyan); letter-spacing:.2em; text-transform:uppercase; margin-bottom:20px; }
@@ -187,33 +125,26 @@
     .arsenal-tree { padding-left:16px; border-left:2px solid rgba(0,229,255,.2); }
     .arsenal-item { display:flex; align-items:center; gap:10px; padding:8px 0; font-size:13px; color:var(--text); border-bottom:1px solid rgba(255,255,255,.04); }
     .arsenal-item:last-child { border-bottom:none; }
-    .arsenal-item .dot { width:5px; height:5px; border-radius:50%; background:var(--lime); flex-shrink:0; }
-    .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:10px; }
-    .tool-pill { background:var(--bg3); border:1px solid var(--border); padding:15px 20px; font-family:'Space Mono',monospace; font-size:12px; color:var(--text); display:flex; align-items:center; gap:12px; transition:border-color .2s; }
-    .tool-pill:hover { border-color:rgba(184,255,0,.3); }
-    .tool-dot { width:6px; height:6px; border-radius:50%; background:var(--lime); flex-shrink:0; }
+    .arsenal-icon { font-size:16px; flex-shrink:0; width:22px; text-align:center; }
 
-    /* ─── WHY ─── */
     .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
     .why-item { background:var(--bg2); border:1px solid var(--border); border-left:3px solid var(--cyan); padding:24px 28px; transition:border-left-color .2s; }
     .why-item:hover { border-left-color:var(--lime); }
     .why-title { font-weight:700; font-size:14px; margin-bottom:9px; color:var(--text); }
     .why-text { font-size:13px; color:var(--muted); line-height:1.65; }
 
-    /* ─── CTA ─── */
     .cta-section { text-align:center; padding:120px 40px 100px; position:relative; }
     .cta-line { width:1px; height:64px; background:linear-gradient(to bottom,transparent,var(--cyan)); margin:0 auto 60px; }
     .cta-title { font-family:'Anton',sans-serif; font-size:clamp(48px,6vw,96px); text-transform:uppercase; line-height:.92; margin-bottom:20px; }
     .cta-title .hl { color:var(--cyan); }
     .cta-sub { font-size:15px; color:var(--muted); margin-bottom:52px; line-height:1.6; }
     .cta-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+    .cta-photo { width:180px; height:180px; border-radius:50%; object-fit:cover; border:3px solid var(--cyan); margin:0 auto 40px; display:block; }
 
-    /* ─── FOOTER ─── */
     footer { padding:28px 40px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); font-family:'Space Mono',monospace; font-size:10px; color:var(--muted); letter-spacing:.08em; }
     footer a { color:var(--muted); text-decoration:none; }
     footer a:hover { color:var(--cyan); }
 
-    /* ─── MOBILE ─── */
     @media (max-width:900px) {
       .hero { grid-template-columns:1fr; min-height:auto; }
       .hero-photo { height:65vw; max-height:420px; }
@@ -223,15 +154,12 @@
       .hidra-layout { grid-template-columns:1fr; gap:40px; }
       .video-grid { grid-template-columns:repeat(2,1fr); }
       .why-grid { grid-template-columns:1fr; }
-      .sobre-layout { grid-template-columns:1fr; }
-      .sobre-photo { order:0; }
       .arsenal-layout { grid-template-columns:1fr; }
       .section-wrap { padding:64px 24px; }
       footer { flex-direction:column; gap:10px; text-align:center; padding:24px; }
     }
     @media (max-width:600px) {
       .video-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
-      .inf-grid { grid-template-columns:repeat(2,1fr); }
     }
   </style>
 </head>
@@ -245,23 +173,23 @@
   </div>
 </div>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-glow"></div>
   <div class="hero-photo">
-    <img src="../assets/thumb-estadio.jpg" alt="Anderson Brito criando conteúdo IA na arquibancada">
+    <img src="../assets/thumb-estadio.jpg" alt="Anderson Brito criando conteudo IA na arquibancada">
   </div>
   <div class="hero-content">
-    <p class="hero-tag">// PORTFÓLIO · FUTEBOL × IA · 2025</p>
-    <h1 class="hero-title">EU FAÇO<br>FUTEBOL<br><span class="hl">VIRAL</span><br>COM IA</h1>
+    <p class="hero-tag">// PORTFOLIO · FUTEBOL x IA · 2025</p>
+    <h1 class="hero-title">EU FACO<br>FUTEBOL<br><span class="hl">VIRAL</span><br>COM IA</h1>
     <p class="hero-sub">
-      <strong>Anderson Brito</strong> — criação de conteúdo IA para futebol.
-      Influencers virtuais, Reels e clipes gerados por IA, sempre no ritmo do noticiário.
+      <strong>Anderson Brito</strong>, criacao de conteudo IA para futebol.
+      Influencers virtuais, Reels e clipes gerados por IA, sempre no ritmo do noticiario.
     </p>
     <div class="hero-stats">
       <div>
-        <span class="stat-num-big">+ DE 30 MILHÕES</span>
-        <span class="stat-label">de views em conteúdo IA de futebol</span>
+        <span class="stat-num-big">+ DE 30 MILHOES</span>
+        <span class="stat-label">de views em conteudo IA de futebol</span>
       </div>
     </div>
     <div class="hero-stats" style="margin-top:0;">
@@ -278,26 +206,35 @@
       <a href="https://wa.me/5511948577950?text=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20de%20futebol%20%C3%97%20IA%20e%20quero%20conversar%20sobre%20a%20vaga!" class="btn-primary" target="_blank">
         💬 CONVERSAR NO WHATSAPP
       </a>
-      <a href="#portfolio" class="btn-ghost">VER PORTFÓLIO ↓</a>
+      <a href="#portfolio" class="btn-ghost">VER PORTFOLIO ↓</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ CASE: PAUSA PRA HIDRATAÇÃO ═══ -->
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-strip-inner">
+    <a href="https://wa.me/5511948577950" class="cs-wa" target="_blank">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/andersonbrito.ia/" class="cs-ig" target="_blank">📸 Instagram</a>
+    <a href="https://x.com/andersbrito" class="cs-x" target="_blank">𝕏 Twitter/X</a>
+  </div>
+</div>
+
+<!-- CASE: PAUSA PRA HIDRATACAO -->
 <section class="hidra-bg">
   <div class="hidra-bg-img"></div>
   <div class="section-wrap">
     <p class="section-label">// CASE EM DESTAQUE · COLLAB</p>
-    <h2 class="section-title">PAUSA PRA<br>HIDRATAÇÃO</h2>
-    <p class="section-sub">Um meme criado com IA. Três versões publicadas. <strong>+25 milhões de views</strong> — em collabs com dois dos maiores perfis de futebol do Brasil.</p>
+    <h2 class="section-title">PAUSA PRA<br>HIDRATACAO</h2>
+    <p class="section-sub">Um meme criado com IA. Tres versoes publicadas. <strong>+25 milhoes de views</strong> em collabs com dois dos maiores perfis de futebol do Brasil.</p>
 
     <div class="hidra-layout">
       <div class="hidra-left">
         <div class="hidra-cazetv-bar">
-          <img src="../assets/logo-cazetv.png" alt="CazéTV" class="hidra-cazetv-logo">
+          <img src="../assets/logo-cazetv.png" alt="CazeTV" class="hidra-cazetv-logo">
           <div>
-            <div class="hidra-cazetv-label">Collab com</div>
-            <div style="font-size:13px;font-weight:700;color:var(--text)">CazéTV · @soueunavida</div>
+            <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;">Collab com</div>
+            <div style="font-size:13px;font-weight:700;color:var(--text)">CazeTV · @soueunavida</div>
           </div>
         </div>
 
@@ -313,33 +250,33 @@
         <div style="margin-top:16px;padding:16px 20px;background:rgba(0,229,255,.06);border:1px solid rgba(0,229,255,.15);display:flex;align-items:center;gap:14px;">
           <span style="font-size:22px;">✂️</span>
           <div>
-            <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Esse vídeo virou criativo comercial</p>
-            <p style="font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.06em;">SALÕES DE BELEZA · BARBEARIAS · BARES · ADEGAS</p>
+            <p style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px;">Esse video virou criativo comercial</p>
+            <p style="font-size:11px;color:var(--muted);font-family:'Space Mono',monospace;letter-spacing:.06em;">SALOES DE BELEZA · BARBEARIAS · BARES · ADEGAS</p>
           </div>
         </div>
       </div>
 
       <div class="hidra-right">
-        <p class="hidra-links-label">// As 3 versões virais</p>
+        <p class="hidra-links-label">// As 3 versoes virais</p>
         <div class="hidra-links">
           <a class="hidra-link-btn" href="https://www.instagram.com/p/DZ-bPzKho9b/" target="_blank">
-            <div class="hidra-link-left">
+            <div>
               <p class="hidra-link-handle">@soueunavida</p>
-              <p class="hidra-link-desc">Pausa pra Hidratação</p>
+              <p class="hidra-link-desc">Pausa pra Hidratacao</p>
             </div>
             <div class="hidra-link-views">18M ↗</div>
           </a>
           <a class="hidra-link-btn" href="https://www.instagram.com/reel/DaBZyQIDItB/" target="_blank">
-            <div class="hidra-link-left">
-              <p class="hidra-link-handle">CazéTV</p>
-              <p class="hidra-link-desc">Pausa pra Hidratação</p>
+            <div>
+              <p class="hidra-link-handle">CazeTV</p>
+              <p class="hidra-link-desc">Pausa pra Hidratacao</p>
             </div>
             <div class="hidra-link-views">4M ↗</div>
           </a>
           <a class="hidra-link-btn" href="https://www.instagram.com/reel/DZ6Wb_FNmQq/" target="_blank">
-            <div class="hidra-link-left">
+            <div>
               <p class="hidra-link-handle">@andersonbrito.ia</p>
-              <p class="hidra-link-desc">Pausa pra Hidratação</p>
+              <p class="hidra-link-desc">Pausa pra Hidratacao</p>
             </div>
             <div class="hidra-link-views">3M ↗</div>
           </a>
@@ -347,23 +284,32 @@
 
         <div class="hidra-total">
           <div class="hidra-total-num">25M+</div>
-          <div class="hidra-total-label">views · em 1 único meme IA</div>
+          <div class="hidra-total-label">views · em 1 unico meme IA</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CLIPE VOLTA NEYMAR ═══ -->
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-strip-inner">
+    <a href="https://wa.me/5511948577950" class="cs-wa" target="_blank">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/andersonbrito.ia/" class="cs-ig" target="_blank">📸 Instagram</a>
+    <a href="https://x.com/andersbrito" class="cs-x" target="_blank">𝕏 Twitter/X</a>
+  </div>
+</div>
+
+<!-- CLIPE VOLTA NEYMAR -->
 <section>
   <div class="section-wrap">
     <p class="section-label">// VIDEOCLIPE IA · SERTANEJO DE HUMOR · HORIZONTAL</p>
     <h2 class="section-title">VOLTA,<br>NEYMAR</h2>
     <p class="section-sub">
-      Clipe de sertanejo de humor 100% gerado com IA. Produção, roteiro, geração de imagem e edição. <strong>ILMAR LABS.</strong>
+      Clipe de sertanejo de humor 100% gerado com IA. Producao, roteiro, geracao de imagem e edicao. <strong>ILMAR LABS.</strong>
     </p>
     <div class="yt-wrap">
-      <iframe class="yt-embed" src="https://www.youtube.com/embed/nJvXsXEzyPI" allowfullscreen loading="lazy" title="Volta, Neymar — Sertanejo IA · Anderson Brito · ILMAR LABS"></iframe>
+      <iframe class="yt-embed" src="https://www.youtube.com/embed/nJvXsXEzyPI" allowfullscreen loading="lazy" title="Volta, Neymar · Sertanejo IA"></iframe>
       <div class="yt-meta">
         <span>SERTANEJO DE HUMOR COM IA · ANDERSON BRITO · ILMAR LABS · 2025</span>
         <span class="yt-badge">YOUTUBE</span>
@@ -372,18 +318,16 @@
   </div>
 </section>
 
-<!-- ═══ INFLUENCERS QUE CRIEI ═══ -->
+<!-- INFLUENCERS QUE CRIEI -->
 <section class="bg2" id="influencers">
   <div class="section-wrap">
     <p class="section-label">// INFLUENCERS IA · CRIADOS DO ZERO</p>
     <h2 class="section-title">AVATARES<br>DIGITAIS</h2>
     <p class="section-sub">
-      Ainda não criei um influencer de futebol — <strong>mas esses três já operam</strong>, com persona, conteúdo e audiência. É exatamente o formato da vaga.
+      Ainda nao criei um influencer de futebol, <strong>mas esses tres ja operam</strong>, com persona, conteudo e audiencia. E exatamente o formato da vaga.
     </p>
 
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;">
-
-      <!-- India Narah -->
       <div class="vid-card" style="overflow:hidden;">
         <a href="https://www.tiktok.com/@ind1anarah" target="_blank" style="text-decoration:none;color:inherit;display:block;">
           <img src="../assets/thumb-india1.jpg" alt="India Narah" class="vid-thumb" style="aspect-ratio:3/4;">
@@ -394,23 +338,19 @@
           </div>
         </a>
       </div>
-
-      <!-- Eren Haaland -->
       <div class="vid-card" style="overflow:hidden;">
         <a href="https://www.instagram.com/erenhaaland/" target="_blank" style="text-decoration:none;color:inherit;display:block;">
           <img src="../assets/thumb-eren-norway.jpg" alt="Eren Haaland" class="vid-thumb" style="aspect-ratio:3/4;">
           <div class="vid-info" style="text-align:center;">
             <p style="font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;color:var(--text);margin-bottom:2px;">Eren Haaland</p>
             <p style="font-size:12px;color:var(--cyan);font-family:'Space Mono',monospace;">@erenhaaland</p>
-            <p style="font-size:10px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.1em;">Instagram · Noruega × Futebol</p>
+            <p style="font-size:10px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.1em;">Instagram · Noruega x Futebol</p>
           </div>
         </a>
       </div>
-
-      <!-- Kairo Cantor -->
       <div class="vid-card" style="overflow:hidden;">
         <a href="https://www.instagram.com/p/DZ55WLMPsNs/" target="_blank" style="text-decoration:none;color:inherit;display:block;">
-          <img src="../assets/thumb-kairo.jpg" alt="Kairo Cantor" class="vid-thumb" style="aspect-ratio:3/4;">
+          <img src="../assets/thumb-kairo-portrait.jpg" alt="Kairo Cantor" class="vid-thumb" style="aspect-ratio:3/4;">
           <div class="vid-info" style="text-align:center;">
             <p style="font-family:'Anton',sans-serif;font-size:24px;text-transform:uppercase;color:var(--text);margin-bottom:2px;">Kairo Cantor</p>
             <p style="font-size:12px;color:var(--cyan);font-family:'Space Mono',monospace;">@kairocantor</p>
@@ -418,59 +358,73 @@
           </div>
         </a>
       </div>
-
     </div>
-
   </div>
 </section>
 
-<!-- ═══ PORTFOLIO GRID ═══ -->
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-strip-inner">
+    <a href="https://wa.me/5511948577950" class="cs-wa" target="_blank">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/andersonbrito.ia/" class="cs-ig" target="_blank">📸 Instagram</a>
+    <a href="https://x.com/andersbrito" class="cs-x" target="_blank">𝕏 Twitter/X</a>
+  </div>
+</div>
+
+<!-- PORTFOLIO GRID -->
 <section id="portfolio">
   <div class="section-wrap">
-    <p class="section-label">// PORTFÓLIO · FUTEBOL VIRAL</p>
-    <h2 class="section-title">OS<br>VIRAIS</h2>
-    <p class="section-sub">Futebol, memes e influencers IA — criados do conceito à publicação, no tempo do noticiário.</p>
+    <p class="section-label">// PORTFOLIO · FUTEBOL VIRAL</p>
+    <h2 class="section-title">OUTROS<br>VIRAIS</h2>
+    <p class="section-sub">Futebol, memes e influencers IA. Criados do conceito a publicacao, no tempo do noticiario.</p>
 
     <div class="video-grid">
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DZjOjxfNcYm/" target="_blank">
-          <div class="vid-info-top"><div class="vid-views">1,4M</div><p class="vid-desc-top">Neymar no Plástico Bolha · Vol. 1</p></div>
+          <div class="vid-info-top"><div class="vid-views">1,4M</div><p class="vid-desc-top">Neymar no Plastico Bolha · Vol. 1</p></div>
           <img src="../assets/copa-thumb-neymar.jpg" alt="Neymar bolha" class="vid-thumb">
+          <div class="play-sm">▶</div>
+        </a>
+      </div>
+      <div class="vid-card">
+        <a href="https://www.instagram.com/p/DZOFv2EJEIk/" target="_blank">
+          <div class="vid-info-top"><div class="vid-views">70K</div><p class="vid-desc-top">CazeTV · Copa do Mundo</p></div>
+          <img src="../assets/thumb-cazetv-copa.jpg" alt="CazeTV Copa" class="vid-thumb">
           <div class="play-sm">▶</div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DaX-qYxOHRY/" target="_blank">
           <div class="vid-info-top"><div class="vid-views">500K</div><p class="vid-desc-top">Haaland · As Branquelas</p></div>
-          <div class="vid-placeholder" style="background:linear-gradient(145deg,#111,#0a1020);">🏳️‍⬛</div>
+          <img src="../assets/thumb-branquelas.jpg" alt="Haaland As Branquelas" class="vid-thumb">
           <div class="play-sm">▶</div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DaYYweMJSr2/" target="_blank">
           <div class="vid-info-top"><div class="vid-views">50K</div><p class="vid-desc-top">Haaland & Vini Jr · Ghost</p></div>
-          <div class="vid-placeholder" style="background:linear-gradient(145deg,#111,#0a1020);">👻</div>
+          <img src="../assets/thumb-ghost.jpg" alt="Haaland Ghost" class="vid-thumb">
           <div class="play-sm">▶</div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DaY8BV2pVvu/" target="_blank">
-          <div class="vid-info-top"><div class="vid-views">↑</div><p class="vid-desc-top">Pré-jogo · Brasil × Noruega</p></div>
-          <img src="../assets/thumb-prjogo.jpg" alt="Pré-jogo" class="vid-thumb">
+          <div class="vid-info-top"><div class="vid-views">↑</div><p class="vid-desc-top">Pre-jogo · Brasil x Noruega</p></div>
+          <img src="../assets/thumb-prejogo2.jpg" alt="Pre-jogo" class="vid-thumb">
           <div class="play-sm">▶</div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/DZutI70OrmX/" target="_blank">
-          <div class="vid-info-top"><div class="vid-views">80K</div><p class="vid-desc-top">Neymar no Plástico Bolha · Vol. 2</p></div>
+          <div class="vid-info-top"><div class="vid-views">80K</div><p class="vid-desc-top">Neymar no Plastico Bolha · Vol. 2</p></div>
           <img src="../assets/copa-thumb-neymar2.jpg" alt="Neymar bolha 2" class="vid-thumb">
           <div class="play-sm">▶</div>
         </a>
       </div>
       <div class="vid-card">
         <a href="https://www.instagram.com/reel/Dadvs7bP_lr/" target="_blank">
-          <div class="vid-info-top"><div class="vid-views">50K</div><p class="vid-desc-top">Neymar no Metrô</p></div>
-          <div class="vid-placeholder" style="background:linear-gradient(145deg,#111,#0a1020);">🚇</div>
+          <div class="vid-info-top"><div class="vid-views">50K</div><p class="vid-desc-top">Neymar no Metro</p></div>
+          <img src="../assets/thumb-metro.jpg" alt="Neymar Metro" class="vid-thumb">
           <div class="play-sm">▶</div>
         </a>
       </div>
@@ -481,130 +435,156 @@
           <div class="play-sm">▶</div>
         </a>
       </div>
-      <div class="vid-card">
-        <a href="https://www.instagram.com/p/DZOFv2EJEIk/" target="_blank">
-          <div class="vid-info-top"><div class="vid-views">70K</div><p class="vid-desc-top">CazéTV · Copa do Mundo</p></div>
-          <img src="../assets/thumb-cazetv-copa.jpg" alt="CazéTV Copa" class="vid-thumb">
-          <div class="play-sm">▶</div>
-        </a>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ SOBRE ANDERSON ═══ -->
-<section class="bg2">
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-strip-inner">
+    <a href="https://wa.me/5511948577950" class="cs-wa" target="_blank">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/andersonbrito.ia/" class="cs-ig" target="_blank">📸 Instagram</a>
+    <a href="https://x.com/andersbrito" class="cs-x" target="_blank">𝕏 Twitter/X</a>
+  </div>
+</div>
+
+<!-- SOBRE ANDERSON -->
+<section class="sobre-full">
+  <div class="sobre-bg">
+    <img src="../assets/hero-bg-poster.jpg" alt="Anderson Brito">
+  </div>
   <div class="section-wrap">
-    <div class="sobre-layout">
-      <div class="sobre-text">
-        <p class="section-label">// QUEM É ANDERSON BRITO</p>
-        <h2 class="section-title">ANDERSON<br>BRITO</h2>
-        <p style="font-size:17px;color:var(--muted);line-height:1.7;margin-bottom:28px;">
-          Criador de conteúdo IA baseado em São Paulo. Produz <strong style="color:var(--text)">influencers virtuais, clipes, memes e virais</strong> com inteligência artificial — do conceito à publicação, com faro pra timing e viralização.
-        </p>
-        <p style="font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:36px;">
-          Responsável por mais de <strong style="color:var(--yellow)">30 milhões de views</strong> em conteúdos de futebol com IA em 2025, incluindo collabs com CazéTV e @soueunavida. Opera o estúdio <strong style="color:var(--text)">ILMAR LABS</strong>, com foco em criação de conteúdo IA de alto impacto.
-        </p>
-        <div style="display:flex;gap:16px;flex-wrap:wrap;">
-          <a href="https://wa.me/5511948577950" class="btn-primary" target="_blank">💬 FALAR AGORA</a>
-          <a href="https://x.com/andersbrito" class="btn-ghost" target="_blank">𝕏 @ANDERSBRITO ↗</a>
-        </div>
-      </div>
-      <div class="sobre-photo">
-        <img src="../assets/hero-bg-poster.jpg" alt="Anderson Brito · ILMAR LABS">
+    <div class="sobre-content">
+      <p class="section-label">// QUEM E ANDERSON BRITO</p>
+      <h2 class="section-title">ANDERSON<br>BRITO</h2>
+      <p style="font-size:17px;color:var(--text);line-height:1.7;margin-bottom:20px;">
+        Editor de video profissional e criador de conteudo IA em Sao Paulo.
+      </p>
+      <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;">
+        Mais de 5 anos de experiencia com edicao de video, producao de conteudo digital e marketing. Trabalho com grandes marcas, influenciadores e produtoras criando conteudo que gera resultado.
+      </p>
+      <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:16px;">
+        Em 2025, apliquei tudo isso no universo de IA generativa para futebol e alcancei <strong style="color:var(--yellow)">mais de 30 milhoes de views</strong> com conteudos virais, incluindo collabs com CazeTV e @soueunavida.
+      </p>
+      <p style="font-size:15px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:36px;">
+        Opero o estudio <strong style="color:var(--text)">ILMAR LABS</strong>, focado em criacao de conteudo IA de alto impacto: influencers virtuais, clipes, memes e virais.
+      </p>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="https://wa.me/5511948577950" class="btn-primary" target="_blank">💬 FALAR AGORA</a>
+        <a href="https://x.com/andersbrito" class="btn-ghost" target="_blank">𝕏 @ANDERSBRITO ↗</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ ARSENAL IA ═══ -->
+<!-- INSTAGRAM INSIGHTS -->
+<section class="bg2">
+  <div class="section-wrap" style="text-align:center;">
+    <p class="section-label">// RESULTADOS COMPROVADOS</p>
+    <h2 class="section-title">INSIGHTS<br>INSTAGRAM</h2>
+    <p class="section-sub" style="margin-left:auto;margin-right:auto;">Dados reais do ultimo mes da conta @andersonbrito.ia. Mais de 10 milhoes de visualizacoes e quase 1 milhao de interacoes.</p>
+    <div style="max-width:720px;margin:0 auto;">
+      <img src="../assets/insights-instagram.jpg" alt="Instagram Insights - 10.8M views, 872K interacoes" style="width:100%;border:1px solid var(--border);display:block;">
+    </div>
+  </div>
+</section>
+
+<!-- ARSENAL IA -->
 <section>
   <div class="section-wrap">
     <p class="section-label">// FERRAMENTAS & WORKFLOW</p>
     <h2 class="section-title">ARSENAL<br>IA</h2>
-    <p class="section-sub">Workflow profissional com as ferramentas que a vaga exige — e mais. Da geração ao post final.</p>
+    <p class="section-sub">Workflow profissional com as ferramentas que a vaga exige, e mais. Da geracao ao post final.</p>
 
     <div class="arsenal-layout">
-
       <div class="arsenal-block" style="border-top:3px solid var(--cyan);">
         <p class="arsenal-block-title">Plataforma Principal</p>
         <p class="arsenal-main-label">MAGNIFIC</p>
-        <p class="arsenal-main-sub">Ecossistema principal de geração com IA</p>
+        <p class="arsenal-main-sub">Ecossistema principal de geracao com IA</p>
         <div class="arsenal-tree">
-          <div class="arsenal-item"><span class="dot"></span>Kling AI · geração de vídeo</div>
-          <div class="arsenal-item"><span class="dot"></span>Seedance 2.0 · animação IA</div>
-          <div class="arsenal-item"><span class="dot"></span>Grok · linguagem e contexto</div>
-          <div class="arsenal-item"><span class="dot"></span>Veo 3 · vídeo realista</div>
-          <div class="arsenal-item"><span class="dot"></span>ElevenLabs · voz IA</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🎬</span>Kling AI · geracao de video</div>
+          <div class="arsenal-item"><span class="arsenal-icon">💫</span>Seedance 2.0 · animacao IA</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🧠</span>Grok · linguagem e contexto</div>
+          <div class="arsenal-item"><span class="arsenal-icon">📹</span>Veo 3 · video realista</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🎙️</span>ElevenLabs · voz IA</div>
         </div>
       </div>
 
       <div class="arsenal-block" style="border-top:3px solid var(--lime);">
         <p class="arsenal-block-title">Outras IAs</p>
         <div class="arsenal-tree" style="border-left-color:rgba(184,255,0,.2)">
-          <div class="arsenal-item"><span class="dot" style="background:var(--lime)"></span>Suno · música com IA</div>
-          <div class="arsenal-item"><span class="dot" style="background:var(--lime)"></span>GPT Images · imagens</div>
-          <div class="arsenal-item"><span class="dot" style="background:var(--lime)"></span>Gemini Pro</div>
-          <div class="arsenal-item"><span class="dot" style="background:var(--lime)"></span>Claude Pro</div>
-          <div class="arsenal-item"><span class="dot" style="background:var(--lime)"></span>Google Studio</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🎵</span>Suno · musica com IA</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🖼️</span>GPT Images · imagens</div>
+          <div class="arsenal-item"><span class="arsenal-icon">♊</span>Gemini Pro</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🤖</span>Claude Pro</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🔬</span>Google Studio</div>
         </div>
       </div>
 
       <div class="arsenal-block" style="border-top:3px solid var(--yellow);">
-        <p class="arsenal-block-title">Edição de Vídeo</p>
+        <p class="arsenal-block-title">Edicao de Video</p>
         <div class="arsenal-tree" style="border-left-color:rgba(255,230,0,.2)">
-          <div class="arsenal-item"><span class="dot" style="background:var(--yellow)"></span>Premiere Pro</div>
-          <div class="arsenal-item"><span class="dot" style="background:var(--yellow)"></span>CapCut</div>
+          <div class="arsenal-item"><span class="arsenal-icon">🎞️</span>Premiere Pro</div>
+          <div class="arsenal-item"><span class="arsenal-icon">✂️</span>CapCut</div>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══ POR QUE EU ═══ -->
+<!-- CONTACT STRIP -->
+<div class="contact-strip">
+  <div class="contact-strip-inner">
+    <a href="https://wa.me/5511948577950" class="cs-wa" target="_blank">💬 WhatsApp</a>
+    <a href="https://www.instagram.com/andersonbrito.ia/" class="cs-ig" target="_blank">📸 Instagram</a>
+    <a href="https://x.com/andersbrito" class="cs-x" target="_blank">𝕏 Twitter/X</a>
+  </div>
+</div>
+
+<!-- POR QUE EU -->
 <section class="bg2">
   <div class="section-wrap">
-    <p class="section-label">// ADEQUAÇÃO À VAGA</p>
+    <p class="section-label">// ADEQUACAO A VAGA</p>
     <h2 class="section-title">POR QUE<br>CONTRATAR?</h2>
-    <p class="section-sub">Os requisitos da vaga, verificados no portfólio. Não sou candidato que vai <em>aprender</em> — já entrego.</p>
+    <p class="section-sub">Sou focado em videos que dao retorno. Quero colocar todo meu talento em pratica pra faturarmos juntos.</p>
     <div class="why-grid">
       <div class="why-item">
-        <p class="why-title">✅ Já criou viral com IA no futebol</p>
-        <p class="why-text">Pausa pra Hidratação, Neymar no Plástico Bolha, Haaland As Branquelas — todos com IA, publicados em 2025, 30M+ views.</p>
+        <p class="why-title">✅ Ja criou viral com IA no futebol</p>
+        <p class="why-text">Pausa pra Hidratacao, Neymar no Plastico Bolha, Haaland As Branquelas. Todos com IA, publicados em 2025, 30M+ views.</p>
       </div>
       <div class="why-item">
         <p class="why-title">✅ Domina Kling, Seedance, Veo 3, ElevenLabs</p>
-        <p class="why-text">Workflow rodando em produção via Magnific + outras IAs. Sem curva de aprendizado.</p>
+        <p class="why-text">Workflow rodando em producao via Magnific + outras IAs. Sem curva de aprendizado.</p>
       </div>
       <div class="why-item">
-        <p class="why-title">✅ Faro pra viral e timing de noticiário</p>
-        <p class="why-text">Os conteúdos saíram em cima dos jogos em tempo real. CazéTV e @soueunavida publicaram porque o conteúdo estava pronto no momento certo.</p>
+        <p class="why-title">✅ Faro pra viral e timing de noticiario</p>
+        <p class="why-text">Os conteudos sairam em cima dos jogos em tempo real. CazeTV e @soueunavida publicaram porque o conteudo estava pronto no momento certo.</p>
       </div>
       <div class="why-item">
-        <p class="why-title">✅ Já opera influencers IA reais</p>
-        <p class="why-text">India Narah, Eren Haaland e Kairo Cantor — avatares com persona, rosto e conteúdo gerados por IA. É exatamente o formato @livferreira.tv.</p>
+        <p class="why-title">✅ Ja opera influencers IA reais</p>
+        <p class="why-text">India Narah, Eren Haaland e Kairo Cantor. Avatares com persona, rosto e conteudo gerados por IA. E exatamente o formato @livferreira.tv.</p>
       </div>
       <div class="why-item">
         <p class="why-title">✅ Collabs com os maiores de futebol</p>
-        <p class="why-text">CazéTV (maior canal de futebol do Brasil) e @soueunavida usaram e divulgaram. Qualidade validada em campo.</p>
+        <p class="why-text">CazeTV (maior canal de futebol do Brasil) e @soueunavida usaram e divulgaram. Qualidade validada em campo.</p>
       </div>
       <div class="why-item">
-        <p class="why-title">✅ Autônomo, rápido e sem espera</p>
-        <p class="why-text">Todo o conteúdo foi produzido de forma independente, do conceito ao post. Disponível para começar imediatamente.</p>
+        <p class="why-title">✅ Autonomo, rapido e sem espera</p>
+        <p class="why-text">Todo o conteudo foi produzido de forma independente, do conceito ao post. Disponivel para comecar imediatamente.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CTA FINAL ═══ -->
+<!-- CTA FINAL -->
 <section class="cta-section">
   <div class="cta-line"></div>
+  <img src="../assets/anderson-sony.jpg" alt="Anderson Brito" class="cta-photo">
   <p class="section-label" style="margin-bottom:24px">// VAMOS CONVERSAR</p>
   <h2 class="cta-title">CONTRATA<br>O <span class="hl">BRITINHO</span></h2>
   <p class="cta-sub">
-    Anderson Brito · São Paulo<br>
-    Disponível para contratação · Entregando desde hoje
+    Anderson Brito · Sao Paulo<br>
+    Disponivel para contratacao · Entregando desde hoje
   </p>
   <div class="cta-buttons">
     <a href="https://wa.me/5511948577950?text=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20de%20futebol%20%C3%97%20IA%20e%20quero%20conversar%20sobre%20a%20vaga!" class="btn-wa" target="_blank">
@@ -621,7 +601,7 @@
 
 <footer>
   <a href="/">andersonbrito.com</a>
-  <span>CRIADOR DE CONTEÚDO IA · 30M+ VIEWS · ILMAR LABS · 2025</span>
+  <span>CRIADOR DE CONTEUDO IA · 30M+ VIEWS · ILMAR LABS · 2025</span>
 </footer>
 
 </body>
