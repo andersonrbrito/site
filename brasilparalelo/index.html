@@ -4,196 +4,310 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Anderson Brito | Editor de Vídeo — Candidatura Brasil Paralela</title>
-<meta property="og:title" content="Anderson Brito | Editor de Vídeo — Campanhas Publicitárias">
-<meta property="og:description" content="Portfólio pessoal para a vaga de Editor de Vídeo, Campanhas Publicitárias.">
+<title>Anderson Brito | Editor de Vídeo — Brasil Paralelo</title>
+<meta property="og:title" content="Anderson Brito | Editor de Vídeo — Brasil Paralelo">
+<meta property="og:description" content="Editor de vídeo, marketing e conteúdo educacional.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#FFFFFF;
-    --bg2:#F5F4F1;
-    --ink:#0B0B0B;
-    --ink-soft:#4A4A47;
-    --muted:#7A7A76;
-    --line:rgba(11,11,11,0.12);
-    --dark:#0B0B0B;
-    --dark2:#151513;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-  h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;}
-  a{color:inherit;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--ink);outline-offset:3px;}
-  img,video{max-width:100%;display:block;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#0B0B0B;color:#fff;font-family:'Inter',sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:600;letter-spacing:-.01em;}
+a{color:inherit;text-decoration:none;}
+img,video{max-width:100%;display:block;}
 
-  .label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
-  .label.on-dark{color:rgba(255,255,255,.55);}
+:root{
+  --bg:#0B0B0B;--bg2:#111;--bg3:#181818;
+  --ink:#fff;--ink-soft:rgba(255,255,255,.72);--muted:rgba(255,255,255,.4);
+  --line:rgba(255,255,255,.1);--accent:#C4362A;
+}
 
-  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+.label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
 
-  /* HERO */
-  .hero{background:var(--dark);color:#fff;min-height:92vh;display:grid;grid-template-columns:1fr 440px;align-items:stretch;position:relative;overflow:hidden;}
-  .hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 20%,rgba(255,255,255,.06),transparent 60%);pointer-events:none;}
-  .hero-photo{position:relative;overflow:hidden;}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:70% 15%;filter:grayscale(1) contrast(1.08);display:block;}
-  .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to right, var(--dark) 0%, transparent 22%);}
-  .hero-inner{max-width:840px;padding:120px 32px;position:relative;z-index:1;display:flex;flex-direction:column;justify-content:center;}
-  .hero h1{font-size:clamp(34px,5.2vw,64px);line-height:1.08;color:#fff;margin-bottom:28px;}
-  .hero .sub{font-size:clamp(16px,1.9vw,20px);color:rgba(255,255,255,.72);max-width:620px;margin-bottom:44px;font-weight:400;}
-  .btn{display:inline-flex;align-items:center;gap:10px;font-family:'Inter',sans-serif;font-weight:600;font-size:14px;letter-spacing:.01em;text-decoration:none;padding:16px 30px;transition:all .2s ease;border:1px solid currentColor;}
-  .btn-light{background:#fff;color:var(--ink);border-color:#fff;}
-  .btn-light:hover{background:transparent;color:#fff;}
-  .btn-dark{background:var(--ink);color:#fff;border-color:var(--ink);}
-  .btn-dark:hover{background:transparent;color:var(--ink);}
-  .btn-outline-dark{background:transparent;color:var(--ink);border-color:var(--ink);}
-  .btn-outline-dark:hover{background:var(--ink);color:#fff;}
-  .btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.5);}
-  .btn-outline-light:hover{border-color:#fff;}
+/* ─── HERO ─── */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:center;}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;filter:brightness(.55) contrast(1.08) saturate(1.02);z-index:0;pointer-events:none;background:#0A0A0C;}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at center 35%,transparent 0%,transparent 30%,rgba(0,0,0,.55) 75%,rgba(0,0,0,.85) 100%),linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 30%,transparent 60%,rgba(0,0,0,.78) 100%);pointer-events:none;z-index:1;}
+.hero-content{position:relative;z-index:2;padding:140px 48px 100px;max-width:700px;}
+.hero-eyebrow{margin-bottom:24px;}
+.hero h1{font-size:clamp(42px,6vw,72px);line-height:1.05;margin-bottom:12px;}
+.hero-role{font-size:19px;color:var(--ink-soft);margin-bottom:40px;font-weight:400;}
 
-  /* SECTIONS */
-  section{padding:120px 0;}
-  .section-title{font-size:clamp(28px,3.6vw,44px);line-height:1.15;max-width:760px;margin-bottom:28px;}
-  .section-body{font-size:17px;color:var(--ink-soft);max-width:640px;line-height:1.75;}
-  .section-body strong{color:var(--ink);font-weight:600;}
-  .hl{background:linear-gradient(to bottom, transparent 62%, rgba(11,11,11,.12) 62%);padding:0 1px;}
+/* Social row */
+.social-row{display:flex;gap:10px;margin-bottom:0;}
+.social-btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink-soft);transition:all .2s;text-decoration:none;}
+.social-btn:hover{border-color:rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.05);}
+.social-btn svg{width:16px;height:16px;fill:currentColor;flex-shrink:0;}
 
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
-  .split.reverse .split-media{order:2;}
-  .split.reverse .split-text{order:1;}
+/* ─── HIGHLIGHT BLOCKS ─── */
+.highlights{border-top:1px solid var(--line);padding:0;}
+.hl-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+.hl-card{padding:40px 32px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:14px;}
+.hl-card:last-child{border-right:none;}
+.hl-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border:1px solid var(--line);color:var(--muted);}
+.hl-icon svg{width:18px;height:18px;fill:currentColor;}
+.hl-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+.hl-value{font-family:'Fraunces',serif;font-size:20px;font-weight:600;line-height:1.25;}
+.hl-sub{font-size:12px;color:var(--ink-soft);line-height:1.5;}
 
-  .media-frame{background:var(--bg2);border:1px solid var(--line);overflow:hidden;position:relative;}
-  .media-frame img,.media-frame video{width:100%;height:100%;object-fit:cover;display:block;}
+/* ─── SECTIONS ─── */
+section.content{padding:100px 0;border-top:1px solid var(--line);}
+.section-title{font-size:clamp(26px,3.4vw,40px);line-height:1.15;max-width:700px;margin-bottom:24px;}
+.section-body{font-size:16px;color:var(--ink-soft);max-width:600px;line-height:1.8;}
+.section-body strong{color:#fff;font-weight:600;}
 
-  /* PROOF LINKS (X Franchise videos) */
-  .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px;}
-  .proof-card{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:border-color .2s,background .2s;}
-  .proof-card:hover{border-color:var(--ink);background:var(--bg2);}
-  .proof-name{font-size:13px;font-weight:600;}
-  .proof-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-top:4px;}
-  .proof-arrow{font-size:16px;color:var(--muted);flex-shrink:0;}
+/* X Franchise */
+.section-xf{background:linear-gradient(to bottom,rgba(11,11,11,.72),rgba(11,11,11,.92)),url('../assets/bp-xfranchise.png') center/cover no-repeat;background-color:var(--bg);}
 
-  /* FGV DARK SECTION */
-  .section-dark{background:var(--dark);color:#fff;}
-  .section-dark .section-title{color:#fff;}
-  .section-dark .section-body{color:rgba(255,255,255,.68);}
-  .section-dark .section-body strong{color:#fff;}
-  .cintra-badge{display:inline-flex;flex-direction:column;gap:2px;margin-top:32px;padding:20px 24px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.03);}
-  .cintra-badge .cb-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);}
-  .cintra-badge .cb-name{font-family:'Fraunces',serif;font-size:22px;font-weight:600;color:#fff;margin-top:4px;}
-  .cintra-badge .cb-role{font-size:13px;color:rgba(255,255,255,.6);margin-top:2px;}
+.video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px;}
+.video-card{display:block;border:1px solid var(--line);overflow:hidden;transition:border-color .2s,transform .15s;}
+.video-card:hover{border-color:rgba(255,255,255,.35);transform:translateY(-2px);}
+.video-thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg3);}
+.video-thumb img{width:100%;height:100%;object-fit:cover;filter:brightness(.85);}
+.video-thumb .play-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.play-icon svg{width:40px;height:40px;opacity:.85;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6));}
+.video-thumb--ig{background:linear-gradient(135deg,#833AB4,#E1306C,#F77737);}
+.video-thumb--ig .ig-label{position:absolute;top:8px;right:10px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.video-info{padding:12px 14px;background:var(--bg2);}
+.video-title{font-size:13px;font-weight:600;margin-bottom:3px;}
+.video-platform{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);}
 
-  /* REACH SECTION */
-  .stat-row{display:flex;gap:56px;flex-wrap:wrap;margin:44px 0 40px;}
-  .stat-num{font-family:'Fraunces',serif;font-size:52px;font-weight:600;line-height:1;}
-  .stat-label{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px;}
+/* FGV */
+.section-fgv{background:var(--bg2);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
+.split.reverse .split-media{order:2;}
+.split.reverse .split-text{order:1;}
+.media-frame{overflow:hidden;border:1px solid var(--line);}
+.media-frame img{width:100%;height:100%;object-fit:cover;}
 
-  .case-block{border:1px solid var(--line);margin-top:8px;}
-  .case-head{display:flex;align-items:center;gap:14px;padding:20px 24px;border-bottom:1px solid var(--line);}
-  .case-head img{height:28px;width:auto;}
-  .case-head-text{font-size:13px;font-weight:600;}
-  .case-head-sub{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-top:2px;}
-  .case-video{aspect-ratio:9/16;max-width:280px;background:#000;}
-  .case-video video{width:100%;height:100%;object-fit:cover;}
-  .case-body{padding:24px;}
+.formation-row{display:flex;gap:12px;margin-top:28px;}
+.fc{padding:16px 20px;border:1px solid var(--line);background:var(--bg3);flex:1;}
+.fc-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.fc-val{font-size:15px;font-weight:600;}
+.fc-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;}
 
-  .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px;}
-  .work-card{border:1px solid var(--line);overflow:hidden;text-decoration:none;color:var(--ink);display:block;transition:border-color .2s;}
-  .work-card:hover{border-color:var(--ink);}
-  .work-card img{aspect-ratio:4/5;object-fit:cover;filter:grayscale(.15);}
-  .work-card-content{padding:16px 18px;}
-  .work-card-title{font-size:13px;font-weight:600;}
-  .work-card-tag{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin-top:4px;}
+.cintra-badge{display:inline-flex;flex-direction:column;gap:2px;margin-top:28px;padding:18px 22px;border:1px solid var(--line);background:rgba(255,255,255,.03);}
+.cb-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+.cb-name{font-family:'Fraunces',serif;font-size:20px;font-weight:600;margin-top:4px;}
+.cb-role{font-size:12px;color:var(--ink-soft);margin-top:2px;}
 
-  /* CLOSING */
-  .closing{background:var(--dark);color:#fff;text-align:center;padding:140px 0;}
-  .closing .kicker{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:24px;}
-  .closing h2{font-size:clamp(28px,4vw,46px);color:#fff;max-width:700px;margin:0 auto 48px;line-height:1.25;}
-  .closing-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+/* Alcance */
+.stat-row{display:flex;gap:48px;flex-wrap:wrap;margin:40px 0 36px;}
+.stat-num{font-family:'Fraunces',serif;font-size:48px;font-weight:600;line-height:1;}
+.stat-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px;}
 
-  footer{padding:32px;text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.06em;background:var(--dark);border-top:1px solid rgba(255,255,255,.08);}
-  footer span{color:rgba(255,255,255,.35);}
+.case-block{border:1px solid var(--line);margin-top:8px;}
+.case-head{display:flex;align-items:center;gap:14px;padding:18px 22px;border-bottom:1px solid var(--line);}
+.case-head img{height:26px;width:auto;}
+.case-head-text{font-size:13px;font-weight:600;}
+.case-head-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:2px;}
+.case-video{aspect-ratio:9/16;max-width:260px;background:#000;}
+.case-video video{width:100%;height:100%;object-fit:cover;}
+.case-body{padding:22px;}
 
-  @media (max-width:860px){
-    .hero{grid-template-columns:1fr;}
-    .hero-photo{height:46vh;order:-1;}
-    .hero-photo::after{background:linear-gradient(to bottom, transparent 55%, var(--dark) 100%);}
-    .split, .split.reverse{grid-template-columns:1fr;gap:36px;}
-    .split.reverse .split-media, .split.reverse .split-text{order:initial;}
-    section{padding:80px 0;}
-    .hero-inner{padding:100px 24px;}
-    .wrap{padding:0 24px;}
-    .proof-grid, .work-grid{grid-template-columns:1fr;}
-    .stat-row{gap:36px;}
-    .stat-num{font-size:40px;}
-  }
+.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+.work-card{border:1px solid var(--line);overflow:hidden;display:block;transition:border-color .2s;}
+.work-card:hover{border-color:rgba(255,255,255,.35);}
+.work-card img{aspect-ratio:16/9;object-fit:cover;filter:brightness(.85);}
+.work-card-content{padding:14px 16px;background:var(--bg2);}
+.work-card-title{font-size:13px;font-weight:600;}
+.work-card-tag{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+
+/* Closing */
+.closing{padding:120px 0;border-top:1px solid var(--line);}
+.closing-inner{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center;}
+.closing-photo{width:110px;height:110px;border-radius:50%;object-fit:cover;filter:grayscale(1);border:2px solid rgba(255,255,255,.2);flex-shrink:0;}
+.closing .kicker{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:18px;}
+.closing h2{font-size:clamp(22px,2.8vw,32px);max-width:560px;line-height:1.3;margin-bottom:14px;}
+.closing-body{font-size:15px;color:var(--ink-soft);max-width:520px;line-height:1.7;margin-bottom:28px;}
+.closing-body strong{color:#fff;}
+.closing-quals{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px;}
+.closing-qual{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border:1px solid var(--line);color:var(--muted);}
+.closing-social{display:flex;gap:10px;flex-wrap:wrap;}
+
+footer{padding:28px 32px;text-align:center;font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.08em;border-top:1px solid var(--line);}
+
+@media(max-width:960px){
+  .hero-content{padding:100px 24px 60px;}
+  .hl-grid{grid-template-columns:1fr 1fr;}
+  .hl-card{border-right:none;border-bottom:1px solid var(--line);}
+  .hl-card:nth-child(odd){border-right:1px solid var(--line);}
+  .hl-card:nth-last-child(-n+2){border-bottom:none;}
+  .split,.split.reverse{grid-template-columns:1fr;gap:32px;}
+  .split.reverse .split-media,.split.reverse .split-text{order:initial;}
+  .video-grid{grid-template-columns:1fr 1fr;}
+  .wrap{padding:0 24px;}
+  section.content{padding:72px 0;}
+}
+@media(max-width:600px){
+  .hl-grid{grid-template-columns:1fr;}
+  .hl-card{border-right:none!important;border-bottom:1px solid var(--line);}
+  .hl-card:last-child{border-bottom:none;}
+  .video-grid{grid-template-columns:1fr;}
+  .work-grid{grid-template-columns:1fr;}
+  .social-row{flex-wrap:wrap;}
+  .closing-inner{grid-template-columns:1fr;text-align:center;}
+  .closing-photo{margin:0 auto;}
+  .closing-social,.closing-quals{justify-content:center;}
+  .formation-row{flex-direction:column;}
+  .stat-row{gap:28px;}
+  .stat-num{font-size:36px;}
+}
 </style>
 </head>
 <body>
 
-<!-- HERO -->
+<!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="hero-inner">
-    <p class="label on-dark">// EDITOR DE VÍDEO · CAMPANHAS PUBLICITÁRIAS</p>
-    <h1>Anderson Brito, editor de vídeo e criador de conteúdo com IA.</h1>
-    <p class="sub">Campanhas publicitárias, peças institucionais e conteúdo documental, sempre com o rigor técnico que a mensagem exige.</p>
-    <a href="https://andersonbrito.com/dr" target="_blank" class="btn btn-light">Ver portfólio →</a>
-  </div>
-  <div class="hero-photo">
-    <img src="../assets/anderson-sony.jpg" alt="Anderson Brito">
-  </div>
-</section>
-
-<!-- SEÇÃO 1 — X FRANCHISE -->
-<section>
-  <div class="wrap">
-    <div class="split">
-      <div class="split-text">
-        <p class="label">// TRÁFEGO PAGO · RESULTADO REAL</p>
-        <h2 class="section-title">Campanha que roda em tráfego pago, não só que parece bonita</h2>
-        <p class="section-body">
-          Edito criativos publicitários para expansão de franquias educacionais — negócio construído por <strong>Flávio Augusto, Caio Carneiro e Joel Jota</strong>. Produzo também as campanhas de produto da <strong>Empório Mineiro Cheirin Bão</strong>, sob a liderança de Eduardo Schroeder e Wilton Bezerra, incluindo a ação de Dia das Crianças com o influenciador Yudi Tamashiro. São anúncios reais, veiculados em Meta Ads, com o único objetivo de gerar resultado, não likes.
-        </p>
-      </div>
-      <div class="split-media">
-        <div class="proof-grid">
-          <a href="https://www.instagram.com/reel/DWJq9zwOQZZ/" target="_blank" class="proof-card">
-            <div><div class="proof-name">Cheirin Bão × Joel Jota</div><div class="proof-tag">Embaixador da marca</div></div>
-            <span class="proof-arrow">↗</span>
-          </a>
-          <a href="https://www.youtube.com/shorts/dNccBfUw3hE" target="_blank" class="proof-card">
-            <div><div class="proof-name">Café com Conselho</div><div class="proof-tag">Joel Jota</div></div>
-            <span class="proof-arrow">↗</span>
-          </a>
-          <a href="https://www.instagram.com/reel/DWmpdslCa1A/" target="_blank" class="proof-card">
-            <div><div class="proof-name">Campanha institucional</div><div class="proof-tag">Wilton Bezerra</div></div>
-            <span class="proof-arrow">↗</span>
-          </a>
-          <a href="https://www.youtube.com/shorts/OI1bEUcBWeM" target="_blank" class="proof-card">
-            <div><div class="proof-name">Porsche Cup</div><div class="proof-tag">Eduardo Schroeder</div></div>
-            <span class="proof-arrow">↗</span>
-          </a>
-          <a href="https://www.instagram.com/reel/DYC2bo9gg5l/" target="_blank" class="proof-card" style="grid-column:1 / -1;">
-            <div><div class="proof-name">Clube do Franchising</div><div class="proof-tag">Campanha de produto</div></div>
-            <span class="proof-arrow">↗</span>
-          </a>
-        </div>
-      </div>
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="../assets/hero-bg-poster.jpg">
+    <source src="../assets/hero-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <p class="label hero-eyebrow">// Candidatura · Editor de Vídeo</p>
+    <h1>Anderson Brito</h1>
+    <p class="hero-role">Editor de vídeo, marketing e conteúdo educacional</p>
+    <div class="social-row">
+      <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6"/></svg>
+        Instagram
+      </a>
+      <a href="https://www.linkedin.com/in/andbrito/" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:contato@andersonbrito.com?subject=Editor%20de%20V%C3%ADdeo%20-%20Brasil%20Paralelo" class="social-btn">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        E-mail
+      </a>
+      <a href="https://wa.me/5511948577950" target="_blank" class="social-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
     </div>
   </div>
 </section>
 
-<!-- SEÇÃO 2 — FGV -->
-<section class="section-dark">
+<!-- ─── HIGHLIGHT BLOCKS ─── -->
+<div class="highlights">
+  <div class="hl-grid">
+    <div class="hl-card">
+      <div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-2 .89-2 2v11c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" fill="currentColor"/></svg></div>
+      <div class="hl-title">Onde trabalho</div>
+      <div class="hl-value">X Franchise</div>
+      <div class="hl-sub">Editor de vídeo da Escola do Franchising (Flávio Augusto, Caio Carneiro e Joel Jota). Cheirin Bão e Clube do Franchising.</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3 1 9l11 6 9-4.91V17h2V9L12 3z" fill="currentColor"/></svg></div>
+      <div class="hl-title">Formação</div>
+      <div class="hl-value">Marketing (FGV)</div>
+      <div class="hl-sub">Graduação em Marketing pela FGV. MBA em Marketing em andamento. 9 anos na Vice-Presidência da FGV.</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M7 5h10v2h2V3c0-1.1-.9-2-2-2H7c-1.1 0-2 .9-2 2v4h2V5zm8.41 11.59L20 12l-4.59-4.59L14 8.83 17.17 12 14 15.17l1.41 1.42zM10 15.17 6.83 12 10 8.83 8.59 7.41 4 12l4.59 4.59L10 15.17zM17 19H7v-2H5v4c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-4h-2v2z" fill="currentColor"/></svg></div>
+      <div class="hl-title">Habilidades</div>
+      <div class="hl-value">Edição + Marketing</div>
+      <div class="hl-sub">Edição de vídeo, tráfego pago, conteúdo orgânico, conteúdo educacional, produção com IA e campanhas publicitárias.</div>
+    </div>
+    <div class="hl-card">
+      <div class="hl-icon"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6h-6z" fill="currentColor"/></svg></div>
+      <div class="hl-title">Alcance recente</div>
+      <div class="hl-value">30M+ views</div>
+      <div class="hl-sub">Conteúdo autoral com IA. Collab com CazéTV somou 25M+. Copa do Mundo 2026.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── EDIÇÃO DE VÍDEO: X FRANCHISE ─── -->
+<section class="content section-xf">
+  <div class="wrap">
+    <p class="label" style="color:var(--muted);">// Edição de vídeo · Conteúdo educacional</p>
+    <h2 class="section-title">X Franchise, Clube do Franchising e Cheirin Bão</h2>
+    <p class="section-body">
+      A <strong>X Franchise</strong> é uma escola para franqueadores fundada por <strong>Flávio Augusto, Caio Carneiro e Joel Jota</strong>. Sou o editor de vídeo responsável pela produção dos conteúdos educacionais e campanhas do ecossistema, incluindo a <strong>Cheirin Bão</strong> e o <strong>Clube do Franchising</strong>. Edito vídeos para tráfego pago e conteúdo orgânico, e ensino os alunos franqueadores a produzirem seus próprios vídeos.
+    </p>
+
+    <div class="video-grid">
+      <a href="https://www.instagram.com/reel/DWJq9zwOQZZ/" target="_blank" class="video-card">
+        <div class="video-thumb video-thumb--ig">
+          <span class="ig-label">Reels</span>
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="rgba(0,0,0,.4)" stroke="#fff" stroke-width="2"/><polygon points="20,16 34,24 20,32" fill="#fff"/></svg></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Cheirin Bão × Joel Jota</div>
+          <div class="video-platform">Instagram · Embaixador da marca</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/shorts/dNccBfUw3hE" target="_blank" class="video-card">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/dNccBfUw3hE/hqdefault.jpg" alt="Café com Conselho">
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="rgba(0,0,0,.4)" stroke="#fff" stroke-width="2"/><polygon points="20,16 34,24 20,32" fill="#fff"/></svg></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Café com Conselho</div>
+          <div class="video-platform">YouTube · Joel Jota</div>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/reel/DWmpdslCa1A/" target="_blank" class="video-card">
+        <div class="video-thumb video-thumb--ig">
+          <span class="ig-label">Reels</span>
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="rgba(0,0,0,.4)" stroke="#fff" stroke-width="2"/><polygon points="20,16 34,24 20,32" fill="#fff"/></svg></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Campanha institucional</div>
+          <div class="video-platform">Instagram · Wilton Bezerra</div>
+        </div>
+      </a>
+      <a href="https://www.youtube.com/shorts/OI1bEUcBWeM" target="_blank" class="video-card">
+        <div class="video-thumb">
+          <img src="https://img.youtube.com/vi/OI1bEUcBWeM/hqdefault.jpg" alt="Porsche Cup">
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="rgba(0,0,0,.4)" stroke="#fff" stroke-width="2"/><polygon points="20,16 34,24 20,32" fill="#fff"/></svg></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Porsche Cup</div>
+          <div class="video-platform">YouTube · Eduardo Schroeder</div>
+        </div>
+      </a>
+      <a href="https://www.instagram.com/reel/DYC2bo9gg5l/" target="_blank" class="video-card">
+        <div class="video-thumb video-thumb--ig">
+          <span class="ig-label">Reels</span>
+          <div class="play-icon"><svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="rgba(0,0,0,.4)" stroke="#fff" stroke-width="2"/><polygon points="20,16 34,24 20,32" fill="#fff"/></svg></div>
+        </div>
+        <div class="video-info">
+          <div class="video-title">Clube do Franchising</div>
+          <div class="video-platform">Instagram · Campanha de produto</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FGV + FORMAÇÃO ─── -->
+<section class="content section-fgv">
   <div class="wrap">
     <div class="split reverse">
       <div class="split-text">
-        <p class="label on-dark">// FORMAÇÃO · COMUNICAÇÃO INSTITUCIONAL</p>
-        <h2 class="section-title">Quem edita informação densa aprende a não simplificar demais</h2>
+        <p class="label">// Formação · Marketing · Comunicação institucional</p>
+        <h2 class="section-title">Graduado em Marketing pela FGV, MBA em Marketing em andamento</h2>
         <p class="section-body">
-          Fui Assessor Acadêmico da Vice-Presidência da FGV — a maior educadora do Brasil — de 2016 a 2025, período em que assessorei diretamente o Vice-Presidente Marcos Cintra, ex-deputado federal e ex-Secretário Especial da Receita Federal no governo Bolsonaro. Ali aprendi a comunicar estudo técnico, posicionamento público e conteúdo denso sem perder rigor nem virar raso — a mesma disciplina que um documentário exige: profundidade que não abre mão de ser assistível.
+          Fui Assessor Acadêmico da Vice-Presidência da <strong>FGV</strong> de 2016 a 2025, assessorando diretamente o Vice-Presidente <strong>Marcos Cintra</strong>, ex-deputado federal e ex-Secretário Especial da Receita Federal. Durante 9 anos, trabalhei com comunicação institucional, conteúdo educacional e posicionamento.
         </p>
+
+        <div class="formation-row">
+          <div class="fc">
+            <div class="fc-label">Graduação</div>
+            <div class="fc-val">Marketing</div>
+            <div class="fc-sub">FGV (Fundação Getulio Vargas)</div>
+          </div>
+          <div class="fc">
+            <div class="fc-label">Pós-graduação</div>
+            <div class="fc-val">MBA em Marketing</div>
+            <div class="fc-sub">Em andamento</div>
+          </div>
+        </div>
+
         <div class="cintra-badge">
           <span class="cb-label">Assessorei diretamente</span>
           <span class="cb-name">Marcos Cintra</span>
@@ -201,24 +315,21 @@
         </div>
       </div>
       <div class="split-media">
-        <div class="media-frame" style="aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;background:var(--dark2);border-color:rgba(255,255,255,.12);">
-          <div style="text-align:center;padding:40px;">
-            <div style="font-family:'Fraunces',serif;font-size:15px;letter-spacing:.04em;color:rgba(255,255,255,.85);">FUNDAÇÃO<br>GETULIO VARGAS</div>
-            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:16px;">Assessoria Acadêmica<br>Vice-Presidência · 2016–2025</div>
-          </div>
+        <div class="media-frame">
+          <img src="../assets/bp-marcos-cintra.png" alt="Marcos Cintra" style="aspect-ratio:4/3;object-fit:cover;object-position:center top;">
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SEÇÃO 3 — ALCANCE PESSOAL -->
-<section>
+<!-- ─── ALCANCE ─── -->
+<section class="content">
   <div class="wrap">
-    <p class="label">// ALCANCE · RETENÇÃO · ENGENHARIA DE AUDIÊNCIA</p>
-    <h2 class="section-title">Alcançar milhões não é acidente, é técnica</h2>
+    <p class="label">// Alcance · Retenção · Engenharia de audiência</p>
+    <h2 class="section-title">Mais de 30 milhões de views em conteúdo autoral com IA</h2>
     <p class="section-body">
-      Conteúdo autoral já ultrapassou <strong>30 milhões de visualizações</strong>, incluindo uma colaboração com a <strong>CazéTV</strong> que sozinha somou mais de 25 milhões. Entendo hook, ritmo e retenção na prática — a mesma engenharia por trás de qualquer campanha que precisa conectar conteúdo a milhões de pessoas, que é exatamente a missão de vocês.
+      Conteúdo autoral que ultrapassou <strong>30 milhões de visualizações</strong>, incluindo uma colaboração com a <strong>CazéTV</strong> que sozinha somou mais de 25 milhões. Entendo hook, ritmo e retenção na prática.
     </p>
 
     <div class="stat-row">
@@ -250,9 +361,9 @@
             <source src="../assets/hidratacao.mp4" type="video/mp4">
           </video>
         </div>
-        <div class="case-body" style="flex:1;min-width:240px;">
-          <p class="section-body" style="font-size:15px;">
-            Meme criado com IA para a Copa do Mundo, publicado em três versões. Collab direta com CazéTV e @soueunavida — dois dos maiores perfis de futebol do Brasil, somando mais de 25 milhões de views.
+        <div class="case-body" style="flex:1;min-width:220px;">
+          <p class="section-body" style="font-size:14px;">
+            Meme criado com IA para a Copa do Mundo, publicado em três versões. Collab direta com CazéTV e @soueunavida, dois dos maiores perfis de futebol do Brasil, somando mais de 25 milhões de views.
           </p>
         </div>
       </div>
@@ -260,14 +371,14 @@
 
     <div class="work-grid">
       <a href="https://www.instagram.com/reel/DaX-qYxOHRY/" target="_blank" class="work-card">
-        <img src="../assets/thumb-branquelas.jpg" alt="Produção com IA — 500K views">
+        <img src="../assets/thumb-branquelas.jpg" alt="Produção com IA">
         <div class="work-card-content">
           <div class="work-card-title">Produção autoral gerada com IA</div>
           <div class="work-card-tag">500K+ views · Instagram</div>
         </div>
       </a>
       <a href="https://www.instagram.com/p/DZOFv2EJEIk/" target="_blank" class="work-card">
-        <img src="../assets/thumb-cazetv-copa.jpg" alt="Collab CazéTV — Copa do Mundo">
+        <img src="../assets/thumb-cazetv-copa.jpg" alt="Collab CazéTV">
         <div class="work-card-content">
           <div class="work-card-title">Collab CazéTV — Copa do Mundo</div>
           <div class="work-card-tag">Produção autoral · IA</div>
@@ -277,21 +388,49 @@
   </div>
 </section>
 
-<!-- FECHAMENTO -->
+<!-- ─── FECHAMENTO ─── -->
 <section class="closing">
   <div class="wrap">
-    <img src="../assets/foto-perfil.jpg" alt="Anderson Brito" style="width:96px;height:96px;border-radius:50%;object-fit:cover;filter:grayscale(1);margin:0 auto 32px;border:1px solid rgba(255,255,255,.25);">
-    <p class="kicker">// VAMOS CONVERSAR</p>
-    <h2>Se vocês buscam quem entende tanto de audiência quanto de convicção, vamos conversar.</h2>
-    <div class="closing-btns">
-      <a href="mailto:contato@andersonbrito.com?subject=Editor%20de%20V%C3%ADdeo%20-%20Campanhas%20Publicit%C3%A1rias&body=Ol%C3%A1%20Anderson%2C" class="btn btn-light">contato@andersonbrito.com</a>
-      <a href="https://andersonbrito.com/dr" target="_blank" class="btn btn-outline-light">Portfólio completo →</a>
+    <div class="closing-inner">
+      <img src="../assets/foto-perfil.jpg" alt="Anderson Brito" class="closing-photo">
+      <div>
+        <p class="kicker">// Anderson Brito</p>
+        <h2>Marketing, educação e audiovisual sempre foram o meu caminho.</h2>
+        <p class="closing-body">
+          Graduado em <strong>Marketing pela FGV</strong>, cursando <strong>MBA em Marketing</strong>, com <strong>9 anos de comunicação institucional</strong> na maior educadora do Brasil. Experiência real em edição de vídeo, tráfego pago, conteúdo educacional e produção com IA.
+        </p>
+        <div class="closing-quals">
+          <span class="closing-qual">Marketing (FGV)</span>
+          <span class="closing-qual">MBA em Marketing</span>
+          <span class="closing-qual">Edição de vídeo</span>
+          <span class="closing-qual">Tráfego pago</span>
+          <span class="closing-qual">Conteúdo educacional</span>
+        </div>
+        <div class="closing-social">
+          <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10m0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6"/></svg>
+            Instagram
+          </a>
+          <a href="https://www.linkedin.com/in/andbrito/" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            LinkedIn
+          </a>
+          <a href="mailto:contato@andersonbrito.com?subject=Editor%20de%20V%C3%ADdeo%20-%20Brasil%20Paralelo" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            E-mail
+          </a>
+          <a href="https://wa.me/5511948577950" target="_blank" class="social-btn">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  andersonbrito.com <span>·</span> EDITOR DE VÍDEO · SÃO PAULO, SP <span>·</span> 2026
+  andersonbrito.com · Editor de Vídeo · Marketing · São Paulo, SP · 2026
 </footer>
 
 </body>
