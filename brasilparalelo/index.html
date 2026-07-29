@@ -107,13 +107,14 @@ section.content{padding:100px 0;border-top:1px solid var(--line);}
 .case-video video{width:100%;height:100%;object-fit:cover;}
 .case-body{padding:22px;}
 
-.work-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
-.work-card{border:1px solid var(--line);overflow:hidden;display:block;transition:border-color .2s;}
-.work-card:hover{border-color:rgba(255,255,255,.35);}
-.work-card img{aspect-ratio:16/9;object-fit:cover;filter:brightness(.85);}
-.work-card-content{padding:14px 16px;background:var(--bg2);}
-.work-card-title{font-size:13px;font-weight:600;}
-.work-card-tag{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+/* Viral grid */
+.viral-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:36px;}
+.viral-card{position:relative;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/5;display:block;transition:border-color .2s,transform .15s;}
+.viral-card:hover{border-color:rgba(255,255,255,.35);transform:translateY(-2px);}
+.viral-card img,.viral-card video{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.viral-overlay{position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 100%);z-index:1;}
+.viral-title{font-size:13px;font-weight:600;}
+.viral-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
 
 /* Closing */
 .closing{padding:120px 0;border-top:1px solid var(--line);}
@@ -138,6 +139,7 @@ footer{padding:28px 32px;text-align:center;font-family:'Space Mono',monospace;fo
   .split,.split.reverse{grid-template-columns:1fr;gap:32px;}
   .split.reverse .split-media,.split.reverse .split-text{order:initial;}
   .video-grid{grid-template-columns:1fr 1fr;}
+  .viral-grid{grid-template-columns:repeat(3,1fr);}
   .wrap{padding:0 24px;}
   section.content{padding:72px 0;}
 }
@@ -146,7 +148,7 @@ footer{padding:28px 32px;text-align:center;font-family:'Space Mono',monospace;fo
   .hl-card{border-right:none!important;border-bottom:1px solid var(--line);}
   .hl-card:last-child{border-bottom:none;}
   .video-grid{grid-template-columns:1fr;}
-  .work-grid{grid-template-columns:1fr;}
+  .viral-grid{grid-template-columns:1fr;}
   .social-row{flex-wrap:wrap;}
   .closing-inner{grid-template-columns:1fr;text-align:center;}
   .closing-photo{margin:0 auto;}
@@ -327,15 +329,15 @@ footer{padding:28px 32px;text-align:center;font-family:'Space Mono',monospace;fo
 <section class="content">
   <div class="wrap">
     <p class="label">// Alcance · Retenção · Engenharia de audiência</p>
-    <h2 class="section-title">Mais de 30 milhões de views em conteúdo autoral com IA</h2>
+    <h2 class="section-title">Mais de 30 milhões de views em conteúdo viral com IA</h2>
     <p class="section-body">
-      Conteúdo autoral que ultrapassou <strong>30 milhões de visualizações</strong>, incluindo uma colaboração com a <strong>CazéTV</strong> que sozinha somou mais de 25 milhões. Entendo hook, ritmo e retenção na prática.
+      Conteúdo viral que ultrapassou <strong>30 milhões de visualizações</strong>, incluindo uma colaboração com a <strong>CazéTV</strong> que sozinha somou mais de 25 milhões. Entendo hook, ritmo e retenção na prática.
     </p>
 
     <div class="stat-row">
       <div>
         <div class="stat-num">30M+</div>
-        <div class="stat-label">Views em conteúdo autoral</div>
+        <div class="stat-label">Views em conteúdo viral</div>
       </div>
       <div>
         <div class="stat-num">25M+</div>
@@ -347,43 +349,30 @@ footer{padding:28px 32px;text-align:center;font-family:'Space Mono',monospace;fo
       </div>
     </div>
 
-    <div class="case-block">
-      <div class="case-head">
-        <img src="../assets/logo-cazetv.png" alt="CazéTV">
-        <div>
-          <div class="case-head-text">Pausa pra Hidratação</div>
-          <div class="case-head-sub">Collab CazéTV · 25M+ views somados</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:0;flex-wrap:wrap;">
-        <div class="case-video">
-          <video autoplay muted loop playsinline preload="auto">
-            <source src="../assets/hidratacao.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="case-body" style="flex:1;min-width:220px;">
-          <p class="section-body" style="font-size:14px;">
-            Meme criado com IA para a Copa do Mundo, publicado em três versões. Collab direta com CazéTV e @soueunavida, dois dos maiores perfis de futebol do Brasil, somando mais de 25 milhões de views.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="work-grid">
-      <a href="https://www.instagram.com/reel/DaX-qYxOHRY/" target="_blank" class="work-card">
+    <div class="viral-grid">
+      <a href="https://www.instagram.com/reel/DaX-qYxOHRY/" target="_blank" class="viral-card">
         <img src="../assets/thumb-branquelas.jpg" alt="Produção com IA">
-        <div class="work-card-content">
-          <div class="work-card-title">Produção autoral gerada com IA</div>
-          <div class="work-card-tag">500K+ views · Instagram</div>
+        <div class="viral-overlay">
+          <div class="viral-title">Produção viral com IA</div>
+          <div class="viral-tag">500K+ views</div>
         </div>
       </a>
-      <a href="https://www.instagram.com/p/DZOFv2EJEIk/" target="_blank" class="work-card">
+      <a href="https://www.instagram.com/p/DZOFv2EJEIk/" target="_blank" class="viral-card">
         <img src="../assets/thumb-cazetv-copa.jpg" alt="Collab CazéTV">
-        <div class="work-card-content">
-          <div class="work-card-title">Collab CazéTV — Copa do Mundo</div>
-          <div class="work-card-tag">Produção autoral · IA</div>
+        <div class="viral-overlay">
+          <div class="viral-title">Collab CazéTV — Copa</div>
+          <div class="viral-tag">CazéTV · 25M+</div>
         </div>
       </a>
+      <div class="viral-card viral-card--video">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="../assets/hidratacao.mp4" type="video/mp4">
+        </video>
+        <div class="viral-overlay">
+          <div class="viral-title">Pausa pra Hidratação</div>
+          <div class="viral-tag">Collab CazéTV</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
