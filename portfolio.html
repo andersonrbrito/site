@@ -3,36 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio — Anderson Brito | Editor de Vídeo</title>
-  <meta name="description" content="Portfolio de edição de vídeo: criativos, aftermovies, videoclipes, vídeos com IA e curta-metragens.">
-  <meta name="keywords" content="portfolio vídeo, criativos, aftermovie, videoclipe, vídeos IA, edição profissional">
+  <title>Portfolio — Anderson Brito | Editor de Vídeo & IA</title>
+  <meta name="description" content="Serviços de edição de vídeo e IA: virais, criativos, VSL, aftermovie, videoclipes, podcast e mais. Solicite um orçamento.">
+  <meta name="keywords" content="editor de vídeo, vídeo IA, criativos, VSL, aftermovie, videoclipe, podcast, edição profissional">
   <meta name="robots" content="index, follow">
 
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://andersonbrito.com/portfolio.html">
-  <meta property="og:title" content="Portfolio — Anderson Brito | Editor de Vídeo">
-  <meta property="og:description" content="Projetos em criativos, VSL e direct response. Vídeos que retêm, convertem e vendem.">
+  <meta property="og:title" content="Portfolio — Anderson Brito | Editor de Vídeo & IA">
+  <meta property="og:description" content="Serviços de edição de vídeo e IA. Vídeos que retêm, convertem e vendem.">
   <meta property="og:image" content="https://andersonbrito.com/assets/foto-perfil.jpg">
   <meta property="og:locale" content="pt_BR">
-  <meta property="og:site_name" content="Anderson Brito">
 
-  <!-- Schema.org / JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "name": "Anderson Brito — Edição de Vídeo",
+    "name": "Anderson Brito — Edição de Vídeo & IA",
     "url": "https://andersonbrito.com/portfolio.html",
     "image": "https://andersonbrito.com/assets/foto-perfil.jpg",
-    "description": "Portfolio de edição: criativos, aftermovies, videoclipes, VSL, vídeos com IA e curta-metragens.",
+    "description": "Serviços de edição de vídeo e IA: virais, criativos, VSL, aftermovie, videoclipes, podcast.",
     "provider": {
       "@type": "Person",
       "name": "Anderson Brito",
       "url": "https://andersonbrito.com",
-      "jobTitle": "Editor de Vídeo"
+      "jobTitle": "Editor de Vídeo & Especialista em IA"
     },
     "areaServed": "Brasil",
-    "serviceType": ["Edição de Vídeo", "Criativos para Anúncio", "VSL", "Aftermovie", "Videoclipe", "Curta-Metragem"]
+    "serviceType": ["Vídeos Virais de IA","Criativos","VSL","Aftermovie","Videoclipe","Edição de Podcast"]
   }
   </script>
 
@@ -41,1458 +39,827 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --pr-menubar:    #1C1C1C;
-      --pr-toolbar:    #232325;
-      --pr-panel-bg:   #1E1E22;
-      --pr-panel-hd:   #28282E;
-      --pr-panel-hd2:  #222226;
-      --pr-timeline-bg:#191919;
-      --pr-track-bg:   #202024;
-      --pr-track-odd:  #1C1C20;
-      --pr-card:       #26262C;
-      --pr-input:      #141416;
-      --pr-border:     #000;
-      --pr-sep:        #38383F;
-      --pr-sep-light:  #45454F;
-      --accent:        #3DA7FF;
-      --accent-2:      #0070D1;
-      --accent-gr:     #22c55e;
-      --orange:        #FF6B35;
-      --purple:        #5A2D7A;
-      --playhead:      #A8D0FF;
-      --tx-hi:         #EAEAEF;
-      --tx-mid:        #8888A0;
-      --tx-lo:      #6E6E80;
-      --f-mono:        'IBM Plex Mono', monospace;
-      --f-head:        'Exo 2', sans-serif;
-      --f-body:        'DM Sans', sans-serif;
-      --menubar-h:     28px;
-      --toolbar-h:     40px;
-      --timeline-h:    110px;
+      --bg: #09090B;
+      --bg-2: #0F0F12;
+      --bg-card: #18181B;
+      --bg-card-h: #1F1F23;
+      --border: #27272A;
+      --border-h: #3F3F46;
+      --tx: #FAFAFA;
+      --tx-2: #A1A1AA;
+      --tx-3: #71717A;
+      --accent: #3B82F6;
+      --accent-h: #60A5FA;
+      --accent-d: #1D4ED8;
+      --wpp: #25D366;
+      --wpp-h: #2AE676;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --f: 'Inter', system-ui, sans-serif;
+      --fd: 'Space Grotesk', 'Inter', sans-serif;
+      --nav-h: 64px;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      background: var(--pr-timeline-bg);
-      color: var(--tx-hi);
-      font-family: var(--f-body);
-      font-size: 14px;
+      background: var(--bg);
+      color: var(--tx);
+      font-family: var(--f);
+      font-size: 15px;
+      line-height: 1.6;
       overflow-x: hidden;
-      padding-bottom: var(--timeline-h);
+      -webkit-font-smoothing: antialiased;
     }
-    a { text-decoration: none !important; color: inherit; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
 
-    /* ═══════════════════════════════════════
-       MENU BAR
-    ═══════════════════════════════════════ */
-    .menu-bar {
+    /* NAV */
+    .nav {
       position: fixed; top: 0; left: 0; right: 0;
-      height: var(--menubar-h);
-      background: var(--pr-menubar);
-      border-bottom: 1px solid var(--pr-border);
-      z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(9,9,11,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
       display: flex; align-items: center;
-      overflow: visible;
     }
-    .menu-appname {
-      display: flex; align-items: center; gap: 7px;
-      padding: 0 14px; height: 100%;
-      border-right: 1px solid var(--pr-sep); flex-shrink: 0;
+    .nav-inner {
+      max-width: 1200px; width: 100%; margin: 0 auto;
+      padding: 0 24px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .menu-pr-icon {
-      width: 16px; height: 16px; background: var(--accent-2);
-      border-radius: 3px; display: flex; align-items: center; justify-content: center;
-      font-family: var(--f-head); font-size: 9px; font-weight: 900; color: #fff;
+    .nav-logo {
+      font-family: var(--fd); font-weight: 700; font-size: 18px;
+      color: var(--tx); letter-spacing: -.02em;
     }
-    .menu-appname span { font-family: var(--f-mono); font-size: 10px; color: var(--tx-mid); }
-    .menu-items { display: flex; align-items: center; height: 100%; }
-    .menu-item {
-      position: relative; height: 100%;
-      display: flex; align-items: center;
-      padding: 0 10px; font-family: var(--f-head); font-size: 11px;
-      color: var(--tx-mid); cursor: pointer; transition: color .15s, background .15s;
+    .nav-links { display: flex; align-items: center; gap: 8px; }
+    .nav-links a {
+      font-size: 13px; font-weight: 500; color: var(--tx-2);
+      padding: 8px 14px; border-radius: 8px;
+      transition: color .2s, background .2s;
     }
-    .menu-item:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
-    .menu-dropdown {
-      display: none; position: absolute; top: 100%; left: 0;
-      background: var(--pr-panel-hd); border: 1px solid var(--pr-sep);
-      min-width: 180px; z-index: 1001; margin-top: -1px;
+    .nav-links a:hover { color: var(--tx); background: rgba(255,255,255,.05); }
+    .nav-links a.active { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent) !important; color: #fff !important;
+      font-weight: 600 !important; border-radius: 8px !important;
     }
-    .menu-item:hover .menu-dropdown { display: flex; flex-direction: column; }
-    .menu-dropdown-item {
-      padding: 8px 12px; color: var(--tx-mid); font-size: 11px;
-      cursor: pointer; transition: background .1s, color .1s;
-      border-bottom: 1px solid var(--pr-border);
+    .nav-cta:hover { background: var(--accent-h) !important; }
+    .nav-menu {
+      display: none; background: none; border: none; cursor: pointer;
+      flex-direction: column; gap: 5px; padding: 8px;
     }
-    .menu-dropdown-item:last-child { border-bottom: none; }
-    .menu-dropdown-item:hover { background: rgba(61,167,255,.15); color: var(--accent); }
-    .menu-project {
-      flex: 1; text-align: center; font-family: var(--f-mono);
-      font-size: 10px; color: var(--tx-lo); pointer-events: none;
+    .nav-menu span { display: block; width: 20px; height: 2px; background: var(--tx-2); border-radius: 2px; transition: .3s; }
+    .mobile-nav {
+      display: none; position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: rgba(9,9,11,.95); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border); z-index: 99;
+      flex-direction: column; padding: 16px 24px; gap: 4px;
     }
-    .menu-right {
-      display: flex; align-items: center; gap: 12px;
-      padding: 0 12px; border-left: 1px solid var(--pr-sep);
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 14px; font-weight: 500; color: var(--tx-2);
+      padding: 12px 16px; border-radius: 8px;
+      transition: color .2s, background .2s;
     }
-    .menu-status-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--accent-gr); animation: blink 3s ease-in-out infinite;
-    }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-    .menu-status-text { font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); }
+    .mobile-nav a:hover { color: var(--tx); background: rgba(255,255,255,.05); }
 
-    /* ═══════════════════════════════════════
-       TOOLBAR
-    ═══════════════════════════════════════ */
-    .toolbar {
-      position: fixed; top: var(--menubar-h); left: 0; right: 0;
-      height: var(--toolbar-h);
-      background: var(--pr-toolbar);
-      border-bottom: 1px solid var(--pr-border);
-      z-index: 999;
-      display: flex; align-items: center; padding: 0 12px; gap: 2px;
-    }
-    .tool-group {
-      display: flex; align-items: center; gap: 2px;
-      padding: 0 8px; border-right: 1px solid var(--pr-sep); height: 100%;
-    }
-    .tool-group:last-child { border-right: none; }
-    .tool-btn {
-      width: 28px; height: 26px; border-radius: 3px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--tx-mid); font-size: 12px; transition: background .1s, color .1s;
-    }
-    .tool-btn:hover { background: rgba(255,255,255,.07); color: var(--tx-hi); }
-    .tool-btn.active { background: rgba(61,167,255,.15); color: var(--accent); }
-    .timecode-display {
-      font-family: var(--f-mono); font-size: 13px; font-weight: 500;
-      color: var(--tx-hi); background: var(--pr-input); border: 1px solid var(--pr-sep);
-      border-radius: 3px; padding: 3px 10px; letter-spacing: .08em;
-      min-width: 110px; text-align: center; user-select: none;
-    }
-    .timecode-display .tc-sep { color: var(--pr-sep-light); }
-    .seq-info { font-family: var(--f-mono); font-size: 10px; color: var(--tx-lo); padding-left: 10px; }
-    .toolbar-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
-    .tn-link {
-      font-family: var(--f-head); font-size: 11px; font-weight: 600;
-      letter-spacing: .06em; text-transform: uppercase;
-      color: var(--tx-mid); padding: 5px 10px; border-radius: 3px;
-      transition: color .15s, background .15s;
-    }
-    .tn-link:hover { color: var(--tx-hi); background: rgba(255,255,255,.06); }
-    .tn-link.cta { background: var(--accent-2); color: #fff; font-weight: 700; }
-    .tn-link.cta:hover { background: var(--accent); }
-
-    /* LANG TOGGLE inside toolbar */
-    .lang-toggle {
-      display: flex; gap: 2px;
-      background: rgba(61,167,255,.1); border: 1px solid rgba(61,167,255,.2);
-      border-radius: 3px; margin-left: 10px;
-    }
-    .lang-btn {
-      padding: 5px 9px; background: transparent; border: none;
-      color: var(--tx-mid); font-family: var(--f-mono);
-      font-size: 9px; font-weight: 600; letter-spacing: .06em;
-      cursor: pointer; transition: all .2s; text-transform: uppercase;
-    }
-    .lang-btn.active { background: var(--accent); color: #000; }
-    .lang-btn:hover:not(.active) { color: var(--accent); }
-
-    /* Mobile hamburger */
-    .hamburger-btn {
-      display: none; margin-left: auto;
-      flex-direction: column; gap: 4px; padding: 6px; background: none; border: none; cursor: pointer;
-    }
-    .hamburger-btn span { display: block; width: 18px; height: 1.5px; background: var(--tx-mid); border-radius: 2px; }
-
-    /* Mobile nav drawer */
-    .mobile-drawer {
-      display: none; position: fixed;
-      top: calc(var(--menubar-h) + var(--toolbar-h)); left: 0; right: 0;
-      background: var(--pr-panel-bg); border-bottom: 1px solid var(--pr-sep);
-      z-index: 998; flex-direction: row; padding: 8px 12px; gap: 6px;
-      overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap;
-    }
-    .mobile-drawer.open { display: flex; }
-    .mobile-drawer a {
-      font-family: var(--f-head); font-size: 12px; font-weight: 600;
-      letter-spacing: .06em; text-transform: uppercase;
-      color: var(--tx-mid); padding: 8px 10px; border-radius: 3px;
-      transition: color .15s, background .15s; flex-shrink: 0;
-    }
-    .mobile-drawer a:hover { color: var(--tx-hi); background: rgba(255,255,255,.05); }
-    .mobile-drawer .cta { color: var(--accent); }
-
-    /* ═══════════════════════════════════════
-       PAGE OFFSET
-    ═══════════════════════════════════════ */
-    .page-content { margin-top: calc(var(--menubar-h) + var(--toolbar-h)); }
-
-    /* ═══════════════════════════════════════
-       PAGE HEADER
-    ═══════════════════════════════════════ */
-    .page-header {
-      background: #0A0A0C;
-      padding: 40px 24px 32px;
-      border-bottom: 1px solid var(--pr-sep);
+    /* HERO */
+    .hero {
+      padding: calc(var(--nav-h) + 60px) 24px 40px;
       position: relative; overflow: hidden;
     }
-    .page-header::before {
+    .hero::before {
       content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 50% 100% at 0% 50%, rgba(61,167,255,.05) 0%, transparent 70%);
+      background: radial-gradient(ellipse 60% 80% at 20% 30%, rgba(59,130,246,.06) 0%, transparent 70%);
       pointer-events: none;
     }
-    .ph-inner {
+    .hero-inner {
       max-width: 1200px; margin: 0 auto;
-      display: flex; align-items: flex-end; justify-content: space-between;
-      gap: 24px; flex-wrap: wrap; position: relative;
+      display: flex; align-items: center; gap: 48px;
+      position: relative;
     }
-    .ph-label {
-      font-family: var(--f-mono); font-size: 9px; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
-      display: flex; align-items: center; gap: 8px;
+    .hero-photo {
+      width: 180px; height: 180px; border-radius: 24px;
+      object-fit: cover; flex-shrink: 0;
+      border: 2px solid var(--border);
+      box-shadow: 0 0 60px rgba(59,130,246,.12);
     }
-    .ph-label::before { content: '//'; color: var(--tx-lo); }
-    .ph-h1 {
-      font-family: var(--f-head); font-size: clamp(26px, 5vw, 44px);
-      font-weight: 900; font-style: italic; line-height: 1.05; margin-bottom: 8px;
+    .hero-text { flex: 1; }
+    .hero-name {
+      font-family: var(--fd); font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700; letter-spacing: -.03em; line-height: 1.1;
+      margin-bottom: 8px;
     }
-    .ph-sub { font-size: 13px; color: var(--tx-mid); max-width: 420px; }
-    .ph-stats { display: flex; gap: 20px; flex-wrap: wrap; }
-    .ph-stat { text-align: right; }
-    .ph-stat .n { font-family: var(--f-mono); font-size: 26px; font-weight: 600; color: var(--accent); line-height: 1; }
-    .ph-stat .l { font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo); letter-spacing: .06em; }
-
-    /* ═══════════════════════════════════════
-       FILTER BAR
-    ═══════════════════════════════════════ */
-    .filter-bar {
-      background: var(--pr-panel-hd2);
-      border-bottom: 1px solid var(--pr-border);
-      position: sticky; top: calc(var(--menubar-h) + var(--toolbar-h));
-      z-index: 90;
-      display: flex; align-items: center;
+    .hero-title {
+      font-size: 16px; color: var(--accent); font-weight: 500;
+      margin-bottom: 12px;
     }
-    .filter-track-label {
-      width: 64px; flex-shrink: 0; border-right: 1px solid var(--pr-sep);
-      height: 38px; display: flex; align-items: center;
-      padding: 0 10px; font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+    .hero-bio {
+      font-size: 15px; color: var(--tx-2); max-width: 480px;
+      line-height: 1.65; margin-bottom: 24px;
     }
-    .filter-clips { display: flex; align-items: center; padding: 0 12px; gap: 4px; height: 38px; overflow-x: auto; }
-    .filter-clip {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: transparent; border: 1px solid transparent; border-radius: 3px;
-      padding: 5px 12px; font-family: var(--f-mono); font-size: 10px; font-weight: 600;
-      letter-spacing: .06em; text-transform: uppercase; color: var(--tx-mid);
-      cursor: pointer; transition: all .2s; white-space: nowrap;
-    }
-    .filter-clip:hover { color: var(--tx-hi); background: rgba(255,255,255,.04); border-color: var(--pr-sep); }
-    .filter-clip.active { background: rgba(61,167,255,.12); border-color: rgba(61,167,255,.3); color: var(--accent); }
-    .filter-swatch { width: 8px; height: 8px; border-radius: 2px; }
-    .filter-count {
-      background: rgba(255,255,255,.07); border-radius: 10px;
-      padding: 1px 6px; font-size: 9px; color: var(--tx-lo);
-    }
-    .filter-clip.active .filter-count { background: rgba(61,167,255,.2); color: var(--accent); }
-
-    /* ═══════════════════════════════════════
-       PORTFOLIO GRID
-    ═══════════════════════════════════════ */
-    .portfolio-main { max-width: 1280px; margin: 0 auto; padding: 32px 20px 60px; }
-
-    /* Section titles */
-    .section-label {
+    .hero-social {
       display: flex; align-items: center; gap: 10px;
-      margin-bottom: 16px; margin-top: 40px;
+      margin-bottom: 20px;
     }
-    .section-label:first-child { margin-top: 0; }
-    .section-label-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
-    .section-label-text {
-      font-family: var(--f-mono); font-size: 10px; font-weight: 600;
-      letter-spacing: .1em; text-transform: uppercase; color: var(--tx-mid);
+    .social-btn {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--tx-2); transition: all .2s;
     }
-    .section-label-line { flex: 1; height: 1px; background: var(--pr-sep); }
-    .section-label-count {
-      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
+    .social-btn:hover {
+      background: var(--bg-card-h); border-color: var(--border-h);
+      color: var(--tx); transform: translateY(-2px);
+    }
+    .social-btn svg { width: 18px; height: 18px; }
+    .hero-saiba {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 600; color: var(--accent);
+      padding: 12px 24px; border-radius: 10px;
+      border: 1px solid rgba(59,130,246,.3);
+      background: rgba(59,130,246,.08);
+      transition: all .2s;
+    }
+    .hero-saiba:hover {
+      background: rgba(59,130,246,.15); border-color: rgba(59,130,246,.5);
+      transform: translateX(4px);
     }
 
-    /* VERTICAL grid (9:16 shorts) — cards estreitos em linha */
-    .grid-vertical {
+    /* STATS */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 24px;
+      background: var(--bg-2);
+    }
+    .stats-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; justify-content: center; gap: 48px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-n {
+      font-family: var(--fd); font-size: 32px; font-weight: 700;
+      color: var(--tx); letter-spacing: -.02em;
+    }
+    .stat-l {
+      font-size: 11px; font-weight: 500; color: var(--tx-3);
+      text-transform: uppercase; letter-spacing: .1em; margin-top: 4px;
+    }
+
+    /* SERVICES NAV */
+    .svc-nav {
+      padding: 64px 24px;
+      text-align: center;
+    }
+    .svc-nav-inner { max-width: 900px; margin: 0 auto; }
+    .svc-nav-title {
+      font-family: var(--fd); font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700; letter-spacing: -.03em;
+      margin-bottom: 12px;
+    }
+    .svc-nav-sub {
+      font-size: 15px; color: var(--tx-2); margin-bottom: 36px;
+    }
+    .svc-nav-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 220px));
+      grid-template-columns: repeat(4, 1fr);
       gap: 12px;
-      margin-bottom: 8px;
+    }
+    .svc-nav-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 10px; padding: 16px 20px;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px; font-weight: 600; color: var(--tx-2);
+      transition: all .2s; cursor: pointer;
+    }
+    .svc-nav-btn:hover {
+      background: var(--bg-card-h); border-color: var(--accent);
+      color: var(--tx); transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(59,130,246,.1);
+    }
+    .svc-nav-num {
+      font-family: var(--fd); font-size: 11px; font-weight: 700;
+      color: var(--accent); opacity: .6;
+      width: 24px; height: 24px; border-radius: 6px;
+      background: rgba(59,130,246,.1);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
     }
 
-    /* HORIZONTAL grid (16:9) — cards largos, max 2 por linha */
-    .grid-horizontal {
+    /* SERVICE SECTIONS */
+    .svc {
+      padding: 80px 24px;
+      position: relative;
+      border-top: 1px solid var(--border);
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .svc.visible { opacity: 1; transform: translateY(0); }
+    .svc:nth-child(even) { background: var(--bg-2); }
+    .svc::before {
+      content: attr(data-num);
+      position: absolute; right: 40px; top: 30px;
+      font-family: var(--fd); font-size: 180px; font-weight: 700;
+      color: rgba(255,255,255,.015); pointer-events: none;
+      line-height: 1; letter-spacing: -.05em;
+    }
+    .svc-inner { max-width: 1200px; margin: 0 auto; position: relative; }
+    .svc-head { margin-bottom: 40px; max-width: 600px; }
+    .svc-num {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--fd); font-size: 12px; font-weight: 700;
+      color: var(--accent); letter-spacing: .1em;
+      margin-bottom: 12px;
+    }
+    .svc-num::after {
+      content: ''; display: block; width: 40px; height: 1px;
+      background: var(--accent); opacity: .4;
+    }
+    .svc-title {
+      font-family: var(--fd); font-size: clamp(22px, 3.5vw, 32px);
+      font-weight: 700; letter-spacing: -.02em; line-height: 1.15;
+      margin-bottom: 12px;
+    }
+    .svc-desc {
+      font-size: 15px; color: var(--tx-2); line-height: 1.65;
+    }
+    .svc-empty {
+      padding: 48px 32px; text-align: center;
+      background: var(--bg-card); border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      color: var(--tx-3); font-size: 14px;
+    }
+
+    /* VIDEO GRID */
+    .vid-grid-v {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(520px, 1fr));
-      gap: 16px;
-      margin-bottom: 8px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px; margin-bottom: 16px;
+    }
+    .vid-grid-h {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 16px; margin-bottom: 16px;
     }
 
     /* VIDEO CARD */
-    .video-card {
-      background: var(--pr-card);
-      border: 1px solid var(--pr-sep);
-      border-radius: 4px; overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: border-color .2s, background .2s, box-shadow .2s;
-      cursor: pointer;
+    .vid-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+      cursor: pointer; transition: all .25s;
     }
-    .video-card:hover {
-      background: #30303A; border-color: var(--accent);
-      box-shadow: 0 8px 24px rgba(61,167,255,.1);
+    .vid-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-card-h);
+      box-shadow: 0 8px 32px rgba(59,130,246,.1);
+      transform: translateY(-4px);
     }
-    .video-card.hidden { display: none; }
-
-    /* VIDEO CONTAINER */
-    .video-wrapper { position: relative; overflow: hidden; background: #000; }
-    .video-wrapper.vertical  { aspect-ratio: 9/16; }
-    .video-wrapper.horizontal { aspect-ratio: 16/9; }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
+    .vid-thumb { position: relative; overflow: hidden; background: #000; }
+    .vid-thumb.v { aspect-ratio: 9/16; }
+    .vid-thumb.h { aspect-ratio: 16/9; }
+    .vid-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s, filter .3s;
     }
-    /* Lazy thumbnail (loads iframe only on click via modal) */
-    .thumb-img, .thumb-fallback {
+    .vid-card:hover .vid-thumb img { transform: scale(1.06); filter: brightness(1.1); }
+    .vid-thumb-fb {
       position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover; transition: transform .3s, filter .3s;
+      background: linear-gradient(135deg, var(--bg-card) 0%, #0A0A0C 100%);
     }
-    .thumb-overlay {
+    .vid-play {
       position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
-      background: rgba(0,0,0,.18);
-      transition: background .2s;
+      background: rgba(0,0,0,.15); transition: background .2s;
     }
-    .thumb-play-btn {
-      width: 56px; height: 56px;
-      background: rgba(0,0,0,.65);
-      border: 2px solid rgba(255,255,255,.9);
-      border-radius: 50%;
+    .vid-card:hover .vid-play { background: rgba(0,0,0,.05); }
+    .vid-play-icon {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(0,0,0,.55); border: 2px solid rgba(255,255,255,.8);
       display: flex; align-items: center; justify-content: center;
       backdrop-filter: blur(4px);
-      transition: transform .2s, background .2s, border-color .2s;
+      transition: all .25s;
     }
-    .video-card:hover .thumb-play-btn {
-      background: var(--accent);
-      border-color: var(--accent);
-      transform: scale(1.12);
+    .vid-card:hover .vid-play-icon {
+      background: var(--accent); border-color: var(--accent);
+      transform: scale(1.1);
     }
-    .video-card:hover .thumb-img { transform: scale(1.04); filter: brightness(1.1); }
-    .video-card:hover .thumb-overlay { background: rgba(0,0,0,.05); }
-
-    /* CARD CONTENT */
-    .card-content { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
-    .card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-    .card-title { font-family: var(--f-head); font-size: 13px; font-weight: 700; flex: 1; }
-    .card-cat {
-      display: inline-block; padding: 3px 8px;
-      border-radius: 2px; font-family: var(--f-mono);
-      font-size: 8px; font-weight: 600; text-transform: uppercase;
-      letter-spacing: .05em; white-space: nowrap; flex-shrink: 0;
+    .vid-info { padding: 14px 16px; }
+    .vid-info-title {
+      font-size: 13px; font-weight: 600; line-height: 1.4;
+      margin-bottom: 6px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-    .card-cat.criativo   { background: rgba(43,82,128,.2);   border: 1px solid rgba(43,82,128,.4);  color: #5BA3FF; }
-    .card-cat.aftermovie { background: rgba(42,74,26,.2);    border: 1px solid rgba(42,74,26,.4);   color: #6FCF65; }
-    .card-cat.videoclip  { background: rgba(90,45,122,.2);   border: 1px solid rgba(90,45,122,.4);  color: #D48EFF; }
-    .card-cat.vsl        { background: rgba(122,45,90,.2);   border: 1px solid rgba(122,45,90,.4);  color: #F48ECC; }
-    .card-cat.ia         { background: rgba(255,107,53,.2);  border: 1px solid rgba(255,107,53,.4); color: #FF8A6B; }
-    .card-cat.curta      { background: rgba(138,106,42,.2);  border: 1px solid rgba(138,106,42,.4); color: #D4A84B; }
-
-    /* Aftermovie: 2 verticals in paired grid, horizontal below */
-    .aftermovie-verticals {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px; margin-bottom: 12px;
-      max-width: 680px;
-    }
-    /* VSL / single-vertical side-by-side */
-    .grid-aftermovie {
-      display: flex; gap: 16px; align-items: stretch; margin-bottom: 8px;
-    }
-    .grid-aftermovie .card-v { flex: 0 0 300px; }
-    .grid-aftermovie .card-h { flex: 1; min-width: 0; }
-
-    /* VSL: 1 vertical + 2+ horizontals stacked */
-    .grid-vsl-stack {
-      display: flex; gap: 16px; align-items: stretch; margin-bottom: 8px;
-    }
-    .grid-vsl-stack .card-v { flex: 0 0 320px; }
-    .grid-vsl-stack .card-h-stack {
-      flex: 1; display: flex; flex-direction: column; gap: 12px; min-width: 0;
-    }
-    .grid-vsl-stack .card-h-stack > .video-card { flex: 1; min-height: 0; }
-
-    @media (max-width: 768px) {
-      .aftermovie-verticals { max-width: 100%; grid-template-columns: 1fr 1fr; }
-      .grid-aftermovie { flex-direction: column; }
-      .grid-aftermovie .card-v { flex: none; }
-      .grid-vsl-stack { flex-direction: column; }
-      .grid-vsl-stack .card-v { flex: none; }
-    }
-    .card-desc { font-size: 12px; color: var(--tx-mid); line-height: 1.5; }
-    .card-meta {
-      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
-      padding-top: 8px; border-top: 1px solid var(--pr-sep);
-      display: flex; gap: 16px; text-transform: uppercase;
+    .vid-info-meta {
+      font-size: 11px; color: var(--tx-3); font-weight: 500;
     }
 
-    /* EMPTY STATE */
-    .empty-state {
-      grid-column: 1/-1; padding: 60px 20px;
-      text-align: center; color: var(--tx-lo);
+    /* WPP CTA per section */
+    .svc-wpp {
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-top: 32px; padding: 14px 28px;
+      background: var(--wpp); color: #0A0A0C;
+      font-size: 14px; font-weight: 700;
+      border-radius: 10px; transition: all .2s;
+      box-shadow: 0 4px 20px rgba(37,211,102,.25);
     }
+    .svc-wpp:hover {
+      background: var(--wpp-h); transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(37,211,102,.35);
+    }
+    .svc-wpp svg { width: 20px; height: 20px; }
 
-    /* ═══════════════════════════════════════
-       MODAL
-    ═══════════════════════════════════════ */
-    .modal {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.95); z-index: 200;
-      align-items: center; justify-content: center;
-      padding: 40px 20px; overflow-y: auto;
+    /* FINAL CTA */
+    .final-cta {
+      padding: 80px 24px;
+      text-align: center;
+      position: relative;
+      border-top: 1px solid var(--border);
+      background: var(--bg-2);
     }
-    .modal.open { display: flex; }
-    .modal-content {
-      background: var(--pr-panel-bg); border: 1px solid var(--pr-sep);
-      border-radius: 6px; max-width: 900px; width: 100%;
-      max-height: 90vh; overflow-y: auto;
+    .final-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 60% at 50% 50%, rgba(37,211,102,.05) 0%, transparent 70%);
+      pointer-events: none;
     }
-    .modal-header {
-      padding: 16px 20px; border-bottom: 1px solid var(--pr-sep);
-      display: flex; align-items: center; justify-content: space-between;
+    .final-cta-inner { max-width: 600px; margin: 0 auto; position: relative; }
+    .final-cta-title {
+      font-family: var(--fd); font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700; letter-spacing: -.03em; margin-bottom: 12px;
     }
-    .modal-title { font-family: var(--f-head); font-size: 15px; font-weight: 700; }
-    .modal-close {
-      width: 28px; height: 28px; border: none;
-      background: rgba(255,255,255,.1); color: var(--tx-hi);
-      border-radius: 3px; cursor: pointer; font-size: 16px;
-      display: flex; align-items: center; justify-content: center; transition: all .2s;
+    .final-cta-sub {
+      font-size: 15px; color: var(--tx-2); margin-bottom: 32px;
+      line-height: 1.6;
     }
-    .modal-close:hover { background: rgba(61,167,255,.2); color: var(--accent); }
-    .modal-video { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
-    .modal-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-    .modal-footer {
-      padding: 16px 20px; border-top: 1px solid var(--pr-sep);
-      display: flex; gap: 8px; flex-wrap: wrap;
-    }
-    .modal-tag {
-      display: inline-block; padding: 5px 10px;
-      background: rgba(61,167,255,.15); border: 1px solid rgba(61,167,255,.3);
-      border-radius: 3px; font-family: var(--f-mono); font-size: 9px;
-      font-weight: 600; color: var(--accent); text-transform: uppercase;
-    }
-
-    /* ═══════════════════════════════════════
-       STATUS BAR
-    ═══════════════════════════════════════ */
-    .status-bar {
-      position: fixed; bottom: var(--timeline-h); left: 0; right: 0;
-      height: 20px; background: var(--pr-menubar);
-      border-top: 1px solid var(--pr-border); border-bottom: 1px solid var(--pr-sep);
-      z-index: 895; display: flex; align-items: center; padding: 0 12px; gap: 16px;
-    }
-    .sb-item {
-      font-family: var(--f-mono); font-size: 9px; color: var(--tx-lo);
-      letter-spacing: .05em; display: flex; align-items: center; gap: 5px;
-    }
-    .sb-item .val { color: var(--tx-mid); }
-    .sb-section-label { margin-left: auto; font-family: var(--f-mono); font-size: 9px; color: var(--accent); letter-spacing: .1em; }
-
-    /* ═══════════════════════════════════════
-       FIXED TIMELINE
-    ═══════════════════════════════════════ */
-    .timeline-panel {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      height: var(--timeline-h); background: var(--pr-timeline-bg);
-      border-top: 1px solid var(--pr-border); z-index: 900;
-      display: flex; flex-direction: column; overflow: hidden;
-    }
-    .tl-header {
-      height: 22px; background: var(--pr-panel-hd2);
-      border-bottom: 1px solid var(--pr-border);
-      display: flex; align-items: center; flex-shrink: 0;
-    }
-    .tl-track-labels-hd {
-      width: 64px; flex-shrink: 0; border-right: 1px solid var(--pr-sep);
-      height: 100%; display: flex; align-items: center; padding: 0 8px;
-    }
-    .tl-ruler { flex: 1; height: 100%; position: relative; overflow: hidden; }
-    .tl-ruler-inner { display: flex; align-items: flex-end; height: 100%; padding: 0 4px; }
-    .tl-ruler-mark {
-      font-family: var(--f-mono); font-size: 8px; color: var(--tx-lo);
-      flex: 1; text-align: left; padding-left: 3px; padding-bottom: 3px;
-      border-left: 1px solid var(--pr-sep);
-    }
-    .tl-tracks { flex: 1; display: flex; flex-direction: column; }
-    .tl-track { display: flex; align-items: stretch; border-bottom: 1px solid var(--pr-border); flex: 1; }
-    .tl-track:last-child { border-bottom: none; }
-    .tl-label {
-      width: 64px; flex-shrink: 0; background: var(--pr-panel-hd2);
-      border-right: 1px solid var(--pr-sep);
-      display: flex; align-items: center; padding: 0 8px; gap: 5px;
-    }
-    .tl-label-text { font-family: var(--f-mono); font-size: 9px; font-weight: 600; color: var(--tx-mid); }
-    .tl-lock { font-size: 8px; color: var(--tx-lo); }
-    .tl-track-content { flex: 1; position: relative; background: var(--pr-track-bg); }
-    .tl-track:nth-child(odd) .tl-track-content { background: var(--pr-track-odd); }
-    .tl-clip {
-      position: absolute; top: 3px; bottom: 3px;
-      border-radius: 3px; display: flex; align-items: center; overflow: hidden;
-      cursor: pointer; transition: filter .15s, top .15s, bottom .15s;
-      border: 1px solid rgba(0,0,0,.4);
-    }
-    .tl-clip:hover { top: 1px; bottom: 1px; filter: brightness(1.2); }
-    .tl-clip-label {
-      font-family: var(--f-mono); font-size: 8px; font-weight: 600;
-      letter-spacing: .08em; color: rgba(255,255,255,.85);
-      padding: 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .tl-waveform { position: absolute; inset: 0; display: flex; align-items: center; gap: 1px; padding: 2px 4px; overflow: hidden; }
-    .wv-bar { flex: 1 1 0; min-width: 2px; max-width: 8px; background: rgba(255,150,50,0.6); border-radius: 1px; opacity: 0.6; }
-    .wv-bar[data-filled="true"] { opacity: 1; background: linear-gradient(180deg,#FFB366 0%,#FF8855 100%); }
-    .tl-playhead {
-      position: absolute; top: 0; bottom: 0; width: 1px;
-      background: var(--playhead); z-index: 10; pointer-events: none;
-    }
-    .tl-playhead::before {
-      content: ''; position: absolute; top: -5px; left: -5px;
-      width: 11px; height: 8px; background: var(--playhead);
-      clip-path: polygon(50% 100%, 0 0, 100% 0);
-    }
-    .tl-section-indicator {
-      position: absolute; top: 0; height: 100%;
-      background: rgba(61,167,255,.08); pointer-events: none;
-    }
-
-    /* ═══════════════════════════════════════
-       ABOUT TEASER CTA
-    ═══════════════════════════════════════ */
-    /* ═══════════════════════════════════════
-       PORTFOLIO CONTACT CTA
-    ═══════════════════════════════════════ */
-    .portfolio-contact-cta {
-      background: linear-gradient(135deg, #0F1A2A 0%, #0A0A0C 100%);
-      border-top: 1px solid var(--accent);
-      border-bottom: 1px solid var(--pr-sep);
-      padding: 48px 24px;
-      position: relative; overflow: hidden;
-    }
-    .portfolio-contact-cta::before {
-      content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse 50% 80% at 100% 50%, rgba(37,211,102,.08) 0%, transparent 60%);
-      pointer-events:none;
-    }
-    .portfolio-contact-inner {
-      max-width: 1280px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 32px; flex-wrap: wrap; position: relative;
-    }
-    .portfolio-contact-label {
-      font-family: var(--f-mono); font-size: 9px; color: #25D366;
-      letter-spacing: .18em; text-transform: uppercase; margin-bottom: 12px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .portfolio-contact-title {
-      font-family: var(--f-head); font-size: clamp(22px, 3.5vw, 32px);
-      font-weight: 900; font-style: italic; line-height: 1.1;
-      color: var(--tx-hi); margin-bottom: 10px;
-    }
-    .portfolio-contact-sub { font-size: 14px; color: var(--tx-mid); max-width: 420px; line-height: 1.55; }
-    .portfolio-contact-btn {
-      display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0;
-      background: #25D366; color: #0A0A0C;
-      font-family: var(--f-head); font-size: 14px; font-weight: 800;
-      letter-spacing: .07em; text-transform: uppercase;
-      padding: 18px 32px; border-radius: 4px;
-      transition: background .2s, transform .2s, box-shadow .2s;
+    .final-cta-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 18px 36px;
+      background: var(--wpp); color: #0A0A0C;
+      font-size: 16px; font-weight: 800;
+      border-radius: 12px; transition: all .2s;
       box-shadow: 0 6px 24px rgba(37,211,102,.3);
     }
-    .portfolio-contact-btn:hover {
-      background: #2AE676; transform: translateY(-2px);
-      box-shadow: 0 10px 32px rgba(37,211,102,.5);
+    .final-cta-btn:hover {
+      background: var(--wpp-h); transform: translateY(-3px);
+      box-shadow: 0 10px 36px rgba(37,211,102,.4);
     }
-    @media (max-width: 768px) {
-      .portfolio-contact-inner { flex-direction: column; align-items: flex-start; }
-    }
+    .final-cta-btn svg { width: 22px; height: 22px; }
 
-    .about-teaser {
-      background: #080810;
-      border-top: 1px solid var(--pr-sep);
-      padding: 40px 24px 44px;
-      position: relative; overflow: hidden;
+    /* MODAL */
+    .modal {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.9); backdrop-filter: blur(8px);
+      z-index: 200; align-items: center; justify-content: center;
+      padding: 40px 20px;
     }
-    .about-teaser::before {
-      content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse 60% 100% at 100% 50%, rgba(61,167,255,.06) 0%, transparent 70%);
-      pointer-events:none;
+    .modal.open { display: flex; }
+    .modal-box {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 16px; max-width: 900px; width: 100%;
+      max-height: 90vh; overflow: hidden;
     }
-    .about-teaser-inner {
-      max-width: 1280px; margin: 0 auto;
+    .modal-head {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
       display: flex; align-items: center; justify-content: space-between;
-      gap: 32px; flex-wrap: wrap; position: relative;
     }
-    .about-teaser-label {
-      font-family: var(--f-mono); font-size: 9px; color: var(--accent);
-      letter-spacing: .16em; text-transform: uppercase; margin-bottom: 12px;
-      display: flex; align-items: center; gap: 8px;
+    .modal-title { font-family: var(--fd); font-size: 15px; font-weight: 600; }
+    .modal-close {
+      width: 32px; height: 32px; border: none;
+      background: rgba(255,255,255,.08); color: var(--tx);
+      border-radius: 8px; cursor: pointer; font-size: 18px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
     }
-    .about-teaser-label::before { content: '//'; color: var(--tx-lo); }
-    .about-teaser-title {
-      font-family: var(--f-head); font-size: clamp(22px, 3.5vw, 34px);
-      font-weight: 900; font-style: italic; line-height: 1.1;
-      color: var(--tx-hi); margin-bottom: 10px;
+    .modal-close:hover { background: rgba(59,130,246,.2); color: var(--accent); }
+    .modal-vid { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; }
+    .modal-vid iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+    /* FLOATING WPP */
+    .wpp-float {
+      position: fixed; bottom: 24px; right: 24px;
+      z-index: 150;
+      width: 56px; height: 56px;
+      background: var(--wpp); color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(37,211,102,.4);
+      transition: transform .2s, box-shadow .2s;
+      animation: wppPulse 2.4s ease-in-out infinite;
     }
-    .about-teaser-title em { color: var(--accent); font-style: normal; }
-    .about-teaser-sub { font-size: 13px; color: var(--tx-mid); max-width: 380px; }
-    .about-teaser-btn {
-      display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0;
-      background: var(--accent-2); color: #fff;
-      font-family: var(--f-head); font-size: 13px; font-weight: 700;
-      letter-spacing: .07em; text-transform: uppercase;
-      padding: 16px 28px; border-radius: 4px;
-      transition: background .2s, transform .2s, box-shadow .2s;
-      box-shadow: 0 4px 20px rgba(0,112,209,.3);
+    .wpp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 28px rgba(37,211,102,.6);
     }
-    .about-teaser-btn:hover {
-      background: var(--accent); transform: translateX(4px);
-      box-shadow: 0 4px 28px rgba(61,167,255,.4);
-    }
-    .about-teaser-btn .btn-arrow { font-size: 18px; transition: transform .2s; }
-    .about-teaser-btn:hover .btn-arrow { transform: translateX(5px); }
-    @media (max-width: 768px) {
-      .about-teaser-inner { flex-direction: column; align-items: flex-start; }
+    .wpp-float svg { width: 26px; height: 26px; }
+    @keyframes wppPulse {
+      0%, 100% { box-shadow: 0 6px 20px rgba(37,211,102,.4), 0 0 0 0 rgba(37,211,102,.5); }
+      50% { box-shadow: 0 6px 20px rgba(37,211,102,.4), 0 0 0 14px rgba(37,211,102,0); }
     }
 
-    /* ═══════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════ */
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .svc-nav-grid { grid-template-columns: repeat(2, 1fr); }
+      .vid-grid-h { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
-      :root { --timeline-h: 80px; }
-      .menu-items .menu-item:nth-child(n+3) { display: none; }
-      .toolbar-nav { display: none; }
-      .hamburger-btn { display: flex; }
-      .lang-toggle { margin-left: auto; }
-      .ph-inner { flex-direction: column; align-items: flex-start; }
-      .ph-stats { gap: 16px; width: 100%; justify-content: flex-start; }
-      .ph-stat .n { font-size: 22px; }
-      .ph-stat .l { font-size: 8px; }
-      .ph-stat { text-align: left; }
-      .grid-vertical { grid-template-columns: repeat(2, 1fr); }
-      .grid-horizontal { grid-template-columns: 1fr; }
-      .tl-clip-label { font-size: 7px; }
+      .nav-links { display: none; }
+      .nav-menu { display: flex; }
+      .hero-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .hero-photo { width: 120px; height: 120px; border-radius: 20px; }
+      .stats-inner { gap: 32px; }
+      .stat-n { font-size: 26px; }
+      .svc { padding: 60px 24px; }
+      .svc::before { font-size: 100px; right: 16px; top: 16px; }
+      .vid-grid-v { grid-template-columns: repeat(3, 1fr); gap: 10px; }
     }
     @media (max-width: 480px) {
-      .grid-vertical { grid-template-columns: 1fr 1fr; }
-      .grid-horizontal { grid-template-columns: 1fr; }
+      .svc-nav-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .svc-nav-btn { padding: 12px 14px; font-size: 12px; }
+      .vid-grid-v { grid-template-columns: repeat(2, 1fr); }
+      .hero { padding-top: calc(var(--nav-h) + 40px); }
     }
   </style>
 </head>
 <body>
 
-  <!-- ═══════════════════════════════════════
-       MENU BAR
-  ═══════════════════════════════════════ -->
-  <div class="menu-bar">
-    <div class="menu-appname">
-      <div class="menu-pr-icon">AB</div>
-      <span>andersonbrito.com</span>
-    </div>
-    <div class="menu-right">
-      <div class="menu-status-dot"></div>
-      <div class="menu-status-text" id="statusText">DISPONÍVEL</div>
-    </div>
-  </div>
-
-  <!-- ═══════════════════════════════════════
-       TOOLBAR
-  ═══════════════════════════════════════ -->
-  <div class="toolbar">
-
-    <!-- Desktop nav -->
-    <div class="toolbar-nav">
-      <a href="index.html" class="tn-link">Home</a>
-      <a href="fotografia.html" class="tn-link">Fotografia</a>
-      <a href="ia.html" class="tn-link">IA Prompts</a>
-      <a href="vendas.html" class="tn-link" style="color:var(--orange);">Packs</a>
-      <a href="aprenda.html" class="tn-link">Aprenda</a>
-      <a href="saiba-mais.html" class="tn-link">Sobre</a>
-      <a href="briefing.html" class="tn-link cta">Contato</a>
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
-        <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">Anderson Brito</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="portfolio.html" class="active">Portfolio</a>
+        <a href="fotografia.html">Fotografia</a>
+        <a href="vendas.html">Packs</a>
+        <a href="saiba-mais.html">Sobre</a>
+        <a href="briefing.html" class="nav-cta">Contato</a>
       </div>
+      <button class="nav-menu" id="navMenuBtn" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-
-    <!-- Mobile hamburger -->
-    <button class="hamburger-btn" id="hamburgerBtn">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-
-  <!-- Mobile nav drawer -->
-  <div class="mobile-drawer" id="mobileDrawer">
+  </nav>
+  <div class="mobile-nav" id="mobileNav">
     <a href="index.html">Home</a>
+    <a href="portfolio.html">Portfolio</a>
     <a href="fotografia.html">Fotografia</a>
-    <a href="ia.html">IA Prompts</a>
-    <a href="vendas.html" style="color:var(--orange);">Packs</a>
-    <a href="aprenda.html">Aprenda</a>
+    <a href="vendas.html">Packs</a>
     <a href="saiba-mais.html">Sobre</a>
-    <a href="briefing.html" class="cta">Contato</a>
-    <div class="lang-toggle" style="align-self:center;">
-      <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
-      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+    <a href="briefing.html">Contato</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <img src="assets/foto-perfil.jpg" alt="Anderson Brito" class="hero-photo" loading="eager">
+      <div class="hero-text">
+        <h1 class="hero-name">Anderson Brito</h1>
+        <p class="hero-title">Editor de Vídeo & Especialista em IA</p>
+        <p class="hero-bio">Graduado em Marketing pela FGV. MBA em Marketing em andamento. Mais de 30 milhões de views em conteúdo viral com IA e centenas de vídeos editados por ano para marcas e criadores de conteúdo.</p>
+        <div class="hero-social">
+          <a href="https://www.instagram.com/andersonbrito.mp4" target="_blank" rel="noopener" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/andbrito/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@andersonrotiroti" target="_blank" rel="noopener" class="social-btn" title="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+          <a href="mailto:contato@andersonbrito.com" class="social-btn" title="E-mail">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+          <a href="https://wa.me/5511948577950" target="_blank" rel="noopener" class="social-btn" title="WhatsApp" style="border-color:rgba(37,211,102,.3);">
+            <svg viewBox="0 0 24 24" fill="#25D366"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+          </a>
+        </div>
+        <a href="saiba-mais.html" class="hero-saiba">
+          Saiba mais sobre mim
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-n">30M+</div>
+        <div class="stat-l">Views acumulados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">300+</div>
+        <div class="stat-l">Vídeos por ano</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n">50+</div>
+        <div class="stat-l">Franquias vendidas em 2025</div>
+      </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════
-       PAGE CONTENT
-  ═══════════════════════════════════════ -->
-  <div class="page-content">
-
-    <!-- PAGE HEADER -->
-    <div class="page-header">
-      <div class="ph-inner">
-        <div>
-          <div class="ph-label" data-pt="CRIATIVOS · AFTERMOVIE · VIDEOCLIPES · IA" data-en="CREATIVES · AFTERMOVIE · VIDEO CLIPS · AI"></div>
-          <h1 class="ph-h1" data-pt="Portfolio de Vídeo" data-en="Video Portfolio"></h1>
-          <p class="ph-sub" data-pt="Criativos, aftermovies, videoclipes e vídeos com IA. Edição que retém e converte." data-en="Creatives, aftermovies, video clips and AI videos. Editing that retains and converts."></p>
-        </div>
-        <div class="ph-stats">
-          <div class="ph-stat">
-            <div class="n">+300</div>
-            <div class="l" data-pt="VÍDEOS NO ÚLTIMO ANO" data-en="VIDEOS IN THE LAST YEAR"></div>
-          </div>
-          <div class="ph-stat">
-            <div class="n">+2M</div>
-            <div class="l" data-pt="VIEWS" data-en="VIEWS"></div>
-          </div>
-          <div class="ph-stat">
-            <div class="n">50+</div>
-            <div class="l" data-pt="FRANQUIAS VENDIDAS EM 2025" data-en="FRANCHISES SOLD IN 2025"></div>
-          </div>
-        </div>
+  <!-- SERVICES NAV -->
+  <section class="svc-nav">
+    <div class="svc-nav-inner">
+      <h2 class="svc-nav-title">O que deseja?</h2>
+      <p class="svc-nav-sub">Escolha o serviço ideal para o seu projeto.</p>
+      <div class="svc-nav-grid">
+        <a href="#virais-ia" class="svc-nav-btn"><span class="svc-nav-num">01</span> Vídeos virais de IA</a>
+        <a href="#institucionais-ia" class="svc-nav-btn"><span class="svc-nav-num">02</span> Vídeos institucionais de IA</a>
+        <a href="#podcast" class="svc-nav-btn"><span class="svc-nav-num">03</span> Edição de Podcast</a>
+        <a href="#criativos-ia" class="svc-nav-btn"><span class="svc-nav-num">04</span> Criativos em IA</a>
+        <a href="#edicao-criativos" class="svc-nav-btn"><span class="svc-nav-num">05</span> Edição de criativos</a>
+        <a href="#vsl" class="svc-nav-btn"><span class="svc-nav-num">06</span> VSL</a>
+        <a href="#aftermovie" class="svc-nav-btn"><span class="svc-nav-num">07</span> Aftermovie</a>
+        <a href="#videoclipes" class="svc-nav-btn"><span class="svc-nav-num">08</span> Videoclipes</a>
       </div>
     </div>
+  </section>
 
-    <!-- FILTER BAR -->
-    <div class="filter-bar">
-      <div class="filter-track-label" data-pt="FILTRO" data-en="FILTER"></div>
-      <div class="filter-clips">
-        <button class="filter-clip active" data-filter="all">
-          <span data-pt="Todos" data-en="All"></span>
-          <span class="filter-count" id="c-all">23</span>
-        </button>
-        <button class="filter-clip" data-filter="ia-viral">
-          <div class="filter-swatch" style="background:#E53935;"></div>
-          <span data-pt="IA Viral" data-en="Viral AI"></span>
-          <span class="filter-count" id="c-ia-viral">0</span>
-        </button>
-        <button class="filter-clip" data-filter="avatar-ia">
-          <div class="filter-swatch" style="background:#00BFA5;"></div>
-          <span data-pt="Avatares IA" data-en="AI Avatars"></span>
-          <span class="filter-count" id="c-avatar-ia">0</span>
-        </button>
-        <button class="filter-clip" data-filter="mini-filme">
-          <div class="filter-swatch" style="background:#7C4DFF;"></div>
-          <span data-pt="Mini-Filmes IA" data-en="AI Short Films"></span>
-          <span class="filter-count" id="c-mini-filme">0</span>
-        </button>
-        <button class="filter-clip" data-filter="criativo">
-          <div class="filter-swatch" style="background:#2B5280;"></div>
-          <span data-pt="Criativo" data-en="Creative"></span>
-          <span class="filter-count" id="c-criativo">7</span>
-        </button>
-        <button class="filter-clip" data-filter="aftermovie">
-          <div class="filter-swatch" style="background:#2A4A1A;"></div>
-          <span data-pt="Aftermovie" data-en="Aftermovie"></span>
-          <span class="filter-count" id="c-aftermovie">3</span>
-        </button>
-        <button class="filter-clip" data-filter="videoclip">
-          <div class="filter-swatch" style="background:#5A2D7A;"></div>
-          <span data-pt="Videoclipes" data-en="Video Clips"></span>
-          <span class="filter-count" id="c-videoclip">2</span>
-        </button>
-        <button class="filter-clip" data-filter="vsl">
-          <div class="filter-swatch" style="background:#7A2D5A;"></div>
-          <span>VSL</span>
-          <span class="filter-count" id="c-vsl">3</span>
-        </button>
-        <button class="filter-clip" data-filter="ia">
-          <div class="filter-swatch" style="background:#FF6B35;"></div>
-          <span data-pt="Vídeos IA" data-en="AI Videos"></span>
-          <span class="filter-count" id="c-ia">6</span>
-        </button>
-        <button class="filter-clip" data-filter="curta">
-          <div class="filter-swatch" style="background:#8A6A2A;"></div>
-          <span data-pt="Curta-Metragens" data-en="Short Films"></span>
-          <span class="filter-count" id="c-curta">2</span>
-        </button>
+  <!-- 01 VÍDEOS VIRAIS DE IA -->
+  <section class="svc" id="virais-ia" data-num="01">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">01</div>
+        <h2 class="svc-title">Vídeos virais de IA</h2>
+        <p class="svc-desc">Conteúdo viral criado com inteligência artificial que explode nas redes. Mais de 30 milhões de views acumulados em menos de 30 dias. Do conceito ao feed do seu público.</p>
       </div>
+      <div class="vid-grid-v" data-svc="virais-ia"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20V%C3%ADdeos%20virais%20de%20IA.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
     </div>
+  </section>
 
-    <!-- PORTFOLIO MAIN -->
-    <div class="portfolio-main" id="portfolioMain">
-      <!-- JS renders here -->
-    </div>
-
-    <!-- CONTACT CTA — inside portfolio for direct conversion -->
-    <div class="portfolio-contact-cta">
-      <div class="portfolio-contact-inner">
-        <div>
-          <div class="portfolio-contact-label">// VAMOS CONVERSAR</div>
-          <div class="portfolio-contact-title">Vamos trabalhar juntos?</div>
-          <p class="portfolio-contact-sub">Conte sobre seu projeto e receba uma proposta personalizada. Resposta em poucas horas.</p>
-        </div>
-        <a href="https://wa.me/5511992392104?text=Oi%20Anderson%2C%20vi%20seu%20portfolio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener" class="portfolio-contact-btn">
-          Falar no WhatsApp
-        </a>
+  <!-- 02 VÍDEOS INSTITUCIONAIS DE IA -->
+  <section class="svc" id="institucionais-ia" data-num="02">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">02</div>
+        <h2 class="svc-title">Vídeos institucionais de IA</h2>
+        <p class="svc-desc">Avatares digitais, mini-filmes e vídeos corporativos gerados com IA. Presença digital com tecnologia de ponta para sua marca se destacar no mercado.</p>
       </div>
+      <div class="vid-grid-v" data-svc="institucionais-ia"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20V%C3%ADdeos%20institucionais%20de%20IA.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
     </div>
+  </section>
 
-    <!-- ABOUT TEASER -->
-    <div class="about-teaser">
-      <div class="about-teaser-inner">
-        <div>
-          <div class="about-teaser-label">SEQUÊNCIA 4 · SOBRE</div>
-          <div class="about-teaser-title">Editor de Vídeos. MBA FGV.<br>Instituto de Cinema de SP.</div>
-          <p class="about-teaser-sub" style="max-width:520px;line-height:1.65;">9 anos na Vice-Presidência da FGV. Fotógrafo profissional desde 2015. Hoje por trás de +300 vídeos/ano para a <strong style="color:var(--tx-hi);">Escola do Franchising</strong>, Joel Jota, Flávio Augusto e Caio Carneiro — com resultados de +2M de views e 50+ franquias vendidas em 2025.</p>
-        </div>
-        <a href="saiba-mais.html" class="about-teaser-btn">
-          Conhecer a trajetória completa
-          <span class="btn-arrow">→</span>
-        </a>
+  <!-- 03 EDIÇÃO DE CORTES DE PODCAST -->
+  <section class="svc" id="podcast" data-num="03">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">03</div>
+        <h2 class="svc-title">Edição de cortes de Podcast</h2>
+        <p class="svc-desc">Transformo episódios longos em cortes certeiros que performam. Legendas, hooks visuais e entrega contínua para manter seu canal ativo e crescendo.</p>
       </div>
+      <div class="svc-empty">Em breve novos exemplos nesta categoria. Solicite um orçamento para saber mais.</div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20Edi%C3%A7%C3%A3o%20de%20cortes%20de%20Podcast.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
     </div>
+  </section>
 
-  </div><!-- /page-content -->
+  <!-- 04 CRIATIVOS EM IA -->
+  <section class="svc" id="criativos-ia" data-num="04">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">04</div>
+        <h2 class="svc-title">Criativos em IA</h2>
+        <p class="svc-desc">Peças publicitárias criadas com inteligência artificial. Impacto visual de cinema e velocidade de produção que sua campanha precisa para escalar.</p>
+      </div>
+      <div class="vid-grid-v" data-svc="criativos-ia"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20Criativos%20em%20IA.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
+    </div>
+  </section>
+
+  <!-- 05 EDIÇÃO DE CRIATIVOS -->
+  <section class="svc" id="edicao-criativos" data-num="05">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">05</div>
+        <h2 class="svc-title">Edição de criativos</h2>
+        <p class="svc-desc">Criativos para tráfego pago e orgânico. Hook de 3 segundos, transições dinâmicas e retenção otimizada para converter seu público em clientes.</p>
+      </div>
+      <div class="vid-grid-v" data-svc="edicao-criativos"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20Edi%C3%A7%C3%A3o%20de%20criativos.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
+    </div>
+  </section>
+
+  <!-- 06 VSL -->
+  <section class="svc" id="vsl" data-num="06">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">06</div>
+        <h2 class="svc-title">VSL</h2>
+        <p class="svc-desc">Video Sales Letters que convertem. Estrutura de copywriting aplicada ao vídeo com foco total em conversão de cold traffic e vendas diretas.</p>
+      </div>
+      <div class="vid-grid-v" data-svc="vsl"></div>
+      <div class="vid-grid-h" data-svc="vsl-h"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20VSL.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
+    </div>
+  </section>
+
+  <!-- 07 AFTERMOVIE -->
+  <section class="svc" id="aftermovie" data-num="07">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">07</div>
+        <h2 class="svc-title">Aftermovie</h2>
+        <p class="svc-desc">Recap de eventos com storytelling emocional e edição cinematográfica. Do jantar de negócios ao festival de 3 dias, com entrega que vende o próximo evento.</p>
+      </div>
+      <div class="vid-grid-v" data-svc="aftermovie"></div>
+      <div class="vid-grid-h" data-svc="aftermovie-h"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20Aftermovie.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
+    </div>
+  </section>
+
+  <!-- 08 VIDEOCLIPES -->
+  <section class="svc" id="videoclipes" data-num="08">
+    <div class="svc-inner">
+      <div class="svc-head">
+        <div class="svc-num">08</div>
+        <h2 class="svc-title">Videoclipes</h2>
+        <p class="svc-desc">Produção audiovisual completa para artistas. Direção criativa, corte no ritmo e pós-produção profissional que valoriza a identidade do seu projeto.</p>
+      </div>
+      <div class="vid-grid-h" data-svc="videoclipes"></div>
+      <a class="svc-wpp" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20tenho%20interesse%20em%20Videoclipes.%20Podemos%20conversar%3F" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Solicitar este serviço
+      </a>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-cta-inner">
+      <h2 class="final-cta-title">Pronto para começar seu projeto?</h2>
+      <p class="final-cta-sub">Escolha o serviço ideal e receba uma proposta personalizada. Resposta em poucas horas.</p>
+      <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vim%20do%20seu%20portfolio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" rel="noopener" class="final-cta-btn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+        Falar no WhatsApp
+      </a>
+    </div>
+  </section>
 
   <!-- MODAL -->
   <div class="modal" id="modal">
-    <div class="modal-content">
-      <div class="modal-header">
+    <div class="modal-box">
+      <div class="modal-head">
         <div class="modal-title" id="modalTitle"></div>
-        <button class="modal-close" onclick="closeModal()">✕</button>
+        <button class="modal-close" onclick="closeModal()">&#10005;</button>
       </div>
-      <div class="modal-video" id="modalVideo">
+      <div class="modal-vid" id="modalVid">
         <iframe id="modalIframe" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
-      <div class="modal-footer" id="modalFooter"></div>
     </div>
   </div>
 
-  <!-- FIXED TIMELINE -->
-  <div class="timeline-panel" id="timelinePanel">
-    <div class="tl-header">
-      <div class="tl-track-labels-hd">
-        <span style="font-family:var(--f-mono);font-size:8px;color:var(--tx-lo);">TRACK</span>
-      </div>
-      <div class="tl-ruler" id="tlRuler">
-        <div class="tl-ruler-inner" id="tlRulerInner"></div>
-        <div class="tl-section-indicator" id="sectionIndicator" style="left:0;width:0;"></div>
-        <div class="tl-playhead" id="tlPlayhead" style="left:0;"></div>
-      </div>
-    </div>
-    <div class="tl-tracks">
-      <div class="tl-track">
-        <div class="tl-label"><span class="tl-label-text">V1</span><span class="tl-lock">🔒</span></div>
-        <div class="tl-track-content" id="trackV1"></div>
-      </div>
-      <div class="tl-track">
-        <div class="tl-label"><span class="tl-label-text">V2</span></div>
-        <div class="tl-track-content" id="trackV2"></div>
-      </div>
-      <div class="tl-track">
-        <div class="tl-label"><span class="tl-label-text">A1</span></div>
-        <div class="tl-track-content" id="trackA1"></div>
-      </div>
-    </div>
-  </div>
+  <!-- FLOATING WPP -->
+  <a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vim%20do%20seu%20portfolio!" target="_blank" rel="noopener" class="wpp-float" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
+  </a>
 
-  <!-- ═══════════════════════════════════════
-       SCRIPTS
-  ═══════════════════════════════════════ -->
   <script>
-    // ════════════════════════════════════════
-    // VIDEO DATA
-    // ════════════════════════════════════════
     const VIDEOS = [
-      // ── CRIATIVOS ──────────────────────────
-      {
-        id:3, category:'criativo', format:'vertical',
-        titlePt:'Empório Mineiro Cheirin Bão', titleEn:'Empório Mineiro Cheirin Bão',
-        descPt:'Pattern interrupt e movimento para retenção máxima em cold traffic.',
-        descEn:'Pattern interrupt and motion for maximum retention on cold traffic.',
-        videoUrl:'https://www.youtube.com/embed/U0nkvS7UgX8'
-      },
-      {
-        id:4, category:'criativo', format:'vertical',
-        titlePt:'Boali Health Food', titleEn:'Boali Health Food',
-        descPt:'Copy visual impactante com estrutura de 3 segundos de hook.',
-        descEn:'Impactful visual copy with 3-second hook structure.',
-        videoUrl:'https://www.youtube.com/embed/vmr2n1r1AAQ'
-      },
-      {
-        id:5, category:'criativo', format:'vertical',
-        titlePt:'CTR — Edu · Porsche Cup', titleEn:'CTR — Edu · Porsche Cup',
-        descPt:'Criativo em formato Shorts com edição dinâmica para redes sociais.',
-        descEn:'Shorts format creative with dynamic editing for social media.',
-        videoUrl:'https://www.youtube.com/embed/OI1bEUcBWeM'
-      },
-      {
-        id:6, category:'criativo', format:'vertical',
-        titlePt:'CTR — Berit Lucas e Edu', titleEn:'CTR — Berit Lucas e Edu',
-        descPt:'Formato nativo vertical com hook de impacto e cortes rápidos.',
-        descEn:'Native vertical format with impact hook and fast cuts.',
-        videoUrl:'https://www.youtube.com/embed/8cYbsM5z0nQ'
-      },
-      {
-        id:19, category:'criativo', format:'vertical',
-        titlePt:'Café com Conselho — Joel Jota', titleEn:'Café com Conselho — Joel Jota',
-        descPt:'Criativo vertical com edição dinâmica e storytelling para redes sociais.',
-        descEn:'Vertical creative with dynamic editing and storytelling for social media.',
-        videoUrl:'https://www.youtube.com/embed/dNccBfUw3hE'
-      },
-      {
-        id:1, category:'criativo', format:'vertical',
-        titlePt:'Nammi Cafeteria', titleEn:'Nammi Cafeteria',
-        descPt:'Hook viral e cortes rápidos. Formato nativo para Reels e Shorts.',
-        descEn:'Viral hook and fast cuts. Native format for Reels and Shorts.',
-        videoUrl:'https://www.youtube.com/embed/mrk7y-do9AA'
-      },
-      {
-        id:2, category:'criativo', format:'vertical',
-        titlePt:'Kascão Sorvetes', titleEn:'Kascão Sorvetes',
-        descPt:'Transições dinâmicas com power words e retenção acima de 70%.',
-        descEn:'Dynamic transitions with power words and 70%+ retention.',
-        videoUrl:'https://www.youtube.com/embed/cOftoraPrjE'
-      },
-      // ── AFTERMOVIE ─────────────────────────
-      {
-        id:22, category:'aftermovie', format:'vertical',
-        titlePt:'Aftermovie — Jantar de Negócios', titleEn:'Aftermovie — Business Dinner',
-        descPt:'Aftermovie de evento com edição dinâmica e storytelling visual.',
-        descEn:'Event aftermovie with dynamic editing and visual storytelling.',
-        videoUrl:'https://archive.org/embed/aftermovie-jantar-1'
-      },
-      {
-        id:7, category:'aftermovie', format:'vertical',
-        titlePt:'Criativo — Produção Própria', titleEn:'Creative — Own Production',
-        descPt:'Criativo vertical com edição dinâmica e foco em conversão.',
-        descEn:'Vertical creative with dynamic editing and conversion focus.',
-        videoUrl:'https://archive.org/embed/aftermovie-imersao-nov-2025'
-      },
-      {
-        id:8, category:'aftermovie', format:'horizontal',
-        titlePt:'Aftermovie — Imersão Visão de Dono', titleEn:'Aftermovie — Visão de Dono Immersion',
-        descPt:'Aftermovie de evento com storytelling emocional e edição cinematográfica.',
-        descEn:'Event aftermovie with emotional storytelling and cinematic editing.',
-        videoUrl:'https://www.youtube.com/embed/6ANWvn9R2yY'
-      },
-      // ── VIDEOCLIPES ─────────────────────────
-      {
-        id:9, category:'videoclip', format:'horizontal',
-        titlePt:'Videoclipe Musical — rardyss · Crânio de Cera', titleEn:'Music Video — rardyss · Crânio de Cera',
-        descPt:'Videoclipe com edição narrativa, corte no ritmo e direção visual criativa.',
-        descEn:'Music video with narrative editing, rhythm cuts and creative visual direction.',
-        videoUrl:'https://player.vimeo.com/video/1047582530'
-      },
-      {
-        id:17, category:'videoclip', format:'horizontal',
-        titlePt:'Making Of — Sem Tempo Ruim', titleEn:'Making Of — Sem Tempo Ruim',
-        descPt:'Making of com direção criativa, edição dinâmica e cortes no ritmo.',
-        descEn:'Making of with creative direction, dynamic editing and rhythm cuts.',
-        videoUrl:'https://www.youtube.com/embed/0pZS3y-4yJQ'
-      },
-      // ── VSL ─────────────────────────────────
-      {
-        id:10, category:'vsl', format:'vertical',
-        titlePt:'Edu — Marketing Natural · Cheirin Bão', titleEn:'Edu — Natural Marketing · Cheirin Bão',
-        descPt:'VSL condensada em formato vertical. Alta conversão em cold traffic.',
-        descEn:'Condensed VSL in vertical format. High conversion on cold traffic.',
-        videoUrl:'https://www.youtube.com/embed/BH3zYlYnjJA'
-      },
-      // ── VÍDEOS IA ───────────────────────────
-      {
-        id:11, category:'ia', format:'vertical',
-        titlePt:'Clube do Franchising — Jantar de Negócios 1', titleEn:'Clube do Franchising — Business Dinner 1',
-        descPt:'Vídeo gerado com IA. Workflow completo: prompt → imagem → vídeo.',
-        descEn:'AI-generated video. Full workflow: prompt → image → video.',
-        videoUrl:'https://www.youtube.com/embed/wR-MDqYlc6I'
-      },
-      {
-        id:12, category:'ia', format:'vertical',
-        titlePt:'Clube do Franchising — Jantar de Negócios 2', titleEn:'Clube do Franchising — Business Dinner 2',
-        descPt:'Geração de vídeo com IA aplicada a criativo de redes sociais.',
-        descEn:'AI video generation applied to social media creatives.',
-        videoUrl:'https://www.youtube.com/embed/z8ZObYod_dU'
-      },
-      {
-        id:13, category:'ia', format:'vertical',
-        titlePt:'Anderson Veste Prada', titleEn:'Anderson Wears Prada',
-        descPt:'Criativo gerado com IA — imagem sintética com Kling AI e edição profissional.',
-        descEn:'AI-generated creative — synthetic image with Kling AI and professional editing.',
-        videoUrl:'https://www.youtube.com/embed/hv7u1qo8GBE'
-      },
-      {
-        id:14, category:'ia', format:'vertical',
-        titlePt:'Michael Jackson — Homenagem IA 2026', titleEn:'Michael Jackson — AI Tribute 2026',
-        descPt:'Homenagem gerada com IA. Recriação visual sintética com edição cinematográfica.',
-        descEn:'AI-generated tribute. Synthetic visual recreation with cinematic editing.',
-        videoUrl:'https://archive.org/embed/michael-jackson-homenagem-ia-2026'
-      },
-      {
-        id:15, category:'ia', format:'vertical',
-        titlePt:'Manoel Gomes — SUS com uma Canetada', titleEn:'Manoel Gomes — SUS com uma Canetada',
-        descPt:'Vídeo viral com mais de 230 mil views no TikTok. Gerado e editado com IA.',
-        descEn:'Viral video with over 230K views on TikTok. Generated and edited with AI.',
-        videoUrl:'https://www.youtube.com/embed/AFDkgwqnjqk'
-      },
-      {
-        id:20, category:'ia', format:'vertical',
-        titlePt:'Alimentos Falantes — Cheirin Bão', titleEn:'Talking Food — Cheirin Bão',
-        descPt:'Criativo gerado com IA — personagens animados para campanha de food.',
-        descEn:'AI-generated creative — animated characters for food campaign.',
-        videoUrl:'https://www.youtube.com/embed/jmCS6I9Gs1I'
-      },
-      // ── VSL (extra) ────────────────────────
-      {
-        id:21, category:'vsl', format:'horizontal',
-        titlePt:'A Verdadeira Experiência do Café — dos Grãos à Xícara', titleEn:'The True Coffee Experience — From Beans to Cup',
-        descPt:'VSL horizontal com storytelling profundo e direção narrativa voltada a conversão.',
-        descEn:'Horizontal VSL with deep storytelling and narrative direction focused on conversion.',
-        videoUrl:'https://www.youtube.com/embed/T67vQZmnm6w?start=446'
-      },
-      {
-        id:23, category:'vsl', format:'horizontal',
-        titlePt:'Yan — VSL Destrava e Vende', titleEn:'Yan — VSL Destrava e Vende',
-        descPt:'VSL com argumentação direta e estrutura focada em conversão de cold traffic.',
-        descEn:'Direct-argument VSL with conversion-focused structure for cold traffic.',
-        videoUrl:'https://www.youtube.com/embed/NIzovyf-IJ8'
-      },
-      // ── IA VIRAL (Copa 2026) ──────────────────
-      {
-        id:30, category:'ia-viral', format:'horizontal',
-        titlePt:'🎬 Volta, Neymar — Videoclipe Oficial', titleEn:'🎬 Volta, Neymar — Official Music Video',
-        descPt:'Videoclipe completo com produção audiovisual de cinema e IA.',
-        descEn:'Full music video with cinematic audiovisual production and AI.',
-        videoUrl:'https://www.youtube.com/embed/nJvXsXEzyPI'
-      },
-      {
-        id:31, category:'ia-viral', format:'vertical',
-        titlePt:'Meme do Neymar no Plástico Bolha', titleEn:'Neymar Bubble Wrap Meme',
-        descPt:'Viral com 1,4 milhão de views. Conteúdo gerado com IA para Copa 2026.',
-        descEn:'Viral with 1.4M views. AI-generated content for World Cup 2026.',
-        videoUrl:'https://www.instagram.com/p/DZjOjxfNcYm/embed',
-        thumbUrl:'assets/copa-thumb-neymar.jpg'
-      },
-      {
-        id:32, category:'ia-viral', format:'vertical',
-        titlePt:'Continuação Plástico Bolha — 74K views', titleEn:'Bubble Wrap Continuation — 74K views',
-        descPt:'Continuação do meme viral. 74 mil views no Instagram.',
-        descEn:'Continuation of the viral meme. 74K views on Instagram.',
-        videoUrl:'https://www.instagram.com/reel/DZutI70OrmX/embed',
-        thumbUrl:'assets/copa-thumb-neymar2.jpg'
-      },
-      {
-        id:33, category:'ia-viral', format:'vertical',
-        titlePt:'DLC GTA 6 Viral', titleEn:'GTA 6 DLC Viral',
-        descPt:'Vídeo viral com tema GTA 6 Vice City gerado com IA.',
-        descEn:'Viral video with GTA 6 Vice City theme generated with AI.',
-        videoUrl:'https://www.instagram.com/p/DZvHbcPhJGK/embed',
-        thumbUrl:'assets/copa-thumb-gta6.jpg'
-      },
-      {
-        id:34, category:'ia-viral', format:'vertical',
-        titlePt:'Artistas na Arquibancada', titleEn:'Artists in the Stands',
-        descPt:'K-pop e Brasil na arquibancada da Copa. Gerado com IA.',
-        descEn:'K-pop and Brazil in the World Cup stands. AI-generated.',
-        videoUrl:'https://www.instagram.com/reel/DZxdIb1u8Vb/embed',
-        thumbUrl:'assets/copa-thumb-artistas.jpg'
-      },
-      {
-        id:35, category:'ia-viral', format:'vertical',
-        titlePt:'Pausa pra Hidratação', titleEn:'Hydration Break',
-        descPt:'Meme viral da pausa pra hidratação na Copa. Gerado com IA.',
-        descEn:'Viral hydration break meme at the World Cup. AI-generated.',
-        videoUrl:'https://www.instagram.com/reel/DZxnFb3uadP/embed',
-        thumbUrl:'assets/copa-thumb-hidratacao.jpg'
-      },
-      {
-        id:36, category:'ia-viral', format:'vertical',
-        titlePt:'Pausa pra Hidratação 2 — 20M+ views · Cazé TV', titleEn:'Hydration Break 2 — 20M+ views · Cazé TV',
-        descPt:'Collab com Cazé TV. Mais de 20 milhões de views. Gerado com IA.',
-        descEn:'Collab with Cazé TV. Over 20 million views. AI-generated.',
-        videoUrl:'https://www.instagram.com/p/DaBZyQIDItB/embed',
-        thumbUrl:'assets/copa-thumb-hidratacao2.jpg'
-      },
-      {
-        id:37, category:'ia-viral', format:'vertical',
-        titlePt:'OVINI JR', titleEn:'OVINI JR',
-        descPt:'Vini Jr. em disco voador na Copa. Vídeo viral gerado com IA.',
-        descEn:'Vini Jr. in a UFO at the World Cup. Viral AI-generated video.',
-        videoUrl:'https://www.instagram.com/p/DZ_cn0Et4XL/embed',
-        thumbUrl:'assets/copa-thumb-ovinijr.jpg'
-      },
-      {
-        id:38, category:'ia-viral', format:'vertical',
-        titlePt:'CazéTV — Copa do Mundo', titleEn:'CazéTV — World Cup',
-        descPt:'Collab com CazéTV. Vídeo viral gerado com IA para a Copa 2026.',
-        descEn:'Collab with CazéTV. AI-generated viral video for World Cup 2026.',
-        videoUrl:'https://www.instagram.com/p/DZOFv2EJEIk/embed',
-        thumbUrl:'assets/thumb-cazetv-copa.jpg'
-      },
-      {
-        id:45, category:'ia-viral', format:'vertical',
-        titlePt:'Haaland — As Branquelas', titleEn:'Haaland — White Chicks',
-        descPt:'Paródia viral com Haaland gerada com IA. Mais de 500 mil views.',
-        descEn:'Viral AI-generated parody with Haaland. Over 500K views.',
-        videoUrl:'https://www.instagram.com/reel/DaX-qYxOHRY/embed',
-        thumbUrl:'assets/thumb-branquelas.jpg'
-      },
-      {
-        id:46, category:'ia-viral', format:'vertical',
-        titlePt:'Haaland & Vini Jr — Ghost', titleEn:'Haaland & Vini Jr — Ghost',
-        descPt:'Paródia viral gerada com IA. Mais de 50 mil views.',
-        descEn:'Viral AI-generated parody. Over 50K views.',
-        videoUrl:'https://www.instagram.com/reel/DaYYweMJSr2/embed',
-        thumbUrl:'assets/thumb-ghost.jpg'
-      },
-      {
-        id:47, category:'ia-viral', format:'vertical',
-        titlePt:'Pré-jogo — Brasil x Noruega', titleEn:'Pre-game — Brazil x Norway',
-        descPt:'Vídeo viral pré-jogo gerado com IA para a Copa 2026.',
-        descEn:'AI-generated pre-game viral video for World Cup 2026.',
-        videoUrl:'https://www.instagram.com/reel/DaY8BV2pVvu/embed',
-        thumbUrl:'assets/thumb-prejogo2.jpg'
-      },
-      {
-        id:48, category:'ia-viral', format:'vertical',
-        titlePt:'Neymar no Metrô', titleEn:'Neymar on the Subway',
-        descPt:'Vídeo viral com mais de 50 mil views. Gerado com IA.',
-        descEn:'Viral video with over 50K views. AI-generated.',
-        videoUrl:'https://www.instagram.com/reel/Dadvs7bP_lr/embed',
-        thumbUrl:'assets/thumb-metro.jpg'
-      },
-      {
-        id:49, category:'ia-viral', format:'vertical',
-        titlePt:'Haaland Obcecado pelo Vini Jr', titleEn:'Haaland Obsessed with Vini Jr',
-        descPt:'Vídeo viral gerado com IA para a Copa 2026.',
-        descEn:'AI-generated viral video for World Cup 2026.',
-        videoUrl:'https://www.instagram.com/reel/DaYsotNvQjT/embed',
-        thumbUrl:'assets/thumb-haaland-vinijr.jpg'
-      },
-      // ── AVATARES DE IA ──────────────────────
-      {
-        id:40, category:'avatar-ia', format:'vertical',
-        titlePt:'Breno Brito — Cantor de Bachata', titleEn:'Breno Brito — Bachata Singer',
-        descPt:'Avatar de IA: cantor de bachata piauiense. Identidade visual completa.',
-        descEn:'AI Avatar: Piauí-born bachata singer. Full visual identity.',
-        videoUrl:'https://youtube.com/embed/b7Pnom09BjA',
-        thumbUrl:'assets/portfolio-avatar-breno.jpg'
-      },
-      {
-        id:41, category:'avatar-ia', format:'vertical',
-        titlePt:'Kairos — Cantor Gospel', titleEn:'Kairos — Gospel Singer',
-        descPt:'Avatar de IA: artista gospel com identidade visual única.',
-        descEn:'AI Avatar: gospel artist with unique visual identity.',
-        thumbUrl:'assets/portfolio-avatar-kairos.jpg'
-      },
-      {
-        id:42, category:'avatar-ia', format:'vertical',
-        titlePt:'Pastor — Avatar em Desenvolvimento', titleEn:'Pastor — Avatar in Development',
-        descPt:'Avatar de IA: pastor digital com presença nas redes sociais.',
-        descEn:'AI Avatar: digital pastor with social media presence.',
-        thumbUrl:'assets/portfolio-avatar-pastor.jpg'
-      },
-      {
-        id:43, category:'avatar-ia', format:'vertical',
-        titlePt:'Eren Haaland — Influencer Digital', titleEn:'Eren Haaland — Digital Influencer',
-        descPt:'Avatar de IA: influencer digital com conteúdo lifestyle.',
-        descEn:'AI Avatar: digital influencer with lifestyle content.',
-        thumbUrl:'assets/portfolio-avatar-eren.jpg'
-      },
-      {
-        id:44, category:'avatar-ia', format:'vertical',
-        titlePt:'Jardim dos Vermelhinhos', titleEn:'Little Red Garden',
-        descPt:'Avatar de IA: personagem infantil animado em 3D.',
-        descEn:'AI Avatar: animated 3D children\'s character.',
-        thumbUrl:'assets/portfolio-avatar-vermelhinhos.jpg'
-      },
-      // ── MINI-FILMES IA ──────────────────────
-      {
-        id:50, category:'mini-filme', format:'vertical',
-        titlePt:'Mini-Filme IA #1', titleEn:'AI Short Film #1',
-        descPt:'Mini-filme narrativo gerado inteiramente com inteligência artificial.',
-        descEn:'Narrative short film entirely generated with artificial intelligence.',
-        videoUrl:'https://youtube.com/embed/zgu9hElZews'
-      },
-      // ── CURTA-METRAGENS ─────────────────────
-      {
-        id:16, category:'curta', format:'horizontal',
-        titlePt:'A Sombra em Mim', titleEn:'The Shadow Within',
-        descPt:'Curta-metragem com direção de fotografia, edição e cor cinematográfica.',
-        descEn:'Short film with cinematography, editing and cinematic color grading.',
-        videoUrl:'https://www.youtube.com/embed/DCPPJNxn3M0'
-      },
-      {
-        id:18, category:'curta', format:'horizontal',
-        titlePt:'Wilton Bezerra — Especial de Apresentação', titleEn:'Wilton Bezerra — Special Presentation',
-        descPt:'Produção audiovisual com edição dinâmica e montagem narrativa.',
-        descEn:'Audiovisual production with dynamic editing and narrative assembly.',
-        videoUrl:'https://www.youtube.com/embed/_T_-FoQIj98'
-      },
+      { id:30, svc:'virais-ia', fmt:'horizontal', title:'Volta, Neymar - Videoclipe Oficial', desc:'Videoclipe completo com produção audiovisual de cinema e IA.', url:'https://www.youtube.com/embed/nJvXsXEzyPI' },
+      { id:31, svc:'virais-ia', fmt:'vertical', title:'Meme do Neymar no Plástico Bolha', desc:'Viral com 1,4 milhão de views.', url:'https://www.instagram.com/p/DZjOjxfNcYm/embed', thumb:'assets/copa-thumb-neymar.jpg' },
+      { id:32, svc:'virais-ia', fmt:'vertical', title:'Continuação Plástico Bolha', desc:'74 mil views no Instagram.', url:'https://www.instagram.com/reel/DZutI70OrmX/embed', thumb:'assets/copa-thumb-neymar2.jpg' },
+      { id:33, svc:'virais-ia', fmt:'vertical', title:'DLC GTA 6 Viral', desc:'Tema GTA 6 Vice City gerado com IA.', url:'https://www.instagram.com/p/DZvHbcPhJGK/embed', thumb:'assets/copa-thumb-gta6.jpg' },
+      { id:34, svc:'virais-ia', fmt:'vertical', title:'Artistas na Arquibancada', desc:'K-pop e Brasil na Copa. Gerado com IA.', url:'https://www.instagram.com/reel/DZxdIb1u8Vb/embed', thumb:'assets/copa-thumb-artistas.jpg' },
+      { id:35, svc:'virais-ia', fmt:'vertical', title:'Pausa pra Hidratação', desc:'Meme viral da pausa na Copa.', url:'https://www.instagram.com/reel/DZxnFb3uadP/embed', thumb:'assets/copa-thumb-hidratacao.jpg' },
+      { id:36, svc:'virais-ia', fmt:'vertical', title:'Pausa pra Hidratação 2 - 20M+ views', desc:'Collab com Cazé TV. 20 milhões de views.', url:'https://www.instagram.com/p/DaBZyQIDItB/embed', thumb:'assets/copa-thumb-hidratacao2.jpg' },
+      { id:37, svc:'virais-ia', fmt:'vertical', title:'OVINI JR', desc:'Vini Jr. em disco voador na Copa.', url:'https://www.instagram.com/p/DZ_cn0Et4XL/embed', thumb:'assets/copa-thumb-ovinijr.jpg' },
+      { id:38, svc:'virais-ia', fmt:'vertical', title:'CazéTV - Copa do Mundo', desc:'Collab com CazéTV. Viral para a Copa 2026.', url:'https://www.instagram.com/p/DZOFv2EJEIk/embed', thumb:'assets/thumb-cazetv-copa.jpg' },
+      { id:45, svc:'virais-ia', fmt:'vertical', title:'Haaland - As Branquelas', desc:'Paródia viral com mais de 500 mil views.', url:'https://www.instagram.com/reel/DaX-qYxOHRY/embed', thumb:'assets/thumb-branquelas.jpg' },
+      { id:46, svc:'virais-ia', fmt:'vertical', title:'Haaland & Vini Jr - Ghost', desc:'Paródia viral com mais de 50 mil views.', url:'https://www.instagram.com/reel/DaYYweMJSr2/embed', thumb:'assets/thumb-ghost.jpg' },
+      { id:47, svc:'virais-ia', fmt:'vertical', title:'Pré-jogo - Brasil x Noruega', desc:'Vídeo pré-jogo para a Copa 2026.', url:'https://www.instagram.com/reel/DaY8BV2pVvu/embed', thumb:'assets/thumb-prejogo2.jpg' },
+      { id:48, svc:'virais-ia', fmt:'vertical', title:'Neymar no Metrô', desc:'Mais de 50 mil views. Gerado com IA.', url:'https://www.instagram.com/reel/Dadvs7bP_lr/embed', thumb:'assets/thumb-metro.jpg' },
+      { id:49, svc:'virais-ia', fmt:'vertical', title:'Haaland Obcecado pelo Vini Jr', desc:'Viral gerado com IA para a Copa.', url:'https://www.instagram.com/reel/DaYsotNvQjT/embed', thumb:'assets/thumb-haaland-vinijr.jpg' },
+
+      { id:11, svc:'institucionais-ia', fmt:'vertical', title:'Clube do Franchising - Jantar de Negócios 1', desc:'Workflow completo: prompt, imagem, vídeo.', url:'https://www.youtube.com/embed/wR-MDqYlc6I' },
+      { id:12, svc:'institucionais-ia', fmt:'vertical', title:'Clube do Franchising - Jantar de Negócios 2', desc:'IA aplicada a criativo de redes sociais.', url:'https://www.youtube.com/embed/z8ZObYod_dU' },
+      { id:40, svc:'institucionais-ia', fmt:'vertical', title:'Breno Brito - Cantor de Bachata', desc:'Avatar de IA com identidade visual completa.', url:'https://youtube.com/embed/b7Pnom09BjA', thumb:'assets/portfolio-avatar-breno.jpg' },
+      { id:41, svc:'institucionais-ia', fmt:'vertical', title:'Kairos - Cantor Gospel', desc:'Avatar de IA com identidade visual única.', thumb:'assets/portfolio-avatar-kairos.jpg' },
+      { id:42, svc:'institucionais-ia', fmt:'vertical', title:'Pastor - Avatar em Desenvolvimento', desc:'Pastor digital com presença nas redes.', thumb:'assets/portfolio-avatar-pastor.jpg' },
+      { id:43, svc:'institucionais-ia', fmt:'vertical', title:'Eren Haaland - Influencer Digital', desc:'Avatar de IA com conteúdo lifestyle.', thumb:'assets/portfolio-avatar-eren.jpg' },
+      { id:44, svc:'institucionais-ia', fmt:'vertical', title:'Jardim dos Vermelhinhos', desc:'Personagem infantil animado em 3D.', thumb:'assets/portfolio-avatar-vermelhinhos.jpg' },
+      { id:50, svc:'institucionais-ia', fmt:'vertical', title:'Mini-Filme IA', desc:'Mini-filme narrativo gerado com IA.', url:'https://youtube.com/embed/zgu9hElZews' },
+
+      { id:13, svc:'criativos-ia', fmt:'vertical', title:'Anderson Veste Prada', desc:'Imagem sintética com Kling AI e edição profissional.', url:'https://www.youtube.com/embed/hv7u1qo8GBE' },
+      { id:14, svc:'criativos-ia', fmt:'vertical', title:'Michael Jackson - Homenagem IA 2026', desc:'Recriação visual sintética com edição cinematográfica.', url:'https://archive.org/embed/michael-jackson-homenagem-ia-2026' },
+      { id:15, svc:'criativos-ia', fmt:'vertical', title:'Manoel Gomes - SUS com uma Canetada', desc:'Viral com mais de 230 mil views no TikTok.', url:'https://www.youtube.com/embed/AFDkgwqnjqk' },
+      { id:20, svc:'criativos-ia', fmt:'vertical', title:'Alimentos Falantes - Cheirin Bão', desc:'Personagens animados para campanha de food.', url:'https://www.youtube.com/embed/jmCS6I9Gs1I' },
+
+      { id:3, svc:'edicao-criativos', fmt:'vertical', title:'Empório Mineiro Cheirin Bão', desc:'Pattern interrupt e retenção máxima em cold traffic.', url:'https://www.youtube.com/embed/U0nkvS7UgX8' },
+      { id:4, svc:'edicao-criativos', fmt:'vertical', title:'Boali Health Food', desc:'Copy visual com estrutura de 3 segundos de hook.', url:'https://www.youtube.com/embed/vmr2n1r1AAQ' },
+      { id:5, svc:'edicao-criativos', fmt:'vertical', title:'CTR - Edu, Porsche Cup', desc:'Shorts com edição dinâmica para redes sociais.', url:'https://www.youtube.com/embed/OI1bEUcBWeM' },
+      { id:6, svc:'edicao-criativos', fmt:'vertical', title:'CTR - Berit Lucas e Edu', desc:'Formato vertical com hook de impacto e cortes rápidos.', url:'https://www.youtube.com/embed/8cYbsM5z0nQ' },
+      { id:19, svc:'edicao-criativos', fmt:'vertical', title:'Café com Conselho - Joel Jota', desc:'Edição dinâmica e storytelling para redes sociais.', url:'https://www.youtube.com/embed/dNccBfUw3hE' },
+      { id:1, svc:'edicao-criativos', fmt:'vertical', title:'Nammi Cafeteria', desc:'Hook viral e cortes rápidos. Formato nativo Reels e Shorts.', url:'https://www.youtube.com/embed/mrk7y-do9AA' },
+      { id:2, svc:'edicao-criativos', fmt:'vertical', title:'Kascão Sorvetes', desc:'Transições dinâmicas com power words e retenção 70%+.', url:'https://www.youtube.com/embed/cOftoraPrjE' },
+
+      { id:10, svc:'vsl', fmt:'vertical', title:'Edu - Marketing Natural, Cheirin Bão', desc:'VSL vertical. Alta conversão em cold traffic.', url:'https://www.youtube.com/embed/BH3zYlYnjJA' },
+      { id:21, svc:'vsl-h', fmt:'horizontal', title:'A Verdadeira Experiência do Café', desc:'Storytelling profundo e narrativa focada em conversão.', url:'https://www.youtube.com/embed/T67vQZmnm6w?start=446' },
+      { id:23, svc:'vsl-h', fmt:'horizontal', title:'Yan - VSL Destrava e Vende', desc:'Argumentação direta para conversão de cold traffic.', url:'https://www.youtube.com/embed/NIzovyf-IJ8' },
+
+      { id:22, svc:'aftermovie', fmt:'vertical', title:'Aftermovie - Jantar de Negócios', desc:'Evento com edição dinâmica e storytelling visual.', url:'https://archive.org/embed/aftermovie-jantar-1' },
+      { id:7, svc:'aftermovie', fmt:'vertical', title:'Criativo - Produção Própria', desc:'Vertical com edição dinâmica e foco em conversão.', url:'https://archive.org/embed/aftermovie-imersao-nov-2025' },
+      { id:8, svc:'aftermovie-h', fmt:'horizontal', title:'Aftermovie - Imersão Visão de Dono', desc:'Storytelling emocional e edição cinematográfica.', url:'https://www.youtube.com/embed/6ANWvn9R2yY' },
+
+      { id:9, svc:'videoclipes', fmt:'horizontal', title:'Videoclipe Musical - rardyss, Crânio de Cera', desc:'Edição narrativa, corte no ritmo e direção visual criativa.', url:'https://player.vimeo.com/video/1047582530' },
+      { id:17, svc:'videoclipes', fmt:'horizontal', title:'Making Of - Sem Tempo Ruim', desc:'Direção criativa, edição dinâmica e cortes no ritmo.', url:'https://www.youtube.com/embed/0pZS3y-4yJQ' },
+      { id:16, svc:'videoclipes', fmt:'horizontal', title:'A Sombra em Mim', desc:'Curta-metragem com fotografia e cor cinematográfica.', url:'https://www.youtube.com/embed/DCPPJNxn3M0' },
+      { id:18, svc:'videoclipes', fmt:'horizontal', title:'Wilton Bezerra - Especial de Apresentação', desc:'Edição dinâmica e montagem narrativa.', url:'https://www.youtube.com/embed/_T_-FoQIj98' },
     ];
 
-    const CAT_CONFIG = {
-      'ia-viral':   { labelPt:'IA Viral',        labelEn:'Viral AI',       color:'#E53935' },
-      'avatar-ia':  { labelPt:'Avatares de IA',   labelEn:'AI Avatars',     color:'#00BFA5' },
-      'mini-filme': { labelPt:'Mini-Filmes IA',   labelEn:'AI Short Films', color:'#7C4DFF' },
-      criativo:     { labelPt:'Criativo',          labelEn:'Creative',       color:'#2B5280' },
-      aftermovie:   { labelPt:'Aftermovie',        labelEn:'Aftermovie',     color:'#2A4A1A' },
-      videoclip:    { labelPt:'Videoclipes',       labelEn:'Video Clips',    color:'#5A2D7A' },
-      vsl:          { labelPt:'VSL',               labelEn:'VSL',            color:'#7A2D5A' },
-      ia:           { labelPt:'Vídeos IA',         labelEn:'AI Videos',      color:'#FF6B35' },
-      curta:        { labelPt:'Curta-Metragens',   labelEn:'Short Films',    color:'#8A6A2A' },
-    };
-
-    let currentLang = localStorage.getItem('portfolio-lang') || 'pt';
-    let currentFilter = 'all';
-
-    // ════════════════════════════════════════
-    // LANGUAGE
-    // ════════════════════════════════════════
-    function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('portfolio-lang', lang);
-      document.querySelectorAll('[data-pt][data-en]').forEach(el => {
-        el.textContent = lang === 'pt' ? el.getAttribute('data-pt') : el.getAttribute('data-en');
-      });
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-      });
-      document.getElementById('statusText') && (document.getElementById('statusText').textContent = lang === 'pt' ? 'DISPONÍVEL' : 'AVAILABLE');
-      renderGrid(currentFilter);
-    }
-
-    // ════════════════════════════════════════
-    // RENDER
-    // ════════════════════════════════════════
-    function renderGrid(filter) {
-      currentFilter = filter;
-      const container = document.getElementById('portfolioMain');
-      const filtered = filter === 'all' ? VIDEOS : VIDEOS.filter(v => v.category === filter);
-
-      if (!filtered.length) {
-        container.innerHTML = '<div class="empty-state"><p style="font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;">NO CLIPS IN THIS CATEGORY</p></div>';
-        updateCounts(filter);
-        return;
-      }
-
-      // Group by category
-      const cats = filter === 'all'
-        ? Object.keys(CAT_CONFIG)
-        : [filter];
-
-      let html = '';
-      cats.forEach(cat => {
-        const catVideos = filtered.filter(v => v.category === cat);
-        if (!catVideos.length) return;
-
-        const cfg = CAT_CONFIG[cat];
-        const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
-
-        html += `
-          <div class="section-label">
-            <div class="section-label-dot" style="background:${cfg.color};"></div>
-            <div class="section-label-text">${catLabel}</div>
-            <div class="section-label-line"></div>
-            <div class="section-label-count">${catVideos.length} ${currentLang === 'pt' ? 'vídeos' : 'videos'}</div>
-          </div>`;
-
-        // Separate by format
-        const verticals  = catVideos.filter(v => v.format === 'vertical');
-        const horizontals = catVideos.filter(v => v.format === 'horizontal');
-
-        if (cat === 'aftermovie' && verticals.length >= 2 && horizontals.length) {
-          // 2+ verticals in paired grid, horizontal full-width below
-          html += `<div class="aftermovie-verticals">`;
-          verticals.forEach(v => { html += buildCard(v); });
-          html += `</div>`;
-          html += `<div class="grid-horizontal">`;
-          horizontals.forEach(v => { html += buildCard(v); });
-          html += `</div>`;
-        } else if (cat === 'vsl' && verticals.length && horizontals.length) {
-          if (horizontals.length === 1) {
-            // 1v + 1h: side-by-side
-            html += `<div class="grid-aftermovie">`;
-            verticals.forEach(v  => { html += buildCard(v, 'card-v'); });
-            horizontals.forEach(v => { html += buildCard(v, 'card-h'); });
-            html += `</div>`;
-          } else {
-            // 1v + 2+h: vertical on left, horizontals stacked on right
-            html += `<div class="grid-vsl-stack">`;
-            verticals.forEach(v => { html += buildCard(v, 'card-v'); });
-            html += `<div class="card-h-stack">`;
-            horizontals.forEach(v => { html += buildCard(v); });
-            html += `</div></div>`;
-          }
-        } else {
-          if (verticals.length) {
-            html += `<div class="grid-vertical">`;
-            verticals.forEach(v => { html += buildCard(v); });
-            html += `</div>`;
-          }
-          if (horizontals.length) {
-            if (verticals.length) html += `<div style="margin-top:12px;"></div>`;
-            html += `<div class="grid-horizontal">`;
-            horizontals.forEach(v => { html += buildCard(v); });
-            html += `</div>`;
-          }
-        }
-      });
-
-      container.innerHTML = html;
-
-      // Attach click events
-      container.querySelectorAll('.video-card').forEach(card => {
-        card.addEventListener('click', () => {
-          const id = parseInt(card.dataset.id);
-          const v = VIDEOS.find(x => x.id === id);
-          if (v) openModal(v);
-        });
-      });
-
-      updateCounts(filter);
-      buildTimelineClips(filtered);
-      const sbCat = document.getElementById('sb-cat'); if (sbCat) sbCat.textContent = filter.toUpperCase();
-    }
-
-    // Helpers para thumbnails (lazy-load real iframe só no clique)
-    function getYouTubeId(url) {
+    function getYTId(url) {
+      if (!url) return null;
       const m = url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]+)/);
       return m ? m[1] : null;
     }
-    function getVimeoId(url) {
-      const m = url.match(/vimeo\.com\/video\/(\d+)/) || url.match(/vimeo\.com\/(\d+)/);
-      return m ? m[1] : null;
-    }
-    function getThumbUrl(v) {
-      const ytId = getYouTubeId(v.videoUrl);
+
+    function getThumb(v) {
+      if (v.thumb) return v.thumb;
+      const ytId = getYTId(v.url);
       if (ytId) return `https://i.ytimg.com/vi/${ytId}/mqdefault.jpg`;
-      const vmId = getVimeoId(v.videoUrl);
-      if (vmId) return `https://vumbnail.com/${vmId}.jpg`;
       return null;
     }
 
-    function buildCard(v, extraClass = '') {
-      const cfg = CAT_CONFIG[v.category];
-      const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
-      const desc  = currentLang === 'pt' ? v.descPt  : v.descEn;
-      const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
-      const ratio = v.format === 'vertical' ? '9:16' : '16:9';
-      const isDrive     = !!v.videoUrl && v.videoUrl.includes('drive.google.com');
-      const isInstagram = !!v.videoUrl && v.videoUrl.includes('instagram.com');
-      const isTikTok    = !!v.videoUrl && v.videoUrl.includes('tiktok.com');
-      const isArchive   = !!v.videoUrl && v.videoUrl.includes('archive.org');
-      const platformLabel = !v.videoUrl             ? (currentLang === 'pt' ? 'Em breve' : 'Coming soon')
-        : isDrive                       ? 'Google Drive'
-        : v.videoUrl.includes('vimeo')  ? 'Vimeo'
-        : isInstagram                   ? 'Instagram'
-        : isTikTok                      ? 'TikTok'
-        : isArchive                     ? 'Archive.org'
-        : v.format === 'vertical'       ? 'YouTube Shorts' : 'YouTube';
-      const thumbUrl = v.thumbUrl || getThumbUrl(v);
-      const thumbHtml = thumbUrl
-        ? `<img src="${thumbUrl}" alt="${title}" loading="lazy" class="thumb-img" onerror="this.style.display='none'">`
-        : `<div class="thumb-fallback" style="background:linear-gradient(135deg, ${cfg.color} 0%, #0A0A0C 100%);"></div>`;
+    function buildCard(v) {
+      const thumbSrc = getThumb(v);
+      const thumbHtml = thumbSrc
+        ? `<img src="${thumbSrc}" alt="${v.title}" loading="lazy" onerror="this.style.display='none'">`
+        : `<div class="vid-thumb-fb"></div>`;
 
       return `
-        <div class="video-card${extraClass ? ' '+extraClass : ''}" data-id="${v.id}">
-          <div class="video-wrapper ${v.format}">
+        <div class="vid-card" data-id="${v.id}">
+          <div class="vid-thumb ${v.fmt === 'vertical' ? 'v' : 'h'}">
             ${thumbHtml}
-            <div class="thumb-overlay">
-              <div class="thumb-play-btn" aria-label="Play">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+            <div class="vid-play">
+              <div class="vid-play-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
               </div>
             </div>
           </div>
-          <div class="card-content">
-            <div class="card-header">
-              <div class="card-title">${title}</div>
-              <div class="card-cat ${v.category}">${catLabel}</div>
-            </div>
-            <div class="card-desc">${desc}</div>
-            <div class="card-meta">
-              <span>${ratio}</span>
-              <span>${platformLabel}</span>
-            </div>
+          <div class="vid-info">
+            <div class="vid-info-title">${v.title}</div>
+            <div class="vid-info-meta">${v.desc}</div>
           </div>
         </div>`;
     }
 
-    // ════════════════════════════════════════
-    // FILTER
-    // ════════════════════════════════════════
-    document.querySelectorAll('.filter-clip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-clip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderGrid(btn.dataset.filter);
-      });
-    });
+    function renderGrids() {
+      document.querySelectorAll('[data-svc]').forEach(grid => {
+        const svcId = grid.dataset.svc;
+        const videos = VIDEOS.filter(v => v.svc === svcId);
+        if (!videos.length) return;
+        grid.innerHTML = videos.map(v => buildCard(v)).join('');
 
-    // ════════════════════════════════════════
-    // COUNTS
-    // ════════════════════════════════════════
-    function updateCounts() {
-      document.getElementById('c-all').textContent          = VIDEOS.length;
-      document.getElementById('c-ia-viral').textContent     = VIDEOS.filter(v=>v.category==='ia-viral').length;
-      document.getElementById('c-avatar-ia').textContent    = VIDEOS.filter(v=>v.category==='avatar-ia').length;
-      document.getElementById('c-mini-filme').textContent   = VIDEOS.filter(v=>v.category==='mini-filme').length;
-      document.getElementById('c-criativo').textContent     = VIDEOS.filter(v=>v.category==='criativo').length;
-      document.getElementById('c-aftermovie').textContent   = VIDEOS.filter(v=>v.category==='aftermovie').length;
-      document.getElementById('c-videoclip').textContent    = VIDEOS.filter(v=>v.category==='videoclip').length;
-      document.getElementById('c-vsl').textContent          = VIDEOS.filter(v=>v.category==='vsl').length;
-      document.getElementById('c-ia').textContent           = VIDEOS.filter(v=>v.category==='ia').length;
-      document.getElementById('c-curta').textContent        = VIDEOS.filter(v=>v.category==='curta').length;
-      const sbClips = document.getElementById('sb-clips'); if (sbClips) sbClips.textContent = VIDEOS.length;
+        grid.querySelectorAll('.vid-card').forEach(card => {
+          card.addEventListener('click', () => {
+            const id = parseInt(card.dataset.id);
+            const v = VIDEOS.find(x => x.id === id);
+            if (v && v.url) openModal(v);
+          });
+        });
+      });
     }
 
-    // ════════════════════════════════════════
-    // MODAL
-    // ════════════════════════════════════════
     function openModal(v) {
-      if (!v.videoUrl && v.thumbUrl) return;
-      const cfg = CAT_CONFIG[v.category];
-      const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
-      const catLabel = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
-      document.getElementById('modalTitle').textContent = title;
-      const isThirdParty = v.videoUrl.includes('instagram') || v.videoUrl.includes('tiktok');
-      document.getElementById('modalIframe').src = isThirdParty ? v.videoUrl : v.videoUrl + '?autoplay=1';
-      // Adjust modal aspect ratio for vertical videos
-      const mv = document.getElementById('modalVideo');
-      mv.style.aspectRatio = v.format === 'vertical' ? '9/16' : '16/9';
-      mv.style.maxHeight = v.format === 'vertical' ? '70vh' : '';
-      mv.style.width = v.format === 'vertical' ? 'auto' : '100%';
-      mv.style.margin = v.format === 'vertical' ? '0 auto' : '';
-      const isDrive2    = v.videoUrl.includes('drive.google.com');
-      const platform    = isDrive2                           ? 'Google Drive'
-        : v.videoUrl.includes('vimeo')                      ? 'Vimeo'
-        : v.videoUrl.includes('instagram')                  ? 'Instagram'
-        : v.videoUrl.includes('tiktok')                     ? 'TikTok'
-        : v.format === 'vertical'                           ? 'Shorts/Reels' : 'YouTube';
-      document.getElementById('modalFooter').innerHTML =
-        `<span class="modal-tag">${catLabel}</span>
-         <span class="modal-tag">${v.format === 'vertical' ? '9:16' : '16:9'}</span>
-         <span class="modal-tag">${platform}</span>`;
+      document.getElementById('modalTitle').textContent = v.title;
+      const isThirdParty = v.url.includes('instagram') || v.url.includes('tiktok');
+      document.getElementById('modalIframe').src = isThirdParty ? v.url : v.url + '?autoplay=1';
+      const mv = document.getElementById('modalVid');
+      mv.style.aspectRatio = v.fmt === 'vertical' ? '9/16' : '16/9';
+      mv.style.maxHeight = v.fmt === 'vertical' ? '70vh' : '';
+      mv.style.width = v.fmt === 'vertical' ? 'auto' : '100%';
+      mv.style.margin = v.fmt === 'vertical' ? '0 auto' : '';
       document.getElementById('modal').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
@@ -1508,154 +875,21 @@
     });
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    // ════════════════════════════════════════
-    // TIMELINE
-    // ════════════════════════════════════════
-    const MARKS = ['00:00','00:10','00:20','00:30','00:40','00:50','01:00','01:10','01:20'];
-    const rulerEl = document.getElementById('tlRulerInner');
-    MARKS.forEach(m => {
-      const el = document.createElement('div');
-      el.className = 'tl-ruler-mark';
-      el.textContent = m;
-      rulerEl.appendChild(el);
+    document.getElementById('navMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.toggle('open');
     });
 
-    function buildTimelineClips(filtered) {
-      const v1 = document.getElementById('trackV1');
-      const v2 = document.getElementById('trackV2');
-      const a1 = document.getElementById('trackA1');
-      v1.innerHTML = v2.innerHTML = a1.innerHTML = '';
-
-      // V1 — one section block per category (always shows full structure)
-      const total = VIDEOS.length;
-      let pos = 0;
-      Object.keys(CAT_CONFIG).forEach(cat => {
-        const catVids = VIDEOS.filter(v => v.category === cat);
-        if (!catVids.length) return;
-        const pct = (catVids.length / total) * 100;
-        const el = document.createElement('div');
-        el.className = 'tl-clip';
-        const cfg = CAT_CONFIG[cat];
-        el.style.cssText = `left:${pos.toFixed(2)}%;width:${Math.max(pct - 0.4, 0.5).toFixed(2)}%;background:${cfg.color};`;
-        const label = currentLang === 'pt' ? cfg.labelPt : cfg.labelEn;
-        el.innerHTML = `<span class="tl-clip-label">${label}</span>`;
-        el.addEventListener('click', () => {
-          document.querySelectorAll('.filter-clip').forEach(b => b.classList.remove('active'));
-          const btn = document.querySelector(`.filter-clip[data-filter="${cat}"]`);
-          if (btn) btn.classList.add('active');
-          renderGrid(cat);
-        });
-        v1.appendChild(el);
-        pos += pct;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
+    }, { threshold: 0.08 });
 
-      // V2 — individual clips shown only when a category filter is active
-      if (filtered.length < VIDEOS.length && filtered.length > 0) {
-        const perClip = 100 / filtered.length;
-        filtered.forEach((v, i) => {
-          const el = document.createElement('div');
-          el.className = 'tl-clip';
-          const cfg = CAT_CONFIG[v.category];
-          el.style.cssText = `left:${(i*perClip).toFixed(2)}%;width:${(perClip-0.5).toFixed(2)}%;background:${cfg.color};opacity:0.65;`;
-          const title = currentLang === 'pt' ? v.titlePt : v.titleEn;
-          el.innerHTML = `<span class="tl-clip-label">${title}</span>`;
-          el.addEventListener('click', () => openModal(v));
-          v2.appendChild(el);
-        });
-      }
+    document.querySelectorAll('.svc').forEach(el => observer.observe(el));
 
-      // A1 waveform
-      const a1Clip = document.createElement('div');
-      a1Clip.className = 'tl-clip';
-      a1Clip.style.cssText = `left:0;width:100%;background:#4A3010;`;
-      const wv = document.createElement('div');
-      wv.className = 'tl-waveform';
-      const bars = 180;
-      for (let i = 0; i < bars; i++) {
-        const bar = document.createElement('div');
-        bar.className = 'wv-bar';
-        const h = Math.random() * 80 + 20;
-        bar.style.cssText = `height:${h}%;`;
-        bar.setAttribute('data-filled', Math.random() > 0.4 ? 'true' : 'false');
-        wv.appendChild(bar);
-      }
-      a1Clip.appendChild(wv);
-      a1.appendChild(a1Clip);
-    }
-
-    // Timecode — driven by scroll position (no-op if display elements were removed)
-    function updateTimecode(pct) {
-      const tcH = document.getElementById('tcH'); if (!tcH) return;
-      const totalFrames = 2 * 60 * 30; // 2min @ 30fps
-      const f = Math.floor(pct / 100 * totalFrames);
-      const fr = f % 30;
-      const s  = Math.floor(f / 30) % 60;
-      const m  = Math.floor(f / 1800) % 60;
-      const h  = Math.floor(f / 108000);
-      tcH.textContent = String(h).padStart(2,'0');
-      document.getElementById('tcM').textContent = String(m).padStart(2,'0');
-      document.getElementById('tcS').textContent = String(s).padStart(2,'0');
-      document.getElementById('tcF').textContent = String(fr).padStart(2,'0');
-    }
-
-    // Playhead follows scroll
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docH = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docH > 0 ? Math.min(scrollTop / docH * 100, 100) : 0;
-      const ph = document.getElementById('tlPlayhead');
-      if (ph) ph.style.left = pct + '%';
-      updateTimecode(pct);
-    }, { passive: true });
-
-    // Init timecode at 0
-    updateTimecode(0);
-
-    // Mobile hamburger
-    document.getElementById('hamburgerBtn').addEventListener('click', () => {
-      document.getElementById('mobileDrawer').classList.toggle('open');
-    });
-
-    // ════════════════════════════════════════
-    // INIT
-    // ════════════════════════════════════════
-    setLanguage(currentLang);
+    renderGrids();
   </script>
-
-
-  <!-- Floating WhatsApp button -->
-  <a href="https://wa.me/5511992392104?text=Oi%20Anderson%2C%20vim%20do%20site!" target="_blank" rel="noopener" id="whatsappFloat" aria-label="Falar com Anderson no WhatsApp" title="Falar no WhatsApp">
-    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/></svg>
-  </a>
-
-  <style>
-    #whatsappFloat {
-      position: fixed;
-      bottom: calc(var(--timeline-h, 110px) + 16px);
-      right: 18px;
-      z-index: 950;
-      width: 54px; height: 54px;
-      background: #25D366;
-      color: #fff;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 6px 20px rgba(37,211,102,0.4);
-      transition: transform 0.2s, box-shadow 0.2s;
-      animation: wppPulse 2.4s ease-in-out infinite;
-    }
-    #whatsappFloat:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 28px rgba(37,211,102,0.6);
-    }
-    @keyframes wppPulse {
-      0%, 100% { box-shadow: 0 6px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.6); }
-      50% { box-shadow: 0 6px 20px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0); }
-    }
-    @media (max-width: 768px) {
-      #whatsappFloat { width: 50px; height: 50px; bottom: calc(var(--timeline-h, 80px) + 12px); right: 14px; }
-      #whatsappFloat svg { width: 24px; height: 24px; }
-    }
-  </style>
-
 </body>
 </html>
