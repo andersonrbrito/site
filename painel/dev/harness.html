@@ -1,0 +1,7 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Harness (teste local)</title>
+<link rel="stylesheet" href="../css/painel.css"></head><body><div id="app"></div>
+<script type="module">
+  import { installMock } from "./mock-supabase.js"; import { CONFIG } from "../js/config.js";
+  installMock(); CONFIG.supabaseUrl = "http://mock"; CONFIG.publishableKey = "mock";
+  await import("../js/app.js");
+</script></body></html>

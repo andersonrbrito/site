@@ -1,0 +1,6 @@
+# Mantém fora da publicação (GitHub Pages/Jekyll) o que é só de desenvolvimento/documentação do painel.
+exclude:
+  - supabase
+  - painel/dev
+  - painel/docs
+  - painel/AGENTS.md
