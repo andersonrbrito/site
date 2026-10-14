@@ -94,7 +94,7 @@
   .exp{border-top:1px solid var(--line)} .exp-item{display:grid;grid-template-columns:200px 1fr;gap:28px;padding:28px 0;border-bottom:1px solid var(--line)}
   .exp-role{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--violet);padding-top:4px} .exp-title{font-size:18px;font-weight:700;margin-bottom:6px} .exp-detail{font-size:15px;color:var(--ink-2);line-height:1.65;max-width:60ch} .exp-detail b{color:var(--ink)} .exp-detail a{color:var(--violet)}
 
-  .tools{display:grid;grid-template-columns:1fr 1fr;gap:20px} .tool-col{padding:28px;border:1px solid var(--line);border-top:3px solid var(--violet);border-radius:20px;background:var(--bg3)} .tool-col:last-child{border-top-color:var(--yellow)}
+  .tools{display:grid;grid-template-columns:repeat(3,1fr);gap:20px} .tool-col{padding:28px;border:1px solid var(--line);border-top:3px solid var(--violet);border-radius:20px;background:var(--bg3)} .tool-col:nth-child(2){border-top-color:var(--magenta)} .tool-col:last-child{border-top-color:var(--yellow)}
   .tool-col h3{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--violet);margin-bottom:16px} .chips{display:flex;flex-wrap:wrap;gap:8px} .chips span{padding:9px 16px;border-radius:100px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.25);font-size:14px;font-weight:600}
 
   .contact-strip{text-align:center;padding:28px 20px} .contact-strip-inner{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
@@ -301,7 +301,8 @@
     <h2 class="title">Em uso diário, sem curva de aprendizado</h2>
     <p class="sub">Não é lista de currículo. É o que já está rodando em produção.</p>
     <div class="tools rise">
-      <div class="tool-col"><h3>Geração por IA</h3><div class="chips"><span>XABLAU</span><span>Higgsfield</span><span>Seedance</span><span>Kling</span><span>Veo</span><span>ElevenLabs</span></div></div>
+      <div class="tool-col"><h3>Geração por IA</h3><div class="chips"><span>XABLAU</span><span>Higgsfield</span><span>Seedance</span><span>Kling</span><span>Veo</span><span>Grok</span><span>MiniMax</span><span>ElevenLabs</span></div></div>
+      <div class="tool-col"><h3>Planejamento e integrações</h3><div class="chips"><span>Magnific · planejamento</span><span>Claude · integrações MCP</span></div></div>
       <div class="tool-col"><h3>Edição</h3><div class="chips"><span>Adobe Premiere</span><span>CapCut</span><span>DaVinci Resolve</span></div></div>
     </div>
   </div>
