@@ -4,7 +4,10 @@
 - Migrations 0001 a 0004 aplicadas; dono = contato@andersonbrito.com; login Google funcionando (testado pelo Anderson).
 - MineR_ importado (2 links, 4 perfis).
 - Migration 0005 (bucket privado postador-media) aplicada.
-- **Falta:** Edge Function `postador` (publicar no X/LinkedIn por cron, Radar, Insights, API pros agentes); secrets do X no Supabase; desligar "Allow new users to sign up".
+- Edge Function `postador` no ar (código em `supabase/functions/postador`, JWT legado desligado, autenticação própria: x-cron-key do Vault ou sessão do dono). Secrets do X configurados pelo Anderson. Testado: tick (200) e insights (594 seguidores, 10 posts).
+- Migration 0007: pg_cron a cada minuto (tick), 07h20 Radar, 07h40 Insights (horário de SP).
+- Rotina das 7h (Claude) entrega rascunhos direto na tabela posts usando a sessão do Anderson no Chrome.
+- **Falta:** LinkedIn na nuvem (app + token nos secrets); botões manuais de Radar/Insights no painel; desligar "Allow new users to sign up".
 
 ## Testado
 - **Banco** (`painel/dev`, `npm test`, Postgres embutido): migrations aplicam do zero; cadastro público bloqueado; RLS (anon sem acesso, membro sem módulo sem acesso, sem DELETE, histórico imutável); origem/autor carimbados pelo banco; versão, `completed_at`, arquivamento; histórico com valores antigos/novos; RPCs de agente (idempotência, conflito, 404, revogada, rate limit, valores inválidos); busca respeita RLS; token Google ilegível por usuário.
