@@ -2,7 +2,6 @@ import { h, fmtDateTime, fmtDate, todayISO, dayOf, TZ } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
 import { CONFIG } from "../config.js";
 import { lineChart } from "./desempenho.js";
-import { renderCard, renderReel, download } from "../studio.js";
 
 // Chama o robô da nuvem com a sessão do dono (Radar e Insights sob demanda).
 async function runCloud(sb, action, btn, label) {
@@ -582,32 +581,10 @@ async function requestsView(sb, refresh) {
 }
 
 // ───────────────────────── Estúdio: post → card e Reel ─────────────────────────
-async function studioView(sb, posts, profile, query, refresh) {
-  const { data: xp } = await sb.from("x_posts").select("id, text, impressions, created_at").order("impressions", { ascending: false }).limit(30);
-  const items = [
-    ...posts.filter((p) => p.body.trim() && ["posted", "pending", "approved"].includes(p.status)).map((p) => ({ key: "p" + p.id, text: p.body, label: p.title || p.body.split("\n")[0], tag: PILL[p.status] })),
-    ...(xp || []).map((t) => ({ key: "x" + t.id, text: t.text.replace(/\s*https:\/\/t\.co\/\S+/g, ""), label: t.text.split("\n")[0], tag: `${k(t.impressions)} views` })),
-  ];
-  let cur = items.find((i) => i.key === query.item) || items[0];
-  const prev = h("img", { class: "stprev", alt: "Prévia do card" });
-  const status = h("p", { class: "muted small" });
-  const drawPrev = async () => { if (!cur) return; const b = await renderCard(cur.text, profile); prev.src = URL.createObjectURL(b); };
-  const list = h("div", { class: "stlist" }, ...items.map((i) => h("button", { type: "button", class: "stitem" + (i === cur ? " on" : ""), onclick: (e) => { cur = i; list.querySelectorAll(".stitem").forEach((b) => b.classList.toggle("on", b === e.currentTarget)); drawPrev(); } },
-    h("span", { class: "pill" }, i.tag), h("span", { class: "truncate" }, i.label))));
-  const btnCard = h("button", { class: "btn", type: "button", onclick: async () => { const b = await renderCard(cur.text, profile); download(b, `card-${Date.now()}.png`); } }, "Baixar card (PNG 4:5)");
-  const btnReel = h("button", { class: "btn", type: "button", onclick: async (e) => {
-    const btn = e.currentTarget; btn.disabled = true;
-    try { const { blob, ext } = await renderReel(cur.text, profile, (p) => { btn.textContent = `Gravando… ${Math.round(p * 100)}%`; }); download(blob, `reel-${Date.now()}.${ext}`); status.textContent = ext === "webm" ? "Vídeo em WebM: o Instagram aceita pelo computador; se precisar MP4, converta no CapCut." : "Vídeo em MP4 pronto."; }
-    catch (err) { toast(err.message, { kind: "err" }); }
-    finally { btn.disabled = false; btn.textContent = "Gerar Reel (vídeo 9:16)"; }
-  } }, "Gerar Reel (vídeo 9:16)");
-  const btnIA = h("button", { class: "btn btn-ghost", type: "button", onclick: async () => {
-    const { error } = await sb.from("post_requests").insert({ topic: `ROTEIRO DE VÍDEO DE IA (Reel 9:16, 8 a 20s) a partir deste post. Entregar em notes: gancho, cenas com prompts Seedream 5 Pro e Seedance (um take, frame inicial + final, ação contínua), SFX e legenda. Post: ${cur.text.slice(0, 1500)}`, networks: "x", quantity: 1 });
-    if (error) return toast("Não foi possível pedir.", { kind: "err" }); toast("Pedido enviado: o roteiro chega em Rascunhos.");
-  } }, "Pedir vídeo com IA (roteiro + prompts)");
-  requestAnimationFrame(drawPrev);
-  return h("div", { class: "studio" },
-    h("div", null, h("div", { class: "mono", style: { marginBottom: "8px" } }, "Escolha o post"), items.length ? list : h("p", { class: "empty" }, "Sem posts ainda.")),
-    h("div", { class: "stack" }, prev, h("div", { class: "flex wrap" }, btnCard, btnReel, btnIA), status,
-      h("p", { class: "muted small" }, "Card e Reel são gerados aqui no navegador, de graça, no visual MineR_. Você baixa e posta à mão no Instagram, X, LinkedIn ou Threads. O vídeo com IA (cenas geradas) vira pedido pro Claude.")));
+async function studioView() {
+  // Em construção: aqui vai o estúdio de vídeos em motion (imagens, fontes, animação) a partir de posts escolhidos à mão.
+  return h("div", { class: "placeholder", style: { minHeight: "360px" } },
+    h("p", { class: "mono", style: { color: "var(--accent)" } }, "Em construção"),
+    h("h2", { class: "caltitle" }, "Estúdio de vídeos"),
+    h("p", { class: "muted small", style: { maxWidth: "460px" } }, "Você vai escolher os posts e transformar em vídeos em motion, com imagens, fontes e animação, pra postar no Instagram, X, LinkedIn e Threads."));
 }
