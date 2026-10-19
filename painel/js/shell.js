@@ -14,9 +14,9 @@ export function buildShell({ sb, member, go, signOut }) {
 
   // Ações rápidas no topo: o que mais se usa, a um clique.
   const quick = h("div", { class: "grow flex quick" },
-    h("a", { class: "btn btn-sm", href: "#/postador?novo=x" }, "+ Post no X"),
-    h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin" }, "+ LinkedIn"),
-    h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1" }, "+ Garimpar link"));
+    h("a", { class: "btn btn-sm", href: "#/postador?novo=x", dataset: { only: "postador" } }, "+ Post no X"),
+    h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin", dataset: { only: "postador" } }, "+ LinkedIn"),
+    h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1", dataset: { only: "miner" } }, "+ Garimpar link"));
 
   const navLinks = mods.map((m) => h("a", { class: "navlink", href: href(m), dataset: { route: m.route } }, icon(m.id), m.label));
   const tabs = [...primary.map((m) => h("a", { href: href(m), dataset: { route: m.route } }, icon(m.id, 18), m.label)), h("a", { href: "#/menu", dataset: { route: "menu" } }, icon("config", 18), "Mais")];
@@ -40,6 +40,8 @@ export function buildShell({ sb, member, go, signOut }) {
     const top = route.split("/")[0];
     root.querySelectorAll("[data-route]").forEach((a) => (a.dataset.route === top ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
     section.textContent = (title || "").toUpperCase();
+    // Ações rápidas só aparecem fora do módulo "dono" da outra ação (ex.: nada de Garimpar dentro do Postador).
+    quick.querySelectorAll("[data-only]").forEach((a) => { a.hidden = (top === "postador" && a.dataset.only === "miner") || (top === "miner" && a.dataset.only === "postador"); });
   };
 
   // Toasts

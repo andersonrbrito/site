@@ -22,6 +22,9 @@ const DB = {
   radar_items: [], x_snapshots: [], x_goal_entries: [{ id: uid(830), day: today, verified_followers: 210, impressions_90d: 8700, version: 1, archived_at: null }],
   postador_settings: [{ key: "x_daily_limit", value: 10 }, { key: "x_slots", value: ["08:00","10:00","11:30","14:00","16:00","18:00","20:00","22:00"] }, { key: "linkedin_slots", value: ["13:30"] }, { key: "x_read_daily_limit", value: 40 }],
   favorites: [["Cursos","Leo Baltazar","https://leobaltazar.com/"],["Cursos","Curso Kiwify","https://members.kiwify.com/?club=e5ca4402"],["Cursos","WooB","https://members.kiwify.com/?club=5269a082"],["Cursos","Reels Virais com IA","https://congruous-vacation-cd5.notion.site/Reels-Virais-com-IA"]].map(([grp,name,url],i)=>({ id: uid(850+i), grp, name, url, position: i+1, version: 1, archived_at: null })),
+  social_stats: [-6,-4,-2,0].flatMap((d,i)=>[{ day: add(d), platform: "x", followers: 580+i*5, following: 178, posts: 27700+i*30, data: { verified_followers: 200+i*3, impressions_90d: 7000+i*600 }, archived_at: null }, { day: add(d), platform: "instagram", followers: 6400+i*80, following: 2680, posts: 220+i, data: {}, archived_at: null }]),
+  reel_stats: [-2,0].flatMap((d,j)=>[["DepMxM7JjrS",1417],["DecjTqIPGey",470000],["DePceechGdf",1300000],["DeeMbvPh7WT",13800]].map(([shortcode,v])=>({ day: add(d), shortcode, views: Math.round(v*(j?1:0.8)), thumbnail_url: null, archived_at: null }))),
+  post_requests: [],
   integrations: [], app_members: [{ user_id: "u1", email: "dono@exemplo.com", role: "owner", modules: [] }], google_connections: [],
 };
 let nextId = 5000;

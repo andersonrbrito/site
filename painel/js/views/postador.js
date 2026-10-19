@@ -42,15 +42,9 @@ export function nextSlot(posts, network, settings, now = Date.now()) {
 
 export default async function postador(ctx) {
   const { sb, query, go, refresh } = ctx;
-  const aba = ["fila", "calendario", "radar", "insights"].includes(query.aba) ? query.aba : "fila";
-
-  // Novo post direto do botão do topo: cria o rascunho e abre.
-  if (query.novo === "x" || query.novo === "linkedin") {
-    const { data, error } = await sb.from("posts").insert({ network: query.novo, body: "" }).select("id").maybeSingle();
-    if (error || !data) return h("div", { class: "page" }, alertBox("Não foi possível criar o rascunho."));
-    go(`/postador?id=${data.id}`);
-    return h("div");
-  }
+  const aba = ["fila", "historico", "radar", "insights", "pedidos"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
+  // Novo post: abre o editor vazio; só vira rascunho no banco quando você escrever algo.
+  const novo = query.novo === "x" || query.novo === "linkedin" ? query.novo : null;
 
   const [postsR, setR] = await Promise.all([
     sb.from("posts").select("id, network, title, body, notes, media, image_urls, status, scheduled_at, posted_at, external_url, error, is_viral_bet, version, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(400),
@@ -64,28 +58,32 @@ export default async function postador(ctx) {
   const xToday = posts.filter((p) => p.network === "x" && p.status === "posted" && p.posted_at && spDay(p.posted_at) === today).length;
   const cloudOn = !!settings.publisher_active;
 
-  const tabs = h("div", { class: "ptabs" },
-    ...[["fila", "Fila"], ["calendario", "Calendário"], ["radar", "Radar"], ["insights", "Insights"]].map(([id, l]) =>
-      h("a", { href: `#/postador?aba=${id}`, class: aba === id ? "on" : "" }, l)),
+  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["insights", "Insights", "M4 20V10M10 20V4M16 20v-7M22 20H2"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"]];
+  const tabIcon = (d) => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("width", "20"); s.setAttribute("height", "20"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "1.8"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round"); const pa = document.createElementNS("http://www.w3.org/2000/svg", "path"); pa.setAttribute("d", d); s.append(pa); return s; };
+  const pending = posts.filter((p) => p.status === "pending").length;
+  const brand = h("div", { class: "pbrand" },
+    h("div", { class: "plogo" }, tabIcon("M4 20l4-1L19 8a2.1 2.1 0 0 0-3-3L5 16zM14 7l3 3"), h("span", null, "POSTADO", h("b", null, "R_"))),
+    h("span", { class: "mono muted hide-sm" }, "X e LinkedIn"),
     h("div", { class: "grow" }),
     h("span", { class: "mono" }, `X hoje ${xToday}/${settings.x_daily_limit}`),
-    h("span", { class: "meter" }, h("b", { style: { width: `${Math.min(100, (xToday / settings.x_daily_limit) * 100)}%` } })));
-
-  const head = pageHead("Postador", "rascunhos → aprovação → publicação",
+    h("span", { class: "meter" }, h("b", { style: { width: `${Math.min(100, (xToday / settings.x_daily_limit) * 100)}%` } })),
     h("a", { class: "btn btn-sm", href: "#/postador?novo=x" }, "+ X"), h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin" }, "+ LinkedIn"));
+  const tabs = h("nav", { class: "pbig" }, ...TABS.map(([id, l, d]) => h("a", { href: `#/postador?aba=${id}`, class: aba === id ? "on" : "" }, tabIcon(d), h("span", null, l), id === "fila" && pending ? h("b", null, pending) : null)));
   const warn = !cloudOn && h("p", { class: "note" }, "Publicação automática na nuvem ainda não ativada: você já pode revisar, editar e aprovar, mas nada sai até ligarmos as chaves do X no Supabase.");
 
   let body;
-  if (aba === "calendario") body = calendarView(posts, query, go, settings);
+  if (aba === "historico") body = calendarView(posts, query, go, settings);
   else if (aba === "radar") body = await radarView(sb, query, go, refresh);
   else if (aba === "insights") body = await insightsView(sb, posts, refresh);
-  else body = await queueView({ sb, query, go, refresh, posts, settings, profile, today });
-  return h("div", { class: "page postador" }, head, warn, tabs, body);
+  else if (aba === "pedidos") body = await requestsView(sb, refresh);
+  else body = await queueView({ sb, query, go, refresh, posts, settings, profile, today, novo });
+  return h("div", { class: "page postador" }, brand, tabs, warn, body);
 }
 
 // ───────────────────────── Fila + editor ─────────────────────────
-async function queueView({ sb, query, go, refresh, posts, settings, profile }) {
-  const sel = posts.find((p) => p.id === query.id) || null;
+async function queueView({ sb, query, go, refresh, posts, settings, profile, novo }) {
+  const blank = novo ? { id: null, network: novo, title: "", body: "", notes: "", media: [], status: "pending", version: 1, created_at: new Date().toISOString() } : null;
+  let sel = blank || posts.find((p) => p.id === query.id) || null;
   const view = STATUS[query.status] ? query.status : sel ? (sel.status === "posting" ? "approved" : sel.status) : "pending";
   const net = ["x", "linkedin"].includes(query.rede) ? query.rede : "";
   let list = posts.filter((p) => (p.status === view || (view === "approved" && p.status === "posting")) && (!net || p.network === net));
@@ -102,16 +100,30 @@ async function queueView({ sb, query, go, refresh, posts, settings, profile }) {
   const card = (p) => {
     const when = p.status === "approved" ? fmtDateTime(p.scheduled_at) : p.status === "posted" ? fmtDateTime(p.posted_at) : fmtDateTime(p.created_at);
     const first = p.body.split("\n").find((l) => l.trim()) || "(sem texto)";
-    return h("a", { class: "pcard" + (p.id === sel?.id ? " sel" : ""), href: qs({ id: p.id }) },
+    return h("a", { class: "pcard" + (p.id === sel?.id ? " sel" : ""), href: qs({ id: p.id }), dataset: { id: p.id }, onclick: (e) => { if (e.metaKey || e.ctrlKey) return; e.preventDefault(); openPost(p); } },
       h("div", { class: "pc-top" }, netBadge(p.network), h("span", { class: "pill " + p.status }, PILL[p.status]), p.is_viral_bet && h("span", { class: "pill viral" }, "VIRAL"), h("span", { class: "muted" }, when)),
       p.title ? [h("div", { class: "pc-t" }, p.title), h("div", { class: "pc-x" }, first)] : h("div", { class: "pc-t" }, first),
       p.media?.length ? h("div", { class: "mono muted", style: { marginTop: "6px" } }, `${p.media.length} mídia${p.media.length > 1 ? "s" : ""}`) : null);
   };
 
-  const editor = sel ? await editorView({ sb, p: sel, posts, settings, profile, go, refresh, qs }) : h("div", { class: "placeholder" }, h("p", null, "Escolha um rascunho na lista"), h("p", { class: "muted small" }, "ou crie um novo com + X / + LinkedIn"));
-  return h("div", null, nav, h("div", { class: "qgrid" + (sel ? " editing" : "") },
-    h("div", { class: "qlist" }, list.length ? list.map(card) : h("p", { class: "empty" }, "Nada por aqui.")),
-    h("div", { class: "qeditor" }, editor)));
+  const placeholder = () => h("div", { class: "placeholder" }, h("p", null, "Escolha um rascunho na lista"), h("p", { class: "muted small" }, "ou crie um novo com + X / + LinkedIn"));
+  const editorBox = h("div", { class: "qeditor" });
+  const grid = h("div", { class: "qgrid" + (sel ? " editing" : "") });
+  const listBox = h("div", { class: "qlist" }, list.length ? list.map(card) : h("p", { class: "empty" }, "Nada por aqui."));
+  // Abre o post na hora: troca só o editor, sem recarregar a lista nem o painel.
+  let opening = 0;
+  async function openPost(p) {
+    const my = ++opening;
+    sel = p;
+    history.replaceState(null, "", qs({ id: p.id }));
+    listBox.querySelectorAll(".pcard").forEach((c) => c.classList.toggle("sel", c.dataset.id === p.id));
+    grid.classList.add("editing");
+    const ed = await editorView({ sb, p, posts, settings, profile, go, refresh, qs, onCreated: (row) => { history.replaceState(null, "", qs({ id: row.id })); } });
+    if (my === opening) { editorBox.replaceChildren(ed); window.scrollTo(0, 0); }
+  }
+  editorBox.append(sel ? await editorView({ sb, p: sel, posts, settings, profile, go, refresh, qs, onCreated: (row) => { history.replaceState(null, "", qs({ id: row.id, status: "pending" })); } }) : placeholder());
+  grid.append(listBox, editorBox);
+  return h("div", null, nav, grid);
 }
 
 const netBadge = (n) => h("span", { class: "netb n-" + n }, n === "x" ? "X" : "in");
@@ -122,7 +134,7 @@ async function signedUrls(sb, media) {
   return out;
 }
 
-async function editorView({ sb, p, posts, settings, profile, go, refresh, qs }) {
+async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, onCreated }) {
   const locked = p.status === "posted" || p.status === "posting";
   const isX = p.network === "x";
   let version = p.version, tab = "write";
@@ -131,8 +143,16 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs }) 
   const saved = h("span", { class: "mono muted" }, "");
   // Salvamento automático com controle de versão.
   let timer = null, pending = null;
+  // Rascunho novo: só entra no banco quando tiver texto ou mídia.
+  const ensureRow = async () => {
+    if (p.id) return true;
+    const { data, error } = await sb.from("posts").insert({ network: p.network, title: p.title, body: p.body }).select("id, version").maybeSingle();
+    if (error || !data) { saved.textContent = "Não foi possível criar o rascunho."; return false; }
+    p.id = data.id; version = data.version; posts.unshift(p); onCreated?.(data); saved.textContent = "Rascunho salvo"; return true;
+  };
   const save = async () => {
     if (!pending) return;
+    if (!p.id) { if (!p.body.trim() && !p.title.trim()) { pending = null; saved.textContent = ""; return true; } pending = null; return ensureRow(); }
     const patch = pending; pending = null;
     const { data, error } = await sb.from("posts").update(patch).eq("id", p.id).eq("version", version).select("version").maybeSingle();
     if (error || !data) { saved.textContent = "Não salvou: o post mudou em outro lugar. Recarregue."; return false; }
@@ -176,6 +196,7 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs }) 
   };
   const setMedia = async (media) => {
     await flush();
+    if (!(await ensureRow())) return false;
     const { data, error } = await sb.from("posts").update({ media }).eq("id", p.id).eq("version", version).select("version").maybeSingle();
     if (error || !data) { toast("Não salvou a mídia: o post mudou. Recarregue.", { kind: "err" }); return false; }
     version = data.version; p.media = media; return true;
@@ -188,6 +209,7 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs }) 
       const cur = p.media || [];
       const hasVid = cur.some((m) => m.mime.startsWith("video/") || m.mime === "image/gif");
       if (isX && (hasVid || ((f.type.startsWith("video/") || f.type === "image/gif") && cur.length) || cur.length >= 4)) { toast("No X: até 4 imagens, ou 1 vídeo/GIF sozinho.", { kind: "err" }); continue; }
+      if (!(await ensureRow())) return;
       const path = `${p.id}/${crypto.randomUUID()}.${f.name.split(".").pop().toLowerCase()}`;
       urls[path] = URL.createObjectURL(f);
       p.media = [...cur, { path, mime: f.type, size: f.size, name: f.name, uploading: true }]; drawMedia();
@@ -234,6 +256,7 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs }) 
   // ---- ações ----
   const act = async (patch, ok) => {
     if (!(await flush())) return;
+    if (!p.id && !(await ensureRow())) return;
     const { data, error } = await sb.from("posts").update(patch).eq("id", p.id).eq("version", version).select("id").maybeSingle();
     if (error || !data) return toast("Não foi possível: o post mudou em outro lugar. Recarregue.", { kind: "err" });
     toast(ok); refresh();
@@ -389,13 +412,50 @@ async function insightsView(sb, posts, refresh) {
 
 export function goalPanel(cur, prev, bar, delta, fIn, iIn, saveGoal) {
   const perDay = Math.ceil(500000 / 90);
+  // Alerta quando perde seguidores verificados ou impressões em relação ao registro anterior.
+  const drops = prev ? [
+    cur.verified_followers < prev.verified_followers && `Perdeu ${prev.verified_followers - cur.verified_followers} seguidor(es) verificado(s) desde o último registro.`,
+    cur.impressions_90d < prev.impressions_90d && `Impressões dos últimos 90 dias caíram ${k(prev.impressions_90d - cur.impressions_90d)} (posts antigos saindo da janela). Hora de publicar mais.`,
+  ].filter(Boolean) : [];
   return h("section", { class: "panel goal" },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Meta de monetização do X"), h("a", { class: "mono", href: "https://help.x.com/en/using-x/original-content-rewards", target: "_blank", rel: "noopener" }, "regras ↗")),
     h("div", { class: "panel-body" },
+      ...drops.map((t) => h("p", { class: "alert", role: "alert" }, t)),
       h("div", { class: "goalgrid" },
         h("div", null, h("span", { class: "mono" }, "Seguidores verificados"), h("div", { class: "gnum" }, h("b", null, cur.verified_followers), h("span", { class: "muted" }, " / 500"), h("span", { class: "mono muted gd" }, delta(cur.verified_followers, prev?.verified_followers))), bar(cur.verified_followers, 500),
           h("span", { class: "muted small" }, cur.verified_followers >= 500 ? "Meta batida" : `Faltam ${500 - cur.verified_followers}`)),
         h("div", null, h("span", { class: "mono" }, "Impressões verificadas · 90 dias"), h("div", { class: "gnum" }, h("b", null, k(cur.impressions_90d)), h("span", { class: "muted" }, " / 500K"), h("span", { class: "mono muted gd" }, delta(cur.impressions_90d, prev?.impressions_90d))), bar(cur.impressions_90d, 500000),
           h("span", { class: "muted small" }, cur.impressions_90d >= 500000 ? "Meta batida" : `Faltam ${k(500000 - cur.impressions_90d)} · precisa de ~${k(perDay)}/dia (respostas não contam)`))),
       fIn && h("div", { class: "flex wrap goalform" }, h("span", { class: "muted small" }, "Números do painel de Monetização do X:"), fIn, iIn, h("button", { class: "btn btn-sm", type: "button", onclick: saveGoal }, "Salvar"))));
+}
+
+// ───────────────────────── Pedir posts ("nova conversa") ─────────────────────────
+async function requestsView(sb, refresh) {
+  const { data, error } = await sb.from("post_requests").select("id, topic, networks, quantity, status, result_note, created_at, done_at, version").is("archived_at", null).order("created_at", { ascending: false }).limit(60);
+  if (error) return alertBox("Não foi possível carregar os pedidos.");
+  const topic = h("textarea", { class: "textarea", rows: 4, placeholder: "Sobre o que você quer posts? Ex.: \"meu teste do Kling 4.0 contra o Seedance, com o carro voando na Paulista\" ou \"opinião sobre o debate de ontem, só no X\"", maxlength: 2000 });
+  const nets = h("select", { class: "select select-sm" }, h("option", { value: "x" }, "Só X"), h("option", { value: "linkedin" }, "Só LinkedIn"), h("option", { value: "ambos" }, "X e LinkedIn"));
+  const qty = h("select", { class: "select select-sm" }, ...[1, 2, 3, 5].map((n) => h("option", { value: n, selected: n === 3 }, `${n} versões`)));
+  const send = async () => {
+    if (!topic.value.trim()) return toast("Escreva o assunto.", { kind: "err" });
+    const { error: err } = await sb.from("post_requests").insert({ topic: topic.value.trim(), networks: nets.value, quantity: Number(qty.value) });
+    if (err) return toast("Não foi possível enviar o pedido.", { kind: "err" });
+    toast("Pedido enviado. Os rascunhos aparecem em Rascunhos."); refresh();
+  };
+  const cancel = async (r) => {
+    const { data: d } = await sb.from("post_requests").update({ status: "cancelado" }).eq("id", r.id).eq("version", r.version).select("id").maybeSingle();
+    if (!d) return toast("Recarregue a página.", { kind: "err" }); refresh();
+  };
+  const LBL = { aberto: "Na fila", gerando: "Gerando", feito: "Pronto", cancelado: "Cancelado" };
+  return h("div", { class: "preq" },
+    h("section", { class: "panel" },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Novo pedido")),
+      h("div", { class: "panel-body stack" }, topic,
+        h("div", { class: "flex wrap" }, nets, qty, h("div", { class: "grow" }), h("button", { class: "btn", type: "button", onclick: send }, "Pedir rascunhos")),
+        h("p", { class: "muted small" }, "O Claude lê os pedidos de hora em hora (das 8h às 22h) e na rotina das 7h, escreve no seu tom e deixa os rascunhos aqui no Postador. Nada é publicado sem você aprovar."))),
+    h("div", { class: "stack" }, ...(data || []).map((r) => h("div", { class: "row" },
+      h("div", { class: "grow" }, h("div", { class: "title" }, r.topic), h("div", { class: "muted small" }, `${r.networks === "ambos" ? "X e LinkedIn" : r.networks === "x" ? "X" : "LinkedIn"} · ${r.quantity} versões · ${fmtDateTime(r.created_at)}`, r.result_note ? ` · ${r.result_note}` : "")),
+      h("span", { class: "pill " + (r.status === "feito" ? "posted" : r.status === "aberto" ? "approved" : "") }, LBL[r.status]),
+      r.status === "aberto" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => cancel(r) }, "Cancelar")))),
+    !(data || []).length && h("p", { class: "empty" }, "Nenhum pedido ainda."));
 }
