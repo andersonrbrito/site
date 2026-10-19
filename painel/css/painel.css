@@ -266,3 +266,43 @@ a.fav:hover{border-color:var(--accent)} .fav img{border-radius:3px;background:#f
 .kgrid{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))} .krow{margin-bottom:10px;font-size:13px} .krow2{padding:6px 0;border-bottom:1px solid var(--line);font-size:13px}
 .bestgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .best{display:grid;gap:8px;align-content:start;border:1px solid var(--line-2);background:var(--panel);border-radius:8px;padding:12px} .best p{white-space:pre-wrap;font-size:13.5px;display:-webkit-box;-webkit-line-clamp:8;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Atalhos com favicon */
+.ilink{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:6px;border:1px solid var(--line-2);background:var(--panel);flex:none}
+.ilink:hover{border-color:var(--accent)} .ilink img{border-radius:3px}
+.ilink.sm{width:20px;height:20px;border:0;background:none} .ilink.sm img{width:14px;height:14px;filter:grayscale(1) brightness(1.6);opacity:.75} .ilink.sm:hover img{filter:none;opacity:1}
+.socials{display:inline-flex;gap:2px;margin-left:6px}
+.ais{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none} .ais::-webkit-scrollbar{display:none}
+.quick{min-width:0}
+
+/* Início: saudação, clima e tema do tempo */
+.hero{display:flex;gap:20px;align-items:center;flex-wrap:wrap;padding:20px 22px;margin-bottom:18px;border:1px solid var(--line-2);border-radius:10px;position:relative;overflow:hidden}
+.hero .hello{font:700 clamp(40px,6vw,64px)/1 'Caveat',cursive;letter-spacing:0;color:var(--tx)}
+.hero.tema-sol{background:radial-gradient(ellipse 70% 120% at 100% 0%,rgba(255,190,70,.28),transparent 60%),var(--panel)}
+.hero.tema-nublado{background:radial-gradient(ellipse 70% 120% at 100% 0%,rgba(170,180,190,.18),transparent 60%),var(--panel)}
+.hero.tema-chuva{background:radial-gradient(ellipse 70% 120% at 100% 0%,rgba(80,150,255,.25),transparent 60%),repeating-linear-gradient(105deg,transparent 0 14px,rgba(120,170,255,.05) 14px 15px),var(--panel)}
+.hero.tema-tempestade{background:radial-gradient(ellipse 70% 120% at 100% 0%,rgba(150,110,255,.28),transparent 60%),var(--panel)}
+.hero.tema-noite{background:radial-gradient(ellipse 70% 120% at 100% 0%,rgba(90,110,200,.22),transparent 60%),var(--panel)}
+.wx{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.wxnow{display:flex;align-items:center;gap:10px} .wxnow b{font:800 40px var(--f-head);letter-spacing:-.04em}
+.wxicon{width:34px;height:34px;border-radius:50%;flex:none}
+.tema-sol .wxicon{background:radial-gradient(circle,#ffd36b 45%,rgba(255,200,80,.25) 46%,transparent 70%)}
+.tema-nublado .wxicon{background:radial-gradient(circle at 40% 55%,#c7cdd3 38%,transparent 40%),radial-gradient(circle at 65% 45%,#9aa3ab 32%,transparent 34%)}
+.tema-chuva .wxicon{background:radial-gradient(circle at 50% 40%,#8fb4ff 36%,transparent 38%),linear-gradient(105deg,transparent 45%,#5b8dff 46% 50%,transparent 51%)}
+.tema-tempestade .wxicon{background:radial-gradient(circle at 50% 40%,#a48bff 36%,transparent 38%)}
+.tema-noite .wxicon{background:radial-gradient(circle at 60% 40%,transparent 30%,#e8e6ff 31% 45%,transparent 46%)}
+.wxdays{display:flex;gap:14px} .wxdays>div{display:grid;gap:1px;font-size:12px}
+/* Atualização do dia */
+.daily{box-shadow:0 0 0 1px var(--accent)} .ugrid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.uline{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:5px 0;border-bottom:1px solid var(--line);font-size:13px} .uline .mono{text-transform:none;letter-spacing:0;color:var(--ok)}
+.uline.down .mono{color:var(--danger)} .uline.down{background:rgba(255,107,107,.05)}
+/* Atalhos rápidos */
+.quickgrid{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:0 0 20px}
+.qlink{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line-2);border-radius:6px;background:var(--panel);font-size:13px;font-weight:500}
+.qlink:hover{border-color:var(--accent)} .qlink img{border-radius:3px;background:#fff} .qlink.meta{border-color:rgba(24,119,242,.5)}
+/* Portfólios */
+.ports{display:grid;gap:4px}
+.port{display:grid;grid-template-columns:12px minmax(0,1fr) minmax(0,160px) 80px;gap:10px;align-items:center;padding:7px 8px;border-radius:4px;font-size:13px}
+a.port[href]:hover{background:var(--row-h)} .port.off{opacity:.55;cursor:default}
+.st{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--tx-4)} .st.on{background:var(--accent);border-color:var(--accent)} .st.hid{background:var(--tx-4)}
+@media(max-width:767px){.port{grid-template-columns:12px 1fr 70px}.port>.mono:nth-of-type(1){display:none}}

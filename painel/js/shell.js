@@ -1,6 +1,7 @@
 import { h, fmtDateTime } from "./util.js";
 import { icon, toast } from "./ui.js";
 import { visibleModules } from "./modules.js";
+import { SOCIALS, AIS, iconLink } from "./links.js";
 import { HREF } from "./views/busca.js";
 
 const NAMES = { task: "Tarefa", project: "Projeto", note: "Nota", event: "Compromisso" };
@@ -16,7 +17,8 @@ export function buildShell({ sb, member, go, signOut }) {
   const quick = h("div", { class: "grow flex quick" },
     h("a", { class: "btn btn-sm", href: "#/postador?novo=x", dataset: { only: "postador" } }, "+ Post no X"),
     h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin", dataset: { only: "postador" } }, "+ LinkedIn"),
-    h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1", dataset: { only: "miner" } }, "+ Garimpar link"));
+    h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1", dataset: { only: "miner" } }, "+ Garimpar link"),
+    h("div", { class: "ais hide-sm" }, ...AIS.map((x) => iconLink(x))));
 
   const navLinks = mods.map((m) => h("a", { class: "navlink", href: href(m), dataset: { route: m.route } }, icon(m.id), m.label));
   const tabs = [...primary.map((m) => h("a", { href: href(m), dataset: { route: m.route } }, icon(m.id, 18), m.label)), h("a", { href: "#/menu", dataset: { route: "menu" } }, icon("config", 18), "Mais")];
@@ -26,7 +28,7 @@ export function buildShell({ sb, member, go, signOut }) {
   const main = h("main", { id: "main" });
   const root = h("div", null,
     h("div", { class: "menubar" },
-      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "hide-sm" }, "andersonbrito.com / painel")),
+      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "socials hide-sm" }, ...SOCIALS.map((x) => iconLink(x, "ilink sm")))),
       h("div", { class: "mid" }, h("span", null, "SEQ "), "ANDERSON_OS · ", section),
       h("div", { class: "right" }, clock, h("span", { class: "hide-sm flex" }, h("span", { class: "dot-live" }), member.email))),
     h("div", { class: "toolbar" },

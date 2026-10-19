@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-10-19 (tarde) · PostadoR_, Insights estilo Otto, Desempenho e Início novo
+- PostadoR_ com cara de painel próprio: abas grandes com ícone (Rascunhos, Histórico, Radar, Insights, Pedir posts); post abre na hora sem recarregar; "novo post" só salva quando tem texto/mídia.
+- Pedir posts (tabela post_requests, migration 0009): o Claude atende de hora em hora (8h às 22h) e na rotina das 7h.
+- Alertas de queda (seguidores verificados/impressões) na meta.
+- Insights no formato do Otto: cartões das contas, engajamento em donut com meta de 2%, mapa anual de views, views por dia (30 dias) com picos, desempenho por tipo de conteúdo, melhores posts com "Recriar", coleta dos posts. Base: x_posts (migration 0010), carga de 1 ano feita (190 posts).
+- Desempenho (social_stats/reel_stats, migration 0008): gráficos de X e Instagram e últimos 12 Reels. Coleta diária pela rotina das 7h via Chrome.
+- Início: saudação com apelido do dia (Caveat), clima de Osasco (Open-Meteo) com tema do tempo, atualização do dia, atalhos (consoles, Google Admin, biblioteca de anúncios e agendador da Meta), portfólios do site com status (gerado por dev/gen-portfolios.py), ícones das redes no topo e IAs favoritas na barra.
+
 ## 2026-10-19 · Foco em Postador, MineR_ e Agenda
 - Identidade visual MineR_ (preto #050706, laranja #FF4F32, Geist/Geist Mono, grade técnica, logo ANDERSON_OS).
 - Menu reduzido a Início, Postador, MineR_ e Agenda (+ Configurações). Tarefas, Projetos, Inbox, Hoje e Histórico ficam desativados em `modules.js` (tabelas preservadas, nada apagado).

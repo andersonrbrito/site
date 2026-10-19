@@ -3,17 +3,39 @@ import { alertBox } from "../ui.js";
 import { goalPanel } from "./postador.js";
 import { calendarEmbed } from "./agenda.js";
 import { favoritesBar } from "../favorites.js";
+import { QUICK, META_SCHEDULER, iconLink, favicon } from "../links.js";
+import { PORTFOLIOS } from "../portfolios.js";
+
+// Apelido do dia: muda todo dia (mesmo apelido o dia inteiro).
+const APELIDOS = ["mestre", "chefe", "lenda", "gênio", "craque", "monstro", "meu rei", "patrão", "campeão", "maestro", "comandante", "mito", "fera", "professor", "artista", "visionário", "diretor", "capitão", "mago da timeline", "brabo", "pai", "guerreiro", "sensei", "titã", "parceiro", "ídolo", "chefão", "rei do corte", "craque da IA", "o cara"];
+const apelidoDoDia = () => { const d = todayISO(); const n = Number(d.replaceAll("-", "")); return APELIDOS[(n * 7) % APELIDOS.length]; };
+
+// Clima de Osasco (Open-Meteo, grátis e sem chave). O tema do topo acompanha o tempo.
+const WMO = (c) => c === 0 ? ["Céu limpo", "sol"] : c <= 2 ? ["Parcialmente nublado", "sol"] : c === 3 ? ["Nublado", "nublado"] : c <= 48 ? ["Neblina", "nublado"] : c <= 67 || (c >= 80 && c <= 82) ? ["Chuva", "chuva"] : c <= 77 ? ["Frio intenso", "nublado"] : ["Tempestade", "tempestade"];
+async function clima() {
+  try {
+    const r = await fetch("https://api.open-meteo.com/v1/forecast?latitude=-23.5325&longitude=-46.7917&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weather_code&timezone=America%2FSao_Paulo&forecast_days=3");
+    if (!r.ok) return null;
+    const j = await r.json();
+    const [label, tema] = WMO(j.current.weather_code);
+    return { temp: Math.round(j.current.temperature_2m), label, tema: j.current.is_day ? tema : tema === "sol" ? "noite" : tema,
+      dias: j.daily.time.map((d, i) => ({ d, max: Math.round(j.daily.temperature_2m_max[i]), min: Math.round(j.daily.temperature_2m_min[i]), chuva: j.daily.precipitation_probability_max[i], label: WMO(j.daily.weather_code[i])[0] })) };
+  } catch { return null; }
+}
 
 // Início: o que importa de cara (meta do X, fila do Postador, Radar, agenda e últimos garimpos).
 const k = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "") + "K" : String(n ?? 0));
 
 export default async function inicio({ sb, refresh }) {
-  const [postsR, goalR, radarR, minerR, setR] = await Promise.all([
+  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo] = await Promise.all([
     sb.from("posts").select("id, network, title, body, status, scheduled_at, posted_at, is_viral_bet, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(200),
     sb.from("x_goal_entries").select("day, verified_followers, impressions_90d").is("archived_at", null).order("day").limit(200),
     sb.from("radar_items").select("kind, done_at").is("archived_at", null).limit(300),
     sb.from("miner_links").select("id, url, platform, collection, note, status, thumbnail_url, saved_at").is("archived_at", null).order("saved_at", { ascending: false }).limit(6),
     sb.from("postador_settings").select("key, value"),
+    sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day", { ascending: false }).limit(6),
+    sb.from("reel_stats").select("day, views").is("archived_at", null).order("day", { ascending: false }).limit(48),
+    clima(),
   ]);
   const failed = [postsR, goalR, radarR, minerR].some((r) => r.error);
   const posts = postsR.data || [];
@@ -36,19 +58,62 @@ export default async function inicio({ sb, refresh }) {
   const delta = (a, b) => (prev ? `${a - b >= 0 ? "+" : ""}${k(a - b)}` : "");
   const first = (p) => p.title || p.body.split("\n").find((l) => l.trim()) || "(sem texto)";
 
+  // Atualização do dia (X e Instagram), com alerta de queda
+  const soc = socialR.data || [];
+  const lastTwo = (pf) => soc.filter((r) => r.platform === pf).slice(0, 2);
+  const [xNow, xPrev] = lastTwo("x"), [igNow, igPrev] = lastTwo("instagram");
+  const reelDays = [...new Set((reelsR.data || []).map((r) => r.day))];
+  const reelSum = (d) => (reelsR.data || []).filter((r) => r.day === d).reduce((n, r) => n + (r.views || 0), 0);
+  const dif = (a, b) => (a == null || b == null ? null : a - b);
+  const line = (label, now, before, fmt = (v) => v.toLocaleString("pt-BR")) => {
+    if (now == null) return null;
+    const d = dif(now, before);
+    return h("div", { class: "uline" + (d < 0 ? " down" : "") }, h("span", { class: "muted" }, label), h("b", null, fmt(now)), d == null ? h("span", { class: "mono muted" }, "1º registro") : h("span", { class: "mono" }, d < 0 ? `▼ ${fmt(-d)}` : d > 0 ? `▲ ${fmt(d)}` : "="));
+  };
+  const update = h("section", { class: "panel daily" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Atualização do dia"), h("a", { class: "mono", href: "#/desempenho" }, "ver gráficos →")),
+    h("div", { class: "panel-body" }, (xNow || igNow) ? h("div", { class: "ugrid" },
+      h("div", null, h("div", { class: "mono", style: { marginBottom: "6px" } }, "X"),
+        line("Verificados", xNow?.data?.verified_followers, xPrev?.data?.verified_followers), line("Impressões 90d", xNow?.data?.impressions_90d, xPrev?.data?.impressions_90d, k), line("Seguidores", xNow?.followers, xPrev?.followers)),
+      h("div", null, h("div", { class: "mono", style: { marginBottom: "6px" } }, "Instagram"),
+        line("Seguidores", igNow?.followers, igPrev?.followers), line("Posts", igNow?.posts, igPrev?.posts), line("Views 12 Reels", reelDays[0] ? reelSum(reelDays[0]) : null, reelDays[1] ? reelSum(reelDays[1]) : null, k)),
+      h("div", null, h("div", { class: "mono", style: { marginBottom: "6px" } }, "LinkedIn"), h("p", { class: "muted small" }, "A API não mostra números de perfil pessoal. Por enquanto só o que sai pelo Postador.")))
+      : h("p", { class: "empty" }, "A coleta roda todo dia às 7h.")));
+
+  const nick = apelidoDoDia();
+  const hero = h("section", { class: "hero tema-" + (tempo?.tema || "nublado") },
+    h("div", { class: "grow" }, h("div", { class: "mono eyebrow" }, "// ", hello), h("h1", { class: "hello" }, `${greet}, ${nick}!`)),
+    tempo ? h("div", { class: "wx" },
+      h("div", { class: "wxnow" }, h("span", { class: "wxicon", "aria-hidden": "true" }), h("b", null, `${tempo.temp}°`), h("div", null, h("div", null, tempo.label), h("div", { class: "muted small" }, "Osasco agora"))),
+      h("div", { class: "wxdays" }, ...tempo.dias.map((d, i) => h("div", null, h("span", { class: "mono" }, i === 0 ? "hoje" : new Intl.DateTimeFormat("pt-BR", { weekday: "short", timeZone: "UTC" }).format(new Date(d.d + "T12:00:00Z")).replace(".", "")), h("b", null, `${d.max}° / ${d.min}°`), h("span", { class: "muted small" }, `chuva ${d.chuva ?? 0}%`)))))
+      : h("p", { class: "muted small" }, "Previsão do tempo indisponível agora."));
+
+  const quick = h("section", { class: "quickgrid" },
+    ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
+    h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
+
+  const ports = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Portfólios e páginas do site"), h("span", { class: "mono" }, `${PORTFOLIOS.filter((p) => p.online).length} no ar · ${PORTFOLIOS.filter((p) => !p.online).length} offline`)),
+    h("div", { class: "panel-body" }, h("div", { class: "ports" }, ...PORTFOLIOS.map((p) => h("a", { class: "port" + (p.online ? "" : " off"), href: p.online ? `../${p.path}` : null, target: "_blank", rel: "noopener", title: p.online ? (p.linked ? "No ar e linkada no site" : "No ar, mas sem link na página inicial") : "Offline (só no Mac)" },
+      h("i", { class: "st " + (p.online ? (p.linked ? "on" : "hid") : "off") }),
+      h("span", { class: "grow truncate" }, p.title.split(/ [—|-] /)[0]),
+      h("span", { class: "mono muted" }, `/${p.path}`),
+      h("span", { class: "mono muted" }, p.updated.split("-").reverse().join("/"))))),
+      h("p", { class: "muted small", style: { marginTop: "8px" } }, "Bolinha laranja: no ar e linkada · cinza: no ar sem link · vazia: offline.")));
+
   return h("div", { class: "page inicio" },
-    h("div", { class: "page-head" },
-      h("div", null, h("div", { class: "mono eyebrow" }, "// ", hello), h("h1", null, `${greet}, Anderson.`)),
-      h("div", { class: "flex" }, h("a", { class: "btn btn-sm", href: "#/postador?novo=x" }, "+ Post no X"), h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1" }, "+ Garimpar"))),
+    hero,
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
     await favoritesBar(sb, refresh),
 
     h("div", { class: "kpis" },
       tile("Para aprovar", pending.length, "#/postador", viral ? "inclui a aposta viral do dia" : "rascunhos do dia", pending.length > 0),
       tile("Agendados", scheduled.length, "#/postador?status=approved", scheduled[0] ? `próximo ${fmtDateTime(scheduled[0].scheduled_at)}` : "nada na fila"),
-      tile("X hoje", `${xToday}/${settings.x_daily_limit}`, "#/postador?aba=calendario", failedPosts ? `${failedPosts} com erro` : "posts publicados", failedPosts > 0),
+      tile("X hoje", `${xToday}/${settings.x_daily_limit}`, "#/postador?aba=historico", failedPosts ? `${failedPosts} com erro` : "posts publicados", failedPosts > 0),
       tile("Radar", talk, "#/postador?aba=radar", `${follow} pra seguir de volta`),
       tile("Garimpo", (minerR.data || []).length ? "→" : "0", "#/miner", "últimos links abaixo")),
+    update,
+    quick,
 
     h("div", { class: "igrid" },
       h("div", { class: "stack-lg" },
@@ -65,6 +130,7 @@ export default async function inicio({ sb, refresh }) {
         h("div", { class: "panel-body" }, (minerR.data || []).length ? h("div", { class: "minis" }, ...(minerR.data || []).map((l) => h("a", { class: "mini", href: l.url, target: "_blank", rel: "noopener" },
           h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() }), h("span", { class: "ptag p-" + l.platform }, l.platform === "instagram" ? "IG" : l.platform === "x" ? "X" : "↗")),
           h("span", { class: "truncate small" }, l.note || l.url)))) : h("p", { class: "empty" }, "Nenhum link ainda.")))),
+    h("div", { style: { marginTop: "20px" } }, ports),
     h("section", { class: "panel", style: { marginTop: "20px" } },
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Agenda · esta semana (seg a dom)"), h("a", { class: "mono", href: "#/agenda" }, "abrir agenda →")),
       h("div", { class: "panel-body", style: { padding: 0 } }, calendarEmbed("WEEK", 640))));
