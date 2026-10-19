@@ -173,15 +173,49 @@ async function radar() {
 }
 
 // ───────── Insights ─────────
-async function insights() {
+// Guarda os posts originais (sem respostas) com métricas em x_posts.
+// Primeira vez: carga do último ano (até ~300 posts, uma vez só). Depois: só os 15 mais recentes por dia.
+function kindOf(t: any, media: Record<string, any>) {
+  if (t.article) return "artigo";
+  const keys = t.attachments?.media_keys || [];
+  const types = keys.map((k: string) => media[k]?.type);
+  if (types.includes("video") || types.includes("animated_gif")) return "video";
+  if (types.includes("photo")) return "imagem";
+  if (t.note_tweet || /🧵|\(1\/\d+\)|^1\/\d/.test(t.text || "")) return "thread";
+  return "texto";
+}
+async function fetchTimeline(userId: string, max: number, s: Record<string, any>, ignoreBudget = false) {
+  const out: any[] = []; let token: string | undefined;
+  const since = new Date(Date.now() - 365 * 864e5).toISOString();
+  while (out.length < max) {
+    if (!ignoreBudget && readsLeft(s) < 5) break;
+    const qs = new URLSearchParams({ max_results: String(Math.min(100, Math.max(5, max - out.length))), exclude: "retweets,replies",
+      "tweet.fields": "created_at,public_metrics,attachments,note_tweet,article", expansions: "attachments.media_keys", "media.fields": "type", start_time: since });
+    if (token) qs.set("pagination_token", token);
+    const r = await xCall("GET", `${API}/users/${userId}/tweets?${qs}`);
+    const media = Object.fromEntries(((r.includes?.media) || []).map((m: any) => [m.media_key, m]));
+    const page = (r.data || []).map((t: any) => ({ ...t, kind: kindOf(t, media) }));
+    out.push(...page); await spendReads(page.length, s);
+    token = r.meta?.next_token;
+    if (!token || !page.length) break;
+  }
+  return out;
+}
+async function insights(backfill = false) {
   const s = await settings();
-  if (readsLeft(s) < 11) return { skipped: "teto diário de leituras" };
+  const { count } = await sb.from("x_posts").select("id", { count: "exact", head: true });
+  const first = backfill || !count;
+  if (!first && readsLeft(s) < 16) return { skipped: "teto diário de leituras" };
   const me = (await xCall("GET", `${API}/users/me?user.fields=profile_image_url,name,username,public_metrics`)).data;
-  const tw = (await xCall("GET", `${API}/users/${me.id}/tweets?max_results=10&exclude=retweets,replies&tweet.fields=created_at,public_metrics`)).data || [];
-  await spendReads(1 + tw.length, s);
-  await sb.from("x_snapshots").insert({ followers: me.public_metrics?.followers_count ?? null, tweets: tw });
+  await spendReads(1, s);
+  const tw = await fetchTimeline(me.id, first ? 300 : 15, s, first);
+  const rows = tw.map((t: any) => ({ id: t.id, created_at: t.created_at, text: (t.note_tweet?.text || t.text || "").slice(0, 4000), kind: t.kind,
+    impressions: t.public_metrics?.impression_count ?? 0, likes: t.public_metrics?.like_count ?? 0, replies: t.public_metrics?.reply_count ?? 0,
+    reposts: t.public_metrics?.retweet_count ?? 0, quotes: t.public_metrics?.quote_count ?? 0, bookmarks: t.public_metrics?.bookmark_count ?? 0, updated_at: new Date().toISOString() }));
+  if (rows.length) await sb.from("x_posts").upsert(rows, { onConflict: "id" });
+  await sb.from("x_snapshots").insert({ followers: me.public_metrics?.followers_count ?? null, tweets: tw.slice(0, 15) });
   await setSetting("profile", { ...(s.profile || {}), name: me.name, username: me.username, avatar: String(me.profile_image_url || "").replace("_normal", "_400x400") });
-  return { followers: me.public_metrics?.followers_count, tweets: tw.length };
+  return { followers: me.public_metrics?.followers_count, posts: rows.length, backfill: first };
 }
 
 // ───────── Autorização ─────────
@@ -206,7 +240,7 @@ Deno.serve(async (req) => {
   try {
     if (action === "tick") return json(await tick());
     if (action === "radar") return json(await radar());
-    if (action === "insights") return json(await insights());
+    if (action === "insights") return json(await insights(new URL(req.url).searchParams.get("backfill") === "1"));
     if (action === "ping") return json({ ok: true, x: !!Deno.env.get("X_API_KEY"), linkedin: !!Deno.env.get("LINKEDIN_ACCESS_TOKEN") });
     return json({ error: "ação desconhecida" }, 400);
   } catch (e) {

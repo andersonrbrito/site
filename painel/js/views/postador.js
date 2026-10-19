@@ -1,4 +1,4 @@
-import { h, fmtDateTime, todayISO, dayOf, TZ } from "../util.js";
+import { h, fmtDateTime, fmtDate, todayISO, dayOf, TZ } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
 
 // Postador: rascunhos → aprovação → publicação agendada no X e no LinkedIn.
@@ -375,14 +375,68 @@ async function radarView(sb, query, go, refresh) {
 }
 
 // ───────────────────────── Insights + meta ─────────────────────────
+// Meta de engajamento (KPI): 2% de interações por impressão. No X a média de contas pequenas fica perto de 1%;
+// 2% é um alvo ambicioso mas alcançável pra quem conversa com a audiência.
+const ENG_GOAL = 2;
+const median = (a) => { if (!a.length) return 0; const s = [...a].sort((x, y) => x - y), m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
+const engOf = (t) => (t.impressions ? ((t.likes + t.replies + t.reposts + t.quotes + t.bookmarks) / t.impressions) * 100 : 0);
+const KIND = { thread: "Thread", imagem: "Imagem", video: "Vídeo", texto: "Texto", artigo: "Artigo" };
+
+function heatmap(xp) {
+  // Mapa anual: 53 semanas x 7 dias (dom a sáb), cor pela soma de views dos posts do dia.
+  const byDay = {};
+  for (const t of xp) { const d = dayOf(t.created_at); byDay[d] = (byDay[d] || 0) + t.impressions; }
+  const vals = Object.values(byDay).filter(Boolean).sort((a, b) => a - b);
+  const q = (p) => vals[Math.floor((vals.length - 1) * p)] || 1;
+  const lv = (v) => (!v ? 0 : v <= q(0.25) ? 1 : v <= q(0.5) ? 2 : v <= q(0.8) ? 3 : 4);
+  const end = new Date(), start = new Date(end); start.setDate(end.getDate() - 364 - end.getDay());
+  const cols = [], months = [];
+  for (let w = 0; w < 53; w++) {
+    const col = [];
+    for (let d = 0; d < 7; d++) {
+      const dt = new Date(start); dt.setDate(start.getDate() + w * 7 + d);
+      if (dt > end) { col.push(h("i", { class: "hm out" })); continue; }
+      const key = todayISO(dt), v = byDay[key] || 0;
+      col.push(h("i", { class: `hm l${lv(v)}`, title: `${key.split("-").reverse().join("/")}: ${v.toLocaleString("pt-BR")} views` }));
+      if (dt.getDate() <= 7 && d === 0) months.push([w, new Intl.DateTimeFormat("pt-BR", { month: "short" }).format(dt).replace(".", "")]);
+    }
+    cols.push(h("div", { class: "hmcol" }, ...col));
+  }
+  const total = xp.filter((t) => Date.now() - new Date(t.created_at) < 365 * 864e5).reduce((n, t) => n + t.impressions, 0);
+  return h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Mapa anual de visualizações")),
+    h("div", { class: "panel-body" },
+      h("div", { class: "dnum" }, h("b", null, total.toLocaleString("pt-BR")), h("span", { class: "muted small" }, "views no último ano · posts originais no X, pelo dia de publicação")),
+      h("div", { class: "hmwrap" },
+        h("div", { class: "hmdays mono" }, ...["Dom", "", "Ter", "", "Qui", "", "Sáb"].map((d) => h("span", null, d))),
+        h("div", null, h("div", { class: "hmmonths mono" }, ...months.map(([w, m]) => h("span", { style: { gridColumn: `${w + 1}` } }, m))), h("div", { class: "hmgrid" }, ...cols))),
+      h("div", { class: "hmlegend mono" }, "Menos", ...[0, 1, 2, 3, 4].map((l) => h("i", { class: `hm l${l}` })), "Mais")));
+}
+
+function donut(pct, goal) {
+  const NS = "http://www.w3.org/2000/svg", s = document.createElementNS(NS, "svg");
+  s.setAttribute("viewBox", "0 0 120 120"); s.setAttribute("class", "donut");
+  const C = 2 * Math.PI * 50, frac = Math.min(1, pct / (goal * 1.5));
+  const ring = (stroke, off, w) => { const c = document.createElementNS(NS, "circle"); Object.entries({ cx: 60, cy: 60, r: 50, fill: "none", stroke, "stroke-width": w, "stroke-dasharray": C, "stroke-dashoffset": off, transform: "rotate(-90 60 60)", "stroke-linecap": "round" }).forEach(([a, v]) => c.setAttribute(a, v)); return c; };
+  s.append(ring("var(--panel-hd)", 0, 12), ring(pct >= goal ? "var(--ok)" : "var(--accent)", C * (1 - frac), 12));
+  // marcador da meta
+  const ang = (goal / (goal * 1.5)) * 2 * Math.PI - Math.PI / 2, mk = document.createElementNS(NS, "line");
+  Object.entries({ x1: 60 + 42 * Math.cos(ang), y1: 60 + 42 * Math.sin(ang), x2: 60 + 58 * Math.cos(ang), y2: 60 + 58 * Math.sin(ang), stroke: "var(--tx)", "stroke-width": 2 }).forEach(([a, v]) => mk.setAttribute(a, v));
+  s.append(mk);
+  const t = document.createElementNS(NS, "text"); Object.entries({ x: 60, y: 66, "text-anchor": "middle", fill: "var(--tx)", "font-size": 20, "font-weight": 800 }).forEach(([a, v]) => t.setAttribute(a, v)); t.textContent = pct.toFixed(1).replace(".", ",") + "%";
+  s.append(t);
+  return s;
+}
+
 async function insightsView(sb, posts, refresh) {
-  const [goalR, snapR] = await Promise.all([
+  const [goalR, snapR, xpR, statsR] = await Promise.all([
     sb.from("x_goal_entries").select("id, day, verified_followers, impressions_90d, version").is("archived_at", null).order("day").limit(200),
-    sb.from("x_snapshots").select("taken_at, followers, tweets").is("archived_at", null).order("taken_at", { ascending: false }).limit(1),
+    sb.from("x_snapshots").select("taken_at, followers").is("archived_at", null).order("taken_at").limit(400),
+    sb.from("x_posts").select("id, created_at, text, kind, impressions, likes, replies, reposts, quotes, bookmarks, updated_at").order("created_at", { ascending: false }).limit(1000),
+    sb.from("social_stats").select("day, platform, followers").eq("platform", "x").order("day").limit(400),
   ]);
   const E = goalR.data || [], cur = E[E.length - 1] || { verified_followers: 0, impressions_90d: 0 }, prev = E.length > 1 ? E[E.length - 2] : null;
-  const snap = (snapR.data || [])[0];
-  const tw = snap?.tweets || [];
+  const xp = xpR.data || [];
   const bar = (v, max) => h("div", { class: "gbar" }, h("b", { style: { width: `${Math.min(100, (v / max) * 100)}%` } }));
   const delta = (a, b) => (prev ? `${a - b >= 0 ? "+" : ""}${k(a - b)} desde o registro anterior` : "");
   const fIn = h("input", { class: "input", type: "number", min: 0, placeholder: "verificados", value: cur.verified_followers || "" });
@@ -393,21 +447,67 @@ async function insightsView(sb, posts, refresh) {
     const { error } = ex ? await sb.from("x_goal_entries").update(row).eq("id", ex.id).eq("version", ex.version) : await sb.from("x_goal_entries").insert(row);
     if (error) return toast("Não foi possível salvar.", { kind: "err" }); toast("Meta atualizada."); refresh();
   };
-  const last7 = tw.filter((t) => Date.now() - new Date(t.created_at) < 7 * 864e5);
-  const sum = (arr, f) => arr.reduce((n, t) => n + (t.public_metrics?.[f] || 0), 0);
-  const imp7 = sum(last7, "impression_count"), eng7 = ["like_count", "reply_count", "retweet_count", "quote_count"].reduce((n, f) => n + sum(last7, f), 0);
-  const top = [...tw].sort((a, b) => (b.public_metrics?.impression_count || 0) - (a.public_metrics?.impression_count || 0)).slice(0, 8);
-  const stat = (label, value, sub) => h("div", { class: "kpi" }, h("span", { class: "mono" }, label), h("b", null, value), sub && h("span", { class: "muted small" }, sub));
-  return h("div", null,
+
+  // Cartões das contas (como no Otto)
+  const fol = [...(statsR.data || []).map((r) => ({ d: r.day, v: r.followers })), ...(snapR.data || []).map((r) => ({ d: dayOf(r.taken_at), v: r.followers }))].filter((r) => r.v != null).sort((a, b) => a.d.localeCompare(b.d));
+  const fNow = fol.length ? fol[fol.length - 1].v : null, fFirst = fol.length ? fol[0] : null;
+  const acct = (name, handle, value, sub, badge) => h("div", { class: "acct" }, h("div", { class: "flex" }, badge, h("div", null, h("b", null, name), h("div", { class: "muted small" }, handle))), h("div", { class: "anum" }, value), h("div", { class: "muted small" }, sub));
+
+  // Views por dia (últimos 30 dias) com os posts dos picos
+  const last30 = [...Array(30)].map((_, i) => todayISO(new Date(Date.now() - (29 - i) * 864e5)));
+  const per = Object.fromEntries(last30.map((d) => [d, 0]));
+  for (const t of xp) { const d = dayOf(t.created_at); if (d in per) per[d] += t.impressions; }
+  const maxV = Math.max(1, ...Object.values(per));
+  const peaks = [...xp].filter((t) => dayOf(t.created_at) in per).sort((a, b) => b.impressions - a.impressions).slice(0, 2);
+
+  // Desempenho por tipo
+  const kinds = Object.keys(KIND).map((kk) => { const a = xp.filter((t) => t.kind === kk); return { kk, n: a.length, mv: median(a.map((t) => t.impressions)), me: median(a.map(engOf)) }; });
+  const maxMv = Math.max(1, ...kinds.map((x) => x.mv));
+  const best = kinds.filter((x) => x.n >= 3).sort((a, b) => b.mv - a.mv);
+  const txt = kinds.find((x) => x.kk === "texto");
+  const insight = best.length && txt?.mv ? `${KIND[best[0].kk]} tem ${(best[0].mv / txt.mv).toFixed(1).replace(".", ",")}x a mediana de views de Texto.` : "";
+
+  // Engajamento dos últimos 30 dias vs meta
+  const rec = xp.filter((t) => Date.now() - new Date(t.created_at) < 30 * 864e5);
+  const imp = rec.reduce((n, t) => n + t.impressions, 0), inter = rec.reduce((n, t) => n + t.likes + t.replies + t.reposts + t.quotes + t.bookmarks, 0);
+  const engPct = imp ? (inter / imp) * 100 : 0;
+
+  const recreate = async (t) => {
+    const { error } = await sb.from("posts").insert({ network: "x", title: "REPUBLICAR – " + t.text.split("\n")[0].slice(0, 60), body: t.text.replace(/\s*https:\/\/t\.co\/\S+/g, "").trim(), notes: `Recriado a partir do post de ${fmtDate(dayOf(t.created_at), false)} (${k(t.impressions)} views). Ajuste o texto e anexe a mídia de novo se tinha.` });
+    if (error) return toast("Não foi possível recriar.", { kind: "err" }); toast("Virou rascunho na aba Rascunhos.");
+  };
+  const top = [...xp].sort((a, b) => b.impressions - a.impressions).slice(0, 9);
+  const lastUpd = xp.reduce((m, t) => (t.updated_at > m ? t.updated_at : m), "");
+
+  return h("div", { class: "ins" },
+    h("p", { class: "muted small" }, lastUpd ? `Atualizado há ${ago(lastUpd)} · coleta automática todo dia às 7h40.` : "Sem coleta ainda."),
+    h("div", { class: "accts" },
+      acct("X", "@andersbrito", fNow != null ? fNow.toLocaleString("pt-BR") : "–", fFirst && fNow != null ? `${fNow - fFirst.v >= 0 ? "+" : ""}${fNow - fFirst.v} desde ${fmtDate(fFirst.d, false)}` : "seguidores", h("span", { class: "netb n-x" }, "X")),
+      acct("LinkedIn", "Anderson Brito", "–", "a API não mostra seguidores de perfil pessoal", h("span", { class: "netb n-linkedin" }, "in")),
+      h("div", { class: "acct" }, h("b", null, "Engajamento · 30 dias"), h("div", { class: "flex", style: { gap: "14px" } }, donut(engPct, ENG_GOAL),
+        h("div", { class: "small" }, h("div", null, `Meta (KPI): ${ENG_GOAL}%`), h("div", { class: "muted" }, `${inter.toLocaleString("pt-BR")} interações em ${imp.toLocaleString("pt-BR")} views`), h("div", { class: engPct >= ENG_GOAL ? "okc" : "muted" }, engPct >= ENG_GOAL ? "Acima da meta" : `Faltam ${(ENG_GOAL - engPct).toFixed(1).replace(".", ",")} p.p.`))))),
     goalPanel(cur, prev, bar, delta, fIn, iIn, saveGoal),
-    h("div", { class: "kpis" },
-      stat("Seguidores", snap?.followers != null ? snap.followers.toLocaleString("pt-BR") : "–"),
-      stat("Impressões 7d", k(imp7), `${last7.length} posts`),
-      stat("Média por post", last7.length ? k(Math.round(imp7 / last7.length)) : "–"),
-      stat("Engajamento", imp7 ? (eng7 / imp7 * 100).toFixed(1).replace(".", ",") + "%" : "–"),
-      stat("Pelo Postador", posts.filter((p) => p.status === "posted").length)),
-    h("section", { class: "panel" }, h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Posts que mais rodaram"), h("span", { class: "mono" }, snap ? `atualizado há ${ago(snap.taken_at)}` : "sem dados ainda")),
-      h("div", { class: "panel-body" }, top.length ? top.map((t) => h("a", { class: "trow", href: `https://x.com/i/status/${t.id}`, target: "_blank", rel: "noopener" }, h("span", { class: "truncate grow" }, t.text), h("b", null, k(t.public_metrics?.impression_count)), h("span", { class: "muted" }, `${k(t.public_metrics?.like_count)} ♡`))) : h("p", { class: "empty" }, "As métricas chegam quando a coleta diária estiver ligada."))));
+    heatmap(xp),
+    h("section", { class: "panel" },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Views por dia de publicação · 30 dias")),
+      h("div", { class: "panel-body" },
+        h("div", { class: "peaks" }, ...peaks.map((t) => h("a", { href: `https://x.com/i/status/${t.id}`, target: "_blank", rel: "noopener", class: "peak" }, h("b", null, `${k(t.impressions)} views`), h("span", { class: "truncate" }, t.text.split("\n")[0]), h("span", { class: "mono muted" }, fmtDate(dayOf(t.created_at), false))))),
+        h("div", { class: "bars30" }, ...last30.map((d) => h("div", { title: `${d.split("-").reverse().join("/")}: ${per[d].toLocaleString("pt-BR")} views` }, h("i", { style: { height: `${Math.max(2, (per[d] / maxV) * 140)}px` } }), h("span", null, d.slice(8))))))),
+    h("section", { class: "panel" },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Desempenho por tipo de conteúdo")),
+      h("div", { class: "panel-body" }, insight && h("p", { style: { marginBottom: "12px" } }, insight),
+        h("div", { class: "kgrid" },
+          h("div", null, h("div", { class: "mono", style: { marginBottom: "8px" } }, "Mediana de visualizações"), ...kinds.map((x) => h("div", { class: "krow" }, h("div", { class: "flex" }, h("span", { class: "grow" }, `${KIND[x.kk]} · ${x.n} posts`), h("b", null, x.n ? k(Math.round(x.mv)) : "–")), h("div", { class: "gbar" }, h("b", { style: { width: `${(x.mv / maxMv) * 100}%` } }))))),
+          h("div", null, h("div", { class: "mono", style: { marginBottom: "8px" } }, "Engajamento mediano"), ...kinds.map((x) => h("div", { class: "flex krow2" }, h("span", { class: "grow" }, KIND[x.kk]), h("b", null, x.n ? x.me.toFixed(1).replace(".", ",") + "%" : "–"))))))),
+    h("h2", { class: "dsec" }, "Seus melhores conteúdos para republicar"),
+    h("div", { class: "bestgrid" }, ...top.map((t) => h("article", { class: "best" },
+      h("div", { class: "muted small" }, `@andersbrito · ${fmtDate(dayOf(t.created_at), false)} · ${KIND[t.kind]}`),
+      h("p", null, t.text.replace(/\s*https:\/\/t\.co\/\S+/g, "")),
+      h("div", { class: "flex" }, h("span", { class: "mono" }, `♡ ${k(t.likes)}`), h("span", { class: "mono" }, `${k(t.impressions)} views`), h("div", { class: "grow" }),
+        h("a", { class: "mono", href: `https://x.com/i/status/${t.id}`, target: "_blank", rel: "noopener" }, "ver"), h("button", { class: "mono link", type: "button", onclick: () => recreate(t) }, "Recriar"))))),
+    h("section", { class: "panel" },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Coleta dos posts"), h("span", { class: "mono" }, `${xp.length} posts`)),
+      h("div", { class: "panel-body" }, ...xp.slice(0, 25).map((t) => h("a", { class: "trow", href: `https://x.com/i/status/${t.id}`, target: "_blank", rel: "noopener" }, h("span", { class: "truncate grow" }, t.text.split("\n")[0]), h("span", { class: "muted mono" }, fmtDate(dayOf(t.created_at), false)), h("b", null, k(t.impressions)))))));
 }
 
 export function goalPanel(cur, prev, bar, delta, fIn, iIn, saveGoal) {

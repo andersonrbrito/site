@@ -25,6 +25,7 @@ const DB = {
   social_stats: [-6,-4,-2,0].flatMap((d,i)=>[{ day: add(d), platform: "x", followers: 580+i*5, following: 178, posts: 27700+i*30, data: { verified_followers: 200+i*3, impressions_90d: 7000+i*600 }, archived_at: null }, { day: add(d), platform: "instagram", followers: 6400+i*80, following: 2680, posts: 220+i, data: {}, archived_at: null }]),
   reel_stats: [-2,0].flatMap((d,j)=>[["DepMxM7JjrS",1417],["DecjTqIPGey",470000],["DePceechGdf",1300000],["DeeMbvPh7WT",13800]].map(([shortcode,v])=>({ day: add(d), shortcode, views: Math.round(v*(j?1:0.8)), thumbnail_url: null, archived_at: null }))),
   post_requests: [],
+  x_posts: Array.from({length: 60}, (_, i) => ({ id: String(1000+i), created_at: new Date(Date.now() - i*5*864e5).toISOString(), text: "post de teste numero " + i + "\nsegunda linha", kind: ["texto","imagem","video","thread"][i%4], impressions: Math.round(50 + Math.random()*400 + (i===3?800000:0)), likes: i%7, replies: i%3, reposts: i%2, quotes: 0, bookmarks: i%4, updated_at: new Date().toISOString() })),
   integrations: [], app_members: [{ user_id: "u1", email: "dono@exemplo.com", role: "owner", modules: [] }], google_connections: [],
 };
 let nextId = 5000;
