@@ -12,15 +12,11 @@ export function buildShell({ sb, member, go, signOut }) {
   const tick = () => { clock.textContent = new Intl.DateTimeFormat("pt-BR", { timeZone: "America/Sao_Paulo", weekday: "short", day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }).format(new Date()).replace(".", ""); };
   tick(); setInterval(tick, 30000);
 
-  const capture = h("input", { class: "input", id: "capture", autocomplete: "off", placeholder: "Capturar rápido: escreva e Enter (vai para o Inbox)", "aria-label": "Captura rápida", style: { height: "36px" } });
-  const captureForm = h("form", { class: "grow", onsubmit: async (e) => {
-    e.preventDefault(); const title = capture.value.trim(); if (!title) return;
-    capture.disabled = true;
-    const { error } = await sb.from("tasks").insert({ title: title.slice(0, 300), status: "inbox" });
-    capture.disabled = false;
-    if (error) return toast("Não foi possível salvar. O texto foi mantido.", { kind: "err" });
-    capture.value = ""; toast("Capturado no Inbox."); window.dispatchEvent(new Event("aos:refresh"));
-  } }, capture);
+  // Ações rápidas no topo: o que mais se usa, a um clique.
+  const quick = h("div", { class: "grow flex quick" },
+    h("a", { class: "btn btn-sm", href: "#/postador?novo=x" }, "+ Post no X"),
+    h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin" }, "+ LinkedIn"),
+    h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1" }, "+ Garimpar link"));
 
   const navLinks = mods.map((m) => h("a", { class: "navlink", href: href(m), dataset: { route: m.route } }, icon(m.id), m.label));
   const tabs = [...primary.map((m) => h("a", { href: href(m), dataset: { route: m.route } }, icon(m.id, 18), m.label)), h("a", { href: "#/menu", dataset: { route: "menu" } }, icon("config", 18), "Mais")];
@@ -30,11 +26,11 @@ export function buildShell({ sb, member, go, signOut }) {
   const main = h("main", { id: "main" });
   const root = h("div", null,
     h("div", { class: "menubar" },
-      h("div", { class: "brand" }, h("span", { class: "logo" }, "OS"), h("span", { class: "hide-sm" }, "andersonbrito.com / painel")),
+      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "hide-sm" }, "andersonbrito.com / painel")),
       h("div", { class: "mid" }, h("span", null, "SEQ "), "ANDERSON_OS · ", section),
       h("div", { class: "right" }, clock, h("span", { class: "hide-sm flex" }, h("span", { class: "dot-live" }), member.email))),
     h("div", { class: "toolbar" },
-      h("button", { class: "btn btn-ghost btn-sm hide-sm", type: "button", "data-palette": "", "aria-label": "Abrir busca e comandos" }, icon("busca", 14), " Buscar ", h("span", { class: "kbd" }, "Ctrl K")), captureForm),
+      h("button", { class: "btn btn-ghost btn-sm hide-sm", type: "button", "data-palette": "", "aria-label": "Abrir busca e comandos" }, icon("busca", 14), " Ir para ", h("span", { class: "kbd" }, "Ctrl K")), quick),
     h("aside", { class: "side" }, h("nav", null, ...navLinks), h("button", { class: "navlink", type: "button", style: { border: 0, background: "none", cursor: "pointer", font: "inherit" }, onclick: signOut }, "Sair")),
     main,
     h("nav", { class: "tabbar", style: { gridTemplateColumns: `repeat(${tabs.length}, 1fr)` } }, ...tabs),
@@ -60,13 +56,13 @@ export function buildShell({ sb, member, go, signOut }) {
   const openPalette = () => {
     if (pal) return closePalette();
     let idx = 0, results = [], timer;
-    const cmds = [{ label: "Capturar no Inbox", hint: "C", icon: "inbox", run: () => capture.focus() }, ...mods.map((m) => ({ label: `Ir para ${m.label}`, icon: m.id, run: () => go("/" + m.route) }))];
+    const cmds = [{ label: "Novo post no X", icon: "postador", run: () => go("/postador?novo=x") }, { label: "Novo post no LinkedIn", icon: "postador", run: () => go("/postador?novo=linkedin") }, { label: "Garimpar link", icon: "miner", run: () => go("/miner?novo=1") }, ...mods.map((m) => ({ label: `Ir para ${m.label}`, icon: m.id, run: () => go("/" + m.route) }))];
     const input = h("input", { placeholder: "Buscar ou ir para…", "aria-label": "Buscar" }), ul = h("ul", { role: "listbox" });
     const items = () => { const q = input.value.trim().toLowerCase(); return [...(q ? cmds.filter((c) => c.label.toLowerCase().includes(q)) : cmds), ...results.map((r) => ({ label: r.title || "(sem título)", hint: NAMES[r.entity], icon: "busca", run: () => { location.hash = HREF[r.entity](r.id); } }))]; };
     const draw = () => { const list = items(); idx = Math.min(idx, Math.max(0, list.length - 1)); ul.replaceChildren(...list.map((c, i) => h("li", null, h("button", { type: "button", "aria-selected": String(i === idx), onmouseenter: () => { idx = i; draw(); }, onclick: () => { closePalette(); c.run(); } }, icon(c.icon), h("span", { class: "grow truncate" }, c.label), c.hint && h("span", { class: "mono" }, c.hint))))); };
-    input.addEventListener("input", () => { idx = 0; draw(); clearTimeout(timer); const q = input.value.trim(); if (q.length < 2) { results = []; draw(); return; } timer = setTimeout(async () => { const { data } = await sb.rpc("search_all", { q, max_rows: 8 }); results = data || []; draw(); }, 200); });
+    input.addEventListener("input", () => { idx = 0; draw(); void timer; });
     input.addEventListener("keydown", (e) => { const list = items(); if (e.key === "ArrowDown") { e.preventDefault(); idx = Math.min(idx + 1, list.length - 1); draw(); } if (e.key === "ArrowUp") { e.preventDefault(); idx = Math.max(idx - 1, 0); draw(); } if (e.key === "Enter") { const c = list[idx]; if (c) { closePalette(); c.run(); } } });
-    pal = h("div", { class: "overlay", onmousedown: (e) => e.target === pal && closePalette() }, h("div", { class: "dialog", role: "dialog", "aria-modal": "true", "aria-label": "Paleta de comandos" }, input, ul, h("footer", null, h("span", null, h("span", { class: "kbd" }, "↑↓"), " navegar"), h("span", null, h("span", { class: "kbd" }, "↵"), " abrir"), h("span", { class: "hide-sm", style: { marginLeft: "auto" } }, "Atalhos: C capturar · G depois H/T/I/A"))));
+    pal = h("div", { class: "overlay", onmousedown: (e) => e.target === pal && closePalette() }, h("div", { class: "dialog", role: "dialog", "aria-modal": "true", "aria-label": "Paleta de comandos" }, input, ul, h("footer", null, h("span", null, h("span", { class: "kbd" }, "↑↓"), " navegar"), h("span", null, h("span", { class: "kbd" }, "↵"), " abrir"), h("span", { class: "hide-sm", style: { marginLeft: "auto" } }, "Atalhos: G depois I/P/M/A"))));
     document.body.append(pal); draw(); input.focus();
   };
   let g = false, gt;
@@ -76,8 +72,7 @@ export function buildShell({ sb, member, go, signOut }) {
     if (e.key === "Escape") return closePalette();
     if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
     if (e.key === "/") { e.preventDefault(); return openPalette(); }
-    if (e.key === "c") { e.preventDefault(); return capture.focus(); }
-    if (g) { const map = { h: "hoje", p: "", t: "tarefas", j: "projetos", i: "inbox", a: "agenda" }; if (e.key in map) go("/" + map[e.key]); g = false; return; }
+    if (g) { const map = { i: "", p: "postador", m: "miner", a: "agenda" }; if (e.key in map) go("/" + map[e.key]); g = false; return; }
     if (e.key === "g") { g = true; clearTimeout(gt); gt = setTimeout(() => (g = false), 900); }
   });
   root.addEventListener("click", (e) => { if (e.target.closest("[data-palette]")) openPalette(); });

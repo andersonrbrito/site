@@ -9,6 +9,19 @@ const DB = {
   tasks: [T(14, "Enviar orçamento Artur Nogueira", "a_fazer", "alta", -3), T(16, "Revisar legendas do aftermovie", "em_andamento", "normal", -1, 2), T(22, "Fechar proposta Woob", "a_fazer", "urgente", 0, 2), T(18, "Entregar vídeo da Viver+", "em_andamento", "alta", 3, 1), T(21, "Vídeo Viver+ (revisão do cliente)", "aguardando", "alta", 5, 1, "aprovação do cliente"), T(25, "Roteiro reels Sentra", "a_fazer", "normal", 6), T(30, "Ideia: série de cortes", "inbox", "normal", null), T(31, "Ligar para a oficina", "inbox", "normal", null)],
   events: [{ id: uid(700), title: "Alinhamento Doti", all_day: false, starts_at: new Date(Date.now() + 86400000).toISOString(), start_date: null, location: "Meet", archived_at: null }, { id: uid(701), title: "Visita ao imóvel", all_day: true, start_date: add(2), end_date: add(2), starts_at: null, archived_at: null }],
   notes: [], change_log: [{ id: 1, entity: "tasks", entity_id: uid(18), action: "update", source: "claude", changed_fields: ["status"], old_values: { status: "a_fazer" }, new_values: { status: "em_andamento" }, at: new Date().toISOString() }],
+  miner_links: [
+    { id: uid(800), url: "https://www.instagram.com/p/DcKCb1TRo_T/", platform: "instagram", collection: "andersonbrito.mp4", author: null, note: "Festa rubro-negra, Pedro e Carrascal de moto", status: "usado", thumbnail_url: null, saved_at: new Date(Date.now() - 864e5 * 3).toISOString(), version: 1, archived_at: null },
+    { id: uid(801), url: "https://x.com/Divyanshu555/status/2097329629900222911", platform: "x", collection: "andersonbrito.mp4", author: "@Divyanshu555", note: "DC (@Divyanshu555) on X", status: "inbox", thumbnail_url: null, saved_at: new Date().toISOString(), version: 1, archived_at: null },
+  ],
+  miner_profiles: [{ id: uid(810), url: "https://www.instagram.com/gelmo_ia/", platform: "instagram", handle: "@gelmo_ia", note: "", version: 1, archived_at: null }],
+  posts: [
+    { id: uid(820), network: "x", title: "2026-10-19 – X1 – escala do freela", body: "a timeline comemorando o fim da 6x1 e eu aqui na escala 7x0 renderizando video com IA\n\no pior é que eu escolhi isso kkkkkkkkkkkkk", notes: "", media: [], image_urls: [], status: "pending", scheduled_at: null, posted_at: null, external_url: null, error: null, is_viral_bet: false, version: 1, created_at: new Date().toISOString(), archived_at: null },
+    { id: uid(821), network: "x", title: "🎯 VIRAL – história por trás", body: "parte 1\n---\nparte 2", notes: "thread de teste", media: [], image_urls: [], status: "approved", scheduled_at: new Date(Date.now() + 36e5 * 3).toISOString(), posted_at: null, external_url: null, error: null, is_viral_bet: true, version: 1, created_at: new Date().toISOString(), archived_at: null },
+    { id: uid(822), network: "linkedin", title: "L1 – call que virou aula", body: "Uma empresa marcou call pra me contratar.\n\nSe já começa assim, imagina depois.", notes: "", media: [], image_urls: [], status: "posted", scheduled_at: new Date(Date.now() - 864e5).toISOString(), posted_at: new Date(Date.now() - 864e5).toISOString(), external_url: "https://www.linkedin.com", error: null, is_viral_bet: false, version: 1, created_at: new Date().toISOString(), archived_at: null },
+  ],
+  radar_items: [], x_snapshots: [], x_goal_entries: [{ id: uid(830), day: today, verified_followers: 210, impressions_90d: 8700, version: 1, archived_at: null }],
+  postador_settings: [{ key: "x_daily_limit", value: 10 }, { key: "x_slots", value: ["08:00","10:00","11:30","14:00","16:00","18:00","20:00","22:00"] }, { key: "linkedin_slots", value: ["13:30"] }, { key: "x_read_daily_limit", value: 40 }],
+  favorites: [["Cursos","Leo Baltazar","https://leobaltazar.com/"],["Cursos","Curso Kiwify","https://members.kiwify.com/?club=e5ca4402"],["Cursos","WooB","https://members.kiwify.com/?club=5269a082"],["Cursos","Reels Virais com IA","https://congruous-vacation-cd5.notion.site/Reels-Virais-com-IA"]].map(([grp,name,url],i)=>({ id: uid(850+i), grp, name, url, position: i+1, version: 1, archived_at: null })),
   integrations: [], app_members: [{ user_id: "u1", email: "dono@exemplo.com", role: "owner", modules: [] }], google_connections: [],
 };
 let nextId = 5000;
@@ -48,6 +61,7 @@ export function installMock() {
   window.supabase = { createClient: () => ({
     from: (t) => new Q(t),
     rpc: async (fn, { q }) => ({ data: fn === "search_all" ? DB.tasks.filter((t) => t.title.toLowerCase().includes(q.toLowerCase())).map((t) => ({ entity: "task", id: t.id, title: t.title, snippet: null })) : [], error: null }),
+    storage: { from: () => ({ upload: async (path) => ({ data: { path }, error: null }), createSignedUrl: async () => ({ data: { signedUrl: "../../assets/anderson-sony.jpg" }, error: null }) }) },
     auth: { getSession: async () => ({ data: { session: { user: { id: "u1" } } } }), signOut: async () => {}, signInWithOAuth: async () => ({ error: null }), onAuthStateChange: () => {} },
   }) };
 }

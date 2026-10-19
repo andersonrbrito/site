@@ -1,5 +1,11 @@
 # Status (atualize ao concluir qualquer item)
 
+## Em produção no Supabase (projeto anderson-os, Ohio) · 2026-10-19
+- Migrations 0001 a 0004 aplicadas; dono = contato@andersonbrito.com; login Google funcionando (testado pelo Anderson).
+- MineR_ importado (2 links, 4 perfis).
+- Migration 0005 (bucket privado postador-media) aplicada.
+- **Falta:** Edge Function `postador` (publicar no X/LinkedIn por cron, Radar, Insights, API pros agentes); secrets do X no Supabase; desligar "Allow new users to sign up".
+
 ## Testado
 - **Banco** (`painel/dev`, `npm test`, Postgres embutido): migrations aplicam do zero; cadastro público bloqueado; RLS (anon sem acesso, membro sem módulo sem acesso, sem DELETE, histórico imutável); origem/autor carimbados pelo banco; versão, `completed_at`, arquivamento; histórico com valores antigos/novos; RPCs de agente (idempotência, conflito, 404, revogada, rate limit, valores inválidos); busca respeita RLS; token Google ilegível por usuário.
 - **Interface** (`painel/dev/harness.html`, Supabase **falso** em memória, no navegador): as 13 rotas renderizam; concluir com Desfazer; captura rápida; criar tarefa/projeto/compromisso; validação preserva campos; edição; conflito de versão; Kanban arrastar e soltar; paleta de comandos; texto com HTML não executa (sem XSS).

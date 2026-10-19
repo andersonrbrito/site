@@ -1,3 +1,6 @@
 # painel (dev)
 painel/dev/node_modules/
 painel/dev/.env*
+
+# postador (local, nunca publicar)
+postador/

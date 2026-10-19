@@ -1,46 +1,32 @@
-import { h, todayISO, addDaysISO, spStartUTC, spLocalToISO, dayOf, fmtDate, fmtDateTime } from "../util.js";
-import { pageHead, panel, empty, alertBox, form, field, input } from "../ui.js";
+import { h } from "../util.js";
+import { pageHead } from "../ui.js";
 
-export default async function agenda({ sb, refresh }) {
-  const today = todayISO(), to = addDaysISO(today, 30);
-  const [timed, allDay, deadlines] = await Promise.all([
-    sb.from("events").select("id, title, location, starts_at").is("archived_at", null).eq("all_day", false).gte("starts_at", spStartUTC(today)).lt("starts_at", spStartUTC(addDaysISO(to, 1))),
-    sb.from("events").select("id, title, location, start_date").is("archived_at", null).eq("all_day", true).gte("start_date", today).lte("start_date", to),
-    sb.from("tasks").select("id, seq, title, due_date").is("archived_at", null).not("status", "in", "(concluido,cancelado)").gte("due_date", today).lte("due_date", to),
-  ]);
-  const items = [
-    ...(timed.data || []).map((e) => ({ day: dayOf(e.starts_at), sort: e.starts_at, title: e.title, meta: fmtDateTime(e.starts_at) + (e.location ? ` · ${e.location}` : ""), kind: "ev" })),
-    ...(allDay.data || []).map((e) => ({ day: e.start_date, sort: `${e.start_date}T00`, title: e.title, meta: "Dia inteiro", kind: "ev" })),
-    ...(deadlines.data || []).map((t) => ({ day: t.due_date, sort: `${t.due_date}T23`, title: t.title, meta: `Prazo de entrega · T-${t.seq}`, href: `#/tarefas/${t.id}`, kind: "due" })),
-  ].sort((a, b) => a.sort.localeCompare(b.sort));
-  const days = [...new Set(items.map((i) => i.day))];
+// Agenda: as 3 contas Google numa visualização só (embed oficial do Google Agenda).
+// Funciona no navegador logado na contato@andersonbrito.com, que tem acesso às outras duas agendas.
+// Só os IDs públicos das agendas aparecem aqui; os eventos só carregam para quem tem permissão no Google.
+export const CALENDARS = [
+  { id: "contato@andersonbrito.com", label: "Pessoal / contato", color: "#FF4F32" },
+  { id: "2d1bce9ba588e76443a59bca6401e68786350ff713cacf315858c3f704a3b629@group.calendar.google.com", label: "Compromissos", color: "#F5A524" },
+  { id: "anderson@doti.gg", label: "DOTI", color: "#3DDC84" },
+  { id: "theilmar@gmail.com", label: "theilmar", color: "#9B87FF" },
+  { id: "pt-br.brazilian#holiday@group.v.calendar.google.com", label: "Feriados", color: "#7E847D" },
+];
 
-  const create = form(async (fd) => {
-    const title = (fd.get("title") || "").trim(), allD = fd.get("all_day") === "on";
-    if (!title) return { ok: false, error: "Informe o título." };
-    const row = { title, all_day: allD, location: (fd.get("location") || "").trim() || null };
-    if (allD) { if (!fd.get("start_date")) return { ok: false, error: "Informe a data do dia inteiro." }; row.start_date = fd.get("start_date"); }
-    else {
-      if (!fd.get("starts_local")) return { ok: false, error: "Informe o início (data e hora)." };
-      row.starts_at = spLocalToISO(fd.get("starts_local")); if (fd.get("ends_local")) row.ends_at = spLocalToISO(fd.get("ends_local"));
-      if (row.ends_at && row.ends_at < row.starts_at) return { ok: false, error: "O fim precisa ser depois do início." };
-    }
-    const { error } = await sb.from("events").insert(row);
-    if (error) return { ok: false, error: "Não foi possível salvar o compromisso." };
-    refresh(); return { ok: true, message: "Compromisso criado." };
-  }, {},
-    field("Título", input("title", { required: true })),
-    h("label", { class: "flex small" }, h("input", { type: "checkbox", name: "all_day" }), "Dia inteiro"),
-    h("div", { class: "grid2" },
-      field("Início (com horário)", input("starts_local", { type: "datetime-local" })), field("Fim (opcional)", input("ends_local", { type: "datetime-local" })),
-      field("Data (se dia inteiro)", input("start_date", { type: "date" })), field("Local", input("location"))),
-    h("button", { class: "btn", type: "submit" }, "Criar compromisso"));
+export function calendarEmbed(mode = "WEEK", height = 640) {
+  const q = new URLSearchParams({ ctz: "America/Sao_Paulo", mode, showTitle: "0", showPrint: "0", showTabs: "0", showCalendars: "0", showTz: "0", wkst: "2", hl: "pt_BR" });
+  for (const c of CALENDARS) { q.append("src", c.id); q.append("color", c.color); }
+  return h("div", { class: "gcal", style: { height: `${height}px` } },
+    h("iframe", { src: `https://calendar.google.com/calendar/embed?${q}`, title: "Google Agenda", loading: "lazy", referrerpolicy: "no-referrer-when-downgrade" }));
+}
 
+export default async function agenda({ query, go }) {
+  const mode = ["WEEK", "MONTH", "AGENDA"].includes(query.modo) ? query.modo : "WEEK";
+  const tab = (m, label) => h("button", { type: "button", class: "chip" + (mode === m ? " on" : ""), onclick: () => go(`/agenda?modo=${m}`) }, label);
   return h("div", { class: "page" },
-    pageHead("Agenda", "próximos 30 dias"),
-    h("p", { class: "note" }, "Agenda interna do painel. Integração com Google Calendar ainda não configurada. Horários em São Paulo."),
-    (timed.error || allDay.error || deadlines.error) && alertBox("Não foi possível carregar a agenda."),
-    ...(days.length ? days.map((d) => panel(fmtDate(d), { color: d === today ? "#3da7ff" : "#8888a0" }, h("ul", { class: "stack", style: { listStyle: "none" } }, ...items.filter((i) => i.day === d).map((i) =>
-      h("li", { class: "row", style: i.kind === "due" ? { borderColor: "rgba(245,165,36,.4)" } : null }, i.href ? h("a", { href: i.href, class: "title grow" }, i.title) : h("span", { class: "title grow" }, i.title), h("span", { class: `chip ${i.kind === "due" ? "warn" : "accent"}` }, i.meta)))))) : [empty("Nada nos próximos 30 dias.")]),
-    panel("Novo compromisso", { color: "#22c55e" }, create));
+    pageHead("Agenda", "3 contas google em uma", h("a", { class: "btn btn-ghost btn-sm", href: "https://calendar.google.com/calendar/r/eventedit", target: "_blank", rel: "noopener" }, "+ Evento no Google")),
+    h("div", { class: "mfilters" }, tab("WEEK", "Semana"), tab("MONTH", "Mês"), tab("AGENDA", "Lista"),
+      h("div", { class: "grow" }),
+      ...CALENDARS.map((c) => h("span", { class: "mono legend" }, h("i", { style: { background: c.color } }), c.label))),
+    calendarEmbed(mode, 720),
+    h("p", { class: "muted small", style: { marginTop: "10px" } }, "Mostra os eventos se este navegador estiver logado no Google da contato@andersonbrito.com. Aniversários da theilmar: importe os contatos dela na contato@ e ative a agenda Aniversários."));
 }

@@ -10,6 +10,8 @@ const P = {
   historico: "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4",
   config: "M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M14 4v4M8 10v4M16 16v4",
   busca: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-4.5-4.5",
+  postador: "M4 20l4-1L19 8a2.1 2.1 0 0 0-3-3L5 16zM14 7l3 3M4 20h16",
+  miner: "M14 4l6 6M17 7L7 17M5 15l4 4M3 21l3-3M12 3l9 9",
 };
 export function icon(name, size = 16) {
   const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -27,7 +29,7 @@ export const pageHead = (title, eyebrow, ...actions) =>
     h("div", null, h("div", { class: "mono eyebrow" }, "// ", eyebrow || title), h("h1", null, title)),
     h("div", { class: "flex" }, ...actions));
 
-export const panel = (title, { count, color = "#3da7ff" } = {}, ...body) =>
+export const panel = (title, { count, color = "var(--accent)" } = {}, ...body) =>
   h("section", { class: "panel" },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: color } }), h("h2", { class: "mono grow" }, title), count !== undefined && h("span", { class: "mono" }, count)),
     h("div", { class: "panel-body" }, ...body));

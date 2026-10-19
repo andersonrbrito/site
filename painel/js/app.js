@@ -6,9 +6,9 @@ import { visibleModules } from "./modules.js";
 const VIEWS = {
   "": () => import("./views/painel.js"), hoje: () => import("./views/hoje.js"), tarefas: () => import("./views/tarefas.js"),
   projetos: () => import("./views/projetos.js"), inbox: () => import("./views/inbox.js"), agenda: () => import("./views/agenda.js"),
-  historico: () => import("./views/historico.js"), busca: () => import("./views/busca.js"), config: () => import("./views/config.js"),
+  historico: () => import("./views/historico.js"), postador: () => import("./views/postador.js"), miner: () => import("./views/miner.js"), busca: () => import("./views/busca.js"), config: () => import("./views/config.js"),
 };
-const TITLES = { "": "Painel", hoje: "Hoje", tarefas: "Tarefas", projetos: "Projetos", inbox: "Inbox", agenda: "Agenda", historico: "Histórico", busca: "Busca", config: "Configurações", menu: "Menu" };
+const TITLES = { postador: "Postador", miner: "MineR_", "": "Painel", hoje: "Hoje", tarefas: "Tarefas", projetos: "Projetos", inbox: "Inbox", agenda: "Agenda", historico: "Histórico", busca: "Busca", config: "Configurações", menu: "Menu" };
 const DETAIL = { tarefas: () => import("./views/tarefa.js"), projetos: () => import("./views/projeto.js") };
 
 const app = document.getElementById("app");
@@ -21,7 +21,7 @@ const loginScreen = (msg, busy) => {
   });
   const msgEl = h("p", { class: "alert", role: "alert", hidden: !msg }, msg || "");
   app.replaceChildren(h("main", { class: "login", style: { padding: "24px" } }, h("div", { class: "panel" },
-    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#3da7ff" } }), h("span", { class: "mono" }, "Acesso privado")),
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("span", { class: "mono" }, "Acesso privado")),
     h("div", { class: "panel-body stack-lg", style: { padding: "24px" } },
       h("div", null, h("div", { class: "mono", style: { marginBottom: "8px" } }, "// andersonbrito.com / painel"), h("h1", null, "Anderson OS"), h("p", { class: "muted", style: { marginTop: "8px" } }, "Tarefas, projetos e agenda em um só lugar.")),
       !configured && h("p", { class: "note" }, "Painel ainda não configurado: faltam a URL e a chave pública do Supabase em painel/js/config.js (veja painel/docs/STATUS.md)."),

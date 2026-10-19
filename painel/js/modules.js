@@ -4,13 +4,15 @@
  * enabled:false mantém o módulo planejado fora da navegação até ter função real.
  */
 export const MODULES = [
-  { id: "dashboard", label: "Painel", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
-  { id: "hoje", label: "Hoje", route: "hoje", permission: "tarefas", enabled: true, primary: true },
-  { id: "tarefas", label: "Tarefas", route: "tarefas", permission: "tarefas", enabled: true, primary: true },
-  { id: "projetos", label: "Projetos", route: "projetos", permission: "projetos", enabled: true },
-  { id: "inbox", label: "Inbox", route: "inbox", permission: "tarefas", enabled: true, primary: true },
-  { id: "agenda", label: "Agenda", route: "agenda", permission: "agenda", enabled: true },
-  { id: "historico", label: "Histórico", route: "historico", permission: "historico", enabled: true, ownerOnly: true },
+  { id: "dashboard", label: "Início", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
+  { id: "postador", label: "Postador", route: "postador", permission: "postador", enabled: true, primary: true },
+  { id: "miner", label: "MineR_", route: "miner", permission: "miner", enabled: true, primary: true },
+  { id: "hoje", label: "Hoje", route: "hoje", permission: "tarefas", enabled: false },
+  { id: "tarefas", label: "Tarefas", route: "tarefas", permission: "tarefas", enabled: false, primary: true },
+  { id: "projetos", label: "Projetos", route: "projetos", permission: "projetos", enabled: false },
+  { id: "inbox", label: "Inbox", route: "inbox", permission: "tarefas", enabled: false },
+  { id: "agenda", label: "Agenda", route: "agenda", permission: "agenda", enabled: true, primary: true },
+  { id: "historico", label: "Histórico", route: "historico", permission: "historico", enabled: false, ownerOnly: true },
   { id: "config", label: "Configurações", route: "config", permission: "config", enabled: true, ownerOnly: true },
   { id: "financeiro", label: "Financeiro", route: "financeiro", permission: "financeiro", enabled: false },
   { id: "clientes", label: "Clientes", route: "clientes", permission: "clientes", enabled: false },

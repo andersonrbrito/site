@@ -230,3 +230,42 @@ describe("conexão Google", () => {
     expect(other.rows).toHaveLength(0);
   });
 });
+
+describe("Postador e MineR_ (migration 0004)", () => {
+  it("anon não acessa posts nem garimpo", async () => {
+    await expect(asUser(null, () => db.query(`select * from posts`))).rejects.toThrow(/permission denied/);
+    await expect(asUser(null, () => db.query(`select * from miner_links`))).rejects.toThrow(/permission denied/);
+  });
+  it("dono cria rascunho e link; membro sem módulo não vê", async () => {
+    await asUser(ownerId, () => db.query(`insert into posts (network, body) values ('x', 'teste')`));
+    await asUser(ownerId, () => db.query(`insert into miner_links (url, platform) values ('https://x.com/a/status/1', 'x')`));
+    expect((await asUser(strangerId, () => db.query(`select * from posts`))).rows).toHaveLength(0);
+    expect((await asUser(strangerId, () => db.query(`select * from miner_links`))).rows).toHaveLength(0);
+    await expect(asUser(strangerId, () => db.query(`insert into posts (network, body) values ('x', 'invasão')`))).rejects.toThrow(/row-level security/);
+  });
+  it("aprovado exige horário e não existe DELETE", async () => {
+    await expect(asUser(ownerId, () => db.query(`insert into posts (network, body, status) values ('x', 'sem hora', 'approved')`))).rejects.toThrow(/check/);
+    await expect(asUser(ownerId, () => db.query(`delete from posts`))).rejects.toThrow(/permission denied/);
+    await expect(asUser(ownerId, () => db.query(`delete from miner_links`))).rejects.toThrow(/permission denied/);
+  });
+  it("usuário não cria itens do Radar (só o servidor)", async () => {
+    await expect(asUser(ownerId, () => db.query(`insert into radar_items (kind, tweet_id) values ('talk', '1')`))).rejects.toThrow(/permission denied/);
+    await asService(() => db.query(`insert into radar_items (kind, tweet_id) values ('talk', '1')`));
+    expect((await asUser(ownerId, () => db.query(`select * from radar_items`))).rows).toHaveLength(1);
+  });
+  it("só o dono muda configurações do Postador", async () => {
+    await asUser(ownerId, () => db.query(`update postador_settings set value = '9' where key = 'x_daily_limit'`));
+    const r = await asUser(ownerId, () => db.query<{ value: number }>(`select value from postador_settings where key = 'x_daily_limit'`));
+    expect(r.rows[0].value).toBe(9);
+  });
+});
+
+describe("Favoritos (migration 0006)", () => {
+  it("dono vê os favoritos semeados; anon e membro sem módulo não", async () => {
+    const own = await asUser(ownerId, () => db.query(`select name from favorites where archived_at is null`));
+    expect(own.rows.length).toBeGreaterThanOrEqual(4);
+    expect((await asUser(strangerId, () => db.query(`select * from favorites`))).rows).toHaveLength(0);
+    await expect(asUser(null, () => db.query(`select * from favorites`))).rejects.toThrow(/permission denied/);
+    await expect(asUser(ownerId, () => db.query(`delete from favorites`))).rejects.toThrow(/permission denied/);
+  });
+});
