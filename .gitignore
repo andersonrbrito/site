@@ -3,4 +3,4 @@ painel/dev/node_modules/
 painel/dev/.env*
 
 # postador (local, nunca publicar)
-postador/
+/postador/
