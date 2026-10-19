@@ -1,5 +1,6 @@
 import { h, fmtDate } from "../util.js";
-import { pageHead, alertBox } from "../ui.js";
+import { pageHead, alertBox, toast } from "../ui.js";
+import { insightsView } from "./postador.js";
 
 // Desempenho: evolução diária do X e do Instagram (preenchido pela rotina das 5h).
 const k = (n) => (n == null ? "–" : n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "").replace(".", ",") + " mi" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "").replace(".", ",") + " mil" : String(n));
@@ -37,7 +38,7 @@ export async function reportBox(sb, kind) {
   const r = (data || [])[0];
   return h("section", { class: "panel", style: { marginBottom: "20px" } },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Resumo do Claude"), r && h("span", { class: "mono muted" }, fmtDate(r.created_at.slice(0, 10), false))),
-    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, r.body) : h("p", { class: "empty" }, "O resumo aparece aqui depois da próxima coleta (5h).")));
+    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, r.body) : h("p", { class: "empty" }, kind === "instagram" ? "Clique em Atualizar insights do Instagram para gerar o primeiro resumo." : "O resumo aparece aqui depois da próxima coleta (5h).")));
 }
 
 const card = (title, value, sub, chart) => h("section", { class: "panel" },
@@ -50,7 +51,7 @@ const delta = (series) => {
   return `${d >= 0 ? "+" : ""}${d.toLocaleString("pt-BR")} desde ${fmtDate(series[series.length - 2].day, false)}`;
 };
 
-export default async function desempenho({ sb }) {
+export default async function desempenho({ sb, refresh }) {
   const [statsR, reelsR] = await Promise.all([
     sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day").limit(800),
     sb.from("reel_stats").select("day, shortcode, views, thumbnail_url").is("archived_at", null).order("day").limit(3000),
@@ -81,12 +82,15 @@ export default async function desempenho({ sb }) {
   return h("div", { class: "page desempenho" },
     pageHead("Desempenho", "X e Instagram · atualizado toda manhã"),
     await reportBox(sb, "desempenho"),
+    h("h2", { class: "dsec" }, "X · Insights"),
+    await insightsView(sb, refresh),
     h("h2", { class: "dsec" }, "X · @andersbrito"),
     h("div", { class: "dgrid" },
       card("Seguidores verificados (meta 500)", k(lastOf(xVer)), delta(xVer), lineChart(xVer, { goal: 500 })),
       card("Impressões verificadas · 90 dias (meta 500 mil)", k(lastOf(xImp)), delta(xImp), lineChart(xImp, { goal: 500000 })),
       card("Seguidores no total", k(lastOf(xFol)), delta(xFol), lineChart(xFol))),
     h("h2", { class: "dsec" }, "Instagram · @andersonbrito.mp4"),
+    await igInsights(sb, refresh),
     h("div", { class: "dgrid" },
       card("Seguidores", k(lastOf(igFol)), delta(igFol), lineChart(igFol, { color: "#dd2a7b" })),
       card("Posts", k(lastOf(igPosts)), delta(igPosts), lineChart(igPosts, { color: "#dd2a7b" })),
@@ -96,4 +100,23 @@ export default async function desempenho({ sb }) {
           latest.length ? [h("div", { class: "dnum" }, h("b", null, k(totalViews)), h("span", { class: "muted small" }, "views somadas · crescimento desde a 1ª medição")), h("div", { class: "reels" }, ...latest.map(reelRow))]
             : h("p", { class: "empty" }, "Sem dados ainda.")))),
     h("p", { class: "muted small" }, "O Instagram mostra views arredondadas (ex.: 13,8 mil), então pequenas variações podem não aparecer."));
+}
+
+// Insights do Instagram (últimos 30 dias): o painel não consegue ler o Instagram, então o botão
+// deixa um pedido e a rotina do Claude (de hora em hora, 5h às 22h) abre o Instagram, lê e resume.
+async function igInsights(sb, refresh) {
+  const { data } = await sb.from("claude_requests").select("id, status, created_at, done_at").eq("kind", "ig_insights").is("archived_at", null).order("created_at", { ascending: false }).limit(1);
+  const last = (data || [])[0], open = last && ["aberto", "gerando"].includes(last.status);
+  const ask = async (e) => {
+    e.currentTarget.disabled = true;
+    const { error } = await sb.from("claude_requests").insert({ kind: "ig_insights" });
+    if (error) { e.currentTarget.disabled = false; return toast("Não foi possível pedir.", { kind: "err" }); }
+    toast("Pedido feito. O Claude atualiza na próxima rodada (até 1 hora)."); refresh();
+  };
+  return h("div", null,
+    h("div", { class: "flex", style: { marginBottom: "10px" } },
+      h("p", { class: "muted small grow" }, open ? `Pedido feito em ${fmtDate(last.created_at.slice(0, 10), false)}: o Claude está lendo os insights dos últimos 30 dias (sai em até 1 hora).`
+        : "Resumo detalhado dos insights do Instagram (últimos 30 dias): alcance, visualizações, interações, seguidores, melhores conteúdos e sugestões."),
+      h("button", { class: "btn btn-sm", type: "button", disabled: open, onclick: ask }, open ? "Atualizando…" : "Atualizar insights do Instagram")),
+    await reportBox(sb, "instagram"));
 }

@@ -38,3 +38,6 @@
 - Financeiro (em construção) no menu lateral; portfólios saíram do Início (ficam só em Portfólios).
 - MineR_: perfis com link, nome, @ e foto (automática pelo @ ou colada); saiu a lista "Todos os perfis".
 - Resumo do Claude no topo de Insights e Desempenho (tabela `reports`, migration 0011). Cron do Radar e Insights às 5h20/5h40 (0012).
+- Insights do X saiu do PostadoR_ e foi pra página Desempenho. Botão "Atualizar insights do Instagram" (pedido em `claude_requests`, a rotina de hora em hora lê o Instagram e grava um resumo em `reports` kind instagram).
+- Novos módulos: Prompts (links e prompts próprios) e Meu setup (equipamentos e sugestões de upgrade). Migration 0013.
+- Menu lateral: "PostadoR_".

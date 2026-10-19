@@ -333,3 +333,11 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 .report{white-space:pre-wrap;line-height:1.55}
 .mprof{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)} .mprof img,.mprof .av{width:36px;height:36px;border-radius:50%;object-fit:cover;background:var(--row-h);flex:none}
 .photodrop{display:flex;align-items:center;gap:10px;padding:10px;border:1px dashed var(--line-2);border-radius:8px;cursor:text} .photodrop img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.prgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.prcard{display:flex;flex-direction:column;gap:8px;padding:12px;border:1px solid var(--line-2);border-radius:8px;background:var(--panel);min-width:0}
+.prcard header{gap:8px} .prcard img{border-radius:3px}
+.prbody{margin:0;white-space:pre-wrap;font:12px/1.5 var(--f-mono);color:var(--tx-2);max-height:180px;overflow:auto}
+.surow{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)} .surow>.mono{width:130px;flex:none;padding-top:2px}
+@media(max-width:600px){.surow{flex-wrap:wrap}.surow>.mono{width:100%}}
+.prcard .x,.surow .x{background:none;border:0;color:var(--tx-4);font-size:16px;cursor:pointer;line-height:1} .prcard .x:hover,.surow .x:hover{color:var(--accent)}
+.mono.accent{color:var(--accent)}

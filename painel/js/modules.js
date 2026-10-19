@@ -5,7 +5,7 @@
  */
 export const MODULES = [
   { id: "dashboard", label: "Início", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
-  { id: "postador", label: "Postador", route: "postador", permission: "postador", enabled: true, primary: true },
+  { id: "postador", label: "PostadoR_", route: "postador", permission: "postador", enabled: true, primary: true },
   { id: "miner", label: "MineR_", route: "miner", permission: "miner", enabled: true, primary: true },
   { id: "hoje", label: "Hoje", route: "hoje", permission: "tarefas", enabled: false },
   { id: "tarefas", label: "Tarefas", route: "tarefas", permission: "tarefas", enabled: false, primary: true },
@@ -14,6 +14,8 @@ export const MODULES = [
   { id: "desempenho", label: "Desempenho", route: "desempenho", permission: "desempenho", enabled: true },
   { id: "portfolios", label: "Portfólios", route: "portfolios", permission: "portfolios", enabled: true },
   { id: "financeiro", label: "Financeiro", route: "financeiro", permission: "financeiro", enabled: true, ownerOnly: true },
+  { id: "prompts", label: "Prompts", route: "prompts", permission: "prompts", enabled: true, ownerOnly: true },
+  { id: "setup", label: "Meu setup", route: "setup", permission: "setup", enabled: true, ownerOnly: true },
   { id: "agenda", label: "Agenda", route: "agenda", permission: "agenda", enabled: true, primary: true },
   { id: "historico", label: "Histórico", route: "historico", permission: "historico", enabled: false, ownerOnly: true },
   { id: "config", label: "Configurações", route: "config", permission: "config", enabled: true, ownerOnly: true },
