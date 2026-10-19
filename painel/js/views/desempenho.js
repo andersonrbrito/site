@@ -1,7 +1,7 @@
 import { h, fmtDate } from "../util.js";
 import { pageHead, alertBox } from "../ui.js";
 
-// Desempenho: evolução diária do X e do Instagram (preenchido pela rotina das 7h).
+// Desempenho: evolução diária do X e do Instagram (preenchido pela rotina das 5h).
 const k = (n) => (n == null ? "–" : n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "").replace(".", ",") + " mi" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "").replace(".", ",") + " mil" : String(n));
 const NS = "http://www.w3.org/2000/svg";
 const svgEl = (tag, attrs) => { const e = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([a, v]) => e.setAttribute(a, v)); return e; };
@@ -29,6 +29,15 @@ export function lineChart(points, { goal, height = 170, color = "var(--accent)" 
   const last = svgEl("text", { x: W - P.r, y: H - 6, fill: "var(--tx-4)", "font-size": 11, "text-anchor": "end" }); last.textContent = fmtDate(points[points.length - 1].day, false);
   s.append(first, last);
   return s;
+}
+
+// Relatório em texto que o Claude escreve depois de cada coleta (tabela reports).
+export async function reportBox(sb, kind) {
+  const { data } = await sb.from("reports").select("body, created_at").eq("kind", kind).is("archived_at", null).order("created_at", { ascending: false }).limit(1);
+  const r = (data || [])[0];
+  return h("section", { class: "panel", style: { marginBottom: "20px" } },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Resumo do Claude"), r && h("span", { class: "mono muted" }, fmtDate(r.created_at.slice(0, 10), false))),
+    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, r.body) : h("p", { class: "empty" }, "O resumo aparece aqui depois da próxima coleta (5h).")));
 }
 
 const card = (title, value, sub, chart) => h("section", { class: "panel" },
@@ -71,6 +80,7 @@ export default async function desempenho({ sb }) {
 
   return h("div", { class: "page desempenho" },
     pageHead("Desempenho", "X e Instagram · atualizado toda manhã"),
+    await reportBox(sb, "desempenho"),
     h("h2", { class: "dsec" }, "X · @andersbrito"),
     h("div", { class: "dgrid" },
       card("Seguidores verificados (meta 500)", k(lastOf(xVer)), delta(xVer), lineChart(xVer, { goal: 500 })),

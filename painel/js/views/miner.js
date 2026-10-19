@@ -21,7 +21,7 @@ export function handleOf(url) {
 export default async function miner({ sb, query, go, refresh }) {
   const [links, profiles] = await Promise.all([
     sb.from("miner_links").select("id, url, platform, collection, author, note, status, thumbnail_url, saved_at, version").is("archived_at", null).order("saved_at", { ascending: false }).limit(500),
-    sb.from("miner_profiles").select("id, url, platform, handle, note, version").is("archived_at", null).order("handle").limit(200),
+    sb.from("miner_profiles").select("id, url, platform, handle, display_name, photo, note, version").is("archived_at", null).order("handle").limit(200),
   ]);
   if (links.error || profiles.error) return h("div", { class: "page" }, pageHead("Garimpo criativo.", "MineR_"), alertBox("Não foi possível carregar o garimpo. Atualize a página."));
 
@@ -73,16 +73,40 @@ export default async function miner({ sb, query, go, refresh }) {
         ? h("button", { class: "mono link", type: "button", onclick: () => setLink(l, { status: "inbox" }, "Voltou pro inbox.") }, "↶ Voltar")
         : h("button", { class: "mono link", type: "button", onclick: () => setLink(l, { status: "usado" }, "Marcado como usado.") }, "Marcar usado")));
 
-  // ---- perfis de referência ----
+  // ---- perfis de referência: link, nome, @ e foto (automática pelo @ ou colada com Cmd+V) ----
+  const autoPhoto = (url, handle) => { const hd = (handle || "").replace(/^@/, ""), pl = platformOf(url); return hd && ["instagram", "x", "tiktok", "youtube"].includes(pl) ? `https://unavatar.io/${pl === "x" ? "x" : pl}/${hd}` : null; };
+  let photo = null;
   const profIn = h("input", { class: "input", type: "url", placeholder: "Link do perfil (Instagram, X…)", required: true });
-  const profForm = h("form", { class: "flex", style: { marginTop: "10px" } }, profIn, h("button", { class: "btn btn-ghost btn-sm", type: "submit", "aria-label": "Adicionar perfil" }, "+"));
-  profForm.addEventListener("submit", async (e) => {
+  const nameIn = h("input", { class: "input", placeholder: "Nome do perfil", maxlength: 120 });
+  const atIn = h("input", { class: "input", placeholder: "@usuario", maxlength: 60 });
+  const prevImg = h("img", { alt: "", hidden: true, referrerpolicy: "no-referrer", onerror: (e) => { e.target.hidden = true; } });
+  const showPhoto = (src) => { photo = src; prevImg.hidden = !src; if (src) prevImg.src = src; };
+  const fillAuto = () => { const url = profIn.value.trim(); if (!url) return; if (!atIn.value) atIn.value = handleOf(url) || ""; if (!photo || photo.startsWith("https://unavatar.io/")) showPhoto(autoPhoto(url, atIn.value)); };
+  profIn.addEventListener("change", fillAuto); atIn.addEventListener("change", fillAuto);
+  const drop = h("div", { class: "photodrop", tabindex: 0, title: "Clique aqui e cole a foto (Cmd+V)" }, prevImg, h("span", { class: "muted small" }, "Foto: sai sozinha pelo @ ou clique aqui e cole (Cmd+V)"));
+  drop.addEventListener("paste", (e) => {
+    const file = [...(e.clipboardData?.items || [])].find((i) => i.type.startsWith("image/"))?.getAsFile();
+    if (!file) return toast("Nada de imagem na área de transferência.", { kind: "err" });
     e.preventDefault();
+    const img = new Image(); img.onload = () => {
+      const c = document.createElement("canvas"), n = 160, sz = Math.min(img.width, img.height); c.width = c.height = n;
+      c.getContext("2d").drawImage(img, (img.width - sz) / 2, (img.height - sz) / 2, sz, sz, 0, 0, n, n);
+      showPhoto(c.toDataURL("image/jpeg", 0.85)); URL.revokeObjectURL(img.src);
+    }; img.src = URL.createObjectURL(file);
+  });
+  const profForm = h("form", { class: "stack", style: { marginTop: "10px" } }, profIn, nameIn, atIn, drop, h("button", { class: "btn btn-ghost btn-sm", type: "submit" }, "+ Adicionar perfil"));
+  profForm.addEventListener("submit", async (e) => {
+    e.preventDefault(); fillAuto();
     const url = profIn.value.trim();
-    const { error } = await sb.from("miner_profiles").insert({ url, platform: platformOf(url), handle: handleOf(url) || url.replace(/^https?:\/\//, "") });
+    if (!/^https?:\/\//i.test(url)) return toast("Cole o link completo do perfil.", { kind: "err" });
+    const handle = atIn.value.trim() ? "@" + atIn.value.trim().replace(/^@/, "") : handleOf(url) || url.replace(/^https?:\/\//, "");
+    const { error } = await sb.from("miner_profiles").insert({ url, platform: platformOf(url), handle, display_name: nameIn.value.trim() || null, photo });
     if (error) return toast(/duplicate|unique/i.test(error.message) ? "Perfil já está na lista." : "Não foi possível salvar o perfil.", { kind: "err" });
     toast("Perfil adicionado."); refresh();
   });
+  const profRow = (p) => h("a", { class: "mprof", href: p.url, target: "_blank", rel: "noopener" },
+    p.photo || autoPhoto(p.url, p.handle) ? h("img", { src: p.photo || autoPhoto(p.url, p.handle), alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.replaceWith(h("span", { class: "av" })) }) : h("span", { class: "av" }),
+    h("div", { class: "grow", style: { minWidth: 0 } }, h("div", { class: "truncate" }, p.display_name || p.handle), h("div", { class: "mono muted small truncate" }, p.handle, " · ", PLAT_TAG[p.platform])));
 
   const savedToday = all.filter((l) => dayOf(l.saved_at) === today).length;
   const last7 = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); const k = todayISO(d); return all.filter((l) => dayOf(l.saved_at) === k).length; });
@@ -98,11 +122,8 @@ export default async function miner({ sb, query, go, refresh }) {
         h("div", { class: "big" }, String(all.length).padStart(2, "0")),
         h("div", { class: "mono accent" }, `+${savedToday} garimpados hoje`),
         h("div", { class: "bars7" }, ...last7.map((n) => h("i", { style: { height: `${8 + (n / maxBar) * 34}px` }, title: `${n} links` }))),
-        h("nav", { class: "mcols" },
-          h("button", { type: "button", class: !col ? "on" : "", onclick: () => nav({ col: "" }) }, h("span", null, "Todos os perfis"), h("b", null, all.length)),
-          ...collections.map((c) => h("button", { type: "button", class: col === c ? "on" : "", onclick: () => nav({ col: c }) }, h("span", null, "@" + c.replace(/^@/, "")), h("b", null, all.filter((l) => l.collection === c).length)))),
         h("div", { class: "mono", style: { marginTop: "22px" } }, "Perfis de referência"),
-        h("ul", { class: "mprofiles" }, ...(profiles.data || []).map((p) => h("li", null, h("a", { href: p.url, target: "_blank", rel: "noopener" }, h("span", { class: "ptag p-" + p.platform }, PLAT_TAG[p.platform]), p.handle)))),
+        h("div", { class: "mprofiles" }, ...(profiles.data || []).map(profRow)),
         profForm),
       h("section", null,
         h("div", { class: "page-head" },

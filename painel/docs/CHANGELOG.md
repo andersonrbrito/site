@@ -30,3 +30,11 @@
 - Mantidos: schema/RLS/histórico (migrations), design no padrão do site, paleta de comandos, Kanban com arrastar e soltar, desfazer, linha do tempo.
 - Teste local com Supabase falso; testes de banco e unitários em `painel/dev`.
 - Correção: formulários liam o FormData depois de desabilitar os campos.
+
+## 2026-10-19 (tarde)
+- Postar agora publica na hora pela Edge Function (`action=publish`), sem caixa de confirmação.
+- Agenda de horários estilo reserva no editor: dia, horas de 02h a 23h, ocupadas riscadas, sugeridas em destaque, hora manual e contador N/10 por dia.
+- Cabeçalho mais alto, ícones maiores e botão "Meu site".
+- Financeiro (em construção) no menu lateral; portfólios saíram do Início (ficam só em Portfólios).
+- MineR_: perfis com link, nome, @ e foto (automática pelo @ ou colada); saiu a lista "Todos os perfis".
+- Resumo do Claude no topo de Insights e Desempenho (tabela `reports`, migration 0011). Cron do Radar e Insights às 5h20/5h40 (0012).

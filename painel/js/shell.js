@@ -28,7 +28,7 @@ export function buildShell({ sb, member, go, signOut }) {
   const main = h("main", { id: "main" });
   const root = h("div", null,
     h("div", { class: "menubar" },
-      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "socials hide-sm" }, ...SOCIALS.map((x) => iconLink(x, "ilink sm")))),
+      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "socials hide-sm" }, ...SOCIALS.map((x) => iconLink(x, "ilink sm"))), h("a", { class: "sitebtn", href: "https://andersonbrito.com/", target: "_blank", rel: "noopener" }, "Meu site ↗")),
       h("div", { class: "mid" }, h("span", null, "SEQ "), "ANDERSON_OS · ", section),
       h("div", { class: "right" }, clock, h("span", { class: "hide-sm flex" }, h("span", { class: "dot-live" }), member.email))),
     h("div", { class: "toolbar" },

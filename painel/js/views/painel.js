@@ -4,7 +4,6 @@ import { goalPanel } from "./postador.js";
 import { calendarEmbed } from "./agenda.js";
 import { favoritesBar } from "../favorites.js";
 import { QUICK, META_SCHEDULER, iconLink, favicon } from "../links.js";
-import { PORTFOLIOS } from "../portfolios.js";
 
 // Apelido do dia: muda todo dia (mesmo apelido o dia inteiro).
 const APELIDOS = ["mestre", "chefe", "lenda", "gênio", "craque", "monstro", "meu rei", "patrão", "campeão", "maestro", "comandante", "mito", "fera", "professor", "artista", "visionário", "diretor", "capitão", "mago da timeline", "brabo", "pai", "guerreiro", "sensei", "titã", "parceiro", "ídolo", "chefão", "rei do corte", "craque da IA", "o cara"];
@@ -78,7 +77,7 @@ export default async function inicio({ sb, refresh }) {
       h("div", null, h("div", { class: "mono", style: { marginBottom: "6px" } }, "Instagram"),
         line("Seguidores", igNow?.followers, igPrev?.followers), line("Posts", igNow?.posts, igPrev?.posts), line("Views 12 Reels", reelDays[0] ? reelSum(reelDays[0]) : null, reelDays[1] ? reelSum(reelDays[1]) : null, k)),
       h("div", null, h("div", { class: "mono", style: { marginBottom: "6px" } }, "LinkedIn"), h("p", { class: "muted small" }, "A API não mostra números de perfil pessoal. Por enquanto só o que sai pelo Postador.")))
-      : h("p", { class: "empty" }, "A coleta roda todo dia às 7h.")));
+      : h("p", { class: "empty" }, "A coleta roda todo dia às 5h.")));
 
   const nick = apelidoDoDia();
   const hero = h("section", { class: "hero tema-" + (tempo?.tema || "nublado") },
@@ -91,15 +90,6 @@ export default async function inicio({ sb, refresh }) {
   const quick = h("section", { class: "quickgrid" },
     ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
     h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
-
-  const ports = h("section", { class: "panel" },
-    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Portfólios e páginas do site"), h("span", { class: "mono" }, `${PORTFOLIOS.filter((p) => p.online).length} no ar · ${PORTFOLIOS.filter((p) => !p.online).length} offline`)),
-    h("div", { class: "panel-body" }, h("div", { class: "ports" }, ...PORTFOLIOS.map((p) => h("a", { class: "port" + (p.online ? "" : " off"), href: p.online ? `../${p.path}` : null, target: "_blank", rel: "noopener", title: p.online ? (p.linked ? "No ar e linkada no site" : "No ar, mas sem link na página inicial") : "Offline (só no Mac)" },
-      h("i", { class: "st " + (p.online ? (p.linked ? "on" : "hid") : "off") }),
-      h("span", { class: "grow truncate" }, p.title.split(/ [—|-] /)[0]),
-      h("span", { class: "mono muted" }, `/${p.path}`),
-      h("span", { class: "mono muted" }, p.updated.split("-").reverse().join("/"))))),
-      h("p", { class: "muted small", style: { marginTop: "8px" } }, "Bolinha laranja: no ar e linkada · cinza: no ar sem link · vazia: offline.")));
 
   return h("div", { class: "page inicio" },
     hero,
@@ -123,14 +113,13 @@ export default async function inicio({ sb, refresh }) {
           h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Rascunhos para aprovar"), h("a", { class: "mono", href: "#/postador" }, "abrir postador →")),
           h("div", { class: "panel-body" }, pending.length ? h("div", { class: "stack" }, ...pending.slice(0, 6).map((p) => h("a", { class: "irow", href: `#/postador?id=${p.id}` },
             h("span", { class: "netb n-" + p.network }, p.network === "x" ? "X" : "in"), h("span", { class: "truncate grow" }, first(p)), h("span", { class: "mono muted" }, "abrir"))))
-            : h("p", { class: "empty" }, "Nada pendente. Os rascunhos chegam todo dia às 7h."))),
+            : h("p", { class: "empty" }, "Nada pendente. Os rascunhos chegam todo dia às 5h."))),
       ),
       h("section", { class: "panel" },
         h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Últimos garimpos · MineR_"), h("a", { class: "mono", href: "#/miner" }, "ver tudo →")),
         h("div", { class: "panel-body" }, (minerR.data || []).length ? h("div", { class: "minis" }, ...(minerR.data || []).map((l) => h("a", { class: "mini", href: l.url, target: "_blank", rel: "noopener" },
           h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() }), h("span", { class: "ptag p-" + l.platform }, l.platform === "instagram" ? "IG" : l.platform === "x" ? "X" : "↗")),
           h("span", { class: "truncate small" }, l.note || l.url)))) : h("p", { class: "empty" }, "Nenhum link ainda.")))),
-    h("div", { style: { marginTop: "20px" } }, ports),
     h("section", { class: "panel", style: { marginTop: "20px" } },
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Agenda · esta semana (seg a dom)"), h("a", { class: "mono", href: "#/agenda" }, "abrir agenda →")),
       h("div", { class: "panel-body", style: { padding: 0 } }, calendarEmbed("WEEK", 640))));

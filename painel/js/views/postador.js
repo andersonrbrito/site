@@ -1,7 +1,7 @@
 import { h, fmtDateTime, fmtDate, todayISO, dayOf, TZ } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
 import { CONFIG } from "../config.js";
-import { lineChart } from "./desempenho.js";
+import { lineChart, reportBox } from "./desempenho.js";
 
 // Chama o robô da nuvem com a sessão do dono (Radar e Insights sob demanda).
 async function runCloud(sb, action, btn, label) {
@@ -37,7 +37,6 @@ export function xLength(t) {
 }
 export const threadParts = (t) => t.split(/\n\s*---\s*\n/).map((s) => s.trim()).filter(Boolean);
 const spDay = (ts) => dayOf(ts);
-const toLocalInput = (ts) => { const p = new Intl.DateTimeFormat("sv-SE", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" }).format(new Date(ts)); return p.replace(" ", "T"); };
 const fromLocalInput = (v) => new Date(`${v}:00-03:00`).toISOString();
 const k = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "") + "K" : String(n ?? 0));
 const ago = (ts) => { const m = Math.round((Date.now() - new Date(ts)) / 6e4); return m < 60 ? `${m} min` : m < 1440 ? `${Math.round(m / 60)} h` : `${Math.round(m / 1440)} d`; };
@@ -287,19 +286,30 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
     if (isX && /https?:\/\//.test(p.body)) return confirm("Post do X com link custa ~13x mais na API e derruba alcance. Aprovar mesmo assim?") ? null : "cancelado";
     return null;
   };
-  const whenIn = h("input", { type: "datetime-local", class: "input when", value: p.scheduled_at ? toLocalInput(p.scheduled_at) : "", title: "Vazio = próximo horário livre" });
+  const sched = slotPicker(posts.filter((x) => x.id !== p.id), p, settings);
   const approve = async () => {
     const bad = validate(); if (bad) return bad !== "cancelado" && toast(bad, { kind: "err" });
-    const when = whenIn.value ? fromLocalInput(whenIn.value) : nextSlot(posts.filter((x) => x.id !== p.id), p.network, settings);
+    const when = sched.value() || nextSlot(posts.filter((x) => x.id !== p.id), p.network, settings);
     if (!when) return toast("Sem horário livre nos próximos 30 dias.", { kind: "err" });
     if (isX && posts.filter((x) => x.id !== p.id && x.network === "x" && ["approved", "posting", "posted"].includes(x.status) && x.scheduled_at && spDay(x.scheduled_at) === spDay(when)).length >= settings.x_daily_limit)
       return toast(`Já tem ${settings.x_daily_limit} posts do X nesse dia.`, { kind: "err" });
     act({ status: "approved", scheduled_at: when, error: null }, `Agendado para ${fmtDateTime(when)}.`);
   };
-  const postNow = () => {
+  // Publicar agora = publica na hora pela nuvem (não agenda).
+  const postNow = async (e) => {
     const bad = validate(); if (bad) return bad !== "cancelado" && toast(bad, { kind: "err" });
-    if (!confirm(`Publicar agora no ${isX ? "X" : "LinkedIn"}?`)) return;
-    act({ status: "approved", scheduled_at: new Date().toISOString(), error: null }, "Na fila: sai em até 1 minuto.");
+    if (!(await flush())) return;
+    if (!p.id && !(await ensureRow())) return;
+    const btn = e.currentTarget; btn.disabled = true; btn.textContent = "Publicando…";
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      if (!session) throw new Error("sessão expirada, entre de novo");
+      const r = await fetch(`${CONFIG.supabaseUrl}/functions/v1/postador?action=publish&id=${encodeURIComponent(p.id)}`, { method: "POST", headers: { Authorization: `Bearer ${session.access_token}`, apikey: CONFIG.publishableKey } });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok || j.ok === false) throw new Error(j.error || `erro ${r.status}`);
+      toast("Publicado.");
+    } catch (err) { toast("Não publicou: " + err.message, { kind: "err" }); }
+    finally { refresh(); }
   };
 
   const info = [
@@ -319,10 +329,44 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
     !locked && h("div", { class: "pbar" },
       p.status === "rejected" ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => act({ status: "pending", scheduled_at: null }, "Voltou pra rascunho.") }, "Voltar pra rascunho")
         : h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => act({ status: "rejected", scheduled_at: null }, "Recusado.") }, "Recusar"),
-      h("div", { class: "grow" }), whenIn,
+      h("div", { class: "grow" }),
       p.status === "approved" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => act({ status: "pending", scheduled_at: null }, "Tirado da agenda.") }, "Tirar da agenda"),
       h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: approve }, p.status === "approved" ? "Reagendar" : "Agendar"),
-      h("button", { class: "btn btn-sm", type: "button", onclick: postNow }, "Postar agora")));
+      h("button", { class: "btn btn-sm", type: "button", onclick: postNow }, "Postar agora")),
+    !locked && sched.el);
+}
+
+// Agenda de horários estilo reserva: dia, horas de 02h a 23h com as ocupadas marcadas, sugeridas e hora manual.
+function slotPicker(others, p, settings) {
+  const net = p.network, limit = net === "x" ? settings.x_daily_limit : 10;
+  const suggested = new Set((net === "x" ? settings.x_slots : settings.linkedin_slots) || []);
+  const busy = others.filter((x) => x.network === net && ["approved", "posting", "posted"].includes(x.status) && (x.scheduled_at || x.posted_at));
+  const hhmm = (ts) => new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }).format(new Date(ts));
+  let day = p.scheduled_at ? spDay(p.scheduled_at) : todayISO(), time = p.scheduled_at ? hhmm(p.scheduled_at) : "";
+  const dayIn = h("input", { type: "date", class: "input", value: day, min: todayISO(), onchange: () => { day = dayIn.value || todayISO(); draw(); } });
+  const timeIn = h("input", { type: "time", class: "input", value: time, title: "Ou digite um horário", oninput: () => { time = timeIn.value; draw(); } });
+  const count = h("span", { class: "mono" }), grid = h("div", { class: "slotgrid" });
+  const draw = () => {
+    const today = busy.filter((x) => spDay(x.scheduled_at || x.posted_at) === day);
+    const used = new Map(today.map((x) => [hhmm(x.scheduled_at || x.posted_at), x]));
+    count.textContent = `${today.length}/${limit} no dia`; count.className = "mono " + (today.length >= limit ? "danger" : "muted");
+    const now = Date.now(), hours = [];
+    for (let hr = 2; hr <= 23; hr++) hours.push(`${String(hr).padStart(2, "0")}:00`);
+    [...suggested, ...used.keys()].forEach((t) => !hours.includes(t) && hours.push(t));
+    hours.sort();
+    grid.replaceChildren(...hours.map((t) => {
+      const occ = used.get(t), past = new Date(`${day}T${t}:00-03:00`).getTime() < now + 60000;
+      return h("button", { type: "button", disabled: !!occ || past, class: "slot" + (occ ? " occ" : "") + (suggested.has(t) ? " sug" : "") + (t === time ? " on" : ""),
+        title: occ ? `Ocupado: ${(occ.title || occ.body || "").slice(0, 60)}` : suggested.has(t) ? "Horário sugerido" : "",
+        onclick: () => { time = t; timeIn.value = t; draw(); } }, t);
+    }));
+  };
+  draw();
+  return {
+    el: h("div", { class: "slotpick" }, h("div", { class: "flex" }, h("b", { class: "mono" }, "Agendar para"), dayIn, timeIn, h("div", { class: "grow" }), count),
+      grid, h("p", { class: "muted small" }, "Riscado = já tem post nesse horário · destacado = sugerido · vazio = próximo horário livre.")),
+    value: () => (time ? fromLocalInput(`${day}T${time}`) : null),
+  };
 }
 
 // ───────────────────────── Calendário ─────────────────────────
@@ -498,8 +542,8 @@ async function insightsView(sb, posts, refresh) {
   const top = [...xp].sort((a, b) => b.impressions - a.impressions).slice(0, 9);
   const lastUpd = xp.reduce((m, t) => (t.updated_at > m ? t.updated_at : m), "");
 
-  return h("div", { class: "ins" },
-    h("div", { class: "flex" }, h("p", { class: "muted small grow" }, lastUpd ? `Atualizado há ${ago(lastUpd)} · coleta automática todo dia às 7h40.` : "Sem coleta ainda."),
+  return h("div", { class: "ins" }, await reportBox(sb, "insights"),
+    h("div", { class: "flex" }, h("p", { class: "muted small grow" }, lastUpd ? `Atualizado há ${ago(lastUpd)} · coleta automática todo dia às 5h40.` : "Sem coleta ainda."),
       h("button", { class: "btn btn-sm", type: "button", onclick: async (e) => { if (await runCloud(sb, "insights", e.currentTarget, "Atualizar agora")) refresh(); } }, "Atualizar agora")),
     h("div", { class: "accts" },
       acct("X", "@andersbrito", fNow != null ? fNow.toLocaleString("pt-BR") : "–", fFirst && fNow != null ? `${fNow - fFirst.v >= 0 ? "+" : ""}${fNow - fFirst.v} desde ${fmtDate(fFirst.d, false)}` : "seguidores", h("span", { class: "netb n-x" }, "X")),
@@ -572,7 +616,7 @@ async function requestsView(sb, refresh) {
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Novo pedido")),
       h("div", { class: "panel-body stack" }, topic,
         h("div", { class: "flex wrap" }, nets, qty, h("div", { class: "grow" }), h("button", { class: "btn", type: "button", onclick: send }, "Pedir rascunhos")),
-        h("p", { class: "muted small" }, "O Claude lê os pedidos de hora em hora (das 8h às 22h) e na rotina das 7h, escreve no seu tom e deixa os rascunhos aqui no Postador. Nada é publicado sem você aprovar."))),
+        h("p", { class: "muted small" }, "O Claude lê os pedidos de hora em hora (das 5h às 22h) e na rotina das 5h, escreve no seu tom e deixa os rascunhos aqui no Postador. Nada é publicado sem você aprovar."))),
     h("div", { class: "stack" }, ...(data || []).map((r) => h("div", { class: "row" },
       h("div", { class: "grow" }, h("div", { class: "title" }, r.topic), h("div", { class: "muted small" }, `${r.networks === "ambos" ? "X e LinkedIn" : r.networks === "x" ? "X" : "LinkedIn"} · ${r.quantity} versões · ${fmtDateTime(r.created_at)}`, r.result_note ? ` · ${r.result_note}` : "")),
       h("span", { class: "pill " + (r.status === "feito" ? "posted" : r.status === "aberto" ? "approved" : "") }, LBL[r.status]),

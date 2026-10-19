@@ -121,6 +121,22 @@ async function postLinkedIn(p: any) {
   return { id, url: id ? `https://www.linkedin.com/feed/update/${id}/` : null };
 }
 
+// Publica um post já travado (status "posting") e grava o resultado.
+async function publishOne(p: any, lockVersion: number, s: Record<string, any>) {
+  try {
+    if (p.network === "x") {
+      const { count } = await sb.from("posts").select("id", { count: "exact", head: true }).eq("network", "x").eq("status", "posted").gte("posted_at", new Date(`${spDay()}T00:00:00-03:00`).toISOString());
+      if ((count ?? 0) >= Number(s.x_daily_limit ?? 10)) throw new Error(`limite diário de ${s.x_daily_limit ?? 10} posts no X atingido`);
+    }
+    const r = p.network === "x" ? await postX(p) : await postLinkedIn(p);
+    await sb.from("posts").update({ status: "posted", posted_at: new Date().toISOString(), scheduled_at: p.scheduled_at ?? new Date().toISOString(), external_id: r.id, external_url: r.url, error: null }).eq("id", p.id).eq("version", lockVersion);
+    return { id: p.id, ok: true, url: r.url };
+  } catch (e) {
+    await sb.from("posts").update({ status: "failed", error: String((e as Error).message).slice(0, 500) }).eq("id", p.id).eq("version", lockVersion);
+    return { id: p.id, ok: false, error: (e as Error).message };
+  }
+}
+
 async function tick() {
   const s = await settings();
   if (!s.publisher_active) await setSetting("publisher_active", true);
@@ -130,20 +146,21 @@ async function tick() {
     // Trava: só um processo pega o post (approved → posting com a versão atual).
     const { data: lock } = await sb.from("posts").update({ status: "posting" }).eq("id", p.id).eq("status", "approved").eq("version", p.version).select("id, version").maybeSingle();
     if (!lock) continue;
-    try {
-      if (p.network === "x") {
-        const { count } = await sb.from("posts").select("id", { count: "exact", head: true }).eq("network", "x").eq("status", "posted").gte("posted_at", new Date(`${spDay()}T00:00:00-03:00`).toISOString());
-        if ((count ?? 0) >= Number(s.x_daily_limit ?? 10)) throw new Error(`limite diário de ${s.x_daily_limit ?? 10} posts no X atingido`);
-      }
-      const r = p.network === "x" ? await postX(p) : await postLinkedIn(p);
-      await sb.from("posts").update({ status: "posted", posted_at: new Date().toISOString(), external_id: r.id, external_url: r.url, error: null }).eq("id", p.id).eq("version", lock.version);
-      out.push({ id: p.id, ok: true, url: r.url });
-    } catch (e) {
-      await sb.from("posts").update({ status: "failed", error: String((e as Error).message).slice(0, 500) }).eq("id", p.id).eq("version", lock.version);
-      out.push({ id: p.id, ok: false, error: (e as Error).message });
-    }
+    out.push(await publishOne(p, lock.version, s));
   }
   return { published: out };
+}
+
+// "Postar agora" do painel: publica na hora, sem passar pela fila do cron.
+async function publishNow(id: string | null) {
+  if (!id) throw new Error("post não informado");
+  const s = await settings();
+  const { data: p } = await sb.from("posts").select("*").eq("id", id).is("archived_at", null).maybeSingle();
+  if (!p) throw new Error("post não encontrado");
+  if (!["pending", "approved", "failed"].includes(p.status)) throw new Error(`post está ${p.status}`);
+  const { data: lock } = await sb.from("posts").update({ status: "posting", scheduled_at: new Date().toISOString() }).eq("id", p.id).eq("version", p.version).select("id, version").maybeSingle();
+  if (!lock) throw new Error("o post mudou enquanto publicava; recarregue");
+  return publishOne(p, lock.version, s);
 }
 
 // ───────── Radar (só contas verificadas) ─────────
@@ -239,6 +256,7 @@ Deno.serve(async (req) => {
   const action = new URL(req.url).searchParams.get("action") || "tick";
   try {
     if (action === "tick") return json(await tick());
+    if (action === "publish") return json(await publishNow(new URL(req.url).searchParams.get("id")));
     if (action === "radar") return json(await radar());
     if (action === "insights") return json(await insights(new URL(req.url).searchParams.get("backfill") === "1"));
     if (action === "ping") return json({ ok: true, x: !!Deno.env.get("X_API_KEY"), linkedin: !!Deno.env.get("LINKEDIN_ACCESS_TOKEN") });
