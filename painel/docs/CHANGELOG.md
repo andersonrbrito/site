@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-19 (noite) · Estúdio, Portfólios e ajustes
+- Estúdio no PostadoR_: escolhe um post (rascunho, publicado ou dos mais vistos do X) e gera card PNG 4:5 e Reel em vídeo 9:16 (MP4 no Chrome) no visual MineR_, direto no navegador; "Pedir vídeo com IA" vira pedido de roteiro com prompts.
+- Menu Portfólios (página própria com filtros no ar/offline e data).
+- Botões "Buscar agora" (Radar) e "Atualizar agora" (Insights) chamando a Edge Function com a sessão do dono.
+- Curvas suaves nos gráficos; views por dia no Insights em curva (como no Otto).
+- Teto de gasto do X em US$15 e limite de leituras em 50/dia.
+
 ## 2026-10-19 (tarde) · PostadoR_, Insights estilo Otto, Desempenho e Início novo
 - PostadoR_ com cara de painel próprio: abas grandes com ícone (Rascunhos, Histórico, Radar, Insights, Pedir posts); post abre na hora sem recarregar; "novo post" só salva quando tem texto/mídia.
 - Pedir posts (tabela post_requests, migration 0009): o Claude atende de hora em hora (8h às 22h) e na rotina das 7h.

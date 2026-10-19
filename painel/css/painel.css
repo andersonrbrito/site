@@ -241,11 +241,11 @@ a.fav:hover{border-color:var(--accent)} .fav img{border-radius:3px;background:#f
 .pbrand{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .plogo{display:flex;align-items:center;gap:8px;color:var(--accent)} .plogo span{font:italic 900 28px/1 var(--f-head);letter-spacing:-.05em;color:var(--tx)} .plogo b{color:var(--accent)}
 .pbrand .meter{width:70px;height:4px;background:var(--panel-hd);border-radius:4px;overflow:hidden} .pbrand .meter b{display:block;height:100%;background:var(--accent)}
-.pbig{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:18px}
+.pbig{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-bottom:18px}
 .pbig a{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px 8px;border:1px solid var(--line-2);border-radius:8px;background:var(--panel);color:var(--tx-2);font-weight:600;font-size:13px;text-align:center}
 .pbig a:hover{border-color:var(--tx-4);color:var(--tx)} .pbig a.on{border-color:var(--accent);background:rgba(var(--accent-rgb),.1);color:var(--accent)}
 .pbig a b{position:absolute;top:6px;right:8px;font:600 10px var(--f-mono);background:var(--accent);color:var(--accent-ink);border-radius:99px;padding:1px 6px}
-@media(max-width:767px){.pbig{grid-template-columns:repeat(5,1fr);gap:4px}.pbig a{padding:10px 2px;font-size:10.5px}}
+@media(max-width:767px){.pbig{grid-template-columns:repeat(3,1fr);gap:4px}.pbig a{padding:10px 2px;font-size:10.5px}}
 .preq{display:grid;gap:16px;max-width:820px}
 
 /* Insights estilo Otto */
@@ -306,3 +306,15 @@ a.fav:hover{border-color:var(--accent)} .fav img{border-radius:3px;background:#f
 a.port[href]:hover{background:var(--row-h)} .port.off{opacity:.55;cursor:default}
 .st{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--tx-4)} .st.on{background:var(--accent);border-color:var(--accent)} .st.hid{background:var(--tx-4)}
 @media(max-width:767px){.port{grid-template-columns:12px 1fr 70px}.port>.mono:nth-of-type(1){display:none}}
+
+/* Portfólios */
+.pfgrid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.pfcard{display:grid;gap:6px;padding:14px;border:1px solid var(--line-2);border-radius:8px;background:var(--panel);min-width:0}
+a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:default} .pfcard b{font-size:15px} .pfcard .mono{text-transform:none;letter-spacing:0}
+
+/* Estúdio */
+.studio{display:grid;gap:20px} @media(min-width:1000px){.studio{grid-template-columns:340px minmax(0,1fr)}}
+.stlist{display:grid;gap:6px;max-height:70vh;overflow:auto;padding-right:4px}
+.stitem{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line-2);border-radius:6px;background:var(--panel);text-align:left;cursor:pointer;min-width:0;font-size:13px}
+.stitem.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.stprev{width:100%;max-width:440px;aspect-ratio:4/5;border-radius:8px;border:1px solid var(--line-2);background:var(--panel)}

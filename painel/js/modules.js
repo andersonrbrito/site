@@ -12,6 +12,7 @@ export const MODULES = [
   { id: "projetos", label: "Projetos", route: "projetos", permission: "projetos", enabled: false },
   { id: "inbox", label: "Inbox", route: "inbox", permission: "tarefas", enabled: false },
   { id: "desempenho", label: "Desempenho", route: "desempenho", permission: "desempenho", enabled: true },
+  { id: "portfolios", label: "Portfólios", route: "portfolios", permission: "portfolios", enabled: true },
   { id: "agenda", label: "Agenda", route: "agenda", permission: "agenda", enabled: true, primary: true },
   { id: "historico", label: "Histórico", route: "historico", permission: "historico", enabled: false, ownerOnly: true },
   { id: "config", label: "Configurações", route: "config", permission: "config", enabled: true, ownerOnly: true },

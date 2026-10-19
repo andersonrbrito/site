@@ -16,7 +16,12 @@ export function lineChart(points, { goal, height = 170, color = "var(--accent)" 
   const x = (i) => P.l + (points.length === 1 ? (W - P.l - P.r) / 2 : (i / (points.length - 1)) * (W - P.l - P.r));
   const y = (v) => P.t + (1 - (v - lo) / (max - lo || 1)) * (H - P.t - P.b);
   if (goal) { s.append(svgEl("line", { x1: P.l, x2: W - P.r, y1: y(goal), y2: y(goal), stroke: "var(--tx-4)", "stroke-dasharray": "4 4", "stroke-width": 1 })); }
-  const d = points.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(p.v).toFixed(1)}`).join(" ");
+  // Curva suave (bezier horizontal entre os pontos), como no Otto.
+  const d = points.map((p, i) => {
+    if (!i) return `M${x(0).toFixed(1)},${y(p.v).toFixed(1)}`;
+    const mx = ((x(i - 1) + x(i)) / 2).toFixed(1);
+    return `C${mx},${y(points[i - 1].v).toFixed(1)} ${mx},${y(p.v).toFixed(1)} ${x(i).toFixed(1)},${y(p.v).toFixed(1)}`;
+  }).join(" ");
   s.append(svgEl("path", { d: `${d} L${x(points.length - 1)},${H - P.b} L${x(0)},${H - P.b} Z`, fill: color, opacity: 0.12 }));
   s.append(svgEl("path", { d, fill: "none", stroke: color, "stroke-width": 2.2, "vector-effect": "non-scaling-stroke" }));
   points.forEach((p, i) => { const c = svgEl("circle", { cx: x(i), cy: y(p.v), r: 3, fill: color }); const t = svgEl("title", {}); t.textContent = `${fmtDate(p.day, false)}: ${p.v.toLocaleString("pt-BR")}`; c.append(t); s.append(c); });

@@ -1,5 +1,24 @@
 import { h, fmtDateTime, fmtDate, todayISO, dayOf, TZ } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
+import { CONFIG } from "../config.js";
+import { lineChart } from "./desempenho.js";
+import { renderCard, renderReel, download } from "../studio.js";
+
+// Chama o robô da nuvem com a sessão do dono (Radar e Insights sob demanda).
+async function runCloud(sb, action, btn, label) {
+  const { data: { session } } = await sb.auth.getSession();
+  if (!session) return toast("Sessão expirada. Entre de novo.", { kind: "err" });
+  btn.disabled = true; btn.textContent = "Buscando…";
+  try {
+    const r = await fetch(`${CONFIG.supabaseUrl}/functions/v1/postador?action=${action}`, { method: "POST", headers: { Authorization: `Bearer ${session.access_token}`, apikey: CONFIG.publishableKey } });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.error || `erro ${r.status}`);
+    if (j.skipped || j.budgetHit) toast("Teto diário de leituras do X atingido. Tenta amanhã.", { kind: "err" });
+    else toast(action === "radar" ? `${j.saved ?? 0} itens de verificados no Radar.` : `Métricas atualizadas (${j.posts ?? 0} posts).`);
+    return true;
+  } catch (e) { toast("Não deu: " + e.message, { kind: "err" }); return false; }
+  finally { btn.disabled = false; btn.textContent = label; }
+}
 
 // Postador: rascunhos → aprovação → publicação agendada no X e no LinkedIn.
 // Quem publica é a Edge Function "postador" (cron no Supabase); esta tela só edita e aprova.
@@ -42,7 +61,7 @@ export function nextSlot(posts, network, settings, now = Date.now()) {
 
 export default async function postador(ctx) {
   const { sb, query, go, refresh } = ctx;
-  const aba = ["fila", "historico", "radar", "insights", "pedidos"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
+  const aba = ["fila", "historico", "radar", "insights", "pedidos", "estudio"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
   // Novo post: abre o editor vazio; só vira rascunho no banco quando você escrever algo.
   const novo = query.novo === "x" || query.novo === "linkedin" ? query.novo : null;
 
@@ -58,7 +77,7 @@ export default async function postador(ctx) {
   const xToday = posts.filter((p) => p.network === "x" && p.status === "posted" && p.posted_at && spDay(p.posted_at) === today).length;
   const cloudOn = !!settings.publisher_active;
 
-  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["insights", "Insights", "M4 20V10M10 20V4M16 20v-7M22 20H2"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"]];
+  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["insights", "Insights", "M4 20V10M10 20V4M16 20v-7M22 20H2"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"], ["estudio", "Estúdio", "M4 6h16v12H4zM10 9l5 3-5 3z"]];
   const tabIcon = (d) => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("width", "20"); s.setAttribute("height", "20"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "1.8"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round"); const pa = document.createElementNS("http://www.w3.org/2000/svg", "path"); pa.setAttribute("d", d); s.append(pa); return s; };
   const pending = posts.filter((p) => p.status === "pending").length;
   const brand = h("div", { class: "pbrand" },
@@ -76,6 +95,7 @@ export default async function postador(ctx) {
   else if (aba === "radar") body = await radarView(sb, query, go, refresh);
   else if (aba === "insights") body = await insightsView(sb, posts, refresh);
   else if (aba === "pedidos") body = await requestsView(sb, refresh);
+  else if (aba === "estudio") body = await studioView(sb, posts, profile, query, refresh);
   else body = await queueView({ sb, query, go, refresh, posts, settings, profile, today, novo });
   return h("div", { class: "page postador" }, brand, tabs, warn, body);
 }
@@ -367,7 +387,8 @@ async function radarView(sb, query, go, refresh) {
     h("div", { class: "qnav" },
       h("a", { href: "#/postador?aba=radar", class: kind === "talk" ? "on" : "" }, "Conversas", h("b", null, (data || []).filter((i) => i.kind === "talk" && !i.done_at).length)),
       h("a", { href: "#/postador?aba=radar&tipo=follow", class: kind === "follow" ? "on" : "" }, "Sigo de volta", h("b", null, (data || []).filter((i) => i.kind === "follow" && !i.done_at).length)),
-      h("div", { class: "grow" }), h("span", { class: "mono" }, lastFetch ? `última busca há ${ago(lastFetch)}` : "sem busca ainda")),
+      h("div", { class: "grow" }), h("span", { class: "mono" }, lastFetch ? `última busca há ${ago(lastFetch)}` : "sem busca ainda"),
+      h("button", { class: "btn btn-sm", type: "button", onclick: async (e) => { if (await runCloud(sb, "radar", e.currentTarget, "Buscar agora")) refresh(); } }, "Buscar agora")),
     h("p", { class: "note" }, kind === "talk"
       ? "Só contas verificadas (são as que contam pra monetização). Responder pesa 5x mais que like no X, e entre mútuos chega a 20x. A resposta abre no X pra você publicar, de graça."
       : "Verificados do seu nicho pedindo pra se seguir. Abra o perfil e siga na mão: 10 a 20 por dia é o seguro. Automação de follow pode tirar a conta da monetização."),
@@ -457,7 +478,6 @@ async function insightsView(sb, posts, refresh) {
   const last30 = [...Array(30)].map((_, i) => todayISO(new Date(Date.now() - (29 - i) * 864e5)));
   const per = Object.fromEntries(last30.map((d) => [d, 0]));
   for (const t of xp) { const d = dayOf(t.created_at); if (d in per) per[d] += t.impressions; }
-  const maxV = Math.max(1, ...Object.values(per));
   const peaks = [...xp].filter((t) => dayOf(t.created_at) in per).sort((a, b) => b.impressions - a.impressions).slice(0, 2);
 
   // Desempenho por tipo
@@ -480,7 +500,8 @@ async function insightsView(sb, posts, refresh) {
   const lastUpd = xp.reduce((m, t) => (t.updated_at > m ? t.updated_at : m), "");
 
   return h("div", { class: "ins" },
-    h("p", { class: "muted small" }, lastUpd ? `Atualizado há ${ago(lastUpd)} · coleta automática todo dia às 7h40.` : "Sem coleta ainda."),
+    h("div", { class: "flex" }, h("p", { class: "muted small grow" }, lastUpd ? `Atualizado há ${ago(lastUpd)} · coleta automática todo dia às 7h40.` : "Sem coleta ainda."),
+      h("button", { class: "btn btn-sm", type: "button", onclick: async (e) => { if (await runCloud(sb, "insights", e.currentTarget, "Atualizar agora")) refresh(); } }, "Atualizar agora")),
     h("div", { class: "accts" },
       acct("X", "@andersbrito", fNow != null ? fNow.toLocaleString("pt-BR") : "–", fFirst && fNow != null ? `${fNow - fFirst.v >= 0 ? "+" : ""}${fNow - fFirst.v} desde ${fmtDate(fFirst.d, false)}` : "seguidores", h("span", { class: "netb n-x" }, "X")),
       acct("LinkedIn", "Anderson Brito", "–", "a API não mostra seguidores de perfil pessoal", h("span", { class: "netb n-linkedin" }, "in")),
@@ -492,7 +513,7 @@ async function insightsView(sb, posts, refresh) {
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Views por dia de publicação · 30 dias")),
       h("div", { class: "panel-body" },
         h("div", { class: "peaks" }, ...peaks.map((t) => h("a", { href: `https://x.com/i/status/${t.id}`, target: "_blank", rel: "noopener", class: "peak" }, h("b", null, `${k(t.impressions)} views`), h("span", { class: "truncate" }, t.text.split("\n")[0]), h("span", { class: "mono muted" }, fmtDate(dayOf(t.created_at), false))))),
-        h("div", { class: "bars30" }, ...last30.map((d) => h("div", { title: `${d.split("-").reverse().join("/")}: ${per[d].toLocaleString("pt-BR")} views` }, h("i", { style: { height: `${Math.max(2, (per[d] / maxV) * 140)}px` } }), h("span", null, d.slice(8))))))),
+        lineChart(last30.map((d) => ({ day: d, v: per[d] })), { height: 200 }))),
     h("section", { class: "panel" },
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Desempenho por tipo de conteúdo")),
       h("div", { class: "panel-body" }, insight && h("p", { style: { marginBottom: "12px" } }, insight),
@@ -558,4 +579,35 @@ async function requestsView(sb, refresh) {
       h("span", { class: "pill " + (r.status === "feito" ? "posted" : r.status === "aberto" ? "approved" : "") }, LBL[r.status]),
       r.status === "aberto" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => cancel(r) }, "Cancelar")))),
     !(data || []).length && h("p", { class: "empty" }, "Nenhum pedido ainda."));
+}
+
+// ───────────────────────── Estúdio: post → card e Reel ─────────────────────────
+async function studioView(sb, posts, profile, query, refresh) {
+  const { data: xp } = await sb.from("x_posts").select("id, text, impressions, created_at").order("impressions", { ascending: false }).limit(30);
+  const items = [
+    ...posts.filter((p) => p.body.trim() && ["posted", "pending", "approved"].includes(p.status)).map((p) => ({ key: "p" + p.id, text: p.body, label: p.title || p.body.split("\n")[0], tag: PILL[p.status] })),
+    ...(xp || []).map((t) => ({ key: "x" + t.id, text: t.text.replace(/\s*https:\/\/t\.co\/\S+/g, ""), label: t.text.split("\n")[0], tag: `${k(t.impressions)} views` })),
+  ];
+  let cur = items.find((i) => i.key === query.item) || items[0];
+  const prev = h("img", { class: "stprev", alt: "Prévia do card" });
+  const status = h("p", { class: "muted small" });
+  const drawPrev = async () => { if (!cur) return; const b = await renderCard(cur.text, profile); prev.src = URL.createObjectURL(b); };
+  const list = h("div", { class: "stlist" }, ...items.map((i) => h("button", { type: "button", class: "stitem" + (i === cur ? " on" : ""), onclick: (e) => { cur = i; list.querySelectorAll(".stitem").forEach((b) => b.classList.toggle("on", b === e.currentTarget)); drawPrev(); } },
+    h("span", { class: "pill" }, i.tag), h("span", { class: "truncate" }, i.label))));
+  const btnCard = h("button", { class: "btn", type: "button", onclick: async () => { const b = await renderCard(cur.text, profile); download(b, `card-${Date.now()}.png`); } }, "Baixar card (PNG 4:5)");
+  const btnReel = h("button", { class: "btn", type: "button", onclick: async (e) => {
+    const btn = e.currentTarget; btn.disabled = true;
+    try { const { blob, ext } = await renderReel(cur.text, profile, (p) => { btn.textContent = `Gravando… ${Math.round(p * 100)}%`; }); download(blob, `reel-${Date.now()}.${ext}`); status.textContent = ext === "webm" ? "Vídeo em WebM: o Instagram aceita pelo computador; se precisar MP4, converta no CapCut." : "Vídeo em MP4 pronto."; }
+    catch (err) { toast(err.message, { kind: "err" }); }
+    finally { btn.disabled = false; btn.textContent = "Gerar Reel (vídeo 9:16)"; }
+  } }, "Gerar Reel (vídeo 9:16)");
+  const btnIA = h("button", { class: "btn btn-ghost", type: "button", onclick: async () => {
+    const { error } = await sb.from("post_requests").insert({ topic: `ROTEIRO DE VÍDEO DE IA (Reel 9:16, 8 a 20s) a partir deste post. Entregar em notes: gancho, cenas com prompts Seedream 5 Pro e Seedance (um take, frame inicial + final, ação contínua), SFX e legenda. Post: ${cur.text.slice(0, 1500)}`, networks: "x", quantity: 1 });
+    if (error) return toast("Não foi possível pedir.", { kind: "err" }); toast("Pedido enviado: o roteiro chega em Rascunhos.");
+  } }, "Pedir vídeo com IA (roteiro + prompts)");
+  requestAnimationFrame(drawPrev);
+  return h("div", { class: "studio" },
+    h("div", null, h("div", { class: "mono", style: { marginBottom: "8px" } }, "Escolha o post"), items.length ? list : h("p", { class: "empty" }, "Sem posts ainda.")),
+    h("div", { class: "stack" }, prev, h("div", { class: "flex wrap" }, btnCard, btnReel, btnIA), status,
+      h("p", { class: "muted small" }, "Card e Reel são gerados aqui no navegador, de graça, no visual MineR_. Você baixa e posta à mão no Instagram, X, LinkedIn ou Threads. O vídeo com IA (cenas geradas) vira pedido pro Claude.")));
 }
