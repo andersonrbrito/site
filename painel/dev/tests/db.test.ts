@@ -269,3 +269,13 @@ describe("Favoritos (migration 0006)", () => {
     await expect(asUser(ownerId, () => db.query(`delete from favorites`))).rejects.toThrow(/permission denied/);
   });
 });
+
+describe("Desempenho (migration 0008)", () => {
+  it("dono grava e lê; um registro por dia e plataforma; membro sem módulo não vê", async () => {
+    await asUser(ownerId, () => db.query(`insert into social_stats (day, platform, followers, following, posts) values ('2026-10-19', 'instagram', 6499, 2676, 221)`));
+    await expect(asUser(ownerId, () => db.query(`insert into social_stats (day, platform, followers) values ('2026-10-19', 'instagram', 1)`))).rejects.toThrow(/duplicate|unique/);
+    await asUser(ownerId, () => db.query(`insert into reel_stats (day, shortcode, views) values ('2026-10-19', 'DcKCb1TRo_T', 1000)`));
+    expect((await asUser(strangerId, () => db.query(`select * from social_stats`))).rows).toHaveLength(0);
+    await expect(asUser(ownerId, () => db.query(`delete from reel_stats`))).rejects.toThrow(/permission denied/);
+  });
+});

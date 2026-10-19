@@ -59,12 +59,13 @@ export default async function inicio({ sb, refresh }) {
           h("div", { class: "panel-body" }, pending.length ? h("div", { class: "stack" }, ...pending.slice(0, 6).map((p) => h("a", { class: "irow", href: `#/postador?id=${p.id}` },
             h("span", { class: "netb n-" + p.network }, p.network === "x" ? "X" : "in"), h("span", { class: "truncate grow" }, first(p)), h("span", { class: "mono muted" }, "abrir"))))
             : h("p", { class: "empty" }, "Nada pendente. Os rascunhos chegam todo dia às 7h."))),
-        h("section", { class: "panel" },
-          h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Últimos garimpos · MineR_"), h("a", { class: "mono", href: "#/miner" }, "ver tudo →")),
-          h("div", { class: "panel-body" }, (minerR.data || []).length ? h("div", { class: "minis" }, ...(minerR.data || []).map((l) => h("a", { class: "mini", href: l.url, target: "_blank", rel: "noopener" },
-            h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() }), h("span", { class: "ptag p-" + l.platform }, l.platform === "instagram" ? "IG" : l.platform === "x" ? "X" : "↗")),
-            h("span", { class: "truncate small" }, l.note || l.url)))) : h("p", { class: "empty" }, "Nenhum link ainda.")))),
+      ),
       h("section", { class: "panel" },
-        h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Agenda · próximos dias"), h("a", { class: "mono", href: "#/agenda" }, "abrir agenda →")),
-        h("div", { class: "panel-body", style: { padding: 0 } }, calendarEmbed("AGENDA", 560)))));
+        h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Últimos garimpos · MineR_"), h("a", { class: "mono", href: "#/miner" }, "ver tudo →")),
+        h("div", { class: "panel-body" }, (minerR.data || []).length ? h("div", { class: "minis" }, ...(minerR.data || []).map((l) => h("a", { class: "mini", href: l.url, target: "_blank", rel: "noopener" },
+          h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() }), h("span", { class: "ptag p-" + l.platform }, l.platform === "instagram" ? "IG" : l.platform === "x" ? "X" : "↗")),
+          h("span", { class: "truncate small" }, l.note || l.url)))) : h("p", { class: "empty" }, "Nenhum link ainda.")))),
+    h("section", { class: "panel", style: { marginTop: "20px" } },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Agenda · esta semana (seg a dom)"), h("a", { class: "mono", href: "#/agenda" }, "abrir agenda →")),
+      h("div", { class: "panel-body", style: { padding: 0 } }, calendarEmbed("WEEK", 640))));
 }
