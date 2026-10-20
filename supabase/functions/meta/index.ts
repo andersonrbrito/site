@@ -14,7 +14,7 @@ const IG_APP_ID = "1108793578594260";
 const FB_APP_ID = "1584718087029566";
 const V = "v23.0";
 const VERIFY_TOKEN = "anderson-os-meta-webhook"; // só confirma a assinatura do webhook; os eventos são validados pela chave secreta
-const IG_SCOPES = "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments";
+const IG_SCOPES = "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_manage_insights";
 const FB_SCOPES = "pages_show_list,pages_read_engagement,pages_manage_engagement,pages_manage_metadata,pages_messaging,leads_retrieval,business_management";
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, x-cron-key, apikey, x-client-info", "Access-Control-Allow-Methods": "GET, POST, OPTIONS" };
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...CORS, "Content-Type": "application/json" } });
@@ -207,6 +207,16 @@ async function sync() {
     // Guarda legenda/capa de cada post: o painel mostra o nome do Reel em vez do código.
     const rows = (media.data || []).map((m: any) => ({ shortcode: (m.permalink || "").split("/").filter(Boolean).pop(), media_id: m.id, media_type: m.media_type, caption: m.caption || null, permalink: m.permalink, thumbnail: m.thumbnail_url || m.media_url || null, posted_at: m.timestamp, likes: m.like_count ?? null, comments: m.comments_count ?? null, updated_at: new Date().toISOString() })).filter((r: any) => r.shortcode);
     if (rows.length) { const { error } = await sb.from("ig_media").upsert(rows, { onConflict: "shortcode" }); if (error) lastSaveError = error.message; }
+    // views de cada Reel pela API (precisa da permissão de insights; sem ela, segue sem as views)
+    const reelViews: any[] = [];
+    for (const m of (media.data || []).filter((m: any) => m.media_type === "VIDEO").slice(0, 12)) {
+      const ins = await api(`https://graph.instagram.com/${V}/${m.id}/insights?metric=views&access_token=${ig.token}`).catch(() => null);
+      const v = ins?.data?.[0]?.values?.[0]?.value ?? ins?.data?.[0]?.total_value?.value;
+      const code = (m.permalink || "").split("/").filter(Boolean).pop();
+      if (v != null && code) reelViews.push({ day, shortcode: code, views: v, thumbnail_url: m.thumbnail_url || null });
+    }
+    if (reelViews.length) await sb.from("reel_stats").upsert(reelViews, { onConflict: "day,shortcode" });
+    out.reels_com_views = reelViews.length;
     media.data = (media.data || []).slice(0, 12);
     let n = 0, lidos = 0;
     for (const m of media.data || []) {
@@ -238,6 +248,17 @@ async function sync() {
   return out;
 }
 
+// Insights da conta nos últimos 30 dias (alcance, views, interações, seguidores) + top posts, para o relatório.
+async function igInsights() {
+  const ig = await account("instagram"); if (!ig) throw new Error("Instagram não conectado");
+  const until = Math.floor(Date.now() / 1000), since = until - 29 * 86400;
+  const q = (metric: string, extra = "") => api(`https://graph.instagram.com/${V}/me/insights?metric=${metric}&period=day&since=${since}&until=${until}${extra}&access_token=${ig.token}`).catch((e) => ({ error: e.message }));
+  const totals = await q("reach,views,accounts_engaged,total_interactions,likes,comments,shares,saves,follows_and_unfollows,profile_links_taps", "&metric_type=total_value");
+  const daily = await q("reach");
+  const { data: top } = await sb.from("ig_media").select("caption, posted_at, likes, comments, permalink").gte("posted_at", new Date(since * 1000).toISOString()).order("likes", { ascending: false }).limit(10);
+  return { periodo: "últimos 30 dias", totais: totals, alcance_diario: daily, top_posts: top };
+}
+
 async function daily() {
   const ig = await account("instagram");
   if (ig) { // token do Instagram dura 60 dias: renova todo dia
@@ -245,6 +266,43 @@ async function daily() {
     if (r?.access_token) await sb.from("meta_accounts").update({ token: r.access_token, expires_at: new Date(Date.now() + (r.expires_in || 5184000) * 1000).toISOString(), updated_at: new Date().toISOString() }).eq("kind", "instagram").eq("account_id", ig.account_id);
   }
   return sync();
+}
+
+// ───────── porta das rotinas do Claude (sem navegador): ?action=agente, cabeçalho x-agent-key ─────────
+const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings"];
+async function integration(key: string | null) {
+  if (!key || key.length < 20) return null;
+  const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key)))].map((b) => b.toString(16).padStart(2, "0")).join("");
+  const { data } = await sb.from("integrations").select("id, kind").eq("key_hash", hash).is("revoked_at", null).maybeSingle();
+  if (data) await sb.from("integrations").update({ last_used_at: new Date().toISOString() }).eq("id", data.id);
+  return data;
+}
+
+async function agente(req: Request) {
+  const integ = await integration(req.headers.get("x-agent-key"));
+  if (!integ) return json({ error: "não autorizado" }, 401);
+  {
+    const b = await req.json();
+    if (b.op === "select") {
+      if (!READ.includes(b.table)) return json({ error: "tabela não permitida" }, 400);
+      let q: any = sb.from(b.table).select(b.select || "*");
+      for (const [c, v] of Object.entries(b.eq || {})) q = q.eq(c, v);
+      for (const c of b.is_null || []) q = q.is(c, null);
+      for (const [c, v] of Object.entries(b.gte || {})) q = q.gte(c, v);
+      if (b.order) q = q.order(b.order, { ascending: !!b.asc });
+      q = q.limit(Math.min(Number(b.limit) || 100, 1000));
+      const { data, error } = await q;
+      if (error) throw new Error(error.message);
+      return json({ data });
+    }
+    if (["insert", "upsert", "update"].includes(b.op)) {
+      const rows = Array.isArray(b.rows) ? b.rows : [b.rows || b.patch || {}];
+      const { data, error } = await sb.rpc("agent_write", { p_integration: integ.id, p_op: b.op, p_table: b.table, p_rows: rows, p_id: b.id ?? null, p_version: b.version ?? null });
+      if (error) throw new Error(error.message);
+      return json(data);
+    }
+    return json({ error: "op desconhecida (select, insert, upsert, update)" }, 400);
+  }
 }
 
 Deno.serve(async (req) => {
@@ -263,11 +321,14 @@ Deno.serve(async (req) => {
       await handleEvent(JSON.parse(raw));
       return new Response("ok", { status: 200 });
     }
-    if (!(await authorized(req))) return json({ error: "não autorizado" }, 401);
+    if (u.searchParams.get("action") === "agente") return await agente(req);
+    if (req.headers.get("x-agent-key") && await integration(req.headers.get("x-agent-key"))) { /* rotinas do Claude podem chamar sync e ig_insights */ }
+    else if (!(await authorized(req))) return json({ error: "não autorizado" }, 401);
     const action = u.searchParams.get("action") || "status";
     if (action === "connect") return json({ url: await connectUrl(u.searchParams.get("kind") === "page" ? "page" : "instagram") });
     if (action === "reply") { const b = await req.json().catch(() => ({})); return json(await reply(b.id, b.text)); }
     if (action === "sync") return json(await sync());
+    if (action === "ig_insights") return json(await igInsights());
     if (action === "daily") return json(await daily());
     if (action === "status") return json({ ig_secret: !!Deno.env.get("IG_APP_SECRET"), fb_secret: !!Deno.env.get("FB_APP_SECRET") });
     return json({ error: "ação desconhecida" }, 400);

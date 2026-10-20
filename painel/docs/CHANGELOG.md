@@ -48,3 +48,4 @@
 - Desempenho: "Relatório diário do X" e "Relatório diário do Instagram"; códigos de Reel no texto viram link.
 - Desempenho em abas (X | Instagram); Reels com capa e nome tirado da legenda (tabela ig_media, migration 0016, preenchida pela função meta).
 - YouTube download: página no painel + ajudante local no Mac (tools/yt-helper, LaunchAgent), histórico em yt_downloads (migration 0017).
+- Rotinas do Claude sem navegador: porta ?action=agente na função meta (chave de integração, escrita via agent_write, migration 0018) + tools/agente.py; Instagram (insights e views dos Reels) pela API. Só a página de monetização do X continua no Chrome.
