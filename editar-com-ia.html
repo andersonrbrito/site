@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Como editar vídeo com IA: passo a passo completo | Anderson Brito</title>
+  <meta name="description" content="Passo a passo completo e gratuito para editar vídeos com IA no Claude Code: pasta de edição, design.md, briefing, MCP, feedback e memória. Com as skills para baixar.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://andersonbrito.com/editar-com-ia.html">
+  <meta property="og:title" content="Como editar vídeo com IA: passo a passo completo">
+  <meta property="og:description" content="O método completo, os prompts e as skills que eu uso para editar vídeos com IA.">
+  <meta property="og:image" content="https://andersonbrito.com/assets/editar-com-ia/capa.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://andersonbrito.com/editar-com-ia.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #FFF3E5; --card: #FFFFFF; --ink: #1E1E1E; --muted: #6E665E; --line: #1E1E1E;
+      --orange: #FF8A00; --peach: #FFDCA9; --soft: #FFF3E5;
+      --radius: 0px; --shadow: 6px 6px 0 #1E1E1E;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--paper); background-image: radial-gradient(#DCC4A6 1px, transparent 1px); background-size: 28px 28px; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--orange); width: 0; z-index: 50; }
+    header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; font-size: 14px; }
+    header.top a { text-decoration: none; color: var(--muted); }
+    header.top b { color: var(--ink); }
+    .eyebrow { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--orange); }
+    .eyebrow b { color: var(--ink); }
+    h1 { font-size: clamp(40px, 8vw, 84px); line-height: .95; font-weight: 800; letter-spacing: -.03em; text-transform: uppercase; margin: 14px 0 16px; }
+    h1 em { font-style: normal; color: var(--orange); }
+    .lead { font-size: 18px; color: var(--muted); max-width: 640px; }
+    .hero { padding: 40px 0 28px; }
+    .video { margin: 28px 0 10px; background: var(--card); border: 3px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+    .video iframe { width: 100%; display: block; aspect-ratio: 16 / 9; border: 0; background: var(--paper); }
+    .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; text-transform: uppercase; padding: 7px 12px; border: 2px solid var(--ink); }
+    .chip.dark { background: var(--ink); color: #fff; }
+    section { padding: 44px 0; }
+    h2 { font-size: clamp(30px, 5vw, 48px); font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; line-height: 1; margin-bottom: 8px; }
+    .sub { color: var(--muted); margin-bottom: 26px; }
+    .toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+    .toc a { text-decoration: none; background: var(--card); border: 2px solid var(--ink); padding: 12px 14px; font-weight: 600; font-size: 15px; }
+    .toc a span { color: var(--orange); font-weight: 800; margin-right: 6px; }
+    .step { background: var(--card); border: 3px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); padding: 28px; margin-bottom: 16px; scroll-margin-top: 20px; }
+    .step .n { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--orange); }
+    .step .n b { color: var(--orange); }
+    .step h3 { font-size: 30px; line-height: 1.05; font-weight: 800; margin: 6px 0 10px; text-transform: uppercase; letter-spacing: .01em; }
+    .step p, .step li { color: #3b3631; font-size: 16px; }
+    .step ul { padding-left: 20px; margin: 10px 0; }
+    .step li { margin: 4px 0; }
+    .tip { background: #FFDCA9; border: 2px solid var(--ink); padding: 14px 16px; margin-top: 14px; font-size: 15px; }
+    .tip b { color: var(--orange); }
+    .prompt { position: relative; margin-top: 14px; background: #fff; border: 2px solid var(--ink); }
+    .prompt .bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #FFF3E5; letter-spacing: .06em; text-transform: uppercase; }
+    .prompt .dots i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+    .prompt pre { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px; white-space: pre-wrap; padding: 14px 16px; color: var(--ink); }
+    .copy { border: 0; background: var(--orange); color: var(--ink); font: inherit; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+    .copy.ok { background: #fff; }
+    .skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+    .skill { background: var(--card); border: 3px solid var(--ink); border-radius: var(--radius); box-shadow: var(--shadow); padding: 22px; display: flex; flex-direction: column; }
+    .skill .k { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--orange); }
+    .skill h4 { font-size: 19px; font-weight: 800; margin: 6px 0 2px; }
+    .skill code { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--muted); }
+    .skill p { font-size: 14.5px; color: #3b3631; margin: 10px 0 16px; flex: 1; }
+    .skill .credit { font-size: 12.5px; color: var(--muted); margin: -6px 0 14px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; border: 0; background: var(--ink); color: #fff; font: inherit; font-weight: 700; font-size: 15px; padding: 13px 18px; border-radius: 0; cursor: pointer; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; width: 100%; }
+    .btn.orange { background: var(--orange); }
+    .btn:focus-visible, .copy:focus-visible, input:focus-visible { outline: 3px solid var(--peach); outline-offset: 2px; }
+    .install { margin-top: 18px; }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; text-align: center; }
+    footer .who { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 14px; color: var(--ink); font-weight: 700; }
+    footer img { width: 54px; height: 54px; border-radius: 50%; border: 3px solid var(--orange); object-fit: cover; }
+    /* modal */
+    .modal { position: fixed; inset: 0; background: rgba(30, 30, 30, .45); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
+    .modal.open { display: flex; }
+    .box { background: var(--card); border: 3px solid var(--ink); box-shadow: 8px 8px 0 #FF8A00 !important; width: 100%; max-width: 440px; padding: 28px; box-shadow: 0 30px 80px rgba(0, 0, 0, .2); }
+    .box h3 { font-size: 24px; font-weight: 800; line-height: 1.15; margin: 8px 0 8px; }
+    .box p { color: var(--muted); font-size: 15px; }
+    .box label.f { display: block; font-size: 13px; font-weight: 700; margin: 18px 0 6px; }
+    .box input[type=email] { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px; border: 2px solid var(--ink); border-radius: 0; background: #fff; }
+    .box .check { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0 6px; font-size: 14.5px; cursor: pointer; }
+    .box .check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--orange); flex: none; }
+    .box .err { color: #C93A2B; font-size: 13.5px; min-height: 20px; margin: 6px 0 4px; }
+    .box .row { display: flex; gap: 10px; margin-top: 8px; }
+    .box .ghost { background: transparent; color: var(--muted); width: auto; padding: 13px 14px; }
+    .box small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 12px; }
+    @media (max-width: 560px) { .step { padding: 22px 18px; } .hero { padding-top: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="wrap">
+    <header class="top">
+      <a href="index.html"><b>Anderson Brito</b></a>
+      <a href="ia.html">IA Prompts</a>
+    </header>
+
+    <div class="hero">
+      <span class="eyebrow">Guia gratuito · <b>12 passos</b></span>
+      <h1>Como editar vídeo com <em>IA</em>, do zero</h1>
+      <p class="lead">O método completo que eu uso: uma pasta de edição, um manual de estética que a IA lê sempre, um briefing bem feito e feedback salvo na memória. Com os prompts prontos e as skills para baixar.</p>
+      <div class="video">
+        <iframe src="https://www.youtube-nocookie.com/embed/Znrp6Y5rRWU?rel=0&modestbranding=1" title="Aprenda a editar vídeo com IA em 1 minuto" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="meta"><span class="chip">Claude Code ou Codex</span><span class="chip">Plano Pro ou Max</span><span class="chip">Mac ou Windows</span></div>
+    </div>
+
+    <section>
+      <h2>O passo a passo</h2>
+      <p class="sub">Leia na ordem na primeira vez. Depois, use como checklist.</p>
+      <nav class="toc" id="toc"></nav>
+    </section>
+
+    <section id="passos" style="padding-top:0"></section>
+
+    <section id="skills">
+      <span class="eyebrow">Kit de skills</span>
+      <h2>Baixe as skills que eu uso</h2>
+      <p class="sub">Skills são arquivos que ensinam o Claude a fazer uma tarefa do seu jeito. Baixe, descompacte e coloque a pasta em <code>~/.claude/skills/</code>, ou peça para o Claude instalar.</p>
+      <h3 style="font-size:18px;margin:8px 0 14px">Skills que eu criei</h3>
+      <div class="skills" id="mine"></div>
+      <h3 style="font-size:18px;margin:34px 0 14px">Skills de terceiros que eu uso</h3>
+      <div class="skills" id="third"></div>
+      <div class="prompt install">
+        <div class="bar"><span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i></span><span>Instalar pelo Claude</span><button class="copy" data-copy="install">Copiar</button></div>
+        <pre id="install">Instale as skills dos arquivos .zip que estão em ~/Downloads na pasta ~/.claude/skills/ (uma pasta por skill, com o SKILL.md na raiz). Depois liste o que foi instalado.</pre>
+      </div>
+    </section>
+
+    <footer>
+      <div class="who"><img src="assets/editar-com-ia/perfil.png" alt="Anderson Brito" width="54" height="54"> @andersonbrito.mp4</div>
+      <p>Comente <b>EDITOR</b> nos meus vídeos e me conte qual passo você quer ver com mais calma.</p>
+      <p style="margin-top:8px"><a href="ia.html">Mais prompts de IA</a> · <a href="https://www.instagram.com/andersonbrito.mp4/" target="_blank" rel="noopener">Instagram</a></p>
+    </footer>
+  </div>
+
+  <div class="modal" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <form class="box" id="gateForm" novalidate>
+      <span class="eyebrow">Download liberado em 10 segundos</span>
+      <h3 id="gateTitle">Coloque seu e-mail e baixe todas as skills</h3>
+      <p>Você preenche uma vez só. Depois, qualquer download fica liberado.</p>
+      <label class="f" for="gEmail">Seu melhor e-mail</label>
+      <input type="email" id="gEmail" autocomplete="email" placeholder="voce@email.com" required>
+      <label class="check"><input type="checkbox" id="gOk"> <span>Quero receber novos prompts e dicas de edição com IA por e-mail. Meu e-mail entra na newsletter do Anderson e posso cancelar quando quiser.</span></label>
+      <div class="err" id="gErr" role="alert"></div>
+      <div class="row"><button class="btn orange" type="submit" id="gBtn">Liberar downloads</button><button class="btn ghost" type="button" id="gClose">Agora não</button></div>
+      <small>Sem spam. Seus dados ficam só comigo e não são vendidos.</small>
+    </form>
+  </div>
+
+  <script>
+  const SUPA = 'https://avyzkygunshncwwbmzll.supabase.co', KEY = 'sb_publishable_NlBNMBo7xJApU8kouvZ2NQ_pmUJZTHd';
+  const P = (t) => t; // conteúdo dos passos
+  const STEPS = [
+    ['Assine o Claude ou o Codex', `<p>Você precisa de uma IA que trabalhe dentro do seu computador, lendo e criando arquivos. Assine o <b>Claude</b> (Claude Code) ou o <b>Codex</b> no plano <b>Pro ou Max</b>. O plano grátis não aguenta edição de vídeo.</p><ul><li>Baixe o aplicativo de desktop do Claude e entre na aba Code, ou instale o Claude Code no terminal.</li><li>No Codex, use o app ou a CLI.</li></ul>`],
+    ['Deixe ele se instalar sozinho', `<p>Não precisa saber programar. Peça para a IA preparar a máquina: ela instala o que falta e explica o que fez.</p>`, `Prepare este computador para eu editar vídeos com você. Verifique e instale o que faltar: Homebrew (no Mac), Python 3, FFmpeg e FFprobe, um transcritor com timestamps por palavra (faster-whisper) e Node.js. No fim, me mostre a lista do que foi instalado e as versões.`],
+    ['Deu erro? Mande um print', `<p>Se aparecer qualquer erro, tire um print da tela e cole na conversa. A IA lê a imagem, entende o problema e corrige sozinha. Repita até funcionar.</p>`, `Deu esse erro (print anexado). Descubra a causa, corrija sozinho e me avise quando estiver resolvido.`],
+    ['Crie uma pasta de edição', `<p>Crie uma pasta só para edição, por exemplo <code>edicao-de-videos</code>, e abra essa pasta no Claude Code. Tudo vai morar aqui: brutos, referências, trilhas, o manual de estética e as versões renderizadas.</p><ul><li><code>brutos/</code> para os vídeos gravados</li><li><code>referencias/</code> para prints, fontes e edições que você ama</li><li><code>render/</code> para as prévias</li></ul>`],
+    ['Instale ferramentas e habilidades', `<p>Além do básico, instale as <b>skills</b>: arquivos que ensinam o Claude a fazer tarefas específicas. As principais para edição são o <b>Remotion</b> (animações e motion graphics com código) e o <b>video-use</b> (cortes, legendas e pipeline de edição). Você baixa todas no fim desta página.</p>`, `Instale as skills que estão em ~/Downloads (arquivos .zip) na pasta ~/.claude/skills/. Depois crie um projeto Remotion de teste com npx create-video@latest e me mostre que funciona.`],
+    ['O segredo: o seu gosto', `<p>É aqui que uma edição deixa de ser genérica. A IA só edita com a sua cara se souber qual é a sua cara. Os próximos dois passos são os mais importantes.</p>`],
+    ['Jogue o seu gosto na pasta', `<p>Coloque em <code>referencias/</code> o máximo de contexto que puder:</p><ul><li>Suas <b>fontes</b> (arquivos .otf/.ttf) e suas <b>cores</b> (códigos hex)</li><li>Edições que você ama (links ou arquivos)</li><li>Prints do Pinterest, thumbnails, telas de referência</li><li>Sua logo, sua foto, vinhetas</li></ul>`],
+    ['Crie o manual de estética (design.md)', `<p>Peça para a IA transformar tudo isso num arquivo <b>design.md</b>: o manual de estética do seu conteúdo. Ele vai ler esse arquivo toda vez que abrir a pasta, então toda edição já nasce no seu estilo. Baixe o modelo pronto nas skills abaixo.</p>`, `Analise tudo que está em referencias/ e crie o arquivo design.md na raiz da pasta, com: identidade e tom, paleta de cores (hex e uso), tipografia (fontes e pesos), layout 9:16 e 16:9 com margens seguras, estilo de animação, regras de som (SFX e trilha, voz sempre acima) e uma lista do que é proibido. Leia esse arquivo antes de toda edição.`, 'O design.md é vivo: sempre que você corrigir algo, mande atualizar.'],
+    ['Grave e faça o pedido de edição', `<p>Grave seu vídeo e jogue o arquivo bruto em <code>brutos/</code>. Depois explique exatamente como quer a edição. Quanto mais claro o pedido, melhor a primeira versão.</p><ul><li><b>Cortes:</b> muitos ou poucos, tirar erros, repetições e silêncios</li><li><b>Som:</b> música, efeitos sonoros, volume da voz</li><li><b>Visual:</b> textos em tela, legendas, gráficos, imagens da internet, vídeos que você citou, animações</li><li><b>Formato:</b> 9:16 para Reels/TikTok/Shorts, 16:9 para YouTube/LinkedIn/X</li></ul>`, `Edite o vídeo brutos/NOME.mp4 seguindo o design.md. Transcreva com timestamps, corte erros, repetições e silêncios longos. Coloque legenda embaixo, textos de destaque de 1 a 3 palavras, efeitos sonoros nas entradas e uma trilha baixa (a voz sempre bem acima). Antes de renderizar, me mostre em texto o que vai cortar e o que vai entrar.`],
+    ['Conecte suas IAs favoritas via MCP', `<p>O MCP liga o Claude a outras ferramentas. Assim ele busca e gera o que precisar sem você sair da conversa:</p><ul><li><b>Higgsfield</b> e <b>Magnific</b> para gerar vídeos e imagens</li><li><b>Artlist</b> para músicas e efeitos sonoros</li><li><b>ElevenLabs</b> para narração e voz clonada</li><li><b>Canva</b> para artes e capas</li></ul><p>No Claude, adicione os conectores em Configurações, Conectores (ou pelo comando /mcp no Claude Code) e autorize com a sua conta de cada ferramenta.</p>`],
+    ['Assista à prévia e dê feedback', `<p>A IA renderiza uma prévia. Assista inteira e dê feedback como se fosse um editor de verdade, com o momento e o que mudar: “em 0:12 a letra está grande”, “corta aqui”, “segura mais 1 segundo nesse texto”.</p>`, `Assisti a prévia. Corrija: (1) em 0:12 a letra está grande demais; (2) corte a pausa entre 0:20 e 0:22; (3) segure o texto final por mais 1 segundo; (4) a música está alta, deixe a voz bem acima. Renderize de novo.`],
+    ['Salve tudo na memória', `<p>Depois de cada feedback, mande a IA salvar as correções na memória e na skill de edição. Assim o próximo vídeo já nasce melhor, e a edição fica cada vez mais com o seu estilo.</p>`, `Salve todas as correções desta edição no edicao.md (seção Feedback acumulado) e no design.md quando for regra de estética. Na próxima edição, aplique essas regras desde a primeira versão.`, 'Edite pelo menos 10 vídeos antes de julgar o resultado. A cada vídeo ele aprende mais.'],
+  ];
+  const MINE = [
+    ['editar-com-ia', 'Editar com IA', 'O método desta página em forma de skill: lê o design.md, faz o briefing, propõe o corte, renderiza a prévia e salva o feedback.', 'Anderson Brito'],
+    ['design-md-template', 'Modelo de design.md', 'O manual de estética pronto para preencher: cores, fontes, layout seguro do Reels, movimento, som e o que é proibido.', 'Anderson Brito'],
+  ];
+  const THIRD = [
+    ['video-use', 'Video Use', 'Edição por conversa: transcrição, cortes, legendas, color e animações de overlay.', 'browser-use · MIT', 'https://github.com/browser-use/video-use'],
+    ['remotion', 'Remotion', 'Vídeos e motion graphics em React. Atalho com o comando para instalar as skills oficiais completas.', 'remotion-dev', 'https://github.com/remotion-dev/skills'],
+    ['svg-diagram', 'SVG Diagram', 'Diagramas e fluxogramas em SVG limpos, ótimos para explicar processos em vídeo.', 'pkt-lab · MIT', 'https://github.com/pkt-lab/svg-diagram'],
+    ['marp-slides', 'MARP Slides', 'Apresentações em Markdown com gráficos em SVG. Atalho com o comando para instalar a skill original.', 'robonuggets', 'https://github.com/robonuggets/marp-slides'],
+    ['awesome-design-md', 'Awesome DESIGN.md', 'Coleção de DESIGN.md de sites reais para usar como referência visual.', 'VoltAgent · MIT', 'https://github.com/VoltAgent/awesome-design-md'],
+    ['refero-styles', 'Refero Styles', 'Catálogo de estilos de sites famosos em DESIGN.md para inspirar a sua identidade.', 'Refero', 'https://styles.refero.design/'],
+    ['vidiq-youtube-data', 'vidIQ no Claude', 'Conector MCP com dados do YouTube: palavras-chave, títulos e tendências. O arquivo explica como conectar.', 'vidIQ', 'https://vidiq.com/pt/claude/'],
+  ];
+
+  const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) k === 'html' ? e.innerHTML = v : e.setAttribute(k, v); kids.forEach(k => e.append(k)); return e; };
+  const toc = document.getElementById('toc'), box = document.getElementById('passos');
+  STEPS.forEach(([title, body, prompt, tip], i) => {
+    const n = String(i + 1).padStart(2, '0'), id = 'passo-' + n;
+    toc.append(el('a', { href: '#' + id, html: `<span>${n}</span>${title}` }));
+    const card = el('article', { class: 'step', id });
+    card.append(el('div', { class: 'n', html: `> passo_${n} / 12` }), el('h3', {}, title), el('div', { html: body }));
+    if (prompt) {
+      const pre = el('pre', {}, prompt), b = el('button', { class: 'copy', type: 'button' }, 'Copiar prompt');
+      b.onclick = () => copyText(prompt, b);
+      card.append(el('div', { class: 'prompt' }, el('div', { class: 'bar', html: '<span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i></span><span>Prompt</span>' }), pre));
+      card.querySelector('.prompt .bar').append(b);
+    }
+    if (tip) card.append(el('div', { class: 'tip', html: `<b>Dica:</b> ${tip}` }));
+    box.append(card);
+  });
+  function copyText(t, b) { navigator.clipboard.writeText(t).then(() => { const o = b.textContent; b.textContent = 'Copiado'; b.classList.add('ok'); setTimeout(() => { b.textContent = o; b.classList.remove('ok'); }, 1600); }); }
+  document.querySelector('[data-copy=install]').onclick = (e) => copyText(document.getElementById('install').textContent, e.target);
+
+  const unlocked = () => { try { return localStorage.getItem('ab_skills_ok') === '1'; } catch { return false; } };
+  let pending = null;
+  function skillCard([slug, name, desc, credit, url], i, mine) {
+    const c = el('div', { class: 'skill' });
+    c.append(el('div', { class: 'k' }, String(i + 1).padStart(2, '0') + (mine ? ' // minha' : ' // terceiro')), el('h4', {}, name), el('code', {}, '/' + slug), el('p', {}, desc));
+    c.append(el('div', { class: 'credit', html: mine ? 'por Anderson Brito' : `por ${credit} · <a href="${url}" target="_blank" rel="noopener">oficial</a>` }));
+    const b = el('button', { class: 'btn', type: 'button' }, 'Baixar');
+    b.onclick = () => unlocked() ? download(slug) : openGate(slug);
+    c.append(b); return c;
+  }
+  MINE.forEach((s, i) => document.getElementById('mine').append(skillCard(s, i, true)));
+  THIRD.forEach((s, i) => document.getElementById('third').append(skillCard(s, i, false)));
+  function download(slug) { const a = el('a', { href: `skills/${slug}.zip`, download: `${slug}.zip` }); document.body.append(a); a.click(); a.remove(); }
+
+  const gate = document.getElementById('gate'), form = document.getElementById('gateForm'), err = document.getElementById('gErr'), btn = document.getElementById('gBtn');
+  function openGate(slug) { pending = slug; err.textContent = ''; gate.classList.add('open'); setTimeout(() => document.getElementById('gEmail').focus(), 50); }
+  function closeGate() { gate.classList.remove('open'); pending = null; }
+  document.getElementById('gClose').onclick = closeGate;
+  gate.addEventListener('click', (e) => { if (e.target === gate) closeGate(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gate.classList.contains('open')) closeGate(); });
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('gEmail').value.trim().toLowerCase(), ok = document.getElementById('gOk').checked;
+    if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) { err.textContent = 'Digite um e-mail válido.'; return; }
+    if (!ok) { err.textContent = 'Para baixar, marque que aceita receber os e-mails (pode cancelar quando quiser).'; return; }
+    btn.disabled = true; btn.textContent = 'Liberando...'; err.textContent = '';
+    try {
+      const r = await fetch(`${SUPA}/rest/v1/rpc/subscribe_newsletter`, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: `Bearer ${KEY}` }, body: JSON.stringify({ p_email: email, p_consent: true, p_source: 'editar-com-ia' }) });
+      if (!r.ok) throw new Error(await r.text());
+      try { localStorage.setItem('ab_skills_ok', '1'); } catch {}
+      const s = pending; closeGate(); if (s) download(s);
+    } catch (x) { err.textContent = 'Não consegui registrar agora. Confira o e-mail e tente de novo.'; }
+    finally { btn.disabled = false; btn.textContent = 'Liberar downloads'; }
+  });
+
+  const bar = document.getElementById('progress');
+  addEventListener('scroll', () => { const h = document.documentElement; bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%'; }, { passive: true });
+  </script>
+</body>
+</html>
