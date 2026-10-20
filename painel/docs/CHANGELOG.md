@@ -41,3 +41,4 @@
 - Insights do X saiu do PostadoR_ e foi pra página Desempenho. Botão "Atualizar insights do Instagram" (pedido em `claude_requests`, a rotina de hora em hora lê o Instagram e grava um resumo em `reports` kind instagram).
 - Novos módulos: Prompts (links e prompts próprios) e Meu setup (equipamentos e sugestões de upgrade). Migration 0013.
 - Menu lateral: "PostadoR_".
+- Social (Instagram + Página do Facebook): caixa de entrada de comentários, DMs e leads, resposta pelo painel, respostas automáticas por palavra-chave e conexão das contas por login da Meta. Edge Function `meta` (webhook + OAuth), migration 0014, página /privacidade.

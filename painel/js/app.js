@@ -6,9 +6,9 @@ import { visibleModules } from "./modules.js";
 const VIEWS = {
   "": () => import("./views/painel.js"), hoje: () => import("./views/hoje.js"), tarefas: () => import("./views/tarefas.js"),
   projetos: () => import("./views/projetos.js"), inbox: () => import("./views/inbox.js"), agenda: () => import("./views/agenda.js"),
-  historico: () => import("./views/historico.js"), postador: () => import("./views/postador.js"), miner: () => import("./views/miner.js"), desempenho: () => import("./views/desempenho.js"), portfolios: () => import("./views/portfolios.js"), financeiro: () => import("./views/financeiro.js"), prompts: () => import("./views/prompts.js"), setup: () => import("./views/setup.js"), busca: () => import("./views/busca.js"), config: () => import("./views/config.js"),
+  historico: () => import("./views/historico.js"), postador: () => import("./views/postador.js"), miner: () => import("./views/miner.js"), desempenho: () => import("./views/desempenho.js"), portfolios: () => import("./views/portfolios.js"), financeiro: () => import("./views/financeiro.js"), prompts: () => import("./views/prompts.js"), social: () => import("./views/social.js"), setup: () => import("./views/setup.js"), busca: () => import("./views/busca.js"), config: () => import("./views/config.js"),
 };
-const TITLES = { prompts: "Prompts", setup: "Meu setup", financeiro: "Financeiro", portfolios: "Portfólios", desempenho: "Desempenho", postador: "PostadoR_", miner: "MineR_", "": "Painel", hoje: "Hoje", tarefas: "Tarefas", projetos: "Projetos", inbox: "Inbox", agenda: "Agenda", historico: "Histórico", busca: "Busca", config: "Configurações", menu: "Menu" };
+const TITLES = { social: "Social", prompts: "Prompts", setup: "Meu setup", financeiro: "Financeiro", portfolios: "Portfólios", desempenho: "Desempenho", postador: "PostadoR_", miner: "MineR_", "": "Painel", hoje: "Hoje", tarefas: "Tarefas", projetos: "Projetos", inbox: "Inbox", agenda: "Agenda", historico: "Histórico", busca: "Busca", config: "Configurações", menu: "Menu" };
 const DETAIL = { tarefas: () => import("./views/tarefa.js"), projetos: () => import("./views/projeto.js") };
 
 const app = document.getElementById("app");

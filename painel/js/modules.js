@@ -11,6 +11,7 @@ export const MODULES = [
   { id: "tarefas", label: "Tarefas", route: "tarefas", permission: "tarefas", enabled: false, primary: true },
   { id: "projetos", label: "Projetos", route: "projetos", permission: "projetos", enabled: false },
   { id: "inbox", label: "Inbox", route: "inbox", permission: "tarefas", enabled: false },
+  { id: "social", label: "Social", route: "social", permission: "social", enabled: true, ownerOnly: true },
   { id: "desempenho", label: "Desempenho", route: "desempenho", permission: "desempenho", enabled: true },
   { id: "portfolios", label: "Portfólios", route: "portfolios", permission: "portfolios", enabled: true },
   { id: "financeiro", label: "Financeiro", route: "financeiro", permission: "financeiro", enabled: true, ownerOnly: true },

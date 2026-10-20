@@ -341,3 +341,7 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 @media(max-width:600px){.surow{flex-wrap:wrap}.surow>.mono{width:100%}}
 .prcard .x,.surow .x{background:none;border:0;color:var(--tx-4);font-size:16px;cursor:pointer;line-height:1} .prcard .x:hover,.surow .x:hover{color:var(--accent)}
 .mono.accent{color:var(--accent)}
+.sxitem{padding:12px;border:1px solid var(--line-2);border-radius:8px;background:var(--panel);display:flex;flex-direction:column;gap:8px}
+.sxitem.done{opacity:.55} .sxitem header{gap:8px;min-width:0}
+.sxtext{margin:0;white-space:pre-wrap;line-height:1.5}
+.sxreply textarea{flex:1;min-width:0}
