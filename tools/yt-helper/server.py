@@ -39,7 +39,7 @@ def run_job(job_id, url, kind, height):
         args = ["-x", "--audio-format", "mp3", "--audio-quality", "0"]
     else:
         fmt = f"bv*[height<={height}]+ba/b[height<={height}]" if height else "bv*+ba/b"
-        args = ["-f", fmt, "--merge-output-format", "mp4", "-S", "vcodec:h264,acodec:m4a"]
+        args = ["-f", fmt, "--merge-output-format", "mp4", "-S", (f"res:{height}," if height else "res,") + "vcodec:h264,acodec:m4a"]  # resolução primeiro; senão o h264 360p ganha
     cmd = [YTDLP, "--no-playlist", "--newline", "-o", tpl, "--print", "after_move:filepath", *args, url]
     try:
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
