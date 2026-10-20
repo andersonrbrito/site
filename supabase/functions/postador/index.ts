@@ -99,8 +99,16 @@ async function postX(p: any) {
   return { id: first, url: first ? `https://x.com/${Deno.env.get("X_HANDLE") || "i"}/status/${first}` : null };
 }
 async function postLinkedIn(p: any) {
-  const token = Deno.env.get("LINKEDIN_ACCESS_TOKEN"), author = Deno.env.get("LINKEDIN_PERSON_URN");
-  if (!token || !author) throw new Error("LinkedIn ainda não conectado na nuvem");
+  const token = Deno.env.get("LINKEDIN_ACCESS_TOKEN");
+  if (!token) throw new Error("LinkedIn ainda não conectado na nuvem");
+  // O ID da pessoa vem do próprio token (OpenID); o secret LINKEDIN_PERSON_URN é opcional.
+  let author = Deno.env.get("LINKEDIN_PERSON_URN");
+  if (!author) {
+    const u = await fetch("https://api.linkedin.com/v2/userinfo", { headers: { Authorization: `Bearer ${token}` } });
+    const j = await u.json().catch(() => ({}));
+    if (!u.ok || !j.sub) throw new Error("token do LinkedIn inválido ou expirado (gere outro e cole no cofre)");
+    author = `urn:li:person:${j.sub}`;
+  }
   const H = { Authorization: `Bearer ${token}`, "Content-Type": "application/json", "LinkedIn-Version": Deno.env.get("LINKEDIN_VERSION") || "202609", "X-Restli-Protocol-Version": "2.0.0" };
   const images: string[] = [];
   for (const m of p.media || []) {
