@@ -108,9 +108,11 @@ async function callbackFb(u: URL) {
 }
 
 // ───────── webhook ─────────
+let lastSaveError = "";
 async function save(row: Record<string, unknown>) {
   const { data, error } = await sb.from("social_inbox").upsert(row, { onConflict: "platform,kind,external_id", ignoreDuplicates: true }).select("id").maybeSingle();
-  return error ? null : data?.id ?? null;
+  if (error) { console.error("social_inbox", error.message); lastSaveError = error.message; return null; }
+  return data?.id ?? null;
 }
 
 async function autoReply(platform: "instagram" | "facebook", commentId: string, text: string, inboxId: string | null) {
@@ -202,16 +204,17 @@ async function sync() {
     const day = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
     await sb.from("social_stats").upsert({ day, platform: "instagram", followers: me.followers_count, following: me.follows_count, posts: me.media_count, data: { via: "api" } }, { onConflict: "day,platform" });
     const media = await api(`https://graph.instagram.com/${V}/me/media?fields=id,permalink,comments_count&limit=12&access_token=${ig.token}`);
-    let n = 0;
+    let n = 0, lidos = 0;
     for (const m of media.data || []) {
-      if (!m.comments_count) continue;
+      if (m.comments_count === 0) continue;
       const cs = await api(`https://graph.instagram.com/${V}/${m.id}/comments?fields=id,text,username,from,timestamp&limit=50&access_token=${ig.token}`);
       for (const c of cs.data || []) {
+        lidos++;
         if (c.from?.id === ig.account_id) continue;
         if (await save({ platform: "instagram", kind: "comment", external_id: c.id, parent_id: m.id, permalink: m.permalink, author_id: c.from?.id, author_name: c.username ? "@" + c.username : null, text: c.text, data: c, received_at: c.timestamp })) n++;
       }
     }
-    out.instagram = { followers: me.followers_count, novos_comentarios: n };
+    out.instagram = { followers: me.followers_count, posts_lidos: (media.data || []).length, contagem_meta: (media.data || []).map((m: any) => m.comments_count ?? null), comentarios_lidos: lidos, novos_comentarios: n, ...(lastSaveError && { erro: lastSaveError }) };
   }
   const pg = await account("page");
   if (pg) {
