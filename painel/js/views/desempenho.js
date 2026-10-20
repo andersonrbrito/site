@@ -32,13 +32,24 @@ export function lineChart(points, { goal, height = 170, color = "var(--accent)" 
   return s;
 }
 
-// Relatório em texto que o Claude escreve depois de cada coleta (tabela reports).
+// Relatórios em texto que o Claude escreve depois de cada coleta (tabela reports).
+const REPORT_TITLE = { insights: "Relatório diário do X", desempenho: "Relatório diário do Instagram", instagram: "Insights do Instagram · últimos 30 dias" };
+// Códigos de Reel (ex.: DebwXDCBKZp) viram link "Reel ↗" em vez de aparecer soltos no texto.
+const reportBody = (text) => {
+  const out = []; let last = 0;
+  for (const m of text.matchAll(/\b(?=[A-Za-z0-9_-]{11}\b)(?=[A-Za-z0-9_-]*[A-Z])(?=[A-Za-z0-9_-]*[a-z])[A-Za-z0-9_-]{11}\b/g)) {
+    out.push(text.slice(last, m.index), h("a", { href: `https://www.instagram.com/reel/${m[0]}/`, target: "_blank", rel: "noopener" }, "Reel ↗"));
+    last = m.index + m[0].length;
+  }
+  out.push(text.slice(last));
+  return out;
+};
 export async function reportBox(sb, kind) {
   const { data } = await sb.from("reports").select("body, created_at").eq("kind", kind).is("archived_at", null).order("created_at", { ascending: false }).limit(1);
   const r = (data || [])[0];
   return h("section", { class: "panel", style: { marginBottom: "20px" } },
-    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Resumo do Claude"), r && h("span", { class: "mono muted" }, fmtDate(r.created_at.slice(0, 10), false))),
-    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, r.body) : h("p", { class: "empty" }, kind === "instagram" ? "Clique em Atualizar insights do Instagram para gerar o primeiro resumo." : "O resumo aparece aqui depois da próxima coleta (5h).")));
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: kind === "insights" ? "var(--accent)" : "#dd2a7b" } }), h("h2", { class: "mono grow" }, REPORT_TITLE[kind]), r && h("span", { class: "mono muted" }, fmtDate(r.created_at.slice(0, 10), false))),
+    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, ...reportBody(r.body)) : h("p", { class: "empty" }, kind === "instagram" ? "Clique em Atualizar insights do Instagram para gerar o primeiro." : "Aparece aqui depois da próxima coleta (5h).")));
 }
 
 const card = (title, value, sub, chart) => h("section", { class: "panel" },
@@ -81,7 +92,6 @@ export default async function desempenho({ sb, refresh }) {
 
   return h("div", { class: "page desempenho" },
     pageHead("Desempenho", "X e Instagram · atualizado toda manhã"),
-    await reportBox(sb, "desempenho"),
     h("h2", { class: "dsec" }, "X · Insights"),
     await insightsView(sb, refresh),
     h("h2", { class: "dsec" }, "X · @andersbrito"),
@@ -90,6 +100,7 @@ export default async function desempenho({ sb, refresh }) {
       card("Impressões verificadas · 90 dias (meta 500 mil)", k(lastOf(xImp)), delta(xImp), lineChart(xImp, { goal: 500000 })),
       card("Seguidores no total", k(lastOf(xFol)), delta(xFol), lineChart(xFol))),
     h("h2", { class: "dsec" }, "Instagram · @andersonbrito.mp4"),
+    await reportBox(sb, "desempenho"),
     await igInsights(sb, refresh),
     h("div", { class: "dgrid" },
       card("Seguidores", k(lastOf(igFol)), delta(igFol), lineChart(igFol, { color: "#dd2a7b" })),

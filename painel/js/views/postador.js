@@ -339,32 +339,38 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
 // Agenda de horários estilo reserva: dia, horas de 02h a 23h com as ocupadas marcadas, sugeridas e hora manual.
 function slotPicker(others, p, settings) {
   const net = p.network, limit = net === "x" ? settings.x_daily_limit : 10;
-  const suggested = new Set((net === "x" ? settings.x_slots : settings.linkedin_slots) || []);
+  const suggested = (net === "x" ? settings.x_slots : settings.linkedin_slots) || [];
   const busy = others.filter((x) => x.network === net && ["approved", "posting", "posted"].includes(x.status) && (x.scheduled_at || x.posted_at));
-  const hhmm = (ts) => new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, hour: "2-digit", minute: "2-digit" }).format(new Date(ts));
+  const fmt = (o) => (ts) => new Intl.DateTimeFormat("pt-BR", { timeZone: TZ, ...o }).format(new Date(ts));
+  const hhmm = fmt({ hour: "2-digit", minute: "2-digit" }), hh = (t) => t.slice(0, 2);
   let day = p.scheduled_at ? spDay(p.scheduled_at) : todayISO(), time = p.scheduled_at ? hhmm(p.scheduled_at) : "";
-  const dayIn = h("input", { type: "date", class: "input", value: day, min: todayISO(), onchange: () => { day = dayIn.value || todayISO(); draw(); } });
-  const timeIn = h("input", { type: "time", class: "input", value: time, title: "Ou digite um horário", oninput: () => { time = timeIn.value; draw(); } });
-  const count = h("span", { class: "mono" }), grid = h("div", { class: "slotgrid" });
+  const dayIn = h("input", { type: "date", class: "input", value: day, min: todayISO(), onchange: () => { day = dayIn.value || todayISO(); time = ""; timeIn.value = ""; draw(); } });
+  const timeIn = h("input", { type: "time", class: "input", value: time, title: "Ou digite o horário exato", oninput: () => { time = timeIn.value; draw(); } });
+  const count = h("span", { class: "mono" }), title = h("b", { class: "mono" }), grid = h("div", { class: "slotgrid" });
   const draw = () => {
+    // Só os posts do dia escolhido; cada um marca a faixa da hora dele (11:05 ocupa 11:00).
     const today = busy.filter((x) => spDay(x.scheduled_at || x.posted_at) === day);
-    const used = new Map(today.map((x) => [hhmm(x.scheduled_at || x.posted_at), x]));
+    const byHour = {};
+    today.forEach((x) => (byHour[hh(hhmm(x.scheduled_at || x.posted_at))] ||= []).push(x));
+    const label = new Intl.DateTimeFormat("pt-BR", { weekday: "long", day: "2-digit", month: "2-digit", timeZone: "UTC" }).format(new Date(day + "T12:00:00Z"));
+    title.textContent = `Horários de ${label}`;
     count.textContent = `${today.length}/${limit} no dia`; count.className = "mono " + (today.length >= limit ? "danger" : "muted");
-    const now = Date.now(), hours = [];
-    for (let hr = 2; hr <= 23; hr++) hours.push(`${String(hr).padStart(2, "0")}:00`);
-    [...suggested, ...used.keys()].forEach((t) => !hours.includes(t) && hours.push(t));
-    hours.sort();
-    grid.replaceChildren(...hours.map((t) => {
-      const occ = used.get(t), past = new Date(`${day}T${t}:00-03:00`).getTime() < now + 60000;
-      return h("button", { type: "button", disabled: !!occ || past, class: "slot" + (occ ? " occ" : "") + (suggested.has(t) ? " sug" : "") + (t === time ? " on" : ""),
-        title: occ ? `Ocupado: ${(occ.title || occ.body || "").slice(0, 60)}` : suggested.has(t) ? "Horário sugerido" : "",
-        onclick: () => { time = t; timeIn.value = t; draw(); } }, t);
-    }));
+    const now = Date.now(), cells = [];
+    for (let hr = 2; hr <= 23; hr++) {
+      const H = String(hr).padStart(2, "0"), occ = byHour[H] || [], sug = suggested.find((t) => hh(t) === H);
+      const pick = sug || `${H}:00`, past = new Date(`${day}T${H}:59:00-03:00`).getTime() < now + 60000;
+      cells.push(h("button", { type: "button", disabled: !!occ.length || past,
+        class: "slot" + (occ.length ? " occ" : "") + (sug ? " sug" : "") + (time && hh(time) === H ? " on" : ""),
+        title: occ.length ? "Ocupado: " + occ.map((x) => `${hhmm(x.scheduled_at || x.posted_at)} ${(x.title || x.body || "").slice(0, 50)}`).join(" | ") : sug ? `Sugerido: ${sug}` : "",
+        onclick: () => { time = pick; timeIn.value = pick; draw(); } },
+        h("span", null, `${H}:00`), occ.length ? h("small", null, occ.map((x) => hhmm(x.scheduled_at || x.posted_at)).join(" ")) : sug && sug !== `${H}:00` ? h("small", null, sug) : null));
+    }
+    grid.replaceChildren(...cells);
   };
   draw();
   return {
-    el: h("div", { class: "slotpick" }, h("div", { class: "flex" }, h("b", { class: "mono" }, "Agendar para"), dayIn, timeIn, h("div", { class: "grow" }), count),
-      grid, h("p", { class: "muted small" }, "Riscado = já tem post nesse horário · destacado = sugerido · vazio = próximo horário livre.")),
+    el: h("div", { class: "slotpick" }, h("div", { class: "flex" }, title, dayIn, timeIn, h("div", { class: "grow" }), count),
+      grid, h("p", { class: "muted small" }, "Riscado = já tem post nessa faixa de hora (o horário exato aparece embaixo) · destacado = sugerido · sem escolher = próximo horário livre.")),
     value: () => (time ? fromLocalInput(`${day}T${time}`) : null),
   };
 }
@@ -413,18 +419,41 @@ async function radarView(sb, query, go, refresh) {
     const { data: d } = await sb.from("radar_items").update({ done_at: done ? new Date().toISOString() : null }).eq("id", i.id).eq("version", i.version).select("id").maybeSingle();
     if (!d) return toast("Recarregue a página.", { kind: "err" }); refresh();
   };
+  const archive = async (i) => {
+    const { data: d } = await sb.from("radar_items").update({ archived_at: new Date().toISOString() }).eq("id", i.id).eq("version", i.version).select("id").maybeSingle();
+    if (!d) return toast("Recarregue a página.", { kind: "err" }); toast("Removido do Radar."); refresh();
+  };
   const row = (i) => {
     const a = i.author || {}, m = i.metrics || {};
+    const embed = h("div", { class: "rembed", dataset: { tweet: i.tweet_id } });
     const reply = h("textarea", { class: "textarea", rows: 2, placeholder: "Sua resposta (no seu jeito: minúscula, direto, com opinião)" });
     return h("article", { class: "rcard" + (i.done_at ? " done" : "") },
       h("div", { class: "pwho" }, a.profile_image_url && h("img", { class: "ava", src: a.profile_image_url, alt: "", referrerpolicy: "no-referrer" }),
         h("div", { class: "grow" }, h("b", null, a.name || ""), h("div", { class: "muted small" }, `@${a.username || ""} · ${k(a.public_metrics?.followers_count)} seguidores · há ${ago(i.tweet_created_at || i.created_at)}`))),
       h("p", { class: "rtext" }, i.text),
+      embed,
       kind === "talk" && h("div", { class: "mono muted rmeta" }, `${k(m.reply_count)} respostas · ${k(m.like_count)} likes`, m.impression_count ? ` · ${k(m.impression_count)} impressões` : ""),
       h("div", { class: "rbar" },
         kind === "talk" ? [reply, h("button", { class: "btn btn-sm", type: "button", onclick: () => { window.open(`https://x.com/intent/post?in_reply_to=${i.tweet_id}${reply.value.trim() ? "&text=" + encodeURIComponent(reply.value.trim()) : ""}`, "_blank", "noopener"); mark(i, true); } }, "Responder no X")]
           : [h("a", { class: "btn btn-sm", href: `https://x.com/${a.username}`, target: "_blank", rel: "noopener" }, "Abrir perfil ↗"), h("a", { class: "btn btn-ghost btn-sm", href: `https://x.com/${a.username}/status/${i.tweet_id}`, target: "_blank", rel: "noopener" }, "Ver post")],
-        h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mark(i, !i.done_at) }, i.done_at ? "Desfazer" : kind === "talk" ? "Feito" : "Já segui")));
+        kind === "talk" && h("a", { class: "btn btn-ghost btn-sm", href: `https://x.com/${a.username || "i"}/status/${i.tweet_id}`, target: "_blank", rel: "noopener" }, "Abrir post ↗"),
+        h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mark(i, !i.done_at) }, i.done_at ? "Desfazer" : kind === "talk" ? "Feito" : "Já segui"),
+        h("button", { class: "btn btn-ghost btn-sm danger", type: "button", title: "Tirar do Radar", onclick: () => archive(i) }, "Remover")));
+  };
+  // Post embutido do X (foto/vídeo), carregado só quando aparece na tela.
+  const loadEmbeds = (root) => {
+    const run = () => {
+      const io = new IntersectionObserver((es) => es.forEach((e) => {
+        if (!e.isIntersecting) return; io.unobserve(e.target);
+        window.twttr?.widgets?.createTweet(e.target.dataset.tweet, e.target, { theme: "dark", conversation: "none", dnt: true, lang: "pt" })
+          .then((el) => { if (el) e.target.closest(".rcard")?.querySelector(".rtext")?.remove(); });
+      }), { rootMargin: "400px" });
+      root.querySelectorAll(".rembed").forEach((el) => io.observe(el));
+    };
+    if (window.twttr?.widgets) return run();
+    if (!document.getElementById("twttr-js")) document.head.append(h("script", { id: "twttr-js", src: "https://platform.twitter.com/widgets.js", async: true }));
+    const t = setInterval(() => { if (window.twttr?.widgets) { clearInterval(t); run(); } }, 300);
+    setTimeout(() => clearInterval(t), 15000);
   };
   return h("div", { class: "radar" },
     h("div", { class: "qnav" },
@@ -435,7 +464,7 @@ async function radarView(sb, query, go, refresh) {
     h("p", { class: "note" }, kind === "talk"
       ? "Só contas verificadas (são as que contam pra monetização). Responder pesa 5x mais que like no X, e entre mútuos chega a 20x. A resposta abre no X pra você publicar, de graça."
       : "Verificados do seu nicho pedindo pra se seguir. Abra o perfil e siga na mão: 10 a 20 por dia é o seguro. Automação de follow pode tirar a conta da monetização."),
-    items.length ? h("div", { class: "stack" }, ...items.map(row)) : h("p", { class: "empty" }, "Nada ainda. A busca roda todo dia de manhã."));
+    (() => { if (!items.length) return h("p", { class: "empty" }, "Nada ainda. A busca roda todo dia de manhã."); const list = h("div", { class: "stack" }, ...items.map(row)); setTimeout(() => loadEmbeds(list), 0); return list; })());
 }
 
 // ───────────────────────── Insights + meta ─────────────────────────

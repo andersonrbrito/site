@@ -345,3 +345,6 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 .sxitem.done{opacity:.55} .sxitem header{gap:8px;min-width:0}
 .sxtext{margin:0;white-space:pre-wrap;line-height:1.5}
 .sxreply textarea{flex:1;min-width:0}
+.slot{height:auto;min-height:32px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.slot small{font-size:10px;opacity:.85}
+.rembed:empty{display:none} .rembed{max-width:550px}

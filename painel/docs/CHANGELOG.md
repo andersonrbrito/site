@@ -42,3 +42,7 @@
 - Novos módulos: Prompts (links e prompts próprios) e Meu setup (equipamentos e sugestões de upgrade). Migration 0013.
 - Menu lateral: "PostadoR_".
 - Social (Instagram + Página do Facebook): caixa de entrada de comentários, DMs e leads, resposta pelo painel, respostas automáticas por palavra-chave e conexão das contas por login da Meta. Edge Function `meta` (webhook + OAuth), migration 0014, página /privacidade.
+
+## 2026-10-20
+- PostadoR_: agenda mostra só os posts do dia escolhido, por faixa de hora (11:05 marca 11:00, com o horário exato embaixo). Radar com post embutido do X, botão "Abrir post" e "Remover". Recusados arquivados toda segunda (migration 0015).
+- Desempenho: "Relatório diário do X" e "Relatório diário do Instagram"; códigos de Reel no texto viram link.
