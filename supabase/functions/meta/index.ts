@@ -203,7 +203,11 @@ async function sync() {
     const me = await api(`https://graph.instagram.com/${V}/me?fields=username,followers_count,follows_count,media_count&access_token=${ig.token}`);
     const day = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
     await sb.from("social_stats").upsert({ day, platform: "instagram", followers: me.followers_count, following: me.follows_count, posts: me.media_count, data: { via: "api" } }, { onConflict: "day,platform" });
-    const media = await api(`https://graph.instagram.com/${V}/me/media?fields=id,permalink,comments_count&limit=12&access_token=${ig.token}`);
+    const media = await api(`https://graph.instagram.com/${V}/me/media?fields=id,permalink,comments_count,like_count,caption,media_type,thumbnail_url,media_url,timestamp&limit=50&access_token=${ig.token}`);
+    // Guarda legenda/capa de cada post: o painel mostra o nome do Reel em vez do código.
+    const rows = (media.data || []).map((m: any) => ({ shortcode: (m.permalink || "").split("/").filter(Boolean).pop(), media_id: m.id, media_type: m.media_type, caption: m.caption || null, permalink: m.permalink, thumbnail: m.thumbnail_url || m.media_url || null, posted_at: m.timestamp, likes: m.like_count ?? null, comments: m.comments_count ?? null, updated_at: new Date().toISOString() })).filter((r: any) => r.shortcode);
+    if (rows.length) { const { error } = await sb.from("ig_media").upsert(rows, { onConflict: "shortcode" }); if (error) lastSaveError = error.message; }
+    media.data = (media.data || []).slice(0, 12);
     let n = 0, lidos = 0;
     for (const m of media.data || []) {
       if (m.comments_count === 0) continue;

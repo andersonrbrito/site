@@ -232,7 +232,7 @@ a.fav:hover{border-color:var(--accent)} .fav img{border-radius:3px;background:#f
 .dnum{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px} .dnum b{font:800 30px var(--f-head);letter-spacing:-.03em}
 .lchart{width:100%;height:170px;display:block}
 .reels{display:grid;gap:6px}
-.reelrow{display:grid;grid-template-columns:110px 1fr 70px 70px;align-items:center;gap:10px;font-size:13px}
+.reelrow{display:grid;grid-template-columns:28px minmax(0,1.6fr) 1fr 60px 60px;align-items:center;gap:10px;font-size:13px}
 .reelrow .rc{color:var(--tx-3);text-transform:none;letter-spacing:0;overflow:hidden;text-overflow:ellipsis} .reelrow:hover .rc{color:var(--accent)}
 .rbarw{height:8px;background:var(--panel-hd);border-radius:99px;overflow:hidden} .rbarw i{display:block;height:100%;background:#dd2a7b;border-radius:99px}
 .reelrow b{text-align:right;font-variant-numeric:tabular-nums} .reelrow .up{color:var(--ok);text-transform:none;text-align:right} .reelrow .muted{text-align:right}
@@ -348,3 +348,7 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 .slot{height:auto;min-height:32px;padding:4px 2px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
 .slot small{font-size:10px;opacity:.85}
 .rembed:empty{display:none} .rembed{max-width:550px}
+.dtabs{margin-bottom:16px}
+.reelrow .rthumb{width:28px;height:40px;border-radius:4px;object-fit:cover;background:var(--row-h);flex:none}
+.reelrow .rc{min-width:0}
+@media(max-width:600px){.reelrow{grid-template-columns:28px minmax(0,1fr) 54px 54px}.reelrow .rbarw{display:none}}
