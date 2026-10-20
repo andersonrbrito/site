@@ -47,3 +47,4 @@
 - PostadoR_: agenda mostra só os posts do dia escolhido, por faixa de hora (11:05 marca 11:00, com o horário exato embaixo). Radar com post embutido do X, botão "Abrir post" e "Remover". Recusados arquivados toda segunda (migration 0015).
 - Desempenho: "Relatório diário do X" e "Relatório diário do Instagram"; códigos de Reel no texto viram link.
 - Desempenho em abas (X | Instagram); Reels com capa e nome tirado da legenda (tabela ig_media, migration 0016, preenchida pela função meta).
+- YouTube download: página no painel + ajudante local no Mac (tools/yt-helper, LaunchAgent), histórico em yt_downloads (migration 0017).

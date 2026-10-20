@@ -352,3 +352,8 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 .reelrow .rthumb{width:28px;height:40px;border-radius:4px;object-fit:cover;background:var(--row-h);flex:none}
 .reelrow .rc{min-width:0}
 @media(max-width:600px){.reelrow{grid-template-columns:28px minmax(0,1fr) 54px 54px}.reelrow .rbarw{display:none}}
+.ytprev img{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:6px}
+.ytrow{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line-2);border-radius:8px;background:var(--panel)}
+.ytrow img,.ytrow .ytph{width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:var(--row-h);flex:none}
+.ytrow .x{background:none;border:0;color:var(--tx-4);font-size:16px;cursor:pointer} .ytrow .x:hover{color:var(--accent)}
+@media(max-width:600px){.ytrow{flex-wrap:wrap}}
