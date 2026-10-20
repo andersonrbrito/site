@@ -53,6 +53,11 @@ def run_job(job_id, url, kind, height):
                 path = line
             job["log"] = line[-200:]
         p.wait()
+        if p.returncode != 0 and "403" in (job.get("log") or "") and not job.get("retried"):
+            job["retried"] = True  # 403: atualiza o yt-dlp na hora e tenta de novo uma vez
+            import sys
+            subprocess.run([sys.executable, "-m", "pip", "install", "-U", "-q", "--pre", "yt-dlp[default]"], capture_output=True)
+            return run_job(job_id, url, kind, height)
         if p.returncode != 0 or not path or not os.path.exists(path):
             raise RuntimeError(job.get("log") or "falhou")
         job.update(status="feito", progress=100, path=path, size=os.path.getsize(path))
@@ -130,6 +135,15 @@ class H(BaseHTTPRequestHandler):
         pass
 
 
+def auto_update():
+    """O YouTube muda a proteção com frequência (erro 403): atualiza o yt-dlp ao ligar e a cada 24 h."""
+    import sys, time
+    while True:
+        subprocess.run([sys.executable, "-m", "pip", "install", "-U", "-q", "--pre", "yt-dlp[default]"], capture_output=True)
+        time.sleep(86400)
+
+
 if __name__ == "__main__":
+    threading.Thread(target=auto_update, daemon=True).start()
     print(f"YouTube download do painel rodando em http://127.0.0.1:{PORT} · arquivos em {OUT}")
     ThreadingHTTPServer(("127.0.0.1", PORT), H).serve_forever()
