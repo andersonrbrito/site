@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bomba Atômica: troque o personagem de um vídeo com IA (Seedance 2.5) | Anderson Brito</title>
+  <meta name="description" content="Tutorial completo: crie o character sheet no Nano Banana, ChatGPT ou Seedream e troque o personagem do vídeo Bomba Atômica no Seedance 2.5. Com prompt pronto e vídeo de referência para baixar.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://andersonbrito.com/bombaatomica">
+  <meta property="og:title" content="Bomba Atômica: troque o personagem de um vídeo com IA">
+  <meta property="og:description" content="Character sheet + Seedance 2.5 + prompt pronto. Baixe o vídeo de referência e coloque você na cena.">
+  <meta property="og:image" content="https://andersonbrito.com/assets/bombaatomica/capa-hook.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://andersonbrito.com/bombaatomica">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night: #120A06; --deep: #1C110B; --card: #23160E; --line: rgba(255, 170, 90, .18);
+      --sun: #FF8A00; --flare: #FFB547; --glow: #FFE3B5; --text: #F6E7D6; --muted: #BFA48C;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--night); color: var(--text); font-family: 'Inter', system-ui, sans-serif; line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+    a { color: var(--flare); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    header.top { position: absolute; top: 0; left: 0; right: 0; z-index: 5; display: flex; justify-content: space-between; padding: 22px 24px; font-size: 14px; }
+    header.top a { color: var(--text); text-decoration: none; opacity: .85; }
+    /* hero com letterbox */
+    .hero { position: relative; min-height: 92vh; display: flex; align-items: flex-end; background: #000; overflow: hidden; }
+    .hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% center; transform: scale(1.04); animation: breathe 14s ease-in-out infinite alternate; }
+    @keyframes breathe { to { transform: scale(1.1); } }
+    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,10,6,.2) 0%, rgba(18,10,6,0) 35%, rgba(18,10,6,.75) 75%, var(--night) 100%); }
+    .bar { position: absolute; left: 0; right: 0; height: 6vh; background: #000; z-index: 2; }
+    .bar.t { top: 0; } .bar.b { bottom: 0; }
+    .hero .in { position: relative; z-index: 3; padding: 0 24px 11vh; max-width: 960px; margin: 0 auto; width: 100%; }
+    .kicker { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .14em; color: var(--flare); text-transform: uppercase; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(56px, 12vw, 132px); line-height: .9; letter-spacing: -.01em; margin: 10px 0 14px; text-shadow: 0 0 60px rgba(255, 138, 0, .45); }
+    h1 i { color: var(--sun); font-style: italic; }
+    .lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--glow); max-width: 620px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .chip { font-family: 'JetBrains Mono', monospace; font-size: 12px; padding: 7px 12px; border: 1px solid var(--line); background: rgba(18, 10, 6, .55); color: var(--glow); border-radius: 999px; backdrop-filter: blur(6px); }
+    section { padding: 64px 0; }
+    h2 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(34px, 5.5vw, 54px); line-height: 1; margin-bottom: 10px; }
+    h2 i { color: var(--sun); }
+    .sub { color: var(--muted); max-width: 640px; margin-bottom: 28px; }
+    /* vídeo + resumo */
+    .split { display: grid; grid-template-columns: minmax(0, 340px) 1fr; gap: 36px; align-items: center; }
+    .short { position: relative; width: 100%; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(255, 120, 0, .18); background: #000; }
+    .short iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .need { list-style: none; display: grid; gap: 12px; }
+    .need li { display: flex; gap: 14px; align-items: flex-start; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+    .need b { color: var(--glow); }
+    .need .n { font-family: 'JetBrains Mono', monospace; color: var(--sun); font-size: 13px; padding-top: 3px; }
+    /* storyboard */
+    .story { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 1fr); gap: 10px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; }
+    .story figure { scroll-snap-align: start; }
+    .story .f { aspect-ratio: 9 / 16; border-radius: 12px; border: 1px solid var(--line); background-image: url(assets/bombaatomica/grid.jpg); background-size: 800% 100%; }
+    .story figcaption { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .story figcaption b { color: var(--sun); font-weight: 500; }
+    /* passos */
+    .step { position: relative; padding: 30px 28px; background: linear-gradient(180deg, var(--card), var(--deep)); border: 1px solid var(--line); border-radius: 20px; margin-bottom: 18px; scroll-margin-top: 20px; }
+    .step .num { font-family: 'Cormorant Garamond', serif; font-size: 64px; line-height: .8; color: var(--sun); opacity: .9; }
+    .step h3 { font-family: 'Cormorant Garamond', serif; font-size: 34px; line-height: 1.05; margin: 8px 0 12px; }
+    .step p, .step li { color: #E8D6C3; }
+    .step ul, .step ol { padding-left: 20px; margin: 10px 0; }
+    .step li { margin: 5px 0; }
+    .tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0 6px; }
+    .tool { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: rgba(0, 0, 0, .2); }
+    .tool h4 { font-size: 16px; color: var(--glow); margin-bottom: 4px; }
+    .tool p { font-size: 14.5px; }
+    .tip { margin-top: 14px; padding: 14px 16px; border-left: 3px solid var(--sun); background: rgba(255, 138, 0, .08); border-radius: 0 12px 12px 0; font-size: 15px; }
+    .tip b { color: var(--flare); }
+    .prompt { margin-top: 16px; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #0D0704; }
+    .prompt .bar2 { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--line); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); }
+    .prompt pre { font-family: 'JetBrains Mono', monospace; font-size: 13.5px; line-height: 1.6; white-space: pre-wrap; padding: 16px; color: var(--glow); max-height: 380px; overflow: auto; }
+    .prompt.open pre { max-height: none; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; cursor: pointer; font: 600 15px 'Inter', sans-serif; padding: 14px 22px; border-radius: 999px; background: var(--sun); color: #1A0E06; text-decoration: none; box-shadow: 0 10px 40px rgba(255, 138, 0, .35); }
+    .btn.ghost { background: transparent; color: var(--glow); border: 1px solid var(--line); box-shadow: none; }
+    .btn.sm { padding: 7px 14px; font-size: 12.5px; box-shadow: none; }
+    .btn:focus-visible, input:focus-visible { outline: 3px solid var(--flare); outline-offset: 2px; }
+    .dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .dl .card { padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--card); display: flex; flex-direction: column; gap: 10px; }
+    .dl h4 { font-family: 'Cormorant Garamond', serif; font-size: 28px; line-height: 1; }
+    .dl p { color: var(--muted); font-size: 14.5px; flex: 1; }
+    footer { padding: 50px 0 70px; text-align: center; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+    footer img { width: 64px; height: 64px; border-radius: 50%; border: 2px solid var(--sun); object-fit: cover; display: block; margin: 0 auto 10px; }
+    /* modal */
+    .modal { position: fixed; inset: 0; background: rgba(0, 0, 0, .7); display: none; align-items: center; justify-content: center; padding: 16px; z-index: 100; }
+    .modal.open { display: flex; }
+    .box { background: var(--deep); border: 1px solid var(--line); border-radius: 22px; width: 100%; max-width: 440px; padding: 28px; box-shadow: 0 30px 90px rgba(255, 120, 0, .2); }
+    .box h3 { font-family: 'Cormorant Garamond', serif; font-size: 32px; line-height: 1; margin: 8px 0; }
+    .box p { color: var(--muted); font-size: 15px; }
+    .box label.f { display: block; font-size: 13px; font-weight: 600; margin: 18px 0 6px; }
+    .box input[type=email] { width: 100%; font: inherit; font-size: 16px; padding: 13px 16px; border-radius: 12px; border: 1px solid var(--line); background: #0D0704; color: var(--text); }
+    .box .check { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0 6px; font-size: 14.5px; cursor: pointer; }
+    .box .check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--sun); flex: none; }
+    .box .err { color: #FF8F7A; font-size: 13.5px; min-height: 20px; margin: 6px 0 4px; }
+    .box .row { display: flex; gap: 10px; margin-top: 8px; flex-wrap: wrap; }
+    .box small { display: block; color: var(--muted); font-size: 12.5px; margin-top: 12px; }
+    @media (max-width: 760px) { .split { grid-template-columns: 1fr; } .short { max-width: 340px; margin: 0 auto; } .step { padding: 24px 18px; } }
+    @media (prefers-reduced-motion: reduce) { .hero img { animation: none; } }
+  </style>
+</head>
+<body>
+  <header class="top"><a href="index.html"><b>Anderson Brito</b></a><a href="ia.html">IA Prompts</a></header>
+
+  <div class="hero">
+    <img src="assets/bombaatomica/capa-hook.jpg" alt="Homem sentado numa varanda à beira-mar bebendo enquanto uma explosão nuclear cresce no horizonte">
+    <div class="bar t"></div><div class="bar b"></div>
+    <div class="in">
+      <div class="kicker">tutorial · troca de personagem · seedance 2.5</div>
+      <h1>Bomba <i>Atômica</i></h1>
+      <p class="lead">Coloque você (ou qualquer personagem) no lugar do protagonista de um vídeo de 30 segundos. Character sheet, prompt pronto e o vídeo de referência para baixar.</p>
+      <div class="chips"><span class="chip">30s · 9:16</span><span class="chip">Seedance 2.5</span><span class="chip">Nano Banana · ChatGPT · Seedream</span></div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section>
+      <div class="split">
+        <div class="short"><iframe src="https://www.youtube-nocookie.com/embed/ksi7zN5OogU?rel=0&modestbranding=1" title="Bomba Atômica, vídeo final" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+        <div>
+          <span class="kicker">o que você vai precisar</span>
+          <h2>Três arquivos e <i>um prompt</i></h2>
+          <ul class="need">
+            <li><span class="n">01</span><div><b>O vídeo de referência</b><br>O BOMBAATOMICA.mp4, que dá o cenário, os planos e o ritmo. Baixe no fim da página.</div></li>
+            <li><span class="n">02</span><div><b>O character sheet do novo protagonista</b><br>Uma prancha com o rosto e o corpo da pessoa em vários ângulos. Ensino a fazer no passo 1.</div></li>
+            <li><span class="n">03</span><div><b>Acesso ao Seedance 2.5</b><br>Na plataforma onde você usa o modelo, com geração por vídeo de referência e imagem.</div></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0">
+      <span class="kicker">decupagem</span>
+      <h2>A cena, <i>plano a plano</i></h2>
+      <p class="sub">É essa sequência que o Seedance vai seguir. Repare como a explosão cresce sem reiniciar entre os cortes e a reação do personagem nunca muda.</p>
+      <div class="story" id="story"></div>
+    </section>
+
+    <section style="padding-top:0" id="passos">
+      <span class="kicker">passo a passo</span>
+      <h2>Como <i>fazer</i></h2>
+      <p class="sub">Leva uns 20 minutos na primeira vez. O segredo está no passo 1: quanto melhor o character sheet, menos o rosto muda entre os planos.</p>
+
+      <article class="step">
+        <div class="num">01</div>
+        <h3>Crie o character sheet do personagem</h3>
+        <p>O character sheet é uma prancha com a mesma pessoa vista de vários ângulos. É ele que ensina a IA quem é o novo protagonista. Use 2 ou 3 fotos suas com boa luz, rosto visível e sem óculos escuros.</p>
+        <div class="tools">
+          <div class="tool"><h4>Nano Banana</h4><p>No app do Gemini ou no Google AI Studio. Anexe as fotos e cole o prompt. É o melhor para manter o rosto idêntico.</p></div>
+          <div class="tool"><h4>ChatGPT</h4><p>Peça para gerar a imagem, anexe 2 ou 3 fotos e cole o prompt. Se o rosto mudar, responda "mantenha o rosto exatamente igual à foto".</p></div>
+          <div class="tool"><h4>Seedream</h4><p>Use a geração com imagem de referência na plataforma onde você usa o Seedream. Ótimo para textura de pele e luz realista.</p></div>
+        </div>
+        <div class="prompt" data-prompt="sheet"><div class="bar2"><span>prompt · character sheet</span><button class="btn sm copy" type="button">Copiar</button></div><pre id="p-sheet">Crie um character sheet fotorrealista da pessoa das fotos anexadas, mantendo exatamente o rosto, a idade aparente, o cabelo, o tom de pele e as proporções do corpo. Não invente traços novos.
+
+Prancha horizontal em fundo cinza neutro, iluminação de estúdio suave e uniforme, com 4 vistas da mesma pessoa lado a lado:
+1. close frontal do rosto, olhando para a câmera;
+2. rosto em 3/4, virado para a esquerda;
+3. perfil lateral;
+4. corpo inteiro de frente, em pé, braços relaxados.
+
+Roupa igual em todas as vistas: camiseta preta lisa, jaqueta preta sem logos, calça preta e tênis brancos. Se a pessoa usa óculos nas fotos, manter os mesmos óculos; se não usa, não adicionar.
+
+Sem texto, sem números, sem logotipos, sem marca-d'água, sem pessoas extras, sem acessórios inventados.</pre></div>
+        <div class="tip"><b>Mais consistência:</b> gere cada vista separada primeiro (frente, 3/4, perfil e corpo inteiro) e depois peça para juntar as 4 numa prancha só. Escolha sempre a versão em que o rosto está mais parecido com você.</div>
+      </article>
+
+      <article class="step">
+        <div class="num">02</div>
+        <h3>Baixe o vídeo de referência</h3>
+        <p>Baixe o <b>BOMBAATOMICA.mp4</b> no fim desta página. Ele tem os seis planos da cena: o meteoro descendo, a leitura do jornal, o gole, a explosão, o close e o reflexo nos óculos.</p>
+      </article>
+
+      <article class="step">
+        <div class="num">03</div>
+        <h3>Suba os arquivos no Seedance 2.5</h3>
+        <ol>
+          <li>Abra a geração de vídeo com referências do Seedance 2.5.</li>
+          <li>Envie o <b>BOMBAATOMICA.mp4</b> como vídeo de referência. Ele vira o <b>@video1</b> no prompt.</li>
+          <li>Envie o character sheet como imagem de referência. Ele vira o <b>@img1</b>.</li>
+          <li>Escolha <b>9:16</b> e a maior duração disponível.</li>
+        </ol>
+        <div class="tip"><b>Atenção aos nomes:</b> se a sua plataforma chamar os arquivos de outro jeito (por exemplo @Video1 ou @Image1), troque no prompt para bater exatamente com o nome que ela mostra.</div>
+      </article>
+
+      <article class="step">
+        <div class="num">04</div>
+        <h3>Cole o prompt</h3>
+        <p>O prompt descreve o cenário, a roupa, os seis planos, a atuação e o som. Não precisa mudar nada, só os nomes dos arquivos se for o caso.</p>
+        <div class="prompt" data-prompt="video"><div class="bar2"><span>prompt · seedance 2.5</span><span><button class="btn sm ghost more" type="button">Ver tudo</button> <button class="btn sm copy" type="button">Copiar</button></span></div><pre id="p-video">Use @video1 como referência de cenário, sequência de ações, enquadramentos, ritmo e evolução da explosão. Ignore completamente os textos, frases, assinatura e tela de encerramento do vídeo original.
+
+Use @img1 como referência absoluta da identidade do NOVO protagonista. Substitua o homem original em TODOS os planos pelo personagem de @img1, preservando seu rosto, idade aparente, cabelo, tom de pele e proporções corporais. Não misture as duas identidades.
+
+Vídeo vertical 9:16, fotorrealista, com estética de filme e montagem contemplativa. A narrativa é inteiramente visual, sem falas e sem textos.
+
+CENÁRIO:
+Varanda de concreto deteriorado à beira-mar, paredes com pintura descascada e rachaduras, laje acima e plataforma aberta voltada para o oceano. Uma cadeira de madeira reclinada e uma pequena mesa lateral com um copo transparente de bebida âmbar. Horizonte amplo, mar inicialmente tranquilo e luz suave de fim de tarde.
+
+PROTAGONISTA:
+O personagem de @img1 veste camiseta preta lisa, jaqueta preta sem logos, calça preta e tênis brancos. Está sentado confortavelmente, com as pernas cruzadas e um jornal aberto nas mãos. O jornal tem diagramação discreta, sem palavras legíveis.
+
+SEQUÊNCIA:
+
+1. Plano geral lateral, câmera estável. O protagonista ocupa o lado esquerdo e o oceano aparece ao fundo. Ele lê o jornal tranquilamente. No céu sobre o mar, um ponto luminoso desce em direção ao horizonte, deixando um rastro comprido e escuro. O protagonista permanece sentado.
+
+2. Corte para plano médio pela frente e ligeiramente de lado. Ele continua lendo, vira uma página devagar e depois direciona o olhar para o horizonte, sem surpresa ou medo. O copo está sobre a mesa em primeiro plano.
+
+3. Ele pega o copo naturalmente, leva à boca, toma um pequeno gole e o abaixa. O jornal permanece apoiado no colo. Um clarão vindo do mar ilumina gradualmente seu rosto e a parede, mudando a luz suave para um tom alaranjado intenso.
+
+4. Corte para plano geral lateral, semelhante ao inicial. No ponto onde o objeto atingiu o horizonte, uma gigantesca explosão nuclear cresce sobre o mar: clarão branco e laranja, bola de fogo em expansão, coluna de fumaça densa e formação de um enorme cogumelo nuclear. O brilho se reflete na água e projeta sombras coerentes na varanda. O protagonista observa sentado, com o copo na mão e as pernas ainda cruzadas.
+
+5. Corte para close frontal do rosto. Ele contempla a explosão com expressão neutra, respiração tranquila e movimentos mínimos. A iluminação quente pulsa suavemente sobre sua pele. Se o personagem usar óculos, mostrar o reflexo coerente do cogumelo nuclear nas lentes, preservando a visibilidade dos olhos. Se não usar óculos, não adicionar acessórios.
+
+6. Aproximação lenta até um close mais fechado nos olhos. O protagonista mantém a serenidade enquanto a luz da explosão se intensifica. Encerrar diretamente nessa imagem, sem frase final, sem créditos e sem assinatura.
+
+ATUAÇÃO:
+Calma cotidiana, sem pose de herói. Não sorrir, não rir, não mostrar os dentes, não arregalar os olhos, não levantar da cadeira e não tentar fugir. Boca relaxada e fechada, exceto pelo movimento necessário para beber. A força da cena vem do contraste entre a catástrofe e sua reação tranquila.
+
+CONTINUIDADE:
+Manter o mesmo rosto, roupa, cadeira, jornal, copo e disposição do cenário entre os cortes. A explosão cresce continuamente, sem reiniciar a cada plano. Preservar a direção da luz e a posição da explosão no horizonte. Movimentos naturais das mãos, anatomia correta e contato realista com os objetos.
+
+ÁUDIO:
+Som suave do mar, vento discreto, papel do jornal e manuseio do copo. Após o clarão, um estrondo grave distante cresce progressivamente. Sem falas, narração ou música.
+
+RESTRIÇÕES:
+Nenhum texto na tela, legenda, título, frase motivacional, arroba, marca-d'água ou logotipo. Não reproduzir os textos de @video1. Sem aparência de desenho ou videogame, sem deformações, sem objetos surgindo do nada, sem pessoas extras e sem ferimentos explícitos.</pre></div>
+      </article>
+
+      <article class="step">
+        <div class="num">05</div>
+        <h3>Gere, confira e escolha a melhor</h3>
+        <ul>
+          <li>Gere de 2 a 3 variações. A IA acerta o rosto em algumas e erra em outras.</li>
+          <li>Confira o rosto em todos os cortes, principalmente no close final.</li>
+          <li>Veja se a explosão cresce sem "reiniciar" entre os planos e se o copo e o jornal não somem.</li>
+          <li>Se o rosto misturar com o original, reforce o character sheet com uma foto mais nítida de frente e gere de novo.</li>
+        </ul>
+      </article>
+
+      <article class="step">
+        <div class="num">06</div>
+        <h3>Finalize e poste</h3>
+        <p>O prompt já pede som ambiente (mar, vento, papel e o estrondo). No editor, só confira o volume, corte o excesso do final se precisar e exporte em 9:16 para Reels, TikTok e Shorts.</p>
+        <div class="tip"><b>Ideia de legenda:</b> "Eu lendo as notícias de 2026" ou "Eu vendo meu feed de manhã". O contraste entre a catástrofe e a calma é o que faz o vídeo circular.</div>
+      </article>
+    </section>
+
+    <section style="padding-top:0" id="downloads">
+      <span class="kicker">downloads</span>
+      <h2>Baixe e <i>faça o seu</i></h2>
+      <div class="dl">
+        <div class="card"><h4>BOMBAATOMICA.mp4</h4><p>O vídeo de referência para subir como @video1 no Seedance 2.5. Vertical, 28s.</p><button class="btn" type="button" data-dl="assets/bombaatomica/BOMBAATOMICA.mp4" data-name="BOMBAATOMICA.mp4">Baixar vídeo</button></div>
+        <div class="card"><h4>Prompts em .txt</h4><p>O prompt do character sheet e o prompt do Seedance num arquivo só, para usar offline.</p><button class="btn ghost" type="button" data-dl="txt" data-name="bombaatomica-prompts.txt">Baixar prompts</button></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img src="assets/editar-com-ia/perfil.png" alt="Anderson Brito" width="64" height="64">
+    <p><b style="color:var(--text)">@andersonbrito.mp4</b></p>
+    <p style="margin-top:6px">Fez o seu? Me marca no Instagram que eu quero ver.</p>
+    <p style="margin-top:10px"><a href="ia.html">Mais tutoriais de IA</a> · <a href="editar-com-ia.html">Como editar vídeo com IA</a></p>
+  </footer>
+
+  <div class="modal" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle">
+    <form class="box" id="gateForm" novalidate>
+      <span class="kicker">download liberado em 10 segundos</span>
+      <h3 id="gateTitle">Coloque seu e-mail e baixe tudo</h3>
+      <p>Você preenche uma vez só. Depois, qualquer download do site fica liberado.</p>
+      <label class="f" for="gEmail">Seu melhor e-mail</label>
+      <input type="email" id="gEmail" autocomplete="email" placeholder="voce@email.com" required>
+      <label class="check"><input type="checkbox" id="gOk"> <span>Quero receber novos prompts e dicas de IA por e-mail. Meu e-mail entra na newsletter do Anderson e posso cancelar quando quiser.</span></label>
+      <div class="err" id="gErr" role="alert"></div>
+      <div class="row"><button class="btn" type="submit" id="gBtn">Liberar downloads</button><button class="btn ghost" type="button" id="gClose">Agora não</button></div>
+      <small>Sem spam. Seus dados ficam só comigo e não são vendidos.</small>
+    </form>
+  </div>
+
+  <script>
+  const SUPA = 'https://avyzkygunshncwwbmzll.supabase.co', KEY = 'sb_publishable_NlBNMBo7xJApU8kouvZ2NQ_pmUJZTHd';
+  const SHOTS = ['O meteoro desce', 'Lendo o jornal', 'O olhar pro horizonte', 'O gole', 'O cogumelo cresce', 'O close', 'O reflexo nos óculos', 'Os olhos'];
+  const story = document.getElementById('story');
+  SHOTS.forEach((s, i) => {
+    const fig = document.createElement('figure'), f = document.createElement('div'), cap = document.createElement('figcaption'), b = document.createElement('b');
+    f.className = 'f'; f.style.backgroundPosition = `${(i / 7) * 100}% 0`; f.setAttribute('role', 'img'); f.setAttribute('aria-label', s);
+    b.textContent = String(i + 1).padStart(2, '0') + ' '; cap.append(b, s); fig.append(f, cap); story.append(fig);
+  });
+  function copyText(t, b) { navigator.clipboard.writeText(t).then(() => { const o = b.textContent; b.textContent = 'Copiado'; setTimeout(() => b.textContent = o, 1600); }); }
+  document.querySelectorAll('.prompt').forEach(p => {
+    const pre = p.querySelector('pre'); p.querySelector('.copy').onclick = (e) => copyText(pre.textContent, e.target);
+    const more = p.querySelector('.more'); if (more) more.onclick = () => { p.classList.toggle('open'); more.textContent = p.classList.contains('open') ? 'Recolher' : 'Ver tudo'; };
+  });
+
+  const unlocked = () => { try { return localStorage.getItem('ab_skills_ok') === '1'; } catch { return false; } };
+  let pending = null;
+  function download(src, name) {
+    let href = src, url = null;
+    if (src === 'txt') {
+      const txt = 'BOMBA ATÔMICA · andersonbrito.com/bombaatomica\n\n=== PROMPT · CHARACTER SHEET ===\n\n' + document.getElementById('p-sheet').textContent + '\n\n=== PROMPT · SEEDANCE 2.5 ===\n\n' + document.getElementById('p-video').textContent + '\n';
+      url = href = URL.createObjectURL(new Blob([txt], { type: 'text/plain;charset=utf-8' }));
+    }
+    const a = document.createElement('a'); a.href = href; a.download = name; document.body.append(a); a.click(); a.remove();
+    if (url) setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+  document.querySelectorAll('[data-dl]').forEach(b => b.onclick = () => unlocked() ? download(b.dataset.dl, b.dataset.name) : openGate([b.dataset.dl, b.dataset.name]));
+
+  const gate = document.getElementById('gate'), form = document.getElementById('gateForm'), err = document.getElementById('gErr'), btn = document.getElementById('gBtn');
+  function openGate(p) { pending = p; err.textContent = ''; gate.classList.add('open'); setTimeout(() => document.getElementById('gEmail').focus(), 50); }
+  function closeGate() { gate.classList.remove('open'); pending = null; }
+  document.getElementById('gClose').onclick = closeGate;
+  gate.addEventListener('click', (e) => { if (e.target === gate) closeGate(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && gate.classList.contains('open')) closeGate(); });
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('gEmail').value.trim().toLowerCase(), ok = document.getElementById('gOk').checked;
+    if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(email)) { err.textContent = 'Digite um e-mail válido.'; return; }
+    if (!ok) { err.textContent = 'Para baixar, marque que aceita receber os e-mails (pode cancelar quando quiser).'; return; }
+    btn.disabled = true; btn.textContent = 'Liberando...'; err.textContent = '';
+    try {
+      const r = await fetch(`${SUPA}/rest/v1/rpc/subscribe_newsletter`, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: KEY, Authorization: `Bearer ${KEY}` }, body: JSON.stringify({ p_email: email, p_consent: true, p_source: 'bombaatomica' }) });
+      if (!r.ok) throw new Error(await r.text());
+      try { localStorage.setItem('ab_skills_ok', '1'); } catch {}
+      const p = pending; closeGate(); if (p) download(p[0], p[1]);
+    } catch (x) { err.textContent = 'Não consegui registrar agora. Confira o e-mail e tente de novo.'; }
+    finally { btn.disabled = false; btn.textContent = 'Liberar downloads'; }
+  });
+  </script>
+</body>
+</html>
