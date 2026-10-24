@@ -20,8 +20,8 @@ export function handleOf(url) {
 
 export default async function miner({ sb, query, go, refresh }) {
   const [links, profiles] = await Promise.all([
-    sb.from("miner_links").select("id, url, platform, collection, author, note, status, thumbnail_url, saved_at, version").is("archived_at", null).order("saved_at", { ascending: false }).limit(500),
-    sb.from("miner_profiles").select("id, url, platform, handle, display_name, photo, note, version").is("archived_at", null).order("handle").limit(200),
+    sb.from("miner_links").select("id, url, platform, collection, author, note, idea, target, format, status, thumbnail_url, saved_at, version").is("archived_at", null).order("saved_at", { ascending: false }).limit(500),
+    sb.from("miner_profiles").select("id, url, platform, handle, display_name, photo, note, followers, checked_at, version").is("archived_at", null).order("handle").limit(200),
   ]);
   if (links.error || profiles.error) return h("div", { class: "page" }, pageHead("Garimpo criativo.", "MineR_"), alertBox("Não foi possível carregar o garimpo. Atualize a página."));
 
@@ -67,7 +67,9 @@ export default async function miner({ sb, query, go, refresh }) {
       h("span", { class: "play" }, "▶"), h("span", { class: "open mono" }, "Abrir ↗")),
     h("div", { class: "mbody" },
       h("div", { class: "mono mcol" }, h("i"), l.collection, l.author && h("span", { class: "muted" }, " · ", l.author)),
-      l.note && h("p", { class: "mnote" }, l.note)),
+      l.note && h("p", { class: "mnote" }, l.note),
+      l.idea && h("p", { class: "midea" }, h("b", null, "Recriar: "), l.idea),
+      (l.target || l.format) && h("div", { class: "flex", style: { gap: "6px", marginTop: "6px" } }, l.target && h("span", { class: "chip accent" }, "@" + l.target), l.format && h("span", { class: "chip" }, l.format))),
     h("footer", null, h("span", { class: "mono muted" }, fmtDate(dayOf(l.saved_at), false)),
       l.status === "usado"
         ? h("button", { class: "mono link", type: "button", onclick: () => setLink(l, { status: "inbox" }, "Voltou pro inbox.") }, "↶ Voltar")
@@ -106,7 +108,7 @@ export default async function miner({ sb, query, go, refresh }) {
   });
   const profRow = (p) => h("a", { class: "mprof", href: p.url, target: "_blank", rel: "noopener" },
     p.photo || autoPhoto(p.url, p.handle) ? h("img", { src: p.photo || autoPhoto(p.url, p.handle), alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.replaceWith(h("span", { class: "av" })) }) : h("span", { class: "av" }),
-    h("div", { class: "grow", style: { minWidth: 0 } }, h("div", { class: "truncate" }, p.display_name || p.handle), h("div", { class: "mono muted small truncate" }, p.handle, " · ", PLAT_TAG[p.platform])));
+    h("div", { class: "grow", style: { minWidth: 0 } }, h("div", { class: "truncate" }, p.display_name || p.handle), h("div", { class: "muted small truncate" }, p.handle, p.followers != null ? ` · ${p.followers >= 1e6 ? (p.followers / 1e6).toFixed(1).replace(".", ",") + " mi" : p.followers >= 1e3 ? Math.round(p.followers / 1e3) + " mil" : p.followers} seguidores` : "")));
 
   const savedToday = all.filter((l) => dayOf(l.saved_at) === today).length;
   const last7 = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); const k = todayISO(d); return all.filter((l) => dayOf(l.saved_at) === k).length; });
@@ -130,6 +132,9 @@ export default async function miner({ sb, query, go, refresh }) {
           h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca de referências"), h("h1", null, "Garimpo criativo.")),
           h("button", { class: "btn", type: "button", onclick: () => { addForm.hidden = !addForm.hidden; if (!addForm.hidden) urlIn.focus(); } }, "Colar novo link ↗")),
         addForm,
+        (() => { const ideas = all.filter((l) => l.idea && l.status !== "usado").slice(0, 6); return ideas.length ? h("section", { class: "panel", style: { marginBottom: "16px" } },
+          h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "grow" }, "Pra replicar hoje"), h("span", { class: "muted small" }, "copiar o que funciona e melhorar com o seu gosto")),
+          h("div", { class: "panel-body" }, h("div", { class: "mcards" }, ...ideas.map(card)))) : null; })(),
         h("div", { class: "mfilters" },
           ...["todos", "inbox", "usado"].map((s) => h("button", { type: "button", class: "chip" + (status === s ? " on" : ""), onclick: () => nav({ status: s === "todos" ? "" : s }) }, s[0].toUpperCase() + s.slice(1), h("sup", null, count(s)))),
           h("div", { class: "grow" }), searchIn),

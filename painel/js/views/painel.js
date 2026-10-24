@@ -26,7 +26,7 @@ async function clima() {
 const k = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "") + "K" : String(n ?? 0));
 
 export default async function inicio({ sb, refresh }) {
-  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo, igHistR] = await Promise.all([
+  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo, igHistR, agendaR, ideasR] = await Promise.all([
     sb.from("posts").select("id, network, title, body, status, scheduled_at, posted_at, is_viral_bet, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(200),
     sb.from("x_goal_entries").select("day, verified_followers, impressions_90d").is("archived_at", null).order("day").limit(200),
     sb.from("radar_items").select("kind, done_at").is("archived_at", null).limit(300),
@@ -36,6 +36,8 @@ export default async function inicio({ sb, refresh }) {
     sb.from("reel_stats").select("day, views").is("archived_at", null).order("day", { ascending: false }).limit(48),
     clima(),
     sb.from("social_stats").select("day, followers").eq("platform", "instagram").is("archived_at", null).order("day", { ascending: false }).limit(21),
+    sb.from("agenda_cache").select("title, starts_at, ends_at, all_day, calendar, synced_at").gte("ends_at", new Date().toISOString()).order("starts_at").limit(60),
+    sb.from("miner_links").select("id, url, platform, author, note, idea, target, format, thumbnail_url, saved_at").is("archived_at", null).not("idea", "is", null).order("saved_at", { ascending: false }).limit(8),
   ]);
   const failed = [postsR, goalR, radarR, minerR].some((r) => r.error);
   const posts = postsR.data || [];
@@ -103,11 +105,12 @@ export default async function inicio({ sb, refresh }) {
   const gained = baseRow && nowRow ? nowRow.followers - baseRow.followers : null;
   const daysLeft = Math.max(0, Math.round((nextFri - new Date(today + "T12:00:00Z")) / 864e5));
   const GOAL_W = 1000;
-  const metas = h("section", { class: "panel" },
-    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Meta da semana · @andersonbrito.mp4"),
+  const metaIG = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Instagram · @andersonbrito.mp4"),
       h("span", { class: "mono" }, `fecha sexta ${fmtDate(nextFri.toISOString().slice(0, 10), false)}`)),
     h("div", { class: "panel-body" }, gained == null ? h("p", { class: "empty" }, "Sem dados do Instagram ainda.") : [
-      h("div", { class: "dnum" }, h("b", null, `${gained >= 0 ? "+" : ""}${gained.toLocaleString("pt-BR")}`), h("span", { class: "muted small" }, ` de ${GOAL_W.toLocaleString("pt-BR")} seguidores novos na semana`)),
+      h("div", { class: "dnum" }, h("b", null, (nowRow?.followers ?? 0).toLocaleString("pt-BR")), h("span", { class: "muted small" }, "seguidores agora")),
+      h("div", { class: "mono", style: { margin: "10px 0 6px" } }, `META DA SEMANA: ${gained >= 0 ? "+" : ""}${gained.toLocaleString("pt-BR")} de +${GOAL_W.toLocaleString("pt-BR")}`),
       bar(Math.max(0, gained), GOAL_W),
       h("p", { class: "muted small", style: { marginTop: "8px" } }, gained >= GOAL_W ? "Meta batida. Bora pra próxima." : `Faltam ${(GOAL_W - gained).toLocaleString("pt-BR")} em ${daysLeft} dia(s): cerca de ${Math.ceil((GOAL_W - gained) / Math.max(1, daysLeft)).toLocaleString("pt-BR")} por dia.`)]));
 
@@ -126,37 +129,62 @@ export default async function inicio({ sb, refresh }) {
         perfil("@ander.sbrito", "pessoal · carrossel", ["seg: dump da semana", "qui: #tbt · sex: dump aleatório", "dia 1: dump do mês · 30/12 dump · 31/12 retrospectiva"], "collab @vanessarotiroti + @andersonbrito.mp4")),
       h("p", { class: "muted small", style: { marginTop: "10px" } }, "Não misturar assuntos: cada perfil fala com um público. Collabs furam a bolha.")));
 
-  return h("div", { class: "page inicio" },
+  // Agenda: próximos compromissos (cache gravado pela rotina das 5h a partir do Google Agenda)
+  const ag = agendaR.data || [];
+  const lastSync = ag.reduce((m, e) => (e.synced_at > m ? e.synced_at : m), "");
+  const prox = ag.filter((e) => e.synced_at === lastSync).slice(0, 8);
+  const quando = (e) => e.all_day ? fmtDate(e.starts_at.slice(0, 10), false) : fmtDateTime(e.starts_at);
+  const agendaBox = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Próximos compromissos"), h("a", { class: "mono", href: "#/agenda" }, "agenda →")),
+    h("div", { class: "panel-body" }, prox.length ? h("div", { class: "stack" }, ...prox.map((e) => h("div", { class: "agrow" }, h("span", { class: "mono muted" }, quando(e)), h("span", null, e.title))))
+      : h("p", { class: "empty" }, "Atualiza todo dia às 5h.")));
+
+  // Histórico do X: o que saiu e o que está agendado nos próximos/últimos dias
+  const hist = posts.filter((p) => ["approved", "posted", "failed"].includes(p.status) && (p.posted_at || p.scheduled_at))
+    .sort((a, b) => (b.posted_at || b.scheduled_at).localeCompare(a.posted_at || a.scheduled_at)).slice(0, 8);
+  const histBox = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Histórico do PostadoR_"), h("a", { class: "mono", href: "#/postador?aba=historico" }, "calendário →")),
+    h("div", { class: "panel-body" }, hist.length ? h("div", { class: "stack" }, ...hist.map((p) => h("a", { class: "agrow", href: `#/postador?id=${p.id}` },
+      h("span", { class: "mono muted" }, fmtDateTime(p.posted_at || p.scheduled_at)), h("span", { class: "truncate" }, (p.status === "approved" ? "agendado · " : p.status === "failed" ? "erro · " : "") + first(p)))))
+      : h("p", { class: "empty" }, "Nada ainda.")));
+
+  // O que replicar hoje (garimpo do MineR_ com ideia de recriação)
+  const ideas = ideasR.data || [];
+  const replicar = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Pra replicar hoje · garimpo"), h("a", { class: "mono", href: "#/miner" }, "MineR_ →")),
+    h("div", { class: "panel-body" }, ideas.length ? h("div", { class: "ideas" }, ...ideas.map((l) => h("a", { class: "idea", href: l.url, target: "_blank", rel: "noopener" },
+      h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() })),
+      h("div", { class: "grow", style: { minWidth: 0 } },
+        h("div", { class: "flex" }, l.target && h("span", { class: "chip accent" }, "@" + l.target), l.format && h("span", { class: "chip" }, l.format), h("span", { class: "mono muted small" }, l.author || "")),
+        h("p", { class: "small", style: { margin: "6px 0 0" } }, l.idea)))))
+      : h("p", { class: "empty" }, "O garimpo roda todo dia às 6h e traz aqui o que vale recriar do seu jeito.")));
+
+  return h("div", { class: "page inicio wide" },
+    h("div", { class: "headstrip" }, await favoritesBar(sb, refresh), quick),
     hero,
-    h("div", { class: "stack-lg", style: { marginBottom: "20px" } }, metas, estrategia),
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
-    await favoritesBar(sb, refresh),
-
-    h("div", { class: "kpis" },
-      tile("Para aprovar", pending.length, "#/postador", viral ? "inclui a aposta viral do dia" : "rascunhos do dia", pending.length > 0),
-      tile("Agendados", scheduled.length, "#/postador?status=approved", scheduled[0] ? `próximo ${fmtDateTime(scheduled[0].scheduled_at)}` : "nada na fila"),
-      tile("X hoje", `${xToday}/${settings.x_daily_limit}`, "#/postador?aba=historico", failedPosts ? `${failedPosts} com erro` : "posts publicados", failedPosts > 0),
-      tile("Radar", talk, "#/postador?aba=radar", `${follow} pra seguir de volta`),
-      tile("Garimpo", (minerR.data || []).length ? "→" : "0", "#/miner", "últimos links abaixo")),
-    update,
-    quick,
-
-    h("div", { class: "igrid" },
+    h("div", { class: "homegrid" },
       h("div", { class: "stack-lg" },
-        goalPanel(cur, prev, bar, delta, null, null, null),
+        h("div", { class: "metas2" }, metaIG, goalPanel(cur, prev, bar, delta, null, null, null)),
+        h("div", { class: "kpis" },
+          tile("Para aprovar", pending.length, "#/postador", viral ? "inclui a aposta viral do dia" : "rascunhos do dia", pending.length > 0),
+          tile("Agendados", scheduled.length, "#/postador?status=approved", scheduled[0] ? `próximo ${fmtDateTime(scheduled[0].scheduled_at)}` : "nada na fila"),
+          tile("X hoje", `${xToday}/${settings.x_daily_limit}`, "#/postador?aba=historico", failedPosts ? `${failedPosts} com erro` : "posts publicados", failedPosts > 0),
+          tile("Radar", talk, "#/postador?aba=radar", `${follow} pra seguir de volta`),
+          tile("Pra replicar", ideas.length, "#/miner", "ideias do garimpo")),
         viral && h("a", { class: "viralcard", href: `#/postador?id=${viral.id}` }, h("span", { class: "pill viral" }, "APOSTA VIRAL DO DIA"), h("b", null, first(viral)), h("span", { class: "mono" }, "Revisar e aprovar →")),
+        replicar,
         h("section", { class: "panel" },
           h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Rascunhos para aprovar"), h("a", { class: "mono", href: "#/postador" }, "abrir postador →")),
           h("div", { class: "panel-body" }, pending.length ? h("div", { class: "stack" }, ...pending.slice(0, 6).map((p) => h("a", { class: "irow", href: `#/postador?id=${p.id}` },
             h("span", { class: "netb n-" + p.network }, p.network === "x" ? "X" : "in"), h("span", { class: "truncate grow" }, first(p)), h("span", { class: "mono muted" }, "abrir"))))
             : h("p", { class: "empty" }, "Nada pendente. Os rascunhos chegam todo dia às 5h."))),
-      ),
-      h("section", { class: "panel" },
-        h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Últimos garimpos · MineR_"), h("a", { class: "mono", href: "#/miner" }, "ver tudo →")),
-        h("div", { class: "panel-body" }, (minerR.data || []).length ? h("div", { class: "minis" }, ...(minerR.data || []).map((l) => h("a", { class: "mini", href: l.url, target: "_blank", rel: "noopener" },
-          h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() }), h("span", { class: "ptag p-" + l.platform }, l.platform === "instagram" ? "IG" : l.platform === "x" ? "X" : "↗")),
-          h("span", { class: "truncate small" }, l.note || l.url)))) : h("p", { class: "empty" }, "Nenhum link ainda.")))),
-    h("section", { class: "panel", style: { marginTop: "20px" } },
-      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Agenda · esta semana (seg a dom)"), h("a", { class: "mono", href: "#/agenda" }, "abrir agenda →")),
-      h("div", { class: "panel-body", style: { padding: 0 } }, calendarEmbed("WEEK", 640))));
+        update,
+        estrategia),
+      h("aside", { class: "stack-lg homeside" },
+        agendaBox,
+        h("section", { class: "panel" },
+          h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Calendário")),
+          h("div", { class: "panel-body", style: { padding: 0 } }, calendarEmbed("AGENDA", 520))),
+        histBox)));
 }
