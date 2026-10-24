@@ -357,3 +357,10 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 .ytrow img,.ytrow .ytph{width:96px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;background:var(--row-h);flex:none}
 .ytrow .x{background:none;border:0;color:var(--tx-4);font-size:16px;cursor:pointer} .ytrow .x:hover{color:var(--accent)}
 @media(max-width:600px){.ytrow{flex-wrap:wrap}}
+.goalbox{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.goalbox>div{display:flex;flex-direction:column;gap:3px;padding:12px;border:1px solid var(--line-2);border-radius:8px;background:var(--row)}
+.goalbox b{font-size:16px}
+.strat3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.strat{display:flex;flex-direction:column;gap:6px;padding:12px;border:1px solid var(--line-2);border-radius:8px}
+.strat ul{margin:0;padding-left:16px;font-size:13px;color:var(--tx-2)} .strat .chip{align-self:flex-start;font-size:10px;height:auto;padding:4px 8px;white-space:normal}
+@media(max-width:900px){.strat3,.goalbox{grid-template-columns:1fr}}

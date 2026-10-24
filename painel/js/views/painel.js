@@ -1,4 +1,4 @@
-import { h, todayISO, dayOf, fmtDateTime, TZ } from "../util.js";
+import { h, todayISO, dayOf, fmtDateTime, fmtDate, TZ } from "../util.js";
 import { alertBox } from "../ui.js";
 import { goalPanel } from "./postador.js";
 import { calendarEmbed } from "./agenda.js";
@@ -26,7 +26,7 @@ async function clima() {
 const k = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "") + "K" : String(n ?? 0));
 
 export default async function inicio({ sb, refresh }) {
-  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo] = await Promise.all([
+  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo, igHistR] = await Promise.all([
     sb.from("posts").select("id, network, title, body, status, scheduled_at, posted_at, is_viral_bet, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(200),
     sb.from("x_goal_entries").select("day, verified_followers, impressions_90d").is("archived_at", null).order("day").limit(200),
     sb.from("radar_items").select("kind, done_at").is("archived_at", null).limit(300),
@@ -35,6 +35,7 @@ export default async function inicio({ sb, refresh }) {
     sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day", { ascending: false }).limit(6),
     sb.from("reel_stats").select("day, views").is("archived_at", null).order("day", { ascending: false }).limit(48),
     clima(),
+    sb.from("social_stats").select("day, followers").eq("platform", "instagram").is("archived_at", null).order("day", { ascending: false }).limit(21),
   ]);
   const failed = [postsR, goalR, radarR, minerR].some((r) => r.error);
   const posts = postsR.data || [];
@@ -91,8 +92,43 @@ export default async function inicio({ sb, refresh }) {
     ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
     h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
 
+  // Meta semanal: +1000 seguidores no @andersonbrito.mp4, semana de sábado a sexta
+  const igH = (igHistR.data || []).slice().reverse();
+  const dow = new Date(today + "T12:00:00Z").getUTCDay(); // 0 dom … 6 sáb
+  const lastFri = new Date(today + "T12:00:00Z"); lastFri.setUTCDate(lastFri.getUTCDate() - ((dow + 2) % 7 || 7));
+  const friKey = lastFri.toISOString().slice(0, 10);
+  const nextFri = new Date(lastFri); nextFri.setUTCDate(nextFri.getUTCDate() + 7);
+  const baseRow = [...igH].reverse().find((r) => r.day <= friKey) || igH[0];
+  const nowRow = igH[igH.length - 1];
+  const gained = baseRow && nowRow ? nowRow.followers - baseRow.followers : null;
+  const daysLeft = Math.max(0, Math.round((nextFri - new Date(today + "T12:00:00Z")) / 864e5));
+  const GOAL_W = 1000;
+  const metas = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Meta da semana · @andersonbrito.mp4"),
+      h("span", { class: "mono" }, `fecha sexta ${fmtDate(nextFri.toISOString().slice(0, 10), false)}`)),
+    h("div", { class: "panel-body" }, gained == null ? h("p", { class: "empty" }, "Sem dados do Instagram ainda.") : [
+      h("div", { class: "dnum" }, h("b", null, `${gained >= 0 ? "+" : ""}${gained.toLocaleString("pt-BR")}`), h("span", { class: "muted small" }, ` de ${GOAL_W.toLocaleString("pt-BR")} seguidores novos na semana`)),
+      bar(Math.max(0, gained), GOAL_W),
+      h("p", { class: "muted small", style: { marginTop: "8px" } }, gained >= GOAL_W ? "Meta batida. Bora pra próxima." : `Faltam ${(GOAL_W - gained).toLocaleString("pt-BR")} em ${daysLeft} dia(s): cerca de ${Math.ceil((GOAL_W - gained) / Math.max(1, daysLeft)).toLocaleString("pt-BR")} por dia.`)]));
+
+  // Estratégia dos perfis (direção de cada um; não misturar públicos)
+  const perfil = (handle, papel, itens, collab) => h("div", { class: "strat" },
+    h("b", { class: "mono" }, handle), h("span", { class: "muted small" }, papel), h("ul", null, ...itens.map((i) => h("li", null, i))), collab && h("span", { class: "chip accent" }, collab));
+  const estrategia = h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Estratégia · cada perfil com um público")),
+    h("div", { class: "panel-body" },
+      h("div", { class: "goalbox" },
+        h("div", null, h("span", { class: "mono" }, "OBJETIVO 1"), h("b", null, "Virar referência no nicho"), h("span", { class: "muted small" }, "audiovisual, edição e IA: autoridade e credibilidade para empresas e clientes")),
+        h("div", null, h("span", { class: "mono" }, "OBJETIVO 2"), h("b", null, "Captar leads que pagam"), h("span", { class: "muted small" }, "quem quer contratar, comprar ou pagar por serviço (empresários, marcas, influencers)"))),
+      h("div", { class: "strat3" },
+        perfil("@andersonbrito.mp4", "principal", ["virais e conceituais", "notícias do nicho", "hook com famoso ou cena estranha"], "notícias em collab com @ilmarlabs"),
+        perfil("@ilmarlabs", "empresa · identidade marcante", ["ensina edição e IA", "bastidor do principal", "virais com famosos (estilo @auramode.ai)"], "sempre collab com @andersonbrito.mp4"),
+        perfil("@ander.sbrito", "pessoal · carrossel", ["seg: dump da semana", "qui: #tbt · sex: dump aleatório", "dia 1: dump do mês · 30/12 dump · 31/12 retrospectiva"], "collab @vanessarotiroti + @andersonbrito.mp4")),
+      h("p", { class: "muted small", style: { marginTop: "10px" } }, "Não misturar assuntos: cada perfil fala com um público. Collabs furam a bolha.")));
+
   return h("div", { class: "page inicio" },
     hero,
+    h("div", { class: "igrid", style: { marginBottom: "20px" } }, metas, estrategia),
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
     await favoritesBar(sb, refresh),
 
