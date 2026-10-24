@@ -181,7 +181,7 @@ export default async function inicio({ sb, refresh }) {
   };
   const avisos = [];
   for (let i = 6; i >= 0; i--) { const d = new Date(today + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - i); avisos.push(...avisosDe(d.toISOString().slice(0, 10))); }
-  const pend = avisos.filter((a) => !feitos.has(a.key));
+  const pend = avisos.filter((a) => !feitos.has(a.key) && a.day >= "2026-10-24"); // regra começou em 24/10
   const marcar = async (a, btn) => {
     btn.disabled = true;
     const { error } = await sb.from("reminder_done").insert({ key: a.key });
