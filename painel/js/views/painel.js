@@ -27,7 +27,7 @@ async function clima() {
 const k = (n) => (n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "") + "M" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "") + "K" : String(n ?? 0));
 
 export default async function inicio({ sb, refresh }) {
-  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo, igHistR, agendaR, ideasR] = await Promise.all([
+  const [postsR, goalR, radarR, minerR, setR, socialR, reelsR, tempo, igHistR, agendaR, ideasR, doneR] = await Promise.all([
     sb.from("posts").select("id, network, title, body, status, scheduled_at, posted_at, is_viral_bet, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(200),
     sb.from("x_goal_entries").select("day, verified_followers, impressions_90d").is("archived_at", null).order("day").limit(200),
     sb.from("radar_items").select("kind, done_at").is("archived_at", null).limit(300),
@@ -39,6 +39,7 @@ export default async function inicio({ sb, refresh }) {
     sb.from("social_stats").select("day, followers").eq("platform", "instagram").is("archived_at", null).order("day", { ascending: false }).limit(21),
     sb.from("agenda_cache").select("title, starts_at, ends_at, all_day, calendar, synced_at").gte("ends_at", new Date().toISOString()).order("starts_at").limit(60),
     sb.from("miner_links").select("id, url, platform, author, note, idea, target, format, thumbnail_url, saved_at").is("archived_at", null).not("idea", "is", null).order("saved_at", { ascending: false }).limit(8),
+    sb.from("reminder_done").select("key").gte("done_at", new Date(Date.now() - 20 * 864e5).toISOString()),
   ]);
   const failed = [postsR, goalR, radarR, minerR].some((r) => r.error);
   const posts = postsR.data || [];
@@ -166,9 +167,37 @@ export default async function inicio({ sb, refresh }) {
   const parabens = batidas.length ? h("section", { class: "parabens" }, h("b", null, "PARABÉNS!"), h("span", null, " Você bateu: " + batidas.join(" · ") + ". Bora pra próxima.")) : null;
   if (batidas.length) { try { const kk = "aos_parabens_" + friKey + batidas.length; if (!localStorage.getItem(kk)) { localStorage.setItem(kk, "1"); setTimeout(() => toast("Parabéns! Meta batida: " + batidas[0]), 600); } } catch {} }
 
+  // Avisos do @ander.sbrito (carrossel com collab @vanessarotiroti + @andersonbrito.mp4): hoje e atrasados da semana, até marcar feito
+  const feitos = new Set((doneR.data || []).map((r) => r.key));
+  const avisosDe = (d) => {
+    const dt = new Date(d + "T12:00:00Z"), wd = dt.getUTCDay(), dia = dt.getUTCDate(), mes = dt.getUTCMonth() + 1, out = [];
+    if (wd === 1) out.push(["dump-semana", "DUMP DA SEMANA"]);
+    if (wd === 4) out.push(["tbt", "#TBT"]);
+    if (wd === 5) out.push(["dump-aleatorio", "DUMP ALEATÓRIO"]);
+    if (dia === 1 && mes !== 1) out.push(["dump-mes", "DUMP DO MÊS PASSADO"]);
+    if (dia === 30 && mes === 12) out.push(["dump-mes", "DUMP DO MÊS (dezembro)"]);
+    if (dia === 31 && mes === 12) out.push(["retro", "RETROSPECTIVA DO ANO"]);
+    return out.map(([k2, t]) => ({ key: `${k2}:${d}`, title: t, day: d }));
+  };
+  const avisos = [];
+  for (let i = 6; i >= 0; i--) { const d = new Date(today + "T12:00:00Z"); d.setUTCDate(d.getUTCDate() - i); avisos.push(...avisosDe(d.toISOString().slice(0, 10))); }
+  const pend = avisos.filter((a) => !feitos.has(a.key));
+  const marcar = async (a, btn) => {
+    btn.disabled = true;
+    const { error } = await sb.from("reminder_done").insert({ key: a.key });
+    if (error && !/duplicate/i.test(error.message)) { btn.disabled = false; return toast("Não foi possível marcar.", { kind: "err" }); }
+    toast("Feito!"); refresh();
+  };
+  const avisosBox = pend.length ? h("section", { class: "avisos" },
+    h("div", { class: "flex" }, h("b", { class: "mono" }, "AVISOS · @ander.sbrito"), h("span", { class: "muted small" }, "carrossel com collab @vanessarotiroti + @andersonbrito.mp4")),
+    ...pend.map((a) => h("div", { class: "aviso" + (a.day < today ? " atrasado" : "") },
+      h("span", { class: "mono" }, a.day === today ? "HOJE" : `atrasado · ${fmtDate(a.day, false)}`), h("b", { class: "grow" }, a.title),
+      h("button", { class: "btn btn-sm", type: "button", onclick: (e) => marcar(a, e.currentTarget) }, "Feito")))) : null;
+
   return h("div", { class: "page inicio wide" },
     h("div", { class: "headstrip" }, await favoritesBar(sb, refresh), quick),
     parabens,
+    avisosBox,
     hero,
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
     h("div", { class: "homegrid" },
