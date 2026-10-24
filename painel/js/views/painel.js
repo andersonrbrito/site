@@ -1,7 +1,8 @@
 import { h, todayISO, dayOf, fmtDateTime, fmtDate, TZ } from "../util.js";
-import { alertBox } from "../ui.js";
+import { alertBox, hideable, toast } from "../ui.js";
 import { goalPanel } from "./postador.js";
 import { calendarEmbed } from "./agenda.js";
+import { xOrigem } from "./desempenho.js";
 import { favoritesBar } from "../favorites.js";
 import { QUICK, META_SCHEDULER, iconLink, favicon } from "../links.js";
 
@@ -90,7 +91,7 @@ export default async function inicio({ sb, refresh }) {
       h("div", { class: "wxdays" }, ...tempo.dias.map((d, i) => h("div", null, h("span", { class: "mono" }, i === 0 ? "hoje" : new Intl.DateTimeFormat("pt-BR", { weekday: "short", timeZone: "UTC" }).format(new Date(d.d + "T12:00:00Z")).replace(".", "")), h("b", null, `${d.max}° / ${d.min}°`), h("span", { class: "muted small" }, `chuva ${d.chuva ?? 0}%`)))))
       : h("p", { class: "muted small" }, "Previsão do tempo indisponível agora."));
 
-  const quick = h("section", { class: "quickgrid" },
+  const quick = h("section", { class: "quickgrid" }, h("span", { class: "mono striplabel" }, "Ferramentas"),
     ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
     h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
 
@@ -134,10 +135,10 @@ export default async function inicio({ sb, refresh }) {
   const lastSync = ag.reduce((m, e) => (e.synced_at > m ? e.synced_at : m), "");
   const prox = ag.filter((e) => e.synced_at === lastSync).slice(0, 8);
   const quando = (e) => e.all_day ? fmtDate(e.starts_at.slice(0, 10), false) : fmtDateTime(e.starts_at);
-  const agendaBox = h("section", { class: "panel" },
+  const agendaBox = hideable("agenda", h("section", { class: "panel" },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Próximos compromissos"), h("a", { class: "mono", href: "#/agenda" }, "agenda →")),
     h("div", { class: "panel-body" }, prox.length ? h("div", { class: "stack" }, ...prox.map((e) => h("div", { class: "agrow" }, h("span", { class: "mono muted" }, quando(e)), h("span", null, e.title))))
-      : h("p", { class: "empty" }, "Atualiza todo dia às 5h.")));
+      : h("p", { class: "empty" }, "Atualiza todo dia às 5h."))));
 
   // Histórico do X: o que saiu e o que está agendado nos próximos/últimos dias
   const hist = posts.filter((p) => ["approved", "posted", "failed"].includes(p.status) && (p.posted_at || p.scheduled_at))
@@ -150,28 +151,37 @@ export default async function inicio({ sb, refresh }) {
 
   // O que replicar hoje (garimpo do MineR_ com ideia de recriação)
   const ideas = ideasR.data || [];
-  const replicar = h("section", { class: "panel" },
+  const replicar = hideable("replicar", h("section", { class: "panel" },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Pra replicar hoje · garimpo"), h("a", { class: "mono", href: "#/miner" }, "MineR_ →")),
     h("div", { class: "panel-body" }, ideas.length ? h("div", { class: "ideas" }, ...ideas.map((l) => h("a", { class: "idea", href: l.url, target: "_blank", rel: "noopener" },
       h("div", { class: "mthumb" }, l.thumbnail_url && h("img", { src: l.thumbnail_url, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.remove() })),
       h("div", { class: "grow", style: { minWidth: 0 } },
         h("div", { class: "flex" }, l.target && h("span", { class: "chip accent" }, "@" + l.target), l.format && h("span", { class: "chip" }, l.format), h("span", { class: "mono muted small" }, l.author || "")),
         h("p", { class: "small", style: { margin: "6px 0 0" } }, l.idea)))))
-      : h("p", { class: "empty" }, "O garimpo roda todo dia às 6h e traz aqui o que vale recriar do seu jeito.")));
+      : h("p", { class: "empty" }, "O garimpo roda todo dia às 6h e traz aqui o que vale recriar do seu jeito."))));
+
+  // Parabéns quando uma meta é batida (aparece no topo e uma vez por semana como aviso)
+  const batidas = [gained != null && gained >= GOAL_W && `meta da semana no Instagram (+${gained.toLocaleString("pt-BR")} seguidores)`,
+    cur.verified_followers >= 500 && "500 seguidores verificados no X", cur.impressions_90d >= 500000 && "500 mil impressões verificadas no X"].filter(Boolean);
+  const parabens = batidas.length ? h("section", { class: "parabens" }, h("b", null, "PARABÉNS!"), h("span", null, " Você bateu: " + batidas.join(" · ") + ". Bora pra próxima.")) : null;
+  if (batidas.length) { try { const kk = "aos_parabens_" + friKey + batidas.length; if (!localStorage.getItem(kk)) { localStorage.setItem(kk, "1"); setTimeout(() => toast("Parabéns! Meta batida: " + batidas[0]), 600); } } catch {} }
 
   return h("div", { class: "page inicio wide" },
     h("div", { class: "headstrip" }, await favoritesBar(sb, refresh), quick),
+    parabens,
     hero,
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
     h("div", { class: "homegrid" },
       h("div", { class: "stack-lg" },
         h("div", { class: "metas2" }, metaIG, goalPanel(cur, prev, bar, delta, null, null, null)),
+        h("div", { class: "mono sectitle" }, "X · POSTADOR_"),
         h("div", { class: "kpis" },
           tile("Para aprovar", pending.length, "#/postador", viral ? "inclui a aposta viral do dia" : "rascunhos do dia", pending.length > 0),
           tile("Agendados", scheduled.length, "#/postador?status=approved", scheduled[0] ? `próximo ${fmtDateTime(scheduled[0].scheduled_at)}` : "nada na fila"),
           tile("X hoje", `${xToday}/${settings.x_daily_limit}`, "#/postador?aba=historico", failedPosts ? `${failedPosts} com erro` : "posts publicados", failedPosts > 0),
           tile("Radar", talk, "#/postador?aba=radar", `${follow} pra seguir de volta`),
           tile("Pra replicar", ideas.length, "#/miner", "ideias do garimpo")),
+        await xOrigem(sb),
         viral && h("a", { class: "viralcard", href: `#/postador?id=${viral.id}` }, h("span", { class: "pill viral" }, "APOSTA VIRAL DO DIA"), h("b", null, first(viral)), h("span", { class: "mono" }, "Revisar e aprovar →")),
         replicar,
         h("section", { class: "panel" },

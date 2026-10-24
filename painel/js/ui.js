@@ -109,3 +109,16 @@ export const field = (label, control) => h("label", { class: "field" }, label, c
 export const input = (name, o = {}) => h("input", { class: "input", name, ...o });
 export const select = (name, opts, cur, o = {}) => h("select", { class: "select", name, ...o }, ...opts.map(([v, t]) => h("option", { value: v, selected: v === cur }, t)));
 export const textarea = (name, v, rows = 3) => { const t = h("textarea", { class: "textarea", name, rows }); t.value = v || ""; return t; };
+
+// Painel que pode ser ocultado (para gravar a tela sem vazar informação). Lembra a escolha neste navegador.
+export function hideable(key, panel) {
+  const k = "aos_hide_" + key;
+  let hidden = false; try { hidden = localStorage.getItem(k) === "1"; } catch {}
+  const head = panel.querySelector(".panel-head"), body = panel.querySelector(".panel-body");
+  const btn = document.createElement("button");
+  btn.type = "button"; btn.className = "btn btn-ghost btn-sm hidebtn";
+  const apply = () => { body.classList.toggle("is-hidden", hidden); btn.textContent = hidden ? "Mostrar" : "Ocultar"; };
+  btn.onclick = () => { hidden = !hidden; try { localStorage.setItem(k, hidden ? "1" : "0"); } catch {} apply(); };
+  head?.append(btn); apply();
+  return panel;
+}

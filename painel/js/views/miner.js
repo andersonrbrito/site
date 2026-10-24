@@ -1,5 +1,5 @@
 import { h, fmtDate, todayISO, dayOf } from "../util.js";
-import { pageHead, alertBox, toast, icon } from "../ui.js";
+import { pageHead, alertBox, toast, icon, hideable } from "../ui.js";
 
 // MineR_: garimpo de referências (vídeos do Instagram, X etc.). Dados em miner_links / miner_profiles.
 const PLAT = { instagram: "Instagram", x: "X / Twitter", tiktok: "TikTok", youtube: "YouTube", outro: "Link" };
@@ -73,7 +73,8 @@ export default async function miner({ sb, query, go, refresh }) {
     h("footer", null, h("span", { class: "mono muted" }, fmtDate(dayOf(l.saved_at), false)),
       l.status === "usado"
         ? h("button", { class: "mono link", type: "button", onclick: () => setLink(l, { status: "inbox" }, "Voltou pro inbox.") }, "↶ Voltar")
-        : h("button", { class: "mono link", type: "button", onclick: () => setLink(l, { status: "usado" }, "Marcado como usado.") }, "Marcar usado")));
+        : h("button", { class: "mono link", type: "button", onclick: () => setLink(l, { status: "usado" }, "Marcado como usado.") }, "Marcar usado"),
+      h("button", { class: "mono link danger", type: "button", onclick: () => setLink(l, { archived_at: new Date().toISOString() }, "Excluído do garimpo.") }, "Excluir")));
 
   // ---- perfis de referência: link, nome, @ e foto (automática pelo @ ou colada com Cmd+V) ----
   const autoPhoto = (url, handle) => { const hd = (handle || "").replace(/^@/, ""), pl = platformOf(url); return hd && ["instagram", "x", "tiktok", "youtube"].includes(pl) ? `https://unavatar.io/${pl === "x" ? "x" : pl}/${hd}` : null; };
@@ -132,9 +133,9 @@ export default async function miner({ sb, query, go, refresh }) {
           h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca de referências"), h("h1", null, "Garimpo criativo.")),
           h("button", { class: "btn", type: "button", onclick: () => { addForm.hidden = !addForm.hidden; if (!addForm.hidden) urlIn.focus(); } }, "Colar novo link ↗")),
         addForm,
-        (() => { const ideas = all.filter((l) => l.idea && l.status !== "usado").slice(0, 6); return ideas.length ? h("section", { class: "panel", style: { marginBottom: "16px" } },
+        (() => { const ideas = all.filter((l) => l.idea && l.status !== "usado").slice(0, 6); return ideas.length ? hideable("miner_replicar", h("section", { class: "panel", style: { marginBottom: "16px" } },
           h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "grow" }, "Pra replicar hoje"), h("span", { class: "muted small" }, "copiar o que funciona e melhorar com o seu gosto")),
-          h("div", { class: "panel-body" }, h("div", { class: "mcards" }, ...ideas.map(card)))) : null; })(),
+          h("div", { class: "panel-body" }, h("div", { class: "mcards" }, ...ideas.map(card))))) : null; })(),
         h("div", { class: "mfilters" },
           ...["todos", "inbox", "usado"].map((s) => h("button", { type: "button", class: "chip" + (status === s ? " on" : ""), onclick: () => nav({ status: s === "todos" ? "" : s }) }, s[0].toUpperCase() + s.slice(1), h("sup", null, count(s)))),
           h("div", { class: "grow" }), searchIn),

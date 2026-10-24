@@ -77,6 +77,7 @@ export default async function desempenho({ sb, refresh, query, go }) {
     const xVer = ser("x", (s) => s.data?.verified_followers ?? null), xImp = ser("x", (s) => s.data?.impressions_90d ?? null), xFol = ser("x", (s) => s.followers);
     return h("div", { class: "page desempenho" },
       pageHead("Desempenho", "X e Instagram · atualizado toda manhã"), tabs,
+      await xOrigem(sb),
       await insightsView(sb, refresh),
       h("div", { class: "dgrid" },
         card("Seguidores verificados (meta 500)", k(lastOf(xVer)), delta(xVer), lineChart(xVer, { goal: 500 })),
@@ -145,4 +146,26 @@ async function igInsights(sb, refresh, media = {}) {
         : "Resumo detalhado dos insights do Instagram (últimos 30 dias): alcance, visualizações, interações, seguidores, melhores conteúdos e sugestões."),
       h("button", { class: "btn btn-sm", type: "button", disabled: open, onclick: ask }, open ? "Atualizando…" : "Atualizar insights do Instagram")),
     await reportBox(sb, "instagram", media));
+}
+
+// X: o que saiu pelo PostadoR_ x o que ele postou à mão, e a soma (últimos 7 dias e hoje).
+// x_posts vem da coleta das 5h40 (inclui tudo que está no perfil); o que é do PostadoR_ tem o link salvo em posts.external_url.
+export async function xOrigem(sb) {
+  const since = new Date(Date.now() - 7 * 864e5).toISOString();
+  const [xpR, poR] = await Promise.all([
+    sb.from("x_posts").select("id, created_at, impressions, likes, replies, reposts").gte("created_at", since).limit(1000),
+    sb.from("posts").select("external_url, posted_at").eq("network", "x").eq("status", "posted").gte("posted_at", since).limit(500),
+  ]);
+  const xp = xpR.data || [], ids = new Set((poR.data || []).map((p) => (p.external_url || "").split("/").pop()).filter(Boolean));
+  const hoje = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
+  const dia = (ts) => new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date(ts));
+  const grupo = (f) => { const l = xp.filter(f); return { n: l.length, imp: l.reduce((s, t) => s + (t.impressions || 0), 0), eng: l.reduce((s, t) => s + (t.likes || 0) + (t.replies || 0) + (t.reposts || 0), 0) }; };
+  const auto = grupo((t) => ids.has(t.id)), manual = grupo((t) => !ids.has(t.id)), total = grupo(() => true);
+  const hojeAuto = (poR.data || []).filter((p) => dia(p.posted_at) === hoje).length;
+  const col = (label, g, extra) => h("div", { class: "xorig" }, h("span", { class: "mono" }, label), h("b", null, String(g.n)), h("span", { class: "muted small" }, `posts · ${k(g.imp)} impressões · ${k(g.eng)} interações`), extra && h("span", { class: "muted small" }, extra));
+  return h("section", { class: "panel" },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "X · PostadoR_ x manual (últimos 7 dias)")),
+    h("div", { class: "panel-body" },
+      h("div", { class: "xorig3" }, col("PELO POSTADOR_", auto, `hoje: ${hojeAuto}`), col("MANUAL", manual), col("TOTAL", total)),
+      h("p", { class: "muted small", style: { marginTop: "8px" } }, "Contagem dos posts do perfil (sem respostas). O manual de hoje entra depois da coleta das 5h40.")));
 }
