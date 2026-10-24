@@ -128,7 +128,7 @@ export default async function inicio({ sb, refresh }) {
 
   return h("div", { class: "page inicio" },
     hero,
-    h("div", { class: "igrid", style: { marginBottom: "20px" } }, metas, estrategia),
+    h("div", { class: "stack-lg", style: { marginBottom: "20px" } }, metas, estrategia),
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
     await favoritesBar(sb, refresh),
 
