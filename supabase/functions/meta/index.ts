@@ -68,7 +68,8 @@ async function connectUrl(kind: "instagram" | "page") {
     return `https://www.instagram.com/oauth/authorize?${p}`;
   }
   const p = new URLSearchParams({ client_id: FB_APP_ID, redirect_uri: `${BASE}/callback-fb`, response_type: "code", scope: FB_SCOPES, state });
-  const cfg = Deno.env.get("FB_LOGIN_CONFIG_ID"); if (cfg) { p.delete("scope"); p.set("config_id", cfg); }
+  // configuração "Painel leitura Pagina" do Login do Facebook para Empresas (o app não aceita a lista de permissões solta)
+  const cfg = Deno.env.get("FB_LOGIN_CONFIG_ID") || "1460240862723137"; if (cfg) { p.delete("scope"); p.set("config_id", cfg); }
   return `https://www.facebook.com/${V}/dialog/oauth?${p}`;
 }
 
