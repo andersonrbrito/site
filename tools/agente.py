@@ -19,7 +19,7 @@ def call(fn, body):
     import subprocess
     url = BASE + ("meta?action=agente" if fn == "agente" else fn)
     r = subprocess.run(["curl", "-s", "-X", "POST", url, "-H", "Content-Type: application/json", "-H", f"x-agent-key: {KEY}",
-                        "--data-binary", "@-", "-m", "120"], input=json.dumps(body), capture_output=True, text=True)
+                        "--data-binary", "@-", "-m", "300"], input=json.dumps(body), capture_output=True, text=True)
     try: return json.loads(r.stdout)
     except ValueError: return {"error": r.stdout[:300] or r.stderr[:300]}
 
@@ -30,4 +30,4 @@ if __name__ == "__main__":
     elif op in ("insert", "upsert"): out = call("agente", {"op": op, "table": arg, "rows": extra})
     elif op == "update": out = call("agente", {"op": "update", "table": arg, **extra})
     else: out = call("agente", {"op": "select", "table": arg, **extra})
-    print(json.dumps(out, ensure_ascii=False, indent=1))
+    print(json.dumps(out, ensure_ascii=True, indent=1))

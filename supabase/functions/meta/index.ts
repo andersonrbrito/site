@@ -15,7 +15,7 @@ const FB_APP_ID = "1584718087029566";
 const V = "v23.0";
 const VERIFY_TOKEN = "anderson-os-meta-webhook"; // só confirma a assinatura do webhook; os eventos são validados pela chave secreta
 const IG_SCOPES = "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_manage_insights";
-const FB_SCOPES = "pages_show_list,pages_read_engagement,pages_manage_engagement,pages_manage_metadata,pages_messaging,leads_retrieval,business_management";
+const FB_SCOPES = "pages_show_list,pages_read_engagement,read_insights,business_management"; // só leitura (views e comentários da Página); responder comentários exige permissão que a Meta não liberou para este app
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, x-cron-key, apikey, x-client-info", "Access-Control-Allow-Methods": "GET, POST, OPTIONS" };
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...CORS, "Content-Type": "application/json" } });
 const secret = (n: string) => { const v = Deno.env.get(n); if (!v) throw new Error(`secret ${n} ausente no Supabase`); return v; };
@@ -259,6 +259,48 @@ async function igInsights() {
   return { periodo: "últimos 30 dias", totais: totals, alcance_diario: daily, top_posts: top };
 }
 
+// Histórico para diagnóstico de alcance: alcance da conta mês a mês e views/alcance de cada post (até ~200 posts).
+async function igHistory() {
+  const ig = await account("instagram"); if (!ig) throw new Error("Instagram não conectado");
+  const meses: any[] = [];
+  const now = Math.floor(Date.now() / 1000);
+  for (let i = 0; i < 9; i++) {  // 9 janelas de 30 dias para trás
+    const until = now - i * 30 * 86400, since = until - 30 * 86400;
+    const r = await api(`https://graph.instagram.com/${V}/me/insights?metric=reach,views,accounts_engaged,follows_and_unfollows&period=day&metric_type=total_value&since=${since}&until=${until}&access_token=${ig.token}`).catch((e) => ({ error: e.message }));
+    meses.push({ de: new Date(since * 1000).toISOString().slice(0, 10), ate: new Date(until * 1000).toISOString().slice(0, 10), dados: r.data?.map((m: any) => ({ [m.name]: m.total_value?.value ?? m.total_value?.breakdowns })) ?? r });
+  }
+  const posts: any[] = [];
+  let url = `https://graph.instagram.com/${V}/me/media?fields=id,caption,timestamp,media_type,like_count,comments_count,permalink&limit=50&access_token=${ig.token}`;
+  for (let p = 0; p < 4 && url; p++) {
+    const page = await api(url);
+    for (const m of page.data || []) {
+      const ins = await api(`https://graph.instagram.com/${V}/${m.id}/insights?metric=views,reach,shares,saved&access_token=${ig.token}`).catch(() => null);
+      const val = (n: string) => ins?.data?.find((x: any) => x.name === n)?.values?.[0]?.value ?? ins?.data?.find((x: any) => x.name === n)?.total_value?.value ?? null;
+      posts.push({ data: m.timestamp?.slice(0, 10), tipo: m.media_type, legenda: (m.caption || "").split("\n")[0].slice(0, 60), likes: m.like_count, comentarios: m.comments_count, views: val("views"), alcance: val("reach"), shares: val("shares"), salvos: val("saved") });
+    }
+    url = page.paging?.next || "";
+  }
+  return { meses, posts };
+}
+
+// Views dos Reels/vídeos da Página do Facebook, para comparar com o Instagram post a post.
+async function fbHistory() {
+  const pg = await account("page"); if (!pg) throw new Error("Página do Facebook não conectada");
+  const out: any[] = [];
+  let url = `https://graph.facebook.com/${V}/${pg.account_id}/video_reels?fields=id,description,created_time,permalink_url&limit=50&access_token=${pg.token}`;
+  for (let p = 0; p < 5 && url; p++) {
+    const page = await api(url).catch((e) => ({ error: e.message }));
+    if ((page as any).error) { out.push({ erro: (page as any).error }); break; }
+    for (const v of (page as any).data || []) {
+      const ins = await api(`https://graph.facebook.com/${V}/${v.id}/video_insights?metric=blue_reels_play_count,post_impressions_unique&access_token=${pg.token}`).catch(() => null);
+      const val = (n: string) => ins?.data?.find((x: any) => x.name === n)?.values?.[0]?.value ?? null;
+      out.push({ data: v.created_time?.slice(0, 10), legenda: (v.description || "").split("\n")[0].slice(0, 60), views: val("blue_reels_play_count"), alcance: val("post_impressions_unique"), link: v.permalink_url });
+    }
+    url = (page as any).paging?.next || "";
+  }
+  return { pagina: pg.name, reels: out };
+}
+
 async function daily() {
   const ig = await account("instagram");
   if (ig) { // token do Instagram dura 60 dias: renova todo dia
@@ -329,6 +371,8 @@ Deno.serve(async (req) => {
     if (action === "reply") { const b = await req.json().catch(() => ({})); return json(await reply(b.id, b.text)); }
     if (action === "sync") return json(await sync());
     if (action === "ig_insights") return json(await igInsights());
+    if (action === "ig_history") return json(await igHistory());
+    if (action === "fb_history") return json(await fbHistory());
     if (action === "daily") return json(await daily());
     if (action === "status") return json({ ig_secret: !!Deno.env.get("IG_APP_SECRET"), fb_secret: !!Deno.env.get("FB_APP_SECRET") });
     return json({ error: "ação desconhecida" }, 400);
