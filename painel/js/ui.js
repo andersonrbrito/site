@@ -12,6 +12,7 @@ const P = {
   busca: "M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-4.5-4.5",
   postador: "M4 20l4-1L19 8a2.1 2.1 0 0 0-3-3L5 16zM14 7l3 3M4 20h16",
   portfolios: "M3 7h18v13H3zM8 7V4h8v3M3 12h18",
+  trampos: "M4 8h16v11H4zM9 8V5h6v3M4 13h16",
   youtube: "M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z",
   social: "M4 4h16v12H8l-4 4zM8 9h8M8 12h5",
   prompts: "M4 6h16M4 12h10M4 18h7M17 14l3 3-3 3",

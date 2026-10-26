@@ -30,9 +30,13 @@ async function api(url: string, init?: RequestInit) {
 const form = (o: Record<string, string>) => ({ method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(o) });
 const post = (url: string, body: unknown) => api(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
 
+// A conta Meta tem várias Páginas; a do painel é a "Anderson Brito Fotografia".
+const PAGE_NAME = "anderson brito fotografia";
 async function account(kind: "instagram" | "page") {
-  const { data } = await sb.from("meta_accounts").select("account_id, name, token").eq("kind", kind).order("updated_at", { ascending: false }).limit(1).maybeSingle();
-  return data;
+  const { data } = await sb.from("meta_accounts").select("account_id, name, token").eq("kind", kind).order("updated_at", { ascending: false }).limit(50);
+  const list = data || [];
+  if (kind === "page") return list.find((a) => (a.name || "").toLowerCase().includes(PAGE_NAME)) || list[0] || null;
+  return list[0] || null;
 }
 
 // ───────── autorização ─────────
@@ -101,6 +105,7 @@ async function callbackFb(u: URL) {
   const pages = await api(`https://graph.facebook.com/${V}/me/accounts?fields=id,name,access_token&limit=50&access_token=${long.access_token}`);
   const names: string[] = [];
   for (const pg of pages.data || []) {
+    if (!(pg.name || "").toLowerCase().includes(PAGE_NAME)) continue; // só a Página do painel
     await sb.from("meta_accounts").upsert({ kind: "page", account_id: pg.id, name: pg.name, token: pg.access_token, expires_at: null, updated_at: new Date().toISOString() }, { onConflict: "kind,account_id" });
     await api(`https://graph.facebook.com/${V}/${pg.id}/subscribed_apps?subscribed_fields=feed,messages,leadgen&access_token=${pg.access_token}`, { method: "POST" }).catch(() => null);
     names.push(pg.name);
@@ -293,9 +298,9 @@ async function fbHistory() {
     const page = await api(url).catch((e) => ({ error: e.message }));
     if ((page as any).error) { out.push({ erro: (page as any).error }); break; }
     for (const v of (page as any).data || []) {
-      const ins = await api(`https://graph.facebook.com/${V}/${v.id}/video_insights?metric=blue_reels_play_count,post_impressions_unique&access_token=${pg.token}`).catch(() => null);
-      const val = (n: string) => ins?.data?.find((x: any) => x.name === n)?.values?.[0]?.value ?? null;
-      out.push({ data: v.created_time?.slice(0, 10), legenda: (v.description || "").split("\n")[0].slice(0, 60), views: val("blue_reels_play_count"), alcance: val("post_impressions_unique"), link: v.permalink_url });
+      // "views" vem no próprio vídeo, sem precisar da permissão de insights (que o app não tem)
+      const f = await api(`https://graph.facebook.com/${V}/${v.id}?fields=views,post_views&access_token=${pg.token}`).catch(() => ({}));
+      out.push({ data: v.created_time?.slice(0, 10), legenda: (v.description || "").split("\n")[0].slice(0, 60), views: (f as any).views ?? null, views_post: (f as any).post_views ?? null, link: v.permalink_url });
     }
     url = (page as any).paging?.next || "";
   }
@@ -312,7 +317,7 @@ async function daily() {
 }
 
 // ───────── porta das rotinas do Claude (sem navegador): ?action=agente, cabeçalho x-agent-key ─────────
-const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache"];
+const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache", "jobs"];
 async function integration(key: string | null) {
   if (!key || key.length < 20) return null;
   const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key)))].map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -374,6 +379,35 @@ Deno.serve(async (req) => {
     if (action === "ig_insights") return json(await igInsights());
     if (action === "ig_history") return json(await igHistory());
     if (action === "fb_history") return json(await fbHistory());
+    if (action === "ig_retention") {  // retenção dos Reels: tempo médio assistido e taxa de pulo (o que o Instagram usa pra distribuir)
+      const ig = await account("instagram"); if (!ig) throw new Error("Instagram não conectado");
+      const media = await api(`https://graph.instagram.com/${V}/me/media?fields=id,caption,timestamp,media_type&limit=40&access_token=${ig.token}`);
+      const out: any[] = [];
+      for (const m of (media.data || []).filter((x: any) => x.media_type === "VIDEO")) {
+        const r = await fetch(`https://graph.instagram.com/${V}/${m.id}/insights?metric=views,reach,ig_reels_avg_watch_time,reels_skip_rate,shares,saved,likes&access_token=${ig.token}`).then((x) => x.json());
+        const v: any = {}; for (const d of r.data || []) v[d.name] = d.values?.[0]?.value ?? d.total_value?.value;
+        out.push({ data: m.timestamp?.slice(0, 10), legenda: (m.caption || "").split("\n")[0].slice(0, 50), ...v, erro: r.error?.message });
+      }
+      return json(out);
+    }
+    if (action === "ig_followtype") {  // alcance e views separados entre seguidores e não seguidores, janelas de 30 dias
+      const ig = await account("instagram"); if (!ig) throw new Error("Instagram não conectado");
+      const now = Math.floor(Date.now() / 1000), out: any[] = [];
+      for (let i = 0; i < 9; i++) {
+        const until = now - i * 30 * 86400, since = until - 30 * 86400;
+        const r = await fetch(`https://graph.instagram.com/${V}/me/insights?metric=reach,views&period=day&metric_type=total_value&breakdown=follow_type&since=${since}&until=${until}&access_token=${ig.token}`).then((x) => x.json());
+        out.push({ de: new Date(since * 1000).toISOString().slice(0, 10), r });
+      }
+      return json(out);
+    }
+    if (action === "fb_debug") {  // resposta crua da Meta para 1 Reel (diagnóstico)
+      const pg = await account("page"); if (!pg) throw new Error("Página não conectada");
+      const id = u.searchParams.get("id") || "";
+      const a = await fetch(`https://graph.facebook.com/${V}/${id}/video_insights?access_token=${pg.token}`).then((r) => r.json());
+      const b = await fetch(`https://graph.facebook.com/${V}/${id}?fields=views,length,post_views&access_token=${pg.token}`).then((r) => r.json());
+      const c = await fetch(`https://graph.facebook.com/${V}/${id}/insights?metric=fb_reels_total_plays,post_video_views&access_token=${pg.token}`).then((r) => r.json());
+      return json({ video_insights: a, campos: b, insights: c });
+    }
     if (action === "daily") return json(await daily());
     if (action === "status") return json({ ig_secret: !!Deno.env.get("IG_APP_SECRET"), fb_secret: !!Deno.env.get("FB_APP_SECRET") });
     return json({ error: "ação desconhecida" }, 400);

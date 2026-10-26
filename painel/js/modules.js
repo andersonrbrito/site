@@ -17,6 +17,7 @@ export const MODULES = [
   { id: "financeiro", label: "Financeiro", route: "financeiro", permission: "financeiro", enabled: true, ownerOnly: true },
   { id: "prompts", label: "Prompts", route: "prompts", permission: "prompts", enabled: true, ownerOnly: true },
   { id: "setup", label: "Meu setup", route: "setup", permission: "setup", enabled: true, ownerOnly: true },
+  { id: "trampos", label: "Trampos", route: "trampos", permission: "trampos", enabled: true, ownerOnly: true },
   { id: "youtube", label: "YouTube download", route: "youtube", permission: "youtube", enabled: true, ownerOnly: true },
   { id: "agenda", label: "Agenda", route: "agenda", permission: "agenda", enabled: true, primary: true },
   { id: "historico", label: "Histórico", route: "historico", permission: "historico", enabled: false, ownerOnly: true },
