@@ -416,4 +416,5 @@ main>.page.wide{max-width:1400px}
 .job{display:flex;flex-direction:column;gap:4px;padding:14px;border:1px solid var(--line-2);border-radius:10px;background:var(--panel)}
 .job.top{border-color:var(--accent)} .jscore{color:var(--accent);letter-spacing:2px}
 .jtitle{font-size:18px;font-weight:700;color:var(--tx);text-decoration:none} .jtitle:hover{color:var(--accent)}
-.jhl{margin:4px 0 0;color:var(--tx-2)} .jhl b{color:var(--accent)} .jbar{gap:6px;flex-wrap:wrap;margin-top:10px}
+.jsal{align-self:flex-start;margin-top:4px;padding:4px 10px;border-radius:6px;background:rgba(var(--ok-rgb,61,220,132),.14);border:1px solid var(--ok);color:var(--ok);font:700 14px var(--f-mono)}
+.jorig .chip{font-weight:700} .jhl{margin:4px 0 0;color:var(--tx-2)} .jhl b{color:var(--accent)} .jbar{gap:6px;flex-wrap:wrap;margin-top:10px}
