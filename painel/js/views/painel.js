@@ -96,23 +96,24 @@ export default async function inicio({ sb, refresh }) {
     ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
     h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
 
-  // Meta semanal: +1000 seguidores no @andersonbrito.mp4, semana de sábado a sexta
+  // Meta semanal: +1000 seguidores no @andersonbrito.mp4. A semana vira na segunda: o contador zera
+  // com o número do domingo e a meta fecha na sexta (sábado e domingo ainda contam pra mesma semana)
   const igH = (igHistR.data || []).slice().reverse();
   const dow = new Date(today + "T12:00:00Z").getUTCDay(); // 0 dom … 6 sáb
-  const lastFri = new Date(today + "T12:00:00Z"); lastFri.setUTCDate(lastFri.getUTCDate() - ((dow + 2) % 7 || 7));
-  const friKey = lastFri.toISOString().slice(0, 10);
-  const nextFri = new Date(lastFri); nextFri.setUTCDate(nextFri.getUTCDate() + 7);
-  const baseRow = [...igH].reverse().find((r) => r.day <= friKey) || igH[0];
+  const lastSun = new Date(today + "T12:00:00Z"); lastSun.setUTCDate(lastSun.getUTCDate() - (dow || 7));
+  const weekKey = lastSun.toISOString().slice(0, 10);
+  const nextFri = new Date(lastSun); nextFri.setUTCDate(nextFri.getUTCDate() + 5);
+  const baseRow = [...igH].reverse().find((r) => r.day <= weekKey) || igH[0];
   const nowRow = igH[igH.length - 1];
   const gained = baseRow && nowRow ? nowRow.followers - baseRow.followers : null;
-  // dia em que a meta da semana foi batida (primeiro registro da semana com +1000); o aviso fica 2 dias e some
-  const hitRow = baseRow ? igH.find((r) => r.day > friKey && r.followers - baseRow.followers >= 1000) : null;
+  // dia em que a meta desta semana foi batida (primeiro registro da semana com +1000); o aviso fica 2 dias e some
+  const hitRow = baseRow ? igH.find((r) => r.day > weekKey && r.followers - baseRow.followers >= 1000) : null;
   const hitRecente = hitRow && (new Date(today + "T12:00:00Z") - new Date(hitRow.day + "T12:00:00Z")) / 864e5 <= 2;
-  const daysLeft = Math.max(0, Math.round((nextFri - new Date(today + "T12:00:00Z")) / 864e5));
+  const daysLeft = Math.max(1, Math.round((nextFri - new Date(today + "T12:00:00Z")) / 864e5) + 1);
   const GOAL_W = 1000;
   const metaIG = h("section", { class: "panel" },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Instagram · @andersonbrito.mp4"),
-      h("span", { class: "mono" }, `fecha sexta ${fmtDate(nextFri.toISOString().slice(0, 10), false)}`)),
+      h("span", { class: "mono" }, `semana desde seg ${fmtDate(new Date(lastSun.getTime() + 864e5).toISOString().slice(0, 10), false)} · meta até sexta ${fmtDate(nextFri.toISOString().slice(0, 10), false)}`)),
     h("div", { class: "panel-body" }, gained == null ? h("p", { class: "empty" }, "Sem dados do Instagram ainda.") : [
       h("div", { class: "dnum" }, h("b", null, (nowRow?.followers ?? 0).toLocaleString("pt-BR")), h("span", { class: "muted small" }, "seguidores agora")),
       h("div", { class: "mono", style: { margin: "10px 0 6px" } }, `META DA SEMANA: ${gained >= 0 ? "+" : ""}${gained.toLocaleString("pt-BR")} de +${GOAL_W.toLocaleString("pt-BR")}`),
@@ -168,7 +169,7 @@ export default async function inicio({ sb, refresh }) {
   const batidas = [gained != null && gained >= GOAL_W && hitRecente && `meta da semana no Instagram (+${gained.toLocaleString("pt-BR")} seguidores)`,
     cur.verified_followers >= 500 && "500 seguidores verificados no X", cur.impressions_90d >= 500000 && "500 mil impressões verificadas no X"].filter(Boolean);
   const parabens = batidas.length ? h("section", { class: "parabens" }, h("b", null, "PARABÉNS!"), h("span", null, " Você bateu: " + batidas.join(" · ") + ". Bora pra próxima.")) : null;
-  if (batidas.length) { try { const kk = "aos_parabens_" + friKey + batidas.length; if (!localStorage.getItem(kk)) { localStorage.setItem(kk, "1"); setTimeout(() => toast("Parabéns! Meta batida: " + batidas[0]), 600); } } catch {} }
+  if (batidas.length) { try { const kk = "aos_parabens_" + weekKey + batidas.length; if (!localStorage.getItem(kk)) { localStorage.setItem(kk, "1"); setTimeout(() => toast("Parabéns! Meta batida: " + batidas[0]), 600); } } catch {} }
 
   // Avisos do @ander.sbrito (carrossel com collab @vanessarotiroti + @andersonbrito.mp4): hoje e atrasados da semana, até marcar feito
   const feitos = new Set((doneR.data || []).map((r) => r.key));
