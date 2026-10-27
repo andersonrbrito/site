@@ -105,6 +105,9 @@ export default async function inicio({ sb, refresh }) {
   const baseRow = [...igH].reverse().find((r) => r.day <= friKey) || igH[0];
   const nowRow = igH[igH.length - 1];
   const gained = baseRow && nowRow ? nowRow.followers - baseRow.followers : null;
+  // dia em que a meta da semana foi batida (primeiro registro da semana com +1000); o aviso fica 2 dias e some
+  const hitRow = baseRow ? igH.find((r) => r.day > friKey && r.followers - baseRow.followers >= 1000) : null;
+  const hitRecente = hitRow && (new Date(today + "T12:00:00Z") - new Date(hitRow.day + "T12:00:00Z")) / 864e5 <= 2;
   const daysLeft = Math.max(0, Math.round((nextFri - new Date(today + "T12:00:00Z")) / 864e5));
   const GOAL_W = 1000;
   const metaIG = h("section", { class: "panel" },
@@ -114,7 +117,7 @@ export default async function inicio({ sb, refresh }) {
       h("div", { class: "dnum" }, h("b", null, (nowRow?.followers ?? 0).toLocaleString("pt-BR")), h("span", { class: "muted small" }, "seguidores agora")),
       h("div", { class: "mono", style: { margin: "10px 0 6px" } }, `META DA SEMANA: ${gained >= 0 ? "+" : ""}${gained.toLocaleString("pt-BR")} de +${GOAL_W.toLocaleString("pt-BR")}`),
       bar(Math.max(0, gained), GOAL_W),
-      h("p", { class: "muted small", style: { marginTop: "8px" } }, gained >= GOAL_W ? "Meta batida. Bora pra próxima." : `Faltam ${(GOAL_W - gained).toLocaleString("pt-BR")} em ${daysLeft} dia(s): cerca de ${Math.ceil((GOAL_W - gained) / Math.max(1, daysLeft)).toLocaleString("pt-BR")} por dia.`)]));
+      h("p", { class: "muted small", style: { marginTop: "8px" } }, gained >= GOAL_W ? (hitRecente ? `Meta batida em ${fmtDate(hitRow.day, false)}! +${(gained - GOAL_W).toLocaleString("pt-BR")} além da meta.` : `Meta já batida nesta semana (em ${fmtDate(hitRow?.day || today, false)}). Contando: +${(gained - GOAL_W).toLocaleString("pt-BR")} além da meta.`) : `Faltam ${(GOAL_W - gained).toLocaleString("pt-BR")} em ${daysLeft} dia(s): cerca de ${Math.ceil((GOAL_W - gained) / Math.max(1, daysLeft)).toLocaleString("pt-BR")} por dia.`)]));
 
   // Estratégia dos perfis (direção de cada um; não misturar públicos)
   const perfil = (handle, papel, itens, collab) => h("div", { class: "strat" },
@@ -162,7 +165,7 @@ export default async function inicio({ sb, refresh }) {
       : h("p", { class: "empty" }, "O garimpo roda todo dia às 6h e traz aqui o que vale recriar do seu jeito."))));
 
   // Parabéns quando uma meta é batida (aparece no topo e uma vez por semana como aviso)
-  const batidas = [gained != null && gained >= GOAL_W && `meta da semana no Instagram (+${gained.toLocaleString("pt-BR")} seguidores)`,
+  const batidas = [gained != null && gained >= GOAL_W && hitRecente && `meta da semana no Instagram (+${gained.toLocaleString("pt-BR")} seguidores)`,
     cur.verified_followers >= 500 && "500 seguidores verificados no X", cur.impressions_90d >= 500000 && "500 mil impressões verificadas no X"].filter(Boolean);
   const parabens = batidas.length ? h("section", { class: "parabens" }, h("b", null, "PARABÉNS!"), h("span", null, " Você bateu: " + batidas.join(" · ") + ". Bora pra próxima.")) : null;
   if (batidas.length) { try { const kk = "aos_parabens_" + friKey + batidas.length; if (!localStorage.getItem(kk)) { localStorage.setItem(kk, "1"); setTimeout(() => toast("Parabéns! Meta batida: " + batidas[0]), 600); } } catch {} }
