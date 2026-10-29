@@ -8,22 +8,27 @@ def txt(n, inner):
     return f'{glow}{frame(n)}<div class="s" style="justify-content:center;gap:44px">{inner}</div><div class="bot"><span>posts infinitos</span><span>arrasta →</span></div>'
 step = lambda k: f'<div class="eyebrow" style="color:var(--green)">Passo {k}</div>'
 S = [
-f'''<div class="bgimg" style="background-image:url({IMG}doom-ref.webp);background-size:auto 760px;background-position:62% 0;background-repeat:no-repeat;height:760px"></div>
-<div class="shade" style="background:linear-gradient(180deg,rgba(12,20,17,.55) 0%,rgba(12,20,17,0) 25%,rgba(12,20,17,0) 40%,#0c1411 57%)"></div>
-<div class="top"><span>tutorial</span><span>IA</span><span>instagram</span></div>
-<div class="s" style="justify-content:flex-end;gap:26px;padding-bottom:120px">
- <div class="eyebrow" style="color:var(--green)">Em 5 minutos</div>
- <div class="h" style="font-size:118px">Posts estáticos<br><span class="ser acc" style="font-size:132px">infinitos</span></div>
- <div class="p" style="font-size:40px">Como eu trocaria o personagem de qualquer post viral. Sem pensar em composição.</div>
-</div><div class="bot"><span>{H}</span><span>arrasta →</span></div>''',
+# capa no estilo do post do André: foto de estúdio, palavra gigante atrás da cabeça (fundo → palavra → recorte)
+f'''<div class="bgimg" style="background-image:url({IMG}doom-cadeira.jpg);background-size:1080px auto;background-position:50% 100%;background-repeat:no-repeat;background-color:#f1f1ef"></div>
+<div style="position:absolute;left:0;right:0;top:150px;text-align:center"><div class="h" style="font-size:330px;line-height:.8;letter-spacing:-.06em;color:#FF8A00">Posts</div></div>
+<div class="bgimg" style="background-image:url({IMG}doom-cadeira-recorte.png);background-size:1080px auto;background-position:50% 100%;background-repeat:no-repeat"></div>
+<div class="top" style="color:#1E1E1E;opacity:.6"><span>tutorial</span><span>{H}</span><span>IA</span></div>
+<div style="position:absolute;left:56px;top:470px;width:220px;color:#1E1E1E;font:500 40px/1.05 Creato">estáticos<br><span class="ser" style="font-size:64px;color:#1F6B4A">infinitos</span></div>
+<div style="position:absolute;right:56px;top:470px;width:200px;text-align:right;color:#1E1E1E;font:500 30px/1.15 Creato">em <b style="font-weight:900">5 minutos</b>, sem pensar em composição</div>
+<div class="bot" style="color:#1E1E1E;opacity:.6"><span>arrasta →</span><span>01 / 07</span></div>''',
 txt(2, '<div class="eyebrow">Antes, a composição</div><div class="h2">Todo post que para o dedo tem <span class="ser acc">três coisas:</span></div><div class="list"><div class="li"><i>i.</i><span>Gancho visual que faz parar.</span></div><div class="li"><i>ii.</i><span>Texto simples, rápido de ler.</span></div><div class="li"><i>iii.</i><span>Mensagem clara e objetiva.</span></div></div>'),
 txt(3, step(1)+'<div class="h2">Ache imagens com <span class="ser acc">prompt público.</span></div><div class="rule"></div><div class="p">Assim você pula a parte de pensar composição e estilo. O ponto de partida já está pronto, <b>sem copiar ninguém.</b></div>'),
-f'''<div class="bgimg" style="background-image:url({IMG}doom-laptop.jpg);background-size:1080px auto;background-position:center 0;background-repeat:no-repeat;height:900px"></div>
-<div class="shade" style="background:linear-gradient(180deg,rgba(12,20,17,.5) 0%,rgba(12,20,17,0) 18%,rgba(12,20,17,0) 45%,#0c1411 66%)"></div>
-{frame(4)}<div class="s" style="justify-content:flex-end;gap:30px;padding-bottom:120px">
- {step(2)}<div class="h2" style="font-size:80px">Jogue a referência e o seu personagem numa IA.</div>
- <div class="p" style="font-size:40px">Pode ser o Gemini grátis. Peça pra ele <b>trocar o personagem</b> do post pelo seu e adaptar o texto. O Doom vira o Robert, o Robert vira você.</div>
-</div><div class="bot"><span>posts infinitos</span><span>arrasta →</span></div>''',
+f'''<div class="bgimg" style="background-image:url({IMG}rdj-cadeira.jpg);background-size:1080px auto;background-position:50% 100%;background-repeat:no-repeat;background-color:#f1f1ef"></div>
+<div style="position:absolute;right:0;top:170px;width:700px;text-align:center"><div class="h" style="font-size:250px;line-height:.8;letter-spacing:-.06em;color:#1F6B4A">Você</div></div>
+<div class="bgimg" style="background-image:url({IMG}rdj-cadeira-recorte.png);background-size:1080px auto;background-position:50% 100%;background-repeat:no-repeat"></div>
+<div class="top" style="color:#1E1E1E;opacity:.6"><span>{H}</span><span>04 / 07</span></div>
+<div style="position:absolute;left:60px;top:150px;width:300px;color:#1E1E1E;display:flex;flex-direction:column;gap:18px">
+ <div class="eyebrow" style="color:#1F6B4A">Passo 2</div>
+ <div style="font:900 44px/1 Creato;letter-spacing:-.02em">Jogue a referência e o seu personagem numa IA.</div>
+ <div style="font:300 27px/1.3 Creato">Pode ser o Gemini grátis. Peça pra <b style="font-weight:700">trocar o personagem</b> e adaptar o texto.</div>
+ <div class="ser" style="font-size:42px;line-height:1;color:#FF8A00">O Doom vira o Robert. O Robert vira você.</div>
+</div>
+<div class="bot" style="color:#1E1E1E;opacity:.6"><span>posts infinitos</span><span>arrasta →</span></div>''',
 txt(5, step(3)+'<div class="h" style="font-size:150px">Pronto<span class="acc">.</span></div><div class="p">Não gostou do resultado? Gere de novo ou <b>peça ajustes</b>. Em 5 minutos o post do dia está feito.</div>'),
 txt(6, '<div class="eyebrow">O que nenhum tutorial resolve</div><div class="h2">Sem estratégia, é só uma imagem <span class="ser acc">bonita.</span></div><div class="list"><div class="li"><i>i.</i><span>Qual é o objetivo do post?</span></div><div class="li"><i>ii.</i><span>Que uso estratégico ele tem?</span></div><div class="li"><i>iii.</i><span>Qual pilar do perfil ele sustenta?</span></div></div>'),
 f'''{glow}{frame(7)}<div class="s" style="justify-content:center;align-items:center;text-align:center;gap:38px">
