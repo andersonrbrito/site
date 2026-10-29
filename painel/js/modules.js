@@ -6,6 +6,7 @@
 export const MODULES = [
   { id: "dashboard", label: "Início", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
   { id: "postador", label: "PostadoR_", route: "postador", permission: "postador", enabled: true, primary: true },
+  { id: "carrosseis", label: "Carrosséis", route: "carrosseis", permission: "postador", enabled: true },
   { id: "miner", label: "MineR_", route: "miner", permission: "miner", enabled: true, primary: true },
   { id: "hoje", label: "Hoje", route: "hoje", permission: "tarefas", enabled: false },
   { id: "tarefas", label: "Tarefas", route: "tarefas", permission: "tarefas", enabled: false, primary: true },
