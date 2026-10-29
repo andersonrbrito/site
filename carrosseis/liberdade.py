@@ -6,22 +6,23 @@ frame = lambda n, tot=8: f'<div class="top"><span>{H}</span><span>{n:02d} / {tot
 def txt(n, inner, extra=""):
     return f'{extra}{frame(n)}<div class="s" style="justify-content:center;gap:48px">{inner}</div><div class="bot"><span>liberdade</span><span>arrasta →</span></div>'
 S = [
-# 1 capa
-f'''<div class="bgimg" style="background-image:url({IMG}liberdade-capa.jpg);background-position:50% 70%"></div>
-<div class="shade" style="background:linear-gradient(180deg,rgba(11,11,11,.92) 0%,rgba(11,11,11,.35) 34%,rgba(11,11,11,0) 55%,rgba(11,11,11,.85) 100%)"></div>
+# 1 capa: título atrás da cabeça (fundo → título → recorte da pessoa)
+f'''<div class="bgimg" style="background-image:url({IMG}liberdade-capa.jpg);background-size:1080px auto;background-position:50% 60px;background-repeat:no-repeat"></div>
+<div class="shade" style="background:linear-gradient(180deg,rgba(11,11,11,1) 0%,rgba(11,11,11,.6) 12%,rgba(11,11,11,0) 30%,rgba(11,11,11,0) 60%,rgba(11,11,11,.9) 100%)"></div>
+<div style="position:absolute;left:0;right:0;top:300px;text-align:center"><div class="h" style="font-size:150px;line-height:.84;letter-spacing:-.045em;color:#FFF3E5;white-space:nowrap">Minha renda</div></div>
+<div class="bgimg" style="background-image:url({IMG}liberdade-capa-recorte.png);background-size:1080px auto;background-position:50% 60px;background-repeat:no-repeat"></div>
 <div class="top"><span>dólar</span><span>liberdade</span><span>patrimônio</span></div>
-<div class="s" style="padding-top:118px">
- <div class="h" style="font-size:112px;text-align:center">Não preciso<br>do governo</div>
- <div class="grow"></div>
- <div style="text-align:center"><div class="ser" style="font-size:96px;line-height:.95">e foi isso que me salvou</div><div class="ser acc" style="font-size:96px;line-height:.95">na segunda-feira</div></div>
+<div style="position:absolute;left:0;right:0;bottom:110px;text-align:center">
+ <div class="h" style="font-size:150px;line-height:.9">não vota<span class="acc">.</span></div>
+ <div class="ser" style="font-size:62px;color:var(--fg2);margin-top:14px">e foi isso que me acalmou na segunda</div>
 </div>
 <div class="bot"><span>{H}</span><span>arrasta →</span></div>''',
 # 2
 txt(2, '<div class="eyebrow">Domingo</div><div class="h2">Eu fiquei triste com o resultado.</div><div class="p">Não vou fingir que não. Fiquei.</div>'),
 # 3
-txt(3, '<div class="eyebrow">Segunda-feira</div><div class="h2">Aí eu lembrei de <span class="ser acc">três coisas.</span></div><div class="list"><div class="li"><i>i.</i><span>Parte da minha renda é em dólar.</span></div><div class="li"><i>ii.</i><span>Não recebo nada do governo.</span></div><div class="li"><i>iii.</i><span>Não dependo dele pra viver.</span></div></div>'),
+txt(3, '<div class="eyebrow">Segunda-feira</div><div class="h2">Aí eu lembrei de <span class="ser acc">três coisas.</span></div><div class="list"><div class="li"><i>i.</i><span>Parte da minha renda é em dólar.</span></div><div class="li"><i>ii.</i><span>Não recebo benefício do governo.</span></div><div class="li"><i>iii.</i><span>Meu plano não conta com aposentadoria.</span></div></div>'),
 # 4
-txt(4, '<div class="h2">O governo atrapalha?</div><div class="h2 ser acc" style="font-size:110px">Atrapalha.</div><div class="rule"></div><div class="p">Mesmo assim, prefiro mil vezes estar <b>desse lado</b> do que precisar dele.</div>'),
+txt(4, '<div class="h2">O governo atrapalha?</div><div class="h2 ser acc" style="font-size:110px">Atrapalha.</div><div class="rule"></div><div class="p">Mesmo assim, prefiro <b>depender dele o mínimo possível.</b></div>'),
 # 5
 txt(5, '<div class="p" style="font-size:58px;color:var(--fg)">Muita gente milita por político porque, de algum jeito,</div><div class="h" style="font-size:140px">precisa<br><span class="ser acc">dele.</span></div>'),
 # 6 imagem janela
@@ -42,4 +43,4 @@ f'''{frame(8)}<div class="s" style="justify-content:center;align-items:center;te
  <div class="eyebrow" style="color:var(--mute)">comenta aqui · {H}</div>
 </div>''',
 ]
-print(render("liberdade", T, S, {"titulo":"Não preciso do governo","perfil":"@andersonbrito.mp4","legenda":"Domingo eu fiquei triste. Segunda lembrei que parte da minha renda é em dólar, que não recebo nada do governo e que não dependo dele.\n\nO resultado da eleição muda meu humor, mas não meu mês.\n\nE você, depende de quem?","criado":"2026-10-28"}))
+print(render("liberdade", T, S, {"titulo":"Minha renda não vota","perfil":"@andersonbrito.mp4","legenda":"Domingo eu fiquei triste. Segunda lembrei que parte da minha renda é em dólar, que não recebo benefício do governo e que meu plano não conta com aposentadoria.\n\nO resultado da eleição muda meu humor, mas não meu mês.\n\nE você, depende de quem?","criado":"2026-10-28"}))

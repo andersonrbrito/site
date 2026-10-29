@@ -18,8 +18,8 @@ f'''<div class="bgimg" style="background-image:url({IMG}doom-ref.webp);backgroun
 </div><div class="bot"><span>{H}</span><span>arrasta →</span></div>''',
 txt(2, '<div class="eyebrow">Antes, a composição</div><div class="h2">Todo post que para o dedo tem <span class="ser acc">três coisas:</span></div><div class="list"><div class="li"><i>i.</i><span>Gancho visual que faz parar.</span></div><div class="li"><i>ii.</i><span>Texto simples, rápido de ler.</span></div><div class="li"><i>iii.</i><span>Mensagem clara e objetiva.</span></div></div>'),
 txt(3, step(1)+'<div class="h2">Ache imagens com <span class="ser acc">prompt público.</span></div><div class="rule"></div><div class="p">Assim você pula a parte de pensar composição e estilo. O ponto de partida já está pronto, <b>sem copiar ninguém.</b></div>'),
-f'''<div class="bgimg" style="background-image:url({IMG}doom-ref.webp);background-size:auto 640px;background-position:center 0;background-repeat:no-repeat;height:640px;filter:saturate(.9)"></div>
-<div class="shade" style="background:linear-gradient(180deg,rgba(12,20,17,.5) 0%,rgba(12,20,17,0) 22%,rgba(12,20,17,0) 32%,#0c1411 48%)"></div>
+f'''<div class="bgimg" style="background-image:url({IMG}doom-laptop.jpg);background-size:1080px auto;background-position:center 0;background-repeat:no-repeat;height:900px"></div>
+<div class="shade" style="background:linear-gradient(180deg,rgba(12,20,17,.5) 0%,rgba(12,20,17,0) 18%,rgba(12,20,17,0) 45%,#0c1411 66%)"></div>
 {frame(4)}<div class="s" style="justify-content:flex-end;gap:30px;padding-bottom:120px">
  {step(2)}<div class="h2" style="font-size:80px">Jogue a referência e o seu personagem numa IA.</div>
  <div class="p" style="font-size:40px">Pode ser o Gemini grátis. Peça pra ele <b>trocar o personagem</b> do post pelo seu e adaptar o texto. O Doom vira o Robert, o Robert vira você.</div>
