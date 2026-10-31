@@ -426,3 +426,19 @@ main>.page.wide{max-width:1400px}
 .carr-strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
 .carr-slide{flex:0 0 min(320px,80vw);scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;color:var(--muted);text-decoration:none}
 .carr-slide img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px}
+
+/* Início: meta em blocos grandes e layout que não corta palavras */
+.mstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
+.mstat{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line-2);border-radius:6px;min-width:0}
+.mstat .mono{font-size:11px;color:var(--tx-3);letter-spacing:.06em}
+.mstat b{font:800 28px/1.1 var(--f-head);letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mstat.ok b{color:#3ecf8e} .mstat.hot b{color:var(--accent)}
+@media(max-width:480px){.mstats{grid-template-columns:1fr}}
+.inicio .panel-head{height:auto;min-height:30px;padding:6px 12px;flex-wrap:wrap}
+.inicio .panel-head h2{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inicio .metas2{grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))}
+.inicio .kpis{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.inicio .kpi .mono{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inicio .kpi .small{line-height:1.3}
+.inicio,.inicio *{word-break:normal;overflow-wrap:break-word;hyphens:none}
+.inicio .strat3{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
