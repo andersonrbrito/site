@@ -4,8 +4,20 @@
     {
       "name": "site",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8080"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8080"
+      ],
       "port": 8080
+    },
+    {
+      "name": "postador",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "postador/server.js"
+      ],
+      "port": 4777
     }
   ]
 }

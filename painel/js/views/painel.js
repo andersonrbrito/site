@@ -104,12 +104,12 @@ export default async function inicio({ sb, refresh }) {
   const dayMs = (d) => new Date(d + "T12:00:00Z").getTime();
   const iso = (t) => new Date(t).toISOString().slice(0, 10);
   const sextaSeguinte = (d) => { const t = new Date(dayMs(d)); const dw = t.getUTCDay(); t.setUTCDate(t.getUTCDate() + ((8 - dw) % 7 || 7) + 4); return iso(t); };
-  const hist = igH.filter((r) => r.day >= "2026-10-25");
-  let base = hist[0] || igH[0], prazo = "2026-10-30", lastHit = null, missed = null;
-  for (const r of hist) {
+  const igCiclo = igH.filter((r) => r.day >= "2026-10-25");
+  let base = igCiclo[0] || igH[0], prazo = "2026-10-30", lastHit = null, missed = null;
+  for (const r of igCiclo) {
     if (r.day <= base.day) continue;
     if (r.followers - base.followers >= GOAL_W) { lastHit = { day: r.day, ganho: r.followers - base.followers }; base = r; prazo = sextaSeguinte(r.day); }
-    else if (r.day > prazo) { missed = { day: prazo, ganho: r.followers - base.followers }; base = [...hist].reverse().find((x) => x.day <= prazo) || r; prazo = sextaSeguinte(base.day); }
+    else if (r.day > prazo) { missed = { day: prazo, ganho: r.followers - base.followers }; base = [...igCiclo].reverse().find((x) => x.day <= prazo) || r; prazo = sextaSeguinte(base.day); }
   }
   const nowRow = igH[igH.length - 1];
   const gained = base && nowRow ? nowRow.followers - base.followers : null;
