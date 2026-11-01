@@ -4,7 +4,7 @@ import { buildShell } from "./shell.js";
 import { visibleModules } from "./modules.js";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
-const V = "20261101";
+const V = "20261101b";
 const VIEWS = {
   "": () => import(`./views/painel.js?v=${V}`), hoje: () => import(`./views/hoje.js?v=${V}`), tarefas: () => import(`./views/tarefas.js?v=${V}`),
   projetos: () => import(`./views/projetos.js?v=${V}`), inbox: () => import(`./views/inbox.js?v=${V}`), agenda: () => import(`./views/agenda.js?v=${V}`),
@@ -64,7 +64,7 @@ async function start() {
       if (my === seq) { shell.main.replaceChildren(node); window.scrollTo(0, 0); }
     } catch (e) {
       console.error("render_error", e?.message);
-      if (my === seq) shell.main.replaceChildren(h("p", { class: "alert", role: "alert" }, "Não foi possível carregar esta tela. Atualize a página."));
+      if (my === seq) shell.main.replaceChildren(h("p", { class: "alert", role: "alert" }, "Não foi possível carregar esta tela. Atualize a página.", h("br"), h("small", { class: "mono muted" }, "detalhe: " + (e?.message || e))));
     }
   }
   window.addEventListener("hashchange", render);
