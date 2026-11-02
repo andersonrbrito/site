@@ -19,6 +19,8 @@ const P = {
   setup: "M3 5h18v11H3zM8 20h8M12 16v4",
   financeiro: "M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",
   desempenho: "M4 19h16M6 15l4-5 4 3 5-7",
+  influencers: "M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM4 20a8 8 0 0 1 16 0",
+  afiliacoes: "M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1",
   miner: "M14 4l6 6M17 7L7 17M5 15l4 4M3 21l3-3M12 3l9 9",
 };
 export function icon(name, size = 16) {

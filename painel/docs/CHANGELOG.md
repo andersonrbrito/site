@@ -53,3 +53,6 @@
 - Início refeito: cursos e atalhos no topo; metas lado a lado (Instagram com seguidores + meta semanal | X); fila do PostadoR_ logo abaixo; 'Pra replicar hoje' do garimpo; coluna lateral com próximos compromissos (agenda_cache), calendário e histórico do PostadoR_. MineR_: perfis com seguidores, bloco Pra replicar, ideia/destino/formato nos cards, fonte no padrão do Instagram. Fontes +1px em todo o painel. Curso Brainstorm Academy. Migration 0020.
 - Início: botão Ocultar (próximos compromissos, pra replicar), cursos e ferramentas em duas linhas com nome, parabéns ao bater meta, bloco X PostadoR_ x manual x total (também no Desempenho). MineR_: ocultar no Pra replicar e botão Excluir. Garimpo usa Whisper (tools/transcrever.py) e salva capa.
 - Trampos: página de vagas remotas (tabela jobs, migration 0023), busca 3x/dia (5h, 13h, 18h) pela rotina.
+
+## 2026-11-02 · Influencers
+- Nova página Influencers (só dono): vitrine por personagem com ícone da rede, link do perfil, e-mail de login (sem senha) e pasta no ANDY 1TB/TIK TOK. Índia Narah cadastrada.

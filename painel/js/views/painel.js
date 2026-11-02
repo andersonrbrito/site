@@ -36,7 +36,7 @@ export default async function inicio({ sb, refresh }) {
     sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day", { ascending: false }).limit(6),
     sb.from("reel_stats").select("day, views").is("archived_at", null).order("day", { ascending: false }).limit(48),
     clima(),
-    sb.from("social_stats").select("day, followers").eq("platform", "instagram").is("archived_at", null).order("day", { ascending: false }).limit(21),
+    sb.from("social_stats").select("day, followers").eq("platform", "instagram").is("archived_at", null).order("day", { ascending: false }).limit(400),
     sb.from("agenda_cache").select("title, starts_at, ends_at, all_day, calendar, synced_at").gte("ends_at", new Date().toISOString()).order("starts_at").limit(60),
     sb.from("miner_links").select("id, url, platform, author, note, idea, target, format, thumbnail_url, saved_at").is("archived_at", null).not("idea", "is", null).order("saved_at", { ascending: false }).limit(8),
     sb.from("reminder_done").select("key").gte("done_at", new Date(Date.now() - 20 * 864e5).toISOString()),
@@ -96,20 +96,20 @@ export default async function inicio({ sb, refresh }) {
     ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
     h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
 
-  // Meta de +1000 seguidores no @andersonbrito.mp4 em ciclos: começa com o número de 25/10 e prazo na sexta 30/10.
-  // Batida a meta, o contador zera naquele dia e o novo prazo é a sexta da semana seguinte.
-  // Se o prazo passa sem bater, um ciclo novo começa no próprio prazo, também com a sexta da semana seguinte.
+  // Meta de +1000 seguidores no @andersonbrito.mp4 em ciclos (semana = seg a dom), começando em 19/10 com prazo 25/10.
+  // Batida a meta, o contador zera naquele dia e o prazo vira o domingo da semana seguinte.
+  // Se o prazo passa sem bater, o contador zera no número do prazo e o novo prazo é o domingo seguinte.
   const GOAL_W = 1000;
   const igH = (igHistR.data || []).slice().reverse();
   const dayMs = (d) => new Date(d + "T12:00:00Z").getTime();
   const iso = (t) => new Date(t).toISOString().slice(0, 10);
-  const sextaSeguinte = (d) => { const t = new Date(dayMs(d)); const dw = t.getUTCDay(); t.setUTCDate(t.getUTCDate() + ((8 - dw) % 7 || 7) + 4); return iso(t); };
-  const igCiclo = igH.filter((r) => r.day >= "2026-10-25");
-  let base = igCiclo[0] || igH[0], prazo = "2026-10-30", lastHit = null, missed = null;
+  const domingoSeguinte = (d) => { const t = new Date(dayMs(d)); t.setUTCDate(t.getUTCDate() + ((7 - t.getUTCDay()) % 7) + 7); return iso(t); };
+  const igCiclo = igH.filter((r) => r.day >= "2026-10-19");
+  let base = igCiclo[0] || igH[0], prazo = "2026-10-25", lastHit = null, missed = null;
   for (const r of igCiclo) {
     if (r.day <= base.day) continue;
-    if (r.followers - base.followers >= GOAL_W) { lastHit = { day: r.day, ganho: r.followers - base.followers }; base = r; prazo = sextaSeguinte(r.day); }
-    else if (r.day > prazo) { missed = { day: prazo, ganho: r.followers - base.followers }; base = [...igCiclo].reverse().find((x) => x.day <= prazo) || r; prazo = sextaSeguinte(base.day); }
+    while (r.day > prazo) { missed = { day: prazo, ganho: ([...igCiclo].reverse().find((x) => x.day <= prazo)?.followers ?? base.followers) - base.followers }; base = [...igCiclo].reverse().find((x) => x.day <= prazo) || base; prazo = iso(dayMs(prazo) + 7 * 864e5); }
+    if (r.followers - base.followers >= GOAL_W) { lastHit = { day: r.day, ganho: r.followers - base.followers }; missed = null; base = r; prazo = domingoSeguinte(r.day); }
   }
   const nowRow = igH[igH.length - 1];
   const gained = base && nowRow ? nowRow.followers - base.followers : null;
