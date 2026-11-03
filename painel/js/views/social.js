@@ -7,7 +7,7 @@ import { CONFIG } from "../config.js";
 const PLAT = { instagram: ["IG", "Instagram"], facebook: ["FB", "Facebook"] };
 const KIND = { comment: "Comentário", dm: "DM", lead: "Lead" };
 
-async function callMeta(sb, action, body) {
+export async function callMeta(sb, action, body) {
   const { data: { session } } = await sb.auth.getSession();
   if (!session) throw new Error("sessão expirada, entre de novo");
   const r = await fetch(`${CONFIG.supabaseUrl}/functions/v1/meta?action=${action}${body?.kind ? "&kind=" + body.kind : ""}`, {

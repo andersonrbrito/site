@@ -1,6 +1,7 @@
 import { h, fmtDate } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
 import { insightsView } from "./postador.js";
+import { callMeta } from "./social.js";
 
 // Desempenho: evolução diária do X e do Instagram (preenchido pela rotina das 5h).
 const k = (n) => (n == null ? "–" : n >= 1e6 ? (n / 1e6).toFixed(1).replace(".0", "").replace(".", ",") + " mi" : n >= 1e3 ? (n / 1e3).toFixed(1).replace(".0", "").replace(".", ",") + " mil" : String(n));
@@ -63,10 +64,12 @@ const delta = (series) => {
 };
 
 export default async function desempenho({ sb, refresh, query, go }) {
-  const aba = query?.aba === "instagram" ? "instagram" : "x";
+  const aba = ["instagram", "facebook"].includes(query?.aba) ? query.aba : "x";
   const tabs = h("div", { class: "qnav dtabs" },
     h("a", { href: "#/desempenho", class: aba === "x" ? "on" : "" }, "X · @andersbrito"),
-    h("a", { href: "#/desempenho?aba=instagram", class: aba === "instagram" ? "on" : "" }, "Instagram · @andersonbrito.mp4"));
+    h("a", { href: "#/desempenho?aba=instagram", class: aba === "instagram" ? "on" : "" }, "Instagram · @andersonbrito.mp4"),
+    h("a", { href: "#/desempenho?aba=facebook", class: aba === "facebook" ? "on" : "" }, "Facebook · Página"));
+  if (aba === "facebook") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Página do Facebook · ao vivo pela API da Meta"), tabs, await fbPanel(sb));
   const statsR = await sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day").limit(800);
   if (statsR.error) return h("div", { class: "page" }, pageHead("Desempenho", "X e Instagram"), alertBox("Não foi possível carregar os dados."));
   const stats = statsR.data || [];
@@ -109,6 +112,7 @@ export default async function desempenho({ sb, refresh, query, go }) {
   };
   return h("div", { class: "page desempenho" },
     pageHead("Desempenho", "X e Instagram · atualizado toda manhã"), tabs,
+    await igApi(sb),
     await reportBox(sb, "desempenho", media),
     await igInsights(sb, refresh, media),
     h("div", { class: "dgrid" },
@@ -168,4 +172,42 @@ export async function xOrigem(sb) {
     h("div", { class: "panel-body" },
       h("div", { class: "xorig3" }, col("PELO POSTADOR_", auto, `hoje: ${hojeAuto}`), col("MANUAL", manual), col("TOTAL", total)),
       h("p", { class: "muted small", style: { marginTop: "8px" } }, "Contagem dos posts do perfil (sem respostas). O manual de hoje entra depois da coleta das 5h40.")));
+}
+
+// Números ao vivo da API do Instagram (últimos 30 dias), lidos pela função "meta" na hora em que a aba abre.
+async function igApi(sb) {
+  let r;
+  try { r = await callMeta(sb, "ig_insights"); } catch (e) { return alertBox("Insights do Instagram pela API indisponíveis: " + e.message); }
+  const tot = Object.fromEntries((r.totais?.data || []).map((m) => [m.name, m.total_value?.value ?? null]));
+  const reach = (r.alcance_diario?.data?.[0]?.values || []).map((v) => ({ day: v.end_time.slice(0, 10), v: v.value }));
+  const stat = (rot, v) => h("div", { class: "xorig" }, h("span", { class: "mono" }, rot), h("b", null, k(v)));
+  return h("section", { class: "panel", style: { marginBottom: "20px" } },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Instagram · últimos 30 dias (API)")),
+    h("div", { class: "panel-body" },
+      h("div", { class: "xorig3" }, stat("ALCANCE", tot.reach), stat("VISUALIZAÇÕES", tot.views), stat("CONTAS ENGAJADAS", tot.accounts_engaged),
+        stat("INTERAÇÕES", tot.total_interactions), stat("COMPARTILHAMENTOS", tot.shares), stat("TOQUES NO LINK", tot.profile_links_taps)),
+      h("p", { class: "muted small", style: { margin: "14px 0 6px" } }, "Alcance por dia"),
+      lineChart(reach, { color: "#dd2a7b" })));
+}
+
+// Página do Facebook: views de cada Reel/vídeo (a Meta só libera views por vídeo para este app).
+async function fbPanel(sb) {
+  let r;
+  try { r = await callMeta(sb, "fb_history"); } catch (e) { return alertBox("Página do Facebook indisponível: " + e.message + ". Conecte a Página na aba Social."); }
+  const reels = (r.reels || []).filter((x) => !x.erro);
+  if (!reels.length) return alertBox((r.reels || [])[0]?.erro || "Nenhum Reel encontrado na Página.");
+  const total = reels.reduce((n, x) => n + (x.views || 0), 0), maxV = Math.max(1, ...reels.map((x) => x.views || 0));
+  const ult30 = reels.filter((x) => x.data && Date.now() - new Date(x.data) < 30 * 864e5);
+  const serie = [...reels].filter((x) => x.data).reverse().map((x) => ({ day: x.data, v: x.views || 0 }));
+  return h("div", null,
+    h("div", { class: "dgrid" },
+      card("Views somadas · " + reels.length + " Reels", k(total), r.pagina || "", null),
+      card("Views · Reels dos últimos 30 dias", k(ult30.reduce((n, x) => n + (x.views || 0), 0)), ult30.length + " Reels", null)),
+    h("section", { class: "panel" },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#1877f2" } }), h("h2", { class: "mono grow" }, "Views por Reel (do mais antigo ao mais novo)")),
+      h("div", { class: "panel-body" }, lineChart(serie, { color: "#1877f2" }),
+        h("div", { class: "reels", style: { marginTop: "14px" } }, ...reels.slice(0, 30).map((x) => h("a", { class: "reelrow", href: x.link || "#", target: "_blank", rel: "noopener" },
+          h("span", { class: "rc truncate" }, x.legenda || (x.data ? "Reel de " + fmtDate(x.data, false) : "Reel")),
+          h("span", { class: "rbarw" }, h("i", { style: { width: `${Math.max(2, ((x.views || 0) / maxV) * 100)}%` } })),
+          h("b", null, k(x.views)), h("span", { class: "mono muted" }, x.data ? fmtDate(x.data, false) : ""))))));
 }
