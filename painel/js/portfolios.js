@@ -15,7 +15,7 @@ export const PORTFOLIOS = [
   "updated": "2026-11-03"
  },
  {
-  "path": "editor/",
+  "path": "trabalhos/",
   "title": "Anderson Brito: editor de vídeo, motion e IA",
   "online": true,
   "linked": false,
