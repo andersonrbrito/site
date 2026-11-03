@@ -12,9 +12,12 @@ import html, json, re, subprocess, sys, time, urllib.parse
 HORAS = int(sys.argv[1]) if len(sys.argv) > 1 else 24
 TERMOS = ["editor de vídeo", "editor de video", "video editor", "editor de criativos", "editor de anúncios",
           "videomaker", "criador de conteúdo", "criador de conteúdo IA", "editor de vídeo IA", "vídeo com IA",
-          "AI video", "content creator video", "direct response video", "UGC editor", "editor reels"]
+          "AI video", "content creator video", "direct response video", "UGC editor", "editor reels",
+          "edição de vídeo", "pós-produção", "editor de vídeo remoto", "editor de vídeo home office", "editor de vídeo freelancer",
+          "editor de vídeo júnior", "editor de vídeo pleno", "editor de vídeo sênior", "short form video editor", "youtube video editor",
+          "video editor remote", "ads video editor", "creative video editor", "inteligência artificial vídeo", "produtor de vídeo"]
 REGIOES = {"Brasil": "106057199", "América Latina": "104514572"}
-PAGINAS = [0, 25]
+PAGINAS = [0, 25, 50]
 # título precisa ter um destes e nenhum dos proibidos
 INCLUI = re.compile(r"edi[çc][ãa]o|editor|video|vídeo|videomaker|filmmaker|criador|creator|conte[úu]do|content|ugc|criativ|reels|audiovisual", re.I)
 EXCLUI = re.compile(r"motion design|designer|dise[ñn]ador|texto|web\b|revisor|editorial|contenido|creador|analista|coordenador|operador|assistente|writer|seo|growth|desenvolvedor|developer|engineer|engenheir|vendas|sales|sdr|estagi|intern|redator|copywriter|social media manager|analista de dados|professor|tutor|transcri", re.I)
