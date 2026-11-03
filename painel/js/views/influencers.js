@@ -11,7 +11,7 @@ const REDES = {
   x: { nome: "X", cor: "#9CA3AF", icone: "M4 4l16 16M20 4L4 20" },
 };
 const INFLUENCERS = [
-  { nome: "Índia Narah", pasta: "INDIA NARAH", desc: "Personagem de IA · TikTok Shop (maca peruana, cabelo, descascador)", cor: "#E8452C",
+  { nome: "Índia Narah", pasta: "INDIA NARAH", foto: "img/influencers/india-narah.jpg", desc: "Personagem de IA · TikTok Shop (maca peruana, cabelo, descascador)", cor: "#E8452C",
     redes: [{ rede: "tiktok", usuario: "@ind1anarah", url: "https://www.tiktok.com/@ind1anarah", login: "theilmar@gmail.com" }] },
 ];
 
@@ -21,27 +21,32 @@ const svg = (d, size = 18, cor = "currentColor") => {
   const p = document.createElementNS("http://www.w3.org/2000/svg", "path"); p.setAttribute("d", d); s.append(p);
   return s;
 };
-// Página web não abre o Finder sozinha: o botão copia o caminho (no Finder: Cmd+Shift+G e colar).
-const caminho = (sub) => (sub ? `${PASTA}/${sub}` : PASTA);
+// O esquema andersonfinder:// é tratado pelo app local AbrirFinder (Mac do Anderson), que abre a pasta no Finder.
+const finder = (sub) => "andersonfinder://open?path=" + encodeURIComponent(sub ? `${PASTA}/${sub}` : PASTA);
 
 export default async function influencers() {
   const copiar = async (t, msg) => { try { await navigator.clipboard.writeText(t); toast(msg); } catch { toast("Não deu para copiar.", { kind: "err" }); } };
-  const botaoPasta = (sub, rotulo, extra = "") => h("button", { class: "btn " + extra, type: "button", onclick: () => copiar(caminho(sub), "Caminho copiado. No Finder: Cmd+Shift+G e colar.") }, rotulo);
+  const abrir = (sub, rotulo, extra = "") => h("a", { class: "btn " + extra, href: finder(sub) }, rotulo);
+
+  const card = (i) => h("article", { class: "panel", style: { overflow: "hidden", display: "flex", flexDirection: "column", borderTop: `4px solid ${i.cor}` } },
+    h("div", { style: { position: "relative", aspectRatio: "9 / 16", background: "#111" } },
+      h("img", { src: i.foto, alt: i.nome, loading: "lazy", style: { width: "100%", height: "100%", objectFit: "cover", display: "block" } }),
+      h("div", { style: { position: "absolute", left: 0, right: 0, bottom: 0, padding: "40px 12px 12px", background: "linear-gradient(transparent, rgba(0,0,0,.82))", color: "#fff" } },
+        h("div", { style: { fontWeight: 700, fontSize: "18px" } }, i.nome),
+        h("div", { class: "flex", style: { gap: "6px", marginTop: "6px" } }, ...i.redes.map((r) => h("span", { title: REDES[r.rede].nome, style: { display: "inline-flex", background: "rgba(0,0,0,.55)", borderRadius: "999px", padding: "5px" } }, svg(REDES[r.rede].icone, 18, REDES[r.rede].cor)))))),
+    h("div", { class: "panel-body" },
+      h("p", { class: "muted small", style: { margin: "0 0 10px" } }, i.desc),
+      ...i.redes.map((r) => h("div", { style: { marginBottom: "10px" } },
+        h("a", { href: r.url, target: "_blank", rel: "noopener" }, r.usuario, " ↗"),
+        h("div", { class: "mono small muted", style: { margin: "4px 0 6px", wordBreak: "break-all" } }, "login: ", r.login),
+        h("button", { class: "btn btn-sm", type: "button", onclick: () => copiar(r.login, "Login copiado.") }, "Copiar login"))),
+      abrir(i.pasta, "Abrir pasta no Finder", "btn-sm")));
 
   return h("div", { class: "page" },
-    pageHead("Influencers", "vitrine das contas e das pastas"),
+    pageHead("Influencers", "vitrine das contas"),
     h("section", { class: "panel", style: { marginBottom: "14px" } },
       h("div", { class: "panel-body flex", style: { gap: "12px", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" } },
         h("div", null, h("strong", null, "Pasta TIK TOK"), h("div", { class: "mono small muted" }, PASTA)),
-        botaoPasta("", "Copiar caminho da pasta", "btn-primary"))),
-    ...INFLUENCERS.map((i) => h("section", { class: "panel", style: { marginBottom: "12px", borderLeft: `4px solid ${i.cor}` } },
-      h("div", { class: "panel-head" }, h("h2", null, i.nome), h("span", { class: "muted small" }, i.desc)),
-      h("div", { class: "panel-body" },
-        ...i.redes.map((r) => { const rd = REDES[r.rede];
-          return h("div", { class: "flex", style: { gap: "12px", alignItems: "center", flexWrap: "wrap", marginBottom: "10px" } },
-            h("span", { style: { display: "inline-flex", alignItems: "center", gap: "6px", minWidth: "110px" } }, svg(rd.icone, 20, rd.cor), h("strong", null, rd.nome)),
-            h("a", { href: r.url, target: "_blank", rel: "noopener" }, r.usuario, " ↗"),
-            h("span", { class: "mono small muted" }, "login: ", r.login),
-            h("button", { class: "btn btn-sm", type: "button", onclick: () => copiar(r.login, "Login copiado.") }, "Copiar login")); }),
-        h("div", { class: "flex", style: { gap: "8px", marginTop: "6px" } }, botaoPasta(i.pasta, "Copiar caminho da pasta de " + i.nome, "btn-sm"))))));
+        abrir("", "Abrir no Finder"))),
+    h("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "14px" } }, ...INFLUENCERS.map(card)));
 }
