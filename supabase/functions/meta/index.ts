@@ -13,6 +13,7 @@ const PAINEL = "https://andersonbrito.com/painel/#/social";
 const IG_APP_ID = "1108793578594260";
 const FB_APP_ID = "1584718087029566";
 const V = "v23.0";
+const AD_ACCOUNT = "act_324933977585877";
 const VERIFY_TOKEN = "anderson-os-meta-webhook"; // só confirma a assinatura do webhook; os eventos são validados pela chave secreta
 const IG_SCOPES = "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_manage_insights";
 const FB_SCOPES = "pages_show_list,pages_read_engagement,read_insights,business_management"; // só leitura (views e comentários da Página); responder comentários exige permissão que a Meta não liberou para este app
@@ -102,6 +103,8 @@ async function callbackFb(u: URL) {
   const s = secret("FB_APP_SECRET");
   const short = await api(`https://graph.facebook.com/${V}/oauth/access_token?client_id=${FB_APP_ID}&redirect_uri=${encodeURIComponent(`${BASE}/callback-fb`)}&client_secret=${s}&code=${code}`);
   const long = await api(`https://graph.facebook.com/${V}/oauth/access_token?grant_type=fb_exchange_token&client_id=${FB_APP_ID}&client_secret=${s}&fb_exchange_token=${short.access_token}`);
+  // token do usuário (60 dias) guardado à parte: é ele que lê a conta de anúncios (ads_read)
+  await sb.from("meta_accounts").upsert({ kind: "ads", account_id: AD_ACCOUNT, name: "Conta de anúncios", token: long.access_token, expires_at: new Date(Date.now() + (long.expires_in || 5184000) * 1000).toISOString(), updated_at: new Date().toISOString() }, { onConflict: "kind,account_id" });
   const pages = await api(`https://graph.facebook.com/${V}/me/accounts?fields=id,name,access_token&limit=50&access_token=${long.access_token}`);
   const names: string[] = [];
   for (const pg of pages.data || []) {
@@ -316,6 +319,20 @@ async function daily() {
   return sync();
 }
 
+// Anúncios: campanhas com status e números de hoje, 7 dias e desde o início (só leitura, ads_read).
+async function ads() {
+  const { data } = await sb.from("meta_accounts").select("token, expires_at").eq("kind", "ads").eq("account_id", AD_ACCOUNT).maybeSingle();
+  if (!data) throw new Error("conta de anúncios não conectada: reconecte a Página do Facebook na aba Social");
+  const t = data.token, F = "campaign_id,campaign_name,spend,impressions,reach,clicks,cpm,ctr,actions,cost_per_action_type";
+  const ins = (preset: string) => api(`https://graph.facebook.com/${V}/${AD_ACCOUNT}/insights?level=campaign&date_preset=${preset}&fields=${F}&limit=50&access_token=${t}`).then((r) => r.data || []);
+  const [camps, hoje, d7, total, conta] = await Promise.all([
+    api(`https://graph.facebook.com/${V}/${AD_ACCOUNT}/campaigns?fields=id,name,effective_status,daily_budget,lifetime_budget,stop_time,objective&effective_status=["ACTIVE","PAUSED","IN_PROCESS","WITH_ISSUES","PENDING_REVIEW"]&limit=50&access_token=${t}`).then((r) => r.data || []),
+    ins("today"), ins("last_7d"), ins("maximum"),
+    api(`https://graph.facebook.com/${V}/${AD_ACCOUNT}?fields=name,currency,amount_spent,balance,spend_cap&access_token=${t}`),
+  ]);
+  return { conta, campanhas: camps, hoje, d7, total, token_expira: data.expires_at };
+}
+
 // ───────── porta das rotinas do Claude (sem navegador): ?action=agente, cabeçalho x-agent-key ─────────
 const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache", "jobs"];
 async function integration(key: string | null) {
@@ -409,6 +426,7 @@ Deno.serve(async (req) => {
       return json({ video_insights: a, campos: b, insights: c });
     }
     if (action === "daily") return json(await daily());
+    if (action === "ads") return json(await ads());
     if (action === "status") return json({ ig_secret: !!Deno.env.get("IG_APP_SECRET"), fb_secret: !!Deno.env.get("FB_APP_SECRET") });
     return json({ error: "ação desconhecida" }, 400);
   } catch (e) {

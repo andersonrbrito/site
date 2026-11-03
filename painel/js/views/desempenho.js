@@ -64,11 +64,13 @@ const delta = (series) => {
 };
 
 export default async function desempenho({ sb, refresh, query, go }) {
-  const aba = ["instagram", "facebook"].includes(query?.aba) ? query.aba : "x";
+  const aba = ["instagram", "facebook", "anuncios"].includes(query?.aba) ? query.aba : "x";
   const tabs = h("div", { class: "qnav dtabs" },
     h("a", { href: "#/desempenho", class: aba === "x" ? "on" : "" }, "X · @andersbrito"),
     h("a", { href: "#/desempenho?aba=instagram", class: aba === "instagram" ? "on" : "" }, "Instagram · @andersonbrito.mp4"),
-    h("a", { href: "#/desempenho?aba=facebook", class: aba === "facebook" ? "on" : "" }, "Facebook · Página"));
+    h("a", { href: "#/desempenho?aba=facebook", class: aba === "facebook" ? "on" : "" }, "Facebook · Página"),
+    h("a", { href: "#/desempenho?aba=anuncios", class: aba === "anuncios" ? "on" : "" }, "Anúncios · Meta Ads"));
+  if (aba === "anuncios") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Meta Ads · ao vivo, só leitura"), tabs, await adsPanel(sb));
   if (aba === "facebook") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Página do Facebook · ao vivo pela API da Meta"), tabs, fbPanel(sb));
   const statsR = await sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day").limit(800);
   if (statsR.error) return h("div", { class: "page" }, pageHead("Desempenho", "X e Instagram"), alertBox("Não foi possível carregar os dados."));
@@ -222,4 +224,30 @@ function fbBody(r) {
     h("section", { class: "panel" },
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#1877f2" } }), h("h2", { class: "mono grow" }, "Views por Reel (do mais antigo ao mais novo)")),
       h("div", { class: "panel-body" }, lineChart(serie, { color: "#1877f2" }), h("div", { class: "reels", style: { marginTop: "14px" } }, ...reels.slice(0, 30).map(row)))));
+}
+
+// Meta Ads: status de cada campanha e números de hoje, 7 dias e desde o início. Só leitura.
+const ST_ADS = { ACTIVE: "Ativa", PAUSED: "Pausada", IN_PROCESS: "Em análise", PENDING_REVIEW: "Em análise", WITH_ISSUES: "Com problema" };
+const brl = (v) => v == null ? "–" : "R$ " + Number(v).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const acao = (row, tipos) => { for (const t of tipos) { const a = (row?.actions || []).find((x) => x.action_type === t); if (a) return Number(a.value); } return 0; };
+const CONVERSA = ["onsite_conversion.messaging_conversation_started_7d", "onsite_conversion.total_messaging_connection"];
+async function adsPanel(sb) {
+  let r;
+  try { r = await callMeta(sb, "ads"); } catch (e) { return alertBox("Anúncios indisponíveis: " + e.message); }
+  const by = (lista) => Object.fromEntries((lista || []).map((x) => [x.campaign_id, x]));
+  const hoje = by(r.hoje), d7 = by(r.d7), total = by(r.total);
+  const camps = (r.campanhas || []).filter((c) => total[c.id] || c.effective_status !== "PAUSED");
+  const linha = (rot, x) => {
+    const conv = acao(x, CONVERSA), gasto = Number(x?.spend || 0);
+    return h("div", { class: "xorig" }, h("span", { class: "mono" }, rot), h("b", null, brl(gasto)),
+      h("span", { class: "muted small" }, `${k(Number(x?.impressions || 0))} impressões · ${k(Number(x?.reach || 0))} alcance · ${x?.clicks || 0} cliques`),
+      h("span", { class: "small" }, `${conv} conversas${conv ? " · " + brl(gasto / conv) + " cada" : ""}`));
+  };
+  const bloco = (c) => h("section", { class: "panel", style: { marginBottom: "16px" } },
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: c.effective_status === "ACTIVE" ? "#22c55e" : "var(--tx-4)" } }),
+      h("h2", { class: "mono grow" }, c.name), h("span", { class: "mono muted" }, (ST_ADS[c.effective_status] || c.effective_status) + (c.daily_budget ? " · " + brl(c.daily_budget / 100) + "/dia" : "") + (c.stop_time ? " · até " + fmtDate(c.stop_time.slice(0, 10), false) : ""))),
+    h("div", { class: "panel-body" }, h("div", { class: "xorig3" }, linha("HOJE", hoje[c.id]), linha("7 DIAS", d7[c.id]), linha("DESDE O INÍCIO", total[c.id]))));
+  return h("div", null,
+    h("p", { class: "muted small", style: { marginBottom: "12px" } }, `Conta ${r.conta?.name || ""} · gasto total da conta ${brl(Number(r.conta?.amount_spent || 0) / 100)}. Mudanças (orçamento, pausar, publicar) continuam pelo Gerenciador, com o seu OK.`),
+    camps.length ? camps.map(bloco) : h("p", { class: "empty" }, "Nenhuma campanha ativa."));
 }
