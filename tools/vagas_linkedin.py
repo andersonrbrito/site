@@ -59,7 +59,7 @@ def listar():
     return achadas
 
 INGLES_FORTE = re.compile(r"fluent english|english fluency|strong english|excellent english|advanced english|native english|inglês fluente|inglês avançado|ingl[êe]s (?:intermedi[áa]rio|avan[çc]ado|fluente)|C1|C2|calls? in english", re.I)
-PRESENCIAL = re.compile(r"presencial|on-site|onsite|h[íi]brido|hybrid", re.I)
+PRESENCIAL = re.compile(r"presencial|on-site|onsite|in-office|in office|h[íi]brid|hybrid|\d ?x na semana no escrit|dias? (?:no|de) escrit|resid(?:ir|ente|a) (?:na|em) (?:grande )?[A-Z]", re.I)
 
 def detalhar(v):
     pag = get(f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{v['id']}")
@@ -72,8 +72,8 @@ def detalhar(v):
     regime = "PJ" if re.search(r"\bPJ\b|pessoa jur[íi]dica", desc) else "CLT" if re.search(r"\bCLT\b", desc) else \
              "freela" if re.search(r"freela|freelance|contractor|por projeto|por v[íi]deo", desc, re.I) else "?"
     v.update({"url": f"https://www.linkedin.com/jobs/view/{v['id']}/", "idioma": max((pt, "pt"), (en, "en"), (es, "es"))[1],
-              "ingles_exigido": bool(INGLES_FORTE.search(desc)), "presencial_ou_hibrido": bool(PRESENCIAL.search(desc[:1500])),
-              "regime": regime, "salario": sal or v.pop("salario_lista", "") or None, "criterios": crit[:160], "descricao": desc[:1400]})
+              "ingles_exigido": bool(INGLES_FORTE.search(desc)), "presencial_ou_hibrido": bool(PRESENCIAL.search(desc)),
+              "regime": regime, "salario": sal or v.pop("salario_lista", "") or None, "criterios": crit[:160], "descricao": desc[:1400], "trecho_local": [m.group(0) for m in re.finditer(r".{0,70}(?:remot|home office|presencial|h[íi]brid|escrit[óo]rio).{0,70}", desc, re.I)][:4]})
     v.pop("salario_lista", None)
     return v
 
