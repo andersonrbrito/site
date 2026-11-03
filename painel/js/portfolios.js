@@ -1,6 +1,62 @@
 // Gerado por painel/dev/gen-portfolios.py
 export const PORTFOLIOS = [
  {
+  "path": "motion.html",
+  "title": "Vídeo Motion pro seu Negócio por R$150 | Ilmar Labs",
+  "online": true,
+  "linked": false,
+  "updated": "2026-11-03"
+ },
+ {
+  "path": "lunar/",
+  "title": "Anderson Brito para a Lunar Assessoria: editor de vídeo",
+  "online": true,
+  "linked": false,
+  "updated": "2026-11-03"
+ },
+ {
+  "path": "proposta-mihai/",
+  "title": "Proposta Mihai Silva",
+  "online": true,
+  "linked": false,
+  "updated": "2026-10-30"
+ },
+ {
+  "path": "videos-ia/",
+  "title": "Anderson Brito Portfólio",
+  "online": true,
+  "linked": false,
+  "updated": "2026-10-30"
+ },
+ {
+  "path": "bombaatomica.html",
+  "title": "Bomba Atômica: troque o personagem de um vídeo com IA (Seedance 2.5) | Anderson Brito",
+  "online": true,
+  "linked": false,
+  "updated": "2026-10-23"
+ },
+ {
+  "path": "ia.html",
+  "title": "Projetos de IA — Anderson Brito | Audiovisual com Inteligência Artificial",
+  "online": true,
+  "linked": true,
+  "updated": "2026-10-23"
+ },
+ {
+  "path": "editar-com-ia.html",
+  "title": "Como editar vídeo com IA: passo a passo completo | Anderson Brito",
+  "online": true,
+  "linked": false,
+  "updated": "2026-10-20"
+ },
+ {
+  "path": "privacidade/",
+  "title": "Política de Privacidade · Anderson Brito",
+  "online": true,
+  "linked": false,
+  "updated": "2026-10-19"
+ },
+ {
   "path": "xablau/",
   "title": "Anderson Brito para o Real Oficial: professor de IA",
   "online": true,
@@ -19,13 +75,6 @@ export const PORTFOLIOS = [
   "title": "Prompts Genjutsu Higgsfield — Recrie Clipes com IA | Anderson Brito",
   "online": true,
   "linked": false,
-  "updated": "2026-09-11"
- },
- {
-  "path": "ia.html",
-  "title": "Projetos de IA — Anderson Brito | Audiovisual com Inteligência Artificial",
-  "online": true,
-  "linked": true,
   "updated": "2026-09-11"
  },
  {
