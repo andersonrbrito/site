@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anderson Brito para a Lunar Assessoria: editor de vídeo</title>
+<meta name="description" content="Portfólio do Anderson Brito para a vaga de Editor de Vídeo da Lunar Assessoria: edição, motion design e IA.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030914;--bg2:#06142b;--blue:#1d5bd8;--blue2:#3f8cff;--glow:rgba(63,140,255,.35);--tx:#fff;--tx2:#b9c6dd;--line:rgba(255,255,255,.1)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Montserrat,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+/* lua */
+.moon{position:absolute;border-radius:50%;box-shadow:inset 18px -6px 0 0 #fff;opacity:.9;filter:drop-shadow(0 0 30px var(--glow))}
+header.hero{position:relative;min-height:min(92vh,760px);display:flex;align-items:center;background:radial-gradient(1200px 700px at 85% 10%,#123c8f 0%,var(--bg2) 40%,var(--bg) 75%);overflow:hidden}
+.hero .moon{width:220px;height:220px;right:6%;top:12%;box-shadow:inset 46px -14px 0 0 #fff;opacity:.16}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;padding:60px 0}
+.tag{display:inline-flex;flex-wrap:wrap;max-width:100%;gap:8px;align-items:center;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);border:1px solid rgba(63,140,255,.4);padding:6px 12px;border-radius:99px}
+h1{font-size:clamp(34px,5.4vw,60px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;margin:18px 0}
+h1 em{font-style:normal;background:linear-gradient(90deg,#fff,var(--blue2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;color:var(--tx2);max-width:560px}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:linear-gradient(90deg,var(--blue),var(--blue2));color:#fff;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:99px;box-shadow:0 10px 40px var(--glow)}
+.cta:hover{transform:translateY(-2px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-size:13px;color:var(--tx2);border:1px solid var(--line);padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.03)}
+.me{position:relative;justify-self:center}
+.me img{width:min(320px,80vw);aspect-ratio:4/5;object-fit:cover;border-radius:24px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.me .moon{width:70px;height:70px;left:-24px;bottom:30px;box-shadow:inset 15px -5px 0 0 #fff;opacity:1}
+section{padding:80px 0;border-top:1px solid var(--line)}
+.kicker{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue2)}
+h2{font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.8px;line-height:1.15;margin:10px 0 14px}
+.sub{color:var(--tx2);max-width:640px}
+/* destaque IA */
+.ia{background:radial-gradient(900px 500px at 15% 50%,#0f2f72 0%,var(--bg) 70%)}
+.ia-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
+video{width:100%;display:block;border-radius:18px;background:#000;border:1px solid var(--line)}
+.ia video{max-width:360px;margin:0 auto;box-shadow:0 0 80px var(--glow)}
+.big{font-size:clamp(40px,6vw,64px);font-weight:800;line-height:1;background:linear-gradient(90deg,#fff,var(--blue2));-webkit-background-clip:text;background-clip:text;color:transparent}
+ul.check{list-style:none;padding:0;margin-top:18px;display:grid;gap:10px}
+ul.check li{padding-left:28px;position:relative;color:var(--tx2)}
+ul.check li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;border-radius:50%;box-shadow:inset 4px -2px 0 0 var(--blue2)}
+ul.check b{color:#fff}
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:34px}
+.case h3{font-size:16px;font-weight:700;margin:12px 0 4px}
+.case p{font-size:14px;color:var(--tx2)}
+.case .t{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue2)}
+.case video{aspect-ratio:9/16;object-fit:cover}
+/* trajetória */
+.tl{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:30px}
+.card{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(29,91,216,.12),rgba(255,255,255,.02))}
+.card .when{font-size:12px;font-weight:700;color:var(--blue2);letter-spacing:1px;text-transform:uppercase}
+.card h3{font-size:19px;margin:6px 0 8px}
+.card p{font-size:14.5px;color:var(--tx2)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.nums div{padding:22px;border:1px solid var(--line);border-radius:18px;text-align:center}
+.nums b{display:block;font-size:34px;font-weight:800;color:#fff}
+.nums span{font-size:13px;color:var(--tx2)}
+.fit{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.fit div{padding:18px 20px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.fit b{display:block;margin-bottom:4px}
+.fit span{font-size:14px;color:var(--tx2)}
+footer{position:relative;overflow:hidden;padding:90px 0;text-align:center;background:radial-gradient(800px 400px at 50% 100%,#123c8f,var(--bg) 70%)}
+footer .moon{width:120px;height:120px;left:50%;top:26px;margin-left:-60px;box-shadow:inset 28px -9px 0 0 #fff;opacity:.2}
+footer h2{position:relative}
+footer p{color:var(--tx2)}
+.contacts{margin-top:18px;font-size:14px;color:var(--tx2)}
+@media (max-width:860px){
+ .hero-grid,.ia-grid{grid-template-columns:1fr}
+ .me{order:-1}
+ .cases{grid-template-columns:repeat(2,1fr)}
+ .tl,.fit,.nums{grid-template-columns:1fr}
+ header.hero{min-height:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="moon" aria-hidden="true"></span>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Vaga · Editor de vídeo · Lunar Assessoria</span>
+      <h1>Edição, motion e IA <em>no mesmo editor.</em></h1>
+      <p class="lead">Sou <b>Anderson Brito</b>, editor de vídeo com 10+ anos de audiovisual e Marketing pela FGV. Já faço exatamente o que a Lunar pede: vídeo para redes, peças institucionais, cobertura de eventos, motion design e IA aplicada na edição.</p>
+      <a class="cta" href="https://wa.me/5511948577950?text=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20para%20a%20Lunar" target="_blank" rel="noopener">Falar comigo no WhatsApp →</a>
+      <div class="chips"><span>100% remoto · PJ</span><span>Premiere · DaVinci</span><span>Motion design</span><span>IA generativa</span><span>Disponível agora</span></div>
+    </div>
+    <div class="me"><img src="images/anderson.jpg" alt="Anderson Brito"><span class="moon" aria-hidden="true"></span></div>
+  </div>
+</header>
+
+<section class="ia">
+  <div class="wrap ia-grid">
+    <video src="../assets/bombaatomica/BOMBAATOMICA.mp4" poster="images/poster-bomba.jpg" controls playsinline preload="none"></video>
+    <div>
+      <span class="kicker">IA aplicada à edição</span>
+      <h2>Um filme de época inteiro, feito com IA.</h2>
+      <p class="sub">"Bomba Atômica": roteiro, geração de cenas, direção e edição feitos por mim. Nada foi filmado. É o tipo de peça que, com IA, sai em dias e não em semanas, e que eu levo para qualquer cliente da Lunar: do institucional ao agro.</p>
+      <ul class="check">
+        <li><b>Geração de vídeo e imagem:</b> Seedance, Kling, Veo, Nano Banana.</li>
+        <li><b>Voz e narração com IA</b>, inclusive clonagem de voz.</li>
+        <li><b>Fluxo híbrido IA + Premiere:</b> a IA acelera, o acabamento é de editor.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Trabalhos</span>
+    <h2>Redes sociais, eventos e institucional.</h2>
+    <p class="sub">O que a vaga pede, já entregue para marcas reais.</p>
+    <div class="cases">
+      <div class="case"><video src="videos/boali.mp4" poster="images/poster-boali.jpg" controls playsinline preload="none"></video><span class="t">Cobertura de evento</span><h3>Boali · inauguração Vila Olímpia</h3><p>Rede de alimentação saudável, cliente da Escola do Franchising. Evento virando conteúdo para as redes.</p></div>
+      <div class="case"><video src="videos/viver-praia.mp4" poster="images/poster-viver-praia.jpg" controls playsinline preload="none"></video><span class="t">Evento · narração · motion</span><h3>Viver+ Praia</h3><p>Ação na praia com marca parceira, editada com narração e tipografia animada. Feito na WooB.</p></div>
+      <div class="case"><video src="videos/woob-msg.mp4" poster="images/poster-woob.jpg" controls playsinline preload="none"></video><span class="t">Institucional · IA + Premiere</span><h3>WooB · mensagem da marca</h3><p>Montagem acelerada com IA e acabamento no Premiere, para as redes da agência.</p></div>
+      <div class="case"><video src="videos/eduardo-schroeder.mp4" poster="images/poster-eduardo.jpg" controls playsinline preload="none"></video><span class="t">IA generativa · storytelling</span><h3>Eduardo Schroeder · Cheirin Bão</h3><p>O fundador encontra a versão jovem de si mesmo. Voz clonada e cenas geradas por IA.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Trajetória</span>
+    <h2>Agência, franquias, criador de conteúdo e FGV.</h2>
+    <div class="tl">
+      <div class="card"><div class="when">2026 · Agência de marketing</div><h3>WooB</h3><p>Edição de vídeos para redes e criativos de tráfego da agência e dos seus clientes, com motion design e IA generativa (personagens, cenas e narração).</p></div>
+      <div class="card"><div class="when">2025 a 2026 · Franquias</div><h3>Escola do Franchising</h3><p>Grupo A Trinca (Flávio Augusto, Joel Jota e Caio Carneiro). Criativos, Reels, videoaulas e cobertura de eventos para cerca de 200 franqueados, como Boali e Cheirin Bão.</p></div>
+      <div class="card"><div class="when">Atual · Criador de conteúdo</div><h3>Doti</h3><p>Conteúdo com IA generativa para as redes, do roteiro à publicação. Memes com o XABLAU passaram de 2,7 milhões de views em um mês.</p></div>
+      <div class="card"><div class="when">2016 a 2025 · Institucional</div><h3>FGV · Vice-Presidência</h3><p>Redes sociais e site do Vice-Presidente, material para palestras, entrevistas e audiências públicas. Comunicação institucional de alto nível.</p></div>
+    </div>
+    <div class="nums">
+      <div><b>25M+</b><span>views em um vídeo, em collab com a CazéTV</span></div>
+      <div><b>10+ anos</b><span>de audiovisual · Cinema e Marketing FGV</span></div>
+      <div><b>~200</b><span>franqueados atendidos na Escola do Franchising</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="kicker">Encaixe com a vaga</span>
+    <h2>Cada requisito, já na prática.</h2>
+    <div class="fit">
+      <div><b>Premiere Pro e DaVinci Resolve</b><span>Uso diário nos dois, além de CapCut e Photoshop.</span></div>
+      <div><b>Motion design</b><span>Tipografia animada, legendas dinâmicas e vinhetas para redes.</span></div>
+      <div><b>IA aplicada à edição</b><span>Geração de cenas, voz e automação da montagem.</span></div>
+      <div><b>Cobertura de eventos</b><span>Inaugurações, ações de marca e jantares de luxo para franqueadores.</span></div>
+      <div><b>Organização e proatividade</b><span>Rotina remota com entregas diárias para vários clientes ao mesmo tempo.</span></div>
+      <div><b>Agronegócio</b><span>Linguagem institucional e de campo que aprendo rápido: com IA, consigo cenas de lavoura, máquinas e produtor sem depender de filmagem.</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="moon" aria-hidden="true"></span>
+  <div class="wrap">
+    <h2>Pronto para editar para a Lunar a partir de amanhã.</h2>
+    <p>Remoto, PJ, tempo integral. Me chama que respondo rápido.</p>
+    <a class="cta" href="https://wa.me/5511948577950?text=Ol%C3%A1%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20para%20a%20Lunar" target="_blank" rel="noopener">Falar no WhatsApp →</a>
+    <div class="contacts">contato@andersonbrito.com · @andersonbrito.mp4 · linkedin.com/in/andbrito</div>
+  </div>
+</footer>
+
+</body>
+</html>
