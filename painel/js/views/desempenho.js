@@ -199,15 +199,15 @@ async function fbPanel(sb) {
   const total = reels.reduce((n, x) => n + (x.views || 0), 0), maxV = Math.max(1, ...reels.map((x) => x.views || 0));
   const ult30 = reels.filter((x) => x.data && Date.now() - new Date(x.data) < 30 * 864e5);
   const serie = [...reels].filter((x) => x.data).reverse().map((x) => ({ day: x.data, v: x.views || 0 }));
+  const row = (x) => h("a", { class: "reelrow", href: x.link || "#", target: "_blank", rel: "noopener" },
+    h("span", { class: "rc truncate" }, x.legenda || (x.data ? "Reel de " + fmtDate(x.data, false) : "Reel")),
+    h("span", { class: "rbarw" }, h("i", { style: { width: `${Math.max(2, ((x.views || 0) / maxV) * 100)}%` } })),
+    h("b", null, k(x.views)), h("span", { class: "mono muted" }, x.data ? fmtDate(x.data, false) : ""));
   return h("div", null,
     h("div", { class: "dgrid" },
       card("Views somadas · " + reels.length + " Reels", k(total), r.pagina || "", null),
       card("Views · Reels dos últimos 30 dias", k(ult30.reduce((n, x) => n + (x.views || 0), 0)), ult30.length + " Reels", null)),
     h("section", { class: "panel" },
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#1877f2" } }), h("h2", { class: "mono grow" }, "Views por Reel (do mais antigo ao mais novo)")),
-      h("div", { class: "panel-body" }, lineChart(serie, { color: "#1877f2" }),
-        h("div", { class: "reels", style: { marginTop: "14px" } }, ...reels.slice(0, 30).map((x) => h("a", { class: "reelrow", href: x.link || "#", target: "_blank", rel: "noopener" },
-          h("span", { class: "rc truncate" }, x.legenda || (x.data ? "Reel de " + fmtDate(x.data, false) : "Reel")),
-          h("span", { class: "rbarw" }, h("i", { style: { width: `${Math.max(2, ((x.views || 0) / maxV) * 100)}%` } })),
-          h("b", null, k(x.views)), h("span", { class: "mono muted" }, x.data ? fmtDate(x.data, false) : ""))))));
+      h("div", { class: "panel-body" }, lineChart(serie, { color: "#1877f2" }), h("div", { class: "reels", style: { marginTop: "14px" } }, ...reels.slice(0, 30).map(row)))));
 }
