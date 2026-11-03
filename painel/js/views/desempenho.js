@@ -69,7 +69,7 @@ export default async function desempenho({ sb, refresh, query, go }) {
     h("a", { href: "#/desempenho", class: aba === "x" ? "on" : "" }, "X · @andersbrito"),
     h("a", { href: "#/desempenho?aba=instagram", class: aba === "instagram" ? "on" : "" }, "Instagram · @andersonbrito.mp4"),
     h("a", { href: "#/desempenho?aba=facebook", class: aba === "facebook" ? "on" : "" }, "Facebook · Página"));
-  if (aba === "facebook") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Página do Facebook · ao vivo pela API da Meta"), tabs, await fbPanel(sb));
+  if (aba === "facebook") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Página do Facebook · ao vivo pela API da Meta"), tabs, fbPanel(sb));
   const statsR = await sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day").limit(800);
   if (statsR.error) return h("div", { class: "page" }, pageHead("Desempenho", "X e Instagram"), alertBox("Não foi possível carregar os dados."));
   const stats = statsR.data || [];
@@ -191,9 +191,21 @@ async function igApi(sb) {
 }
 
 // Página do Facebook: views de cada Reel/vídeo (a Meta só libera views por vídeo para este app).
-async function fbPanel(sb) {
-  let r;
-  try { r = await callMeta(sb, "fb_history"); } catch (e) { return alertBox("Página do Facebook indisponível: " + e.message + ". Conecte a Página na aba Social."); }
+// A Meta lê Reel por Reel (leva ~1 min): a aba abre com o último resultado guardado e atualiza em segundo plano.
+function fbPanel(sb) {
+  const box = h("div", null);
+  let cache = null; try { cache = JSON.parse(localStorage.getItem("fb_history") || "null"); } catch {}
+  const show = (r, nota) => box.replaceChildren(h("p", { class: "muted small", style: { marginBottom: "10px" } }, nota), fbBody(r));
+  if (cache) show(cache.r, `Resultado de ${new Date(cache.t).toLocaleString("pt-BR")} · atualizando…`);
+  else box.replaceChildren(h("p", { class: "empty" }, "Lendo os Reels da Página na Meta (leva cerca de 1 minuto)…"));
+  callMeta(sb, "fb_history").then((r) => {
+    try { localStorage.setItem("fb_history", JSON.stringify({ t: Date.now(), r })); } catch {}
+    show(r, "Atualizado agora pela API da Meta.");
+  }).catch((e) => { if (!cache) box.replaceChildren(alertBox("Página do Facebook indisponível: " + e.message + ". Conecte a Página na aba Social.")); });
+  return box;
+}
+
+function fbBody(r) {
   const reels = (r.reels || []).filter((x) => !x.erro);
   if (!reels.length) return alertBox((r.reels || [])[0]?.erro || "Nenhum Reel encontrado na Página.");
   const total = reels.reduce((n, x) => n + (x.views || 0), 0), maxV = Math.max(1, ...reels.map((x) => x.views || 0));
