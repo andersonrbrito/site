@@ -14,11 +14,11 @@ const INFLUENCERS = [
   { nome: "Índia Narah", pasta: "INDIA NARAH", foto: "img/influencers/india-narah.jpg", desc: "Personagem de IA · TikTok Shop (maca peruana, cabelo, descascador)", cor: "#E8452C",
     redes: [{ rede: "tiktok", usuario: "@ind1anarah", url: "https://www.tiktok.com/@ind1anarah", login: "theilmar@gmail.com" }],
     funcao: "Vender no TikTok Shop por comissão (afiliada)." },
-  { nome: "Kairos", pasta: "KAIROS", foto: "img/influencers/kairos.jpg", desc: "Cantor gospel de IA", cor: "#C9A227", redes: [],
+  { nome: "Kairos", pasta: "KAIROS", foto: "img/influencers/kairos.jpg", desc: "Cantor gospel de IA", cor: "#C9A227", redes: [{ rede: "instagram", usuario: "@kairoscantor", url: "https://www.instagram.com/kairoscantor/", login: "contato@andersonbrito.com" }],
     funcao: "Ebook de como criar um influencer de IA (case do próprio Kairos). Conteúdo religioso fica fora de publi." },
-  { nome: "Mazzaropi da Fiel", pasta: "MAZZAROPI DA FIEL", foto: "img/influencers/mazzaropi.jpg", desc: "Torcedor corinthiano de IA · humor de futebol", cor: "#9CA3AF", redes: [],
+  { nome: "Mazzaropi da Fiel", pasta: "MAZZAROPI DA FIEL", foto: "img/influencers/mazzaropi.jpg", desc: "Torcedor corinthiano de IA · humor de futebol", cor: "#9CA3AF", redes: [{ rede: "instagram", usuario: "@mazzaropidafiel", url: "https://www.instagram.com/mazzaropidafiel/", login: "contato@andersonbrito.com" }],
     funcao: "Ebook de como criar um influencer de IA. Sem publi de bets (proibida no Brasil) e sem produto próprio até ter público." },
-  { nome: "O Fofudo", pasta: "FOFUDO", foto: "img/influencers/fofudo.jpg", desc: "Personagem de IA · DJ de bochechas gigantes", cor: "#D4C24A", redes: [],
+  { nome: "O Fofudo", pasta: "FOFUDO", foto: "img/influencers/fofudo.jpg", desc: "Personagem de IA · DJ de bochechas gigantes", cor: "#D4C24A", redes: [{ rede: "instagram", usuario: "@seufofudo", url: "https://www.instagram.com/seufofudo/", login: "contato@andersonbrito.com" }],
     funcao: "A definir." },
 ];
 
