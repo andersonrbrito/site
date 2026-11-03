@@ -1,7 +1,7 @@
 import { h } from "./util.js";
 import { sb, configured } from "./data.js";
-import { buildShell } from "./shell.js";
-import { visibleModules } from "./modules.js";
+import { buildShell } from "./shell.js?v=20261103";
+import { visibleModules } from "./modules.js?v=20261103";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
 const V = "20261103";
