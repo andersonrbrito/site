@@ -56,4 +56,4 @@
 
 ## 2026-11-02 · Influencers
 - Nova página Influencers (só dono): vitrine por personagem com ícone da rede, link do perfil, e-mail de login (sem senha) e pasta no ANDY 1TB/TIK TOK. Índia Narah cadastrada.
-- Trampos: "Descartar" apaga a vaga de vez (migration 0026); aba Descartadas removida.
+- Trampos: "Descartar" esconde a vaga do painel (fica só o registro para não repetir na busca); aba Descartadas removida.

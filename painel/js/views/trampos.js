@@ -2,6 +2,7 @@ import { h, fmtDateTime } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
 
 // Trampos: vagas remotas que a rotina encontra no LinkedIn (5h, 13h e 18h). Quem se candidata é o Anderson.
+// Descartada: some da página, mas o link fica no banco para a busca não trazer a vaga de novo.
 const ST = { nova: "Novas", interesse: "Interesse", candidatado: "Candidatei" };
 // Origem pelo link: LinkedIn ou Vagas DR (garimpadas nos Discords de direct response).
 const ORIG = { linkedin: "LinkedIn", dr: "Vagas DR" };
@@ -22,12 +23,6 @@ export default async function trampos({ sb, query, go, refresh }) {
     const { data: d } = await sb.from("jobs").update({ status }).eq("id", j.id).eq("version", j.version).select("id").maybeSingle();
     if (!d) return toast("Recarregue a página.", { kind: "err" }); toast(ok); refresh();
   };
-  // Descartar apaga a vaga de vez (migration 0026).
-  const apagar = async (j) => {
-    if (!confirm(`Descartar "${j.title}"? A vaga será apagada de vez.`)) return;
-    const { data: d } = await sb.from("jobs").delete().eq("id", j.id).eq("version", j.version).select("id").maybeSingle();
-    if (!d) return toast("Não foi possível apagar. Recarregue a página.", { kind: "err" }); toast("Vaga descartada e apagada."); refresh();
-  };
   const card = (j) => h("article", { class: "job" + (j.score >= 4 ? " top" : "") },
     h("div", { class: "flex" }, h("span", { class: "jscore", title: `${j.score}/5` }, estrelas(j.score)), h("div", { class: "grow" }), h("span", { class: "muted small" }, fmtDateTime(j.found_at))),
     h("a", { class: "jtitle", href: j.url, target: "_blank", rel: "noopener" }, j.title, " ↗"),
@@ -39,7 +34,7 @@ export default async function trampos({ sb, query, go, refresh }) {
       h("a", { class: "btn btn-sm", href: j.url, target: "_blank", rel: "noopener" }, "Abrir vaga"),
       j.status !== "interesse" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mover(j, "interesse", "Marcada com interesse.") }, "Tenho interesse"),
       j.status !== "candidatado" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mover(j, "candidatado", "Boa! Marcada como candidatada.") }, "Me candidatei"),
-      h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => apagar(j) }, "Descartar"),
+      h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => mover(j, "descartada", "Descartada. Ela some do painel e não volta nas próximas buscas.") }, "Descartar"),
       j.status !== "nova" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mover(j, "nova", "Voltou pra novas.") }, "Voltar")));
   const chip = (id) => h("button", { type: "button", class: "chip" + (st === id ? " on" : ""), onclick: () => go(qs(og, id)) }, ST[id], h("sup", null, all.filter((j) => j.status === id).length));
   const aba = (id) => h("button", { type: "button", class: "chip" + (og === id ? " on" : ""), onclick: () => go(qs(id, "nova")) }, ORIG[id], h("sup", null, todas.filter((j) => origem(j) === id && j.status === "nova").length));
