@@ -8,6 +8,7 @@ export const MODULES = [
   { id: "postador", label: "PostadoR_", route: "postador", permission: "postador", enabled: true, primary: true },
   { id: "carrosseis", label: "Carrosséis", route: "carrosseis", permission: "postador", enabled: true },
   { id: "influencers", label: "Influencers", route: "influencers", permission: "influencers", enabled: true, ownerOnly: true },
+  { id: "cursos", label: "Cursos", route: "cursos", permission: "cursos", enabled: true, ownerOnly: true },
   { id: "afiliacoes", label: "Afiliações", route: "afiliacoes", permission: "afiliacoes", enabled: true, ownerOnly: true },
   { id: "miner", label: "MineR_", route: "miner", permission: "miner", enabled: true, primary: true },
   { id: "hoje", label: "Hoje", route: "hoje", permission: "tarefas", enabled: false },
