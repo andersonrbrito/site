@@ -236,7 +236,8 @@ async function adsPanel(sb) {
   try { r = await callMeta(sb, "ads"); } catch (e) { return alertBox("Anúncios indisponíveis: " + e.message); }
   const by = (lista) => Object.fromEntries((lista || []).map((x) => [x.campaign_id, x]));
   const hoje = by(r.hoje), d7 = by(r.d7), total = by(r.total);
-  const camps = (r.campanhas || []).filter((c) => total[c.id] || c.effective_status !== "PAUSED");
+  // só o que importa agora: gastou nos últimos 7 dias ou está ativa e dentro do prazo
+  const camps = (r.campanhas || []).filter((c) => Number(d7[c.id]?.spend || 0) > 0 || Number(hoje[c.id]?.spend || 0) > 0 || (c.effective_status === "ACTIVE" && (!c.stop_time || new Date(c.stop_time) > new Date())));
   const linha = (rot, x) => {
     const conv = acao(x, CONVERSA), gasto = Number(x?.spend || 0);
     return h("div", { class: "xorig" }, h("span", { class: "mono" }, rot), h("b", null, brl(gasto)),
