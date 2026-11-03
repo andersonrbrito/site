@@ -15,6 +15,13 @@ export const PORTFOLIOS = [
   "updated": "2026-11-03"
  },
  {
+  "path": "editor/",
+  "title": "Anderson Brito: editor de vídeo, motion e IA",
+  "online": true,
+  "linked": false,
+  "updated": "2026-11-03"
+ },
+ {
   "path": "proposta-mihai/",
   "title": "Proposta Mihai Silva",
   "online": true,
