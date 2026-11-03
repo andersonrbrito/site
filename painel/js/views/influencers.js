@@ -12,7 +12,14 @@ const REDES = {
 };
 const INFLUENCERS = [
   { nome: "Índia Narah", pasta: "INDIA NARAH", foto: "img/influencers/india-narah.jpg", desc: "Personagem de IA · TikTok Shop (maca peruana, cabelo, descascador)", cor: "#E8452C",
-    redes: [{ rede: "tiktok", usuario: "@ind1anarah", url: "https://www.tiktok.com/@ind1anarah", login: "theilmar@gmail.com" }] },
+    redes: [{ rede: "tiktok", usuario: "@ind1anarah", url: "https://www.tiktok.com/@ind1anarah", login: "theilmar@gmail.com" }],
+    funcao: "Vender no TikTok Shop por comissão (afiliada)." },
+  { nome: "Kairos", pasta: "KAIROS", foto: "img/influencers/kairos.jpg", desc: "Cantor gospel de IA", cor: "#C9A227", redes: [],
+    funcao: "Ebook de como criar um influencer de IA (case do próprio Kairos). Conteúdo religioso fica fora de publi." },
+  { nome: "Mazzaropi da Fiel", pasta: "MAZZAROPI DA FIEL", foto: "img/influencers/mazzaropi.jpg", desc: "Torcedor corinthiano de IA · humor de futebol", cor: "#9CA3AF", redes: [],
+    funcao: "Ebook de como criar um influencer de IA. Sem publi de bets (proibida no Brasil) e sem produto próprio até ter público." },
+  { nome: "O Fofudo", pasta: "FOFUDO", foto: "img/influencers/fofudo.jpg", desc: "Personagem de IA · DJ de bochechas gigantes", cor: "#D4C24A", redes: [],
+    funcao: "A definir." },
 ];
 
 const svg = (d, size = 18, cor = "currentColor") => {
@@ -35,7 +42,9 @@ export default async function influencers() {
         h("div", { style: { fontWeight: 700, fontSize: "18px" } }, i.nome),
         h("div", { class: "flex", style: { gap: "6px", marginTop: "6px" } }, ...i.redes.map((r) => h("span", { title: REDES[r.rede].nome, style: { display: "inline-flex", background: "rgba(0,0,0,.55)", borderRadius: "999px", padding: "5px" } }, svg(REDES[r.rede].icone, 18, REDES[r.rede].cor)))))),
     h("div", { class: "panel-body" },
-      h("p", { class: "muted small", style: { margin: "0 0 10px" } }, i.desc),
+      h("p", { class: "muted small", style: { margin: "0 0 8px" } }, i.desc),
+      i.funcao && h("p", { class: "small", style: { margin: "0 0 10px" } }, h("strong", null, "Função: "), i.funcao),
+      !i.redes.length && h("p", { class: "mono small muted", style: { margin: "0 0 10px" } }, "redes: a cadastrar"),
       ...i.redes.map((r) => h("div", { style: { marginBottom: "10px" } },
         h("a", { href: r.url, target: "_blank", rel: "noopener" }, r.usuario, " ↗"),
         h("div", { class: "mono small muted", style: { margin: "4px 0 6px", wordBreak: "break-all" } }, "login: ", r.login),
