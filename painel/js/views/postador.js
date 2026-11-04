@@ -414,7 +414,7 @@ async function radarView(sb, query, go, refresh) {
   const items = (data || []).filter((i) => i.kind === kind);
   const lastFetch = (data || []).reduce((a, i) => (i.created_at > a ? i.created_at : a), "");
   const score = (i) => (i.metrics?.reply_count || 0) * 3 + (i.metrics?.like_count || 0);
-  items.sort((a, b) => (!!a.done_at - !!b.done_at) || (kind === "talk" ? score(b) - score(a) : 0));
+  items.sort((a, b) => (!!a.done_at - !!b.done_at) || (!!b.metrics?._draft - !!a.metrics?._draft) || (kind === "talk" ? score(b) - score(a) : 0));
   const mark = async (i, done) => {
     const { data: d } = await sb.from("radar_items").update({ done_at: done ? new Date().toISOString() : null }).eq("id", i.id).eq("version", i.version).select("id").maybeSingle();
     if (!d) return toast("Recarregue a página.", { kind: "err" }); refresh();
@@ -426,11 +426,14 @@ async function radarView(sb, query, go, refresh) {
   const row = (i) => {
     const a = i.author || {}, m = i.metrics || {};
     const embed = h("div", { class: "rembed", dataset: { tweet: i.tweet_id } });
-    const reply = h("textarea", { class: "textarea", rows: 2, placeholder: "Sua resposta (no seu jeito: minúscula, direto, com opinião)" });
+    // Caça do Claude (3x/dia): rascunho da resposta e o porquê ficam em metrics._draft / metrics._why.
+    const reply = h("textarea", { class: "textarea", rows: m._draft ? 3 : 2, placeholder: "Sua resposta (no seu jeito: minúscula, direto, com opinião)" });
+    if (m._draft) reply.value = m._draft;
     return h("article", { class: "rcard" + (i.done_at ? " done" : "") },
       h("div", { class: "pwho" }, a.profile_image_url && h("img", { class: "ava", src: a.profile_image_url, alt: "", referrerpolicy: "no-referrer" }),
         h("div", { class: "grow" }, h("b", null, a.name || ""), h("div", { class: "muted small" }, `@${a.username || ""} · ${k(a.public_metrics?.followers_count)} seguidores · há ${ago(i.tweet_created_at || i.created_at)}`))),
       h("p", { class: "rtext" }, i.text),
+      m._why && h("p", { class: "muted small" }, "Por que responder: ", m._why),
       embed,
       kind === "talk" && h("div", { class: "mono muted rmeta" }, `${k(m.reply_count)} respostas · ${k(m.like_count)} likes`, m.impression_count ? ` · ${k(m.impression_count)} impressões` : ""),
       h("div", { class: "rbar" },
