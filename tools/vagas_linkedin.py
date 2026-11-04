@@ -62,6 +62,7 @@ def listar():
     return achadas
 
 INGLES_FORTE = re.compile(r"fluent english|english fluency|strong english|excellent english|advanced english|native english|inglês fluente|inglês avançado|ingl[êe]s (?:intermedi[áa]rio|avan[çc]ado|fluente)|C1|C2|calls? in english", re.I)
+REMOTO = re.compile(r"100% remot|remot[oa]|home[ -]?office|trabalho à distância|\bremote\b|work from home|wfh|anywhere", re.I)
 PRESENCIAL = re.compile(r"presencial|on-site|onsite|in-office|in office|h[íi]brid|hybrid|\d ?x na semana no escrit|dias? (?:no|de) escrit|resid(?:ir|ente|a) (?:na|em) (?:grande )?[A-Z]", re.I)
 
 def detalhar(v):
@@ -76,7 +77,7 @@ def detalhar(v):
              "freela" if re.search(r"freela|freelance|contractor|por projeto|por v[íi]deo", desc, re.I) else "?"
     v.update({"url": f"https://www.linkedin.com/jobs/view/{v['id']}/", "idioma": max((pt, "pt"), (en, "en"), (es, "es"))[1],
               "ingles_exigido": bool(INGLES_FORTE.search(desc)), "presencial_ou_hibrido": bool(PRESENCIAL.search(desc)),
-              "regime": regime, "salario": sal or v.pop("salario_lista", "") or None, "criterios": crit[:160], "descricao": desc[:1400], "trecho_local": [m.group(0) for m in re.finditer(r".{0,70}(?:remot|home office|presencial|h[íi]brid|escrit[óo]rio).{0,70}", desc, re.I)][:4]})
+              "regime": regime, "salario": sal or v.pop("salario_lista", "") or None, "criterios": crit[:160], "descricao": desc[:1400], "descricao_completa": desc, "trecho_local": [m.group(0) for m in re.finditer(r".{0,70}(?:remot|home office|presencial|h[íi]brid|escrit[óo]rio).{0,70}", desc, re.I)][:4]})
     v.pop("salario_lista", None)
     return v
 
@@ -87,7 +88,10 @@ if __name__ == "__main__":
     for v in novas:
         d = detalhar(v); time.sleep(0.6)
         if d["presencial_ou_hibrido"] or PRESENCIAL.search(d["titulo"]) or PRESENCIAL.search(d["local"]): continue
+        # o filtro "remoto" do LinkedIn não é confiável: só passa se a própria vaga disser que é remota
+        if not REMOTO.search(d["titulo"] + " " + d["descricao_completa"]): continue
         if d["idioma"] == "es": continue
         if d["idioma"] == "en" and d["ingles_exigido"]: continue
+        d.pop("descricao_completa", None)
         saida.append(d)
     print(json.dumps({"janela_horas": HORAS, "ja_no_painel": len(vistas), "encontradas": len(novas), "candidatas": saida}, ensure_ascii=False, indent=1))
