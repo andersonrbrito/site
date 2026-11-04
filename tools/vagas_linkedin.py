@@ -16,7 +16,7 @@ TERMOS = ["editor de vídeo", "editor de video", "video editor", "editor de cria
           "edição de vídeo", "pós-produção", "editor de vídeo remoto", "editor de vídeo home office", "editor de vídeo freelancer",
           "editor de vídeo júnior", "editor de vídeo pleno", "editor de vídeo sênior", "short form video editor", "youtube video editor",
           "video editor remote", "ads video editor", "creative video editor", "inteligência artificial vídeo", "produtor de vídeo"]
-REGIOES = {"Brasil": "106057199", "América Latina": "104514572"}
+REGIOES = {"Brasil": "106057199"}  # só Brasil (pedido do Anderson, 04/11)
 PAGINAS = [0, 25, 50]
 # título precisa ter um destes e nenhum dos proibidos
 INCLUI = re.compile(r"edi[çc][ãa]o|editor|video|vídeo|videomaker|filmmaker|criador|creator|conte[úu]do|content|ugc|criativ|reels|audiovisual", re.I)
@@ -90,8 +90,8 @@ if __name__ == "__main__":
         if d["presencial_ou_hibrido"] or PRESENCIAL.search(d["titulo"]) or PRESENCIAL.search(d["local"]): continue
         # o filtro "remoto" do LinkedIn não é confiável: só passa se a própria vaga disser que é remota
         if not REMOTO.search(d["titulo"] + " " + d["descricao_completa"]): continue
-        if d["idioma"] == "es": continue
-        if d["idioma"] == "en" and d["ingles_exigido"]: continue
+        if d["idioma"] != "pt": continue  # só vaga brasileira, em português
+        if not re.search(r"brasil|brazil", d["local"], re.I): continue
         d.pop("descricao_completa", None)
         saida.append(d)
     print(json.dumps({"janela_horas": HORAS, "ja_no_painel": len(vistas), "encontradas": len(novas), "candidatas": saida}, ensure_ascii=False, indent=1))
