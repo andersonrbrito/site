@@ -5,12 +5,12 @@ import { pageHead, alertBox, toast } from "../ui.js";
 // Descartada: some da página, mas o link fica no banco para a busca não trazer a vaga de novo.
 const ST = { nova: "Novas", interesse: "Interesse", candidatado: "Candidatei" };
 // Origem pelo link: LinkedIn ou Vagas DR (garimpadas nos Discords de direct response).
-const ORIG = { linkedin: "LinkedIn", dr: "Vagas DR" };
-const origem = (j) => (/linkedin\.com/i.test(j.url) ? "linkedin" : "dr");
+const ORIG = { linkedin: "LinkedIn", dr: "Vagas DR", outras: "Outras vagas" };
+const origem = (j) => (/linkedin\.com/i.test(j.url) ? "linkedin" : /docs\.google\.com\/forms|forms\.gle/i.test(j.url) ? "dr" : "outras");
 const estrelas = (n) => "★".repeat(n || 0) + "☆".repeat(5 - (n || 0));
 
 export default async function trampos({ sb, query, go, refresh }) {
-  const og = query.o === "dr" ? "dr" : "linkedin";
+  const og = ORIG[query.o] ? query.o : "linkedin";
   const st = Object.keys(ST).includes(query.st) ? query.st : "nova";
   const { data, error } = await sb.from("jobs").select("*").is("archived_at", null).neq("status", "descartada").order("found_at", { ascending: false }).limit(500);
   if (error) return h("div", { class: "page" }, pageHead("Trampos", "vagas remotas"), alertBox("Não foi possível carregar as vagas."));
@@ -39,8 +39,8 @@ export default async function trampos({ sb, query, go, refresh }) {
   const chip = (id) => h("button", { type: "button", class: "chip" + (st === id ? " on" : ""), onclick: () => go(qs(og, id)) }, ST[id], h("sup", null, all.filter((j) => j.status === id).length));
   const aba = (id) => h("button", { type: "button", class: "chip" + (og === id ? " on" : ""), onclick: () => go(qs(id, "nova")) }, ORIG[id], h("sup", null, todas.filter((j) => origem(j) === id && j.status === "nova").length));
   return h("div", { class: "page" },
-    pageHead("Trampos", og === "dr" ? "vagas DR garimpadas nos Discords" : "vagas remotas no LinkedIn · busca às 5h, 13h e 18h"),
-    h("div", { class: "mfilters jorig" }, aba("linkedin"), aba("dr")),
+    pageHead("Trampos", og === "dr" ? "vagas DR garimpadas nos Discords" : og === "outras" ? "Remotar, X, Instagram e sites de vaga" : "vagas remotas no LinkedIn · busca às 5h, 13h e 18h"),
+    h("div", { class: "mfilters jorig" }, aba("linkedin"), aba("dr"), aba("outras")),
     h("div", { class: "mfilters" }, ...Object.keys(ST).map(chip), h("div", { class: "grow" }), h("span", { class: "muted small" }, last ? `última busca ${fmtDateTime(last)}` : "nenhuma busca ainda")),
     list.length ? h("div", { class: "jobs" }, ...list.map(card)) : h("p", { class: "empty" }, st === "nova" ? "Nenhuma vaga nova agora. A próxima busca traz as novas aqui." : "Nada aqui."));
 }
