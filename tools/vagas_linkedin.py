@@ -89,7 +89,8 @@ if __name__ == "__main__":
         d = detalhar(v); time.sleep(0.6)
         if d["presencial_ou_hibrido"] or PRESENCIAL.search(d["titulo"]) or PRESENCIAL.search(d["local"]): continue
         # o filtro "remoto" do LinkedIn não é confiável: só passa se a própria vaga disser que é remota
-        if not REMOTO.search(d["titulo"] + " " + d["descricao_completa"]): continue
+        # vaga sem a palavra "remoto" no texto ainda entra (o LinkedIn marca remoto), mas sinalizada
+        d["remoto_no_texto"] = bool(REMOTO.search(d["titulo"] + " " + d["descricao_completa"]))
         if d["idioma"] != "pt": continue  # só vaga brasileira, em português
         if not re.search(r"brasil|brazil", d["local"], re.I): continue
         d.pop("descricao_completa", None)
