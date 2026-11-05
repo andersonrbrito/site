@@ -4,7 +4,7 @@ import { buildShell } from "./shell.js?v=20261103";
 import { visibleModules } from "./modules.js?v=20261103";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
-const V = "20261103f";
+const V = "20261105a";
 const VIEWS = {
   "": () => import(`./views/painel.js?v=${V}`), hoje: () => import(`./views/hoje.js?v=${V}`), tarefas: () => import(`./views/tarefas.js?v=${V}`),
   projetos: () => import(`./views/projetos.js?v=${V}`), inbox: () => import(`./views/inbox.js?v=${V}`), agenda: () => import(`./views/agenda.js?v=${V}`),

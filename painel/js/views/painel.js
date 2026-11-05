@@ -96,20 +96,21 @@ export default async function inicio({ sb, refresh }) {
     ...QUICK.map(([n, u]) => h("a", { class: "qlink", href: u, target: "_blank", rel: "noopener" }, h("img", { src: favicon(u), alt: "", width: 18, height: 18 }), n)),
     h("a", { class: "qlink meta", href: META_SCHEDULER[1], target: "_blank", rel: "noopener" }, h("img", { src: favicon(META_SCHEDULER[1]), alt: "", width: 18, height: 18 }), META_SCHEDULER[0]));
 
-  // Meta de +1000 seguidores no @andersonbrito.mp4 em ciclos (semana = seg a dom), começando em 19/10 com prazo 25/10.
-  // Batida a meta, o contador zera naquele dia e o prazo vira o domingo da semana seguinte.
-  // Se o prazo passa sem bater, o contador zera no número do prazo e o novo prazo é o domingo seguinte.
+  // Meta de +1000 seguidores no @andersonbrito.mp4, semana de dom a SÁBADO. Ciclo ancorado na meta batida em 26/10 (base 26/10, prazo 07/11).
+  // Acumulativa: bateu os 1000, a nova meta começa na hora, e o que passou dos 1000 já conta pra ela.
+  // O prazo da nova meta é o sábado da semana seguinte. Se o prazo passa sem bater, recomeça do número daquele sábado.
   const GOAL_W = 1000;
   const igH = (igHistR.data || []).slice().reverse();
   const dayMs = (d) => new Date(d + "T12:00:00Z").getTime();
   const iso = (t) => new Date(t).toISOString().slice(0, 10);
-  const domingoSeguinte = (d) => { const t = new Date(dayMs(d)); t.setUTCDate(t.getUTCDate() + ((7 - t.getUTCDay()) % 7) + 7); return iso(t); };
-  const igCiclo = igH.filter((r) => r.day >= "2026-10-19");
-  let base = igCiclo[0] || igH[0], prazo = "2026-10-25", lastHit = null, missed = null;
+  const sabadoSeguinte = (d) => { const t = new Date(dayMs(d)); t.setUTCDate(t.getUTCDate() + ((6 - t.getUTCDay() + 7) % 7) + 7); return iso(t); };
+  const igCiclo = igH.filter((r) => r.day >= "2026-10-26");
+  const ini = igCiclo[0] || igH[0];
+  let base = ini ? { day: ini.day, followers: ini.followers } : null, prazo = "2026-11-07", lastHit = { day: "2026-10-26", ganho: GOAL_W }, missed = null;
   for (const r of igCiclo) {
     if (r.day <= base.day) continue;
-    while (r.day > prazo) { missed = { day: prazo, ganho: ([...igCiclo].reverse().find((x) => x.day <= prazo)?.followers ?? base.followers) - base.followers }; base = [...igCiclo].reverse().find((x) => x.day <= prazo) || base; prazo = iso(dayMs(prazo) + 7 * 864e5); }
-    if (r.followers - base.followers >= GOAL_W) { lastHit = { day: r.day, ganho: r.followers - base.followers }; missed = null; base = r; prazo = domingoSeguinte(r.day); }
+    while (r.day > prazo) { const fim = [...igCiclo].reverse().find((x) => x.day <= prazo) || base; missed = { day: prazo, ganho: fim.followers - base.followers }; base = { day: prazo, followers: fim.followers }; prazo = iso(dayMs(prazo) + 7 * 864e5); }
+    while (r.followers - base.followers >= GOAL_W) { lastHit = { day: r.day, ganho: GOAL_W }; missed = null; base = { day: r.day, followers: base.followers + GOAL_W }; prazo = sabadoSeguinte(r.day); }
   }
   const nowRow = igH[igH.length - 1];
   const gained = base && nowRow ? nowRow.followers - base.followers : null;
