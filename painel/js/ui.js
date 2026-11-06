@@ -1,7 +1,7 @@
 import { h, L, PRIO_COLOR, fmtDate, isOverdue, STATUSES } from "./util.js";
 
 const P = {
-  dashboard: "M3 3h7v7H3zM14 3h7v4h-7zM14 10h7v11h-7zM3 13h7v8H3z",
+  dashboard: "M3 18a9 9 0 0 1 18 0M12 18l5-6M6 18h0M18 18h0M5 13.5l1.5.8M12 9v1.5",
   hoje: "M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3 7.8 7.8M16.2 16.2l1.5 1.5M6.3 17.7l1.5-1.5M16.2 7.8l1.5-1.5M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z",
   tarefas: "M9 6h12M9 12h12M9 18h12M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17",
   projetos: "M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",

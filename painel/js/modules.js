@@ -4,7 +4,7 @@
  * enabled:false mantém o módulo planejado fora da navegação até ter função real.
  */
 export const MODULES = [
-  { id: "dashboard", label: "IníciO_", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
+  { id: "dashboard", label: "PaineL_", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
   { id: "postador", label: "PostadoR_", route: "postador", permission: "postador", enabled: true, primary: true },
   { id: "carrosseis", label: "CarrosseL_", route: "carrosseis", permission: "postador", enabled: true },
   { id: "influencers", label: "InfluencerS_", route: "influencers", permission: "influencers", enabled: true, ownerOnly: true },
@@ -22,7 +22,7 @@ export const MODULES = [
   { id: "prompts", label: "PromptS_", route: "prompts", permission: "prompts", enabled: true, ownerOnly: true },
   { id: "leads", label: "LeadS_", route: "leads", permission: "leads", enabled: true, primary: true, ownerOnly: true },
   { id: "trampos", label: "TrampoS_", route: "trampos", permission: "trampos", enabled: true, ownerOnly: true },
-  { id: "youtube", label: "YouTube downloaD_", route: "youtube", permission: "youtube", enabled: true, ownerOnly: true },
+  { id: "youtube", label: "YT downloaD_", route: "youtube", permission: "youtube", enabled: true, ownerOnly: true },
   { id: "agenda", label: "Agenda", route: "agenda", permission: "agenda", enabled: true, primary: true },
   { id: "historico", label: "HistóricO_", route: "historico", permission: "historico", enabled: false, ownerOnly: true },
   { id: "setup", label: "Meu setup", route: "setup", permission: "setup", enabled: true, ownerOnly: true },
