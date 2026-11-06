@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-05 · Carrosséis diários
+- Carrosséis estilo print de tweet para o @ilmarlabs (2 notícias + 2 educativos por dia, rotina das 6h45): prévia em canvas, edição de texto e mídia por lâmina, download PNG/MP4, status e botão "Transformar em vídeo" (Reel, X ou os dois).
+- Migration 0028: tabela `carrosseis`, `claude_requests.payload` e kind `carrossel_video`, `agent_write` aceita `carrosseis`.
+- Primeiro carrossel: Claude Personal Finance.
+
 ## 2026-10-19 (noite) · Estúdio, Portfólios e ajustes
 - Estúdio no PostadoR_: escolhe um post (rascunho, publicado ou dos mais vistos do X) e gera card PNG 4:5 e Reel em vídeo 9:16 (MP4 no Chrome) no visual MineR_, direto no navegador; "Pedir vídeo com IA" vira pedido de roteiro com prompts.
 - Menu Portfólios (página própria com filtros no ar/offline e data).

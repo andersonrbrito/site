@@ -18,6 +18,12 @@
 - Login com Google, sessão, checagem de membro e todas as telas com o **Supabase de verdade** (não existe projeto ainda).
 - Celular físico (só emulação de largura).
 
+## Carrosséis diários (2026-11-05)
+- Feito e testado no harness: tela Carrosséis com lista por dia, prévia em canvas estilo print de tweet (foto, nome, selo, @), edição de texto/rodapé/mídia/recorte/ordem das lâminas com salvamento por versão, download PNG (imagem) e MP4 gravado no Chrome (lâmina com vídeo), botão "Transformar em vídeo" (pedido em `claude_requests` kind `carrossel_video`).
+- Primeiro carrossel: `painel/carrosseis/claude-financas-pessoais/` (lido do repositório via `diarios.json` até existir a tabela).
+- **Pendente:** rodar `supabase/migrations/20261105000028_carrosseis.sql` no SQL Editor (tabela `carrosseis`, `payload` e novo kind em `claude_requests`, `agent_write` aceitando `carrosseis`). Sem ela a tela fica só leitura.
+- Rotina diária `carrosseis-diarios-ilmarlabs` (6h45) agendada. Rotina do vídeo (`carrosseis/ROTINA-VIDEO.md`) ainda não agendada.
+
 ## Pendente de configuração (depende de você)
 1. Projeto Supabase; preencher `painel/js/config.js` (URL e chave publishable).
 2. Aplicar `supabase/migrations/*.sql` na ordem; rodar `supabase/seed-owner.example.sql` com seu e-mail Google.
