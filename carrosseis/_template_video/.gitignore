@@ -1,0 +1,6 @@
+.cache/
+*.wav
+**/quadros/
+**/render.log
+**/grade_*.jpg
+exemplo-claude-financas/g_*.jpg
