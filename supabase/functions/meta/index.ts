@@ -414,7 +414,7 @@ async function ads() {
 }
 
 // ───────── porta das rotinas do Claude (sem navegador): ?action=agente, cabeçalho x-agent-key ─────────
-const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache", "jobs", "social_inbox"];
+const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache", "jobs", "social_inbox", "aprovacoes", "perfis", "pautas", "produtos"];
 async function integration(key: string | null) {
   if (!key || key.length < 20) return null;
   const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key)))].map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -428,6 +428,14 @@ async function agente(req: Request) {
   if (!integ) return json({ error: "não autorizado" }, 401);
   {
     const b = await req.json();
+    // Envio de arquivo para aprovação: devolve uma URL assinada de upload (vale 2 h) só dentro de aprovacoes/
+    if (b.op === "upload_url") {
+      const path = String(b.path || "");
+      if (!/^aprovacoes\/[a-z0-9-]{2,60}\/[\w.-]{1,160}$/.test(path)) return json({ error: "path inválido (use aprovacoes/<perfil>/<arquivo>)" }, 400);
+      const { data, error } = await sb.storage.from("anderson-os-arquivos").createSignedUploadUrl(path, { upsert: true });
+      if (error) throw new Error(error.message);
+      return json({ path, signedUrl: data.signedUrl, token: data.token });
+    }
     if (b.op === "select") {
       if (!READ.includes(b.table)) return json({ error: "tabela não permitida" }, 400);
       let q: any = sb.from(b.table).select(b.select || "*");

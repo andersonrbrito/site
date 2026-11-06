@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-06 (noite) · v2.2: AprovaçõeS_
+- Nova página AprovaçõeS_: conteúdo dos agentes com prévia (vídeo/imagem do Storage privado), legenda com copiar, e Aprovar / Pedir ajuste (comentário que o agente lê) / Reprovar / Marcar publicado. Ponto no menu e bloco "Para aprovar" no PaineL_.
+- Agentes enviam com `tools/agente.py enviar <perfil> <arquivo> '<json>'` (URL assinada de upload pela função meta, só em aprovacoes/).
+- Migration 0033: tabela aprovacoes (agente sempre entra como pendente; reenvio volta para pendente e acende o ponto).
+
 ## 2026-11-06 (tarde) · v2.1: aero glass, NoteS_, StúdiO_, ProdutoS_, e-mails, busca
 - Visual aero glass em todo o painel (vidro fosco, cantos suaves, luz difusa) e letras de descrição maiores.
 - Barra superior: versão do painel ao lado do logo, data maior, botão verde do WhatsApp Business e busca ao vivo (páginas, perfis, notas, produtos, carrosséis, posts, garimpo e pautas). Ctrl K e / focam a busca. Supabase nos botões de ferramentas.
@@ -33,6 +38,9 @@
 - Carrosséis estilo print de tweet para o @ilmarlabs (2 notícias + 2 educativos por dia, rotina das 6h45): prévia em canvas, edição de texto e mídia por lâmina, download PNG/MP4, status e botão "Transformar em vídeo" (Reel, X ou os dois).
 - Migration 0028: tabela `carrosseis`, `claude_requests.payload` e kind `carrossel_video`, `agent_write` aceita `carrosseis`.
 - Primeiro carrossel: Claude Personal Finance.
+
+## 2026-11-04 · Afiliações
+- Magnific nas Afiliações (link de indicação + botão para copiar o cupom).
 
 ## 2026-10-19 (noite) · Estúdio, Portfólios e ajustes
 - Estúdio no PostadoR_: escolhe um post (rascunho, publicado ou dos mais vistos do X) e gera card PNG 4:5 e Reel em vídeo 9:16 (MP4 no Chrome) no visual MineR_, direto no navegador; "Pedir vídeo com IA" vira pedido de roteiro com prompts.

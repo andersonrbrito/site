@@ -5,6 +5,7 @@
  */
 export const MODULES = [
   { id: "dashboard", label: "PaineL_", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
+  { id: "aprovacoes", label: "AprovaçõeS_", route: "aprovacoes", permission: "aprovacoes", enabled: true, primary: true },
   { id: "mapa", label: "Map MentaleS_", route: "mapa", permission: "mapa", enabled: true },
   { id: "agentes", label: "AgenteS_", route: "agentes", permission: "agentes", enabled: true },
   { id: "perfis", label: "PerfiS_", route: "perfis", permission: "perfis", enabled: true },

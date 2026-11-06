@@ -43,6 +43,7 @@ const metaBar = (m) => h("div", { class: "eco-meta" },
 /** Blocos do PaineL_: meta de 60 dias, agentes, pautas do dia e notas fixadas. Some sozinho se a migration 0030 não existir. */
 export async function ecoHome(sb) {
   const today = todayISO();
+  const apR = await sb.from("aprovacoes").select("id", { count: "exact", head: true }).is("archived_at", null).eq("status", "pendente");
   const [recR, jobsR, pautR] = await Promise.all([
     sb.from("receitas").select("valor, dia").is("archived_at", null).gte("dia", META.inicio),
     sb.from("agent_jobs").select("task_id, titulo, enabled, last_status, last_run_at, next_run_at, synced_at").is("archived_at", null),
@@ -57,6 +58,7 @@ export async function ecoHome(sb) {
   return h("div", { class: "stack-lg" },
     h("section", { class: "panel" }, head("Meta · R$ 3.000 em 60 dias (faturamento)", "#/perfis", "registrar venda →"), h("div", { class: "panel-body" }, metaBar(m))),
     h("div", { class: "kpis" },
+      !apR.error && h("a", { class: "kpi" + (apR.count ? " hot" : ""), href: "#/aprovacoes" }, h("span", { class: "mono" }, "Para aprovar"), h("b", null, String(apR.count ?? 0)), h("span", { class: "muted small" }, apR.count ? "conteúdo dos agentes esperando o seu OK" : "nada pendente")),
       h("a", { class: "kpi" + (falhas ? " hot" : ""), href: "#/agentes" }, h("span", { class: "mono" }, "AgenteS_"), h("b", null, `${ativos} ativos`), h("span", { class: "muted small" }, falhas ? `${falhas} com falha na última execução` : sync ? `sincronizado ${fmtDateTime(sync)}` : "aguardando a 1ª sincronização")),
       h("a", { class: "kpi" + (pend.length ? " hot" : ""), href: "#/perfis" }, h("span", { class: "mono" }, "Pautas de hoje"), h("b", null, `${pautas.length - pend.length}/${pautas.length}`), h("span", { class: "muted small" }, pend.length ? `${pend.length} pendentes (aquecimento, oração, reacts…)` : "tudo feito")),
       h("a", { class: "kpi", href: "#/mapa" }, h("span", { class: "mono" }, "Map MentaleS_"), h("b", null, "abrir"), h("span", { class: "muted small" }, "ecossistema, funis e dependências"))));

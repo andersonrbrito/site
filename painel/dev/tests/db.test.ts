@@ -310,3 +310,19 @@ describe("Ecossistema (migration 0030)", () => {
     expect((await asUser(strangerId, () => db.query(`select * from app_events`))).rows).toHaveLength(0);
   });
 });
+
+describe("AprovaçõeS_ (migration 0033)", () => {
+  it("agente envia sempre como pendente, não decide; reenvio volta para pendente e acende o ponto", async () => {
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'aprovacoes', '[{"arquivo":"aprovacoes/kairos/v1.mp4","perfil":"kairos","titulo":"Versículo 1","status":"aprovado"}]')`, [integrationId]));
+    let r = await asUser(ownerId, () => db.query<{ status: string; version: number; id: string }>(`select id, status, version from aprovacoes where arquivo = 'aprovacoes/kairos/v1.mp4'`));
+    expect(r.rows[0].status).toBe("pendente");
+    await asUser(ownerId, () => db.query(`update aprovacoes set status = 'ajustar', comentario = 'texto maior' where id = $1`, [r.rows[0].id]));
+    await asUser(ownerId, () => db.query(`select mark_module_seen('aprovacoes')`));
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'aprovacoes', '[{"arquivo":"aprovacoes/kairos/v1.mp4","perfil":"kairos","titulo":"Versículo 1 (ajustado)"}]')`, [integrationId]));
+    r = await asUser(ownerId, () => db.query(`select status, titulo from aprovacoes where arquivo = 'aprovacoes/kairos/v1.mp4'`));
+    expect(r.rows[0].status).toBe("pendente");
+    const news = (await asUser(ownerId, () => db.query<{ module: string }>(`select module from module_news()`))).rows;
+    expect(news.some((x) => x.module === "aprovacoes")).toBe(true);
+    expect((await asUser(strangerId, () => db.query(`select * from aprovacoes`))).rows).toHaveLength(0);
+  });
+});

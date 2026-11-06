@@ -1,12 +1,12 @@
 import { h, fmtDateTime } from "./util.js";
 import { icon, toast } from "./ui.js";
-import { visibleModules } from "./modules.js?v=20261106e";
+import { visibleModules } from "./modules.js?v=20261106f";
 import { SOCIALS, AIS, iconLink } from "./links.js";
 import { HREF } from "./views/busca.js";
 
 const NAMES = { task: "Tarefa", project: "Projeto", note: "Nota", event: "Compromisso" };
 // Versão do painel mostrada ao lado do logo (suba a cada entrega relevante).
-export const VERSAO = "v2.1";
+export const VERSAO = "v2.2";
 const href = (m) => "#/" + m.route;
 
 export function buildShell({ sb, member, go, signOut }) {
@@ -137,6 +137,7 @@ function buildSearch(sb, mods, go) {
     ["posts", "Post", "title", (r) => `#/postador?id=${r.id}`, "", (q) => `title.ilike.%${q}%,body.ilike.%${q}%`, "id, title, body"],
     ["miner_links", "Garimpo", "note", () => "#/miner", "", (q) => `note.ilike.%${q}%,author.ilike.%${q}%`, "id, note, author"],
     ["pautas", "Pauta", "titulo", () => "#/perfis", "", (q) => `titulo.ilike.%${q}%`, "id, titulo"],
+    ["aprovacoes", "Aprovação", "titulo", () => "#/aprovacoes", "", (q) => `titulo.ilike.%${q}%,legenda.ilike.%${q}%`, "id, titulo"],
   ];
   const close = () => { ul.hidden = true; input.setAttribute("aria-expanded", "false"); };
   const draw = () => {
