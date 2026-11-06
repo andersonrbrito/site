@@ -468,3 +468,4 @@ main>.page.wide{max-width:1400px}
 .cz-fontes{margin:0;padding-left:18px;font-size:13px} .cz-fontes a{color:var(--accent)}
 .cz-ped{padding:10px 12px;border:1px solid var(--line);border-radius:6px}
 .cz-vids{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px} .cz-vids video{max-width:260px;max-height:360px;border-radius:8px;display:block;margin-bottom:4px}
+.cz-guia{margin-bottom:22px} .cz-guia ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.5;color:var(--tx-2)} .cz-guia b{color:var(--tx)}

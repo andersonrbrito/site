@@ -90,6 +90,7 @@ function listView({ sb, go, query, data }) {
     pageHead("CarrosseL_", "2 notícias + 2 educativos por dia · pedidos do PostadoR_ · estilo print de tweet · para o @ilmarlabs"),
     !data.dbOn && h("p", { class: "note" }, "A tabela de carrosséis ainda não existe no banco (migration 0028). Dá para ver e baixar, mas edição e pedido de vídeo só funcionam depois de rodar a migration no Supabase."),
     h("div", { class: "flex wrap", style: { marginBottom: "16px" } }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("pessoal", "Pessoais"), chip("descartado", "Descartados")),
+    guiaPostagem(),
     pedidosNovos(data, go),
     porDia.size ? [...porDia].map(([d, cs]) => h("section", { style: { marginBottom: "26px" } },
       h("h2", { class: "mono", style: { margin: "0 0 10px", color: "var(--accent)" } }, nomeDia(d)),
@@ -98,6 +99,28 @@ function listView({ sb, go, query, data }) {
       h("h2", { class: "mono", style: { margin: "0 0 10px" } }, "Antigos (imagens prontas)"),
       h("div", { class: "carr-grid" }, ...data.legacy.map((c) => h("a", { class: "carr-card", href: "#/carrosseis?c=" + c.slug, onclick: (e) => { e.preventDefault(); go("/carrosseis?c=" + c.slug); } },
         h("img", { src: `${BASE}${c.slug}/${c.slides[0]}`, alt: "", loading: "lazy" }), h("b", null, c.titulo), h("span", { class: "muted small" }, `${c.perfil} · ${c.slides.length} slides`))))) : null);
+}
+
+// Orientações de postagem (fica aberto ou fechado do jeito que ele deixou da última vez).
+function guiaPostagem() {
+  let aberto = true;
+  try { aberto = localStorage.getItem("cz-guia") !== "0"; } catch { /* sem storage */ }
+  const item = (t, ...rest) => h("li", null, h("b", null, t), " ", ...rest);
+  const el = h("details", { class: "panel cz-guia", open: aberto },
+    h("summary", null, "Como postar (orientações)"),
+    h("div", { class: "panel-body" },
+      h("ul", null,
+        item("A rotina gera 4 por dia, mas não precisa postar os 4.", "Escolha os melhores. Os outros ficam de reserva: dá pra postar em outro dia ou descartar."),
+        item("No feed, 2 por dia:", "1 notícia e 1 educativo. Em collab, cada post aparece nos dois perfis, então 4 por dia lotam o grid do @andersonbrito.mp4 e enterram os Reels."),
+        item("Notícia: 11h às 12h30.", "Notícia esfria rápido. Se esfriou, descarta."),
+        item("Educativo: 18h30 às 20h30.", "Hora de ler com calma e salvar. Educativo aguenta a semana toda."),
+        item("Pelo menos 5 h entre um post e outro,", "inclusive dos Reels do dia. Fim de semana: 1 só, de preferência educativo à tarde."),
+        item("Collab:", "aceite o convite no @andersonbrito.mp4 logo depois de postar. Sem aceitar, o post sai só no @ilmarlabs."),
+        item("Música:", "use \"Enviar pro iPhone\" e coloque a música no app do Instagram (por API não dá)."),
+        item("O que olhar:", "salvamentos e compartilhamentos no educativo, comentários na notícia, visitas ao perfil e seguidores novos nos dois. Views sozinhas enganam."),
+        item("Depois de umas 2 semanas,", "veja nos Insights do @ilmarlabs quando os seguidores estão mais ativos e ajuste os horários."))));
+  el.addEventListener("toggle", () => { try { localStorage.setItem("cz-guia", el.open ? "1" : "0"); } catch { /* sem storage */ } });
+  return el;
 }
 
 // Pedidos vindos do PostadoR_ ("Enviar para o CarrosseL_"): fila e os prontos das últimas 48 h.
