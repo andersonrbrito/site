@@ -1,5 +1,5 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
-import { pageHead, alertBox, toast, copiarTexto } from "../ui.js";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261106m";
 import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261106a";
 
 // Carrosséis diários (estilo print de tweet) para o @ilmarlabs: 2 notícias + 2 educativos por dia.

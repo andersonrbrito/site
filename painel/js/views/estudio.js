@@ -3,7 +3,7 @@
 // Cada formato tem nome (não número), botão de baixar e de enviar pro iPhone (um, outro ou os dois),
 // e "Já usei" tira o vídeo da tela (fica guardado em payload.estudio_ok, recuperável em "Mostrar os já usados").
 import { h, fmtDateTime } from "../util.js";
-import { pageHead, toast, copiarTexto } from "../ui.js";
+import { pageHead, toast, copiarTexto } from "../ui.js?v=20261106m";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
 const ST = { aberto: ["na fila", "warn"], gerando: ["gerando", "accent"], feito: ["pronto", "ok"], cancelado: ["cancelado", ""] };

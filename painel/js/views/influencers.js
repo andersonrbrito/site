@@ -1,5 +1,5 @@
 import { h } from "../util.js";
-import { pageHead, toast, copiarTexto } from "../ui.js";
+import { pageHead, toast, copiarTexto } from "../ui.js?v=20261106m";
 
 // Influencers: vitrine das contas de personagens de IA. Tudo mora na pasta TIK TOK do disco ANDY 1TB.
 // Sem senha aqui (o repositório é público): só o e-mail de login. A senha fica no gerenciador do Anderson.
