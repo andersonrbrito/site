@@ -53,8 +53,9 @@ if __name__ == "__main__":
         row = {"arquivo": subir(arquivo, perfil), "perfil": perfil, "tipo": meta.get("tipo", "reel"), "titulo": meta["titulo"],
                "legenda": meta.get("legenda"), "local_path": meta.get("local_path", os.path.abspath(arquivo)),
                "ferramentas": meta.get("ferramentas"), "creditos": int(meta.get("creditos", 0)),
-               "capa": subir(capa, perfil) if capa else None, "extras": [subir(x, perfil) for x in extras],
-               "sugestao_em": meta.get("sugestao_em"), "sugestao_nota": meta.get("sugestao_nota")}
+               "capa": subir(capa, perfil) if capa else None, "extras": [subir(x, perfil) for x in extras]}
+        for k in ("sugestao_em", "sugestao_nota"):  # só manda quando vier (funciona antes e depois da migration 0035)
+            if meta.get(k): row[k] = meta[k]
         print(json.dumps(call("agente", {"op": "upsert", "table": "aprovacoes", "rows": [row]}), ensure_ascii=True))
         sys.exit(0)
     op, arg = sys.argv[1], sys.argv[2]
