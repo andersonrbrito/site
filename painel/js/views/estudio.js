@@ -7,8 +7,10 @@ import { pageHead, toast } from "../ui.js";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
 const ST = { aberto: ["na fila", "warn"], gerando: ["gerando", "accent"], feito: ["pronto", "ok"], cancelado: ["cancelado", ""] };
-const formato = (u) => (/reel|9x16|vertical/i.test(u.split("/").pop()) ? "Reel 9:16" : /(^|[-_])x([-_.]|$)|16x9|horizontal/i.test(u.split("/").pop()) ? "X 16:9" : u.split("/").pop().replace(/\.mp4$/, ""));
-const ordem = (a, b) => (formato(a).startsWith("Reel") ? -1 : formato(b).startsWith("Reel") ? 1 : 0);
+const versao = (u) => { const m = u.split("/").pop().match(/-v(\d+)\.mp4$/); return m ? ` · v${m[1]}` : ""; };
+const formato = (u) => (versao(u) ? formatoBase(u) + versao(u) : formatoBase(u));
+const formatoBase = (u) => (/reel|9x16|vertical/i.test(u.split("/").pop()) ? "Reel 9:16" : /(^|[-_])x([-_.]|$)|16x9|horizontal/i.test(u.split("/").pop()) ? "X 16:9" : u.split("/").pop().replace(/\.mp4$/, ""));
+const ordem = (a, b) => (versao(b) > versao(a) ? 1 : versao(b) < versao(a) ? -1 : formato(a).startsWith("Reel") ? -1 : formato(b).startsWith("Reel") ? 1 : 0);
 
 export default async function estudio({ sb }) {
   const { data, error } = await sb.from("claude_requests").select("id, status, payload, result_note, created_at, done_at, version").eq("kind", "carrossel_video").is("archived_at", null).order("created_at", { ascending: false }).limit(200);
