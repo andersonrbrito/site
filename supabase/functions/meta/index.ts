@@ -378,8 +378,12 @@ async function fbHistory() {
     if ((page as any).error) { out.push({ erro: (page as any).error }); break; }
     for (const v of (page as any).data || []) {
       // "views" vem no próprio vídeo, sem precisar da permissão de insights (que o app não tem)
-      const f = await api(`https://graph.facebook.com/${V}/${v.id}?fields=views,post_views&access_token=${pg.token}`).catch(() => ({}));
-      out.push({ data: v.created_time?.slice(0, 10), legenda: (v.description || "").split("\n")[0].slice(0, 60), views: (f as any).views ?? null, views_post: (f as any).post_views ?? null, link: v.permalink_url });
+      // miniatura junto; se a Meta recusar algum campo de imagem, refaz só com as views (como antes)
+      const f: any = await api(`https://graph.facebook.com/${V}/${v.id}?fields=views,post_views,picture,thumbnails{uri,is_preferred}&access_token=${pg.token}`)
+        .catch(() => api(`https://graph.facebook.com/${V}/${v.id}?fields=views,post_views&access_token=${pg.token}`)).catch(() => ({}));
+      const thumbs = f.thumbnails?.data || [];
+      const thumb = (thumbs.find((t: any) => t.is_preferred) || thumbs[0])?.uri || f.picture || null;
+      out.push({ data: v.created_time?.slice(0, 10), legenda: (v.description || "").split("\n")[0].slice(0, 60), legenda_completa: (v.description || "").slice(0, 300), thumb, views: f.views ?? null, views_post: f.post_views ?? null, link: v.permalink_url });
     }
     url = (page as any).paging?.next || "";
   }
