@@ -1,6 +1,6 @@
 import { h, fmtDateTime } from "./util.js";
 import { icon, toast } from "./ui.js";
-import { visibleModules } from "./modules.js?v=20261103";
+import { visibleModules } from "./modules.js?v=20261106";
 import { SOCIALS, AIS, iconLink } from "./links.js";
 import { HREF } from "./views/busca.js";
 
@@ -20,7 +20,7 @@ export function buildShell({ sb, member, go, signOut }) {
     h("a", { class: "btn btn-ghost btn-sm", href: "#/miner?novo=1", dataset: { only: "miner" } }, "+ Garimpar link"),
     h("div", { class: "ais hide-sm" }, ...AIS.map((x) => iconLink(x))));
 
-  const navLinks = mods.map((m) => h("a", { class: "navlink", href: href(m), dataset: { route: m.route } }, icon(m.id), m.label));
+  const navLinks = mods.map((m) => h("a", { class: "navlink", href: href(m), dataset: { route: m.route } }, icon(m.id, 18), h("span", null, m.label)));
   const tabs = [...primary.map((m) => h("a", { href: href(m), dataset: { route: m.route } }, icon(m.id, 18), m.label)), h("a", { href: "#/menu", dataset: { route: "menu" } }, icon("config", 18), "Mais")];
   tabs.forEach((t) => void t);
   document.querySelector(".tabbar")?.remove();

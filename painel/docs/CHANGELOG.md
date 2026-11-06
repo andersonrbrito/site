@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-06 · CarrosseL_ e menu
+- Carrosséis virou CarrosseL_ (ícone de carrossel). Menu lateral maior e com o padrão de letra final maiúscula + "_" (menos Agenda, Meu setup e Configurações); Meu setup ficou junto de Configurações.
+- "Enviar para o CarrosseL_" nos rascunhos de X e LinkedIn do PostadoR_: vira pedido (`claude_requests` kind `carrossel_novo`) e a rotina de pedidos monta o carrossel detectando notícia, educativo ou pessoal. Painel "Pedidos do PostadoR_" no CarrosseL_.
+- "Enviar pro iPhone" no carrossel: gera as lâminas (JPG e MP4) e abre o compartilhar do sistema (no iPhone salva na galeria; no Mac, AirDrop), com a legenda copiada.
+- Migration 0029: tipo `pessoal` em `carrosseis` e kind `carrossel_novo`.
+
 ## 2026-11-05 · Carrosséis diários
 - Carrosséis estilo print de tweet para o @ilmarlabs (2 notícias + 2 educativos por dia, rotina das 6h45): prévia em canvas, edição de texto e mídia por lâmina, download PNG/MP4, status e botão "Transformar em vídeo" (Reel, X ou os dois).
 - Migration 0028: tabela `carrosseis`, `claude_requests.payload` e kind `carrossel_video`, `agent_write` aceita `carrosseis`.

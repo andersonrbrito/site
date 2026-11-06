@@ -155,14 +155,18 @@ export async function recordVideoSlide(slide, idx, assets, onProgress) {
   const ctx = c.getContext("2d");
   const stream = c.captureStream(30);
   try {
-    const ac = new AudioContext(); const src = ac.createMediaElementSource(v); const dest = ac.createMediaStreamDestination();
-    src.connect(dest); dest.stream.getAudioTracks().forEach((t) => stream.addTrack(t));
+    // um elemento de vídeo só aceita uma fonte de áudio por toda a vida: guarda e reaproveita
+    if (!v._cz) { const ac = new AudioContext(); v._cz = { ac, dest: ac.createMediaStreamDestination() }; ac.createMediaElementSource(v).connect(v._cz.dest); }
+    await v._cz.ac.resume().catch(() => {});
+    v._cz.dest.stream.getAudioTracks().forEach((t) => stream.addTrack(t));
   } catch { /* sem áudio */ }
   const mime = ["video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"].find((t) => MediaRecorder.isTypeSupported(t));
   const rec = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: 8e6 });
   const parts = []; rec.ondataavailable = (e) => e.data.size && parts.push(e.data);
   const dur = Math.min(v.duration || 30, 60);
-  v.loop = false; v.muted = false; v.currentTime = 0; await v.play();
+  v.loop = false; v.muted = false; v.currentTime = 0;
+  // o iPhone pode recusar tocar com som fora de um toque: grava sem som em vez de falhar
+  try { await v.play(); } catch { v.muted = true; await v.play(); }
   rec.start(250);
   await new Promise((done) => {
     const tick = () => {

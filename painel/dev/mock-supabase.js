@@ -55,7 +55,7 @@ class Q {
   async maybeSingle() { const r = await this; return { data: r.data?.[0] ?? null, error: r.error }; }
   then(res, rej) {
     try {
-      if (this.op === "insert") { const row = { id: uid(nextId++), seq: nextId, version: 1, created_at: new Date().toISOString(), source: "painel", archived_at: null, tags: [], ...this.row }; DB[this.t].push(row); return Promise.resolve({ data: [row], error: null }).then(res, rej); }
+      if (this.op === "insert") { const row = { id: uid(nextId++), seq: nextId, version: 1, created_at: new Date().toISOString(), source: "painel", archived_at: null, tags: [], ...(this.t === "claude_requests" ? { status: "aberto" } : {}), ...this.row }; DB[this.t].push(row); return Promise.resolve({ data: [row], error: null }).then(res, rej); }
       if (this.op === "update") { const hit = DB[this.t].filter((r) => this.f.every((f) => f(r))); hit.forEach((r) => { Object.assign(r, this.row); r.version++; if (this.row.status === "concluido") r.completed_at = new Date().toISOString(); }); return Promise.resolve({ data: hit, error: null }).then(res, rej); }
       return Promise.resolve({ data: this.rows(), error: null }).then(res, rej);
     } catch (e) { return Promise.resolve({ data: null, error: { message: String(e) } }).then(res, rej); }

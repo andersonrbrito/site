@@ -249,7 +249,24 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
     h("div", { class: "ptools" },
       h("button", { type: "button", class: "ptool", title: "Anexar imagem ou vídeo", disabled: locked, onclick: () => fileIn.click() }, "▣ Mídia"),
       h("button", { type: "button", class: "ptool", title: "Copiar texto", onclick: () => navigator.clipboard.writeText(p.body).then(() => toast("Texto copiado.")) }, "⧉ Copiar"),
+      h("button", { type: "button", class: "ptool", title: "O Claude monta um carrossel com este assunto no CarrosseL_ (detecta se é notícia, educativo ou pessoal)", onclick: (e) => enviarCarrossel(e.currentTarget) }, "◫ Enviar para o CarrosseL_"),
       h("div", { class: "grow" }), counter), fileIn);
+  // Pedido de carrossel com o assunto deste rascunho (claude_requests kind carrossel_novo). Mídias viajam como link de 7 dias.
+  async function enviarCarrossel(btn) {
+    if (!p.body.trim()) return toast("Escreva o rascunho antes de mandar pro CarrosseL_.", { kind: "err" });
+    btn.disabled = true;
+    try {
+      if (!(await flush()) || !(await ensureRow())) return toast("Salve o rascunho antes de mandar.", { kind: "err" });
+      const { data: ja } = await sb.from("claude_requests").select("id, status").eq("kind", "carrossel_novo").in("status", ["aberto", "gerando"]).eq("payload->>post_id", p.id).limit(1);
+      if (ja?.length) return toast("Este rascunho já está na fila do CarrosseL_.");
+      const midia = [];
+      for (const m of p.media || []) { const { data: d } = await sb.storage.from(BUCKET).createSignedUrl(m.path, 7 * 86400); if (d) midia.push({ url_assinada: d.signedUrl, mime: m.mime, nome: m.name }); }
+      const payload = { origem: "postador", post_id: p.id, rede: p.network, titulo: p.title || null, texto: p.body, midia, tipo: "auto" };
+      const { error } = await sb.from("claude_requests").insert({ kind: "carrossel_novo", payload });
+      if (error) return toast(/check constraint/i.test(error.message) ? "O banco ainda não aceita este pedido: rode a migration 0029 no Supabase." : "Não enviou: " + error.message, { kind: "err" });
+      toast("Enviado pro CarrosseL_. O Claude monta na próxima rodada e ele aparece lá como rascunho.", { actionLabel: "Abrir CarrosseL_", onAction: () => go("/carrosseis") });
+    } finally { btn.disabled = false; }
+  }
   let depth = 0;
   const has = (e) => [...(e.dataTransfer?.types || [])].includes("Files");
   compose.addEventListener("dragenter", (e) => { if (!has(e) || locked) return; e.preventDefault(); depth++; compose.classList.add("drag"); });

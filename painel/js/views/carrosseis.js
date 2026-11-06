@@ -1,6 +1,6 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
 import { pageHead, alertBox, toast } from "../ui.js";
-import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261105e";
+import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261106a";
 
 // Carrosséis diários (estilo print de tweet) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
 // Fonte da verdade: tabela "carrosseis" (migration 0028). A rotina diária do Claude cria os rascunhos
@@ -8,7 +8,7 @@ import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL }
 // Antes da migration existir, a tela mostra os carrosséis do repositório (diarios.json) só para leitura.
 const BASE = "/painel/carrosseis/";
 const BUCKET = "postador-media";
-const TIPO = { noticia: "Notícia", educativo: "Educativo" };
+const TIPO = { noticia: "Notícia", educativo: "Educativo", pessoal: "Pessoal" };
 const STATUS = { rascunho: "Rascunho", aprovado: "Aprovado", postado: "Postado", descartado: "Descartado" };
 const FORMATOS = [["reel", "Reel (9:16)"], ["x", "X (16:9)"], ["ambos", "Os dois"]];
 const OK_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif", "video/mp4", "video/quicktime"];
@@ -43,7 +43,7 @@ async function assetsFor(sb, slide) {
 async function loadAll(sb) {
   const [dbR, reqR, seedSlugs, legacySlugs] = await Promise.all([
     sb.from("carrosseis").select(COLS).is("archived_at", null).order("dia", { ascending: false }).limit(200),
-    sb.from("claude_requests").select("id, status, result_note, payload, created_at, done_at").eq("kind", "carrossel_video").is("archived_at", null).order("created_at", { ascending: false }).limit(100),
+    sb.from("claude_requests").select("id, kind, status, result_note, payload, created_at, done_at").in("kind", ["carrossel_video", "carrossel_novo"]).is("archived_at", null).order("created_at", { ascending: false }).limit(100),
     json(BASE + "diarios.json"), json(BASE + "lista.json"),
   ]);
   const dbOn = !dbR.error;
@@ -53,7 +53,8 @@ async function loadAll(sb) {
   for (const s of seeds) if (!bySlug.has(s.slug)) bySlug.set(s.slug, { ...s, status: s.status || "rascunho", version: 0, salvo: false });
   const lista = [...bySlug.values()].sort((a, b) => (b.dia || "").localeCompare(a.dia || "") || (a.tipo || "").localeCompare(b.tipo || ""));
   const legacy = (await Promise.all((legacySlugs || []).map((s) => json(`${BASE}${s}/index.json`)))).filter(Boolean);
-  return { dbOn, lista, legacy, pedidos: reqR.error ? [] : reqR.data || [] };
+  const reqs = reqR.error ? [] : reqR.data || [];
+  return { dbOn, lista, legacy, pedidos: reqs.filter((r) => r.kind === "carrossel_video"), novos: reqs.filter((r) => r.kind === "carrossel_novo") };
 }
 
 export default async function carrosseis({ sb, query, go }) {
@@ -68,7 +69,7 @@ export default async function carrosseis({ sb, query, go }) {
 
 // ───────────────────────── Lista ─────────────────────────
 function listView({ sb, go, query, data }) {
-  const filtro = ["noticia", "educativo", "descartado"].includes(query.f) ? query.f : "";
+  const filtro = ["noticia", "educativo", "pessoal", "descartado"].includes(query.f) ? query.f : "";
   const hoje = todayISO(), ontem = addDaysISO(hoje, -1);
   const itens = data.lista.filter((c) => (filtro === "descartado" ? c.status === "descartado" : c.status !== "descartado" && (!filtro || c.tipo === filtro)));
   const porDia = new Map();
@@ -86,16 +87,39 @@ function listView({ sb, go, query, data }) {
   };
 
   return h("div", { class: "page wide" },
-    pageHead("Carrosséis", "2 notícias + 2 educativos por dia · estilo print de tweet · para o @ilmarlabs"),
+    pageHead("CarrosseL_", "2 notícias + 2 educativos por dia · pedidos do PostadoR_ · estilo print de tweet · para o @ilmarlabs"),
     !data.dbOn && h("p", { class: "note" }, "A tabela de carrosséis ainda não existe no banco (migration 0028). Dá para ver e baixar, mas edição e pedido de vídeo só funcionam depois de rodar a migration no Supabase."),
-    h("div", { class: "flex wrap", style: { marginBottom: "16px" } }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("descartado", "Descartados")),
+    h("div", { class: "flex wrap", style: { marginBottom: "16px" } }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("pessoal", "Pessoais"), chip("descartado", "Descartados")),
+    pedidosNovos(data, go),
     porDia.size ? [...porDia].map(([d, cs]) => h("section", { style: { marginBottom: "26px" } },
       h("h2", { class: "mono", style: { margin: "0 0 10px", color: "var(--accent)" } }, nomeDia(d)),
-      h("div", { class: "cz-grid" }, ...cs.map(card)))) : h("p", { class: "empty" }, "Nenhum carrossel por aqui ainda. A rotina das 6h30 cria os do dia."),
+      h("div", { class: "cz-grid" }, ...cs.map(card)))) : h("p", { class: "empty" }, "Nenhum carrossel por aqui ainda. A rotina das 6h45 cria os do dia."),
     data.legacy.length ? h("section", { style: { marginTop: "30px" } },
       h("h2", { class: "mono", style: { margin: "0 0 10px" } }, "Antigos (imagens prontas)"),
       h("div", { class: "carr-grid" }, ...data.legacy.map((c) => h("a", { class: "carr-card", href: "#/carrosseis?c=" + c.slug, onclick: (e) => { e.preventDefault(); go("/carrosseis?c=" + c.slug); } },
         h("img", { src: `${BASE}${c.slug}/${c.slides[0]}`, alt: "", loading: "lazy" }), h("b", null, c.titulo), h("span", { class: "muted small" }, `${c.perfil} · ${c.slides.length} slides`))))) : null);
+}
+
+// Pedidos vindos do PostadoR_ ("Enviar para o CarrosseL_"): fila e os prontos das últimas 48 h.
+function pedidosNovos(data, go) {
+  const recentes = data.novos.filter((r) => r.status === "aberto" || r.status === "gerando" || (r.done_at && Date.now() - new Date(r.done_at) < 48 * 36e5));
+  if (!recentes.length) return null;
+  const S = { aberto: "Na fila", gerando: "Montando", feito: "Pronto", cancelado: "Cancelado" };
+  const REDE = { x: "X", linkedin: "LinkedIn" };
+  return h("section", { class: "panel", style: { marginBottom: "22px" } },
+    h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Pedidos do PostadoR_")),
+    h("div", { class: "panel-body stack" }, ...recentes.map((r) => {
+      const pl = r.payload || {}, slug = (r.result_note || "").match(/carrossel:\s*([a-z0-9-]{3,80})/i)?.[1];
+      const pronto = slug && data.lista.find((c) => c.slug === slug);
+      const assunto = pl.titulo || (pl.texto || "").split("\n").find((l) => l.trim()) || "(sem texto)";
+      return h("div", { class: "cz-ped" },
+        h("div", { class: "flex wrap" }, h("span", { class: "cz-st " + (r.status === "feito" ? "aprovado" : "rascunho") }, S[r.status] || r.status),
+          h("span", { class: "muted small" }, "rascunho do ", REDE[pl.rede] || pl.rede || "PostadoR_", " · pedido ", fmtDateTime(r.created_at)),
+          h("div", { class: "grow" }),
+          pronto && h("button", { type: "button", class: "btn btn-sm", onclick: () => go("/carrosseis?c=" + slug) }, "Abrir carrossel")),
+        h("p", { class: "small truncate", style: { margin: "6px 0 0" } }, assunto),
+        r.result_note && r.status !== "aberto" ? h("p", { class: "muted small", style: { margin: "4px 0 0", whiteSpace: "pre-wrap" } }, r.result_note.replace(/carrossel:\s*[a-z0-9-]+/i, "").trim()) : null);
+    })));
 }
 
 // Miniaturas: desenha a lâmina 1 num canvas grande compartilhado e reduz (uma de cada vez).
@@ -226,32 +250,73 @@ function editor({ sb, go, c, data }) {
     if (!data.dbOn) form.querySelectorAll("textarea,input,button").forEach((el) => { if (!/Baixar/.test(el.textContent)) el.disabled = true; });
   }
 
+  // ── arquivos das lâminas (imagem: PNG ou JPG; lâmina com vídeo: gravada em MP4) ──
+  async function gerarArquivo(i, formato, onInfo) {
+    const a = await assetsFor(sb, st.slides[i]);
+    const nome = `${st.slug}-${String(i + 1).padStart(2, "0")}`;
+    if (st.slides[i].midia?.tipo === "video" && a.media instanceof HTMLVideoElement) {
+      if (playing === i) playing = null;
+      const blob = await recordVideoSlide(st.slides[i], i, a, (p) => onInfo(`Gravando lâmina ${i + 1}… ${Math.round(p * 100)}%`));
+      assets[i] = null; renderSlide(i);
+      return new File([blob], `${nome}.${blob.type.includes("mp4") ? "mp4" : "webm"}`, { type: blob.type });
+    }
+    onInfo(`Gerando ${i + 1}…`);
+    const cv = Object.assign(document.createElement("canvas"), { width: W, height: H });
+    draw(cv.getContext("2d"), st.slides[i], i, a);
+    const tipo = formato === "jpg" ? "image/jpeg" : "image/png";
+    const blob = await new Promise((r) => cv.toBlob(r, tipo, 0.95));
+    if (!blob) throw new Error("imagem bloqueada pelo navegador");
+    return new File([blob], `${nome}.${formato}`, { type: tipo });
+  }
+
   // ── downloads ──
   const salvarArquivo = (blob, nome) => { const a = h("a", { href: URL.createObjectURL(blob), download: nome }); document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000); };
   async function baixar(idxs, btn) {
     const label = btn.textContent; btn.disabled = true;
     try {
       for (const i of idxs) {
-        const a = await assetsFor(sb, st.slides[i]);
-        const nome = `${st.slug}-${String(i + 1).padStart(2, "0")}`;
-        if (st.slides[i].midia?.tipo === "video" && a.media instanceof HTMLVideoElement) {
-          if (playing === i) playing = null;
-          const blob = await recordVideoSlide(st.slides[i], i, a, (p) => { btn.textContent = `Gravando lâmina ${i + 1}… ${Math.round(p * 100)}%`; });
-          salvarArquivo(blob, `${nome}.${blob.type.includes("mp4") ? "mp4" : "webm"}`);
-          assets[i] = null; renderSlide(i);
-        } else {
-          btn.textContent = `Gerando ${i + 1}…`;
-          const cv = Object.assign(document.createElement("canvas"), { width: W, height: H });
-          draw(cv.getContext("2d"), st.slides[i], i, a);
-          const blob = await new Promise((r) => cv.toBlob(r, "image/png"));
-          if (!blob) throw new Error("imagem bloqueada pelo navegador");
-          salvarArquivo(blob, `${nome}.png`);
-          await new Promise((r) => setTimeout(r, 350));
-        }
+        const f = await gerarArquivo(i, "png", (t) => { btn.textContent = t; });
+        salvarArquivo(f, f.name);
+        await new Promise((r) => setTimeout(r, 350));
       }
       toast(idxs.length > 1 ? "Lâminas baixadas." : "Lâmina baixada.");
     } catch (e) { toast("Não deu para baixar: " + e.message, { kind: "err" }); }
     finally { btn.disabled = false; btn.textContent = label; }
+  }
+
+  // ── enviar pro iPhone: folha de compartilhar do sistema (no iPhone "Salvar imagens" vai pra galeria; no Mac, AirDrop) ──
+  // O compartilhar exige um toque recente: se as lâminas demorarem (vídeo), o botão pede um segundo toque com tudo pronto.
+  let pacote = null;
+  const iphone = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => enviarIphone() }, "Enviar pro iPhone");
+  const legendaNaArea = () => navigator.clipboard?.writeText(st.legenda || "").then(() => true, () => false) ?? Promise.resolve(false);
+  async function compartilhar() {
+    const copiou = await legendaNaArea();
+    try {
+      await navigator.share({ files: pacote, title: st.titulo });
+      toast(copiou ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+      pacote = null; iphone.textContent = "Enviar pro iPhone";
+    } catch (e) {
+      if (e.name === "AbortError") return;
+      if (e.name === "NotAllowedError") { iphone.textContent = `Tocar de novo para enviar (${pacote.length})`; return toast("Lâminas prontas. Toque de novo para abrir o compartilhar."); }
+      toast("Não deu para compartilhar: " + e.message, { kind: "err" });
+    }
+  }
+  async function enviarIphone() {
+    if (pacote) return compartilhar();
+    if (!navigator.canShare) {
+      toast("Este navegador não abre o compartilhar com arquivos. Abra o painel no Safari do iPhone ou do Mac. Baixando as lâminas aqui.", { kind: "err" });
+      return baixar(st.slides.map((_, i) => i), baixarTudo);
+    }
+    iphone.disabled = true;
+    try {
+      const files = [];
+      for (let i = 0; i < st.slides.length; i++) files.push(await gerarArquivo(i, "jpg", (t) => { iphone.textContent = t; }));
+      if (!navigator.canShare({ files })) throw new Error("o navegador recusou estes arquivos");
+      pacote = files;
+    } catch (e) { iphone.textContent = "Enviar pro iPhone"; toast("Não preparou as lâminas: " + e.message, { kind: "err" }); return; }
+    finally { iphone.disabled = false; }
+    iphone.textContent = `Tocar de novo para enviar (${pacote.length})`;
+    return compartilhar();
   }
 
   // ── transformar em vídeo (pedido pro Claude) ──
@@ -319,7 +384,7 @@ function editor({ sb, go, c, data }) {
     h("div", { class: "flex wrap", style: { gap: "8px", marginBottom: "14px" } },
       h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => go("/carrosseis") }, "← Todos"),
       h("button", { class: "btn btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo"),
-      baixarTudo,
+      iphone, baixarTudo,
       h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: copiar }, "Copiar legenda"),
       h("div", { class: "grow" }), status),
     videoBox,
