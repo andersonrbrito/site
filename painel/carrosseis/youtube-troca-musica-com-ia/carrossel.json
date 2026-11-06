@@ -1,0 +1,77 @@
+{
+ "slug": "youtube-troca-musica-com-ia",
+ "dia": "2026-11-06",
+ "tipo": "noticia",
+ "titulo": "YouTube troca a música que levou claim por trilha de IA",
+ "perfil": "@ilmarlabs",
+ "legenda": "O YouTube levou pra maioria dos países fora da Europa o gerador de música do \"Replace song\": o vídeo levou claim, ele cria trilhas instrumentais com IA e o claim sai quando a música é trocada.\n\nPra mim resolve vídeo antigo parado. Pra vídeo novo, ainda prefiro escolher a trilha desde o começo.\n\nVocês já perderam monetização por causa de música?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Central de Ajuda do YouTube e PPC Land (04/11/2026).",
+ "fontes": [
+  {
+   "titulo": "Ajuda do YouTube: remover músicas reivindicadas (Replace song)",
+   "url": "https://support.google.com/youtube/answer/2902117?hl=en"
+  },
+  {
+   "titulo": "PPC Land: YouTube gives creators 4 AI tracks to clear music copyright claims",
+   "url": "https://ppc.land/youtube-gives-creators-4-ai-tracks-to-clear-music-copyright-claims/"
+  },
+  {
+   "titulo": "ContentGrip: YouTube expands AI music claim repair beyond the US",
+   "url": "https://www.contentgrip.com/youtube-ai-music-claim-repair/"
+  }
+ ],
+ "notas": "Pauta: bot do Telegram (novidades de IA 04/11), confirmada na Central de Ajuda do YouTube (\"most countries outside of the European Economic Area\") e no PPC Land. O YouTube NÃO publicou a lista de países: não afirmar que o Brasil está incluído. Lâminas 1, 3, 4, 5 e 6: Magnific (Nano Banana 2); lâmina 2: ilustração do PPC Land com crédito.",
+ "slides": [
+  {
+   "texto": "O YouTube agora **troca a música que deu copyright** no seu vídeo por uma trilha feita com IA.\n\nE o claim cai sozinho.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/youtube-troca-musica-com-ia/01-copyright.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A ferramenta \"Replace song\", no YouTube Studio, ganhou um botão **Create**.\n\nSaiu dos EUA e chegou à maioria dos países fora da Europa. O YouTube não publicou a lista de quais.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/youtube-troca-musica-com-ia/02-ppc.jpg",
+    "foco": 0.5,
+    "credito": "imagem: PPC Land"
+   }
+  },
+  {
+   "texto": "Como funciona:\n\n• abre o vídeo com claim no Studio pelo computador\n• Replace song → aba Sugestões → **Create**\n• ele gera **4 instrumentais** de 3 minutos\n• você escolhe, posiciona e salva",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/youtube-troca-musica-com-ia/03-quatro-faixas.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Quando toda a música reivindicada é substituída, **o claim sai automaticamente** e o vídeo volta a monetizar.\n\nSem reeditar no Premiere, sem subir de novo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/youtube-troca-musica-com-ia/04-claim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Os limites:\n\n• só instrumental, sem voz\n• não dá pra pedir estilo por prompt\n• só no computador, ainda não no app\n• a música é pra usar só no YouTube\n• edição salva não volta pro original. Baixa o vídeo antes.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/youtube-troca-musica-com-ia/05-comparando.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Pra mim isso salva vídeo antigo que tá parado por claim. Pra vídeo novo, ainda acho melhor escolher a trilha certa desde o começo. Mas posso estar errado.\n\n**Vocês já perderam monetização por causa de música?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/youtube-troca-musica-com-ia/06-alivio.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

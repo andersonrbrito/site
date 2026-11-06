@@ -1,0 +1,89 @@
+{
+ "slug": "gemini-omni-flash-15-segundos",
+ "dia": "2026-11-06",
+ "tipo": "noticia",
+ "titulo": "Gemini Omni 1.2 Flash: vídeo de 15 s, 30% mais barato",
+ "perfil": "@ilmarlabs",
+ "legenda": "O Google lançou o Gemini Omni 1.2 Flash: vídeo de até 15 segundos num take só, edição conversando com o modelo e preço 30% menor que a versão anterior.\n\nPra mim, o que mais muda é corrigir o clipe sem gerar tudo de novo. Mas ainda quero ver isso em cena de ação rápida, que o próprio Google diz que ainda melhora.\n\nVocês trocariam o modelo de vídeo de vocês por esse?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Google (blog.google), 05/11/2026.",
+ "fontes": [
+  {
+   "titulo": "Google: Gemini Omni 1.2 Flash, 15-second video and lower pricing",
+   "url": "https://blog.google/innovation-and-ai/technology/developers-tools/introducing-gemini-omni-1-2-flash"
+  },
+  {
+   "titulo": "MarkTechPost: Gemini Omni 1.2 Flash, 15-second AI video at $0.07 per second",
+   "url": "https://marktechpost.com/2026/11/05/google-gemini-omni-1-2-flash-15-second-video"
+  },
+  {
+   "titulo": "Tech Times: Google debuts Gemini Omni 1.2 Flash",
+   "url": "https://www.techtimes.com/articles/330142/20261106/google-debuts-gemini-omni-12-flash-longer-ai-clips-better-editing-fewer-errors.htm"
+  }
+ ],
+ "notas": "Pauta: curtidas dele no X (05/11) + busca. Lâminas 1 e 7: memes gerados no Magnific (Nano Banana 2). Lâminas 2 a 5: vídeos demo oficiais do post do Google (cortados e comprimidos). Lâmina 6: imagem oficial do anúncio. Preço US$ 0,07/s é em 720p na API. No app Gemini só pro plano Ultra (rollout).",
+ "slides": [
+  {
+   "texto": "O Google acabou de soltar um modelo que faz **vídeo de 15 segundos num take só**.\n\nE ainda ficou 30% mais barato.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/01-neymar-diretor.jpg",
+    "foco": 0.35
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **Gemini Omni 1.2 Flash** e saiu ontem (05/11).\n\nO limite antes era 10 segundos. Agora vai de 3 a 15, de segundo em segundo.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/02-video.mp4",
+    "poster": "/painel/carrosseis/gemini-omni-flash-15-segundos/02-poster.jpg",
+    "credito": "vídeo: Google"
+   }
+  },
+  {
+   "texto": "A parte que mais me pegou: **dá pra editar conversando**.\n\nTroca o fundo, a luz, o clima ou o formato do vídeo pedindo no chat, sem gerar tudo de novo.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/03-video.mp4",
+    "poster": "/painel/carrosseis/gemini-omni-flash-15-segundos/03-poster.jpg",
+    "credito": "vídeo: Google"
+   }
+  },
+  {
+   "texto": "Também segue referência: foto de personagem, de produto, de estilo, um trecho de movimento de até 3 s e até áudio.\n\nNo exemplo do Google, a roupa da referência vai direto pro vídeo.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/04-video.mp4",
+    "poster": "/painel/carrosseis/gemini-omni-flash-15-segundos/04-poster.jpg",
+    "credito": "vídeo: Google"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Rascunho em 360p ou 720p e, quando gostar, sobe pra 1080p ou 4K.\n\nNa API custa **US$ 0,07 por segundo** em 720p. Um clipe de 15 s sai por volta de US$ 1.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/05-video.mp4",
+    "poster": "/painel/carrosseis/gemini-omni-flash-15-segundos/05-poster.jpg",
+    "credito": "vídeo: Google"
+   }
+  },
+  {
+   "texto": "Onde já tem: API do Gemini, Google Cloud, Flow e Google Vids.\n\nNo app do Gemini está chegando aos poucos, só no plano Ultra.\n\nO próprio Google diz que ação rápida de esporte e física complexa ainda estão melhorando.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/06-omni.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Google"
+   }
+  },
+  {
+   "texto": "Pra quem edita, corrigir um pedaço sem refazer o clipe inteiro economiza muito crédito e tempo. Mas posso estar errado, preciso testar em projeto de verdade.\n\n**Vocês trocariam o modelo de vídeo de vocês por esse?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-omni-flash-15-segundos/07-neymar-fim.jpg",
+    "foco": 0.35
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

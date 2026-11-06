@@ -1,0 +1,80 @@
+{
+ "slug": "reels-taxa-de-pulo-3-segundos",
+ "dia": "2026-11-06",
+ "tipo": "educativo",
+ "titulo": "Os 3 primeiros segundos do Reels (taxa de pulo)",
+ "perfil": "@ilmarlabs",
+ "legenda": "O Instagram mede quantas pessoas pulam o seu Reels nos 3 primeiros segundos. Chama taxa de pulo e fica nos Insights de cada Reels.\n\nJuntei o que eu olho na edição pra segurar esses 3 segundos e um prompt pra revisar o começo do vídeo com IA.\n\nQual é a taxa de pulo dos seus últimos Reels?\n\nSalva pra usar no próximo vídeo. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Instagram (@creators no Threads): Retention e Skip rate nos Insights de Reels",
+   "url": "https://www.threads.com/@creators/post/DNqcz7fgz_o/media"
+  },
+  {
+   "titulo": "Social Media Today: Instagram adds retention metrics for Reels",
+   "url": "https://www.socialmediatoday.com/news/instagram-adds-retention-insights-reels/758464/"
+  }
+ ],
+ "notas": "Pauta: curtida dele no X (post do Condz sobre o documento da Meta). O Condz falou em 2 s, mas a definição oficial do Instagram é 3 s (\"skip your reel during those first 3 seconds\"), então usei 3 s. Instagram não publica uma taxa 'boa' oficial: não citar número de referência. Todas as imagens geradas no Magnific (Nano Banana 2).",
+ "slides": [
+  {
+   "texto": "O Instagram **conta quantas pessoas pulam o seu Reels** nos 3 primeiros segundos.\n\nE mostra esse número pra você.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/01-messi-pulando.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **taxa de pulo** (skip rate): a porcentagem de views de quem passou o vídeo antes dos 3 segundos.\n\nFica nos Insights de cada Reels, junto com a retenção. Abre o seu último e olha.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/02-intro-chata.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "O que eu olho na edição pra segurar esses 3 segundos:\n\n1. **começar no meio da ação**, sem \"oi gente\" e sem logo\n2. texto na tela já no primeiro quadro\n3. algo se mexendo no primeiro segundo",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/03-primeiro-quadro.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "4. corta a respiração e o silêncio do começo, nem que seja meio segundo\n5. o primeiro quadro tem que fazer sentido sem som, muita gente assiste mudo\n\nE vale testar a capa com o mesmo cuidado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/04-timeline.jpg",
+    "foco": 0.45
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Prompt pra revisar o começo com IA (cola o roteiro ou a transcrição):\n\n**\"Leia o roteiro abaixo. Reescreva só os 3 primeiros segundos de 3 jeitos: começando no meio da ação, com uma pergunta e com o resultado final primeiro. Máximo 12 palavras cada. Diga o que deve aparecer na tela no primeiro quadro.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/05-corte.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Como testar sem chute:\n\n• posta 3 Reels mudando **só o começo**\n• anota a taxa de pulo de cada um\n• fica com o gancho que menos gente pulou\n\nSalva esse post pra usar no próximo vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/06-checklist.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Manda pra quem edita contigo e comenta **PROMPT** que eu te mando a versão completa com mais ganchos.\n\n**Qual é a taxa de pulo dos seus últimos Reels?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/reels-taxa-de-pulo-3-segundos/07-messi-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

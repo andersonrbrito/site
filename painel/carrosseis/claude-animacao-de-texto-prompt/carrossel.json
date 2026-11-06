@@ -1,0 +1,76 @@
+{
+ "slug": "claude-animacao-de-texto-prompt",
+ "dia": "2026-11-06",
+ "tipo": "educativo",
+ "titulo": "Texto animado de Reels com um prompt no Claude",
+ "perfil": "@ilmarlabs",
+ "legenda": "Dá pra fazer texto animado de Reels sem abrir o After Effects: o Claude escreve a animação em código e mostra rodando na hora.\n\nDeixei o prompt pronto na lâmina 3. Troca a frase, ajusta conversando e grava a tela.\n\nVocês ainda fazem texto animado na mão?\n\nSalva pra usar no próximo vídeo. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Anthropic: o que são artifacts no Claude",
+   "url": "https://support.claude.com/en/articles/17153992-what-are-artifacts-and-how-do-i-use-them"
+  }
+ ],
+ "notas": "Pauta: salvo dele no IG (post sobre animação com Claude Opus 5.5) + curtidas no X (motion por código). Técnica refeita do jeito dele, sem copiar texto nem visual. Gravação de tela no Mac: Cmd+Shift+5. Todas as imagens geradas no Magnific (Nano Banana 2). Sugestão: ele gravar um vídeo real do prompt rodando e trocar a lâmina 3 por esse vídeo.",
+ "slides": [
+  {
+   "texto": "Dá pra fazer **texto animado de Reels sem abrir o After Effects**.\n\nSó com um prompt no Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/01-mbappe.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O Claude escreve a animação em código (HTML e CSS) e já mostra ela rodando na janela ao lado do chat.\n\nVocê não precisa saber programar. Só precisa saber pedir.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/02-edita-menos.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Passo 1. Cola isso no Claude:\n\n**\"Crie um arquivo HTML único, 1080x1920, fundo creme, que anima a frase [SUA FRASE] palavra por palavra no ritmo de um Reels: cada palavra entra com escala e uma leve tremida, a palavra principal em laranja, fonte grossa e condensada, 6 segundos em loop.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/03-prompt.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Passo 2. Ajusta conversando, como se fosse com um motion designer:\n\n• \"deixa 20% mais rápido\"\n• \"troca a fonte por uma mais pesada\"\n• \"põe um flash branco no fim\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/04-mbappe-wow.jpg",
+    "foco": 0.4
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 3. Abre a prévia em tela cheia e grava a tela (no Mac é Cmd+Shift+5).\n\nLeva pro Premiere ou CapCut como qualquer clipe. Se pedir fundo verde no prompt, dá pra usar chroma em cima do vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/05-gravando.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Dica: pede **3 versões de uma vez** e escolhe a melhor.\n\nO prompt que funcionou vira o seu preset. Guarda ele e só troca a frase no próximo vídeo.\n\nSalva esse post pra usar no próximo vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/06-variacao.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Manda pra quem edita contigo e comenta **PROMPT** que eu te mando a versão com mais estilos.\n\n**Vocês ainda fazem texto animado na mão ou já testaram por código?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-animacao-de-texto-prompt/07-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
