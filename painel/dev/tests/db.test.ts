@@ -279,3 +279,34 @@ describe("Desempenho (migration 0008)", () => {
     await expect(asUser(ownerId, () => db.query(`delete from reel_stats`))).rejects.toThrow(/permission denied/);
   });
 });
+
+describe("Ecossistema (migration 0030)", () => {
+  it("dono cria mapa, nota, pauta e receita; membro sem módulo não vê; sem DELETE", async () => {
+    await asUser(ownerId, () => db.query(`insert into mapas (slug, titulo, data) values ('teste', 'Teste', '{"nodes":[{"id":"a"}],"edges":[]}')`));
+    await asUser(ownerId, () => db.query(`insert into sticky_notes (texto, cor) values ('lembrar', 'rosa')`));
+    await asUser(ownerId, () => db.query(`insert into pautas (perfil, tipo, titulo) values ('mazzaropi', 'aquecimento', 'comentar em 5 contas')`));
+    await asUser(ownerId, () => db.query(`insert into receitas (valor, descricao) values (97, 'motion')`));
+    for (const t of ["mapas", "sticky_notes", "pautas", "receitas", "agent_jobs", "agent_runs", "perfis"]) {
+      expect((await asUser(strangerId, () => db.query(`select * from ${t}`))).rows).toHaveLength(0);
+      await expect(asUser(ownerId, () => db.query(`delete from ${t}`))).rejects.toThrow(/permission denied/);
+    }
+    const v = await asUser(ownerId, () => db.query<{ version: number }>(`update mapas set titulo = 'Novo' where slug = 'teste' returning version`));
+    expect(v.rows[0].version).toBe(2);
+  });
+
+  it("notificação: o que eu faço no painel não acende; entrega de agente acende até eu abrir o módulo", async () => {
+    const news = async () => (await asUser(ownerId, () => db.query<{ module: string; n: string }>(`select module, n from module_news()`))).rows;
+    expect((await news()).find((r) => r.module === "agentes")).toBeUndefined();
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'agent_jobs', '[{"task_id":"t1","titulo":"Rotina"}]')`, [integrationId]));
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'agent_runs', '[{"session_id":"s1","task_id":"t1","titulo":"Rotina","status":"executando"}]')`, [integrationId]));
+    expect((await news()).find((r) => r.module === "agentes")).toBeUndefined(); // ainda rodando
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'agent_runs', '[{"session_id":"s1","task_id":"t1","titulo":"Rotina","status":"concluida"}]')`, [integrationId]));
+    expect(Number((await news()).find((r) => r.module === "agentes")?.n)).toBe(1);
+    await asUser(ownerId, () => db.query(`select mark_module_seen('agentes')`));
+    expect((await news()).find((r) => r.module === "agentes")).toBeUndefined();
+    await asService(() => db.query(`select agent_write($1, 'insert', 'pautas', '[{"chave":"k1","perfil":"kairos","tipo":"oracao","titulo":"Oração do dia"}]')`, [integrationId]));
+    await asService(() => db.query(`select agent_write($1, 'insert', 'pautas', '[{"chave":"k1","perfil":"kairos","tipo":"oracao","titulo":"repetida"}]')`, [integrationId]));
+    expect(Number((await news()).find((r) => r.module === "perfis")?.n)).toBe(1);
+    expect((await asUser(strangerId, () => db.query(`select * from app_events`))).rows).toHaveLength(0);
+  });
+});

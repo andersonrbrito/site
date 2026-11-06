@@ -1,6 +1,6 @@
 import { h, fmtDateTime } from "./util.js";
 import { icon, toast } from "./ui.js";
-import { visibleModules } from "./modules.js?v=20261106b";
+import { visibleModules } from "./modules.js?v=20261106d";
 import { SOCIALS, AIS, iconLink } from "./links.js";
 import { HREF } from "./views/busca.js";
 
@@ -38,8 +38,34 @@ export function buildShell({ sb, member, go, signOut }) {
     h("nav", { class: "tabbar", style: { gridTemplateColumns: `repeat(${tabs.length}, 1fr)` } }, ...tabs),
     h("div", { class: "toasts", id: "toasts" }));
 
+  // Notificações: ponto aceso no menu quando um módulo tem novidade (job pronto, pedido feito, rascunho novo...).
+  // Regra geral: qualquer módulo novo ganha o ponto sozinho, basta a tabela dele ter o trigger app_private.emit_event('<id>').
+  const routeOf = Object.fromEntries(mods.map((m) => [m.id, m.route]));
+  const idOf = Object.fromEntries(mods.map((m) => [m.route, m.id]));
+  let current = null;
+  const paintDots = (news) => {
+    root.querySelectorAll(".navdot").forEach((d) => d.remove());
+    for (const r of news) {
+      if (!(r.module in routeOf) || r.module === current) continue;
+      root.querySelectorAll(`[data-route="${CSS.escape(routeOf[r.module])}"]`).forEach((a) => {
+        a.append(h("span", { class: "navdot", title: `${r.n} novidade${r.n > 1 ? "s" : ""}`, "aria-label": `${r.n} novidade${r.n > 1 ? "s" : ""}` }));
+      });
+    }
+  };
+  let lastNews = [];
+  const seen = async (id) => { if (!id) return; lastNews = lastNews.filter((r) => r.module !== id); paintDots(lastNews); await sb.rpc("mark_module_seen", { p_module: id }); };
+  const pollNews = async () => {
+    const { data, error } = await sb.rpc("module_news");
+    if (error || !Array.isArray(data)) return; // migration 0030 ainda não aplicada: sem pontos
+    lastNews = data;
+    if (current && data.some((r) => r.module === current)) seen(current); else paintDots(data);
+  };
+  pollNews(); setInterval(() => { if (document.visibilityState === "visible") pollNews(); }, 60000);
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") pollNews(); });
+
   const setActive = (route, title) => {
     const top = route.split("/")[0];
+    current = idOf[top] ?? null; if (current && lastNews.some((r) => r.module === current)) seen(current);
     root.querySelectorAll("[data-route]").forEach((a) => (a.dataset.route === top ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current")));
     section.textContent = (title || "").toUpperCase();
     // Ações rápidas só aparecem fora do módulo "dono" da outra ação (ex.: nada de Garimpar dentro do Postador).

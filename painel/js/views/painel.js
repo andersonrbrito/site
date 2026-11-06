@@ -4,6 +4,7 @@ import { goalPanel } from "./postador.js";
 import { calendarEmbed } from "./agenda.js";
 import { xOrigem } from "./desempenho.js";
 import { favoritesBar } from "../favorites.js";
+import { ecoHome } from "./perfis.js";
 import { QUICK, META_SCHEDULER, iconLink, favicon } from "../links.js";
 
 // Apelido do dia: muda todo dia (mesmo apelido o dia inteiro).
@@ -218,6 +219,7 @@ export default async function inicio({ sb, refresh }) {
     failed && alertBox("Não foi possível carregar parte dos dados. Atualize a página."),
     h("div", { class: "homegrid" },
       h("div", { class: "stack-lg" },
+        await ecoHome(sb).catch(() => null),
         h("div", { class: "metas2" }, metaIG, goalPanel(cur, prev, bar, delta, null, null, null)),
         h("div", { class: "mono sectitle" }, "X · POSTADOR_"),
         h("div", { class: "kpis" },
@@ -234,8 +236,7 @@ export default async function inicio({ sb, refresh }) {
           h("div", { class: "panel-body" }, pending.length ? h("div", { class: "stack" }, ...pending.slice(0, 6).map((p) => h("a", { class: "irow", href: `#/postador?id=${p.id}` },
             h("span", { class: "netb n-" + p.network }, p.network === "x" ? "X" : "in"), h("span", { class: "truncate grow" }, first(p)), h("span", { class: "mono muted" }, "abrir"))))
             : h("p", { class: "empty" }, "Nada pendente. Os rascunhos chegam todo dia às 5h."))),
-        update,
-        estrategia),
+        update),
       h("aside", { class: "stack-lg homeside" },
         agendaBox,
         h("section", { class: "panel" },

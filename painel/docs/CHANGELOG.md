@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-11-06 · Ecossistema: Map MentaleS_, AgenteS_, PerfiS_, Sticky NoteS_ e notificações
+- Map MentaleS_ (`#/mapa`): mapa mental editável em canvas infinito (zoom, pan, pinça), nós, textos, grupos que arrastam o conteúdo, conexões com rótulo/cor, notas e links por nó, seleção múltipla e em área, desfazer/refazer, autosave com versão + rascunho local, export/import JSON, export PNG, vários mapas, tela cheia.
+- AgenteS_ (`#/agentes`): tarefas agendadas do Claude com status real (sincronizadas por rotina), execuções com resumo/erro, filtros e pedidos Rodar agora / Pausar / Retomar (`claude_requests` kind `agente_*`).
+- PerfiS_ (`#/perfis`): matriz do ecossistema por perfil (editável), pautas do dia (aquecimento, oração, react, contagem) e meta de R$ 3.000 de faturamento com registro de vendas por origem.
+- Sticky NoteS_ (`#/notas`): notas arrastáveis/redimensionáveis, cores, tags, link, fixar no PaineL_.
+- PaineL_: bloco da meta, resumo de AgenteS_ e pautas, notas fixadas (substitui o quadro antigo de estratégia).
+- Notificações: ponto no menu por módulo com novidade de agente/rotina; apaga ao abrir; regra automática para módulos novos via trigger `app_private.emit_event`.
+- `h()` passa a aplicar variáveis CSS (`--c`, `--bar-c`) em `style` (antes eram ignoradas).
+- Migration 0030: `mapas`, `sticky_notes`, `agent_jobs`, `agent_runs`, `perfis`, `pautas`, `receitas`, `app_events`, `module_seen`, RPCs `module_news`/`mark_module_seen`, `agent_write` aceita as tabelas novas.
+
 ## 2026-11-06 · CarrosseL_ e menu
 - Carrosséis virou CarrosseL_ (ícone de carrossel). Menu lateral maior e com o padrão de letra final maiúscula + "_" (menos Agenda, Meu setup e Configurações); Meu setup ficou junto de Configurações.
 - "Enviar para o CarrosseL_" nos rascunhos de X e LinkedIn do PostadoR_: vira pedido (`claude_requests` kind `carrossel_novo`) e a rotina de pedidos monta o carrossel detectando notícia, educativo ou pessoal. Painel "Pedidos do PostadoR_" no CarrosseL_.

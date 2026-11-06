@@ -15,7 +15,8 @@ Painel pessoal privado de Anderson Brito, hospedado **neste mesmo repositório**
 7. **Datas:** fuso `America/Sao_Paulo`; prazo sem horário é `date` (não use `new Date("YYYY-MM-DD")`); use `js/util.js`.
 8. **Idioma:** português do Brasil. Sem travessão em textos para o usuário. Sem emojis na interface.
 9. **Não chame de pronto o que só existe visualmente.** Atualize `docs/STATUS.md` e `docs/CHANGELOG.md`.
-10. **Não quebre o site público:** o painel vive só em `painel/`, `supabase/`. Não altere as demais páginas.
+10. **Notificação em todo módulo novo:** se a tabela recebe entregas de agente/rotina (pedido pronto, rascunho, job), adicione `create trigger trg_event after insert [or update] on public.<tabela> for each row execute function app_private.emit_event('<id do módulo>', '<coluna de título>'[, '<status de entrega>'])`. O ponto no menu acende e apaga sozinho (`module_news` / `mark_module_seen`).
+11. **Não quebre o site público:** o painel vive só em `painel/`, `supabase/`. Não altere as demais páginas.
 
 ## Fluxo
 - Branch por mudança maior; duas IAs não mexem na mesma branch ao mesmo tempo. Antes: `git status`, `git log -5`, ler `docs/STATUS.md`.

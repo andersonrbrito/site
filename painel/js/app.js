@@ -1,16 +1,16 @@
 import { h } from "./util.js";
 import { sb, configured } from "./data.js";
-import { buildShell } from "./shell.js?v=20261106b";
-import { visibleModules } from "./modules.js?v=20261106b";
+import { buildShell } from "./shell.js?v=20261106d";
+import { visibleModules } from "./modules.js?v=20261106d";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
-const V = "20261106c";
+const V = "20261106d";
 const VIEWS = {
   "": () => import(`./views/painel.js?v=${V}`), hoje: () => import(`./views/hoje.js?v=${V}`), tarefas: () => import(`./views/tarefas.js?v=${V}`),
   projetos: () => import(`./views/projetos.js?v=${V}`), inbox: () => import(`./views/inbox.js?v=${V}`), agenda: () => import(`./views/agenda.js?v=${V}`),
-  historico: () => import(`./views/historico.js?v=${V}`), postador: () => import(`./views/postador.js?v=${V}`), miner: () => import(`./views/miner.js?v=${V}`), desempenho: () => import(`./views/desempenho.js?v=${V}`), portfolios: () => import(`./views/portfolios.js?v=${V}`), financeiro: () => import(`./views/financeiro.js?v=${V}`), prompts: () => import(`./views/prompts.js?v=${V}`), social: () => import(`./views/social.js?v=${V}`), youtube: () => import(`./views/youtube.js?v=${V}`), trampos: () => import(`./views/trampos.js?v=${V}`), leads: () => import(`./views/leads.js?v=${V}`), carrosseis: () => import(`./views/carrosseis.js?v=${V}`), influencers: () => import(`./views/influencers.js?v=${V}`), afiliacoes: () => import(`./views/afiliacoes.js?v=${V}`), cursos: () => import(`./views/cursos.js?v=${V}`), setup: () => import(`./views/setup.js?v=${V}`), busca: () => import(`./views/busca.js?v=${V}`), config: () => import(`./views/config.js?v=${V}`),
+  historico: () => import(`./views/historico.js?v=${V}`), postador: () => import(`./views/postador.js?v=${V}`), miner: () => import(`./views/miner.js?v=${V}`), desempenho: () => import(`./views/desempenho.js?v=${V}`), portfolios: () => import(`./views/portfolios.js?v=${V}`), financeiro: () => import(`./views/financeiro.js?v=${V}`), prompts: () => import(`./views/prompts.js?v=${V}`), social: () => import(`./views/social.js?v=${V}`), youtube: () => import(`./views/youtube.js?v=${V}`), trampos: () => import(`./views/trampos.js?v=${V}`), leads: () => import(`./views/leads.js?v=${V}`), carrosseis: () => import(`./views/carrosseis.js?v=${V}`), influencers: () => import(`./views/influencers.js?v=${V}`), afiliacoes: () => import(`./views/afiliacoes.js?v=${V}`), cursos: () => import(`./views/cursos.js?v=${V}`), setup: () => import(`./views/setup.js?v=${V}`), busca: () => import(`./views/busca.js?v=${V}`), config: () => import(`./views/config.js?v=${V}`), mapa: () => import(`./views/mapa.js?v=${V}`), agentes: () => import(`./views/agentes.js?v=${V}`), perfis: () => import(`./views/perfis.js?v=${V}`), notas: () => import(`./views/notas.js?v=${V}`),
 };
-const TITLES = { leads: "LeadS_", cursos: "CursoS_", influencers: "InfluencerS_", afiliacoes: "AfiliaçõeS_", carrosseis: "CarrosseL_", trampos: "TrampoS_", youtube: "YT downloaD_", social: "SociaL_", prompts: "PromptS_", setup: "Meu setup", financeiro: "FinanceirO_", portfolios: "PortfólioS_", desempenho: "DesempenhO_", postador: "PostadoR_", miner: "MineR_", "": "PaineL_", hoje: "HojE_", tarefas: "TarefaS_", projetos: "ProjetoS_", inbox: "InboX_", agenda: "Agenda", historico: "HistóricO_", busca: "Busca", config: "Configurações", menu: "Menu" };
+const TITLES = { mapa: "Map MentaleS_", agentes: "AgenteS_", perfis: "PerfiS_", notas: "Sticky NoteS_", leads: "LeadS_", cursos: "CursoS_", influencers: "InfluencerS_", afiliacoes: "AfiliaçõeS_", carrosseis: "CarrosseL_", trampos: "TrampoS_", youtube: "YT downloaD_", social: "SociaL_", prompts: "PromptS_", setup: "Meu setup", financeiro: "FinanceirO_", portfolios: "PortfólioS_", desempenho: "DesempenhO_", postador: "PostadoR_", miner: "MineR_", "": "PaineL_", hoje: "HojE_", tarefas: "TarefaS_", projetos: "ProjetoS_", inbox: "InboX_", agenda: "Agenda", historico: "HistóricO_", busca: "Busca", config: "Configurações", menu: "Menu" };
 const DETAIL = { tarefas: () => import(`./views/tarefa.js?v=${V}`), projetos: () => import(`./views/projeto.js?v=${V}`) };
 
 const app = document.getElementById("app");
