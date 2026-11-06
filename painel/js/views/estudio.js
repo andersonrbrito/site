@@ -15,7 +15,7 @@ export default async function estudio({ sb }) {
   if (error) return h("p", { class: "alert" }, "Não foi possível carregar os vídeos.");
   const reqs = data || [];
   let filtro = "todos", verUsados = false;
-  const grid = h("div", { class: "st-grid" });
+  const grid = h("div", { class: "st-list" });
   const usado = (r) => !!r.payload?.estudio_ok;
 
   const marcarUsado = async (r, ok) => {
@@ -65,11 +65,11 @@ export default async function estudio({ sb }) {
   const card = (r) => {
     const vids = [...new Set((r.result_note || "").match(MP4) || [])].sort(ordem), [sl, sc] = ST[r.status] || [r.status, ""];
     const titulo = r.payload?.carrossel?.titulo || r.payload?.slug || "Carrossel";
-    return h("article", { class: "panel st-card" + (usado(r) ? " st-usado" : "") },
+    return h("article", { class: "panel st-row" + (usado(r) ? " st-usado" : "") },
       vids.length ? h("div", { class: "st-vids" }, ...vids.map((u) => h("figure", { class: "st-fig" + (formato(u).startsWith("Reel") ? "" : " st-wide") },
         h("figcaption", { class: "mono" }, formato(u)), h("video", { src: u, controls: true, playsinline: true, preload: "metadata" }))))
         : h("div", { class: "st-media" }, h("div", { class: "st-wait" }, h("span", { class: `chip ${sc}` }, sl))),
-      h("div", { class: "panel-body" },
+      h("div", { class: "panel-body st-side" },
         h("b", { class: "st-title" }, titulo),
         h("div", { class: "flex wrap", style: { gap: "6px", margin: "6px 0" } }, h("span", { class: `chip ${sc}` }, sl), ...vids.map((u) => h("span", { class: "chip" }, formato(u))), h("span", { class: "mono muted" }, fmtDateTime(r.done_at || r.created_at))),
         vids.length ? h("div", { class: "st-acts" },

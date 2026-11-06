@@ -681,3 +681,27 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .btn.st-iphone{background:#0a84ff;color:#fff;box-shadow:0 4px 14px rgba(10,132,255,.3)}
 .st-check{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--tx-2);cursor:pointer} .st-check input{width:18px;height:18px;accent-color:var(--ok)}
 .st-usado{opacity:.6}
+/* StúdiO_ v3: um vídeo por linha, players grandes, ações ao lado */
+.st-list{display:grid;gap:20px}
+.st-list>.empty{grid-column:1/-1}
+.st-row{margin:0;display:grid;grid-template-columns:minmax(0,1fr) 340px;overflow:hidden}
+.st-row .st-vids{padding:16px;gap:16px;align-items:center;justify-content:center;background:#000;min-height:420px}
+.st-row .st-fig{flex:0 0 auto}
+.st-row .st-fig video{height:clamp(420px,72vh,820px);width:auto;max-width:100%;max-height:none;border-radius:12px}
+.st-row .st-fig.st-wide{flex:1 1 auto;min-width:0}
+.st-row .st-fig.st-wide video{width:100%;height:auto;max-height:clamp(420px,72vh,820px)}
+.st-row .st-fig figcaption{font-size:13px;margin-bottom:8px}
+.st-row .st-media{aspect-ratio:auto;min-height:420px;max-height:none}
+.st-side{display:flex;flex-direction:column;gap:10px;border-left:1px solid var(--glass-bd)}
+.st-side .st-title{font-size:20px;line-height:1.25}
+.st-side .st-acts{grid-template-columns:1fr} .st-side .st-acts .flex{gap:6px}
+@media(max-width:1100px){.st-row{grid-template-columns:1fr}.st-side{border-left:0;border-top:1px solid var(--glass-bd)}.st-row .st-vids{flex-direction:column}.st-row .st-fig video{height:auto;width:100%;max-height:80vh}}
+@media(max-width:1100px){.st-row .st-fig,.st-row .st-fig.st-wide{width:100%;flex:none}.st-row .st-fig video{width:100%;height:auto;max-height:78vh}}
+.st-row .st-fig video{background:#111}
+/* StúdiO_ v3.1: informações em cima, vídeos ocupam a largura toda */
+.st-row{grid-template-columns:1fr}
+.st-side{order:-1;border-left:0;border-bottom:1px solid var(--glass-bd);flex-direction:row;flex-wrap:wrap;align-items:center;gap:10px 18px}
+.st-side .st-title{flex:1 1 260px}
+.st-side .st-acts{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0}
+.st-row .st-vids{justify-content:center}
+.st-row .st-fig.st-wide video{max-height:clamp(380px,62vh,760px)}
