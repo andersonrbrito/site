@@ -337,7 +337,7 @@ function editor({ sb, go, c, data }) {
       const { error } = await sb.from("claude_requests").insert({ kind: "carrossel_video", payload });
       enviar.disabled = false; enviar.textContent = "Pedir vídeo";
       if (error) return toast("Não enviou: " + error.message, { kind: "err" });
-      toast("Pedido enviado. O Claude pega na próxima rodada (5h, 9h, 13h, 17h ou 21h).");
+      toast("Pedido enviado. O Claude pega na próxima rodada (a cada 2 h, das 7h às 23h). Pode levar até 1 h depois de começar.");
       videoBox.hidden = true;
       pedidosDeste.unshift({ status: "aberto", created_at: new Date().toISOString(), payload });
       drawPedidos();
