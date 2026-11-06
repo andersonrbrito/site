@@ -22,11 +22,11 @@
 - Feito e testado no harness: tela Carrosséis com lista por dia, prévia em canvas estilo print de tweet (foto, nome, selo, @), edição de texto/rodapé/mídia/recorte/ordem das lâminas com salvamento por versão, download PNG (imagem) e MP4 gravado no Chrome (lâmina com vídeo), botão "Transformar em vídeo" (pedido em `claude_requests` kind `carrossel_video`).
 - Primeiro carrossel: `painel/carrosseis/claude-financas-pessoais/` (lido do repositório via `diarios.json` até existir a tabela).
 - **Pendente:** rodar `supabase/migrations/20261105000028_carrosseis.sql` no SQL Editor (tabela `carrosseis`, `payload` e novo kind em `claude_requests`, `agent_write` aceitando `carrosseis`). Sem ela a tela fica só leitura.
-- Rotina diária `carrosseis-diarios-ilmarlabs` (6h45) agendada. Rotina de pedidos (`carrosseis/ROTINA-PEDIDOS.md`: carrossel vindo do PostadoR_ e "Transformar em vídeo") ainda não agendada (criação bloqueada pela permissão automática; agendar `10 7-23/2 * * *`).
+- Rotina diária `carrosseis-diarios-ilmarlabs` (6h45) e rotina `carrosseis-pedidos` (a cada 2 h das 7h às 23h, segue `carrosseis/ROTINA-PEDIDOS.md`: carrossel vindo do PostadoR_ e "Transformar em vídeo") agendadas.
 
 ## CarrosseL_ (2026-11-06)
 - Nome e ícone novos; menu lateral maior com o padrão "letra final maiúscula + _".
-- "Enviar para o CarrosseL_" no editor de rascunho do PostadoR_ (X e LinkedIn) e painel "Pedidos do PostadoR_": testado no harness. Precisa da migration 0029 (`carrossel_novo` e tipo `pessoal`) e da rotina de pedidos agendada.
+- "Enviar para o CarrosseL_" no editor de rascunho do PostadoR_ (X e LinkedIn) e painel "Pedidos do PostadoR_": testado no harness. Precisa da migration 0029 (`carrossel_novo` e tipo `pessoal`).
 - "Enviar pro iPhone": testado no harness com o compartilhar simulado (6 JPG + 1 MP4). No aparelho, a gravação da lâmina com vídeo leva o tempo do vídeo e o iPhone pode gravar sem som.
 
 ## Pendente de configuração (depende de você)
