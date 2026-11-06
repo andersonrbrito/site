@@ -2,12 +2,13 @@
 // legenda com botão de copiar, e as decisões: Aprovar, Pedir ajuste (com comentário), Reprovar, Marcar publicado.
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
-import { toast, pageHead } from "../ui.js";
+import { toast, pageHead, copiarTexto } from "../ui.js";
 
 const BUCKET = "anderson-os-arquivos";
 const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
 const ST = { pendente: ["para aprovar", "warn"], ajustar: ["ajuste pedido", "accent"], aprovado: ["aprovado", "ok"], publicado: ["publicado", "ok"], reprovado: ["reprovado", "danger"] };
 const isVideo = (p) => /\.(mp4|mov|m4v|webm)$/i.test(p || "");
+const isPdf = (p) => /\.pdf$/i.test(p || "");
 
 export async function contaPendentes(sb) {
   const { count, error } = await sb.from("aprovacoes").select("id", { count: "exact", head: true }).is("archived_at", null).eq("status", "pendente");
@@ -37,12 +38,12 @@ export default async function aprovacoes({ sb, query, go }) {
     Object.assign(a, d); toast(msg); draw();
   };
   const agora = () => new Date().toISOString();
-  const copiar = async (t) => { try { await navigator.clipboard.writeText(t || ""); toast("Legenda copiada."); } catch { toast("Não deu para copiar.", { kind: "err" }); } };
+  const copiar = (t) => copiarTexto(t, "Legenda copiada.");
 
   const media = (path, big) => {
     const u = urls.get(path);
     if (!u) return h("div", { class: "ap-empty" }, "sem prévia");
-    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big" : "" });
+    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
   };
 
   // Enviar pro iPhone: 1º toque baixa os arquivos (vídeo/imagens), 2º abre o compartilhar do sistema.
@@ -52,10 +53,9 @@ export default async function aprovacoes({ sb, query, go }) {
     const rotulo = "Enviar pro iPhone";
     const btn = h("button", { class: "btn btn-sm st-iphone", type: "button" }, rotulo);
     const compartilhar = async () => {
-      const copiou = a.legenda ? await navigator.clipboard?.writeText(a.legenda).then(() => true, () => false) : false;
       try {
         await navigator.share({ files: pacote, title: a.titulo });
-        toast(copiou ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+        toast(a.legenda ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
         pacote = null; btn.textContent = rotulo;
       } catch (e) {
         if (e.name === "AbortError") return;
@@ -64,10 +64,11 @@ export default async function aprovacoes({ sb, query, go }) {
       }
     };
     btn.addEventListener("click", async () => {
+      // copia a legenda já no toque (o Safari bloqueia a cópia depois de esperas como o download)
+      if (a.legenda) copiar(a.legenda);
       if (pacote) return compartilhar();
       const paths = [a.arquivo, ...(a.extras || [])];
       if (!navigator.canShare) {
-        if (a.legenda) copiar(a.legenda);
         toast("Este navegador não abre o compartilhar. Abra o painel no Safari do iPhone ou do Mac. Baixando aqui.", { kind: "err" });
         paths.forEach((p) => { const l = h("a", { href: urls.get(p) || "#", download: p.split("/").pop() }); document.body.append(l); l.click(); l.remove(); });
         return;
@@ -77,7 +78,7 @@ export default async function aprovacoes({ sb, query, go }) {
         const files = [];
         for (const p of paths) {
           const b = await (await fetch(urls.get(p))).blob();
-          files.push(new File([b], p.split("/").pop(), { type: b.type || (isVideo(p) ? "video/mp4" : "image/jpeg") }));
+          files.push(new File([b], p.split("/").pop(), { type: isPdf(p) ? "application/pdf" : b.type || (isVideo(p) ? "video/mp4" : "image/jpeg") }));
         }
         if (!navigator.canShare({ files })) throw new Error("o navegador recusou o arquivo");
         pacote = files;
@@ -88,6 +89,54 @@ export default async function aprovacoes({ sb, query, go }) {
     });
     return btn;
   };
+
+  // Galeria: todas as lâminas lado a lado (deslizar), contador, setas e miniaturas; toque abre em tela cheia.
+  const item = (p, onOpen) => {
+    const u = urls.get(p);
+    if (!u) return h("div", { class: "ap-gal-item" }, h("div", { class: "ap-empty" }, "sem prévia"));
+    return h("div", { class: "ap-gal-item" }, isVideo(p)
+      ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true })
+      : h("img", { src: u, alt: "", loading: "lazy", onclick: onOpen }));
+  };
+  const trilho = (paths, onOpen, cls = "") => {
+    const strip = h("div", { class: "ap-gal-strip" }, ...paths.map((p, i) => item(p, () => onOpen(i))));
+    const cont = h("span", { class: "ap-gal-count" }, `1/${paths.length}`);
+    const ir = (i) => {
+      const x = Math.max(0, Math.min(paths.length - 1, i)) * strip.clientWidth;
+      strip.scrollTo({ left: x, behavior: "smooth" });
+      setTimeout(() => { if (Math.abs(strip.scrollLeft - x) > 4) strip.scrollLeft = x; marca(); }, 450); // garante o pulo se a rolagem suave travar
+    };
+    const atual = () => Math.round(strip.scrollLeft / Math.max(1, strip.clientWidth));
+    const thumbs = paths.length > 1 ? h("div", { class: "ap-gal-thumbs" }, ...paths.map((p, i) => h("button", { type: "button", class: "ap-gal-th", "aria-label": `Lâmina ${i + 1}`, onclick: () => ir(i) },
+      isVideo(p) ? h("span", null, "▶") : h("img", { src: urls.get(p) || "", alt: "", loading: "lazy" })))) : null;
+    const marca = () => { const k = atual(); cont.textContent = `${k + 1}/${paths.length}`; thumbs?.querySelectorAll(".ap-gal-th").forEach((b, i) => b.classList.toggle("on", i === k)); };
+    strip.addEventListener("scroll", () => requestAnimationFrame(marca), { passive: true });
+    const box = h("div", { class: `ap-gal ${cls}` }, strip,
+      paths.length > 1 && cont,
+      paths.length > 1 && h("button", { type: "button", class: "ap-gal-nav prev", "aria-label": "Anterior", onclick: () => ir(atual() - 1) }, "‹"),
+      paths.length > 1 && h("button", { type: "button", class: "ap-gal-nav next", "aria-label": "Próxima", onclick: () => ir(atual() + 1) }, "›"));
+    requestAnimationFrame(marca);
+    return { box, thumbs, ir };
+  };
+  const telaCheia = (paths, i) => {
+    const fechar = () => { dlg.close(); };
+    const g = trilho(paths, () => {}, "ap-lb-gal");
+    const dlg = h("dialog", { class: "ap-lb" }, h("button", { type: "button", class: "ap-lb-x", "aria-label": "Fechar", onclick: fechar }, "×"), g.box, g.thumbs);
+    dlg.addEventListener("close", () => dlg.remove());
+    dlg.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") g.ir(Math.round(g.box.firstChild.scrollLeft / g.box.firstChild.clientWidth) + 1); if (e.key === "ArrowLeft") g.ir(Math.round(g.box.firstChild.scrollLeft / g.box.firstChild.clientWidth) - 1); });
+    document.body.append(dlg); dlg.showModal();
+    requestAnimationFrame(() => { g.box.firstChild.scrollLeft = i * g.box.firstChild.clientWidth; g.ir(i); });
+  };
+  const galeria = (paths) => { const g = trilho(paths, (i) => telaCheia(paths, i)); return h("div", { class: "ap-gal-wrap" }, g.box, g.thumbs); };
+
+  // E-book: capa grande com selo, e botões para abrir/baixar o PDF (URL assinada)
+  const ebook = (a) => h("div", { class: "ap-ebook" },
+    h("div", { class: "ap-ebook-capa" },
+      a.capa && urls.get(a.capa) ? h("img", { src: urls.get(a.capa), alt: "Capa do e-book", loading: "lazy", class: "ap-big ap-zoom", onclick: () => window.open(urls.get(a.arquivo), "_blank", "noopener") }) : h("div", { class: "ap-empty" }, "PDF sem capa"),
+      h("span", { class: "ap-ebook-selo" }, "E-BOOK · PDF")),
+    h("div", { class: "flex wrap", style: { justifyContent: "center", gap: "8px" } },
+      h("a", { class: "btn btn-sm", href: urls.get(a.arquivo) || "#", target: "_blank", rel: "noopener" }, "Abrir PDF"),
+      h("a", { class: "btn btn-ghost btn-sm", href: urls.get(a.arquivo) || "#", download: a.arquivo.split("/").pop() }, "Baixar PDF")));
 
   const card = (a) => {
     const [sl, sc] = ST[a.status] || ST.pendente;
@@ -104,7 +153,7 @@ export default async function aprovacoes({ sb, query, go }) {
     return h("article", { class: "panel ap-row" },
       h("div", { class: "ap-bar" },
         h("div", { class: "ap-head" },
-          h("div", { class: "flex wrap", style: { gap: "6px" } }, h("span", { class: `chip ${sc}` }, sl), h("span", { class: "chip accent" }, nome(a.perfil)), h("span", { class: "chip" }, a.tipo), a.creditos ? h("span", { class: "chip warn" }, `${a.creditos} créditos`) : null, h("span", { class: "mono muted" }, fmtDateTime(a.updated_at || a.created_at))),
+          h("div", { class: "flex wrap", style: { gap: "6px" } }, h("span", { class: `chip ${sc}` }, sl), h("span", { class: "chip accent" }, nome(a.perfil)), h("span", { class: "chip" }, isPdf(a.arquivo) ? "e-book" : a.tipo), a.creditos ? h("span", { class: "chip warn" }, `${a.creditos} créditos`) : null, h("span", { class: "mono muted" }, fmtDateTime(a.updated_at || a.created_at))),
           h("b", { class: "st-title" }, a.titulo),
           a.sugestao_em ? h("div", { class: "ap-when" }, h("b", null, "Postar: ", fmtDateTime(a.sugestao_em)), a.sugestao_nota && h("span", { class: "muted small" }, a.sugestao_nota))
             : h("div", { class: "ap-when muted small" }, "sem sugestão de horário")),
@@ -113,8 +162,7 @@ export default async function aprovacoes({ sb, query, go }) {
           h("div", { class: "flex wrap" }, ...decisao))),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },
-        h("div", { class: "ap-stage" }, media(a.arquivo, true),
-          a.extras?.length ? h("div", { class: "ap-extras" }, ...a.extras.map((p) => h("a", { href: urls.get(p) || "#", target: "_blank", rel: "noopener" }, isVideo(p) ? h("span", null, "▶") : h("img", { src: urls.get(p) || "", alt: "", loading: "lazy" })))) : null),
+        h("div", { class: "ap-stage" }, isPdf(a.arquivo) ? ebook(a) : a.extras?.length ? galeria([a.arquivo, ...a.extras]) : media(a.arquivo, true)),
         h("div", { class: "ap-text" },
           h("div", { class: "mono", style: { marginBottom: "6px" } }, "Legenda"),
           a.legenda ? h("p", { class: "ap-legtxt pre" }, a.legenda) : h("p", { class: "muted small" }, "Sem legenda."),
@@ -132,7 +180,7 @@ export default async function aprovacoes({ sb, query, go }) {
     const quando = (a) => (a.sugestao_em ? Date.parse(a.sugestao_em) : Infinity);
     const vis = all.filter((a) => a.status === aba && (!perfil || a.perfil === perfil))
       .sort((x, y) => (aba === "publicado" || aba === "reprovado") ? 0 : quando(x) - quando(y));
-    await assinar(vis.flatMap((a) => [a.arquivo, ...(a.extras || [])]));
+    await assinar(vis.flatMap((a) => [a.arquivo, ...(a.extras || []), a.capa]));
     grid.replaceChildren(...(vis.length ? vis.map(card) : [h("p", { class: "empty" }, aba === "pendente" ? "Nada esperando aprovação. Quando um agente terminar uma peça, ela aparece aqui e o ponto do menu acende." : "Nada aqui.")]));
   };
   await draw();

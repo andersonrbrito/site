@@ -3,7 +3,7 @@
 // Cada formato tem nome (não número), botão de baixar e de enviar pro iPhone (um, outro ou os dois),
 // e "Já usei" tira o vídeo da tela (fica guardado em payload.estudio_ok, recuperável em "Mostrar os já usados").
 import { h, fmtDateTime } from "../util.js";
-import { pageHead, toast } from "../ui.js";
+import { pageHead, toast, copiarTexto } from "../ui.js";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
 const ST = { aberto: ["na fila", "warn"], gerando: ["gerando", "accent"], feito: ["pronto", "ok"], cancelado: ["cancelado", ""] };
@@ -36,10 +36,9 @@ export default async function estudio({ sb }) {
     const btn = h("button", { class: "btn btn-sm st-iphone", type: "button" }, rotulo);
     const compartilhar = async () => {
       const leg = r.payload?.carrossel?.legenda;
-      const copiou = leg ? await navigator.clipboard?.writeText(leg).then(() => true, () => false) : false;
       try {
         await navigator.share({ files: pacote, title: r.payload?.carrossel?.titulo || "Vídeo" });
-        toast(copiou ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+        toast(leg ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
         pacote = null; btn.textContent = rotulo;
       } catch (e) {
         if (e.name === "AbortError") return;
@@ -48,6 +47,7 @@ export default async function estudio({ sb }) {
       }
     };
     btn.addEventListener("click", async () => {
+      if (r.payload?.carrossel?.legenda) copiarTexto(r.payload.carrossel.legenda, "Legenda copiada."); // no toque, antes de qualquer espera
       if (pacote) return compartilhar();
       if (!navigator.canShare) { toast("Este navegador não abre o compartilhar com vídeo. Abra o painel no Safari do iPhone ou do Mac. Baixando aqui.", { kind: "err" }); urls.forEach((u) => { const a = h("a", { href: u, download: "" }); document.body.append(a); a.click(); a.remove(); }); return; }
       btn.disabled = true; btn.textContent = "Preparando…";

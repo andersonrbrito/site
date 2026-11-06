@@ -1,5 +1,5 @@
 import { h } from "../util.js";
-import { pageHead, alertBox, toast } from "../ui.js";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js";
 
 // Prompts: links de sites de prompts e prompts próprios (com botão de copiar).
 const favicon = (url) => { try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; } catch { return ""; } };
@@ -36,7 +36,7 @@ export default async function prompts({ sb, query, go, refresh }) {
     const { data: d } = await sb.from("prompts").update({ archived_at: new Date().toISOString() }).eq("id", p.id).eq("version", p.version).select("id").maybeSingle();
     if (!d) return toast("Recarregue a página.", { kind: "err" }); toast("Removido."); refresh();
   };
-  const copy = async (p, btn) => { try { await navigator.clipboard.writeText(p.body || ""); btn.textContent = "Copiado"; setTimeout(() => (btn.textContent = "Copiar"), 1500); } catch { toast("Não deu pra copiar.", { kind: "err" }); } };
+  const copy = (p, btn) => copiarTexto(p.body || "", "Prompt copiado.").then((ok) => { if (ok) { btn.textContent = "Copiado"; setTimeout(() => (btn.textContent = "Copiar"), 1500); } });
   const card = (p) => h("article", { class: "prcard" },
     h("header", { class: "flex" },
       p.kind === "link" ? h("img", { src: favicon(p.url), alt: "", width: 18, height: 18 }) : h("span", { class: "ptag" }, "P"),

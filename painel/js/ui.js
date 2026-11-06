@@ -43,6 +43,42 @@ export function icon(name, size = 16) {
 
 export const toast = (text, opts = {}) => window.dispatchEvent(new CustomEvent("aos:toast", { detail: { text, ...opts } }));
 
+// Copiar texto de forma confiável (iPhone incluso). Chame DENTRO do toque/clique, antes de qualquer await:
+// o Safari só deixa copiar enquanto o gesto do usuário está "ativo". Usa os dois caminhos (execCommand síncrono
+// e Clipboard API); se o navegador recusar os dois, abre uma janela com o texto já selecionado para copiar na mão.
+export function copiarTexto(texto, msg = "Copiado.") {
+  const t = String(texto ?? "");
+  let ok = false;
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = t; ta.setAttribute("readonly", ""); ta.setAttribute("aria-hidden", "true");
+    Object.assign(ta.style, { position: "fixed", top: "0", left: "0", width: "1px", height: "1px", opacity: "0", fontSize: "16px", border: "0", padding: "0" });
+    document.body.append(ta);
+    ta.focus({ preventScroll: true }); ta.select(); ta.setSelectionRange(0, t.length);
+    ok = document.execCommand("copy");
+    ta.remove();
+  } catch { ok = false; }
+  const api = navigator.clipboard?.writeText ? navigator.clipboard.writeText(t).then(() => true, () => false) : Promise.resolve(false);
+  return api.then((a) => {
+    if (a || ok) { toast(`${msg.replace(/\.$/, "")} (${t.length} caracteres).`); return true; }
+    copiaManual(t); return false;
+  });
+}
+
+function copiaManual(t) {
+  const area = h("textarea", { class: "textarea copy-dlg-txt", readonly: true, rows: 10 });
+  area.value = t;
+  const fechar = () => { dlg.close(); dlg.remove(); };
+  const dlg = h("dialog", { class: "copy-dlg" },
+    h("b", null, "O navegador bloqueou a cópia automática"),
+    h("p", { class: "muted small" }, "O texto já está selecionado: no iPhone, toque e segure em cima dele e escolha Copiar. No computador, Cmd+C."),
+    area,
+    h("div", { class: "flex", style: { justifyContent: "flex-end" } }, h("button", { class: "btn btn-sm", type: "button", onclick: fechar }, "Fechar")));
+  dlg.addEventListener("close", () => dlg.remove());
+  document.body.append(dlg); dlg.showModal();
+  area.focus(); area.select(); area.setSelectionRange(0, t.length);
+}
+
 export const pageHead = (title, eyebrow, ...actions) =>
   h("div", { class: "page-head" },
     h("div", null, h("div", { class: "mono eyebrow" }, "// ", eyebrow || title), h("h1", null, title)),

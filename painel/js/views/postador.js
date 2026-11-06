@@ -1,5 +1,5 @@
 import { h, fmtDateTime, fmtDate, todayISO, dayOf, TZ } from "../util.js";
-import { pageHead, alertBox, toast } from "../ui.js";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js";
 import { CONFIG } from "../config.js";
 import { lineChart, reportBox } from "./desempenho.js";
 
@@ -247,7 +247,7 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
   const compose = h("div", { class: "pcompose" }, h("div", { class: "pdrop" }, "Solte para anexar"), who, ta, mediaBox,
     h("div", { class: "ptools" },
       h("button", { type: "button", class: "ptool", title: "Anexar imagem ou vídeo", disabled: locked, onclick: () => fileIn.click() }, "▣ Mídia"),
-      h("button", { type: "button", class: "ptool", title: "Copiar texto", onclick: () => navigator.clipboard.writeText(p.body).then(() => toast("Texto copiado.")) }, "⧉ Copiar"),
+      h("button", { type: "button", class: "ptool", title: "Copiar texto", onclick: () => copiarTexto(p.body, "Texto copiado.") }, "⧉ Copiar"),
       h("button", { type: "button", class: "ptool", title: "O Claude monta um carrossel com este assunto no CarrosseL_ (detecta se é notícia, educativo ou pessoal)", onclick: (e) => enviarCarrossel(e.currentTarget) }, "◫ Enviar para o CarrosseL_"),
       h("div", { class: "grow" }), counter), fileIn);
   // Pedido de carrossel com o assunto deste rascunho (claude_requests kind carrossel_novo). Mídias viajam como link de 7 dias.

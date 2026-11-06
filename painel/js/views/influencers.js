@@ -1,5 +1,5 @@
 import { h } from "../util.js";
-import { pageHead, toast } from "../ui.js";
+import { pageHead, toast, copiarTexto } from "../ui.js";
 
 // Influencers: vitrine das contas de personagens de IA. Tudo mora na pasta TIK TOK do disco ANDY 1TB.
 // Sem senha aqui (o repositório é público): só o e-mail de login. A senha fica no gerenciador do Anderson.
@@ -32,7 +32,7 @@ const svg = (d, size = 18, cor = "currentColor") => {
 const finder = (sub) => "andersonfinder://open?path=" + encodeURIComponent(sub ? `${PASTA}/${sub}` : PASTA);
 
 export default async function influencers() {
-  const copiar = async (t, msg) => { try { await navigator.clipboard.writeText(t); toast(msg); } catch { toast("Não deu para copiar.", { kind: "err" }); } };
+  const copiar = (t, msg) => copiarTexto(t, msg);
   const abrir = (sub, rotulo, extra = "") => h("a", { class: "btn " + extra, href: finder(sub) }, rotulo);
 
   const card = (i) => h("article", { class: "panel", style: { overflow: "hidden", display: "flex", flexDirection: "column", borderTop: `4px solid ${i.cor}` } },

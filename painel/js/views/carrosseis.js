@@ -1,5 +1,5 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
-import { pageHead, alertBox, toast } from "../ui.js";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js";
 import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261106a";
 
 // Carrosséis diários (estilo print de tweet) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
@@ -311,12 +311,10 @@ function editor({ sb, go, c, data }) {
   // O compartilhar exige um toque recente: se as lâminas demorarem (vídeo), o botão pede um segundo toque com tudo pronto.
   let pacote = null;
   const iphone = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => enviarIphone() }, "Enviar pro iPhone");
-  const legendaNaArea = () => navigator.clipboard?.writeText(st.legenda || "").then(() => true, () => false) ?? Promise.resolve(false);
   async function compartilhar() {
-    const copiou = await legendaNaArea();
     try {
       await navigator.share({ files: pacote, title: st.titulo });
-      toast(copiou ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+      toast(st.legenda ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
       pacote = null; iphone.textContent = "Enviar pro iPhone";
     } catch (e) {
       if (e.name === "AbortError") return;
@@ -325,6 +323,7 @@ function editor({ sb, go, c, data }) {
     }
   }
   async function enviarIphone() {
+    if (st.legenda) copiarTexto(st.legenda, "Legenda copiada."); // no toque, antes de qualquer espera
     if (pacote) return compartilhar();
     if (!navigator.canShare) {
       toast("Este navegador não abre o compartilhar com arquivos. Abra o painel no Safari do iPhone ou do Mac. Baixando as lâminas aqui.", { kind: "err" });
@@ -394,7 +393,7 @@ function editor({ sb, go, c, data }) {
   status.addEventListener("change", () => { st.status = status.value; touch(); });
   const leg = h("textarea", { class: "textarea", rows: 8 }); leg.value = st.legenda || "";
   leg.addEventListener("input", () => { st.legenda = leg.value; touch(); });
-  const copiar = async () => { try { await navigator.clipboard.writeText(st.legenda || ""); toast("Legenda copiada."); } catch { toast("Não deu para copiar.", { kind: "err" }); } };
+  const copiar = () => copiarTexto(st.legenda || "", "Legenda copiada.");
   const baixarTudo = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => baixar(st.slides.map((_, i) => i), e.currentTarget) }, "Baixar lâminas");
   if (!data.dbOn) [titulo, status, leg].forEach((el) => { el.disabled = true; });
 
@@ -425,7 +424,7 @@ function editor({ sb, go, c, data }) {
 // Carrosséis antigos (JPGs prontos, sem edição).
 function legacyView(atual, go) {
   const url = (f) => `${BASE}${atual.slug}/${f}`;
-  const copiar = async () => { try { await navigator.clipboard.writeText(atual.legenda || ""); toast("Legenda copiada."); } catch { toast("Não deu para copiar.", { kind: "err" }); } };
+  const copiar = () => copiarTexto(atual.legenda || "", "Legenda copiada.");
   return h("div", { class: "page wide" },
     pageHead(atual.titulo, `${atual.perfil} · ${atual.slides.length} slides · 1080×1350`),
     h("div", { class: "flex", style: { gap: "8px", marginBottom: "14px" } },

@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-06 (noite) · AprovaçõeS_: galeria do carrossel e copiar confiável
+- Carrossel em galeria: todas as lâminas lado a lado (deslizar), contador "n/total", setas, miniaturas clicáveis e tela cheia ao tocar (setas do teclado e botão fechar). Imagem única também abre em tela cheia.
+- Copiar confiável em todo o painel (`copiarTexto` em `js/ui.js`): copia dentro do toque usando os dois caminhos (execCommand síncrono + Clipboard API) e, se o navegador bloquear os dois, abre uma janela com o texto já selecionado para copiar na mão. O aviso mostra quantos caracteres foram copiados. Aplicado em AprovaçõeS_, CarrosseL_, StúdiO_, Prompts, InfluencerS_ e PostadoR_ (Afiliações fica para depois: tem alteração em andamento de outra sessão).
+- "Enviar pro iPhone" (AprovaçõeS_, CarrosseL_, StúdiO_): a legenda agora é copiada no primeiro toque, antes de baixar os arquivos (o Safari bloqueava a cópia feita depois da espera).
+- E-books (PDF) em AprovaçõeS_: quando `arquivo` é .pdf, mostra a `capa` grande com selo "E-BOOK · PDF" e botões "Abrir PDF" e "Baixar PDF"; o "Enviar pro iPhone" manda o próprio PDF (application/pdf). Chip do tipo aparece como "e-book".
+- Harness: itens de teste de carrossel e de e-book em `dev/mock-supabase.js`.
+
 ## 2026-11-06 (noite) · v2.2: AprovaçõeS_
 - Nova página AprovaçõeS_: conteúdo dos agentes com prévia (vídeo/imagem do Storage privado), legenda com copiar, e Aprovar / Pedir ajuste (comentário que o agente lê) / Reprovar / Marcar publicado. Ponto no menu e bloco "Para aprovar" no PaineL_.
 - Agentes enviam com `tools/agente.py enviar <perfil> <arquivo> '<json>'` (URL assinada de upload pela função meta, só em aprovacoes/).
