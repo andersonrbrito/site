@@ -161,6 +161,25 @@ footer{border-top:1px solid var(--border);padding:28px 0 90px;color:var(--mid);f
  </div>
 </section>
 
+<section id="pagamento">
+ <div class="wrap">
+  <div class="sec-title"><div class="mono">pagamento</div><h2>Como <span class="ac">pagar</span></h2><p>Pague depois que eu confirmar o seu pedido no WhatsApp. Pix ou cartão, pelo link seguro do Nubank.</p></div>
+  <div class="grid3">
+   <div class="card"><div class="mono">pagamento integral</div><div class="big" style="font-family:'Anton';font-size:44px;margin:6px 0">R$97</div><p>Paga uma vez e a produção começa.</p><div style="margin-top:16px"><a class="btn" href="https://checkout.nubank.com.br/c845p280XH6sj6f5" target="_blank" rel="noopener">Pagar R$97 →</a></div></div>
+   <div class="card"><div class="mono">sinal de 50%</div><div class="big" style="font-family:'Anton';font-size:44px;margin:6px 0">2× R$48,50</div><p>Metade pra começar e a outra metade com o vídeo pronto, no mesmo link.</p><div style="margin-top:16px"><a class="btn" href="https://checkout.nubank.com.br/WCB3B0tnA86sj6f5" target="_blank" rel="noopener">Pagar R$48,50 →</a></div></div>
+   <div class="card"><div class="mono">chave pix</div>
+    <div style="display:flex;align-items:center;gap:10px;margin:12px 0 8px"><svg width="34" height="34" viewBox="0 0 512 512" aria-hidden="true"><path fill="#32BCAD" d="M242.4 292.5c5.4-5.4 14.7-5.4 20.1 0l77.5 77.5c14.3 14.3 33.3 22.1 53.5 22.1h15.1l-97.8 97.8c-30.5 30.5-80.1 30.5-110.6 0L102.4 392h9.2c20.2 0 39.2-7.9 53.5-22.1l77.3-77.4zm20.1-73c-6.4 5.5-14.6 5.6-20.1 0l-77.3-77.3C150.8 127.8 131.8 120 111.6 120h-9.2l97.7-97.7c30.6-30.5 80.1-30.5 110.7 0L408.6 120h-15.1c-20.2 0-39.2 7.9-53.5 22.1l-77.5 77.4zM112.6 142.7c13.9 0 26.7 5.6 37.1 15.4l77.3 77.4c7.2 6.3 16.7 10.8 26.2 10.8 9.6 0 19-4.5 26.2-10.8l77.5-77.5c9.8-9.7 23.3-15.3 37.1-15.3h37.9l58.7 58.7c30.5 30.5 30.5 80.1 0 110.6l-58.7 58.7h-37.9c-13.8 0-27.3-5.6-37.1-15.4l-77.5-77.5c-14-14-38.5-14-52.5.1l-77.3 77.2c-10.4 9.8-23.2 15.4-37.1 15.4H80.4l-58.1-58.4c-30.5-30.5-30.5-80.1 0-110.6l58.1-58.4h32.2z"/></svg><b style="font-size:15px;overflow-wrap:anywhere" id="pixkey">contato@andersonbrito.com</b></div>
+    <p>Chave Pix por e-mail. Pague o valor combinado e me mande o comprovante no WhatsApp.</p>
+    <div style="margin-top:16px"><button class="btn" type="button" id="pixcopy">Copiar chave Pix</button></div></div>
+  </div>
+ </div>
+</section>
+<script>
+document.getElementById('pixcopy').addEventListener('click',function(){const b=this,k=document.getElementById('pixkey').textContent;
+const done=()=>{b.textContent='Chave copiada ✓';setTimeout(()=>b.textContent='Copiar chave Pix',2000)};
+if(navigator.clipboard)navigator.clipboard.writeText(k).then(done,()=>{getSelection().selectAllChildren(document.getElementById('pixkey'))});else getSelection().selectAllChildren(document.getElementById('pixkey'))});
+</script>
+
 <section id="pedido">
  <div class="wrap gate">
   <div class="sec-title"><div class="mono">formulário do pedido</div><h2>Envie seu <span class="ac">material</span></h2><p>Preencha e envie pelo WhatsApp ou e-mail. Logo e fotos você manda junto na conversa.</p></div>
@@ -246,7 +265,7 @@ footer{border-top:1px solid var(--border);padding:28px 0 90px;color:var(--mid);f
   <details><summary>Perguntas frequentes</summary>
    <p><b>Preciso ter fotos profissionais?</b> Não. Fotos de celular boas e bem iluminadas já funcionam.</p>
    <p><b>Tem narração?</b> Se você quiser, sim, com voz profissional gerada por IA. É só pedir nas observações.</p>
-   <p><b>Como pago?</b> Por Pix, depois que eu confirmar o seu pedido no WhatsApp.</p>
+   <p><b>Como pago?</b> Por Pix (chave contato@andersonbrito.com) ou pelo link do Nubank, com Pix ou cartão, depois que eu confirmar o seu pedido no WhatsApp. Dá pra pagar tudo de uma vez ou 50% de sinal.</p>
    <p><b>E se eu não gostar?</b> Você tem 2 alterações e as garantias descritas acima.</p>
   </details>
  </div>
