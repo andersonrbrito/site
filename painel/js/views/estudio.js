@@ -1,35 +1,96 @@
 // StúdiO_: todos os carrosséis que viraram vídeo (Reel 9:16 e/ou X 16:9). O pedido nasce no CarrosseL_
 // ("Transformar em vídeo"); a rotina de pedidos entrega o MP4 e o link fica no result_note do pedido.
+// Cada formato tem nome (não número), botão de baixar e de enviar pro iPhone (um, outro ou os dois),
+// e "Já usei" tira o vídeo da tela (fica guardado em payload.estudio_ok, recuperável em "Mostrar os já usados").
 import { h, fmtDateTime } from "../util.js";
-import { pageHead } from "../ui.js";
+import { pageHead, toast } from "../ui.js";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
 const ST = { aberto: ["na fila", "warn"], gerando: ["gerando", "accent"], feito: ["pronto", "ok"], cancelado: ["cancelado", ""] };
+const formato = (u) => (/reel|9x16|vertical/i.test(u.split("/").pop()) ? "Reel 9:16" : /(^|[-_])x([-_.]|$)|16x9|horizontal/i.test(u.split("/").pop()) ? "X 16:9" : u.split("/").pop().replace(/\.mp4$/, ""));
+const ordem = (a, b) => (formato(a).startsWith("Reel") ? -1 : formato(b).startsWith("Reel") ? 1 : 0);
 
 export default async function estudio({ sb }) {
-  const { data, error } = await sb.from("claude_requests").select("id, status, payload, result_note, created_at, done_at").eq("kind", "carrossel_video").is("archived_at", null).order("created_at", { ascending: false }).limit(200);
+  const { data, error } = await sb.from("claude_requests").select("id, status, payload, result_note, created_at, done_at, version").eq("kind", "carrossel_video").is("archived_at", null).order("created_at", { ascending: false }).limit(200);
   if (error) return h("p", { class: "alert" }, "Não foi possível carregar os vídeos.");
   const reqs = data || [];
-  let filtro = "todos";
+  let filtro = "todos", verUsados = false;
   const grid = h("div", { class: "st-grid" });
-  const draw = () => {
-    const vis = reqs.filter((r) => filtro === "todos" || (filtro === "prontos" ? r.status === "feito" : ["aberto", "gerando"].includes(r.status)));
-    grid.replaceChildren(...(vis.length ? vis.map((r) => {
-      const vids = (r.result_note || "").match(MP4) || [], [sl, sc] = ST[r.status] || [r.status, ""];
-      const titulo = r.payload?.carrossel?.titulo || r.payload?.slug || "Carrossel";
-      return h("article", { class: "panel st-card" },
-        h("div", { class: "st-media" }, vids.length ? h("video", { src: vids[0], controls: true, playsinline: true, preload: "metadata" }) : h("div", { class: "st-wait" }, h("span", { class: `chip ${sc}` }, sl))),
-        h("div", { class: "panel-body" },
-          h("b", { class: "st-title" }, titulo),
-          h("div", { class: "flex wrap", style: { gap: "6px", margin: "6px 0" } }, h("span", { class: `chip ${sc}` }, sl), ...(r.payload?.formatos || []).map((f) => h("span", { class: "chip" }, f === "x" ? "X 16:9" : "Reel 9:16")), h("span", { class: "mono muted" }, fmtDateTime(r.done_at || r.created_at))),
-          vids.length > 1 && h("div", { class: "stack" }, ...vids.slice(1).map((u) => h("video", { src: u, controls: true, playsinline: true, preload: "metadata", style: { width: "100%", borderRadius: "8px" } }))),
-          h("div", { class: "flex wrap", style: { marginTop: "8px" } },
-            ...vids.map((u, i) => h("a", { class: "btn btn-sm", href: u, download: "" }, vids.length > 1 ? `Baixar ${i + 1}` : "Baixar MP4")),
-            r.payload?.slug && h("a", { class: "btn btn-ghost btn-sm", href: `#/carrosseis?c=${encodeURIComponent(r.payload.slug)}` }, "Abrir carrossel"))));
-    }) : [h("p", { class: "empty" }, "Nenhum vídeo ainda. No CarrosseL_, use “Transformar em vídeo” em um carrossel.")]));
+  const usado = (r) => !!r.payload?.estudio_ok;
+
+  const marcarUsado = async (r, ok) => {
+    const payload = { ...(r.payload || {}), estudio_ok: ok };
+    const { data: d, error: e } = await sb.from("claude_requests").update({ payload }).eq("id", r.id).eq("version", r.version).select("version, payload").maybeSingle();
+    if (e || !d) return toast("Não salvou (recarregue a página).", { kind: "err" });
+    r.version = d.version; r.payload = d.payload;
+    toast(ok ? "Saiu da tela. Está em \"Mostrar os já usados\"." : "Voltou para a tela.", ok ? { actionLabel: "Desfazer", onAction: () => marcarUsado(r, false) } : {});
+    draw();
   };
-  const tabs = h("div", { class: "flex wrap", style: { marginBottom: "14px" } }, ...[["todos", `Todos (${reqs.length})`], ["prontos", `Prontos (${reqs.filter((r) => r.status === "feito").length})`], ["fila", `Na fila (${reqs.filter((r) => ["aberto", "gerando"].includes(r.status)).length})`]]
-    .map(([k, l]) => h("button", { type: "button", class: `chip${filtro === k ? " accent" : ""}`, style: { height: "30px", padding: "0 12px", cursor: "pointer" }, onclick: (e) => { filtro = k; tabs.querySelectorAll("button").forEach((b) => b.classList.remove("accent")); e.currentTarget.classList.add("accent"); draw(); } }, l)));
+
+  // Enviar pro iPhone: o compartilhar do sistema exige toque recente; como baixar o vídeo leva tempo,
+  // o 1º toque prepara e o 2º abre o compartilhar (no iPhone: "Salvar vídeo" vai pra galeria; no Mac: AirDrop).
+  const enviar = (r, urls, rotulo) => {
+    let pacote = null;
+    const btn = h("button", { class: "btn btn-sm st-iphone", type: "button" }, rotulo);
+    const compartilhar = async () => {
+      const leg = r.payload?.carrossel?.legenda;
+      const copiou = leg ? await navigator.clipboard?.writeText(leg).then(() => true, () => false) : false;
+      try {
+        await navigator.share({ files: pacote, title: r.payload?.carrossel?.titulo || "Vídeo" });
+        toast(copiou ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+        pacote = null; btn.textContent = rotulo;
+      } catch (e) {
+        if (e.name === "AbortError") return;
+        if (e.name === "NotAllowedError") { btn.textContent = "Tocar de novo para enviar"; return toast("Vídeo pronto. Toque de novo para abrir o compartilhar."); }
+        toast("Não deu para compartilhar: " + e.message, { kind: "err" });
+      }
+    };
+    btn.addEventListener("click", async () => {
+      if (pacote) return compartilhar();
+      if (!navigator.canShare) { toast("Este navegador não abre o compartilhar com vídeo. Abra o painel no Safari do iPhone ou do Mac. Baixando aqui.", { kind: "err" }); urls.forEach((u) => { const a = h("a", { href: u, download: "" }); document.body.append(a); a.click(); a.remove(); }); return; }
+      btn.disabled = true; btn.textContent = "Preparando…";
+      try {
+        const files = [];
+        for (const u of urls) { const b = await (await fetch(u)).blob(); files.push(new File([b], `${(r.payload?.slug || "video")}-${formato(u).startsWith("Reel") ? "reel-9x16" : "x-16x9"}.mp4`, { type: "video/mp4" })); }
+        if (!navigator.canShare({ files })) throw new Error("o navegador recusou o vídeo");
+        pacote = files;
+      } catch (e) { btn.textContent = rotulo; toast("Não preparou o vídeo: " + e.message, { kind: "err" }); return; }
+      finally { btn.disabled = false; }
+      btn.textContent = "Tocar de novo para enviar";
+      return compartilhar();
+    });
+    return btn;
+  };
+
+  const card = (r) => {
+    const vids = [...new Set((r.result_note || "").match(MP4) || [])].sort(ordem), [sl, sc] = ST[r.status] || [r.status, ""];
+    const titulo = r.payload?.carrossel?.titulo || r.payload?.slug || "Carrossel";
+    return h("article", { class: "panel st-card" + (usado(r) ? " st-usado" : "") },
+      vids.length ? h("div", { class: "st-vids" }, ...vids.map((u) => h("figure", { class: "st-fig" + (formato(u).startsWith("Reel") ? "" : " st-wide") },
+        h("figcaption", { class: "mono" }, formato(u)), h("video", { src: u, controls: true, playsinline: true, preload: "metadata" }))))
+        : h("div", { class: "st-media" }, h("div", { class: "st-wait" }, h("span", { class: `chip ${sc}` }, sl))),
+      h("div", { class: "panel-body" },
+        h("b", { class: "st-title" }, titulo),
+        h("div", { class: "flex wrap", style: { gap: "6px", margin: "6px 0" } }, h("span", { class: `chip ${sc}` }, sl), ...vids.map((u) => h("span", { class: "chip" }, formato(u))), h("span", { class: "mono muted" }, fmtDateTime(r.done_at || r.created_at))),
+        vids.length ? h("div", { class: "st-acts" },
+          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "iPhone:"), ...vids.map((u) => enviar(r, [u], formato(u))), vids.length > 1 && enviar(r, vids, "Os dois")),
+          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "Baixar:"), ...vids.map((u) => h("a", { class: "btn btn-ghost btn-sm", href: u, download: "" }, formato(u))))) : null,
+        h("div", { class: "flex wrap", style: { marginTop: "10px", justifyContent: "space-between" } },
+          r.payload?.slug ? h("a", { class: "btn btn-ghost btn-sm", href: `#/carrosseis?c=${encodeURIComponent(r.payload.slug)}` }, "Abrir carrossel") : h("span"),
+          vids.length ? h("label", { class: "st-check" }, h("input", { type: "checkbox", checked: usado(r), onchange: (e) => marcarUsado(r, e.target.checked) }), usado(r) ? "Já usei (voltar para a tela)" : "Já usei · tirar da tela") : null)));
+  };
+
+  const tabs = h("div", { class: "flex wrap", style: { marginBottom: "14px" } });
+  const draw = () => {
+    const ativos = reqs.filter((r) => verUsados || !usado(r));
+    const n = (f) => ativos.filter(f).length;
+    tabs.replaceChildren(
+      ...[["todos", `Todos (${ativos.length})`, () => true], ["prontos", `Prontos (${n((r) => r.status === "feito")})`, (r) => r.status === "feito"], ["fila", `Na fila (${n((r) => ["aberto", "gerando"].includes(r.status))})`, (r) => ["aberto", "gerando"].includes(r.status)]]
+        .map(([k, l]) => h("button", { type: "button", class: `chip${filtro === k ? " accent" : ""}`, style: { height: "30px", padding: "0 12px", cursor: "pointer" }, onclick: () => { filtro = k; draw(); } }, l)),
+      h("button", { type: "button", class: `chip${verUsados ? " accent" : ""}`, style: { height: "30px", padding: "0 12px", cursor: "pointer", marginLeft: "auto" }, onclick: () => { verUsados = !verUsados; draw(); } }, verUsados ? "Esconder os já usados" : `Mostrar os já usados (${reqs.filter(usado).length})`));
+    const vis = ativos.filter((r) => filtro === "todos" || (filtro === "prontos" ? r.status === "feito" : ["aberto", "gerando"].includes(r.status)));
+    grid.replaceChildren(...(vis.length ? vis.map(card) : [h("p", { class: "empty" }, "Nenhum vídeo aqui. No CarrosseL_, use “Transformar em vídeo” em um carrossel.")]));
+  };
   draw();
   return h("div", { class: "page wide" }, pageHead("StúdiO_", "carrosséis transformados em vídeo", h("a", { class: "btn btn-ghost btn-sm", href: "#/carrosseis" }, "CarrosseL_ →")), tabs, grid);
 }

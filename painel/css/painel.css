@@ -673,3 +673,11 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .btn.ap-ok{background:#2bd67b;color:#04210f;box-shadow:0 4px 14px rgba(43,214,123,.3)}
 .ap-coment{margin-top:6px;padding:6px 10px;border-radius:10px;background:rgba(var(--accent-rgb),.1);color:var(--tx)}
 .ap-leg{margin-top:6px} .ap-leg summary{cursor:pointer;color:var(--tx-2)}
+/* StúdiO_ v2: formatos nomeados, iPhone, já usei */
+.st-vids{display:flex;gap:8px;padding:10px;background:#000;align-items:flex-start;overflow-x:auto}
+.st-fig{flex:1 1 0;min-width:0;margin:0} .st-fig figcaption{color:#fff;opacity:.8;margin-bottom:4px} .st-fig video{width:100%;max-height:420px;border-radius:8px;background:#111;display:block}
+.st-fig.st-wide{flex:1.6 1 0}
+.st-acts{display:grid;gap:8px;margin-top:8px} .st-acts .mono{min-width:56px}
+.btn.st-iphone{background:#0a84ff;color:#fff;box-shadow:0 4px 14px rgba(10,132,255,.3)}
+.st-check{display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--tx-2);cursor:pointer} .st-check input{width:18px;height:18px;accent-color:var(--ok)}
+.st-usado{opacity:.6}
