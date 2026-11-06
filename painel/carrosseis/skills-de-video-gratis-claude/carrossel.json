@@ -1,0 +1,113 @@
+{
+ "slug": "skills-de-video-gratis-claude",
+ "dia": "2026-11-06",
+ "tipo": "educativo",
+ "titulo": "Skills de vídeo grátis pro Claude",
+ "perfil": "@ilmarlabs",
+ "legenda": "Tô vendo muita gente vendendo curso pra ensinar o básico de fazer vídeo no Claude. Então separei as skills gratuitas que eu uso pra editar, tudo aberto no GitHub.\n\nPra instalar: copia o link do repositório, cola no Claude e pede \"instala essa skill pra mim\".\n\nSalva pra não perder. Qual skill de vídeo você usa que não tá aqui?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "lemo-opuscar (GitHub)",
+   "url": "https://github.com/lemomo-ai/lemo-opuscar"
+  },
+  {
+   "titulo": "video-use (GitHub)",
+   "url": "https://github.com/browser-use/video-use"
+  },
+  {
+   "titulo": "Remotion skills (GitHub)",
+   "url": "https://github.com/remotion-dev/skills"
+  },
+  {
+   "titulo": "claude-video (GitHub)",
+   "url": "https://github.com/bradautomates/claude-video"
+  },
+  {
+   "titulo": "mg-styles-15 (GitHub)",
+   "url": "https://github.com/Vincentwei1021/mg-styles-15"
+  },
+  {
+   "titulo": "awesome-opus5-5-videos (GitHub)",
+   "url": "https://github.com/yihui-dev/awesome-opus5-5-videos"
+  },
+  {
+   "titulo": "Skillry: vídeos do Opus 5.5",
+   "url": "https://skillry.dev/ai-videos/opus-5-5"
+  }
+ ],
+ "notas": "Pedido do PostadoR_ (rascunho x). Repos conferidos no GitHub em 06/11: lemo-opuscar já tem 66 estilos (o rascunho dizia 51, corrigido). Lâminas 2 a 6: prévias oficiais dos repositórios (GitHub). Lâminas 1, 7 e 8: Magnific (Nano Banana 2). Atenção: o repo remotion-dev/skills não declara licença e a Remotion cobra licença de empresa acima de um certo porte; vale conferir antes de dizer 'tudo grátis' pra empresa.",
+ "slides": [
+  {
+   "texto": "Tô vendo muita gente **vendendo curso pra ensinar o básico** de fazer vídeo no Claude.\n\nEntão separei as skills gratuitas que eu uso pra editar. Tá tudo aberto, é só instalar.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/01-curso-vs-gratis.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "**1. lemo-opuscar**\nEstilos de curta feitos inteiramente em código. Já são 66 prontos, e dá pra criar o seu.\n\ngithub.com/lemomo-ai/lemo-opuscar",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/02-lemo-opuscar.jpg",
+    "foco": 0.5,
+    "credito": "imagem: GitHub"
+   }
+  },
+  {
+   "texto": "**2. video-use**\nEdita vídeo conversando: corte, legenda, animação.\n\ngithub.com/browser-use/video-use",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/03-video-use.jpg",
+    "foco": 0.5,
+    "credito": "imagem: GitHub"
+   }
+  },
+  {
+   "texto": "**3. Remotion skills**\nMotion e legenda animada em código, feitas pela própria equipe da Remotion.\n\ngithub.com/remotion-dev/skills",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/04-remotion-skills.jpg",
+    "foco": 0.5,
+    "credito": "imagem: GitHub"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "**4. claude-video**\nO Claude assiste vídeo: baixa, tira os frames e transcreve pra entender o que acontece.\n\ngithub.com/bradautomates/claude-video",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/05-claude-video.jpg",
+    "foco": 0.5,
+    "credito": "imagem: GitHub"
+   }
+  },
+  {
+   "texto": "**5. mg-styles-15**\n15 estilos de motion com prompt e código.\ngithub.com/Vincentwei1021/mg-styles-15\n\n**6. awesome-opus5-5-videos**\nVídeos feitos com o Opus 5.5 e o prompt de cada um.\ngithub.com/yihui-dev/awesome-opus5-5-videos",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/06-awesome-opus.jpg",
+    "foco": 0.5,
+    "credito": "imagem: GitHub"
+   }
+  },
+  {
+   "texto": "**Como instalar:** pesquisa o nome no GitHub, copia o link do repositório, cola no Claude e manda:\n\n\"instala essa skill pra mim: [link do repositório]\"\n\nSalva esse post pra não perder a lista.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/07-instalar.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Bora se ajudar pra não cair em papo de \"coach de IA\".\n\n**Qual skill de vídeo você usa que não tá aqui?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/skills-de-video-gratis-claude/08-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
