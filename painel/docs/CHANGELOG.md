@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-06 (noite) · Relatório diário por perfil e arquivar pendente
+- Migration 0036: o agente pode arquivar uma peça PRÓPRIA ainda pendente em AprovaçõeS_ (`update aprovacoes {"arquivar":true}`), útil para juntar versões B/C no card da A. Também cria `reports.kind = 'perfil'` com as colunas `perfil` e `dados` (jsonb: seguidores, delta_dia, semana_delta, meta_semana).
+- PerfiS_: cada perfil novo mostra "Meta da semana" (+N / 100 seguidores) com barra e abre o relatório do dia (avaliação e recomendações), navegando pelos últimos 14 dias. O @andersonbrito.mp4 não entra na rotina.
+- Teste novo de relatório por perfil (39 passando).
+
 ## 2026-11-06 (noite) · AprovaçõeS_: galeria do carrossel e copiar confiável
 - Carrossel em galeria: todas as lâminas lado a lado (deslizar), contador "n/total", setas, miniaturas clicáveis e tela cheia ao tocar (setas do teclado e botão fechar). Imagem única também abre em tela cheia.
 - Copiar confiável em todo o painel (`copiarTexto` em `js/ui.js`): copia dentro do toque usando os dois caminhos (execCommand síncrono + Clipboard API) e, se o navegador bloquear os dois, abre uma janela com o texto já selecionado para copiar na mão. O aviso mostra quantos caracteres foram copiados. Aplicado em AprovaçõeS_, CarrosseL_, StúdiO_, Prompts, InfluencerS_ e PostadoR_ (Afiliações fica para depois: tem alteração em andamento de outra sessão).

@@ -351,4 +351,10 @@ describe("Arquivar pendente (migration 0036)", () => {
     const vivos = (await asUser(ownerId, () => db.query(`select arquivo from aprovacoes where perfil = 'infograficos' and archived_at is null`))).rows;
     expect(vivos).toHaveLength(1);
   });
+  it("agente grava relatório diário por perfil (kind perfil + dados)", async () => {
+    await asService(() => db.query(`select agent_write($1, 'insert', 'reports', '[{"kind":"perfil","perfil":"kairos","body":"Avaliação: ok. Recomendações: postar 2 reels.","dados":{"seguidores":120,"delta_dia":8,"semana_delta":40,"meta_semana":100}}]')`, [integrationId]));
+    const r = (await asUser(ownerId, () => db.query<{ perfil: string; dados: { semana_delta: number } }>(`select perfil, dados from reports where kind = 'perfil'`))).rows;
+    expect(r[0].perfil).toBe("kairos");
+    expect(r[0].dados.semana_delta).toBe(40);
+  });
 });

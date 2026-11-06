@@ -636,6 +636,7 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .pf-name{font-weight:700;font-size:18px;line-height:1.2}
 .pf-net{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:999px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.18)} a.pf-net:hover{background:rgba(0,0,0,.85);border-color:#fff}
 .pf-fol{display:flex;align-items:baseline;gap:8px} .pf-fol b{font:800 24px var(--f-head)}
+.pf-rel{display:flex;flex-direction:column;gap:5px;width:100%;margin-top:8px;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.04);color:inherit;text-align:left;cursor:pointer} .pf-rel:hover{border-color:var(--accent)} .pf-rel .gbar{height:6px}
 .pf-papel{margin-top:6px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 
 /* DesempenhO_: dados à esquerda, gráficos à direita */

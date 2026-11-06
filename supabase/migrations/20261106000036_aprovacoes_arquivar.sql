@@ -1,5 +1,12 @@
 -- Anderson OS · migration 0036 · agente pode arquivar peça própria ainda PENDENTE no AprovaçõeS_ (ex.: versão B que virou extra do card A).
 -- Nunca mexe em peça já decidida (aprovado, ajustar, reprovado, publicado).
+-- Também: relatório diário por perfil (reports kind 'perfil' + colunas perfil e dados), meta de +100 seguidores/semana nos perfis novos.
+
+alter table public.reports drop constraint if exists reports_kind_check;
+alter table public.reports add constraint reports_kind_check check (kind in ('insights','desempenho','instagram','facebook','perfil'));
+alter table public.reports add column if not exists perfil text;
+alter table public.reports add column if not exists dados jsonb not null default '{}';
+create index if not exists reports_perfil_idx on public.reports (perfil, created_at desc);
 
 create or replace function public.agent_write(p_integration uuid, p_op text, p_table text, p_rows jsonb, p_id uuid default null, p_version int default null)
 returns jsonb language plpgsql security definer set search_path = public as $$

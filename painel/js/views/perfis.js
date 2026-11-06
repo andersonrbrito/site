@@ -73,6 +73,11 @@ export default async function perfis({ sb, refresh }) {
   ]);
   if (pR.error || paR.error || rR.error) return h("p", { class: "alert" }, "Não foi possível carregar os perfis. A migration 0030 foi aplicada?");
   const perfisL = pR.data || [], pautas = paR.data || [], rec = rR.data || [];
+  // Relatório diário de cada perfil novo (rotina relatorios-perfis-diario): avaliação, recomendações e a meta de +100 seguidores/semana.
+  // Sem a migration 0036 a coluna "perfil" não existe: a seção some sem quebrar a página.
+  const relR = await sb.from("reports").select("id, perfil, body, dados, created_at").eq("kind", "perfil").is("archived_at", null).gte("created_at", addDaysISO(today, -14)).order("created_at", { ascending: false }).limit(300);
+  const rels = relR.error ? [] : relR.data || [];
+  const relDe = (slug) => rels.filter((r) => r.perfil === slug);
   const nome = (slug) => perfisL.find((p) => p.slug === slug)?.handle || slug;
 
   // ── Meta + registrar venda
@@ -143,6 +148,35 @@ export default async function perfis({ sb, refresh }) {
       h("button", { class: "btn btn-sm", type: "button", onclick: () => { ov.remove(); editPerfil(p); } }, "Editar")));
     document.body.append(ov);
   };
+  const verRelatorio = (p, lista) => {
+    let i = 0;
+    const ov = h("div", { class: "overlay", onmousedown: (e) => e.target === ov && ov.remove() });
+    const box = h("div", { class: "dialog eco-dialog", role: "dialog", "aria-modal": "true", "aria-label": `Relatório de ${p.handle}` });
+    const draw = () => {
+      const r = lista[i], d = r.dados || {};
+      box.replaceChildren(...[
+        h("div", { class: "flex", style: { justifyContent: "space-between" } }, h("h2", null, p.handle), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => ov.remove() }, "Fechar")),
+        h("div", { class: "flex wrap", style: { gap: "6px", margin: "6px 0 12px" } },
+          h("span", { class: "mono muted" }, fmtDateTime(r.created_at)),
+          d.seguidores == null ? null : h("span", { class: "chip" }, `${Number(d.seguidores).toLocaleString("pt-BR")} seguidores`),
+          d.delta_dia == null ? null : h("span", { class: "chip" + (d.delta_dia > 0 ? " ok" : "") }, `${d.delta_dia > 0 ? "+" : ""}${d.delta_dia} no dia`),
+          d.semana_delta == null ? null : h("span", { class: "chip" + (d.semana_delta >= (d.meta_semana || 100) ? " ok" : " warn") }, `${d.semana_delta > 0 ? "+" : ""}${d.semana_delta} / ${d.meta_semana || 100} na semana`)),
+        h("p", { class: "small pre" }, r.body),
+        lista.length < 2 ? null : h("div", { class: "flex", style: { justifyContent: "space-between", marginTop: "14px" } },
+          h("button", { class: "btn btn-ghost btn-sm", type: "button", disabled: i >= lista.length - 1, onclick: () => { i++; draw(); } }, "← dia anterior"),
+          h("span", { class: "mono muted" }, `${i + 1} de ${lista.length}`),
+          h("button", { class: "btn btn-ghost btn-sm", type: "button", disabled: i === 0, onclick: () => { i--; draw(); } }, "mais novo →"))].filter(Boolean));
+    };
+    draw(); ov.append(box); document.body.append(ov);
+  };
+  const metaSemana = (p) => {
+    const lista = relDe(p.slug); if (!lista.length) return null;
+    const d = lista[0].dados || {}, meta = d.meta_semana || 100, feito = Number(d.semana_delta ?? 0), pct = Math.max(0, Math.min(100, (feito / meta) * 100));
+    return h("button", { class: "pf-rel", type: "button", title: "Abrir o relatório do dia", onclick: () => verRelatorio(p, lista) },
+      h("div", { class: "flex", style: { justifyContent: "space-between" } }, h("span", { class: "mono" }, "Meta da semana"), h("b", null, `${feito > 0 ? "+" : ""}${feito} / ${meta}`)),
+      h("div", { class: "gbar" }, h("b", { style: { width: pct + "%" } })),
+      h("span", { class: "muted small" }, `relatório de ${fmtDateTime(lista[0].created_at)} · abrir`));
+  };
   const card = (p) => {
     const rede = redeDe(p), url = urlDe(p, rede), foto = p.foto_url || FOTOS[p.slug];
     return h("article", { class: "panel pf-card", style: { borderTop: `4px solid ${REDES[rede]?.cor || "var(--accent)"}` } },
@@ -155,9 +189,10 @@ export default async function perfis({ sb, refresh }) {
             h("span", { class: `chip f-${p.fase}`, style: { background: "rgba(0,0,0,.55)" } }, p.fase)))),
       h("div", { class: "panel-body" },
         h("div", { class: "pf-fol" }, h("b", null, p.seguidores != null ? p.seguidores.toLocaleString("pt-BR") : "–"), h("span", { class: "muted small" }, p.seguidores != null ? `seguidores · ${fmtDate(p.seguidores_em.slice(0, 10), false)}` : "seguidores: coleta diária")),
+        metaSemana(p),
         h("p", { class: "small muted pf-papel" }, p.papel),
         h("div", { class: "flex wrap", style: { gap: "6px", marginTop: "8px" } }, h("span", { class: "chip" }, `P${p.prioridade}`), p.nome_pendente && h("span", { class: "chip warn" }, "nome pendente"), h("span", { class: "chip" }, p.plataforma)),
-        h("div", { class: "flex", style: { marginTop: "10px" } }, h("button", { class: "btn btn-sm", type: "button", onclick: () => verMatriz(p) }, "Matriz"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => editPerfil(p) }, "Editar"))));
+        h("div", { class: "flex", style: { marginTop: "10px" } }, h("button", { class: "btn btn-sm", type: "button", onclick: () => verMatriz(p) }, "Matriz"), relDe(p.slug).length ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => verRelatorio(p, relDe(p.slug)) }, "Relatório") : null, h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => editPerfil(p) }, "Editar"))));
   };
   const porFase = (f) => perfisL.filter((p) => p.fase === f);
 
