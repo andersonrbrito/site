@@ -60,7 +60,7 @@ export function nextSlot(posts, network, settings, now = Date.now()) {
 export default async function postador(ctx) {
   const { sb, query, go, refresh } = ctx;
   if (query.aba === "insights") { go("/desempenho"); return h("div"); }
-  const aba = ["fila", "historico", "radar", "pedidos", "estudio"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
+  const aba = ["fila", "historico", "radar", "pedidos"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
   // Novo post: abre o editor vazio; só vira rascunho no banco quando você escrever algo.
   const novo = query.novo === "x" || query.novo === "linkedin" ? query.novo : null;
 
@@ -76,7 +76,7 @@ export default async function postador(ctx) {
   const xToday = posts.filter((p) => p.network === "x" && p.status === "posted" && p.posted_at && spDay(p.posted_at) === today).length;
   const cloudOn = !!settings.publisher_active;
 
-  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"], ["estudio", "Estúdio", "M4 6h16v12H4zM10 9l5 3-5 3z"]];
+  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"]];
   const tabIcon = (d) => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("width", "20"); s.setAttribute("height", "20"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "1.8"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round"); const pa = document.createElementNS("http://www.w3.org/2000/svg", "path"); pa.setAttribute("d", d); s.append(pa); return s; };
   const pending = posts.filter((p) => p.status === "pending").length;
   const brand = h("div", { class: "pbrand" },
@@ -93,7 +93,6 @@ export default async function postador(ctx) {
   if (aba === "historico") body = calendarView(posts, query, go, settings);
   else if (aba === "radar") body = await radarView(sb, query, go, refresh);
   else if (aba === "pedidos") body = await requestsView(sb, refresh);
-  else if (aba === "estudio") body = await studioView(sb, posts, profile, query, refresh);
   else body = await queueView({ sb, query, go, refresh, posts, settings, profile, today, novo });
   return h("div", { class: "page postador" }, brand, tabs, warn, body);
 }
@@ -673,11 +672,3 @@ async function requestsView(sb, refresh) {
     !(data || []).length && h("p", { class: "empty" }, "Nenhum pedido ainda."));
 }
 
-// ───────────────────────── Estúdio: post → card e Reel ─────────────────────────
-async function studioView() {
-  // Em construção: aqui vai o estúdio de vídeos em motion (imagens, fontes, animação) a partir de posts escolhidos à mão.
-  return h("div", { class: "placeholder", style: { minHeight: "360px" } },
-    h("p", { class: "mono", style: { color: "var(--accent)" } }, "Em construção"),
-    h("h2", { class: "caltitle" }, "Estúdio de vídeos"),
-    h("p", { class: "muted small", style: { maxWidth: "460px" } }, "Você vai escolher os posts e transformar em vídeos em motion, com imagens, fontes e animação, pra postar no Instagram, X, LinkedIn e Threads."));
-}

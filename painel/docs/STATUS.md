@@ -33,6 +33,10 @@
 - Feito e testado no harness: Map MentaleS_, AgenteS_, PerfiS_, Sticky NoteS_, ponto de notificação no menu e blocos novos no PaineL_. Testes de banco da migration 0030 passando (35).
 - **Pendente:** rodar `supabase/migrations/20261106000030_anderson_os_ecossistema.sql` no SQL Editor; carregar matriz e mapa (`ANDY 1TB/anderson_Os/07_automacoes/seed/carregar.py`); criar as rotinas `agentes-sync-painel`, `pautas-diarias-perfis` e `backup-semanal-drive` (prompts em `07_automacoes/rotinas/`). Sem a sincronização o AgenteS_ mostra "nunca".
 
+## v2.1 (2026-11-06, tarde)
+- Feito e testado no harness: aero glass, busca ao vivo, NoteS_, StúdiO_, ProdutoS_, CursoS_ com favoritos, e-mails no PaineL_, PerfiS_ com foto, DesempenhO_ reorganizado, imagens no Map MentaleS_.
+- **Pendente:** rodar `supabase/migrations/20261106000031_notes_produtos_emails.sql` no SQL Editor (sem ela NoteS_, ProdutoS_ e e-mails mostram aviso). Miniatura dos Reels do Facebook depende da função `meta` (sessão SociaL_).
+
 ## Pendente de configuração (depende de você)
 1. Projeto Supabase; preencher `painel/js/config.js` (URL e chave publishable).
 2. Aplicar `supabase/migrations/*.sql` na ordem; rodar `supabase/seed-owner.example.sql` com seu e-mail Google.

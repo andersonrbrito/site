@@ -1,6 +1,6 @@
 import { h, fmtDateTime, L } from "../util.js";
 import { pageHead, panel, alertBox, list, toast } from "../ui.js";
-import { MODULES } from "../modules.js?v=20261106d";
+import { MODULES } from "../modules.js?v=20261106e";
 
 export default async function config({ sb, member, refresh }) {
   if (member.role !== "owner") return h("div", { class: "page" }, alertBox("Apenas o dono acessa as configurações."));

@@ -26,6 +26,9 @@ const P = {
   agentes: "M9 3h6M12 3v3M6 6h12a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zM9 12h0M15 12h0M9 16h6M2 11v3M22 11v3",
   perfis: "M8 7a3 3 0 1 0 0 6 3 3 0 0 0 0-6zM2 20a6 6 0 0 1 12 0M16 6a3 3 0 1 1 0 6M18 14a5 5 0 0 1 4 6",
   notas: "M5 3h14v12l-6 6H5zM13 21v-6h6M8 8h8M8 12h5",
+  produtos: "M6 2h9l5 5v15H6zM14 2v6h6M9 13h8M9 17h5",
+  estudio: "M3 6h18v12H3zM10 9l5 3-5 3zM7 3l2 3M15 3l2 3",
+  emails: "M3 6h18v12H3zM3 7l9 6 9-6",
   miner: "M14 4l6 6M17 7L7 17M5 15l4 4M3 21l3-3M12 3l9 9",
 };
 export function icon(name, size = 16) {

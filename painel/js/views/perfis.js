@@ -2,7 +2,26 @@
 // (aquecimento, oração, react...) e a meta de faturamento de 60 dias. Também exporta os blocos do PaineL_.
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
 import { toast, pageHead } from "../ui.js";
-import { noteCard } from "./notas.js";
+
+
+const REDES = { instagram: { nome: "Instagram", cor: "#E1306C", d: "M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4zM12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM17.5 6.5h.01" },
+  tiktok: { nome: "TikTok", cor: "#25F4EE", d: "M16 3v10.5a4.5 4.5 0 1 1-4.5-4.5M16 3c.3 2.4 2 4 4.5 4.2" },
+  youtube: { nome: "YouTube", cor: "#FF0000", d: "M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z" },
+  x: { nome: "X", cor: "#d6d6d6", d: "M4 4l16 16M20 4L4 20" } };
+const FOTOS = { "andersonbrito-mp4": "/lunar/images/anderson-camera.jpg", "x-andersbrito": "/lunar/images/anderson-camera.jpg", "youtube-andersonbrito": "/lunar/images/anderson-camera.jpg", "tiktok-andersonbrito": "/lunar/images/anderson-camera.jpg", "anders-brito": "/lunar/images/anderson-camera.jpg", "brito-portfolio": "/lunar/images/anderson-camera.jpg",
+  kairos: "/painel/img/influencers/kairos.jpg", mazzaropi: "/painel/img/influencers/mazzaropi.jpg", "india-narah": "/painel/img/influencers/india-narah.jpg", seufofudo: "/painel/img/influencers/fofudo.jpg" };
+const redeDe = (p) => { const s = (p.plataforma || "").toLowerCase(); return s.startsWith("tiktok") ? "tiktok" : s.startsWith("youtube") ? "youtube" : s.startsWith("x") ? "x" : "instagram"; };
+const urlDe = (p, rede) => {
+  if (p.url) return p.url;
+  const m = (p.handle || "").match(/@([\w.]+)/); if (!m) return null;
+  return rede === "tiktok" ? `https://www.tiktok.com/@${m[1]}` : rede === "x" ? `https://x.com/${m[1]}` : rede === "youtube" ? `https://www.youtube.com/@${m[1]}` : `https://www.instagram.com/${m[1]}/`;
+};
+const iniciais = (t) => (t || "?").replace(/[@(].*$/, "").replace(/[^\p{L}\p{N} ]/gu, "").trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join("").toUpperCase() || "?";
+function netIcon(rede) {
+  const r = REDES[rede] || REDES.instagram, s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  for (const [k, v] of Object.entries({ width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: r.cor, "stroke-width": "1.8", "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true" })) s.setAttribute(k, v);
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path"); p.setAttribute("d", r.d); s.append(p); return s;
+}
 
 export const META = { valor: 3000, inicio: "2026-11-06", fim: "2027-01-05" };
 const brl = (v) => Number(v || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -24,26 +43,23 @@ const metaBar = (m) => h("div", { class: "eco-meta" },
 /** Blocos do PaineL_: meta de 60 dias, agentes, pautas do dia e notas fixadas. Some sozinho se a migration 0030 não existir. */
 export async function ecoHome(sb) {
   const today = todayISO();
-  const [recR, jobsR, pautR, notR] = await Promise.all([
+  const [recR, jobsR, pautR] = await Promise.all([
     sb.from("receitas").select("valor, dia").is("archived_at", null).gte("dia", META.inicio),
     sb.from("agent_jobs").select("task_id, titulo, enabled, last_status, last_run_at, next_run_at, synced_at").is("archived_at", null),
     sb.from("pautas").select("id, perfil, tipo, titulo, status, dia").is("archived_at", null).eq("dia", today),
-    sb.from("sticky_notes").select("id, texto, cor, tags, x, y, w, h, z, fixada, link, version, updated_at").is("archived_at", null).eq("fixada", true).order("updated_at", { ascending: false }).limit(8),
   ]);
-  if ([recR, jobsR, pautR, notR].some((r) => r.error)) return null;
+  if ([recR, jobsR, pautR].some((r) => r.error)) return null;
   const m = metaNums(recR.data || []), jobs = jobsR.data || [], pautas = pautR.data || [];
   const falhas = jobs.filter((j) => j.last_status === "falha").length, ativos = jobs.filter((j) => j.enabled).length;
   const sync = jobs.reduce((s, j) => (j.synced_at > s ? j.synced_at : s), "");
   const pend = pautas.filter((p) => p.status === "pendente");
   const head = (t, href, link) => h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, t), href && h("a", { class: "mono", href }, link));
-  const notes = notR.data || [];
   return h("div", { class: "stack-lg" },
     h("section", { class: "panel" }, head("Meta · R$ 3.000 em 60 dias (faturamento)", "#/perfis", "registrar venda →"), h("div", { class: "panel-body" }, metaBar(m))),
     h("div", { class: "kpis" },
       h("a", { class: "kpi" + (falhas ? " hot" : ""), href: "#/agentes" }, h("span", { class: "mono" }, "AgenteS_"), h("b", null, `${ativos} ativos`), h("span", { class: "muted small" }, falhas ? `${falhas} com falha na última execução` : sync ? `sincronizado ${fmtDateTime(sync)}` : "aguardando a 1ª sincronização")),
       h("a", { class: "kpi" + (pend.length ? " hot" : ""), href: "#/perfis" }, h("span", { class: "mono" }, "Pautas de hoje"), h("b", null, `${pautas.length - pend.length}/${pautas.length}`), h("span", { class: "muted small" }, pend.length ? `${pend.length} pendentes (aquecimento, oração, reacts…)` : "tudo feito")),
-      h("a", { class: "kpi", href: "#/mapa" }, h("span", { class: "mono" }, "Map MentaleS_"), h("b", null, "abrir"), h("span", { class: "muted small" }, "ecossistema, funis e dependências"))),
-    notes.length ? h("section", { class: "panel" }, head("Sticky NoteS_ fixadas", "#/notas", "quadro →"), h("div", { class: "panel-body sn-grid" }, ...notes.map((n) => noteCard(sb, n)))) : null);
+      h("a", { class: "kpi", href: "#/mapa" }, h("span", { class: "mono" }, "Map MentaleS_"), h("b", null, "abrir"), h("span", { class: "muted small" }, "ecossistema, funis e dependências"))));
 }
 
 export default async function perfis({ sb, refresh }) {
@@ -114,26 +130,42 @@ export default async function perfis({ sb, refresh }) {
     });
     ov.append(f); document.body.append(ov); f.querySelector("input").focus();
   };
-  const card = (p) => h("details", { class: "eco-card", dataset: { fase: p.fase } },
-    h("summary", null,
-      h("div", { class: "flex wrap" }, h("b", { class: "eco-handle" }, p.handle), p.nome_pendente && h("span", { class: "chip warn" }, "nome pendente"), h("span", { class: `chip f-${p.fase}` }, p.fase), h("span", { class: "chip" }, p.plataforma), h("span", { class: "chip" }, `P${p.prioridade}`)),
-      h("p", { class: "small muted", style: { marginTop: "4px" } }, p.papel)),
-    h("div", { class: "eco-body" },
-      p.conteudo && h("p", { class: "small" }, h("b", null, "Conteúdo: "), p.conteudo),
-      p.conversao && h("p", { class: "small" }, h("b", null, "Conversão: "), p.conversao),
+  const verMatriz = (p) => {
+    const ov = h("div", { class: "overlay", onmousedown: (e) => e.target === ov && ov.remove() });
+    ov.append(h("div", { class: "dialog eco-dialog", role: "dialog", "aria-modal": "true", "aria-label": p.handle },
+      h("div", { class: "flex", style: { justifyContent: "space-between" } }, h("h2", null, p.handle), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => ov.remove() }, "Fechar")),
+      h("p", { class: "small" }, p.papel),
+      p.conteudo && h("p", { class: "small", style: { marginTop: "8px" } }, h("b", null, "Conteúdo: "), p.conteudo),
+      p.conversao && h("p", { class: "small", style: { marginTop: "8px" } }, h("b", null, "Conversão: "), p.conversao),
       h("dl", { class: "eco-dl" }, ...MATRIZ.filter(([k]) => p.matriz?.[k]).flatMap(([k, l]) => [h("dt", null, l), h("dd", null, p.matriz[k])])),
-      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => editPerfil(p) }, "Editar")));
+      h("button", { class: "btn btn-sm", type: "button", onclick: () => { ov.remove(); editPerfil(p); } }, "Editar")));
+    document.body.append(ov);
+  };
+  const card = (p) => {
+    const rede = redeDe(p), url = urlDe(p, rede), foto = p.foto_url || FOTOS[p.slug];
+    return h("article", { class: "panel pf-card", style: { borderTop: `4px solid ${REDES[rede]?.cor || "var(--accent)"}` } },
+      h("div", { class: "pf-photo" },
+        foto ? h("img", { src: foto, alt: p.handle, loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.replaceWith(h("span", { class: "pf-ini" }, iniciais(p.handle))) }) : h("span", { class: "pf-ini" }, iniciais(p.handle)),
+        h("div", { class: "pf-over" },
+          h("div", { class: "pf-name" }, p.handle),
+          h("div", { class: "flex", style: { gap: "6px", marginTop: "6px" } },
+            url ? h("a", { class: "pf-net", href: url, target: "_blank", rel: "noopener", title: `Abrir no ${REDES[rede]?.nome || "perfil"}`, "aria-label": `Abrir ${p.handle} no ${REDES[rede]?.nome || "perfil"}` }, netIcon(rede)) : h("span", { class: "pf-net" }, netIcon(rede)),
+            h("span", { class: `chip f-${p.fase}`, style: { background: "rgba(0,0,0,.55)" } }, p.fase)))),
+      h("div", { class: "panel-body" },
+        h("div", { class: "pf-fol" }, h("b", null, p.seguidores != null ? p.seguidores.toLocaleString("pt-BR") : "–"), h("span", { class: "muted small" }, p.seguidores != null ? `seguidores · ${fmtDate(p.seguidores_em.slice(0, 10), false)}` : "seguidores: coleta diária")),
+        h("p", { class: "small muted pf-papel" }, p.papel),
+        h("div", { class: "flex wrap", style: { gap: "6px", marginTop: "8px" } }, h("span", { class: "chip" }, `P${p.prioridade}`), p.nome_pendente && h("span", { class: "chip warn" }, "nome pendente"), h("span", { class: "chip" }, p.plataforma)),
+        h("div", { class: "flex", style: { marginTop: "10px" } }, h("button", { class: "btn btn-sm", type: "button", onclick: () => verMatriz(p) }, "Matriz"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => editPerfil(p) }, "Editar"))));
+  };
   const porFase = (f) => perfisL.filter((p) => p.fase === f);
 
-  return h("div", { class: "page" },
+  const ordenados = [...perfisL].sort((a, b) => a.prioridade - b.prioridade || a.ordem - b.ordem);
+  return h("div", { class: "page wide" },
     pageHead("PerfiS_", "ecossistema de contas", h("a", { class: "btn btn-ghost btn-sm", href: "#/mapa" }, "Map MentaleS_ →")),
+    perfisL.length ? h("div", { class: "pf-grid" }, ...ordenados.map(card)) : h("p", { class: "empty" }, "A matriz dos perfis ainda não foi carregada."),
+    h("section", { class: "panel", style: { marginTop: "20px" } }, h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--warn)" } }), h("h2", { class: "mono grow" }, "Pautas e lembretes · hoje, amanhã e atrasadas")),
+      h("div", { class: "panel-body" }, h("p", { class: "muted small", style: { marginBottom: "10px" } }, "Aquecimento é sempre ação humana: comentar de verdade, responder, observar. Nada de engajamento comprado ou automação de comentários."), pautaBox)),
     h("section", { class: "panel" }, h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, `Meta · ${brl(META.valor)} de faturamento de ${fmtDate(META.inicio, false)} a ${fmtDate(META.fim, false)}`)),
       h("div", { class: "panel-body stack-lg" }, metaBar(m), form,
-        porPerfil.length ? h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "por origem:"), ...porPerfil.map(([k2, v]) => h("span", { class: "chip" }, `${nome(k2)} ${brl(v)}`))) : null, recList)),
-    h("section", { class: "panel" }, h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--warn)" } }), h("h2", { class: "mono grow" }, "Pautas e lembretes · hoje, amanhã e atrasadas")),
-      h("div", { class: "panel-body" }, h("p", { class: "muted small", style: { marginBottom: "10px" } }, "Aquecimento é sempre ação humana: comentar de verdade, responder, observar. Nada de engajamento comprado ou automação de comentários."), pautaBox)),
-    ...["ativo", "aquecendo", "piloto", "planejado", "pausado"].filter((f) => porFase(f).length).map((f) =>
-      h("section", { class: "panel" }, h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: f === "ativo" ? "var(--ok)" : f === "pausado" ? "var(--tx-4)" : "var(--accent)" } }), h("h2", { class: "mono grow" }, `Perfis · ${f}`), h("span", { class: "mono" }, porFase(f).length)),
-        h("div", { class: "panel-body eco-cards" }, ...porFase(f).map(card)))),
-    !perfisL.length && h("p", { class: "empty" }, "A matriz dos perfis ainda não foi carregada."));
+        porPerfil.length ? h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "por origem:"), ...porPerfil.map(([k2, v]) => h("span", { class: "chip" }, `${nome(k2)} ${brl(v)}`))) : null, recList)));
 }

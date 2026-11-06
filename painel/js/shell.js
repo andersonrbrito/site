@@ -1,10 +1,12 @@
 import { h, fmtDateTime } from "./util.js";
 import { icon, toast } from "./ui.js";
-import { visibleModules } from "./modules.js?v=20261106d";
+import { visibleModules } from "./modules.js?v=20261106e";
 import { SOCIALS, AIS, iconLink } from "./links.js";
 import { HREF } from "./views/busca.js";
 
 const NAMES = { task: "Tarefa", project: "Projeto", note: "Nota", event: "Compromisso" };
+// Versão do painel mostrada ao lado do logo (suba a cada entrega relevante).
+export const VERSAO = "v2.1";
 const href = (m) => "#/" + m.route;
 
 export function buildShell({ sb, member, go, signOut }) {
@@ -14,6 +16,8 @@ export function buildShell({ sb, member, go, signOut }) {
   tick(); setInterval(tick, 30000);
 
   // Ações rápidas no topo: o que mais se usa, a um clique.
+  // Busca ao vivo: módulos do painel + perfis, notas, produtos, carrosséis, posts, garimpo e tarefas, conforme digita.
+  const search = buildSearch(sb, mods, go);
   const quick = h("div", { class: "grow flex quick" },
     h("a", { class: "btn btn-sm", href: "#/postador?novo=x", dataset: { only: "postador" } }, "+ Post no X"),
     h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin", dataset: { only: "postador" } }, "+ LinkedIn"),
@@ -28,11 +32,11 @@ export function buildShell({ sb, member, go, signOut }) {
   const main = h("main", { id: "main" });
   const root = h("div", null,
     h("div", { class: "menubar" },
-      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "socials hide-sm" }, ...SOCIALS.map((x) => iconLink(x, "ilink sm"))), h("a", { class: "sitebtn", href: "https://andersonbrito.com/", target: "_blank", rel: "noopener" }, "Meu site ↗")),
+      h("div", { class: "brand" }, h("span", { class: "logo" }, "ANDERSON", h("b", null, "_OS")), h("span", { class: "ver", title: "Versão do painel" }, VERSAO), h("span", { class: "socials hide-sm" }, ...SOCIALS.map((x) => iconLink(x, "ilink sm"))), h("a", { class: "sitebtn", href: "https://andersonbrito.com/", target: "_blank", rel: "noopener" }, "Meu site ↗")),
       h("div", { class: "mid" }, h("span", null, "SEQ "), "ANDERSON_OS · ", section),
-      h("div", { class: "right" }, clock, h("span", { class: "hide-sm flex" }, h("span", { class: "dot-live" }), member.email))),
+      h("div", { class: "right" }, h("a", { class: "wa-btn", href: "https://web.whatsapp.com/", target: "_blank", rel: "noopener", title: "WhatsApp Business (web)" }, waIcon(), h("span", { class: "hide-sm" }, "WhatsApp")), clock, h("span", { class: "hide-sm flex who" }, h("span", { class: "dot-live" }), member.email))),
     h("div", { class: "toolbar" },
-      h("button", { class: "btn btn-ghost btn-sm hide-sm", type: "button", "data-palette": "", "aria-label": "Abrir busca e comandos" }, icon("busca", 14), " Ir para ", h("span", { class: "kbd" }, "Ctrl K")), quick),
+      search.root, quick),
     h("aside", { class: "side" }, h("nav", null, ...navLinks), h("button", { class: "navlink", type: "button", style: { border: 0, background: "none", cursor: "pointer", font: "inherit" }, onclick: signOut }, "Sair")),
     main,
     h("nav", { class: "tabbar", style: { gridTemplateColumns: `repeat(${tabs.length}, 1fr)` } }, ...tabs),
@@ -98,14 +102,71 @@ export function buildShell({ sb, member, go, signOut }) {
   let g = false, gt;
   document.addEventListener("keydown", (e) => {
     const typing = /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName) || e.target.isContentEditable;
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); openPalette(); return; }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); search.focus(); return; }
     if (e.key === "Escape") return closePalette();
     if (typing || e.metaKey || e.ctrlKey || e.altKey) return;
-    if (e.key === "/") { e.preventDefault(); return openPalette(); }
+    if (e.key === "/") { e.preventDefault(); return search.focus(); }
     if (g) { const map = { i: "", p: "postador", m: "miner", a: "agenda" }; if (e.key in map) go("/" + map[e.key]); g = false; return; }
     if (e.key === "g") { g = true; clearTimeout(gt); gt = setTimeout(() => (g = false), 900); }
   });
   root.addEventListener("click", (e) => { if (e.target.closest("[data-palette]")) openPalette(); });
   void fmtDateTime;
   return { root, main, setActive, mods };
+}
+
+
+function waIcon() {
+  const s = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  for (const [k, v] of Object.entries({ width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.9", "stroke-linecap": "round", "stroke-linejoin": "round", "aria-hidden": "true" })) s.setAttribute(k, v);
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("d", "M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.3zM9 8.5c.3 2.7 3.2 5.9 6.5 6.5l1-1.6-2-1-1 1c-1.2-.5-2.4-1.7-2.9-2.9l1-1-1-2z");
+  s.append(p); return s;
+}
+
+function buildSearch(sb, mods, go) {
+  const input = h("input", { class: "gsearch-in", type: "search", placeholder: "Buscar no painel…  (Ctrl K)", "aria-label": "Buscar no painel", autocomplete: "off", role: "combobox", "aria-expanded": "false" });
+  const ul = h("ul", { class: "gsearch-res", role: "listbox", hidden: true });
+  const root = h("div", { class: "gsearch" }, icon("busca", 16), input, ul);
+  let results = [], idx = 0, seq = 0, t;
+  const esc = (q) => q.replace(/[%_,()]/g, " ");
+  const SRC = [
+    ["perfis", "Perfil", "handle", (r) => "#/perfis", "handle, papel", (q) => `handle.ilike.%${q}%,papel.ilike.%${q}%`, "id, handle"],
+    ["sticky_notes", "Nota", "titulo", () => "#/notas", "", (q) => `titulo.ilike.%${q}%,texto.ilike.%${q}%`, "id, titulo, texto"],
+    ["produtos", "Produto", "nome", () => "#/produtos", "", (q) => `nome.ilike.%${q}%`, "id, nome"],
+    ["carrosseis", "Carrossel", "titulo", (r) => `#/carrosseis?c=${encodeURIComponent(r.slug)}`, "", (q) => `titulo.ilike.%${q}%,legenda.ilike.%${q}%`, "id, slug, titulo"],
+    ["posts", "Post", "title", (r) => `#/postador?id=${r.id}`, "", (q) => `title.ilike.%${q}%,body.ilike.%${q}%`, "id, title, body"],
+    ["miner_links", "Garimpo", "note", () => "#/miner", "", (q) => `note.ilike.%${q}%,author.ilike.%${q}%`, "id, note, author"],
+    ["pautas", "Pauta", "titulo", () => "#/perfis", "", (q) => `titulo.ilike.%${q}%`, "id, titulo"],
+  ];
+  const close = () => { ul.hidden = true; input.setAttribute("aria-expanded", "false"); };
+  const draw = () => {
+    idx = Math.min(idx, Math.max(0, results.length - 1));
+    ul.replaceChildren(...(results.length ? results.map((r, i) => h("li", null, h("button", { type: "button", "aria-selected": String(i === idx), onmousedown: (e) => { e.preventDefault(); pick(r); } }, h("span", { class: "mono" }, r.kind), h("span", { class: "grow truncate" }, r.label)))) : [h("li", { class: "muted small", style: { padding: "10px 12px" } }, "Nada encontrado.")]));
+    ul.hidden = !input.value.trim(); input.setAttribute("aria-expanded", String(!ul.hidden));
+  };
+  const pick = (r) => { close(); input.value = ""; input.blur(); location.hash = r.href; };
+  const run = async () => {
+    const q = input.value.trim(), my = ++seq;
+    if (!q) { results = []; close(); return; }
+    const ql = q.toLowerCase();
+    results = mods.filter((m) => m.label.toLowerCase().includes(ql)).map((m) => ({ kind: "Página", label: m.label, href: "#/" + m.route }));
+    draw();
+    if (q.length < 2) return;
+    const qq = esc(q);
+    const found = await Promise.all(SRC.map(([table, kind, col, href, , or, cols]) => sb.from(table).select(cols).is("archived_at", null).or(or(qq)).limit(5)
+      .then(({ data }) => (data || []).map((r) => ({ kind, label: (r[col] || r.texto || r.body || r.author || "(sem título)").toString().split("\n")[0].slice(0, 90), href: href(r) }))).catch(() => [])));
+    if (my !== seq) return;
+    results = [...results, ...found.flat()].slice(0, 30); draw();
+  };
+  input.addEventListener("input", () => { idx = 0; clearTimeout(t); t = setTimeout(run, 200); });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") { e.preventDefault(); idx = Math.min(idx + 1, results.length - 1); draw(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); idx = Math.max(idx - 1, 0); draw(); }
+    else if (e.key === "Enter") { const r = results[idx]; if (r) pick(r); }
+    else if (e.key === "Escape") { input.value = ""; close(); input.blur(); }
+  });
+  input.addEventListener("blur", () => setTimeout(close, 150));
+  window.addEventListener("hashchange", () => { input.value = ""; results = []; close(); });
+  input.addEventListener("focus", () => { if (input.value.trim()) draw(); });
+  return { root, focus: () => input.focus() };
 }

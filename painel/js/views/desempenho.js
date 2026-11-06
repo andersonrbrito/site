@@ -34,7 +34,7 @@ export function lineChart(points, { goal, height = 170, color = "var(--accent)" 
 }
 
 // Relatórios em texto que o Claude escreve depois de cada coleta (tabela reports).
-const REPORT_TITLE = { insights: "Relatório diário do X", desempenho: "Relatório diário do Instagram", instagram: "Insights do Instagram · últimos 30 dias" };
+const REPORT_TITLE = { insights: "Relatório diário do X", desempenho: "Relatório diário do Instagram", instagram: "Insights do Instagram · últimos 30 dias", facebook: "Relatório diário da Página do Facebook" };
 // Códigos de Reel (ex.: DebwXDCBKZp) viram link "Reel ↗" em vez de aparecer soltos no texto.
 const reportBody = (text, media = {}) => {
   const out = []; let last = 0;
@@ -49,8 +49,8 @@ export async function reportBox(sb, kind, media = {}) {
   const { data } = await sb.from("reports").select("body, created_at").eq("kind", kind).is("archived_at", null).order("created_at", { ascending: false }).limit(1);
   const r = (data || [])[0];
   return h("section", { class: "panel", style: { marginBottom: "20px" } },
-    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: kind === "insights" ? "var(--accent)" : "#dd2a7b" } }), h("h2", { class: "mono grow" }, REPORT_TITLE[kind]), r && h("span", { class: "mono muted" }, fmtDate(r.created_at.slice(0, 10), false))),
-    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, ...reportBody(r.body, media)) : h("p", { class: "empty" }, kind === "instagram" ? "Clique em Atualizar insights do Instagram para gerar o primeiro." : "Aparece aqui depois da próxima coleta (5h).")));
+    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: kind === "insights" ? "var(--accent)" : kind === "facebook" ? "#1877f2" : "#dd2a7b" } }), h("h2", { class: "mono grow" }, REPORT_TITLE[kind]), r && h("span", { class: "mono muted" }, fmtDate(r.created_at.slice(0, 10), false))),
+    h("div", { class: "panel-body" }, r ? h("p", { class: "report" }, ...reportBody(r.body, media)) : h("p", { class: "empty" }, kind === "instagram" ? "Clique em Atualizar insights do Instagram para gerar o primeiro." : kind === "facebook" ? "Aparece aqui depois da rotina das 5h (relatório da Página)." : "Aparece aqui depois da próxima coleta (5h).")));
 }
 
 const card = (title, value, sub, chart) => h("section", { class: "panel" },
@@ -64,30 +64,32 @@ const delta = (series) => {
 };
 
 export default async function desempenho({ sb, refresh, query, go }) {
-  const aba = ["instagram", "facebook", "anuncios"].includes(query?.aba) ? query.aba : "x";
+  const aba = ["x", "facebook"].includes(query?.aba) ? query.aba : "instagram";
   const tabs = h("div", { class: "qnav dtabs" },
-    h("a", { href: "#/desempenho", class: aba === "x" ? "on" : "" }, "X · @andersbrito"),
-    h("a", { href: "#/desempenho?aba=instagram", class: aba === "instagram" ? "on" : "" }, "Instagram · @andersonbrito.mp4"),
-    h("a", { href: "#/desempenho?aba=facebook", class: aba === "facebook" ? "on" : "" }, "Facebook · Página"),
-    h("a", { href: "#/desempenho?aba=anuncios", class: aba === "anuncios" ? "on" : "" }, "Anúncios · Meta Ads"));
-  if (aba === "anuncios") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Meta Ads · ao vivo, só leitura"), tabs, await adsPanel(sb));
-  if (aba === "facebook") return h("div", { class: "page desempenho" }, pageHead("Desempenho", "Página do Facebook · ao vivo pela API da Meta"), tabs, fbPanel(sb));
+    h("a", { href: "#/desempenho", class: aba === "instagram" ? "on" : "" }, "Instagram · @andersonbrito.mp4"),
+    h("a", { href: "#/desempenho?aba=x", class: aba === "x" ? "on" : "" }, "X · @andersbrito"),
+    h("a", { href: "#/desempenho?aba=facebook", class: aba === "facebook" ? "on" : "" }, "Facebook · Página"));
+  const top = [pageHead("DesempenhO_", aba === "facebook" ? "Página do Facebook · API da Meta" : "atualizado toda manhã"), adsBox(sb), tabs];
+  const split = (left, right) => h("div", { class: "dsplit" }, h("div", { class: "dleft stack-lg" }, ...left), h("div", { class: "dright stack-lg" }, ...right));
+  if (aba === "facebook") return h("div", { class: "page desempenho wide" }, ...top, fbPanel(sb));
   const statsR = await sb.from("social_stats").select("day, platform, followers, following, posts, data").is("archived_at", null).order("day").limit(800);
-  if (statsR.error) return h("div", { class: "page" }, pageHead("Desempenho", "X e Instagram"), alertBox("Não foi possível carregar os dados."));
+  if (statsR.error) return h("div", { class: "page" }, ...top, alertBox("Não foi possível carregar os dados."));
   const stats = statsR.data || [];
   const ser = (platform, f) => stats.filter((s) => s.platform === platform).map((s) => ({ day: s.day, v: f(s) })).filter((p) => p.v != null);
   const lastOf = (a) => (a.length ? a[a.length - 1].v : null);
 
   if (aba === "x") {
     const xVer = ser("x", (s) => s.data?.verified_followers ?? null), xImp = ser("x", (s) => s.data?.impressions_90d ?? null), xFol = ser("x", (s) => s.followers);
-    return h("div", { class: "page desempenho" },
-      pageHead("Desempenho", "X e Instagram · atualizado toda manhã"), tabs,
-      await xOrigem(sb),
-      await insightsView(sb, refresh),
-      h("div", { class: "dgrid" },
-        card("Seguidores verificados (meta 500)", k(lastOf(xVer)), delta(xVer), lineChart(xVer, { goal: 500 })),
-        card("Impressões verificadas · 90 dias (meta 500 mil)", k(lastOf(xImp)), delta(xImp), lineChart(xImp, { goal: 500000 })),
-        card("Seguidores no total", k(lastOf(xFol)), delta(xFol), lineChart(xFol))));
+    return h("div", { class: "page desempenho wide" }, ...top,
+      split([
+        h("div", { class: "dnums" }, numTile("Verificados (meta 500)", k(lastOf(xVer)), delta(xVer)), numTile("Impressões verif. 90 dias (meta 500 mil)", k(lastOf(xImp)), delta(xImp)), numTile("Seguidores", k(lastOf(xFol)), delta(xFol))),
+        await xOrigem(sb), await reportBox(sb, "insights"),
+      ], [
+        chartCard("Seguidores verificados", lineChart(xVer, { goal: 500 })),
+        chartCard("Impressões verificadas · 90 dias", lineChart(xImp, { goal: 500000 })),
+        chartCard("Seguidores no total", lineChart(xFol)),
+      ]),
+      h("div", { style: { marginTop: "20px" } }, await insightsView(sb, refresh)));
   }
 
   const [reelsR, mediaR] = await Promise.all([
@@ -96,7 +98,6 @@ export default async function desempenho({ sb, refresh, query, go }) {
   ]);
   const media = Object.fromEntries((mediaR.data || []).map((m) => [m.shortcode, m]));
   const igFol = ser("instagram", (s) => s.followers), igPosts = ser("instagram", (s) => s.posts);
-  // Reels: últimos 12 do dia mais recente, com crescimento desde a primeira medição de cada um
   const reels = reelsR.data || [];
   const lastDay = reels.length ? reels[reels.length - 1].day : null;
   const latest = reels.filter((r) => r.day === lastDay);
@@ -112,20 +113,47 @@ export default async function desempenho({ sb, refresh, query, go }) {
       h("b", null, k(r.views)),
       h("span", { class: "mono " + (grow > 0 ? "up" : "muted") }, grow == null ? "novo" : `${grow >= 0 ? "+" : ""}${k(grow)}`));
   };
-  return h("div", { class: "page desempenho" },
-    pageHead("Desempenho", "X e Instagram · atualizado toda manhã"), tabs,
-    await igApi(sb),
-    await reportBox(sb, "desempenho", media),
-    await igInsights(sb, refresh, media),
-    h("div", { class: "dgrid" },
-      card("Seguidores", k(lastOf(igFol)), delta(igFol), lineChart(igFol, { color: "#dd2a7b" })),
-      card("Posts", k(lastOf(igPosts)), delta(igPosts), lineChart(igPosts, { color: "#dd2a7b" }))),
-    h("section", { class: "panel", style: { marginTop: "20px" } },
-      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Últimos 12 Reels"), h("span", { class: "mono" }, lastDay ? fmtDate(lastDay, false) : "")),
-      h("div", { class: "panel-body" },
-        latest.length ? [h("div", { class: "dnum" }, h("b", null, k(totalViews)), h("span", { class: "muted small" }, "views somadas · crescimento desde a 1ª medição")), h("div", { class: "reels" }, ...latest.map(reelRow))]
-          : h("p", { class: "empty" }, "Sem dados ainda."))),
-    h("p", { class: "muted small" }, "O Instagram mostra views arredondadas (ex.: 13,8 mil), então pequenas variações podem não aparecer."));
+  const api = await igApi(sb);
+  return h("div", { class: "page desempenho wide" }, ...top,
+    split([
+      h("div", { class: "dnums" }, numTile("Seguidores", k(lastOf(igFol)), delta(igFol)), numTile("Posts", k(lastOf(igPosts)), delta(igPosts)), numTile("Views · últimos 12 Reels", k(totalViews), lastDay ? fmtDate(lastDay, false) : "")),
+      api.stats,
+      await reportBox(sb, "desempenho", media),
+      await igInsights(sb, refresh, media),
+      h("section", { class: "panel" },
+        h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Últimos 12 Reels"), h("span", { class: "mono" }, lastDay ? fmtDate(lastDay, false) : "")),
+        h("div", { class: "panel-body" }, latest.length ? h("div", { class: "reels" }, ...latest.map(reelRow)) : h("p", { class: "empty" }, "Sem dados ainda."),
+          h("p", { class: "muted small", style: { marginTop: "8px" } }, "O Instagram arredonda as views (ex.: 13,8 mil), então pequenas variações podem não aparecer."))),
+    ], [
+      api.chart,
+      chartCard("Seguidores", lineChart(igFol, { color: "#dd2a7b" })),
+      chartCard("Posts", lineChart(igPosts, { color: "#dd2a7b" })),
+    ]));
+}
+
+const numTile = (label, value, sub) => h("div", { class: "dnum-tile" }, h("span", { class: "mono" }, label), h("b", null, value), sub && h("span", { class: "muted small" }, sub));
+const chartCard = (title, chart, color = "var(--accent)") => h("section", { class: "panel" },
+  h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: color } }), h("h2", { class: "mono grow" }, title)), h("div", { class: "panel-body" }, chart));
+
+// Meta Ads no topo: oculto por padrão (dados financeiros); o olho mostra e só então busca na Meta.
+function adsBox(sb) {
+  let open = false, loaded = null;
+  const body = h("div", { class: "panel-body", hidden: true });
+  const eye = h("button", { class: "btn btn-ghost btn-sm", type: "button", "aria-pressed": "false", "aria-label": "Mostrar anúncios" });
+  const paint = () => { eye.replaceChildren(open ? "Ocultar" : "Mostrar", " ", eyeIcon(open)); eye.setAttribute("aria-pressed", String(open)); body.hidden = !open; };
+  eye.addEventListener("click", async () => {
+    open = !open; paint();
+    if (open && !loaded) { body.replaceChildren(h("p", { class: "muted small" }, "Lendo as campanhas na Meta…")); loaded = await adsPanel(sb); body.replaceChildren(loaded); }
+  });
+  paint();
+  return h("section", { class: "panel ads-box" }, h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#1877f2" } }), h("h2", { class: "mono grow" }, "Anúncios · Meta Ads (oculto)"), eye), body);
+}
+function eyeIcon(open) {
+  const s = document.createElementNS(NS, "svg");
+  for (const [a, v] of Object.entries({ width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "1.8", "stroke-linecap": "round", "aria-hidden": "true" })) s.setAttribute(a, v);
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("d", open ? "M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12zM12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" : "M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6C3.8 8.4 2 12 2 12s3.5 7 10 7a10 10 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2");
+  s.append(p); return s;
 }
 
 // Nome do Reel: primeira linha da legenda (sem hashtags); sem legenda, a data do post.
@@ -179,17 +207,17 @@ export async function xOrigem(sb) {
 // Números ao vivo da API do Instagram (últimos 30 dias), lidos pela função "meta" na hora em que a aba abre.
 async function igApi(sb) {
   let r;
-  try { r = await callMeta(sb, "ig_insights"); } catch (e) { return alertBox("Insights do Instagram pela API indisponíveis: " + e.message); }
+  try { r = await callMeta(sb, "ig_insights"); } catch (e) { const a = alertBox("Insights do Instagram pela API indisponíveis: " + e.message); return { stats: a, chart: h("div") }; }
   const tot = Object.fromEntries((r.totais?.data || []).map((m) => [m.name, m.total_value?.value ?? null]));
   const reach = (r.alcance_diario?.data?.[0]?.values || []).map((v) => ({ day: v.end_time.slice(0, 10), v: v.value }));
   const stat = (rot, v) => h("div", { class: "xorig" }, h("span", { class: "mono" }, rot), h("b", null, k(v)));
-  return h("section", { class: "panel", style: { marginBottom: "20px" } },
-    h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Instagram · últimos 30 dias (API)")),
-    h("div", { class: "panel-body" },
-      h("div", { class: "xorig3" }, stat("ALCANCE", tot.reach), stat("VISUALIZAÇÕES", tot.views), stat("CONTAS ENGAJADAS", tot.accounts_engaged),
-        stat("INTERAÇÕES", tot.total_interactions), stat("COMPARTILHAMENTOS", tot.shares), stat("TOQUES NO LINK", tot.profile_links_taps)),
-      h("p", { class: "muted small", style: { margin: "14px 0 6px" } }, "Alcance por dia"),
-      lineChart(reach, { color: "#dd2a7b" })));
+  return {
+    stats: h("section", { class: "panel" },
+      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#dd2a7b" } }), h("h2", { class: "mono grow" }, "Instagram · últimos 30 dias (API)")),
+      h("div", { class: "panel-body" }, h("div", { class: "xorig3" }, stat("ALCANCE", tot.reach), stat("VISUALIZAÇÕES", tot.views), stat("CONTAS ENGAJADAS", tot.accounts_engaged),
+        stat("INTERAÇÕES", tot.total_interactions), stat("COMPARTILHAMENTOS", tot.shares), stat("TOQUES NO LINK", tot.profile_links_taps)))),
+    chart: chartCard("Alcance por dia · 30 dias", lineChart(reach, { color: "#dd2a7b" }), "#dd2a7b"),
+  };
 }
 
 // Página do Facebook: views de cada Reel/vídeo (a Meta só libera views por vídeo para este app).
@@ -197,7 +225,7 @@ async function igApi(sb) {
 function fbPanel(sb) {
   const box = h("div", null);
   let cache = null; try { cache = JSON.parse(localStorage.getItem("fb_history") || "null"); } catch {}
-  const show = (r, nota) => box.replaceChildren(h("p", { class: "muted small", style: { marginBottom: "10px" } }, nota), fbBody(r));
+  const show = (r, nota) => box.replaceChildren(h("p", { class: "muted small", style: { marginBottom: "10px" } }, nota), fbBody(r, sb));
   if (cache) show(cache.r, `Resultado de ${new Date(cache.t).toLocaleString("pt-BR")} · atualizando…`);
   else box.replaceChildren(h("p", { class: "empty" }, "Lendo os Reels da Página na Meta (leva cerca de 1 minuto)…"));
   callMeta(sb, "fb_history").then((r) => {
@@ -207,23 +235,46 @@ function fbPanel(sb) {
   return box;
 }
 
-function fbBody(r) {
+function fbBody(r, sb) {
   const reels = (r.reels || []).filter((x) => !x.erro);
   if (!reels.length) return alertBox((r.reels || [])[0]?.erro || "Nenhum Reel encontrado na Página.");
   const total = reels.reduce((n, x) => n + (x.views || 0), 0), maxV = Math.max(1, ...reels.map((x) => x.views || 0));
-  const ult30 = reels.filter((x) => x.data && Date.now() - new Date(x.data) < 30 * 864e5);
-  const serie = [...reels].filter((x) => x.data).reverse().map((x) => ({ day: x.data, v: x.views || 0 }));
-  const row = (x) => h("a", { class: "reelrow", href: x.link || "#", target: "_blank", rel: "noopener" },
-    h("span", { class: "rc truncate" }, x.legenda || (x.data ? "Reel de " + fmtDate(x.data, false) : "Reel")),
-    h("span", { class: "rbarw" }, h("i", { style: { width: `${Math.max(2, ((x.views || 0) / maxV) * 100)}%` } })),
-    h("b", null, k(x.views)), h("span", { class: "mono muted" }, x.data ? fmtDate(x.data, false) : ""));
-  return h("div", null,
-    h("div", { class: "dgrid" },
-      card("Views somadas · " + reels.length + " Reels", k(total), r.pagina || "", null),
-      card("Views · Reels dos últimos 30 dias", k(ult30.reduce((n, x) => n + (x.views || 0), 0)), ult30.length + " Reels", null)),
-    h("section", { class: "panel" },
-      h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#1877f2" } }), h("h2", { class: "mono grow" }, "Views por Reel (do mais antigo ao mais novo)")),
-      h("div", { class: "panel-body" }, lineChart(serie, { color: "#1877f2" }), h("div", { class: "reels", style: { marginTop: "14px" } }, ...reels.slice(0, 30).map(row)))));
+  const ult30 = reels.filter((x) => x.data && Date.now() - Date.parse(x.data + "T12:00:00Z") < 30 * 864e5);
+  const media = reels.length ? Math.round(total / reels.length) : 0;
+  const top = [...reels].sort((a, b) => (b.views || 0) - (a.views || 0))[0];
+  const nomeReel = (x) => (x.legenda_completa || x.legenda || "").trim() || (x.data ? "Reel de " + fmtDate(x.data, false) : "Reel sem legenda");
+  const row = (x) => h("a", { class: "fbrow", href: x.link || "#", target: "_blank", rel: "noopener", title: nomeReel(x) },
+    x.thumb ? h("img", { class: "fbthumb", src: x.thumb, alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.replaceWith(h("span", { class: "fbthumb" }, "▶")) }) : h("span", { class: "fbthumb" }, "▶"),
+    h("span", { class: "fbtxt" }, h("span", { class: "fbname" }, nomeReel(x)), h("span", { class: "mono muted" }, x.data ? fmtDate(x.data) : "sem data")),
+    h("span", { class: "fbviews" }, h("b", null, k(x.views)), h("span", { class: "muted small" }, "views")),
+    h("span", { class: "rbarw" }, h("i", { style: { width: `${Math.max(2, ((x.views || 0) / maxV) * 100)}%` } })));
+  // Gráfico de barras: um Reel por barra, em ordem de data, com rótulo de data e valor ao passar o mouse
+  const serie = [...reels].filter((x) => x.data).sort((a, b) => a.data.localeCompare(b.data)).slice(-30);
+  const W = 600, H = 220, P = { l: 40, r: 8, t: 12, b: 34 }, bw = (W - P.l - P.r) / Math.max(1, serie.length);
+  const sv = svgEl("svg", { viewBox: `0 0 ${W} ${H}`, class: "lchart", role: "img", "aria-label": "Views por Reel" });
+  const mx = Math.max(1, ...serie.map((x) => x.views || 0));
+  [0, 0.5, 1].forEach((f) => { const y = P.t + (1 - f) * (H - P.t - P.b); sv.append(svgEl("line", { x1: P.l, x2: W - P.r, y1: y, y2: y, stroke: "var(--line-2)", "stroke-width": 1 })); const t = svgEl("text", { x: P.l - 6, y: y + 4, fill: "var(--tx-3)", "font-size": 11, "text-anchor": "end" }); t.textContent = k(Math.round(mx * f)); sv.append(t); });
+  serie.forEach((x, i) => {
+    const hgt = ((x.views || 0) / mx) * (H - P.t - P.b), rx = P.l + i * bw + bw * 0.15;
+    const b = svgEl("rect", { x: rx, y: H - P.b - hgt, width: bw * 0.7, height: Math.max(1, hgt), rx: 2, fill: "#1877f2" });
+    const tt = svgEl("title", {}); tt.textContent = `${fmtDate(x.data, false)} · ${k(x.views)} views · ${nomeReel(x).slice(0, 80)}`; b.append(tt); sv.append(b);
+    if (i % Math.ceil(serie.length / 6) === 0) { const t = svgEl("text", { x: rx + bw * 0.35, y: H - 12, fill: "var(--tx-3)", "font-size": 11, "text-anchor": "middle" }); t.textContent = fmtDate(x.data, false); sv.append(t); }
+  });
+  const report = h("div", null, h("p", { class: "muted small" }, "Carregando relatório…"));
+  reportBox(sb, "facebook").then((el) => report.replaceChildren(el));
+  return h("div", { class: "dsplit" },
+    h("div", { class: "dleft stack-lg" },
+      h("div", { class: "dnums" },
+        numTile("Views somadas", k(total), `${reels.length} Reels · ${r.pagina || "Página"}`),
+        numTile("Views · últimos 30 dias", k(ult30.reduce((n, x) => n + (x.views || 0), 0)), `${ult30.length} Reels publicados`),
+        numTile("Média por Reel", k(media), top ? `melhor: ${k(top.views)}` : "")),
+      report,
+      h("section", { class: "panel" },
+        h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#1877f2" } }), h("h2", { class: "mono grow" }, "Reels da Página · mais novos primeiro")),
+        h("div", { class: "panel-body" }, h("div", { class: "fbhead mono" }, h("span", null, "Reel"), h("span", null, "Views")), h("div", { class: "fblist" }, ...reels.slice(0, 40).map(row))))),
+    h("div", { class: "dright stack-lg" },
+      chartCard("Views por Reel · últimos 30 Reels (passe o mouse na barra)", sv, "#1877f2"),
+      top && chartCard("Reel com mais views", h("a", { class: "fbrow", href: top.link || "#", target: "_blank", rel: "noopener" }, top.thumb ? h("img", { class: "fbthumb big", src: top.thumb, alt: "", referrerpolicy: "no-referrer" }) : h("span", { class: "fbthumb big" }, "▶"), h("span", { class: "fbtxt" }, h("span", { class: "fbname" }, nomeReel(top)), h("b", null, k(top.views) + " views"))), "#1877f2")));
 }
 
 // Meta Ads: status de cada campanha e números de hoje, 7 dias e desde o início. Só leitura.

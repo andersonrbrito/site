@@ -19,6 +19,7 @@ export const AIS = [
   ["Real Xablau", "https://app.realoficial.com.br/ai-studio/real-xablau"], ["Google AI Studio", "https://aistudio.google.com/generate-speech"],
   ["Flow", "https://labs.google/fx/pt/tools/flow"], ["Gemini", "https://gemini.google.com/"], ["Swishy", "https://www.swishy.ai/"],
   ["Opus Clip", "https://clip.opus.pro/dashboard"], ["Clipa", "https://clipa.app/"],
+  ["Supabase", "https://supabase.com/dashboard/project/avyzkygunshncwwbmzll"],
 ];
 
 export const QUICK = [

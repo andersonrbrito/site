@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-11-06 (tarde) · v2.1: aero glass, NoteS_, StúdiO_, ProdutoS_, e-mails, busca
+- Visual aero glass em todo o painel (vidro fosco, cantos suaves, luz difusa) e letras de descrição maiores.
+- Barra superior: versão do painel ao lado do logo, data maior, botão verde do WhatsApp Business e busca ao vivo (páginas, perfis, notas, produtos, carrosséis, posts, garimpo e pautas). Ctrl K e / focam a busca. Supabase nos botões de ferramentas.
+- NoteS_ (antes Sticky NoteS_): notas estilo Keep em texto livre ou lista com check, e stickies. No PaineL_, a lateral tem o botão + Sticky e os stickies presos.
+- StúdiO_: carrosséis que viraram vídeo (o Estúdio saiu do PostadoR_).
+- ProdutoS_: PDFs no Storage privado, preço, status e botão da Kiwify.
+- CursoS_: mostra os cursos dos favoritos (os mesmos do PaineL_) + resumos.
+- PaineL_: bloco de e-mails importantes (rotina lê o Gmail a cada 2 h).
+- PerfiS_: cartões com foto, ícone da rede clicável e seguidores do dia.
+- DesempenhO_: Instagram primeiro, dados à esquerda e gráficos à direita, anúncios no topo ocultos com botão de olho, aba Facebook refeita (nome do Reel, miniatura, gráfico de barras, relatório).
+- Map MentaleS_: nós de imagem (enviar, colar ou arrastar arquivo), letras maiores (A+ / A−), mapa do ecossistema v2 com fotos.
+- Migration 0031: notas tipo/título/itens, perfis com foto/seguidores, produtos, emails, relatório facebook, bucket anderson-os-arquivos, acesso de dono para theilmar@gmail.com.
+
 ## 2026-11-06 · Ecossistema: Map MentaleS_, AgenteS_, PerfiS_, Sticky NoteS_ e notificações
 - Map MentaleS_ (`#/mapa`): mapa mental editável em canvas infinito (zoom, pan, pinça), nós, textos, grupos que arrastam o conteúdo, conexões com rótulo/cor, notas e links por nó, seleção múltipla e em área, desfazer/refazer, autosave com versão + rascunho local, export/import JSON, export PNG, vários mapas, tela cheia.
 - AgenteS_ (`#/agentes`): tarefas agendadas do Claude com status real (sincronizadas por rotina), execuções com resumo/erro, filtros e pedidos Rodar agora / Pausar / Retomar (`claude_requests` kind `agente_*`).

@@ -5,7 +5,8 @@ import { h } from "../util.js";
 import { toast } from "../ui.js";
 
 const COLORS = { cinza: "#7e847d", laranja: "#ff4f32", amarelo: "#f5c84c", verde: "#3ddc84", azul: "#3da7ff", roxo: "#9b87ff", rosa: "#ff7eb6", vermelho: "#ff6b6b" };
-const TYPES = { node: "Nó", text: "Texto", group: "Grupo" };
+const TYPES = { node: "Nó", text: "Texto", group: "Grupo", image: "Imagem" };
+const BUCKET = "anderson-os-arquivos";
 const uid = () => Math.random().toString(36).slice(2, 10);
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const DRAFT = (id) => `aos-mapa-draft:${id}`;
@@ -16,7 +17,7 @@ export function validMap(d) {
   const ids = new Set();
   const nodes = d.nodes.filter((n) => n && typeof n.id === "string" && Number.isFinite(+n.x) && Number.isFinite(+n.y)).map((n) => {
     ids.add(n.id);
-    return { id: n.id, type: TYPES[n.type] ? n.type : "node", x: +n.x, y: +n.y, w: clamp(+n.w || 200, 60, 4000), h: n.type === "group" ? clamp(+n.h || 300, 60, 4000) : undefined, text: String(n.text ?? ""), note: String(n.note ?? ""), link: String(n.link ?? ""), color: COLORS[n.color] ? n.color : "cinza", fs: clamp(+n.fs || (n.type === "text" ? 22 : 15), 10, 96) };
+    return { id: n.id, type: TYPES[n.type] ? n.type : "node", x: +n.x, y: +n.y, w: clamp(+n.w || 200, 60, 4000), h: n.type === "group" ? clamp(+n.h || 300, 60, 4000) : undefined, text: String(n.text ?? ""), note: String(n.note ?? ""), link: String(n.link ?? ""), src: typeof n.src === "string" ? n.src : "", color: COLORS[n.color] ? n.color : "cinza", fs: clamp(+n.fs || (n.type === "text" ? 30 : n.type === "group" ? 20 : 18), 10, 120) };
   });
   const edges = d.edges.filter((e) => e && ids.has(e.from) && ids.has(e.to) && e.from !== e.to).map((e) => ({ id: String(e.id || uid()), from: e.from, to: e.to, label: String(e.label ?? ""), color: COLORS[e.color] ? e.color : "cinza" }));
   const v = d.view || {};
@@ -91,8 +92,39 @@ export default async function mapa({ sb, query, go }) {
   const sizes = new Map();
   const size = (n) => (n.type === "group" ? { w: n.w, h: n.h } : sizes.get(n.id) || { w: n.w, h: 60 });
 
+  // Imagens: "arq:<caminho>" mora no Storage privado (URL assinada, com cache); http(s) e caminhos do site vão direto.
+  const signed = new Map();
+  const resolveSrc = (src, img) => {
+    if (!src) return;
+    if (!src.startsWith("arq:")) { img.src = src; return; }
+    img.crossOrigin = "anonymous"; // Storage manda CORS: assim a imagem entra no PNG exportado
+    const path = src.slice(4), hit = signed.get(path);
+    if (hit && hit.exp > Date.now()) { img.src = hit.url; return; }
+    sb.storage.from(BUCKET).createSignedUrl(path, 3600).then(({ data }) => { if (data?.signedUrl) { signed.set(path, { url: data.signedUrl, exp: Date.now() + 3300e3 }); img.src = data.signedUrl; } });
+  };
+  async function uploadImage(file) {
+    if (!/^image\/(png|jpeg|webp|gif)$/.test(file.type)) { toast("Use PNG, JPG, WEBP ou GIF.", { kind: "err" }); return null; }
+    if (file.size > 15e6) { toast("Imagem acima de 15 MB.", { kind: "err" }); return null; }
+    const path = `mapas/${row.slug}/${Date.now()}-${file.name.replace(/[^\w.-]+/g, "_")}`;
+    const { error: e } = await sb.storage.from(BUCKET).upload(path, file, { contentType: file.type });
+    if (e) { toast("Falha ao enviar a imagem: " + e.message, { kind: "err" }); return null; }
+    return "arq:" + path;
+  }
+  async function addImages(files, at) {
+    let p = at;
+    for (const f of files) { const src = await uploadImage(f); if (!src) continue; addNode("image", p, { src, text: "" }); p = p && { x: p.x + 40, y: p.y + 40 }; }
+  }
   function nodeEl(n) {
     const isSel = sel.has(n.id), c = COLORS[n.color];
+    if (n.type === "image") {
+      const img = h("img", { class: "mm-img", alt: n.text || "", draggable: "false", onload: () => { measure(); drawEdges(); } }); resolveSrc(n.src, img);
+      return h("div", { class: `mm-node mm-t-image${isSel ? " sel" : ""}`, dataset: { id: n.id }, style: { left: n.x + "px", top: n.y + "px", width: n.w + "px", "--c": c } },
+        n.src ? img : h("div", { class: "mm-img-empty" }, "sem imagem"),
+        n.text && h("div", { class: "mm-cap", style: { fontSize: Math.round(n.fs * 0.8) + "px" } }, n.text),
+        n.link && h("a", { class: "mm-chip", href: n.link, target: n.link.startsWith("#") ? null : "_blank", rel: "noopener", onpointerdown: (e) => e.stopPropagation() }, "abrir ↗"),
+        h("div", { class: "mm-handle", dataset: { handle: n.id }, title: "Arraste para conectar" }),
+        h("div", { class: "mm-resize", dataset: { resize: n.id } }));
+    }
     if (n.type === "group") {
       const el = h("div", { class: `mm-group${isSel ? " sel" : ""}`, dataset: { id: n.id }, style: { left: n.x + "px", top: n.y + "px", width: n.w + "px", height: n.h + "px", "--c": c } },
         h("div", { class: "mm-gtitle", style: { fontSize: n.fs + "px" } }, n.text || "Grupo"), h("div", { class: "mm-resize", dataset: { resize: n.id } }));
@@ -148,8 +180,8 @@ export default async function mapa({ sb, query, go }) {
   function addNode(type, at, extra = {}) {
     commit();
     const r = vp.getBoundingClientRect(), p = at || toWorld(r.left + r.width / 2, r.top + r.height / 2);
-    const n = { id: uid(), type, x: Math.round(p.x - (type === "group" ? 200 : 100)), y: Math.round(p.y - (type === "group" ? 150 : 25)), w: type === "group" ? 400 : type === "text" ? 280 : 200, h: type === "group" ? 300 : undefined, text: type === "group" ? "Grupo" : type === "text" ? "Texto livre" : "Nova ideia", note: "", link: "", color: type === "group" ? "azul" : "cinza", fs: type === "text" ? 22 : type === "group" ? 16 : 15, ...extra };
-    doc.nodes.push(n); sel = new Set([n.id]); selEdge = null; editing = type === "group" ? null : n.id; selAll = !!editing; render(); queueSave(); return n;
+    const n = { id: uid(), type, x: Math.round(p.x - (type === "group" ? 200 : 100)), y: Math.round(p.y - (type === "group" ? 150 : 25)), w: type === "group" ? 480 : type === "text" ? 360 : type === "image" ? 260 : 240, h: type === "group" ? 360 : undefined, text: type === "group" ? "Grupo" : type === "text" ? "Texto livre" : type === "image" ? "" : "Nova ideia", note: "", link: "", src: "", color: type === "group" ? "azul" : "cinza", fs: type === "text" ? 30 : type === "group" ? 20 : 18, ...extra };
+    doc.nodes.push(n); sel = new Set([n.id]); selEdge = null; editing = type === "group" || type === "image" ? null : n.id; selAll = !!editing; render(); queueSave(); return n;
   }
   function addChild() {
     const [id] = sel; const p = id && byId(id); if (!p || p.type === "group") return;
@@ -264,7 +296,7 @@ export default async function mapa({ sb, query, go }) {
   }, { passive: false });
   vp.addEventListener("dblclick", (e) => {
     const n = e.target.closest("[data-id]");
-    if (n) { const node = byId(n.dataset.id); if (node.type === "group") { inspectorFocus = true; drawInspector(); return; } editing = node.id; sel = new Set([node.id]); render(); return; }
+    if (n) { const node = byId(n.dataset.id); if (node.type === "group" || node.type === "image") { inspectorFocus = true; drawInspector(); return; } editing = node.id; sel = new Set([node.id]); render(); return; }
     if (e.target.closest("[data-edge]")) return;
     addNode("node", toWorld(e.clientX, e.clientY));
   });
@@ -287,7 +319,7 @@ export default async function mapa({ sb, query, go }) {
     else if (mod && e.key.toLowerCase() === "d") { e.preventDefault(); dupSel(); }
     else if (mod && e.key.toLowerCase() === "a") { e.preventDefault(); sel = new Set(doc.nodes.map((n) => n.id)); render(); }
     else if (e.key === "Tab") { e.preventDefault(); addChild(); }
-    else if (e.key === "Enter" && sel.size === 1) { e.preventDefault(); const [id] = sel; if (byId(id).type !== "group") { editing = id; render(); } }
+    else if (e.key === "Enter" && sel.size === 1) { e.preventDefault(); const [id] = sel; if (!["group", "image"].includes(byId(id).type)) { editing = id; render(); } }
     else if (e.key === "Escape") { sel.clear(); selEdge = null; render(); }
     else if (["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key) && sel.size) {
       e.preventDefault(); commit(); const d = e.shiftKey ? 40 : 8; for (const id of sel) { const n = byId(id); if (e.key === "ArrowUp") n.y -= d; if (e.key === "ArrowDown") n.y += d; if (e.key === "ArrowLeft") n.x -= d; if (e.key === "ArrowRight") n.x += d; } moveEls(); queueSave();
@@ -318,17 +350,28 @@ export default async function mapa({ sb, query, go }) {
     const text = h("textarea", { class: "textarea", rows: 3 }); text.value = n.text;
     const note = h("textarea", { class: "textarea", rows: 4, placeholder: "Notas, contexto, decisões" }); note.value = n.note;
     const link = h("input", { class: "input", value: n.link, placeholder: "https://… ou #/perfis" });
-    const fs = h("input", { class: "input", type: "number", min: 10, max: 96, value: n.fs });
+    const fs = h("input", { class: "input", type: "number", min: 10, max: 120, value: n.fs });
     const type = h("select", { class: "select" }, ...Object.entries(TYPES).map(([k, v]) => h("option", { value: k, selected: k === n.type }, v)));
     const upd = (k, v) => { if (n[k] === v) return; commit(); n[k] = v; if (k === "type" && v === "group") n.h = n.h || 300; render(); queueSave(); };
     text.addEventListener("change", () => upd("text", text.value)); note.addEventListener("change", () => upd("note", note.value));
     link.addEventListener("change", () => { const v = link.value.trim(); if (v && !/^(https?:\/\/|#\/)/.test(v)) { toast("Link precisa começar com https:// ou #/", { kind: "err" }); return; } upd("link", v); });
-    fs.addEventListener("change", () => upd("fs", clamp(+fs.value || 15, 10, 96))); type.addEventListener("change", () => upd("type", type.value));
-    inspector.replaceChildren(h("div", { class: "mono" }, `// ${TYPES[n.type].toLowerCase()}`), field("Texto", text), field("Notas", note), field("Link", link),
+    fs.addEventListener("change", () => upd("fs", clamp(+fs.value || 18, 10, 120))); type.addEventListener("change", () => upd("type", type.value));
+    const imgField = n.type === "image" && (() => {
+      const url = h("input", { class: "input", value: n.src.startsWith("arq:") ? "" : n.src, placeholder: n.src.startsWith("arq:") ? "imagem enviada (cole um link para trocar)" : "https://… ou img/…" });
+      url.addEventListener("change", () => { const v = url.value.trim(); if (v) upd("src", v); });
+      const up = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const fi = h("input", { type: "file", accept: "image/*", hidden: true }); fi.addEventListener("change", async () => { const f = fi.files[0]; fi.remove(); if (f) { const src = await uploadImage(f); if (src) upd("src", src); } }); document.body.append(fi); fi.click(); } }, "Enviar imagem");
+      return h("div", { class: "stack" }, field("Imagem (link)", url), up);
+    })();
+    inspector.replaceChildren(h("div", { class: "mono" }, `// ${TYPES[n.type].toLowerCase()}`), imgField, field(n.type === "image" ? "Legenda" : "Texto", text), field("Notas", note), field("Link", link),
       h("div", { class: "grid2" }, field("Tipo", type), field("Fonte", fs)), field("Cor", swatches),
-      h("div", { class: "flex wrap" }, n.type !== "group" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: addChild }, "+ Filho (Tab)"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: dupSel }, "Duplicar"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: delSel }, "Apagar")));
+      h("div", { class: "flex wrap" }, !["group", "image"].includes(n.type) && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: addChild }, "+ Filho (Tab)"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: dupSel }, "Duplicar"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: delSel }, "Apagar")));
     if (inspectorFocus) { inspectorFocus = false; text.focus(); }
   }
+  function scaleFonts(f) { commit(); const ns = sel.size ? [...sel].map(byId) : doc.nodes; ns.forEach((n) => { n.fs = clamp(Math.round(n.fs * f), 10, 120); if (n.type !== "group") n.w = clamp(Math.round(n.w * f), 60, 4000); }); render(); queueSave(); }
+  vp.addEventListener("dragover", (e) => { if ([...(e.dataTransfer?.items || [])].some((i) => i.kind === "file")) { e.preventDefault(); vp.classList.add("drop"); } });
+  vp.addEventListener("dragleave", () => vp.classList.remove("drop"));
+  vp.addEventListener("drop", (e) => { e.preventDefault(); vp.classList.remove("drop"); const files = [...e.dataTransfer.files].filter((f) => f.type.startsWith("image/")); if (files.length) addImages(files, toWorld(e.clientX, e.clientY)); });
+  vp.addEventListener("paste", (e) => { const files = [...(e.clipboardData?.files || [])].filter((f) => f.type.startsWith("image/")); if (files.length && !editing) { e.preventDefault(); addImages(files); } });
   function align(axis) { commit(); const ns = [...sel].map(byId); const v = Math.min(...ns.map((n) => n[axis])); ns.forEach((n) => (n[axis] = v)); render(); queueSave(); }
 
   // ───────── export / import ─────────
@@ -337,7 +380,7 @@ export default async function mapa({ sb, query, go }) {
   const fileIn = h("input", { type: "file", accept: "application/json,.json", hidden: true });
   fileIn.addEventListener("change", async () => {
     const f = fileIn.files[0]; fileIn.value = ""; if (!f) return;
-    try { const j = JSON.parse(await f.text()); const d = validMap(j.data || j); if (!d) throw new Error(); commit(); doc.nodes = d.nodes; doc.edges = d.edges; sel.clear(); render(); fit(); queueSave(); toast(`Importado: ${d.nodes.length} nós. Ctrl+Z desfaz.`); }
+    try { const j = JSON.parse(await f.text()); const d = validMap(j.data || j); if (!d) throw new Error(); commit(); doc.nodes = d.nodes; doc.edges = d.edges; sel.clear(); render(); fit(); setTimeout(fit, 900); queueSave(); toast(`Importado: ${d.nodes.length} nós. Ctrl+Z desfaz.`); }
     catch { toast("Arquivo inválido: precisa ser um JSON exportado do Map MentaleS_.", { kind: "err" }); }
   });
   function exportPNG() {
@@ -349,7 +392,8 @@ export default async function mapa({ sb, query, go }) {
     const wrap = (t, x, y, maxW, fsz, bold) => { g.font = `${bold ? 600 : 400} ${fsz}px Geist, system-ui, sans-serif`; let yy = y; for (const para of t.split("\n")) { let line = ""; for (const w of para.split(" ")) { const tst = line ? line + " " + w : w; if (g.measureText(tst).width > maxW && line) { g.fillText(line, x, yy); yy += fsz * 1.35; line = w; } else line = tst; } g.fillText(line, x, yy); yy += fsz * 1.35; } };
     for (const n of doc.nodes.filter((x) => x.type === "group")) { g.fillStyle = COLORS[n.color] + "14"; g.strokeStyle = COLORS[n.color] + "88"; g.setLineDash([6, 5]); rr(n.x, n.y, n.w, n.h, 10); g.fill(); g.stroke(); g.setLineDash([]); g.fillStyle = COLORS[n.color]; g.textBaseline = "top"; wrap(n.text, n.x + 14, n.y + 12, n.w - 28, n.fs, true); }
     for (const e of doc.edges) { const a = byId(e.from), c = byId(e.to); if (!a || !c) continue; const [p, q] = anchor(a, c); g.strokeStyle = COLORS[e.color]; g.lineWidth = 2; g.stroke(new Path2D(curve(p, q))); g.fillStyle = COLORS[e.color]; const ang = Math.atan2(q.dy * -1, q.dx * -1); g.save(); g.translate(q.x, q.y); g.rotate(ang); g.beginPath(); g.moveTo(0, 0); g.lineTo(-10, -5); g.lineTo(-10, 5); g.fill(); g.restore(); if (e.label) { g.font = "500 12px Geist, sans-serif"; const tw = g.measureText(e.label).width; g.fillStyle = "#0b0d0c"; g.fillRect((p.x + q.x) / 2 - tw / 2 - 6, (p.y + q.y) / 2 - 10, tw + 12, 20); g.fillStyle = "#adb1ab"; g.textBaseline = "middle"; g.fillText(e.label, (p.x + q.x) / 2 - tw / 2, (p.y + q.y) / 2); } }
-    for (const n of doc.nodes.filter((x) => x.type !== "group")) { const s = size(n); g.textBaseline = "top"; if (n.type === "node") { g.fillStyle = "#0f1210"; rr(n.x, n.y, s.w, s.h, 8); g.fill(); g.strokeStyle = COLORS[n.color]; g.lineWidth = 1.5; g.stroke(); g.fillStyle = COLORS[n.color]; g.fillRect(n.x, n.y + 8, 3, s.h - 16); } g.fillStyle = n.type === "text" ? COLORS[n.color] === COLORS.cinza ? "#f3f2ee" : COLORS[n.color] : "#f3f2ee"; wrap(n.text, n.x + 14, n.y + 12, s.w - 28, n.fs, n.type === "text"); }
+    for (const n of doc.nodes.filter((x) => x.type === "image")) { const s = size(n); const el = world.querySelector(`[data-id="${n.id}"] img`); try { if (n.src.startsWith("arq:") && el?.complete && el.naturalWidth) g.drawImage(el, n.x, n.y, s.w, s.w * el.naturalHeight / el.naturalWidth); } catch { /* imagem de outro site: fica a moldura */ } g.strokeStyle = COLORS[n.color]; g.strokeRect(n.x, n.y, s.w, s.h); }
+    for (const n of doc.nodes.filter((x) => x.type !== "group" && x.type !== "image")) { const s = size(n); g.textBaseline = "top"; if (n.type === "node") { g.fillStyle = "#0f1210"; rr(n.x, n.y, s.w, s.h, 8); g.fill(); g.strokeStyle = COLORS[n.color]; g.lineWidth = 1.5; g.stroke(); g.fillStyle = COLORS[n.color]; g.fillRect(n.x, n.y + 8, 3, s.h - 16); } g.fillStyle = n.type === "text" ? COLORS[n.color] === COLORS.cinza ? "#f3f2ee" : COLORS[n.color] : "#f3f2ee"; wrap(n.text, n.x + 14, n.y + 12, s.w - 28, n.fs, n.type === "text"); }
     cv.toBlob((bl) => download(bl, `map-mentales-${row.slug}.png`), "image/png");
   }
 
@@ -383,7 +427,7 @@ export default async function mapa({ sb, query, go }) {
     h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// mapa mental editável"), h("h1", null, "Map MentaleS_")),
       h("div", { class: "flex wrap" }, pick, tb("+ Mapa", newMap, "Criar outro mapa"), tb("Renomear", rename), tb("Arquivar", archive))),
     h("div", { class: "mm-bar" },
-      h("div", { class: "flex wrap" }, tb("+ Nó", () => addNode("node")), tb("+ Texto", () => addNode("text")), tb("+ Grupo", () => addNode("group")), tb("Desfazer", undo, "Ctrl+Z"), tb("Refazer", redo, "Ctrl+Shift+Z")),
+      h("div", { class: "flex wrap" }, tb("+ Nó", () => addNode("node")), tb("+ Texto", () => addNode("text")), tb("+ Grupo", () => addNode("group")), tb("+ Imagem", () => { const fi = h("input", { type: "file", accept: "image/*", multiple: true, hidden: true }); fi.addEventListener("change", () => { const fs2 = [...fi.files]; fi.remove(); addImages(fs2); }); document.body.append(fi); fi.click(); }, "Enviar imagem ou arrastar arquivos para o mapa"), tb("A+", () => scaleFonts(1.15), "Aumentar letras dos selecionados (ou de tudo)"), tb("A−", () => scaleFonts(1 / 1.15), "Diminuir letras"), tb("Desfazer", undo, "Ctrl+Z"), tb("Refazer", redo, "Ctrl+Shift+Z")),
       h("div", { class: "flex wrap" }, tb("−", () => zoomAt(view.k / 1.2), "Diminuir zoom"), zoomTxt, tb("+", () => zoomAt(view.k * 1.2), "Aumentar zoom"), tb("Enquadrar", fit, "Mostrar tudo (0)"), full,
         tb("JSON ↓", exportJSON, "Exportar JSON"), tb("JSON ↑", () => fileIn.click(), "Importar JSON"), tb("PNG ↓", exportPNG, "Exportar imagem"), status, fileIn)),
     h("div", { class: "mm-wrap" }, vp, inspector), help);
