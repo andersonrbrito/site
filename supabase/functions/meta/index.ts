@@ -2,7 +2,8 @@
 // - Webhook (GET verificação / POST eventos): comentários, DMs e leads caem em social_inbox;
 //   respostas automáticas por palavra-chave (autoreply_rules) mandam DM privada e/ou respondem o comentário.
 // - Login (OAuth) do Instagram e do Facebook: o token nunca passa pelo navegador, fica em meta_accounts.
-// - Ações do painel (sessão do dono): connect, reply, sync, status. Cron (x-cron-key): daily.
+// - Ações do painel (sessão do dono): connect, reply, sync, diag, status. Cron (x-cron-key): daily.
+// - Leads: comentário/DM com intenção de compra (função intent) entra com lead_status 'novo' e aparece em LeadS_.
 // Secrets: IG_APP_SECRET (chave secreta do app do Instagram) e FB_APP_SECRET (chave secreta do app da Meta).
 // Precisa de "Verify JWT" desligado (a Meta chama sem login).
 import { createClient } from "jsr:@supabase/supabase-js@2";
@@ -118,11 +119,30 @@ async function callbackFb(u: URL) {
 
 // ───────── webhook ─────────
 let lastSaveError = "";
+// Intenção de compra/contato num comentário ou DM: vira lead em LeadS_ (o Anderson confirma ou descarta lá).
+const INTENT: [RegExp, string][] = [
+  [/\b(quanto (custa|é|e|fica|sai|cobra)|qual (o )?(valor|pre[cç]o)|pre[cç]o|valor|or[cç]amento|investimento)\b/i, "perguntou preço"],
+  [/\b(quero|queria|tenho interesse|interessad[oa]|me interessa|gostaria)\b/i, "demonstrou interesse"],
+  [/\b(contratar|fechar|comprar|pagar|pix|vaga|servi[cç]o|freela|job|edi[cç][aã]o pra mim|edita(r)? (pra|para) mim)\b/i, "quer contratar"],
+  [/\b(como (fa[cç]o|funciona|consigo)|onde (compro|acho)|tem link|manda(r)? o link|link\??|me chama|chama no (direct|dm|pv|whats)|whats(app)?|direct|inbox|pv)\b/i, "pediu contato ou link"],
+];
+export function intent(text: string | null | undefined): string | null {
+  const t = (text || "").trim();
+  if (t.length < 2) return null;
+  const hit = INTENT.find(([re]) => re.test(t));
+  return hit ? hit[1] : null;
+}
 async function save(row: Record<string, unknown>) {
-  const { data, error } = await sb.from("social_inbox").upsert(row, { onConflict: "platform,kind,external_id", ignoreDuplicates: true }).select("id").maybeSingle();
+  const reason = row.kind === "lead" ? "formulário de lead" : intent(row.text as string);
+  const full = reason ? { ...row, lead_status: "novo", lead_reason: reason } : row;
+  let { data, error } = await sb.from("social_inbox").upsert(full, { onConflict: "platform,kind,external_id", ignoreDuplicates: true }).select("id").maybeSingle();
+  if (error && /lead_(status|reason)/.test(error.message)) // migration 0032 ainda não aplicada: grava sem a marcação de lead
+    ({ data, error } = await sb.from("social_inbox").upsert(row, { onConflict: "platform,kind,external_id", ignoreDuplicates: true }).select("id").maybeSingle());
   if (error) { console.error("social_inbox", error.message); lastSaveError = error.message; return null; }
   return data?.id ?? null;
 }
+const BLOQ_FB_COMENTARIOS = "comentários da Página bloqueados: a Meta exige a permissão pages_read_user_content (veja o passo a passo em STATUS.md)";
+const BLOQ_DEV = "a Meta conta comentários nos posts mas não entrega nenhum: o app está em modo Desenvolvimento (só mostra dados de quem tem função no app). Até publicar o app, a rotina do Chrome é quem traz comentários e DMs";
 
 async function autoReply(platform: "instagram" | "facebook", commentId: string, text: string, inboxId: string | null) {
   const { data: rules } = await sb.from("autoreply_rules").select("id, platform, keyword, dm_text, comment_reply, hits, version").eq("active", true).is("archived_at", null);
@@ -204,11 +224,20 @@ async function reply(id: string, text: string) {
   return { ok: true };
 }
 
-// Puxa comentários recentes e leads (para quando o webhook ainda não estava ligado) e os números do Instagram.
+// Puxa comentários recentes, DMs e leads (para quando o webhook ainda não estava ligado) e os números do Instagram.
+// Cada plataforma roda separada: se a Meta recusar uma parte, as outras seguem e o motivo volta em "erro"/"bloqueios".
 async function sync() {
   const out: Record<string, unknown> = {};
+  lastSaveError = "";
   const ig = await account("instagram");
-  if (ig) {
+  if (ig) try { out.instagram = await syncIg(ig); } catch (e) { out.instagram = { erro: (e as Error).message }; }
+  const pg = await account("page");
+  if (pg) try { out.facebook = await syncFb(pg); } catch (e) { out.facebook = { erro: (e as Error).message }; }
+  return out;
+}
+
+async function syncIg(ig: { account_id: string; token: string }) {
+  {
     const me = await api(`https://graph.instagram.com/${V}/me?fields=username,followers_count,follows_count,media_count&access_token=${ig.token}`);
     const day = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Sao_Paulo" }).format(new Date());
     await sb.from("social_stats").upsert({ day, platform: "instagram", followers: me.followers_count, following: me.follows_count, posts: me.media_count, data: { via: "api" } }, { onConflict: "day,platform" });
@@ -225,9 +254,9 @@ async function sync() {
       if (v != null && code) reelViews.push({ day, shortcode: code, views: v, thumbnail_url: m.thumbnail_url || null });
     }
     if (reelViews.length) await sb.from("reel_stats").upsert(reelViews, { onConflict: "day,shortcode" });
-    out.reels_com_views = reelViews.length;
     media.data = (media.data || []).slice(0, 12);
-    let n = 0, lidos = 0;
+    let n = 0, lidos = 0, dms = 0;
+    const bloqueios: string[] = [];
     for (const m of media.data || []) {
       if (m.comments_count === 0) continue;
       const cs = await api(`https://graph.instagram.com/${V}/${m.id}/comments?fields=id,text,username,from,timestamp&limit=50&access_token=${ig.token}`);
@@ -237,22 +266,69 @@ async function sync() {
         if (await save({ platform: "instagram", kind: "comment", external_id: c.id, parent_id: m.id, permalink: m.permalink, author_id: c.from?.id, author_name: c.username ? "@" + c.username : null, text: c.text, data: c, received_at: c.timestamp })) n++;
       }
     }
-    out.instagram = { followers: me.followers_count, posts_lidos: (media.data || []).length, contagem_meta: (media.data || []).map((m: any) => m.comments_count ?? null), comentarios_lidos: lidos, novos_comentarios: n, ...(lastSaveError && { erro: lastSaveError }) };
+    const contados = (media.data || []).reduce((s: number, m: any) => s + (m.comments_count || 0), 0);
+    if (contados > 0 && lidos === 0) bloqueios.push(BLOQ_DEV);
+    // DMs: conversas recentes (no modo Desenvolvimento a Meta só devolve conversas com quem tem função no app)
+    try {
+      const cv = await api(`https://graph.instagram.com/${V}/me/conversations?platform=instagram&fields=id,updated_time,participants,messages.limit(5){id,message,from,created_time}&limit=20&access_token=${ig.token}`);
+      for (const c of cv.data || []) for (const msg of c.messages?.data || []) {
+        if (!msg.message || msg.from?.id === ig.account_id) continue;
+        if (await save({ platform: "instagram", kind: "dm", external_id: msg.id, parent_id: c.id, permalink: "https://www.instagram.com/direct/inbox/", author_id: msg.from?.id, author_name: msg.from?.username ? "@" + msg.from.username : null, text: msg.message, data: { via: "api", ...msg }, received_at: msg.created_time })) dms++;
+      }
+    } catch (e) { bloqueios.push("DMs: " + (e as Error).message); }
+    return { followers: me.followers_count, reels_com_views: reelViews.length, posts_lidos: (media.data || []).length, comentarios_contados: contados, comentarios_lidos: lidos, novos_comentarios: n, novas_dms: dms, ...(bloqueios.length && { bloqueios }), ...(lastSaveError && { erro: lastSaveError }) };
   }
-  const pg = await account("page");
-  if (pg) {
-    let n = 0, leads = 0;
-    const posts = await api(`https://graph.facebook.com/${V}/${pg.account_id}/posts?fields=id,permalink_url,comments.limit(50){id,message,from,created_time}&limit=10&access_token=${pg.token}`);
+}
+
+async function syncFb(pg: { account_id: string; token: string }) {
+  let n = 0, leads = 0;
+  const bloqueios: string[] = [];
+  try {
+    // published_posts só lista os posts da Página (pages_read_engagement); os comentários de outras pessoas exigem pages_read_user_content
+    const posts = await api(`https://graph.facebook.com/${V}/${pg.account_id}/published_posts?fields=id,permalink_url,comments.limit(50){id,message,from,created_time}&limit=10&access_token=${pg.token}`);
     for (const p of posts.data || []) for (const c of p.comments?.data || []) {
       if (c.from?.id === pg.account_id) continue;
       if (await save({ platform: "facebook", kind: "comment", external_id: c.id, parent_id: p.id, permalink: p.permalink_url, author_id: c.from?.id, author_name: c.from?.name, text: c.message, data: c, received_at: c.created_time })) n++;
     }
-    const forms = await api(`https://graph.facebook.com/${V}/${pg.account_id}/leadgen_forms?fields=id,name&limit=25&access_token=${pg.token}`).catch(() => ({ data: [] }));
+  } catch (e) {
+    const msg = (e as Error).message;
+    bloqueios.push(/pages_read_user_content|#10\b/.test(msg) ? BLOQ_FB_COMENTARIOS : "comentários: " + msg);
+  }
+  try {
+    const forms = await api(`https://graph.facebook.com/${V}/${pg.account_id}/leadgen_forms?fields=id,name&limit=25&access_token=${pg.token}`);
     for (const f of forms.data || []) {
-      const ls = await api(`https://graph.facebook.com/${V}/${f.id}/leads?fields=id&limit=50&access_token=${pg.token}`).catch(() => ({ data: [] }));
+      const ls = await api(`https://graph.facebook.com/${V}/${f.id}/leads?fields=id&limit=50&access_token=${pg.token}`);
       for (const l of ls.data || []) { const { data: ex } = await sb.from("social_inbox").select("id").eq("platform", "facebook").eq("kind", "lead").eq("external_id", l.id).maybeSingle(); if (!ex) { await saveLead(l.id, { form_name: f.name }); leads++; } }
     }
-    out.facebook = { novos_comentarios: n, novos_leads: leads };
+  } catch (e) { bloqueios.push("formulários de lead (leads_retrieval + pages_manage_ads): " + (e as Error).message); }
+  return { novos_comentarios: n, novos_leads: leads, ...(bloqueios.length && { bloqueios }) };
+}
+
+// Diagnóstico: quais permissões o token da Página tem de verdade e o que cada leitura devolve (sem gravar nada).
+async function diag() {
+  const out: Record<string, unknown> = {};
+  const pg = await account("page");
+  if (pg) {
+    const dbg = await api(`https://graph.facebook.com/${V}/debug_token?input_token=${pg.token}&access_token=${FB_APP_ID}|${secret("FB_APP_SECRET")}`).catch((e) => ({ error: e.message }));
+    const tenta = (path: string) => api(`https://graph.facebook.com/${V}/${path}${path.includes("?") ? "&" : "?"}access_token=${pg.token}`).then((r) => ({ ok: true, itens: r.data?.length ?? null })).catch((e) => ({ ok: false, erro: e.message }));
+    out.facebook = {
+      pagina: pg.account_id, permissoes: (dbg as any).data?.scopes ?? dbg, valido: (dbg as any).data?.is_valid,
+      published_posts: await tenta(`${pg.account_id}/published_posts?fields=id&limit=3`),
+      comentarios: await tenta(`${pg.account_id}/published_posts?fields=comments.limit(1){id}&limit=3`),
+      conversas_messenger: await tenta(`${pg.account_id}/conversations?limit=3`),
+      formularios_lead: await tenta(`${pg.account_id}/leadgen_forms?fields=id&limit=3`),
+    };
+  }
+  const ig = await account("instagram");
+  if (ig) {
+    const tenta = (path: string) => api(`https://graph.instagram.com/${V}/${path}${path.includes("?") ? "&" : "?"}access_token=${ig.token}`).then((r) => ({ ok: true, itens: r.data?.length ?? null, amostra: r.data?.[0] ? Object.keys(r.data[0]) : [] })).catch((e) => ({ ok: false, erro: e.message }));
+    const media = await api(`https://graph.instagram.com/${V}/me/media?fields=id,comments_count&limit=12&access_token=${ig.token}`).catch(() => ({ data: [] }));
+    const comMais = (media.data || []).find((m: any) => m.comments_count > 0);
+    out.instagram = {
+      conta: ig.account_id,
+      post_com_comentarios: comMais ? { id: comMais.id, comments_count: comMais.comments_count, leitura: await tenta(`${comMais.id}/comments?fields=id,username`) } : null,
+      conversas: await tenta(`me/conversations?platform=instagram&limit=5`),
+    };
   }
   return out;
 }
@@ -334,7 +410,7 @@ async function ads() {
 }
 
 // ───────── porta das rotinas do Claude (sem navegador): ?action=agente, cabeçalho x-agent-key ─────────
-const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache", "jobs"];
+const READ = ["posts", "post_requests", "claude_requests", "x_posts", "x_goal_entries", "x_snapshots", "social_stats", "reel_stats", "ig_media", "reports", "radar_items", "postador_settings", "miner_links", "miner_profiles", "agenda_cache", "jobs", "social_inbox"];
 async function integration(key: string | null) {
   if (!key || key.length < 20) return null;
   const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(key)))].map((b) => b.toString(16).padStart(2, "0")).join("");
@@ -393,6 +469,7 @@ Deno.serve(async (req) => {
     if (action === "connect") return json({ url: await connectUrl(u.searchParams.get("kind") === "page" ? "page" : "instagram") });
     if (action === "reply") { const b = await req.json().catch(() => ({})); return json(await reply(b.id, b.text)); }
     if (action === "sync") return json(await sync());
+    if (action === "diag") return json(await diag());
     if (action === "ig_insights") return json(await igInsights());
     if (action === "ig_history") return json(await igHistory());
     if (action === "fb_history") return json(await fbHistory());

@@ -32,11 +32,21 @@ export default async function social({ sb, query, go, refresh }) {
 async function inbox(sb, query, go, refresh) {
   const f = ["comment", "dm", "lead"].includes(query.k) ? query.k : "";
   const st = query.st === "todos" ? "todos" : "novo";
-  let q = sb.from("social_inbox").select("id, platform, kind, external_id, permalink, author_name, text, status, reply_text, received_at, version").is("archived_at", null).order("received_at", { ascending: false }).limit(200);
-  if (f) q = q.eq("kind", f);
-  if (st === "novo") q = q.eq("status", "novo");
-  const { data, error } = await q;
+  const COLS = "id, platform, kind, external_id, permalink, author_name, text, status, reply_text, received_at, version";
+  const load = (cols) => {
+    let q = sb.from("social_inbox").select(cols).is("archived_at", null).order("received_at", { ascending: false }).limit(200);
+    if (f) q = q.eq("kind", f);
+    if (st === "novo") q = q.eq("status", "novo");
+    return q;
+  };
+  let { data, error } = await load(COLS + ", lead_status, lead_reason");
+  const temLead = !error;
+  if (error) ({ data, error } = await load(COLS)); // migration 0032 ainda não aplicada
   if (error) return alertBox("Não foi possível carregar a caixa de entrada.");
+  const setLead = async (it, lead_status) => {
+    const { data: d } = await sb.from("social_inbox").update({ lead_status, ...(lead_status === "novo" && !it.lead_reason && { lead_reason: "marcado à mão" }) }).eq("id", it.id).eq("version", it.version).select("id").maybeSingle();
+    if (!d) return toast("Recarregue a página.", { kind: "err" }); toast(lead_status === "novo" ? "Foi para LeadS_." : "Tirado de LeadS_."); refresh();
+  };
   const nav = (patch) => { const p = new URLSearchParams({ ...(f && { k: f }), ...(st !== "novo" && { st }), ...patch }); [...p].forEach(([k, v]) => !v && p.delete(k)); go("/social" + (p.toString() ? "?" + p : "")); };
   const setStatus = async (it, status) => {
     const { data: d } = await sb.from("social_inbox").update({ status }).eq("id", it.id).eq("version", it.version).select("id").maybeSingle();
@@ -51,27 +61,49 @@ async function inbox(sb, query, go, refresh) {
     };
     return h("article", { class: "sxitem" + (it.status !== "novo" ? " done" : "") },
       h("header", { class: "flex" }, h("span", { class: "ptag p-" + (it.platform === "instagram" ? "instagram" : "outro") }, PLAT[it.platform][0]),
-        h("span", { class: "mono" }, KIND[it.kind]), h("b", { class: "truncate" }, it.author_name || "alguém"), h("div", { class: "grow" }),
+        h("span", { class: "mono" }, KIND[it.kind]), h("b", { class: "truncate" }, it.author_name || "alguém"),
+        it.lead_status && it.lead_status !== "descartado" && h("span", { class: "chip on", title: it.lead_reason || "" }, "lead"), h("div", { class: "grow" }),
         h("span", { class: "mono muted" }, fmtDateTime(it.received_at))),
       h("p", { class: "sxtext" }, it.text || "(sem texto)"),
       it.reply_text && h("p", { class: "muted small" }, "↳ ", it.reply_text),
       h("footer", { class: "flex" },
-        it.permalink && h("a", { class: "mono", href: it.permalink, target: "_blank", rel: "noopener" }, "ver post ↗"),
+        it.permalink && h("a", { class: "mono", href: it.permalink, target: "_blank", rel: "noopener" }, it.kind === "dm" ? "abrir conversa ↗" : "ver post ↗"),
         h("div", { class: "grow" }),
+        temLead && it.kind !== "lead" && (it.lead_status && it.lead_status !== "descartado"
+          ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => setLead(it, "descartado") }, "Não é lead")
+          : h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => setLead(it, "novo") }, "É lead")),
         it.status === "novo" ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => setStatus(it, "ignorado") }, "Ignorar")
           : h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => setStatus(it, "novo") }, "Voltar pra novos")),
-      it.kind !== "lead" && it.status === "novo" && h("div", { class: "flex sxreply" }, ta, h("button", { class: "btn btn-sm", type: "button", onclick: send }, "Responder")));
+      // item lido pela rotina do Chrome (external_id "chrome:...") não tem id da API: responde no próprio Instagram
+      it.kind !== "lead" && it.status === "novo" && !String(it.external_id).startsWith("chrome:") && h("div", { class: "flex sxreply" }, ta, h("button", { class: "btn btn-sm", type: "button", onclick: send }, "Responder")),
+      String(it.external_id).startsWith("chrome:") && h("p", { class: "muted small" }, "Lido pela rotina do Chrome. Responda pelo Instagram (link acima)."));
   };
+  // Resultado da última busca (com os bloqueios da Meta) fica visível até a próxima, não só num aviso que some.
+  const avisos = h("div", { class: "stack" });
+  const mostrar = (r) => {
+    const ig = r.instagram || {}, fb = r.facebook || {};
+    const linhas = [...(ig.erro ? ["Instagram: " + ig.erro] : []), ...(ig.bloqueios || []).map((x) => "Instagram: " + x),
+      ...(fb.erro ? ["Facebook: " + fb.erro] : []), ...(fb.bloqueios || []).map((x) => "Facebook: " + x)];
+    avisos.replaceChildren(...linhas.map((t) => alertBox(t)));
+  };
+  try { const ult = JSON.parse(sessionStorage.getItem("aos:social-sync") || "null"); if (ult) mostrar(ult); } catch { /* sem sessionStorage */ }
   const syncBtn = h("button", { class: "btn btn-sm", type: "button", onclick: async (e) => {
     const b = e.currentTarget; b.disabled = true; b.textContent = "Buscando…";
-    try { const r = await callMeta(sb, "sync"); toast(`Atualizado${r.instagram ? ` · IG ${r.instagram.novos_comentarios} novos` : ""}${r.facebook ? ` · FB ${r.facebook.novos_comentarios} comentários, ${r.facebook.novos_leads} leads` : ""}.`); refresh(); }
+    try {
+      const r = await callMeta(sb, "sync");
+      const ig = r.instagram, fb = r.facebook;
+      toast(`Atualizado${ig && !ig.erro ? ` · IG ${ig.novos_comentarios || 0} comentários, ${ig.novas_dms || 0} DMs` : ""}${fb && !fb.erro ? ` · FB ${fb.novos_comentarios || 0} comentários, ${fb.novos_leads || 0} leads` : ""}.`);
+      try { sessionStorage.setItem("aos:social-sync", JSON.stringify(r)); } catch { /* sem sessionStorage */ }
+      refresh();
+    }
     catch (err) { toast("Não deu: " + err.message, { kind: "err" }); b.disabled = false; b.textContent = "Buscar agora"; } } }, "Buscar agora");
   const chip = (id, label) => h("button", { type: "button", class: "chip" + (f === id ? " on" : ""), onclick: () => nav({ k: id }) }, label);
   return h("div", null,
     h("div", { class: "mfilters" }, chip("", "Tudo"), chip("comment", "Comentários"), chip("dm", "DMs"), chip("lead", "Leads"),
       h("button", { type: "button", class: "chip" + (st === "todos" ? " on" : ""), onclick: () => nav({ st: st === "todos" ? "" : "todos" }) }, st === "todos" ? "Mostrando todos" : "Só novos"),
       h("div", { class: "grow" }), syncBtn),
-    (data || []).length ? h("div", { class: "stack" }, ...data.map(item)) : h("p", { class: "empty" }, "Nada novo por aqui. Comentários, DMs e leads chegam sozinhos quando as contas estiverem conectadas."));
+    avisos,
+    (data || []).length ? h("div", { class: "stack" }, ...data.map(item)) : h("p", { class: "empty" }, "Nada por aqui ainda. Enquanto o app da Meta estiver em modo Desenvolvimento, a API não entrega comentários e DMs de outras pessoas: quem traz é a rotina do Chrome (leitura da caixa do Instagram), que grava aqui e em LeadS_."));
 }
 
 async function rules(sb, refresh) {
