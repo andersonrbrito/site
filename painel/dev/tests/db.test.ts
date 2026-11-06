@@ -339,3 +339,16 @@ describe("Sugestão de postagem (migration 0035)", () => {
     expect(out.sugestao_nota).toBe("pico");
   });
 });
+
+describe("Arquivar pendente (migration 0036)", () => {
+  it("agente arquiva peça pendente, mas não uma já decidida", async () => {
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'aprovacoes', '[{"arquivo":"aprovacoes/infograficos/b.mp4","perfil":"infograficos","titulo":"Ep 1 gancho B"},{"arquivo":"aprovacoes/infograficos/c.mp4","perfil":"infograficos","titulo":"Ep 1 gancho C"}]')`, [integrationId]));
+    const rows = (await asUser(ownerId, () => db.query<{ id: string; version: number; arquivo: string }>(`select id, version, arquivo from aprovacoes where perfil = 'infograficos' order by arquivo`))).rows;
+    await asService(() => db.query(`select agent_write($1, 'update', 'aprovacoes', '[{"arquivar":true}]', $2, $3)`, [integrationId, rows[0].id, rows[0].version]));
+    await asUser(ownerId, () => db.query(`update aprovacoes set status = 'aprovado' where id = $1`, [rows[1].id]));
+    const v = (await asUser(ownerId, () => db.query<{ version: number }>(`select version from aprovacoes where id = $1`, [rows[1].id]))).rows[0].version;
+    await expect(asService(() => db.query(`select agent_write($1, 'update', 'aprovacoes', '[{"arquivar":true}]', $2, $3)`, [integrationId, rows[1].id, v]))).rejects.toThrow(/já decidido/);
+    const vivos = (await asUser(ownerId, () => db.query(`select arquivo from aprovacoes where perfil = 'infograficos' and archived_at is null`))).rows;
+    expect(vivos).toHaveLength(1);
+  });
+});

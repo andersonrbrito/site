@@ -12,6 +12,8 @@ Exemplos:
       JSON também aceita "sugestao_em" (ex.: "2026-11-07T18:30:00-03:00") e "sugestao_nota" (por que esse horário).
   agente.py update aprovacoes '{"id":"...","version":N,"rows":{"sugestao_em":"2026-11-07T18:30:00-03:00","sugestao_nota":"pico após as 18h"}}'
       (só muda a sugestão de uma peça já enviada, sem mexer no status)
+  agente.py update aprovacoes '{"id":"...","version":N,"rows":{"arquivar":true}}'
+      (tira da fila uma peça SUA que ainda está pendente, ex.: versão B que virou --extra do card A; peça já decidida não arquiva)
       (envia para AprovaçõeS_ no painel: sobe o arquivo no Storage e cria/atualiza a linha; reenviar o mesmo arquivo volta para "pendente")
 Saída: JSON no stdout."""
 import json, os, sys, urllib.request
