@@ -718,3 +718,16 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .ap-text{padding:16px;border-left:1px solid var(--glass-bd);overflow:auto;max-height:clamp(452px,78vh,900px)}
 .ap-legtxt{font-size:15.5px;line-height:1.55;color:var(--tx)}
 @media(max-width:1000px){.ap-body{grid-template-columns:1fr}.ap-text{border-left:0;border-top:1px solid var(--glass-bd);max-height:none}.ap-stage .ap-big{width:100%;height:auto;max-height:80vh}.ap-actions{align-items:flex-start}}
+/* AprovaçõeS_ v3 (pedido dele): grade de cards grandes, 3 ou 4 por linha, mídia em destaque no topo */
+.ap-list{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;align-items:start}
+.ap-row{display:flex;flex-direction:column}
+.ap-body{order:-1;display:block}
+.ap-stage{padding:0;background:#000}
+.ap-stage .ap-big{width:100%;height:auto;aspect-ratio:9/16;max-height:none;border-radius:0;object-fit:contain}
+.ap-text{border-left:0;border-top:1px solid var(--glass-bd);max-height:150px;padding:10px 14px}
+.ap-text .ap-legtxt{font-size:14px}
+.ap-bar{flex-direction:column;align-items:stretch;gap:10px;padding:12px 14px;border-bottom:0}
+.ap-head .st-title{font-size:17px}
+.ap-actions{align-items:stretch} .ap-actions .flex{gap:6px}
+.ap-actions .btn-sm{flex:1 1 auto}
+@media(min-width:1700px){.ap-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
