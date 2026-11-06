@@ -731,3 +731,5 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .ap-actions{align-items:stretch} .ap-actions .flex{gap:6px}
 .ap-actions .btn-sm{flex:1 1 auto}
 @media(min-width:1700px){.ap-list{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.ap-when{display:flex;flex-direction:column;gap:2px;margin-top:8px;padding:8px 10px;border-radius:10px;background:rgba(10,132,255,.12);border:1px solid rgba(10,132,255,.35)} .ap-when b{font-size:14.5px;color:#7cc0ff}
+.ap-when.muted{background:none;border:1px dashed var(--glass-bd)}

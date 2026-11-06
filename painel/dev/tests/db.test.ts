@@ -326,3 +326,16 @@ describe("AprovaçõeS_ (migration 0033)", () => {
     expect((await asUser(strangerId, () => db.query(`select * from aprovacoes`))).rows).toHaveLength(0);
   });
 });
+
+describe("Sugestão de postagem (migration 0035)", () => {
+  it("agente atualiza só a sugestão, sem mexer no status já decidido", async () => {
+    await asService(() => db.query(`select agent_write($1, 'upsert', 'aprovacoes', '[{"arquivo":"aprovacoes/gta/c13.png","perfil":"gta","titulo":"Contagem 13"}]')`, [integrationId]));
+    const r = (await asUser(ownerId, () => db.query<{ id: string; version: number }>(`select id, version from aprovacoes where arquivo = 'aprovacoes/gta/c13.png'`))).rows[0];
+    await asUser(ownerId, () => db.query(`update aprovacoes set status = 'aprovado' where id = $1`, [r.id]));
+    const v = (await asUser(ownerId, () => db.query<{ version: number }>(`select version from aprovacoes where id = $1`, [r.id]))).rows[0].version;
+    await asService(() => db.query(`select agent_write($1, 'update', 'aprovacoes', '[{"sugestao_em":"2026-11-07T18:30:00-03:00","sugestao_nota":"pico"}]', $2, $3)`, [integrationId, r.id, v]));
+    const out = (await asUser(ownerId, () => db.query<{ status: string; sugestao_nota: string }>(`select status, sugestao_nota from aprovacoes where id = $1`, [r.id]))).rows[0];
+    expect(out.status).toBe("aprovado");
+    expect(out.sugestao_nota).toBe("pico");
+  });
+});

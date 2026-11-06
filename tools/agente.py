@@ -9,6 +9,9 @@ Exemplos:
   agente.py update post_requests '{"id":"...","version":3,"rows":{"status":"feito","result_note":"3 rascunhos"}}'
   agente.py meta ig_insights      (números do Instagram pela API oficial, via função "meta")
   agente.py enviar kairos /Volumes/.../versiculo_01.mp4 '{"titulo":"Versículo 1","legenda":"...","tipo":"reel","ferramentas":"Python + Kling 2.5 Unlimited","creditos":0}' [--capa capa.jpg] [--extra lamina2.png ...]
+      JSON também aceita "sugestao_em" (ex.: "2026-11-07T18:30:00-03:00") e "sugestao_nota" (por que esse horário).
+  agente.py update aprovacoes '{"id":"...","version":N,"rows":{"sugestao_em":"2026-11-07T18:30:00-03:00","sugestao_nota":"pico após as 18h"}}'
+      (só muda a sugestão de uma peça já enviada, sem mexer no status)
       (envia para AprovaçõeS_ no painel: sobe o arquivo no Storage e cria/atualiza a linha; reenviar o mesmo arquivo volta para "pendente")
 Saída: JSON no stdout."""
 import json, os, sys, urllib.request
@@ -50,7 +53,8 @@ if __name__ == "__main__":
         row = {"arquivo": subir(arquivo, perfil), "perfil": perfil, "tipo": meta.get("tipo", "reel"), "titulo": meta["titulo"],
                "legenda": meta.get("legenda"), "local_path": meta.get("local_path", os.path.abspath(arquivo)),
                "ferramentas": meta.get("ferramentas"), "creditos": int(meta.get("creditos", 0)),
-               "capa": subir(capa, perfil) if capa else None, "extras": [subir(x, perfil) for x in extras]}
+               "capa": subir(capa, perfil) if capa else None, "extras": [subir(x, perfil) for x in extras],
+               "sugestao_em": meta.get("sugestao_em"), "sugestao_nota": meta.get("sugestao_nota")}
         print(json.dumps(call("agente", {"op": "upsert", "table": "aprovacoes", "rows": [row]}), ensure_ascii=True))
         sys.exit(0)
     op, arg = sys.argv[1], sys.argv[2]

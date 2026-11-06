@@ -105,7 +105,9 @@ export default async function aprovacoes({ sb, query, go }) {
       h("div", { class: "ap-bar" },
         h("div", { class: "ap-head" },
           h("div", { class: "flex wrap", style: { gap: "6px" } }, h("span", { class: `chip ${sc}` }, sl), h("span", { class: "chip accent" }, nome(a.perfil)), h("span", { class: "chip" }, a.tipo), a.creditos ? h("span", { class: "chip warn" }, `${a.creditos} créditos`) : null, h("span", { class: "mono muted" }, fmtDateTime(a.updated_at || a.created_at))),
-          h("b", { class: "st-title" }, a.titulo)),
+          h("b", { class: "st-title" }, a.titulo),
+          a.sugestao_em ? h("div", { class: "ap-when" }, h("b", null, "Postar: ", fmtDateTime(a.sugestao_em)), a.sugestao_nota && h("span", { class: "muted small" }, a.sugestao_nota))
+            : h("div", { class: "ap-when muted small" }, "sem sugestão de horário")),
         h("div", { class: "ap-actions" },
           h("div", { class: "flex wrap" }, iphone(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda")),
           h("div", { class: "flex wrap" }, ...decisao))),
@@ -127,7 +129,9 @@ export default async function aprovacoes({ sb, query, go }) {
     tabs.replaceChildren(...ABAS.map(([k, l]) => h("button", { type: "button", class: `chip${aba === k ? " accent" : ""}`, onclick: () => { aba = k; draw(); } }, `${l} (${conta(k)})`)));
     const slugs = [...new Set(all.filter((a) => a.status === aba).map((a) => a.perfil))];
     perfis.replaceChildren(h("button", { type: "button", class: `chip${!perfil ? " accent" : ""}`, onclick: () => { perfil = ""; draw(); } }, "todos os perfis"), ...slugs.map((s) => h("button", { type: "button", class: `chip${perfil === s ? " accent" : ""}`, onclick: () => { perfil = s; draw(); } }, `${nome(s)} (${all.filter((a) => a.status === aba && a.perfil === s).length})`)));
-    const vis = all.filter((a) => a.status === aba && (!perfil || a.perfil === perfil));
+    const quando = (a) => (a.sugestao_em ? Date.parse(a.sugestao_em) : Infinity);
+    const vis = all.filter((a) => a.status === aba && (!perfil || a.perfil === perfil))
+      .sort((x, y) => (aba === "publicado" || aba === "reprovado") ? 0 : quando(x) - quando(y));
     await assinar(vis.flatMap((a) => [a.arquivo, ...(a.extras || [])]));
     grid.replaceChildren(...(vis.length ? vis.map(card) : [h("p", { class: "empty" }, aba === "pendente" ? "Nada esperando aprovação. Quando um agente terminar uma peça, ela aparece aqui e o ponto do menu acende." : "Nada aqui.")]));
   };
