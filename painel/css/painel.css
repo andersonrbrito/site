@@ -562,3 +562,8 @@ main>.page.wide{max-width:1400px}
 .eco-dialog input{height:40px;border:1px solid var(--line-2);border-radius:6px;background:var(--input);padding:0 12px}
 .eco-dialog .grid2{margin-top:10px} .eco-dialog .field{margin-top:8px}
 .sn-drag{align-self:stretch;min-width:48px} .sn-colors{pointer-events:none} .sn:hover .sn-colors,.sn:focus-within .sn-colors{pointer-events:auto}
+/* UX 2026-11-06: topo sem sobreposição no celular e em telas médias */
+.sitebtn{white-space:nowrap} .menubar .right{white-space:nowrap} .menubar .mid{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+@media(max-width:767px){.menubar .mid,.menubar .right{display:none}.menubar .brand{flex:1;min-width:0;border-right:0}}
+@media(max-width:1100px){.quick .btn{white-space:nowrap}.quick .ais{display:none}}
+.eco-pgroup .agrow,.panel .agrow{flex-wrap:wrap}
