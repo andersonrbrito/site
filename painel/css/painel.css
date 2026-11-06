@@ -705,3 +705,16 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .st-side .st-acts{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0}
 .st-row .st-vids{justify-content:center}
 .st-row .st-fig.st-wide video{max-height:clamp(380px,62vh,760px)}
+/* AprovaçõeS_ v2: uma peça por linha, mídia grande, legenda ao lado, ações em cima */
+.ap-list{display:grid;gap:20px} .ap-list>.empty{grid-column:1/-1}
+.ap-row{margin:0;overflow:hidden}
+.ap-bar{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 20px;padding:14px 16px;border-bottom:1px solid var(--glass-bd)}
+.ap-head{flex:1 1 280px;min-width:0} .ap-head .st-title{display:block;margin-top:6px;font-size:20px;line-height:1.25}
+.ap-actions{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.btn.ap-copy{background:#ffd60a;color:#1e1e1e;box-shadow:0 4px 14px rgba(255,214,10,.25)}
+.ap-body{display:grid;grid-template-columns:minmax(0,auto) minmax(260px,1fr);gap:0}
+.ap-stage{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:10px}
+.ap-stage .ap-big{height:clamp(420px,74vh,860px);width:auto;max-width:100%;border-radius:12px;background:#111;object-fit:contain}
+.ap-text{padding:16px;border-left:1px solid var(--glass-bd);overflow:auto;max-height:clamp(452px,78vh,900px)}
+.ap-legtxt{font-size:15.5px;line-height:1.55;color:var(--tx)}
+@media(max-width:1000px){.ap-body{grid-template-columns:1fr}.ap-text{border-left:0;border-top:1px solid var(--glass-bd);max-height:none}.ap-stage .ap-big{width:100%;height:auto;max-height:80vh}.ap-actions{align-items:flex-start}}

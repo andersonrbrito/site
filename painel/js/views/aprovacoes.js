@@ -39,38 +39,89 @@ export default async function aprovacoes({ sb, query, go }) {
   const agora = () => new Date().toISOString();
   const copiar = async (t) => { try { await navigator.clipboard.writeText(t || ""); toast("Legenda copiada."); } catch { toast("Não deu para copiar.", { kind: "err" }); } };
 
-  const media = (path) => {
+  const media = (path, big) => {
     const u = urls.get(path);
     if (!u) return h("div", { class: "ap-empty" }, "sem prévia");
-    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true }) : h("img", { src: u, alt: "", loading: "lazy" });
+    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big" : "" });
   };
+
+  // Enviar pro iPhone: 1º toque baixa os arquivos (vídeo/imagens), 2º abre o compartilhar do sistema.
+  // A legenda vai junto para a área de transferência (no iPhone: "Salvar vídeo", depois colar a legenda no Instagram).
+  const iphone = (a) => {
+    let pacote = null;
+    const rotulo = "Enviar pro iPhone";
+    const btn = h("button", { class: "btn btn-sm st-iphone", type: "button" }, rotulo);
+    const compartilhar = async () => {
+      const copiou = a.legenda ? await navigator.clipboard?.writeText(a.legenda).then(() => true, () => false) : false;
+      try {
+        await navigator.share({ files: pacote, title: a.titulo });
+        toast(copiou ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+        pacote = null; btn.textContent = rotulo;
+      } catch (e) {
+        if (e.name === "AbortError") return;
+        if (e.name === "NotAllowedError") { btn.textContent = "Tocar de novo para enviar"; return toast("Arquivo pronto. Toque de novo para abrir o compartilhar."); }
+        toast("Não deu para compartilhar: " + e.message, { kind: "err" });
+      }
+    };
+    btn.addEventListener("click", async () => {
+      if (pacote) return compartilhar();
+      const paths = [a.arquivo, ...(a.extras || [])];
+      if (!navigator.canShare) {
+        if (a.legenda) copiar(a.legenda);
+        toast("Este navegador não abre o compartilhar. Abra o painel no Safari do iPhone ou do Mac. Baixando aqui.", { kind: "err" });
+        paths.forEach((p) => { const l = h("a", { href: urls.get(p) || "#", download: p.split("/").pop() }); document.body.append(l); l.click(); l.remove(); });
+        return;
+      }
+      btn.disabled = true; btn.textContent = "Preparando…";
+      try {
+        const files = [];
+        for (const p of paths) {
+          const b = await (await fetch(urls.get(p))).blob();
+          files.push(new File([b], p.split("/").pop(), { type: b.type || (isVideo(p) ? "video/mp4" : "image/jpeg") }));
+        }
+        if (!navigator.canShare({ files })) throw new Error("o navegador recusou o arquivo");
+        pacote = files;
+      } catch (e) { btn.textContent = rotulo; toast("Não preparou: " + e.message, { kind: "err" }); return; }
+      finally { btn.disabled = false; }
+      btn.textContent = "Tocar de novo para enviar";
+      return compartilhar();
+    });
+    return btn;
+  };
+
   const card = (a) => {
     const [sl, sc] = ST[a.status] || ST.pendente;
-    const acoes = a.status === "pendente" || a.status === "ajustar"
-      ? [h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => salvar(a, { status: "aprovado", decidido_em: agora(), comentario: null }, "Aprovado.") }, "Aprovar"),
+    const decisao = a.status === "pendente" || a.status === "ajustar"
+      ? [h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => salvar(a, { status: "aprovado", decidido_em: agora(), comentario: null }, "Aprovado. Está na aba Aprovados (publicar).") }, "Aprovar"),
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("O que ajustar? (o agente lê isso)", a.comentario || ""); if (c?.trim()) salvar(a, { status: "ajustar", comentario: c.trim(), decidido_em: agora() }, "Ajuste pedido."); } }, "Pedir ajuste"),
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("Motivo (opcional):", ""); if (c !== null) salvar(a, { status: "reprovado", comentario: c.trim() || null, decidido_em: agora() }, "Reprovado."); } }, "Reprovar")]
       : a.status === "aprovado"
-        ? [h("a", { class: "btn btn-sm", href: urls.get(a.arquivo) || "#", download: a.arquivo.split("/").pop(), target: "_blank", rel: "noopener" }, "Baixar"),
-           h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const u = prompt("Link do post publicado (opcional):", ""); if (u !== null) salvar(a, { status: "publicado", publicado_em: agora(), url_publicado: u.trim() || null }, "Marcado como publicado."); } }, "Marcar publicado"),
+        ? [h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => { const u = prompt("Link do post publicado (opcional):", ""); if (u !== null) salvar(a, { status: "publicado", publicado_em: agora(), url_publicado: u.trim() || null }, "Marcado como publicado."); } }, "Marcar publicado"),
+           h("a", { class: "btn btn-ghost btn-sm", href: urls.get(a.arquivo) || "#", download: a.arquivo.split("/").pop(), target: "_blank", rel: "noopener" }, "Baixar"),
            h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente" }, "Voltou para aprovação.") }, "Desfazer")]
         : [a.url_publicado && h("a", { class: "btn btn-ghost btn-sm", href: a.url_publicado, target: "_blank", rel: "noopener" }, "Ver post ↗"),
            h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente" }, "Voltou para aprovação.") }, "Voltar para aprovação")];
-    return h("article", { class: "panel ap-card" },
-      h("div", { class: "ap-media" }, media(a.arquivo)),
-      a.extras?.length ? h("div", { class: "ap-extras" }, ...a.extras.map((p) => h("a", { href: urls.get(p) || "#", target: "_blank", rel: "noopener" }, isVideo(p) ? h("span", null, "▶") : h("img", { src: urls.get(p) || "", alt: "", loading: "lazy" })))) : null,
-      h("div", { class: "panel-body" },
-        h("div", { class: "flex wrap", style: { gap: "6px" } }, h("span", { class: `chip ${sc}` }, sl), h("span", { class: "chip accent" }, nome(a.perfil)), h("span", { class: "chip" }, a.tipo), a.creditos ? h("span", { class: "chip warn" }, `${a.creditos} créditos`) : null),
-        h("b", { class: "st-title", style: { marginTop: "8px" } }, a.titulo),
-        a.comentario && h("p", { class: "small ap-coment" }, "Seu comentário: ", a.comentario),
-        a.legenda && h("details", { class: "ap-leg" }, h("summary", { class: "small" }, "Legenda"), h("p", { class: "small pre" }, a.legenda)),
-        h("div", { class: "flex wrap", style: { marginTop: "8px" } }, ...acoes, a.legenda && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda")),
-        h("p", { class: "mono muted", style: { marginTop: "8px" } }, fmtDateTime(a.updated_at || a.created_at), a.ferramentas ? ` · ${a.ferramentas}` : "")));
+    return h("article", { class: "panel ap-row" },
+      h("div", { class: "ap-bar" },
+        h("div", { class: "ap-head" },
+          h("div", { class: "flex wrap", style: { gap: "6px" } }, h("span", { class: `chip ${sc}` }, sl), h("span", { class: "chip accent" }, nome(a.perfil)), h("span", { class: "chip" }, a.tipo), a.creditos ? h("span", { class: "chip warn" }, `${a.creditos} créditos`) : null, h("span", { class: "mono muted" }, fmtDateTime(a.updated_at || a.created_at))),
+          h("b", { class: "st-title" }, a.titulo)),
+        h("div", { class: "ap-actions" },
+          h("div", { class: "flex wrap" }, iphone(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda")),
+          h("div", { class: "flex wrap" }, ...decisao))),
+      a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
+      h("div", { class: "ap-body" },
+        h("div", { class: "ap-stage" }, media(a.arquivo, true),
+          a.extras?.length ? h("div", { class: "ap-extras" }, ...a.extras.map((p) => h("a", { href: urls.get(p) || "#", target: "_blank", rel: "noopener" }, isVideo(p) ? h("span", null, "▶") : h("img", { src: urls.get(p) || "", alt: "", loading: "lazy" })))) : null),
+        h("div", { class: "ap-text" },
+          h("div", { class: "mono", style: { marginBottom: "6px" } }, "Legenda"),
+          a.legenda ? h("p", { class: "ap-legtxt pre" }, a.legenda) : h("p", { class: "muted small" }, "Sem legenda."),
+          a.ferramentas && h("p", { class: "mono muted", style: { marginTop: "10px" } }, a.ferramentas))));
   };
 
   const tabs = h("div", { class: "flex wrap ap-tabs" });
   const perfis = h("div", { class: "flex wrap ap-tabs" });
-  const grid = h("div", { class: "ap-grid" });
+  const grid = h("div", { class: "ap-list" });
   const draw = async () => {
     const conta = (k) => all.filter((a) => a.status === k && (!perfil || a.perfil === perfil)).length;
     tabs.replaceChildren(...ABAS.map(([k, l]) => h("button", { type: "button", class: `chip${aba === k ? " accent" : ""}`, onclick: () => { aba = k; draw(); } }, `${l} (${conta(k)})`)));

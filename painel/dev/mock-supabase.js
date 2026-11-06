@@ -73,7 +73,7 @@ export function installMock() {
   window.supabase = { createClient: () => ({
     from: (t) => new Q(t),
     rpc: async (fn, { q } = {}) => ({ data: fn === "module_news" ? [{ module: "agentes", n: 2, last_at: new Date().toISOString() }, { module: "postador", n: 1, last_at: new Date().toISOString() }] : fn === "search_all" ? DB.tasks.filter((t) => t.title.toLowerCase().includes(q.toLowerCase())).map((t) => ({ entity: "task", id: t.id, title: t.title, snippet: null })) : [], error: null }),
-    storage: { from: () => ({ createSignedUrls: async (paths) => ({ data: paths.map((p) => ({ path: p, signedUrl: "../../lunar/images/anderson-camera.jpg" })), error: null }), upload: async (path) => ({ data: { path }, error: null }), createSignedUrl: async () => ({ data: { signedUrl: "../../assets/anderson-sony.jpg" }, error: null }) }) },
+    storage: { from: () => ({ createSignedUrls: async (paths) => ({ data: paths.map((p) => ({ path: p, signedUrl: /\.mp4$/.test(p) ? "/painel/carrosseis/claude-financas-pessoais/video-reel.mp4" : "/lunar/images/anderson-camera.jpg" })), error: null }), upload: async (path) => ({ data: { path }, error: null }), createSignedUrl: async () => ({ data: { signedUrl: "../../assets/anderson-sony.jpg" }, error: null }) }) },
     auth: { getSession: async () => ({ data: { session: { user: { id: "u1" } } } }), signOut: async () => {}, signInWithOAuth: async () => ({ error: null }), onAuthStateChange: () => {} },
   }) };
 }
