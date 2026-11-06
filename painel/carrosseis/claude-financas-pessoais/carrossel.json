@@ -4,41 +4,79 @@
  "tipo": "noticia",
  "titulo": "Claude agora lê sua conta do banco",
  "perfil": "@ilmarlabs",
- "legenda": "A Anthropic lançou o Personal Finance no Claude: você conecta banco e cartão e pergunta sobre o seu dinheiro na linguagem do dia a dia. Só leitura, ele não mexe em nada.\n\nNa minha visão, app que só organiza gasto em gráfico vai ter um ano difícil. Mas pode ser que eu esteja errado.\n\nO mercado tá mudando rápido demais. Qual vocês acham que é o próximo alvo deles?\n\nFonte: Anthropic (claude.com). Beta só nos EUA, planos Pro, Max e Ultra.",
+ "legenda": "A Anthropic lançou o Personal Finance no Claude: você conecta banco e cartão e pergunta sobre o seu dinheiro na linguagem do dia a dia. Só leitura, ele não mexe em nada.\n\nNa minha visão, app que só organiza gasto em gráfico vai ter um ano difícil. Mas pode ser que eu esteja errado.\n\nO mercado tá mudando rápido demais. Qual vocês acham que é o próximo alvo deles?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Anthropic (claude.com). Beta só nos EUA, planos Pro, Max e Ultra.",
  "fontes": [
-  { "titulo": "Anthropic: Introducing Personal Finance in Claude", "url": "https://claude.com/resources/articles/introducing-personal-finance-in-claude" },
-  { "titulo": "Post oficial do @claudeai no X (vídeo)", "url": "https://x.com/claudeai/status/2118403114890137895" }
+  {
+   "titulo": "Anthropic: Introducing Personal Finance in Claude",
+   "url": "https://claude.com/resources/articles/introducing-personal-finance-in-claude"
+  },
+  {
+   "titulo": "Post oficial do @claudeai no X (vídeo)",
+   "url": "https://x.com/claudeai/status/2118403114890137895"
+  }
  ],
  "notas": "Lâminas 1 e 6: memes gerados no Magnific (Nano Banana 2). Lâmina 2: vídeo oficial do post (primeiros 30 s). Lâminas 3, 4, 5 e 7: imagens do artigo e quadros do vídeo da Anthropic.",
  "slides": [
   {
    "texto": "Com essa atualização, a Anthropic acabou de **matar 99% dos SaaS de finanças** comuns.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-financas-pessoais/01-enterro.jpg", "foco": 0.35 },
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-financas-pessoais/01-enterro.jpg",
+    "foco": 0.35
+   },
    "rodape": "arrasta pro lado →"
   },
   {
    "texto": "O Claude agora lê a sua conta do banco.\n\nChama **Personal Finance**: você conecta banco e cartão e pergunta sobre o seu dinheiro na linguagem do dia a dia.",
-   "midia": { "tipo": "video", "src": "/painel/carrosseis/claude-financas-pessoais/02-video.mp4", "poster": "/painel/carrosseis/claude-financas-pessoais/02-poster.jpg", "credito": "vídeo: @claudeai" }
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/claude-financas-pessoais/02-video.mp4",
+    "poster": "/painel/carrosseis/claude-financas-pessoais/02-poster.jpg",
+    "credito": "vídeo: @claudeai"
+   }
   },
   {
    "texto": "O que ele faz com os seus dados:\n\n• soma os gastos por categoria e compara com os meses anteriores\n• avisa o que vence antes do salário\n• caça cobrança duplicada, tarifa escondida e conta que subiu\n• explica juros sem economês",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-financas-pessoais/03-app.jpg", "foco": 0.25, "credito": "imagem: Anthropic" }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-financas-pessoais/03-app.jpg",
+    "foco": 0.25,
+    "credito": "imagem: Anthropic"
+   }
   },
   {
    "texto": "Você pergunta \"o que sobra até o salário?\" e ele lista as contas que saem antes, quanto custa cada uma e **quanto fica na conta**.\n\nIsso era o produto inteiro de muito app por aí.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-financas-pessoais/04-salario.jpg", "foco": 0.3, "credito": "imagem: Anthropic" }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-financas-pessoais/04-salario.jpg",
+    "foco": 0.3,
+    "credito": "imagem: Anthropic"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
   },
   {
    "texto": "E antes que alguém surte: o acesso é **só leitura**.\n\nEle não move, não investe e não mexe no seu dinheiro. A conexão é pelo Plaid e ele nunca vê a senha do banco.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-financas-pessoais/05-plaid.jpg", "credito": "imagem: Anthropic" }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-financas-pessoais/05-plaid.jpg",
+    "credito": "imagem: Anthropic"
+   }
   },
   {
    "texto": "Minha opinião? App que só organiza gasto e mostra gráfico vai ter um ano difícil.\n\nQuem tem crédito, conta própria ou gente de verdade atendendo ainda tem espaço. Mas posso estar errado.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-financas-pessoais/06-startup.jpg", "foco": 0.4 }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-financas-pessoais/06-startup.jpg",
+    "foco": 0.4
+   }
   },
   {
-   "texto": "Por enquanto é beta, só nos EUA, nos planos Pro, Max e Ultra.\n\nO mercado tá mudando rápido demais.\n**Qual vocês acham que é o próximo alvo deles?**",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-financas-pessoais/07-fim.jpg", "credito": "imagem: Anthropic" },
+   "texto": "Por enquanto é beta, só nos EUA, nos planos Pro, Max e Ultra.\n\nO mercado tá mudando rápido demais.\n**Qual vocês acham que é o próximo alvo deles?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-financas-pessoais/07-fim.jpg",
+    "credito": "imagem: Anthropic"
+   },
    "rodape": "comenta aqui embaixo ↓"
   }
  ]
