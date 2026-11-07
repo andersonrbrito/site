@@ -138,6 +138,23 @@ export default async function aprovacoes({ sb, query, go }) {
       h("a", { class: "btn btn-sm", href: urls.get(a.arquivo) || "#", target: "_blank", rel: "noopener" }, "Abrir PDF"),
       h("a", { class: "btn btn-ghost btn-sm", href: urls.get(a.arquivo) || "#", download: a.arquivo.split("/").pop() }, "Baixar PDF")));
 
+  // Baixar no Mac: todos os arquivos do card (vídeo/imagem principal, extras e capa). O "download" na URL assinada
+  // faz o Supabase responder como anexo (o atributo download do <a> não vale para outro domínio).
+  const baixar = (a) => {
+    const paths = [...new Set([a.arquivo, ...(a.extras || []), a.capa].filter(Boolean))];
+    return h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Baixar os arquivos deste card", onclick: async () => {
+      await assinar(paths);
+      const ok = paths.filter((p) => urls.get(p));
+      if (!ok.length) return toast("Não achei os arquivos (recarregue a página).", { kind: "err" });
+      ok.forEach((p, i) => setTimeout(() => {
+        const nomeArq = p.split("/").pop(), u = urls.get(p);
+        const l = h("a", { href: u + (u.includes("?") ? "&" : "?") + "download=" + encodeURIComponent(nomeArq), download: nomeArq });
+        document.body.append(l); l.click(); l.remove();
+      }, i * 400));
+      toast(ok.length > 1 ? `Baixando ${ok.length} arquivos.` : "Baixando.");
+    } }, paths.length > 1 ? `Baixar (${paths.length})` : "Baixar");
+  };
+
   const card = (a) => {
     const [sl, sc] = ST[a.status] || ST.pendente;
     const decisao = a.status === "pendente" || a.status === "ajustar"
@@ -146,7 +163,6 @@ export default async function aprovacoes({ sb, query, go }) {
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("Motivo (opcional):", ""); if (c !== null) salvar(a, { status: "reprovado", comentario: c.trim() || null, decidido_em: agora() }, "Reprovado."); } }, "Reprovar")]
       : a.status === "aprovado"
         ? [h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => { const u = prompt("Link do post publicado (opcional):", ""); if (u !== null) salvar(a, { status: "publicado", publicado_em: agora(), url_publicado: u.trim() || null }, "Marcado como publicado."); } }, "Marcar publicado"),
-           h("a", { class: "btn btn-ghost btn-sm", href: urls.get(a.arquivo) || "#", download: a.arquivo.split("/").pop(), target: "_blank", rel: "noopener" }, "Baixar"),
            h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente" }, "Voltou para aprovação.") }, "Desfazer")]
         : [a.url_publicado && h("a", { class: "btn btn-ghost btn-sm", href: a.url_publicado, target: "_blank", rel: "noopener" }, "Ver post ↗"),
            h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente" }, "Voltou para aprovação.") }, "Voltar para aprovação")];
@@ -158,7 +174,7 @@ export default async function aprovacoes({ sb, query, go }) {
           a.sugestao_em ? h("div", { class: "ap-when" }, h("b", null, "Postar: ", fmtDateTime(a.sugestao_em)), a.sugestao_nota && h("span", { class: "muted small" }, a.sugestao_nota))
             : h("div", { class: "ap-when muted small" }, "sem sugestão de horário")),
         h("div", { class: "ap-actions" },
-          h("div", { class: "flex wrap" }, iphone(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda")),
+          h("div", { class: "flex wrap" }, iphone(a), baixar(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda")),
           h("div", { class: "flex wrap" }, ...decisao))),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-07 · AprovaçõeS_: botão Baixar
+- Todo card tem "Baixar" (ou "Baixar (n)"), em qualquer aba: baixa no Mac o arquivo principal, os extras (vídeo B, thumbs, lâminas) e a capa. Usa `download=` na URL assinada para o Supabase entregar como anexo. Substitui o "Baixar" que só existia na aba Aprovados.
+
 ## 2026-11-06 (noite) · Relatório diário por perfil e arquivar pendente
 - Migration 0036: o agente pode arquivar uma peça PRÓPRIA ainda pendente em AprovaçõeS_ (`update aprovacoes {"arquivar":true}`), útil para juntar versões B/C no card da A. Também cria `reports.kind = 'perfil'` com as colunas `perfil` e `dados` (jsonb: seguidores, delta_dia, semana_delta, meta_semana).
 - PerfiS_: cada perfil novo mostra "Meta da semana" (+N / 100 seguidores) com barra e abre o relatório do dia (avaliação e recomendações), navegando pelos últimos 14 dias. O @andersonbrito.mp4 não entra na rotina.
