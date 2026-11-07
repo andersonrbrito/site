@@ -9,7 +9,7 @@ const REDES = { instagram: { nome: "Instagram", cor: "#E1306C", d: "M7 3h10a4 4 
   youtube: { nome: "YouTube", cor: "#FF0000", d: "M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z" },
   x: { nome: "X", cor: "#d6d6d6", d: "M4 4l16 16M20 4L4 20" } };
 const FOTOS = { "andersonbrito-mp4": "/lunar/images/anderson-camera.jpg", "x-andersbrito": "/lunar/images/anderson-camera.jpg", "youtube-andersonbrito": "/lunar/images/anderson-camera.jpg", "tiktok-andersonbrito": "/lunar/images/anderson-camera.jpg", "anders-brito": "/lunar/images/anderson-camera.jpg", "brito-portfolio": "/lunar/images/anderson-camera.jpg",
-  kairos: "/painel/img/influencers/kairos.jpg", mazzaropi: "/painel/img/influencers/mazzaropi.jpg", "india-narah": "/painel/img/influencers/india-narah.jpg", seufofudo: "/painel/img/influencers/fofudo.jpg" };
+  kairos: "/painel/img/influencers/kairos.jpg", mazzaropi: "/painel/img/influencers/mazzaropi.jpg", "india-narah": "/painel/img/influencers/india-narah.jpg", seufofudo: "/painel/img/influencers/fofudo.jpg", hipnoticos: "/painel/img/influencers/transevisual.jpg" };
 const redeDe = (p) => { const s = (p.plataforma || "").toLowerCase(); return s.startsWith("tiktok") ? "tiktok" : s.startsWith("youtube") ? "youtube" : s.startsWith("x") ? "x" : "instagram"; };
 const urlDe = (p, rede) => {
   if (p.url) return p.url;
