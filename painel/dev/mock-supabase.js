@@ -54,10 +54,11 @@ class Q {
   or(s) { const parts = s.split(",").map((x) => x.split(".")); this.f.push((r) => parts.some(([c, o, v]) => (o === "is" ? r[c] == null : o === "gt" ? r[c] != null && r[c] > v : false))); return this; }
   order(c, o = {}) { this.ord = [c, o.ascending === false ? -1 : 1]; return this; }
   limit(n) { this.lim = n; return this; }
+  range(a, b) { this.off = a; this.lim = b - a + 1; return this; }
   rows() {
     let rs = DB[this.t].filter((r) => this.f.every((f) => f(r)));
     if (this.ord) { const [c, d] = this.ord; rs = [...rs].sort((a, b) => ((a[c] ?? "￿") > (b[c] ?? "￿") ? 1 : -1) * d); }
-    rs = rs.slice(0, this.lim);
+    rs = rs.slice(this.off || 0, (this.off || 0) + this.lim);
     if (this.t === "tasks") rs = rs.map((r) => ({ ...r, projects: r.project_id ? { name: DB.projects.find((p) => p.id === r.project_id)?.name } : null }));
     return rs;
   }

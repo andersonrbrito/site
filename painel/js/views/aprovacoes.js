@@ -16,9 +16,15 @@ export async function contaPendentes(sb) {
 }
 
 export default async function aprovacoes({ sb, query, go }) {
-  const { data, error } = await sb.from("aprovacoes").select("*").is("archived_at", null).order("created_at", { ascending: false }).limit(500);
-  if (error) return h("p", { class: "alert" }, "Não foi possível carregar as aprovações. A migration 0033 foi aplicada?");
-  const all = data || [];
+  // Carrega tudo em páginas de 1000 (o Supabase devolve no máximo 1000 por pedido; com 10 posts/dia por perfil
+  // passamos de 500 em um dia e as peças mais antigas sumiam da tela).
+  const all = [];
+  for (let de = 0; ; de += 1000) {
+    const { data, error } = await sb.from("aprovacoes").select("*").is("archived_at", null).order("created_at", { ascending: false }).order("id").range(de, de + 999);
+    if (error) return h("p", { class: "alert" }, "Não foi possível carregar as aprovações. A migration 0033 foi aplicada?");
+    all.push(...(data || []));
+    if (!data || data.length < 1000 || de >= 20000) break;
+  }
   const { data: pf } = await sb.from("perfis").select("slug, handle").is("archived_at", null);
   const nome = (s) => (pf || []).find((p) => p.slug === s)?.handle || s;
   let aba = ABAS.some(([k]) => k === query.aba) ? query.aba : "pendente", perfil = query.perfil || "";
