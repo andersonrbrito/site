@@ -1,0 +1,94 @@
+{
+ "slug": "instagram-edits-no-mac",
+ "dia": "2026-11-07",
+ "tipo": "noticia",
+ "titulo": "Instagram lança o Edits no computador (Mac)",
+ "perfil": "@ilmarlabs",
+ "legenda": "O Instagram lançou o Edits pra Mac: timeline com várias trilhas, keyframe, roda de cor, LUT, legenda automática e exportação em 4K sem marca d'água. De graça.\n\nPra mim, é o concorrente mais direto do CapCut no computador até agora. Mas ainda é só Mac e não sincroniza o projeto com o celular.\n\nVocês trocariam o editor de vocês por ele?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: blog oficial do Edits (05/11/2026), TechCrunch e MacRumors.",
+ "fontes": [
+  {
+   "titulo": "Edits (Instagram): Edits on desktop is here",
+   "url": "https://edits.instagram.com/blog/edits-desktop-video-editor/"
+  },
+  {
+   "titulo": "TechCrunch: Instagram brings Edits to desktop to take on CapCut",
+   "url": "https://techcrunch.com/2026/11/05/instagram-brings-edits-to-desktop-to-take-on-capcut/"
+  },
+  {
+   "titulo": "MacRumors: Instagram's Edits Video Editor is Now Available on Mac",
+   "url": "https://www.macrumors.com/2026/11/05/instagram-edits-mac/"
+  },
+  {
+   "titulo": "The Next Web: Instagram launches free Edits video editor for Mac with 4K exports",
+   "url": "https://thenextweb.com/news/instagram-launches-free-edits-video-editor-for-mac-with-4k-exports"
+  }
+ ],
+ "notas": "Pauta: busca de notícias (Google/WebSearch). Lâmina 1: pôster gerado no ChatGPT (prompt em prompts.txt). Lâminas 2 a 5: imagens oficiais do blog do Edits (capturadas da página). Lâminas 6 e 7: prints do blog e da página de download do Edits. Requisito \"Mac com Apple silicon (M1 ou mais novo)\" confirmado na página oficial de download; o resto está no blog oficial.",
+ "slides": [
+  {
+   "texto": "O Instagram lançou o **Edits no computador**.\n\nDe graça, com exportação em 4K e sem marca d'água.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O app de edição do Instagram agora tem versão pra **Mac**.\n\nTimeline com várias trilhas, keyframe nas transições e forma de onda do áudio pra cortar no tempo da música.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/02-timeline.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Instagram"
+   }
+  },
+  {
+   "texto": "Vem com a biblioteca de músicas licenciadas do Instagram, centenas de efeitos e **legenda automática ilimitada** em vários idiomas.\n\nOs estilos de texto e áudio que você salvou no celular já aparecem lá.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/03-audio.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Instagram"
+   }
+  },
+  {
+   "texto": "Tem também **roda de cor, curvas, conversão de LOG** e importação de LUT e de fonte.\n\nPra um app gratuito, é bastante coisa pra quem faz Reels.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/04-cor.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Instagram"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Exporta em 4K, na horizontal ou na vertical, **sem marca d'água**.\n\nE publica direto no Instagram, com marcação, localização e até o teste de Reels pra quem não te segue.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/05-exportar.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Instagram"
+   }
+  },
+  {
+   "texto": "O detalhe que mais me chamou atenção: dá pra conectar **agentes de IA pelo MCP**.\n\nOu seja, um agente pode adiantar o projeto e você termina na mão. Ainda quero testar pra ver até onde isso vai.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/06-blog.jpg",
+    "foco": 0.3,
+    "credito": "imagem: Instagram"
+   }
+  },
+  {
+   "texto": "Limites: por enquanto **só Mac** (com chip Apple, M1 ou mais novo), sem Windows, e ainda não dá pra continuar o mesmo projeto no celular e no computador.\n\nPra mim, é o rival mais direto do CapCut no computador. Mas posso estar errado.\n**Vocês trocariam?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/instagram-edits-no-mac/07-download.jpg",
+    "foco": 0.3,
+    "credito": "imagem: Instagram"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

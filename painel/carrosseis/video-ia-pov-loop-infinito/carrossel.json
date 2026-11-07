@@ -1,0 +1,81 @@
+{
+ "slug": "video-ia-pov-loop-infinito",
+ "dia": "2026-11-07",
+ "tipo": "educativo",
+ "titulo": "Vídeo POV em loop infinito com IA (passo a passo)",
+ "perfil": "@ilmarlabs",
+ "legenda": "Vídeo de 7 segundos, sem rosto, sem história: só a câmera no volante dirigindo por um mundo que não existe, e o fim emendando no começo.\n\nFiz as imagens desse post com esse método, todas no Brasil (Lençóis, Serra do Rio do Rastro, Paulista, canavial). Os prompts estão nas lâminas.\n\nQual mundo brasileiro vocês colocariam nessa estrada?\n\nSalva pra fazer o seu. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Post de @tivollem no X sobre a página de vídeos POV de direção em loop",
+   "url": "https://x.com/tivollem/status/2118357685750169604"
+  },
+  {
+   "titulo": "Post de @growthnoir no X sobre o mesmo formato",
+   "url": "https://x.com/growthnoir/status/2118431425586180499"
+  }
+ ],
+ "notas": "Pauta: curtidas do Anderson no X (posts @tivollem e @growthnoir). Os números de views da página citada são do post do @tivollem, não confirmados de forma independente; por isso aparecem atribuídos ao post. Imagens 01, 03, 04 e 05 geradas no ChatGPT com os prompts das lâminas (ver prompts.txt). Lâmina 2: print do post real. Lâmina 6: montagem início/fim com a imagem 01. Lâmina 7: grade com os 4 mundos.",
+ "slides": [
+  {
+   "texto": "Vídeo de IA de **7 segundos, sem rosto e sem história**, batendo milhões de views.\n\nTe mostro como fazer o seu.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/01-lencois.jpg",
+    "foco": 0.45
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O formato: câmera no lugar do motorista, mãos no volante, dirigindo à noite por um **mundo que não existe**.\n\nSegundo esse post que viralizou no X, uma página que só posta isso tem vídeo passando de 100 milhões de views. O segredo: o último quadro volta pro primeiro.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/02-post.jpg",
+    "foco": 0.2,
+    "credito": "post: @tivollem no X"
+   }
+  },
+  {
+   "texto": "**Passo 1: a lista de mundos.** Pede pro Claude ou pro ChatGPT:\n\n**\"Me dá 30 mundos impossíveis pra dirigir à noite, uma frase cada, em lugares do Brasil\"**\n\nCada frase vira um vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/03-serra.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "**Passo 2: o primeiro quadro.** No ChatGPT ou no Nano Banana:\n\n**\"Imagem vertical, POV do motorista, mãos no volante de um Fusca à noite, dirigindo por [MUNDO], fotorrealista, atmosfera de sonho\"**\n\nFoi assim que fiz essas imagens.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/04-paulista.jpg",
+    "foco": 0.4
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "**Passo 3: animar.** No Kling ou no Seedance, usa a MESMA imagem como quadro inicial e final:\n\n**\"a câmera segue em frente pela estrada, movimento contínuo e suave, sem cortes\"**\n\nDe 5 a 8 segundos já basta.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/05-canavial.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "**Passo 4: o loop.** Na edição, confere se o último quadro casa com o primeiro. Se der um pulinho, tira uns quadros do fim.\n\nTrilha calma e nada de texto na tela. Quanto menos distrai, mais gente assiste de novo.\n\n**Salva pra fazer o seu** e manda pra quem quer começar uma página sem aparecer.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/06-inicio-fim.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Do jeito que eu vejo, o segredo não é a ferramenta: é repetir **a mesma composição** e trocar só o mundo. Mas posso estar errado.\n\n**Qual mundo brasileiro vocês colocariam nessa estrada?** Comenta LOOP que eu te mando a lista com os 30.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/video-ia-pov-loop-infinito/07-mundos.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

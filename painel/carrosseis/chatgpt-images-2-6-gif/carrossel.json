@@ -1,0 +1,94 @@
+{
+ "slug": "chatgpt-images-2-6-gif",
+ "dia": "2026-11-07",
+ "tipo": "noticia",
+ "titulo": "ChatGPT Images 2.6: agora faz GIF e guarda referência",
+ "perfil": "@ilmarlabs",
+ "legenda": "A OpenAI lançou o ChatGPT Images 2.6: agora ele transforma prompt ou imagem em GIF animado e guarda suas imagens de referência (você, seu pet, seu personagem) pra usar de novo.\n\nPra mim, GIF parece brincadeira, mas vira motion rápido pra story, meme e thumb animada. Posso estar errado.\n\nVocês vão usar mais pra meme ou pra trabalho?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: OpenAI (post oficial no X, 04/11/2026). Liberado em todos os planos do ChatGPT e do Codex.",
+ "fontes": [
+  {
+   "titulo": "OpenAI no X: introducing ChatGPT Images 2.6 (thread oficial)",
+   "url": "https://x.com/OpenAI/status/2118124944928432327"
+  },
+  {
+   "titulo": "OpenAI no X: GIFs com o ChatGPT Images 2.6",
+   "url": "https://x.com/OpenAI/status/2118124953832935810"
+  },
+  {
+   "titulo": "BetaNews: ChatGPT Images 2.6 adds GIFs and 50% faster image generation",
+   "url": "https://betanews.com/article/chatgpt-images-gifs-faster-generation/"
+  },
+  {
+   "titulo": "Mixed: ChatGPT can now make looping GIFs, and you can save reference images",
+   "url": "https://mixed-news.com/en/chatgpt-images-26-gifs-reference-images-openai/"
+  }
+ ],
+ "notas": "Pauta: curtidas do Anderson no X (06/11) + busca de notícias. Fatos da thread oficial da @OpenAI no X; BetaNews e Mixed como segunda fonte. Lâmina 1: pôster gerado no ChatGPT (prompt em prompts.txt). Lâminas 2 e 3: vídeos oficiais do post da OpenAI (primeiros 30 s e o GIF em repetição). Lâminas 4, 6 e 7: quadros do vídeo oficial. Lâmina 5: print da thread oficial. O aviso de que o botão de GIF pode demorar em algumas contas vem da cobertura secundária.",
+ "slides": [
+  {
+   "texto": "O ChatGPT agora **faz GIF**.\n\nE ainda guarda a sua cara pra usar de novo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/01-hook.jpg",
+    "foco": 0.45
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A OpenAI lançou o **ChatGPT Images 2.6** nesta semana.\n\nAs duas novidades grandes: GIF animado e imagens de referência salvas.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/02-video.mp4",
+    "poster": "/painel/carrosseis/chatgpt-images-2-6-gif/02-poster.jpg",
+    "credito": "vídeo: @OpenAI"
+   }
+  },
+  {
+   "texto": "**GIF:** você manda um prompt ou uma imagem e ele anima.\n\nDá pra ajustar a velocidade, editar quadro por quadro e compartilhar em repetição.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/03-video.mp4",
+    "poster": "/painel/carrosseis/chatgpt-images-2-6-gif/03-poster.jpg",
+    "credito": "vídeo: @OpenAI"
+   }
+  },
+  {
+   "texto": "**Referência salva:** você guarda uma foto sua, do pet ou de um personagem e reutiliza nas próximas criações, sem subir de novo.\n\nPra quem trabalha com personagem fixo, isso economiza bastante tempo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/05-personagens.jpg",
+    "foco": 0.5,
+    "credito": "imagem: OpenAI"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Pra quem usa a API, dois modelos novos: **GPT-Image-2.6 Flare** (rápido, gera em até 6 segundos) e **Sunburst** (mais qualidade e consistência nas edições).\n\nA OpenAI fala em geração 50% mais rápida.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/04-thread.jpg",
+    "foco": 0.3,
+    "credito": "print: @OpenAI no X"
+   }
+  },
+  {
+   "texto": "Minha opinião? GIF parece brincadeira, mas vira **motion rápido** pra story, meme e thumb animada.\n\nNão substitui vídeo, mas resolve muita coisa pequena sem abrir editor. Posso estar errado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/06-passaro.jpg",
+    "foco": 0.4,
+    "credito": "imagem: OpenAI"
+   }
+  },
+  {
+   "texto": "Já está liberado no ChatGPT e no Codex em **todos os planos**, na web, no computador e no celular. O botão de GIF pode demorar um pouco pra aparecer em algumas contas.\n\n**Vocês vão usar mais pra meme ou pra trabalho?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-images-2-6-gif/07-logo.jpg",
+    "foco": 0.5,
+    "credito": "imagem: OpenAI"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

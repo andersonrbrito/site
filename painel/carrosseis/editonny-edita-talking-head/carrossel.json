@@ -1,0 +1,86 @@
+{
+ "slug": "editonny-edita-talking-head",
+ "dia": "2026-11-07",
+ "tipo": "educativo",
+ "titulo": "editonny: edite vídeo falado conversando com o Claude",
+ "perfil": "@ilmarlabs",
+ "legenda": "Um brasileiro, o Matheus Gomes, criou o editonny: uma skill grátis e open source pro Claude Code e o Codex que corta pausas, \"éééé\" e erros do seu vídeo falado, coloca legenda e reenquadra, tudo por conversa e rodando no seu computador.\n\nPra mim não substitui o olhar do editor, mas pra limpar bruto de talking head é tempo devolvido.\n\nVocês confiariam o primeiro corte numa IA?\n\nSalva pra testar. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "editonny no GitHub (Matheus Gomes, licença MIT)",
+   "url": "https://github.com/soumatheusgomes/editonny"
+  },
+  {
+   "titulo": "README em português do editonny",
+   "url": "https://github.com/soumatheusgomes/editonny/blob/main/README.pt-BR.md"
+  }
+ ],
+ "notas": "Pauta: curtidas do Anderson no X (post sobre o repositório editonny). Fatos conferidos no README oficial (pt-BR) do repositório. Lâmina 1: pôster gerado no ChatGPT. Lâminas 2 a 7: ilustrações do próprio README (renderizadas dos SVGs em português), crédito editonny.",
+ "slides": [
+  {
+   "texto": "Um brasileiro criou uma skill **grátis** que edita seu vídeo falado **por conversa**.\n\nCorta pausa, \"éééé\" e erro sozinha.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **editonny**, do Matheus Gomes. É open source e funciona no **Claude Code e no Codex**.\n\nA transcrição e o render rodam no seu computador. Seu vídeo não precisa ir pra lugar nenhum.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/02-editonny.jpg",
+    "foco": 0.5,
+    "credito": "imagem: editonny (GitHub)"
+   }
+  },
+  {
+   "texto": "**Passo 1: instalar.** Você não baixa nada na mão: abre o Claude Code numa pasta e cola o pedido de instalação que está no GitHub dele (soumatheusgomes/editonny).\n\nPrecisa de Python, FFmpeg e Node, e o agente prepara o que faltar. Depois reinicia e chama **/editonny**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/06-instalar.jpg",
+    "foco": 0.4,
+    "credito": "imagem: editonny (GitHub)"
+   }
+  },
+  {
+   "texto": "**Passo 2: o pedido.** Exemplo:\n\n**\"Edite um vídeo vertical de 45 segundos da pasta /meu-video. Mantenha as falas completas, corte pausas, respiros e erros e coloque legendas claras.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/03-pausas.jpg",
+    "foco": 0.5,
+    "credito": "imagem: editonny (GitHub)"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "**Passo 3: conferir.** Antes de editar, ele **propõe as configurações e espera você aprovar**.\n\nNo fim, te mostra uma amostra de 8 a 15 segundos pra revisar. O arquivo original fica intacto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/05-legendas.jpg",
+    "foco": 0.5,
+    "credito": "imagem: editonny (GitHub)"
+   }
+  },
+  {
+   "texto": "Dá pra ir além: legenda com destaque na palavra falada, reenquadre pra 9:16, 1:1, 4:5 ou 16:9 e trecho da fala virando **cena de motion** (são 145 no catálogo).\n\n**Salva pra testar** e manda pra quem grava conteúdo falando.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/04-motion.jpg",
+    "foco": 0.5,
+    "credito": "imagem: editonny (GitHub)"
+   }
+  },
+  {
+   "texto": "Pra mim, não substitui o olhar do editor em vídeo de marca. Mas pra limpar bruto de talking head é tempo devolvido. Posso estar errado.\n\n**Vocês confiariam o primeiro corte numa IA?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/editonny-edita-talking-head/07-reenquadre.jpg",
+    "foco": 0.5,
+    "credito": "imagem: editonny (GitHub)"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
