@@ -765,3 +765,29 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .ap-ebook-capa img{width:auto;max-width:92%;max-height:72vh;height:auto;aspect-ratio:auto;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.6)}
 .ap-ebook-selo{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:999px;background:#ff3b30;color:#fff;font:700 12px/1.3 var(--mono,monospace);letter-spacing:.04em}
 .ap-stage .ap-ebook img.ap-big{aspect-ratio:auto;width:auto;max-width:92%;height:auto;max-height:72vh;border-radius:6px;object-fit:contain}
+
+/* 07/11: CarrosseL_ (decisão + ações agrupadas) e UX no celular */
+.ap-head{flex:0 0 auto}
+.cz-filtros{margin-bottom:10px;gap:6px}
+.cz-back{display:inline-block;margin:0 0 10px;color:var(--tx-2);font-size:13px}
+.cz-bar{display:flex;flex-direction:column;gap:12px;padding:12px 14px;margin-bottom:14px}
+.cz-decide{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.cz-decide .cz-st{font-size:13px}
+.cz-acts{display:flex;flex-wrap:wrap;gap:10px 28px}
+.cz-grp{display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.cz-grp>.mono{color:var(--tx-3);margin-right:2px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.cz-del{color:var(--danger)}
+@media(max-width:767px){
+  .page-head{margin-bottom:14px}
+  .ap-tabs,.cz-filtros{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;margin-right:-16px;padding-right:16px}
+  .ap-tabs::-webkit-scrollbar,.cz-filtros::-webkit-scrollbar{display:none}
+  .ap-tabs>*,.cz-filtros>*{flex:none}
+  .btn-sm{height:40px;padding:0 12px}
+  .cz-acts{flex-direction:column}
+  .cz-grp>.mono{width:100%}
+  .cz-grp .btn-sm,.cz-decide .btn-sm{flex:1 1 auto}
+  .cz-decide .grow{display:none}
+  .stack-lg>*,.stack>*,.homegrid>*{min-width:0}.homegrid{grid-template-columns:minmax(0,1fr)}.eco-meta .mono{white-space:normal}
+  .panel-head{flex-wrap:wrap}.panel .panel-head h2,.panel .panel-head h2.mono{min-width:0;white-space:normal;overflow-wrap:anywhere}
+  .tabbar a{font-size:9.5px;letter-spacing:-.02em;padding:8px 1px;overflow:hidden;white-space:nowrap}
+}

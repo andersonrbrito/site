@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-11-07 · CarrosseL_: aprovar e botões organizados; UX no celular
+- CarrosseL_ (editor): barra de decisão com o status atual e só os botões que valem para ele (Aprovar/Descartar no rascunho, Marcar como postado/Voltar no aprovado), com Desfazer. Ações agrupadas em "Postar" (Enviar pro iPhone, Copiar legenda, Baixar lâminas) e "Criar" (Transformar em vídeo); ferramentas da lâmina agrupadas em "Esta lâmina". O seletor de status solto saiu.
+- CarrosseL_ (lista): filtros por status com contagem (A aprovar, Aprovados, Postados, Descartados) além dos filtros por tipo.
+- Celular: filtros do AprovaçõeS_ e do CarrosseL_ numa linha só com rolagem lateral; fim do vão vazio no meio do card de aprovação (também no desktop); botões com 40 px de altura; texto explicativo do AprovaçõeS_ escondido no celular; menu de baixo com rótulos menores; PaineL_ sem rolagem lateral (grade e títulos que estouravam a largura).
+
 ## 2026-11-07 · Legenda no iPhone
 - `copiarTexto` (js/ui.js): o campo temporário deixou de ser readonly e a seleção usa Range explícito (o Safari do iOS não seleciona campo readonly, e a cópia falhava em silêncio).
 - AprovaçõeS_: botão "Legenda pro iPhone" (onde o navegador tem compartilhar, ex.: Safari do Mac e do iPhone) manda só o texto da legenda por AirDrop/Mensagens/Notas, para quando a área de transferência do Mac não passa para o iPhone.

@@ -69,9 +69,11 @@ export default async function carrosseis({ sb, query, go }) {
 
 // ───────────────────────── Lista ─────────────────────────
 function listView({ sb, go, query, data }) {
-  const filtro = ["noticia", "educativo", "pessoal", "descartado"].includes(query.f) ? query.f : "";
+  const filtro = ["noticia", "educativo", "pessoal", "descartado", "rascunho", "aprovado", "postado"].includes(query.f) ? query.f : "";
   const hoje = todayISO(), ontem = addDaysISO(hoje, -1);
-  const itens = data.lista.filter((c) => (filtro === "descartado" ? c.status === "descartado" : c.status !== "descartado" && (!filtro || c.tipo === filtro)));
+  const porStatus = ["rascunho", "aprovado", "postado", "descartado"].includes(filtro);
+  const itens = data.lista.filter((c) => (porStatus ? c.status === filtro : c.status !== "descartado" && (!filtro || c.tipo === filtro)));
+  const nSt = (v) => data.lista.filter((c) => c.status === v).length;
   const porDia = new Map();
   for (const c of itens) { if (!porDia.has(c.dia)) porDia.set(c.dia, []); porDia.get(c.dia).push(c); }
   const nomeDia = (d) => (d === hoje ? "Hoje" : d === ontem ? "Ontem" : fmtDate(d));
@@ -89,7 +91,8 @@ function listView({ sb, go, query, data }) {
   return h("div", { class: "page wide" },
     pageHead("CarrosseL_", "2 notícias + 2 educativos por dia · pedidos do PostadoR_ · estilo print de tweet · para o @ilmarlabs"),
     !data.dbOn && h("p", { class: "note" }, "A tabela de carrosséis ainda não existe no banco (migration 0028). Dá para ver e baixar, mas edição e pedido de vídeo só funcionam depois de rodar a migration no Supabase."),
-    h("div", { class: "flex wrap", style: { marginBottom: "16px" } }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("pessoal", "Pessoais"), chip("descartado", "Descartados")),
+    h("div", { class: "flex wrap cz-filtros" }, chip("rascunho", `A aprovar (${nSt("rascunho")})`), chip("aprovado", `Aprovados (${nSt("aprovado")})`), chip("postado", `Postados (${nSt("postado")})`), chip("descartado", `Descartados (${nSt("descartado")})`)),
+    h("div", { class: "flex wrap cz-filtros" }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("pessoal", "Pessoais")),
     guiaPostagem(),
     pedidosNovos(data, go),
     porDia.size ? [...porDia].map(([d, cs]) => h("section", { style: { marginBottom: "26px" } },
@@ -253,7 +256,7 @@ function editor({ sb, go, c, data }) {
     const nova = () => { st.slides.splice(sel + 1, 0, { texto: "Novo texto", midia: null }); assets.splice(sel + 1, 0, null); sel++; buildStrip(); drawForm(); touch(); };
     const semMidia = () => { s.midia = null; renderSlide(sel, true); drawForm(); touch(); };
     form.replaceChildren(
-      h("div", { class: "flex", style: { justifyContent: "space-between" } }, h("b", null, `Lâmina ${sel + 1} de ${st.slides.length}`), saveInfo),
+      h("b", null, `Lâmina ${sel + 1} de ${st.slides.length}`),
       h("label", { class: "field" }, h("span", null, "Texto ", h("span", { class: "muted small" }, "(**assim** fica em negrito)")), ta),
       h("label", { class: "field" }, "Rodapé (opcional)", rod),
       h("div", { class: "field" }, h("span", null, "Mídia ", h("span", { class: "muted small" }, s.midia ? (s.midia.tipo === "video" ? "vídeo" : "imagem") + (s.midia.path ? " enviada por você" : "") : "nenhuma (toda lâmina deve ter ilustração)")),
@@ -262,14 +265,13 @@ function editor({ sb, go, c, data }) {
           s.midia && h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: semMidia }, "Remover mídia"), fileIn)),
       s.midia && h("label", { class: "field" }, "Recorte da mídia (cima ↔ baixo)", foco),
       s.midia && h("label", { class: "field" }, "Crédito da mídia", cred),
-      h("div", { class: "flex wrap", style: { marginTop: "6px" } },
+      h("div", { class: "cz-grp", style: { marginTop: "6px" } }, h("span", { class: "mono" }, "Esta lâmina"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: () => move(-1), disabled: sel === 0 }, "← Mover"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: () => move(1), disabled: sel === st.slides.length - 1 }, "Mover →"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: dup }, "Duplicar"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: nova }, "+ Lâmina depois"),
-        h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: del }, "Tirar lâmina")),
-      h("div", { class: "flex wrap", style: { marginTop: "6px" } },
-        h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: (e) => baixar([sel], e.currentTarget) }, s.midia?.tipo === "video" ? "Baixar esta lâmina (vídeo)" : "Baixar esta lâmina (PNG)")));
+        h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: (e) => baixar([sel], e.currentTarget) }, s.midia?.tipo === "video" ? "Baixar (vídeo)" : "Baixar (PNG)"),
+        h("button", { type: "button", class: "btn btn-ghost btn-sm cz-del", onclick: del }, "Tirar lâmina")));
     if (!data.dbOn) form.querySelectorAll("textarea,input,button").forEach((el) => { if (!/Baixar/.test(el.textContent)) el.disabled = true; });
   }
 
@@ -389,13 +391,29 @@ function editor({ sb, go, c, data }) {
   // ── cabeçalho, legenda, fontes ──
   const titulo = h("input", { class: "input cz-title", value: st.titulo, "aria-label": "Título interno" });
   titulo.addEventListener("input", () => { st.titulo = titulo.value || "Sem título"; touch(); });
-  const status = h("select", { class: "select", style: { width: "auto" }, "aria-label": "Status" }, ...Object.entries(STATUS).map(([v, l]) => h("option", { value: v, selected: v === st.status }, l)));
-  status.addEventListener("change", () => { st.status = status.value; touch(); });
+  // ── decisão: um lugar só, com o status atual e os botões que fazem sentido para ele ──
+  const decisao = h("div", { class: "cz-decide" });
+  async function setStatus(v, msg) {
+    if (!data.dbOn) return toast("Rode a migration 0028 para mudar o status.", { kind: "err" });
+    const antes = st.status; st.status = v; clearTimeout(timer); await save();
+    if (saveInfo.textContent !== "Salvo") { st.status = antes; drawDecisao(); return; }
+    drawDecisao(); toast(msg, { actionLabel: "Desfazer", onAction: () => setStatus(antes, "Voltou.") });
+  }
+  function drawDecisao() {
+    const b = (l, v, msg, cls = "btn-ghost") => h("button", { type: "button", class: `btn btn-sm ${cls}`, onclick: () => setStatus(v, msg) }, l);
+    decisao.replaceChildren(
+      h("span", { class: "cz-st " + st.status }, STATUS[st.status] || st.status),
+      ...(st.status === "rascunho" ? [b("Aprovar", "aprovado", "Aprovado. Pronto para postar.", "ap-ok"), b("Descartar", "descartado", "Descartado.")]
+        : st.status === "aprovado" ? [b("Marcar como postado", "postado", "Marcado como postado.", "ap-ok"), b("Voltar para rascunho", "rascunho", "Voltou para rascunho.")]
+        : [b("Voltar para rascunho", "rascunho", "Voltou para rascunho.")]),
+      h("span", { class: "grow" }), saveInfo);
+  }
+  drawDecisao();
   const leg = h("textarea", { class: "textarea", rows: 8 }); leg.value = st.legenda || "";
   leg.addEventListener("input", () => { st.legenda = leg.value; touch(); });
   const copiar = () => copiarTexto(st.legenda || "", "Legenda copiada.");
   const baixarTudo = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => baixar(st.slides.map((_, i) => i), e.currentTarget) }, "Baixar lâminas");
-  if (!data.dbOn) [titulo, status, leg].forEach((el) => { el.disabled = true; });
+  if (!data.dbOn) [titulo, leg].forEach((el) => { el.disabled = true; });
 
   buildStrip(); drawForm(); drawPedidos();
   if (st.slides[0]?.midia?.tipo === "video") select(0);
@@ -403,12 +421,12 @@ function editor({ sb, go, c, data }) {
   return h("div", { class: "page wide" },
     pageHead(st.titulo, `${TIPO[st.tipo] || st.tipo} · ${st.perfil || "@ilmarlabs"} · ${fmtDate(st.dia)} · 1080×1350`),
     !data.dbOn && h("p", { class: "note" }, "Modo leitura: rode a migration 0028 no Supabase para editar e pedir vídeo."),
-    h("div", { class: "flex wrap", style: { gap: "8px", marginBottom: "14px" } },
-      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => go("/carrosseis") }, "← Todos"),
-      h("button", { class: "btn btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo"),
-      iphone, baixarTudo,
-      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: copiar }, "Copiar legenda"),
-      h("div", { class: "grow" }), status),
+    h("a", { class: "cz-back mono", href: "#/carrosseis", onclick: (e) => { e.preventDefault(); go("/carrosseis"); } }, "← Todos os carrosséis"),
+    h("div", { class: "panel cz-bar" },
+      decisao,
+      h("div", { class: "cz-acts" },
+        h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Postar"), iphone, h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda"), baixarTudo),
+        h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Criar"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo")))),
     videoBox,
     strip,
     h("div", { class: "cz-edit" },

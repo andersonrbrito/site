@@ -210,6 +210,6 @@ export default async function aprovacoes({ sb, query, go }) {
   await draw();
   return h("div", { class: "page wide" },
     pageHead("AprovaçõeS_", "conteúdo dos agentes esperando o seu OK"),
-    h("p", { class: "muted small", style: { marginBottom: "12px" } }, "Aprovar libera para publicar. Pedir ajuste manda o seu comentário para o agente, que refaz e reenvia (volta para \"Para aprovar\"). Nada é publicado sem você."),
+    h("p", { class: "muted small hide-sm", style: { marginBottom: "12px" } }, "Aprovar libera para publicar. Pedir ajuste manda o seu comentário para o agente, que refaz e reenvia (volta para \"Para aprovar\"). Nada é publicado sem você."),
     tabs, perfis, grid);
 }
