@@ -1,5 +1,5 @@
 import { h, fmtDateTime, fmtDate, todayISO, dayOf, TZ } from "../util.js";
-import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261106m";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
 import { CONFIG } from "../config.js";
 import { lineChart, reportBox } from "./desempenho.js";
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-07 · Legenda no iPhone
+- `copiarTexto` (js/ui.js): o campo temporário deixou de ser readonly e a seleção usa Range explícito (o Safari do iOS não seleciona campo readonly, e a cópia falhava em silêncio).
+- AprovaçõeS_: botão "Legenda pro iPhone" (onde o navegador tem compartilhar, ex.: Safari do Mac e do iPhone) manda só o texto da legenda por AirDrop/Mensagens/Notas, para quando a área de transferência do Mac não passa para o iPhone.
+
 ## 2026-11-07 · AprovaçõeS_: botão Baixar
 - Todo card tem "Baixar" (ou "Baixar (n)"), em qualquer aba: baixa no Mac o arquivo principal, os extras (vídeo B, thumbs, lâminas) e a capa. Usa `download=` na URL assinada para o Supabase entregar como anexo. Substitui o "Baixar" que só existia na aba Aprovados.
 

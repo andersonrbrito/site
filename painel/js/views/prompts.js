@@ -1,5 +1,5 @@
 import { h } from "../util.js";
-import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261106m";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
 
 // Prompts: links de sites de prompts e prompts próprios (com botão de copiar).
 const favicon = (url) => { try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; } catch { return ""; } };

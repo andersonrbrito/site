@@ -50,13 +50,17 @@ export function copiarTexto(texto, msg = "Copiado.") {
   const t = String(texto ?? "");
   let ok = false;
   try {
+    // iOS só seleciona campo editável (readonly some com a seleção) e precisa de Range explícito
     const ta = document.createElement("textarea");
-    ta.value = t; ta.setAttribute("readonly", ""); ta.setAttribute("aria-hidden", "true");
+    ta.value = t; ta.contentEditable = "true"; ta.setAttribute("aria-hidden", "true");
     Object.assign(ta.style, { position: "fixed", top: "0", left: "0", width: "1px", height: "1px", opacity: "0", fontSize: "16px", border: "0", padding: "0" });
     document.body.append(ta);
-    ta.focus({ preventScroll: true }); ta.select(); ta.setSelectionRange(0, t.length);
+    ta.focus({ preventScroll: true });
+    const r = document.createRange(); r.selectNodeContents(ta);
+    const sel = window.getSelection(); sel?.removeAllRanges(); sel?.addRange(r);
+    ta.select(); ta.setSelectionRange(0, t.length);
     ok = document.execCommand("copy");
-    ta.remove();
+    sel?.removeAllRanges(); ta.blur(); ta.remove();
   } catch { ok = false; }
   const api = navigator.clipboard?.writeText ? navigator.clipboard.writeText(t).then(() => true, () => false) : Promise.resolve(false);
   return api.then((a) => {

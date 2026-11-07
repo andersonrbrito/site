@@ -2,7 +2,7 @@
 // legenda com botão de copiar, e as decisões: Aprovar, Pedir ajuste (com comentário), Reprovar, Marcar publicado.
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
-import { toast, pageHead, copiarTexto } from "../ui.js?v=20261106m";
+import { toast, pageHead, copiarTexto } from "../ui.js?v=20261107b";
 
 const BUCKET = "anderson-os-arquivos";
 const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
@@ -138,6 +138,14 @@ export default async function aprovacoes({ sb, query, go }) {
       h("a", { class: "btn btn-sm", href: urls.get(a.arquivo) || "#", target: "_blank", rel: "noopener" }, "Abrir PDF"),
       h("a", { class: "btn btn-ghost btn-sm", href: urls.get(a.arquivo) || "#", download: a.arquivo.split("/").pop() }, "Baixar PDF")));
 
+  // Legenda pro iPhone: manda só o texto pelo compartilhar (AirDrop do Mac chega no iPhone como texto/nota,
+  // pronto para copiar). Resolve quando a área de transferência do Mac não passa para o iPhone.
+  const legendaIphone = (a) => a.legenda && navigator.share ? h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Enviar só a legenda (AirDrop/Mensagens/Notas)", onclick: async () => {
+    copiar(a.legenda);
+    try { await navigator.share({ text: a.legenda }); toast("Legenda enviada. No iPhone, abra e copie."); }
+    catch (e) { if (e.name !== "AbortError") toast("Não deu para compartilhar a legenda: " + e.message, { kind: "err" }); }
+  } }, "Legenda pro iPhone") : null;
+
   // Baixar no Mac: todos os arquivos do card (vídeo/imagem principal, extras e capa). O "download" na URL assinada
   // faz o Supabase responder como anexo (o atributo download do <a> não vale para outro domínio).
   const baixar = (a) => {
@@ -174,7 +182,7 @@ export default async function aprovacoes({ sb, query, go }) {
           a.sugestao_em ? h("div", { class: "ap-when" }, h("b", null, "Postar: ", fmtDateTime(a.sugestao_em)), a.sugestao_nota && h("span", { class: "muted small" }, a.sugestao_nota))
             : h("div", { class: "ap-when muted small" }, "sem sugestão de horário")),
         h("div", { class: "ap-actions" },
-          h("div", { class: "flex wrap" }, iphone(a), baixar(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda")),
+          h("div", { class: "flex wrap" }, iphone(a), baixar(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda"), legendaIphone(a)),
           h("div", { class: "flex wrap" }, ...decisao))),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },
