@@ -31,7 +31,7 @@ export default async function youtube({ sb, refresh }) {
   drawOpts();
   const look = async () => {
     const url = urlIn.value.trim(); if (!url) return;
-    preview.replaceChildren(h("p", { class: "muted small" }, "Lendo o vídeo…"));
+    preview.replaceChildren(h("p", { class: "muted small" }, "Lendo o vídeo… (o YouTube pede uma verificação: leva cerca de 1 minuto, mais se o Mac estiver renderizando)"));
     try {
       info = await helper("/info", { url }); height = 0; drawOpts();
       preview.replaceChildren(h("div", { class: "flex" }, info.thumbnail && h("img", { src: info.thumbnail, alt: "", referrerpolicy: "no-referrer" }),

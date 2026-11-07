@@ -17,12 +17,16 @@ JOBS = {}
 URL_OK = re.compile(r"^https://(www\.|m\.|music\.)?(youtube\.com|youtu\.be)/", re.I)
 
 
-def ytdlp(*args):
-    return subprocess.run([YTDLP, *args], capture_output=True, text=True, timeout=120)
+def ytdlp(*args, timeout=300):
+    # o YouTube exige resolver um desafio em JS (Deno): leva ~40 s com o Mac livre e passa de 2 min com renders rodando
+    try:
+        return subprocess.run([YTDLP, *args], capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        raise RuntimeError("o YouTube demorou mais de 5 min para responder (Mac ocupado com render?). Tente de novo em instantes.")
 
 
 def info(url):
-    r = ytdlp("-J", "--no-playlist", url)
+    r = ytdlp("-J", "--no-playlist", "--no-warnings", url)
     if r.returncode != 0:
         raise RuntimeError(r.stderr.strip().splitlines()[-1] if r.stderr.strip() else "não consegui ler o vídeo")
     j = json.loads(r.stdout)
