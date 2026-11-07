@@ -39,6 +39,8 @@ export default async function aprovacoes({ sb, query, go }) {
   };
   const agora = () => new Date().toISOString();
   const copiar = (t) => copiarTexto(t, "Legenda copiada.");
+  // story não tem legenda pra postar: o texto é orientação interna e nunca vai pra área de transferência
+  const copiavel = (a) => (a.tipo === "story" ? null : a.legenda);
 
   const media = (path, big) => {
     const u = urls.get(path);
@@ -55,7 +57,7 @@ export default async function aprovacoes({ sb, query, go }) {
     const compartilhar = async () => {
       try {
         await navigator.share({ files: pacote, title: a.titulo });
-        toast(a.legenda ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
+        toast(copiavel(a) ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
         pacote = null; btn.textContent = rotulo;
       } catch (e) {
         if (e.name === "AbortError") return;
@@ -65,7 +67,7 @@ export default async function aprovacoes({ sb, query, go }) {
     };
     btn.addEventListener("click", async () => {
       // copia a legenda já no toque (o Safari bloqueia a cópia depois de esperas como o download)
-      if (a.legenda) copiar(a.legenda);
+      if (copiavel(a)) copiar(copiavel(a));
       if (pacote) return compartilhar();
       const paths = [a.arquivo, ...(a.extras || [])];
       if (!navigator.canShare) {
@@ -140,7 +142,7 @@ export default async function aprovacoes({ sb, query, go }) {
 
   // Legenda pro iPhone: manda só o texto pelo compartilhar (AirDrop do Mac chega no iPhone como texto/nota,
   // pronto para copiar). Resolve quando a área de transferência do Mac não passa para o iPhone.
-  const legendaIphone = (a) => a.legenda && navigator.share ? h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Enviar só a legenda (AirDrop/Mensagens/Notas)", onclick: async () => {
+  const legendaIphone = (a) => copiavel(a) && navigator.share ? h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Enviar só a legenda (AirDrop/Mensagens/Notas)", onclick: async () => {
     copiar(a.legenda);
     try { await navigator.share({ text: a.legenda }); toast("Legenda enviada. No iPhone, abra e copie."); }
     catch (e) { if (e.name !== "AbortError") toast("Não deu para compartilhar a legenda: " + e.message, { kind: "err" }); }
@@ -182,14 +184,15 @@ export default async function aprovacoes({ sb, query, go }) {
           a.sugestao_em ? h("div", { class: "ap-when" }, h("b", null, "Postar: ", fmtDateTime(a.sugestao_em)), a.sugestao_nota && h("span", { class: "muted small" }, a.sugestao_nota))
             : h("div", { class: "ap-when muted small" }, "sem sugestão de horário")),
         h("div", { class: "ap-actions" },
-          h("div", { class: "flex wrap" }, iphone(a), baixar(a), a.legenda && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(a.legenda) }, "Copiar legenda"), legendaIphone(a)),
+          h("div", { class: "flex wrap" }, iphone(a), baixar(a), copiavel(a) && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(copiavel(a)) }, "Copiar legenda"), legendaIphone(a)),
           h("div", { class: "flex wrap" }, ...decisao))),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },
         h("div", { class: "ap-stage" }, isPdf(a.arquivo) ? ebook(a) : a.extras?.length ? galeria([a.arquivo, ...a.extras]) : media(a.arquivo, true)),
         h("div", { class: "ap-text" },
-          h("div", { class: "mono", style: { marginBottom: "6px" } }, "Legenda"),
-          a.legenda ? h("p", { class: "ap-legtxt pre" }, a.legenda) : h("p", { class: "muted small" }, "Sem legenda."),
+          h("div", { class: "mono", style: { marginBottom: "6px" } }, a.tipo === "story" ? "Orientação do story (uso interno, não postar)" : "Legenda"),
+          a.tipo === "story" ? h("p", { class: "muted small pre" }, a.legenda || "Story não leva legenda. A orientação fica na nota do horário.")
+            : a.legenda ? h("p", { class: "ap-legtxt pre" }, a.legenda) : h("p", { class: "muted small" }, "Sem legenda."),
           a.ferramentas && h("p", { class: "mono muted", style: { marginTop: "10px" } }, a.ferramentas))));
   };
 
