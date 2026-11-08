@@ -1,0 +1,54 @@
+{
+ "slug": "ferramentas-gratis-codigo-aberto-editor",
+ "dia": "2026-11-08",
+ "tipo": "educativo",
+ "titulo": "6 programas grátis de código aberto pra quem edita vídeo",
+ "perfil": "@ilmarlabs",
+ "legenda": "Separei 6 programas de código aberto que cobrem boa parte do dia a dia de quem edita: gravar tela, ditar roteiro, legendar, comprimir e editar.\n\nNão é pra cancelar tudo amanhã. Testa em paralelo no que você mais paga hoje e vê se aguenta o seu fluxo.\n\nQual desses vocês já usam? Faltou algum que salva a vida de vocês?\n\nSalva pra testar no próximo projeto e manda pra quem edita contigo.\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {"titulo": "OBS Studio no GitHub", "url": "https://github.com/obsproject/obs-studio"},
+  {"titulo": "Cap no GitHub", "url": "https://github.com/CapSoftware/Cap"},
+  {"titulo": "OpenWhispr no GitHub", "url": "https://github.com/OpenWhispr/openwhispr"},
+  {"titulo": "Subtitle Edit no GitHub", "url": "https://github.com/SubtitleEdit/subtitleedit"},
+  {"titulo": "HandBrake no GitHub", "url": "https://github.com/HandBrake/HandBrake"},
+  {"titulo": "Kdenlive no GitHub", "url": "https://github.com/KDE/kdenlive"}
+ ],
+ "notas": "Pauta: post salvo dele no IG (lista de 9 projetos do GitHub que substituem ferramentas pagas). Refeito com o olhar de editor de vídeo: ficaram só os 2 da lista que servem pra edição (Cap e OpenWhispr) e entraram 4 clássicos do editor (OBS, Subtitle Edit, HandBrake, Kdenlive). Texto e visual próprios, sem copiar o post. Cada recurso citado foi conferido no README/site oficial em 08/11 (OpenWhispr: offline com Whisper/Parakeet, Mac/Windows/Linux; Subtitle Edit: transcrição com whisper.cpp/WhisperX no changelog; Cap: alternativa aberta ao Loom). Lâmina 1: hook gerado no ChatGPT (ver prompts.txt). Lâminas 2 a 8: cards oficiais dos repositórios no GitHub.",
+ "slides": [
+  {
+   "texto": "Quanto você paga por mês em programa pra editar?\n\nEsses **6 são grátis e de código aberto**, e fazem boa parte do trampo.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/01-hook.jpg", "foco": 0.4},
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "**1. OBS Studio**\n\nGrava a tela e faz live. Dá pra montar cena com câmera, tela e áudio separados.\n\nPra mim é o básico de quem grava tutorial ou bastidor de edição.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/02-obs-studio.jpg", "foco": 0.5, "credito": "imagem: GitHub"}
+  },
+  {
+   "texto": "**2. Cap**\n\nAlternativa aberta ao Loom: grava a tela e já gera um link pra mandar.\n\nServe muito pra mostrar alteração pro cliente sem precisar de call.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/03-cap.jpg", "foco": 0.5, "credito": "imagem: GitHub"}
+  },
+  {
+   "texto": "**3. OpenWhispr**\n\nVocê aperta um atalho, fala, e o texto aparece onde está o cursor.\n\nRoda até **offline** com Whisper. Serve pra ditar roteiro e prompt longo sem digitar.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/04-openwhispr.jpg", "foco": 0.5, "credito": "imagem: GitHub"},
+   "rodape": "segue o @andersonbrito.mp4 pra não perder as próximas →"
+  },
+  {
+   "texto": "**4. Subtitle Edit**\n\nEditor de legenda que também transcreve o áudio com Whisper.\n\nVocê gera o SRT, corrige o tempo de cada linha e exporta pro editor que quiser.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/05-subtitleedit.jpg", "foco": 0.5, "credito": "imagem: GitHub"}
+  },
+  {
+   "texto": "**5. HandBrake**\n\nComprime e converte vídeo.\n\nAquele arquivo de 4 GB que não sobe no WhatsApp nem no Drive do cliente? Ele resolve em poucos cliques.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/06-handbrake.jpg", "foco": 0.5, "credito": "imagem: GitHub"}
+  },
+  {
+   "texto": "**6. Kdenlive**\n\nEditor de vídeo completo, com timeline de várias trilhas, efeitos e correção de cor.\n\nNão substitui tudo do Premiere, mas dá conta de muito Reels.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/07-kdenlive.jpg", "foco": 0.5, "credito": "imagem: GitHub"}
+  },
+  {
+   "texto": "Dica: não cancela nada de uma vez. Testa um por semana em paralelo no que você mais paga.\n\n**Qual desses vocês já usam? Faltou algum?**\n\nSalva pra testar e manda pra quem edita contigo.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/ferramentas-gratis-codigo-aberto-editor/08-todas.jpg", "foco": 0.5, "credito": "imagem: GitHub"},
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

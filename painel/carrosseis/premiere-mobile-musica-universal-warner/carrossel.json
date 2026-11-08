@@ -1,0 +1,43 @@
+{
+ "slug": "premiere-mobile-musica-universal-warner",
+ "dia": "2026-11-08",
+ "tipo": "noticia",
+ "titulo": "Premiere do celular vai ter música da Universal e da Warner",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Adobe anunciou que o Premiere mobile, o app grátis de edição pro celular, vai ganhar músicas licenciadas da Universal e da Warner. Dá pra usar até 60 segundos de uma faixa no vídeo.\n\nO porém: a licença é só pra uso pessoal, não comercial. Publi e vídeo de marca ficam de fora. E ainda não tem data.\n\nVocês usariam música de gravadora em vídeo pessoal ou preferem trilha livre?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: blog da Adobe (03/11/2026), Music Business Worldwide e The Next Web.",
+ "fontes": [
+  {"titulo": "Adobe Blog: Premiere mobile adds music from UMG and WMG", "url": "https://blog.adobe.com/en/publish/2026/11/03/premiere-mobile-adds-music-umg-wmg-helping-creators-find-perfect-track-every-story"},
+  {"titulo": "Music Business Worldwide: Adobe partners with Universal and Warner to bring licensed music to Premiere mobile", "url": "https://www.musicbusinessworldwide.com/adobe-partners-with-universal-and-warner-to-bring-licensed-music-to-premiere-mobile-its-free-video-editing-app/"},
+  {"titulo": "The Next Web: Adobe brings licensed UMG and WMG music to its free Premiere mobile app", "url": "https://thenextweb.com/news/adobe-premiere-mobile-umg-wmg-music"}
+ ],
+ "notas": "Pauta: Google Notícias / newsletter Creator Weekly (07/11), confirmada no blog oficial da Adobe (03/11) e em Music Business Worldwide e The Next Web. Fatos: até 60 s de uma faixa, busca por artista/faixa, filtro por gênero e duração, templates com música, exportar pra 'plataformas sociais licenciadas' (não listadas), licença pessoal e não comercial, comercial = Adobe Stock Audio. Sem data e sem países divulgados. Lâminas 2 a 5: imagem e prints do blog oficial da Adobe. Lâminas 1 e 6: geradas no ChatGPT (ver prompts.txt), sem logos.",
+ "slides": [
+  {
+   "texto": "A Adobe fechou com a **Universal e a Warner**.\n\nO Premiere do celular vai ter música de gravadora pra usar no seu vídeo.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/premiere-mobile-musica-universal-warner/01-hook.jpg", "foco": 0.4},
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O anúncio saiu no blog da Adobe dia 3/11.\n\nO Premiere mobile, que é o app **grátis** de edição deles pro celular, vai ganhar faixas licenciadas da Universal Music e da Warner Music.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/premiere-mobile-musica-universal-warner/02-logos.jpg", "foco": 0.5, "credito": "imagem: Adobe"}
+  },
+  {
+   "texto": "O que vem:\n\n• buscar música em alta por artista ou faixa\n• filtrar por gênero e duração\n• usar **até 60 segundos** de uma música no vídeo\n• templates que já vêm casados com a música",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/premiere-mobile-musica-universal-warner/04-recursos.jpg", "foco": 0.5, "credito": "print: blog da Adobe"},
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O detalhe que importa pra quem trabalha com cliente:\n\na licença é pra **uso pessoal, não comercial**.\n\nPubli, anúncio e vídeo de marca ficam de fora. Pra isso a Adobe aponta o Adobe Stock Audio, que é licenciado à parte.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/premiere-mobile-musica-universal-warner/05-licenca.jpg", "foco": 0.5, "credito": "print: blog da Adobe"}
+  },
+  {
+   "texto": "E ainda não tem data. A Adobe só fala em \"em breve\".\n\nTambém não disse quais países recebem primeiro nem quais redes contam como \"plataforma licenciada\" pra postar.\n\nPra mim é um bom sinal: gravadora preferindo licenciar em vez de derrubar vídeo.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/premiere-mobile-musica-universal-warner/03-anuncio.jpg", "foco": 0.3, "credito": "print: blog da Adobe"}
+  },
+  {
+   "texto": "Pra vídeo pessoal ajuda bastante. Pra quem vive de cliente, a trilha de anúncio continua sendo outro assunto. Mas posso estar errado.\n\n**Vocês usariam música de gravadora em vídeo pessoal ou preferem trilha livre?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/premiere-mobile-musica-universal-warner/06-meme.jpg", "foco": 0.4},
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

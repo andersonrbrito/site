@@ -1,0 +1,52 @@
+{
+ "slug": "pika-h3-flex-video-aberto",
+ "dia": "2026-11-08",
+ "tipo": "noticia",
+ "titulo": "Pika H3 Flex: vídeo com IA de código aberto e 15 grátis por dia",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Pika lançou o H3 Flex, um modelo de vídeo com IA feito pra testar rápido: até 12 referências, áudio junto e pesos abertos no Hugging Face.\n\nPra quem edita, o que me chamou atenção foi o áudio separado em faixas (fala, música e efeito). Isso é o que faz um take de IA entrar numa timeline de verdade. Mas posso estar errado, ainda tem que testar bastante.\n\nVocês testariam um modelo aberto ou preferem ficar nos que já conhecem?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Pika (pika.art/pika-h3-flex e post oficial do @pika_labs). 15 gerações grátis por dia até 15/11, só pra assinantes Creator e Fancy.",
+ "fontes": [
+  {"titulo": "Pika: Pika H3 Flex (página oficial)", "url": "https://pika.art/pika-h3-flex"},
+  {"titulo": "Post oficial do @pika_labs no X: H3 Flex na plataforma (vídeo)", "url": "https://x.com/pika_labs/status/2118078827348070608"},
+  {"titulo": "VP Land: Pika H3 Flex is a new open-weight video model", "url": "https://www.vp-land.com/stories/pika-h3-flex-is-a-new-open-weight-video-model-built-for-fast-iteration-with-output-up-to-4"},
+  {"titulo": "Pesos no Hugging Face", "url": "https://huggingface.co/Pika-Labs/Pika-H3-Flex"}
+ ],
+ "notas": "Pauta: notícia de IA de vídeo (Google/newsletters da semana), confirmada na página oficial da Pika, no post do @pika_labs (04/11: H3 Flex chegou na plataforma, 15 gerações grátis/dia até 15/11 pra Creator e Fancy) e na VP Land (lançamento do modelo em 29/10). Números de velocidade (até 1,8x mais rápido que o H3 Max, 15 s em ~7 s) são medidos pela própria Pika em tempo do transformador, não tempo total; por isso aparecem como 'segundo a Pika'. Pesos abertos rodam em 480p/768p; 1080p a 4K só no serviço da Pika. Todas as mídias são oficiais da Pika (página e vídeos do X).",
+ "slides": [
+  {
+   "texto": "A Pika soltou um modelo de vídeo com IA **de código aberto** que faz 15 segundos com som.\n\nE dá 15 vídeos grátis por dia até 15/11.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/01-hook.jpg", "foco": 0.5, "credito": "imagem: Pika"},
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **Pika H3 Flex**.\n\nÉ uma versão do MiniMax H3 treinada pra uma coisa: testar ideia rápido.\n\nA própria Pika diz que foi feito pra quem precisa iterar, tipo agência e editor.",
+   "midia": {"tipo": "video", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/02-video.mp4", "poster": "/painel/carrosseis/pika-h3-flex-video-aberto/02-poster.jpg", "credito": "vídeo: @pika_labs"}
+  },
+  {
+   "texto": "Ele aceita até **12 referências** no mesmo pedido:\n\n• até 9 imagens\n• até 3 vídeos\n• até 3 áudios\n\nDá pra mandar moodboard, rascunho, voz e som e ele junta tudo numa cena.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/03-referencias.jpg", "foco": 0.5, "credito": "imagem: Pika"}
+  },
+  {
+   "texto": "Segundo a Pika, ele é até **1,8x mais rápido** que o H3 Max e gera em 6 etapas em vez de 50.\n\nEles também dizem que segue melhor o que você escreve, inclusive texto na tela.",
+   "midia": {"tipo": "video", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/04-video.mp4", "poster": "/painel/carrosseis/pika-h3-flex-video-aberto/04-poster.jpg", "credito": "vídeo: @pika_labs"},
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Também edita vídeo que já existe.\n\nVocê manda o take e uma referência, e ele troca só o que você pediu.\n\nEm cima, o original. Embaixo, a versão editada.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/05-antes-depois.jpg", "foco": 0.5, "credito": "imagem: Pika"}
+  },
+  {
+   "texto": "Pra mim, a parte mais útil pra quem edita: o áudio sai com opção de **faixas separadas** (fala, música e efeito).\n\nIsso é o que faz um take de IA entrar numa timeline de verdade, sem ficar preso no som que veio junto.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/06-audio.jpg", "foco": 0.4, "credito": "imagem: Pika"}
+  },
+  {
+   "texto": "Os limites:\n\n• os pesos abertos geram em 480p ou 768p\n• 1080p, 2K e 4K só no site da Pika\n• as 15 grátis por dia são pra assinantes Creator e Fancy, até 15/11\n• a licença é do MiniMax H3, então confere antes de usar em cliente",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/07-gratis.jpg", "foco": 0.5, "credito": "vídeo: @pika_labs"}
+  },
+  {
+   "texto": "Modelo aberto pressiona os pagos a baixar preço, e isso é bom pra quem vive de vídeo.\n\n**Vocês testariam um modelo aberto ou preferem ficar nos que já conhecem?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/pika-h3-flex-video-aberto/08-fim.jpg", "foco": 0.4, "credito": "imagem: Pika"},
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

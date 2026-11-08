@@ -1,0 +1,43 @@
+{
+ "slug": "storyboard-6-quadros-antes-do-prompt",
+ "dia": "2026-11-08",
+ "tipo": "educativo",
+ "titulo": "Storyboard de 6 quadros antes do prompt (vídeo com IA que não muda de cara)",
+ "perfil": "@ilmarlabs",
+ "legenda": "Quando o vídeo de IA parece um monte de imagem solta, muitas vezes o problema vem antes do prompt.\n\nUm caminho simples: 6 quadros, 3 anotações por quadro e uma lista do que não pode mudar. Depois disso o prompt quase se escreve sozinho.\n\nVocês fazem storyboard antes ou vão direto pra IA?\n\nSalva pra usar no próximo vídeo e manda pra quem gera vídeo contigo.\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: post recente do @auramode.ai ('prompt sem storyboard é só imagem solta: 6 quadros, 3 anotações por quadro e o que não pode mudar'). Refeito do jeito dele, com exemplo próprio (vendedor de açaí em Copacabana), prompt copiável e visual novo; nada de texto ou imagem do post original. Lâminas 1 a 5: recortes do storyboard gerado no ChatGPT. Lâmina 6: quadro 2 em versão realista gerado no ChatGPT. Lâmina 7: comparação desenho x resultado. Prompts em prompts.txt.",
+ "slides": [
+  {
+   "texto": "Seu vídeo de IA parece um monte de imagem solta?\n\nPode ser que o que falta seja **storyboard**, e não prompt melhor.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/01-storyboard.jpg", "foco": 0.25},
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Quando a gente abre a IA e sai gerando cena por cena no improviso, cada take vem com uma roupa, uma luz e um ângulo diferente.\n\nNa hora de montar, nada conversa.\n\nUm jeito que ajuda muito é desenhar a cena **antes**.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/02-quadros.jpg", "foco": 0.5}
+  },
+  {
+   "texto": "**Passo 1:** 6 quadros, com 3 anotações em cada um:\n\n• o enquadramento (aberto, médio, detalhe)\n• a câmera (parada, acompanha, baixa)\n• a luz ou o detalhe que importa\n\nPode ser rabisco. Ninguém vai ver.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/04-meio.jpg", "foco": 0.5}
+  },
+  {
+   "texto": "**Passo 2:** a lista do **NÃO MUDA**.\n\nSão as 3 coisas que têm que ser iguais em todos os quadros. Aqui: boné vermelho, carrinho roxo, luz laranja.\n\nEssa lista entra no fim de TODO prompt.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/03-nao-muda.jpg", "foco": 0.5},
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Sem tempo de desenhar? Pede pro ChatGPT ou pro Claude:\n\n**\"Quero uma cena de [tema] com [duração]. Antes de gerar qualquer imagem, monte um storyboard de 6 quadros com enquadramento, câmera e luz de cada um. No fim, liste 3 coisas que não podem mudar.\"**",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/05-prompt.jpg", "foco": 0.5}
+  },
+  {
+   "texto": "**Passo 3:** cada quadro vira um prompt.\n\n\"Quadro 2: plano médio, vendedor de açaí empurrando o carrinho no calçadão de Copacabana, câmera na altura do peito. Boné vermelho, carrinho roxo, luz laranja de pôr do sol.\"\n\nResultado aqui.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/06-resultado.jpg", "foco": 0.4}
+  },
+  {
+   "texto": "Desenho de um lado, resultado do outro. O prompt ficou simples porque a decisão já estava tomada no papel.\n\n**Vocês fazem storyboard antes ou vão direto pra IA?**\n\nSalva pra usar no próximo vídeo.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {"tipo": "imagem", "src": "/painel/carrosseis/storyboard-6-quadros-antes-do-prompt/07-comparacao.jpg", "foco": 0.5},
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
