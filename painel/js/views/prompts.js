@@ -1,12 +1,37 @@
 import { h } from "../util.js";
 import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
+import { CATS, SKILLS } from "../skills-data.js?v=20261108b";
+
+const NEC = { essencial: "Essencial", util: "Útil", opcional: "Opcional" };
+// Catálogo de skills, plugins e repositórios (dados em js/skills-data.js), com filtro local.
+function catalogo() {
+  let fil = "todos";
+  const out = h("div", { class: "stack-lg" });
+  const draw = () => {
+    const vis = SKILLS.filter((s) => fil === "todos" || (fil === "uso" ? s.uso : fil === "rec" ? !s.uso : s.nec === fil));
+    const chips = [["todos", "Todas", SKILLS.length], ["uso", "Eu uso", SKILLS.filter((s) => s.uso).length], ["rec", "Recomendadas", SKILLS.filter((s) => !s.uso).length],
+      ["essencial", "Essenciais"], ["util", "Úteis"], ["opcional", "Opcionais"]].map(([id, l, n]) =>
+      h("button", { type: "button", class: "chip" + (fil === id ? " on" : ""), onclick: () => { fil = id; draw(); } }, l, n != null ? h("sup", null, n) : null));
+    out.replaceChildren(h("div", { class: "mfilters" }, ...chips), ...CATS.map((c) => {
+      const items = vis.filter((s) => s.cat === c.id).sort((a, b) => Object.keys(NEC).indexOf(a.nec) - Object.keys(NEC).indexOf(b.nec));
+      return items.length ? h("section", { class: "stack" }, h("div", { class: "mono sectitle" }, c.nome.toUpperCase()),
+        h("div", { class: "prgrid" }, ...items.map((s) => h("article", { class: "prcard sk" + (s.uso ? " sk-uso" : "") },
+          h("header", { class: "flex" }, s.url ? h("a", { class: "grow truncate", href: s.url, target: "_blank", rel: "noopener" }, h("b", null, s.nome), " ↗") : h("b", { class: "grow truncate" }, s.nome),
+            h("span", { class: "chip" + (s.uso ? " accent" : "") }, s.uso ? "uso" : "recomendo")),
+          h("p", { class: "prbody" }, s.desc),
+          h("footer", { class: "flex" }, h("span", { class: "mono muted small grow" }, s.tipo), h("span", { class: "mono small sk-" + s.nec }, NEC[s.nec])))))) : null;
+    }).filter(Boolean));
+  };
+  draw();
+  return out;
+}
 
 // Prompts: links de sites de prompts e prompts próprios (com botão de copiar).
 const favicon = (url) => { try { return `https://www.google.com/s2/favicons?domain=${new URL(url).hostname}&sz=64`; } catch { return ""; } };
 
 export default async function prompts({ sb, query, go, refresh }) {
   const { data, error } = await sb.from("prompts").select("id, kind, title, url, body, tags, version, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(500);
-  if (error) return h("div", { class: "page" }, pageHead("Prompts", "links e prompts"), alertBox("Não foi possível carregar os prompts."));
+  if (error) return h("div", { class: "page" }, pageHead("Skills", "biblioteca"), catalogo(), alertBox("Não foi possível carregar os prompts salvos."));
   const all = data || [];
   const f = ["link", "prompt"].includes(query.f) ? query.f : "todos";
   const q = (query.q || "").toLowerCase();
@@ -51,8 +76,11 @@ export default async function prompts({ sb, query, go, refresh }) {
   const chip = (id, label) => h("button", { type: "button", class: "chip" + (f === id ? " on" : ""), onclick: () => nav({ f: id === "todos" ? "" : id }) }, label, h("sup", null, id === "todos" ? all.length : all.filter((p) => p.kind === id).length));
 
   return h("div", { class: "page" },
-    h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca"), h("h1", null, "Prompts")),
-      h("button", { class: "btn", type: "button", onclick: () => { form.hidden = !form.hidden; if (!form.hidden) titleIn.focus(); } }, "+ Novo")),
+    h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca"), h("h1", null, "Skills"))),
+    h("p", { class: "muted hide-sm" }, "Skills do Claude, plugins e repositórios do GitHub. \"Uso\" = instalado no anderson_Os; \"Recomendo\" = vale instalar."),
+    catalogo(),
+    h("div", { class: "flex" }, h("div", { class: "mono sectitle grow" }, "PROMPTS E SITES SALVOS"),
+      h("button", { class: "btn btn-sm", type: "button", onclick: () => { form.hidden = !form.hidden; if (!form.hidden) titleIn.focus(); } }, "+ Novo")),
     form,
     h("div", { class: "mfilters" }, chip("todos", "Todos"), chip("prompt", "Meus prompts"), chip("link", "Sites"), h("div", { class: "grow" }), searchIn),
     shown.length ? h("div", { class: "prgrid" }, ...shown.map(card)) : h("p", { class: "empty" }, all.length ? "Nada com esse filtro." : "Nenhum prompt ainda. Clique em + Novo."));

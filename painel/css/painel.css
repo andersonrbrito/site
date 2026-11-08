@@ -794,3 +794,4 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
 .mag-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mag-top>div{display:flex;flex-direction:column;min-width:0}
 .mag-meter,.mag-track{height:8px;border-radius:99px;background:var(--line,#2a2a2a);overflow:hidden}.mag-meter span{display:block;height:100%;background:#FF4F32}
 .mag-track span{display:block;height:100%}.mag-bar{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:8px;align-items:center}
+.sk-uso{border-color:color-mix(in srgb,#FF4F32 45%,transparent)}.sk-essencial{color:#FF4F32}.sk-util{color:#22c55e}.sk-opcional{color:var(--muted,#888)}

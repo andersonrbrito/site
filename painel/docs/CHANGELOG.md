@@ -127,3 +127,4 @@
 ## 2026-11-08
 - Tela inicial: módulo Créditos Magnific (verifica só no clique, via ajudante local + Claude em segundo plano; migration 0037).
 - YT downloaD_: "Mostrar no Finder" voltou a funcionar.
+- PromptS_ virou SkillS_: catálogo de skills, plugins e repositórios do GitHub por categoria, com "uso"/"recomendo" e necessidade (dados em js/skills-data.js). Prompts salvos continuam embaixo.
