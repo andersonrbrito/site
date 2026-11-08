@@ -3,7 +3,6 @@
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
 import { toast, pageHead, copiarTexto } from "../ui.js?v=20261107b";
-import { zip } from "../zip.js?v=20261108c";
 
 const BUCKET = "anderson-os-arquivos";
 const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
@@ -177,9 +176,8 @@ export default async function aprovacoes({ sb, query, go }) {
       try {
         const files = await Promise.all(ok.map(async (p) => { const r = await fetch(urls.get(p)); if (!r.ok) throw new Error(p.split("/").pop()); return { name: p.split("/").pop(), data: new Uint8Array(await r.arrayBuffer()) }; }));
         const usados = new Set(); files.forEach((f, i) => { let n = f.name; while (usados.has(n)) n = `${i}-${n}`; usados.add(n); f.name = n; });
-        if (files.length === 1) salvarArq(new Blob([files[0].data]), files[0].name);
-        else salvarArq(zip(files), `${(a.perfil || "peca")}-${(a.titulo || "aprovacao").replace(/[^\w\-]+/g, "-").slice(0, 50)}.zip`);
-        toast(files.length > 1 ? `${files.length} arquivos num .zip.` : "Baixado.");
+        for (const [i, f] of files.entries()) { if (i) await new Promise((ok) => setTimeout(ok, 350)); salvarArq(new Blob([f.data]), f.name); }
+        toast(files.length > 1 ? `${files.length} arquivos baixados. Se o Chrome perguntar sobre vários downloads, clique em Permitir (só na 1ª vez).` : "Baixado.", files.length > 1 ? { ms: 7000 } : undefined);
       } catch (e) { toast("Falhou ao baixar: " + e.message, { kind: "err" }); }
       btn.disabled = false; btn.textContent = rot;
     } }, paths.length > 1 ? `Baixar (${paths.length})` : "Baixar");
