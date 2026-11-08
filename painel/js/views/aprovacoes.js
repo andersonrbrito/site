@@ -3,6 +3,7 @@
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
 import { toast, pageHead, copiarTexto } from "../ui.js?v=20261107b";
+import { zip } from "../zip.js?v=20261108c";
 
 const BUCKET = "anderson-os-arquivos";
 const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
@@ -148,27 +149,41 @@ export default async function aprovacoes({ sb, query, go }) {
 
   // Legenda pro iPhone: manda só o texto pelo compartilhar (AirDrop do Mac chega no iPhone como texto/nota,
   // pronto para copiar). Resolve quando a área de transferência do Mac não passa para o iPhone.
-  const legendaIphone = (a) => copiavel(a) && navigator.share ? h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Enviar só a legenda (AirDrop/Mensagens/Notas)", onclick: async () => {
-    copiar(a.legenda);
-    try { await navigator.share({ text: a.legenda }); toast("Legenda enviada. No iPhone, abra e copie."); }
-    catch (e) { if (e.name !== "AbortError") toast("Não deu para compartilhar a legenda: " + e.message, { kind: "err" }); }
-  } }, "Legenda pro iPhone") : null;
+  const legendaIphone = (a) => copiavel(a) ? h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Mostra um QR: aponte a câmera do iPhone e copie a legenda lá", onclick: () => qrLegenda(a) }, "Legenda pro iPhone") : null;
+  const qrLegenda = async (a) => {
+    const link = `${location.origin}${location.pathname}#/aprovacoes?copiar=${a.id}`;
+    const dlg = h("dialog", { class: "copy-dlg" }, h("b", null, "Aponte a câmera do iPhone"), h("p", { class: "muted small" }, "Abre este card no painel do iPhone com a legenda pronta: é só tocar em Copiar."));
+    const fechar = () => { dlg.close(); dlg.remove(); };
+    try {
+      if (!window.qrcode) await new Promise((ok, err) => document.head.append(h("script", { src: "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js", onload: ok, onerror: err })));
+      const q = window.qrcode(0, "M"); q.addData(link); q.make();
+      const box = h("div", { style: { background: "#fff", padding: "12px", borderRadius: "8px", alignSelf: "center" } }); box.innerHTML = q.createSvgTag({ cellSize: 6, margin: 2 });
+      dlg.append(box);
+    } catch { dlg.append(h("p", { class: "small" }, link)); }
+    dlg.append(h("div", { class: "flex", style: { justifyContent: "flex-end" } }, h("button", { class: "btn btn-sm", type: "button", onclick: fechar }, "Fechar")));
+    dlg.addEventListener("close", () => dlg.remove()); document.body.append(dlg); dlg.showModal();
+  };
 
   // Baixar no Mac: todos os arquivos do card (vídeo/imagem principal, extras e capa). O "download" na URL assinada
   // faz o Supabase responder como anexo (o atributo download do <a> não vale para outro domínio).
   const baixar = (a) => {
     const paths = [...new Set([a.arquivo, ...(a.extras || []), a.capa].filter(Boolean))];
-    return h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Baixar os arquivos deste card", onclick: async () => {
+    const salvarArq = (blob, nome) => { const u = URL.createObjectURL(blob), l = h("a", { href: u, download: nome }); document.body.append(l); l.click(); l.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000); };
+    const btn = h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Baixar os arquivos deste card", onclick: async () => {
       await assinar(paths);
       const ok = paths.filter((p) => urls.get(p));
       if (!ok.length) return toast("Não achei os arquivos (recarregue a página).", { kind: "err" });
-      ok.forEach((p, i) => setTimeout(() => {
-        const nomeArq = p.split("/").pop(), u = urls.get(p);
-        const l = h("a", { href: u + (u.includes("?") ? "&" : "?") + "download=" + encodeURIComponent(nomeArq), download: nomeArq });
-        document.body.append(l); l.click(); l.remove();
-      }, i * 400));
-      toast(ok.length > 1 ? `Baixando ${ok.length} arquivos.` : "Baixando.");
+      const rot = btn.textContent; btn.disabled = true; btn.textContent = "Baixando…";
+      try {
+        const files = await Promise.all(ok.map(async (p) => { const r = await fetch(urls.get(p)); if (!r.ok) throw new Error(p.split("/").pop()); return { name: p.split("/").pop(), data: new Uint8Array(await r.arrayBuffer()) }; }));
+        const usados = new Set(); files.forEach((f, i) => { let n = f.name; while (usados.has(n)) n = `${i}-${n}`; usados.add(n); f.name = n; });
+        if (files.length === 1) salvarArq(new Blob([files[0].data]), files[0].name);
+        else salvarArq(zip(files), `${(a.perfil || "peca")}-${(a.titulo || "aprovacao").replace(/[^\w\-]+/g, "-").slice(0, 50)}.zip`);
+        toast(files.length > 1 ? `${files.length} arquivos num .zip.` : "Baixado.");
+      } catch (e) { toast("Falhou ao baixar: " + e.message, { kind: "err" }); }
+      btn.disabled = false; btn.textContent = rot;
     } }, paths.length > 1 ? `Baixar (${paths.length})` : "Baixar");
+    return btn;
   };
 
   const card = (a) => {
@@ -217,6 +232,16 @@ export default async function aprovacoes({ sb, query, go }) {
     grid.replaceChildren(...(vis.length ? vis.map(card) : [h("p", { class: "empty" }, aba === "pendente" ? "Nada esperando aprovação. Quando um agente terminar uma peça, ela aparece aqui e o ponto do menu acende." : "Nada aqui.")]));
   };
   await draw();
+  // Aberto pelo QR do "Legenda pro iPhone": mostra a legenda com um botão Copiar (toque do usuário = cópia liberada no iOS)
+  const alvo = query.copiar && all.find((x) => x.id === query.copiar);
+  if (alvo && copiavel(alvo)) setTimeout(() => {
+    const area = h("textarea", { class: "textarea copy-dlg-txt", readonly: true, rows: 10 }); area.value = copiavel(alvo);
+    const dlg = h("dialog", { class: "copy-dlg" }, h("b", null, alvo.titulo || "Legenda"), area,
+      h("div", { class: "flex", style: { justifyContent: "flex-end" } },
+        h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => dlg.close() }, "Fechar"),
+        h("button", { class: "btn", type: "button", onclick: () => copiar(copiavel(alvo)).then((ok) => ok && dlg.close()) }, "Copiar legenda")));
+    dlg.addEventListener("close", () => dlg.remove()); document.body.append(dlg); dlg.showModal();
+  }, 300);
   return h("div", { class: "page wide" },
     pageHead("AprovaçõeS_", "conteúdo dos agentes esperando o seu OK"),
     h("p", { class: "muted small hide-sm", style: { marginBottom: "12px" } }, "Aprovar libera para publicar. Pedir ajuste manda o seu comentário para o agente, que refaz e reenvia (volta para \"Para aprovar\"). Nada é publicado sem você."),
