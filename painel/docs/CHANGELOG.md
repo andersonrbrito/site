@@ -123,3 +123,7 @@
 ## 2026-11-02 · Influencers
 - Nova página Influencers (só dono): vitrine por personagem com ícone da rede, link do perfil, e-mail de login (sem senha) e pasta no ANDY 1TB/TIK TOK. Índia Narah cadastrada.
 - Trampos: "Descartar" esconde a vaga do painel (fica só o registro para não repetir na busca); aba Descartadas removida.
+
+## 2026-11-08
+- Tela inicial: módulo Créditos Magnific (verifica só no clique, via ajudante local + Claude em segundo plano; migration 0037).
+- YT downloaD_: "Mostrar no Finder" voltou a funcionar.

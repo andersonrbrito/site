@@ -7,6 +7,7 @@ import { favoritesBar } from "../favorites.js";
 import { ecoHome } from "./perfis.js";
 import { stickySide } from "./notas.js";
 import { emailsBox } from "./emails.js";
+import { magnificBox } from "./magnific.js";
 import { QUICK, META_SCHEDULER, iconLink, favicon } from "../links.js";
 
 // Apelido do dia: muda todo dia (mesmo apelido o dia inteiro).
@@ -242,6 +243,7 @@ export default async function inicio({ sb, refresh }) {
       h("aside", { class: "stack-lg homeside" },
         await stickySide(sb).catch(() => null),
         await emailsBox(sb).catch(() => null),
+        await magnificBox(sb).catch(() => null),
         agendaBox,
         h("section", { class: "panel" },
           h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Calendário")),

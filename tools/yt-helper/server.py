@@ -35,6 +35,32 @@ def info(url):
             "thumbnail": j.get("thumbnail"), "heights": [h for h in heights if h >= 144][:8], "id": j.get("id")}
 
 
+CLAUDE = "/Users/andersonbrito/Library/Application Support/Claude/claude-code/2.1.317/91184d3d9ba3/claude.app/Contents/MacOS/claude"
+MAG_PROMPT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "magnific-check", "prompt.md")
+MAG_TOOLS = "mcp__claude_ai_Magnific__account_balance,mcp__claude_ai_Magnific__creations_search,mcp__claude_ai_Magnific__simulate_cost,mcp__claude-in-chrome__*"
+
+
+def run_magnific(job_id):
+    # verificação só leitura do Magnific: roda o Claude em segundo plano (Sonnet) e devolve o JSON
+    job = JOBS[job_id]
+    try:
+        claude = CLAUDE if os.path.exists(CLAUDE) else (shutil.which("claude") or "claude")
+        r = subprocess.run([claude, "-p", open(MAG_PROMPT).read(), "--chrome", "--model", "sonnet", "--output-format", "json",
+                            "--allowedTools", MAG_TOOLS], capture_output=True, text=True, timeout=600,
+                           stdin=subprocess.DEVNULL, cwd=os.path.expanduser("~"))
+        out = r.stdout[r.stdout.index("{"):]
+        res = json.loads(out)
+        txt = res.get("result") or ""
+        m = re.findall(r"\{.*\}", txt, re.S)
+        if not m:
+            raise RuntimeError("a verificação não devolveu os dados: " + txt[:200])
+        dados = json.loads(m[-1])
+        dados["custo_claude_usd"] = round(res.get("total_cost_usd") or 0, 2)
+        job.update(status="pronto", dados=dados)
+    except Exception as e:  # noqa: BLE001
+        job.update(status="erro", error=str(e)[:300])
+
+
 def run_job(job_id, url, kind, height):
     job = JOBS[job_id]
     os.makedirs(OUT, exist_ok=True)
@@ -113,6 +139,17 @@ class H(BaseHTTPRequestHandler):
             return
         try:
             body = json.loads(self.rfile.read(int(self.headers.get("Content-Length", 0)) or 0) or b"{}")
+            if self.path == "/magnific":
+                job_id = uuid.uuid4().hex
+                JOBS[job_id] = {"id": job_id, "status": "verificando"}
+                threading.Thread(target=run_magnific, args=(job_id,), daemon=True).start()
+                return self.reply(200, {"job": job_id})
+            if self.path == "/reveal":
+                path = body.get("path") or ""
+                if path.startswith(OUT) and os.path.exists(path):
+                    subprocess.run(["open", "-R", path])
+                    return self.reply(200, {"ok": True})
+                return self.reply(404, {"error": "arquivo não está mais na pasta"})
             url = (body.get("url") or "").strip()
             if not URL_OK.match(url):
                 return self.reply(400, {"error": "cole um link do YouTube"})
@@ -125,12 +162,6 @@ class H(BaseHTTPRequestHandler):
                 JOBS[job_id] = {"id": job_id, "status": "baixando", "progress": 0}
                 threading.Thread(target=run_job, args=(job_id, url, kind, height), daemon=True).start()
                 return self.reply(200, {"job": job_id})
-            if self.path == "/reveal":
-                path = body.get("path") or ""
-                if path.startswith(OUT) and os.path.exists(path):
-                    subprocess.run(["open", "-R", path])
-                    return self.reply(200, {"ok": True})
-                return self.reply(404, {"error": "arquivo não está mais na pasta"})
             self.reply(404, {"error": "?"})
         except Exception as e:  # noqa: BLE001
             self.reply(500, {"error": str(e)[:300]})
