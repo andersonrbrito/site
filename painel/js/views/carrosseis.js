@@ -43,7 +43,7 @@ async function assetsFor(sb, slide) {
 async function loadAll(sb) {
   const [dbR, reqR, seedSlugs, legacySlugs] = await Promise.all([
     sb.from("carrosseis").select(COLS).is("archived_at", null).order("dia", { ascending: false }).limit(200),
-    sb.from("claude_requests").select("id, kind, status, result_note, payload, created_at, done_at").in("kind", ["carrossel_video", "carrossel_novo"]).is("archived_at", null).order("created_at", { ascending: false }).limit(100),
+    sb.from("claude_requests").select("id, kind, status, result_note, payload, created_at, done_at").in("kind", ["carrossel_video", "carrossel_novo", "carrossel_ajuste"]).is("archived_at", null).order("created_at", { ascending: false }).limit(100),
     json(BASE + "diarios.json"), json(BASE + "lista.json"),
   ]);
   const dbOn = !dbR.error;
@@ -54,7 +54,7 @@ async function loadAll(sb) {
   const lista = [...bySlug.values()].sort((a, b) => (b.dia || "").localeCompare(a.dia || "") || (a.tipo || "").localeCompare(b.tipo || ""));
   const legacy = (await Promise.all((legacySlugs || []).map((s) => json(`${BASE}${s}/index.json`)))).filter(Boolean);
   const reqs = reqR.error ? [] : reqR.data || [];
-  return { dbOn, lista, legacy, pedidos: reqs.filter((r) => r.kind === "carrossel_video"), novos: reqs.filter((r) => r.kind === "carrossel_novo") };
+  return { dbOn, lista, legacy, pedidos: reqs.filter((r) => r.kind === "carrossel_video"), novos: reqs.filter((r) => r.kind === "carrossel_novo"), ajustes: reqs.filter((r) => r.kind === "carrossel_ajuste") };
 }
 
 export default async function carrosseis({ sb, query, go }) {
@@ -254,6 +254,16 @@ function editor({ sb, go, c, data }) {
     const dup = () => { st.slides.splice(sel + 1, 0, clone(s)); assets.splice(sel + 1, 0, assets[sel]); sel++; buildStrip(); drawForm(); touch(); };
     const del = () => { if (st.slides.length <= 1) return toast("O carrossel precisa de pelo menos uma lâmina.", { kind: "err" }); if (!confirm(`Tirar a lâmina ${sel + 1}?`)) return; st.slides.splice(sel, 1); assets.splice(sel, 1); sel = Math.max(0, sel - 1); buildStrip(); drawForm(); touch(); };
     const nova = () => { st.slides.splice(sel + 1, 0, { texto: "Novo texto", midia: null }); assets.splice(sel + 1, 0, null); sel++; buildStrip(); drawForm(); touch(); };
+    // pegar a mídia de outra lâmina: "trocar" inverte as duas; "copiar" repete a outra aqui
+    const outras = st.slides.map((x, j) => [x, j]).filter(([x, j]) => j !== sel && x.midia);
+    const origem = h("select", { class: "input", "aria-label": "Lâmina de onde pegar a mídia" }, ...outras.map(([x, j]) => h("option", { value: j }, `Lâmina ${j + 1}${x.midia.tipo === "video" ? " (vídeo)" : ""}`)));
+    const pegar = (trocar) => {
+      const j = Number(origem.value); if (Number.isNaN(j)) return;
+      const mj = clone(st.slides[j].midia), aj = assets[j];
+      if (trocar) { st.slides[j].midia = s.midia ? clone(s.midia) : null; assets[j] = assets[sel]; renderSlide(j); }
+      s.midia = mj; assets[sel] = aj; renderSlide(sel, true); buildStrip(); drawForm(); touch();
+      toast(trocar ? `Mídias das lâminas ${sel + 1} e ${j + 1} trocadas.` : `Mídia da lâmina ${j + 1} copiada para a ${sel + 1}.`);
+    };
     const semMidia = () => { s.midia = null; renderSlide(sel, true); drawForm(); touch(); };
     form.replaceChildren(
       h("b", null, `Lâmina ${sel + 1} de ${st.slides.length}`),
@@ -263,6 +273,10 @@ function editor({ sb, go, c, data }) {
         h("div", { class: "flex wrap" },
           h("button", { type: "button", class: "btn btn-sm", onclick: () => fileIn.click() }, s.midia ? "Trocar imagem ou vídeo" : "Anexar imagem ou vídeo"),
           s.midia && h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: semMidia }, "Remover mídia"), fileIn)),
+      outras.length ? h("div", { class: "field" }, h("span", null, "Pegar mídia de outra lâmina"),
+        h("div", { class: "flex wrap" }, origem,
+          h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: () => pegar(true) }, "Trocar com esta"),
+          h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: () => pegar(false) }, "Copiar para esta"))) : null,
       s.midia && h("label", { class: "field" }, "Recorte da mídia (cima ↔ baixo)", foco),
       s.midia && h("label", { class: "field" }, "Crédito da mídia", cred),
       h("div", { class: "cz-grp", style: { marginTop: "6px" } }, h("span", { class: "mono" }, "Esta lâmina"),
@@ -317,16 +331,24 @@ function editor({ sb, go, c, data }) {
     try {
       await navigator.share({ files: pacote, title: st.titulo });
       toast(st.legenda ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado.");
-      pacote = null; iphone.textContent = "Enviar pro iPhone";
+      pacote = null; delete iphone.dataset.tentou; iphone.textContent = "Enviar pro iPhone";
     } catch (e) {
       if (e.name === "AbortError") return;
-      if (e.name === "NotAllowedError") { iphone.textContent = `Tocar de novo para enviar (${pacote.length})`; return toast("Lâminas prontas. Toque de novo para abrir o compartilhar."); }
+      if (e.name === "NotAllowedError") {
+        if (iphone.dataset.tentou) { // 2ª recusa: o navegador não deixa; baixa as lâminas para não travar
+          delete iphone.dataset.tentou; pacote = null; iphone.textContent = "Enviar pro iPhone";
+          toast("O navegador bloqueou o compartilhar. Baixei as lâminas; no iPhone use o Safari.", { kind: "err" });
+          return baixar(st.slides.map((_, i) => i), baixarTudo);
+        }
+        iphone.dataset.tentou = "1"; iphone.textContent = `Tocar de novo para enviar (${pacote.length})`; return toast("Lâminas prontas. Toque de novo para abrir o compartilhar.");
+      }
       toast("Não deu para compartilhar: " + e.message, { kind: "err" });
     }
   }
   async function enviarIphone() {
-    if (st.legenda) copiarTexto(st.legenda, "Legenda copiada."); // no toque, antes de qualquer espera
+    // 2º toque: abre o compartilhar na hora. Nada antes (copiar a legenda gastava a permissão do toque e o botão travava).
     if (pacote) return compartilhar();
+    if (st.legenda) copiarTexto(st.legenda, "Legenda copiada."); // 1º toque: copia já, antes de gerar as lâminas
     if (!navigator.canShare) {
       toast("Este navegador não abre o compartilhar com arquivos. Abra o painel no Safari do iPhone ou do Mac. Baixando as lâminas aqui.", { kind: "err" });
       return baixar(st.slides.map((_, i) => i), baixarTudo);
@@ -373,6 +395,37 @@ function editor({ sb, go, c, data }) {
     videoBox.hidden = false;
   }
   const pedidosBox = h("div");
+  // ── pedir alteração do conteúdo (pedido pro Claude, rotina carrosseis-pedidos) ──
+  const ajustesDeste = (data.ajustes || []).filter((p) => p.payload?.slug === st.slug);
+  const ajusteBox = h("div", { class: "cz-video", hidden: true });
+  function abrirAjuste() {
+    if (!data.dbOn) return toast("Rode a migration 0028 para pedir alteração.", { kind: "err" });
+    const txt = h("textarea", { class: "textarea", rows: 4, placeholder: "O que mudar? Ex.: lâmina 3 com dado mais recente; trocar o meme da 5; hook mais curto; nova ilustração na 2." });
+    const env = h("button", { type: "button", class: "btn btn-sm", onclick: async () => {
+      if (!txt.value.trim()) return toast("Escreva o que mudar.", { kind: "err" });
+      env.disabled = true;
+      if (timer) { clearTimeout(timer); await save(); }
+      const payload = { slug: st.slug, carrossel_id: st.id || null, lamina: sel + 1, pedido: txt.value.trim() };
+      const { error } = await sb.from("claude_requests").insert({ kind: "carrossel_ajuste", payload });
+      env.disabled = false;
+      if (error) return toast(/check/.test(error.message) ? "Rode a migration 0038 no Supabase para liberar o pedido de alteração." : "Não enviou: " + error.message, { kind: "err" });
+      toast("Pedido enviado. O Claude ajusta na próxima rodada (a cada 2 h, das 7h às 23h).");
+      ajusteBox.hidden = true; ajustesDeste.unshift({ status: "aberto", created_at: new Date().toISOString(), payload }); drawAjustes();
+    } }, "Enviar pedido");
+    ajusteBox.replaceChildren(h("b", null, "Pedir alteração"),
+      h("p", { class: "muted small", style: { margin: "4px 0 10px" } }, `O Claude refaz o que você pedir (texto, ilustração, ordem) e salva aqui. Você está na lâmina ${sel + 1}; cite o número se for outra.`),
+      txt, h("div", { class: "flex", style: { marginTop: "8px" } }, env, h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: () => { ajusteBox.hidden = true; } }, "Cancelar")));
+    ajusteBox.hidden = false; txt.focus();
+  }
+  const ajustesBox = h("div");
+  function drawAjustes() {
+    ajustesBox.replaceChildren(...(ajustesDeste.length ? [h("section", { class: "panel", style: { marginTop: "16px" } },
+      h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Alterações pedidas")),
+      h("div", { class: "panel-body stack" }, ...ajustesDeste.map((p) => h("div", { class: "stack", style: { gap: "2px" } },
+        h("span", { class: "small" }, h("b", null, p.status === "feito" ? "Feito" : p.status === "gerando" ? "Ajustando…" : "Na fila"), " · ", fmtDateTime(p.created_at)),
+        h("span", { class: "muted small", style: { whiteSpace: "pre-wrap" } }, p.payload?.pedido || ""),
+        p.result_note ? h("span", { class: "small", style: { whiteSpace: "pre-wrap" } }, p.result_note) : null))))] : []));
+  }
   function drawPedidos() {
     if (!pedidosDeste.length) { pedidosBox.replaceChildren(); return; }
     const S = { aberto: "Na fila", gerando: "Gerando", feito: "Pronto", cancelado: "Cancelado" };
@@ -415,7 +468,7 @@ function editor({ sb, go, c, data }) {
   const baixarTudo = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => baixar(st.slides.map((_, i) => i), e.currentTarget) }, "Baixar lâminas");
   if (!data.dbOn) [titulo, leg].forEach((el) => { el.disabled = true; });
 
-  buildStrip(); drawForm(); drawPedidos();
+  buildStrip(); drawForm(); drawPedidos(); drawAjustes();
   if (st.slides[0]?.midia?.tipo === "video") select(0);
 
   return h("div", { class: "page wide" },
@@ -426,7 +479,8 @@ function editor({ sb, go, c, data }) {
       decisao,
       h("div", { class: "cz-acts" },
         h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Postar"), iphone, h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda"), baixarTudo),
-        h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Criar"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo")))),
+        h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Criar"), h("button", { class: "btn btn-sm", type: "button", onclick: abrirAjuste }, "Pedir alteração"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo")))),
+    ajusteBox,
     videoBox,
     strip,
     h("div", { class: "cz-edit" },
@@ -436,6 +490,7 @@ function editor({ sb, go, c, data }) {
         h("label", { class: "field" }, "Legenda do post", leg),
         st.fontes?.length ? h("div", { class: "field" }, h("span", null, "Fontes"), h("ul", { class: "cz-fontes" }, ...st.fontes.map((f) => h("li", null, h("a", { href: f.url, target: "_blank", rel: "noopener" }, f.titulo || f.url))))) : null,
         st.notas ? h("p", { class: "muted small", style: { whiteSpace: "pre-wrap" } }, st.notas) : null)),
+    ajustesBox,
     pedidosBox);
 }
 

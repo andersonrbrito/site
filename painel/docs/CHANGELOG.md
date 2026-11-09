@@ -130,3 +130,4 @@
 - PromptS_ virou SkillS_: catálogo de skills, plugins e repositórios do GitHub por categoria, com "uso"/"recomendo" e necessidade (dados em js/skills-data.js). Prompts salvos continuam embaixo.
 - AprovaçõeS_: "Baixar" junta vários arquivos num .zip único (antes o Chrome bloqueava na 1ª vez); "Legenda pro iPhone" mostra QR que abre o card no iPhone com botão Copiar.
 - AprovaçõeS_: "Baixar" voltou a salvar arquivos separados (sem .zip), baixados em sequência pelo navegador.
+- CarrosseL_: botão "Pedir alteração" (pedido carrossel_ajuste, migration 0038), "Pegar mídia de outra lâmina" (trocar/copiar), e "Enviar pro iPhone" não trava mais no "Tocar de novo".

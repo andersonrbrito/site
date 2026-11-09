@@ -1,12 +1,12 @@
 ---
 name: carrosseis-pedidos
-description: A cada 2 h (7h às 23h): atende os pedidos do CarrosseL_ no painel. Carrossel novo vindo do PostadoR_ (detecta notícia, educativo ou pessoal) e "Transformar em vídeo".
+description: A cada 2 h (7h às 23h): atende os pedidos do CarrosseL_ no painel. Carrossel novo vindo do PostadoR_ (detecta notícia, educativo ou pessoal), "Pedir alteração" e "Transformar em vídeo".
 ---
 
 Você atende os pedidos do CarrosseL_ (andersonbrito.com/painel/#/carrosseis) do Anderson Brito, editor de vídeo e criador de conteúdo com IA. Rode rápido e saia se não houver pedido. Escreva sempre em português do Brasil. Nunca mostre nem copie a chave do agente. Nunca publique nada nas redes.
 
   A=~/Downloads/site/tools/agente.py
-  python3 $A select claude_requests '{"eq":{"status":"aberto"},"in":{"kind":["carrossel_novo","carrossel_video"]},"is_null":["archived_at"],"select":"id,kind,version,payload,created_at","order":"created_at","asc":true}'
+  python3 $A select claude_requests '{"eq":{"status":"aberto"},"in":{"kind":["carrossel_novo","carrossel_video","carrossel_ajuste"]},"is_null":["archived_at"],"select":"id,kind,version,payload,created_at","order":"created_at","asc":true}'
 (Se o filtro "in" não for aceito, faça duas consultas com "eq" no kind.) Se vier vazio: encerre sem fazer mais nada.
 
 Para cada pedido, primeiro marque "gerando":
@@ -58,6 +58,14 @@ payload = { slug, formatos: ["reel"] | ["x"] | ["reel","x"], obs, carrossel: { t
 6. reel = 1080x1920; x = 1920x1080 (reflua o layout). 30 fps, H.264 CRF 20-23, AAC 192k, +faststart, até 25 MB. Confira quadros, sincronia, volume e bordas.
 7. Salve em ~/Downloads/site/painel/carrosseis/<slug>/video-reel.mp4 e/ou video-x.mp4 (+ cópia no BANCO DE MIDIA/VIDEOS com linha no INDICE.md).
 8. result_note de 1 a 3 linhas + cada caminho numa linha: /painel/carrosseis/<slug>/video-reel.mp4 (o painel vira player com Baixar).
+
+## C) kind "carrossel_ajuste" (botão "Pedir alteração" no editor)
+payload = { slug, carrossel_id, lamina (a que ele estava vendo, 1-based), pedido (texto livre dele) }
+1. Leia o carrossel atual no banco: python3 $A select carrosseis '{"eq":{"slug":"<slug>"},"select":"id,version,slug,titulo,legenda,fontes,slides,notas"}' (o banco vale mais que o carrossel.json da pasta).
+2. Faça SÓ o que ele pediu, com as mesmas regras da seção A (escrita, CTAs, regra de ouro das notícias, mídias/Magnific Unlimited, ilustrações em PT-BR). Não mexa no resto. Se ele citar uma lâmina, é aquela; senão, a do campo lamina.
+3. Mídia nova: grave em ~/Downloads/site/painel/carrosseis/<slug>/ e aponte no slide como nas outras lâminas (mesmo formato do carrossel.json). Mídia que ele mesmo subiu (midia.path) não é apagada.
+4. Grave: python3 $A update carrosseis '{"id":"<id>","version":N,"rows":{"slides":[...],"legenda":"...","notas":"..."}}' e atualize também o carrossel.json da pasta. Status continua o que estava.
+5. result_note: 1 ou 2 linhas dizendo o que mudou (ex.: "Lâmina 3: dado trocado para 5,2% (IBGE, out/26). Lâmina 5: meme novo.").
 
 ## Publicar no site (uma vez, no fim, com tudo que você criou nesta rodada)
 No ~/Downloads/site, commit SÓ dos caminhos criados/alterados: git add <caminhos> && git commit -m "carrosseis: pedidos <dia>" -- <caminhos> && git push. Termine a mensagem com a linha "Co-Authored-By: Claude <noreply@anthropic.com>". Nunca use force; se recusar, git pull --rebase --autostash e push de novo; se ainda falhar, avise. Marque os pedidos como "feito" só depois do push.
