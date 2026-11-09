@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-09 · LeadS_: aba Pesquisas
+- Base de prospecção (`prospects`) com 118 contatos iniciais, script por segmento, botões Direct (copia e abre), WhatsApp Business (texto pronto), e-mail, status e "Pedir nova pesquisa". Migration 0039.
+
 ## 2026-11-07 · CarrosseL_: aprovar e botões organizados; UX no celular
 - CarrosseL_ (editor): barra de decisão com o status atual e só os botões que valem para ele (Aprovar/Descartar no rascunho, Marcar como postado/Voltar no aprovado), com Desfazer. Ações agrupadas em "Postar" (Enviar pro iPhone, Copiar legenda, Baixar lâminas) e "Criar" (Transformar em vídeo); ferramentas da lâmina agrupadas em "Esta lâmina". O seletor de status solto saiu.
 - CarrosseL_ (lista): filtros por status com contagem (A aprovar, Aprovados, Postados, Descartados) além dos filtros por tipo.

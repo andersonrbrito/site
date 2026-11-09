@@ -64,3 +64,8 @@
 - MCP em claude.ai/ChatGPT pode exigir OAuth (não verificado).
 - `spLocalToISO` assume UTC-3 fixo (sem horário de verão desde 2019).
 - Roteamento por hash (`#/`), exigência do GitHub Pages.
+
+## LeadS_ > Pesquisas (2026-11-09)
+- Feito e testado no harness: aba Pesquisas com filtros por pesquisa/cidade/status, script por segmento (igreja ou negócio), botões Direct (copia o script e abre ig.me), WhatsApp (wa.me com texto, abre o WhatsApp Business), E-mail (mailto com assunto e texto), mover status e "Pedir nova pesquisa" (`claude_requests` kind `pesquisa_leads`).
+- Migration `20261109000039_prospects_pesquisas.sql`: tabela `prospects` (RLS leads, sem DELETE), `agent_write` aceita `prospects` (só insert, sempre novo), carga inicial de 118 contatos (leads-5-cidades.md + igrejas de 09/11). `npm test` 39/39.
+- **Pendente:** rodar a 0039 no SQL Editor; criar a rotina `leads-pesquisas` (prompt em `leads/ROTINA-PESQUISAS.md`).

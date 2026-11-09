@@ -13,7 +13,14 @@ const KIND = { comment: "Comentário", dm: "DM", lead: "Formulário" };
 const waLink = (n) => "https://wa.me/55" + String(n || "").replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "");
 
 export default async function leads({ sb, query, go, refresh }) {
-  const fonte = query.f === "lp" ? "lp" : "redes";
+  const fonte = ["lp", "pesq"].includes(query.f) ? query.f : "redes";
+  if (fonte === "pesq") {
+    const [ps, rq] = await Promise.all([
+      sb.from("prospects").select("*").is("archived_at", null).order("destaque", { ascending: false }).order("nome").limit(2000),
+      sb.from("claude_requests").select("id, status, payload, result_note, created_at").eq("kind", "pesquisa_leads").is("archived_at", null).order("created_at", { ascending: false }).limit(20),
+    ]);
+    return h("div", { class: "page" }, pageHead("Leads", "base de prospecção para abordar"), abas(go, fonte, null, null), pesquisas(sb, query, go, refresh, ps, rq));
+  }
   const [lp, rd] = await Promise.all([
     sb.from("motion_pedidos").select("*").is("archived_at", null).order("created_at", { ascending: false }).limit(500),
     sb.from("social_inbox").select("id, platform, kind, external_id, permalink, author_name, text, lead_status, lead_reason, received_at, version")
@@ -21,10 +28,83 @@ export default async function leads({ sb, query, go, refresh }) {
   ]);
   const novosLp = (lp.data || []).filter((l) => l.status === "novo").length;
   const novosRd = (rd.data || []).filter((l) => l.lead_status === "novo").length;
-  const tab = (id, label, n) => h("button", { type: "button", class: "chip" + (fonte === id ? " on" : ""), onclick: () => go("/leads" + (id === "redes" ? "" : "?f=" + id)) }, label, h("sup", null, n));
-  const tabs = h("div", { class: "mfilters" }, tab("redes", "Instagram e Facebook", novosRd), tab("lp", "LP motion", novosLp));
+  const tabs = abas(go, fonte, novosRd, novosLp);
   const body = fonte === "lp" ? motion(sb, query, go, refresh, lp) : redes(sb, query, go, refresh, rd);
   return h("div", { class: "page" }, pageHead("Leads", fonte === "lp" ? "pedidos da LP de vídeo motion" : "quem demonstrou interesse nas redes"), tabs, body);
+}
+
+function abas(go, fonte, nRd, nLp) {
+  const tab = (id, label, n) => h("button", { type: "button", class: "chip" + (fonte === id ? " on" : ""), onclick: () => go("/leads" + (id === "redes" ? "" : "?f=" + id)) }, label, n != null && h("sup", null, n));
+  return h("div", { class: "mfilters" }, tab("redes", "Instagram e Facebook", nRd), tab("lp", "LP motion", nLp), tab("pesq", "Pesquisas", null));
+}
+
+// Pesquisas: base de prospecção (tabela prospects). Scripts prontos por segmento; o Direct não aceita texto pronto,
+// então o botão copia o script e abre a conversa. WhatsApp abre wa.me (o app padrão do Mac, o WhatsApp Business).
+const PST = { novo: "A abordar", contatado: "Contatados", respondeu: "Responderam", fechou: "Fecharam", descartado: "Descartados" };
+const SCRIPTS = {
+  igreja: (p) => "A paz, pastor! Fiz um vídeo de convite de Natal para igrejas e faço um igual para a " + p.nome + ", com o nome, a data e o horário do culto de vocês, pronto em 24h para postar e mandar no WhatsApp da igreja.\n\nO valor é R$97, com pagamento antecipado via Pix. Se quiser, é só me mandar a data do culto que eu já começo.",
+  negocio: (p) => "Oi! Tudo bem? Vi o perfil da " + p.nome + " e faço vídeos motion para " + (p.segmento || "negócios").toLowerCase() + ", prontos em até 24h para anúncio, Reels, Stories e status do WhatsApp, com 2 alterações inclusas.\n\nO valor é R$97, com pagamento antecipado via Pix. Posso te mandar um exemplo do seu segmento?",
+};
+const ASSUNTO = { igreja: "Vídeo de convite de Natal para a igreja", negocio: "Vídeo motion para o seu negócio em 24h" };
+const tipoDe = (p) => /igreja/i.test(p.segmento || "") ? "igreja" : "negocio";
+
+function pesquisas(sb, query, go, refresh, { data, error }, reqs) {
+  if (error) return alertBox(/prospects/.test(error.message || "") ? "Falta aplicar a migration 0039 (prospects) no Supabase para as pesquisas aparecerem aqui." : "Não foi possível carregar as pesquisas.");
+  const all = data || [];
+  const st = Object.keys(PST).includes(query.st) ? query.st : "novo";
+  const nomes = [...new Set(all.map((p) => p.pesquisa))];
+  const pq = nomes.includes(query.p) ? query.p : "";
+  const cid = query.c || "";
+  const base = all.filter((p) => (!pq || p.pesquisa === pq));
+  const cidades = [...new Set(base.map((p) => p.cidade).filter(Boolean))].sort();
+  const list = base.filter((p) => p.status === st && (!cid || p.cidade === cid));
+  const url = (o) => { const q = new URLSearchParams({ f: "pesq", ...(o.p ?? pq ? { p: o.p ?? pq } : {}), ...(o.c ?? cid ? { c: o.c ?? cid } : {}), ...((o.st ?? st) !== "novo" ? { st: o.st ?? st } : {}) }); return "/leads?" + q.toString(); };
+  const mover = async (p, status) => {
+    const rows = { status }; if (status === "contatado" && !p.contatado_em) rows.contatado_em = new Date().toISOString();
+    const { data: d } = await sb.from("prospects").update(rows).eq("id", p.id).eq("version", p.version).select("id").maybeSingle();
+    if (!d) return toast("Recarregue a página.", { kind: "err" }); toast("Movido para " + PST[status] + "."); refresh();
+  };
+  const copiar = async (t) => { try { await navigator.clipboard.writeText(t); return true; } catch { return false; } };
+  const card = (p) => {
+    const tp = tipoDe(p), script = SCRIPTS[tp](p);
+    const ig = p.instagram && "https://ig.me/m/" + p.instagram;
+    return h("article", { class: "job" },
+      h("div", { class: "flex" }, p.destaque && h("span", { class: "ptag p-instagram" }, "prioridade"), h("b", { class: "truncate" }, p.nome), h("div", { class: "grow" }), h("span", { class: "muted small" }, [p.cidade, p.uf].filter(Boolean).join("/"))),
+      h("div", { class: "muted" }, [p.segmento, p.instagram && "@" + p.instagram, p.seguidores && p.seguidores + " seguidores", p.whatsapp && "WhatsApp " + p.whatsapp, p.site, p.notas].filter(Boolean).join(" · ")),
+      h("details", null, h("summary", { class: "small" }, "Script"), h("p", { class: "sxtext" }, script)),
+      h("div", { class: "flex jbar" },
+        ig && h("button", { class: "btn btn-sm", type: "button", onclick: async () => { const ok = await copiar(script); window.open(ig, "_blank", "noopener"); toast(ok ? "Script copiado. Cole no Direct." : "Abra o Script e copie à mão."); } }, "Direct"),
+        p.whatsapp && h("a", { class: "btn btn-sm", href: waLink(p.whatsapp) + "?text=" + encodeURIComponent(script), target: "_blank", rel: "noopener" }, "WhatsApp"),
+        p.email && h("a", { class: "btn btn-sm", href: "mailto:" + p.email + "?subject=" + encodeURIComponent(ASSUNTO[tp]) + "&body=" + encodeURIComponent(script) }, "E-mail"),
+        p.instagram && h("a", { class: "btn btn-ghost btn-sm", href: "https://www.instagram.com/" + p.instagram + "/", target: "_blank", rel: "noopener" }, "Perfil"),
+        p.site && h("a", { class: "btn btn-ghost btn-sm", href: /^https?:/.test(p.site) ? p.site : "https://" + p.site, target: "_blank", rel: "noopener" }, "Site"),
+        h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: async () => toast((await copiar(script)) ? "Script copiado." : "Não consegui copiar.") }, "Copiar script"),
+        ...({ novo: ["contatado"], contatado: ["respondeu"], respondeu: ["fechou"], fechou: [], descartado: ["novo"] }[p.status] || []).map((s) => h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mover(p, s) }, "→ " + PST[s])),
+        !["descartado", "fechou"].includes(p.status) && h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => mover(p, "descartado") }, "Descartar")));
+  };
+  const chip = (id) => h("button", { type: "button", class: "chip" + (st === id ? " on" : ""), onclick: () => go(url({ st: id })) }, PST[id], h("sup", null, base.filter((p) => p.status === id && (!cid || p.cidade === cid)).length));
+  const sel = (val, opts, ph, on) => h("select", { class: "input", "aria-label": ph, onchange: (e) => on(e.target.value) }, h("option", { value: "" }, ph), ...opts.map((o) => h("option", { value: o, selected: o === val }, o)));
+  // Pedir nova pesquisa: vira claude_requests kind 'pesquisa_leads' para a rotina leads-pesquisas.
+  const form = h("form", { class: "flex jbar", onsubmit: async (e) => {
+    e.preventDefault(); const f = new FormData(e.target);
+    const payload = { cidades: String(f.get("cidades") || "").trim(), segmento: String(f.get("segmento") || "").trim(), obs: String(f.get("obs") || "").trim() };
+    if (!payload.cidades) return toast("Diga as cidades.", { kind: "err" });
+    const { error: er } = await sb.from("claude_requests").insert({ kind: "pesquisa_leads", payload });
+    if (er) return toast(/check/.test(er.message || "") ? "Falta aplicar a migration 0039." : "Não foi possível pedir.", { kind: "err" });
+    toast("Pedido enviado. O Claude pesquisa e a lista aparece aqui."); refresh();
+  } },
+    h("input", { class: "input", name: "cidades", placeholder: "cidades (ex.: Limeira, Americana)", "aria-label": "Cidades" }),
+    h("input", { class: "input", name: "segmento", placeholder: "segmento (igrejas, barbearias, açaí...)", "aria-label": "Segmento" }),
+    h("input", { class: "input", name: "obs", placeholder: "observação (opcional)", "aria-label": "Observação" }),
+    h("button", { class: "btn btn-sm", type: "submit" }, "Pedir nova pesquisa"));
+  const pedidos = (reqs.data || []).filter((r) => r.status !== "cancelado").slice(0, 5);
+  return h("div", null,
+    h("p", { class: "muted small" }, "Negócios e igrejas achados em pesquisa pública. Direct copia o script e abre a conversa (cole e envie); WhatsApp abre o seu WhatsApp Business com o texto pronto. Mande 10 a 15 por dia."),
+    form,
+    pedidos.length ? h("div", { class: "muted small" }, ...pedidos.map((r) => h("div", null, fmtDateTime(r.created_at) + " · " + [r.payload?.segmento, r.payload?.cidades].filter(Boolean).join(" em ") + " · " + ({ aberto: "na fila", gerando: "pesquisando", feito: "pronto" }[r.status] || r.status) + (r.result_note ? " · " + r.result_note : "")))) : null,
+    h("div", { class: "mfilters" }, sel(pq, nomes, "Todas as pesquisas", (v) => go(url({ p: v, c: "" }))), sel(cid, cidades, "Todas as cidades", (v) => go(url({ c: v })))),
+    h("div", { class: "mfilters" }, ...Object.keys(PST).map(chip)),
+    list.length ? h("div", { class: "jobs" }, ...list.map(card)) : h("p", { class: "empty" }, all.length ? "Nada aqui." : "Nenhuma pesquisa ainda. Peça uma acima."));
 }
 
 function redes(sb, query, go, refresh, { data, error }) {
