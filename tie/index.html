@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Anderson Brito: editor de vídeo</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030914;--bg2:#06142b;--blue:#1d5bd8;--blue2:#3f8cff;--glow:rgba(63,140,255,.35);--tx:#fff;--tx2:#b9c6dd;--line:rgba(255,255,255,.1)}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Montserrat,system-ui,sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;overflow-x:hidden}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+/* lua */
+header.hero{position:relative;min-height:min(92vh,760px);display:flex;align-items:center;background:radial-gradient(1200px 700px at 85% 10%,#123c8f 0%,var(--bg2) 40%,var(--bg) 75%);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center;padding:60px 0}
+.tag{display:inline-flex;flex-wrap:wrap;max-width:100%;gap:8px;align-items:center;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--blue2);border:1px solid rgba(63,140,255,.4);padding:6px 12px;border-radius:99px}
+h1{font-size:clamp(34px,5.4vw,60px);line-height:1.05;font-weight:800;letter-spacing:-1.5px;margin:18px 0}
+h1 em{font-style:normal;background:linear-gradient(90deg,#fff,var(--blue2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:18px;color:var(--tx2);max-width:560px}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:28px;background:linear-gradient(90deg,var(--blue),var(--blue2));color:#fff;text-decoration:none;font-weight:700;padding:15px 26px;border-radius:99px;box-shadow:0 10px 40px var(--glow)}
+.cta:hover{transform:translateY(-2px)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chips span{font-size:13px;color:var(--tx2);border:1px solid var(--line);padding:6px 12px;border-radius:99px;background:rgba(255,255,255,.03)}
+.me{position:relative;justify-self:center}
+.me img{width:min(320px,80vw);aspect-ratio:4/5;object-fit:cover;border-radius:24px;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+section{padding:80px 0;border-top:1px solid var(--line)}
+.kicker{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue2)}
+h2{font-size:clamp(26px,3.6vw,40px);font-weight:800;letter-spacing:-.8px;line-height:1.15;margin:10px 0 14px}
+.sub{color:var(--tx2);max-width:640px}
+/* destaque IA */
+.ia{background:radial-gradient(900px 500px at 15% 50%,#0f2f72 0%,var(--bg) 70%)}
+.ia-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
+video{width:100%;display:block;border-radius:18px;background:#000;border:1px solid var(--line)}
+.ia video{max-width:360px;margin:0 auto;box-shadow:0 0 80px var(--glow)}
+.big{font-size:clamp(40px,6vw,64px);font-weight:800;line-height:1;background:linear-gradient(90deg,#fff,var(--blue2));-webkit-background-clip:text;background-clip:text;color:transparent}
+ul.check{list-style:none;padding:0;margin-top:18px;display:grid;gap:10px}
+ul.check li{padding-left:28px;position:relative;color:var(--tx2)}
+ul.check li::before{content:"";position:absolute;left:0;top:6px;width:14px;height:14px;border-radius:50%;background:var(--blue2);width:9px;height:9px;top:8px}
+ul.check b{color:#fff}
+/* cases */
+.cases{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:34px}
+.case h3{font-size:16px;font-weight:700;margin:12px 0 4px}
+.case p{font-size:14px;color:var(--tx2)}
+.case .t{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue2)}
+.case video{aspect-ratio:9/16;object-fit:cover}
+/* trajetória */
+.tl{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:30px}
+.card{padding:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(29,91,216,.12),rgba(255,255,255,.02))}
+.card .when{font-size:12px;font-weight:700;color:var(--blue2);letter-spacing:1px;text-transform:uppercase}
+.card h3{font-size:19px;margin:6px 0 8px}
+.card p{font-size:14.5px;color:var(--tx2)}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:30px}
+.nums div{padding:22px;border:1px solid var(--line);border-radius:18px;text-align:center}
+.nums b{display:block;font-size:34px;font-weight:800;color:#fff}
+.nums span{font-size:13px;color:var(--tx2)}
+.fit{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
+.fit div{padding:18px 20px;border-radius:14px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+.fit b{display:block;margin-bottom:4px}
+.fit span{font-size:14px;color:var(--tx2)}
+footer{position:relative;overflow:hidden;padding:90px 0;text-align:center;background:radial-gradient(800px 400px at 50% 100%,#123c8f,var(--bg) 70%)}
+footer footer h2{position:relative}
+footer p{color:var(--tx2)}
+.contacts{margin-top:18px;font-size:14px;color:var(--tx2)}
+@media (max-width:1000px){.cases{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:860px){
+ .hero-grid,.ia-grid{grid-template-columns:1fr}
+ .me{order:-1}
+ .cases{grid-template-columns:repeat(2,1fr)}
+ .tl,.fit,.nums{grid-template-columns:1fr}
+ header.hero{min-height:auto}
+}
+</style></head><body>
+<header class="hero"><div class="wrap hero-grid"><div>
+<span class="tag">Editor de vídeo · Direct Response</span><h1>Criativos e leads que <em>prendem e convertem.</em></h1><p class="lead">Sou <b>Anderson Brito</b>, editor de vídeo com 10+ anos de audiovisual e Marketing pela FGV. Edito criativos, leads e variações para teste com foco em retenção, clareza e clique, usando IA (voz, avatar, cenas) para entregar volume todo dia.</p>
+<a class="cta" href="https://wa.me/5511948577950" target="_blank" rel="noopener">Falar com o Anderson →</a>
+<div class="chips"><span>PJ · 100% remoto · full time</span><span>CapCut · Premiere · DaVinci</span><span>IA: Higgsfield, Kling, Veo, ElevenLabs</span><span>Disponível agora</span></div></div>
+<div class="me"><img src="../trabalhos/images/anderson-camera.jpg" alt="Anderson Brito"></div></div></header>
+<section><div class="wrap"><span class="kicker">Criativos para anúncio</span><h2>Ganchos, variações e CTAs para teste.</h2><div class="cases"><div class="case"><video src="../dr/videos/viva-franks1.mp4" poster="../dr/images/viva-franks1.jpg" controls playsinline preload="none"></video><span class="t">Criativo · tráfego pago</span><h3>Viva America · gancho em pergunta</h3><p>Criativo de performance para imigração aos EUA: gancho direto, legenda dinâmica e prova.</p></div><div class="case"><video src="../dr/videos/viva-franks2.mp4" poster="../dr/images/viva-franks2.jpg" controls playsinline preload="none"></video><span class="t">Criativo · variação</span><h3>Viva America · variação de ângulo</h3><p>Mesma oferta, outro ângulo e outro gancho, pensado para teste A/B.</p></div><div class="case"><video src="../dr/videos/viva-ia.mp4" poster="../dr/images/viva-ia.jpg" controls playsinline preload="none"></video><span class="t">Criativo com IA</span><h3>Viva America · IA + legenda</h3><p>Cenas geradas por IA misturadas com a especialista, ritmo de anúncio.</p></div><div class="case"><video src="../dr/videos/arquibancada.mp4" poster="../dr/images/arquibancada.jpg" controls playsinline preload="none"></video><span class="t">Anúncio · e-commerce</span><h3>Sua marca na arquibancada</h3><p>Anúncio de Copa com oferta clara, entrega rápida e CTA na tela.</p></div></div></div></section><section><div class="wrap"><span class="kicker">Leads e micro-leads</span><h2>Narrativa com retenção do primeiro ao último segundo.</h2><div class="cases"><div class="case"><video src="../dr/videos/thaix-pixar.mp4" poster="../dr/images/thaix-pixar.jpg" controls playsinline preload="none"></video><span class="t">Lead narrativo · 100% IA</span><h3>Emagrecimento feminino · estilo Pixar</h3><p>Anúncio-história de 2 min: personagens consistentes, vozes por IA, dor → descoberta → prova → CTA. Peça de teste (spec).</p></div><div class="case"><video src="../dr/videos/sonho-americano.mp4" poster="../dr/images/sonho-americano.jpg" controls playsinline preload="none"></video><span class="t">Lead · talking head</span><h3>Sonho americano vira pesadelo sem plano</h3><p>Lead de 90s com dois especialistas, cortes de retenção e legenda palavra a palavra.</p></div></div></div></section>
+<section><div class="wrap"><span class="kicker">Como eu trabalho</span><h2>O que você ganha comigo.</h2><div class="fit"><div><b>Volume e variação</b><span>Um corte base vira várias versões de gancho, ritmo, legenda e CTA no mesmo dia.</span></div><div><b>Feedback rápido</b><span>Aplico ajustes de copy, tráfego e direção criativa sem travar a fila.</span></div><div><b>IA no fluxo</b><span>Voz, dublagem, avatar, cenas geradas e automação de legendas com Claude.</span></div><div><b>Dado acima do ego</b><span>Penso em retenção, CTR e conversão, não em vídeo bonito.</span></div></div>
+<div class="nums"><div><b>25M+</b><span>views em um vídeo (collab CazéTV)</span></div><div><b>10+ anos</b><span>de audiovisual</span></div><div><b>FGV</b><span>Marketing e MBA</span></div></div></div></section>
+<footer><div class="wrap"><h2>Pronto para começar agora.</h2><p class="contacts">contato@andersonbrito.com · (11) 94857-7950 · @andersonbrito.mp4 · <a href="../trabalhos/">portfólio completo</a></p></div></footer>
+</body></html>
