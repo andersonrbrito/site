@@ -58,7 +58,7 @@
     /* Paleta Adobe Premiere (UI escura + cores de rótulo dos clipes), forma iOS (vidro, cantos grandes, listas agrupadas) */
     :root {
       --bg: #0E0E12;
-      --bg-grid: rgba(255,255,255,.035);
+      --bg-grid: rgba(65,255,138,.07);
       --card: rgba(30,30,38,.72);
       --card-solid: #1C1C24;
       --card-2: rgba(255,255,255,.05);
@@ -96,8 +96,11 @@
       font-family: var(--f);
       background-color: var(--bg);
       background-image:
+        radial-gradient(60% 45% at 100% 0%, rgba(65,255,138,.09), transparent 70%),
+        radial-gradient(50% 40% at 0% 100%, rgba(65,255,138,.07), transparent 70%),
         radial-gradient(circle at 1px 1px, var(--bg-grid) 1px, transparent 0);
-      background-size: 22px 22px;
+      background-size: 100% 100%, 100% 100%, 22px 22px;
+      background-attachment: fixed, fixed, scroll;
       color: var(--ink);
       font-size: 15px;
       line-height: 1.5;
@@ -110,6 +113,11 @@
     :focus-visible { outline: 2px solid var(--sel); outline-offset: 2px; border-radius: 6px; }
 
     .wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
+    .bg-rain {
+      position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; opacity: .75;
+      -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.55) 30%, rgba(0,0,0,.55) 70%, #000 100%);
+              mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.55) 30%, rgba(0,0,0,.55) 70%, #000 100%);
+    }
 
     /* ── Faixa de cinema ─────────────────────────────── */
     .banner {
@@ -476,7 +484,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .banner canvas { display: none; }
+      .banner canvas, .bg-rain { display: none; }
       * { transition: none !important; }
     }
   </style>
@@ -499,6 +507,8 @@
     <symbol id="i-spark" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.5 14 9l6.5 2-6.5 2-2 6.5L10 13l-6.5-2L10 9l2-6.5Z"/></symbol>
     <symbol id="i-chart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 19V5m0 14h16M8 15l3.5-4 3 2.5L20 7"/></symbol>
   </svg>
+
+  <canvas id="bgRain" class="bg-rain" aria-hidden="true"></canvas>
 
   <div class="wrap">
 
@@ -652,7 +662,7 @@
             </a>
             <a class="card prod" href="ia.html">
               <div class="scene">
-                <img src="assets/cine/mitty-notebook.jpg" alt="Anderson Brito" loading="lazy" onerror="this.remove()">
+                <img src="assets/cine/exterminador.jpg" alt="" loading="lazy" onerror="this.remove()">
               </div>
               <div class="prod-b">
                 <div class="prod-top"><b>Projetos com IA</b><span class="price">sob orçamento</span></div>
@@ -736,32 +746,38 @@
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
-    /* Chuva de código no banner (Matrix) */
-    const cv = $('#rain');
-    if (cv && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    /* Chuva de código (Matrix): no banner e, bem leve, no fundo da página */
+    const rain = (cv, o) => {
       const ctx = cv.getContext('2d');
-      const glyphs = 'アイウエオカキクケコサシスセソ01ABRITO<>/{}=+*';
-      let cols = [], fs = 13, w = 0, h = 0, raf, last = 0;
+      const glyphs = 'アイウエオカキクケコサシスセソタチツテト01ABRITO<>/{}=+*';
+      let cols = [], w = 0, h = 0, raf, last = 0;
       const size = () => {
         const r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
         w = r.width; h = r.height; cv.width = w * d; cv.height = h * d; ctx.setTransform(d, 0, 0, d, 0, 0);
-        cols = Array.from({ length: Math.ceil(w / fs) }, () => Math.random() * -h / fs);
+        cols = Array.from({ length: Math.ceil(w / o.fs) }, () => Math.random() < o.density ? Math.random() * -h / o.fs : null);
       };
       const tick = t => {
         raf = requestAnimationFrame(tick);
-        if (t - last < 60) return; last = t;
-        ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(0, 0, w, h);
-        ctx.font = `500 ${fs}px "JetBrains Mono", monospace`;
+        if (t - last < o.step) return; last = t;
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = `rgba(0,0,0,${o.fade})`; ctx.fillRect(0, 0, w, h);
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.font = `500 ${o.fs}px "JetBrains Mono", monospace`;
         cols.forEach((y, i) => {
-          if (Math.random() > .55) return;
-          const ch = glyphs[(Math.random() * glyphs.length) | 0];
-          ctx.fillStyle = Math.random() > .96 ? '#d6ffe6' : 'rgba(65,255,138,.85)';
-          ctx.fillText(ch, i * fs, y * fs);
-          cols[i] = y * fs > h && Math.random() > .975 ? 0 : y + 1;
+          if (y === null || Math.random() > o.speed) return;
+          ctx.fillStyle = Math.random() > .96 ? '#d6ffe6' : o.color;
+          ctx.fillText(glyphs[(Math.random() * glyphs.length) | 0], i * o.fs, y * o.fs);
+          cols[i] = y * o.fs > h && Math.random() > .975 ? 0 : y + 1;
         });
       };
       size(); addEventListener('resize', size);
-      new IntersectionObserver(([e]) => { cancelAnimationFrame(raf); if (e.isIntersecting) raf = requestAnimationFrame(tick); }).observe(cv);
+      const io = new IntersectionObserver(([e]) => { cancelAnimationFrame(raf); if (e.isIntersecting && !document.hidden) raf = requestAnimationFrame(tick); });
+      io.observe(cv);
+      document.addEventListener('visibilitychange', () => { cancelAnimationFrame(raf); if (!document.hidden) raf = requestAnimationFrame(tick); });
+    };
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      rain($('#rain'), { fs: 13, density: 1, speed: .55, step: 60, fade: .18, color: 'rgba(65,255,138,.85)' });
+      rain($('#bgRain'), { fs: 15, density: .45, speed: .6, step: 80, fade: .05, color: 'rgba(65,255,138,.8)' });
     }
 
     /* Timeline: playhead, timecode e clipe ativo acompanham a rolagem */
