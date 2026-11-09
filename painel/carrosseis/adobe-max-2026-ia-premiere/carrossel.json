@@ -1,0 +1,76 @@
+{
+ "slug": "adobe-max-2026-ia-premiere",
+ "dia": "2026-11-09",
+ "tipo": "noticia",
+ "titulo": "Amanhã começa o Adobe MAX e a IA tá invadindo o Premiere",
+ "perfil": "@ilmarlabs",
+ "legenda": "Amanhã (10 a 12 de novembro) tem Adobe MAX, o maior evento da Adobe no ano. Antes mesmo dele, o Premiere já testa assistente de IA, remoção generativa e trilha por texto na versão beta.\n\nDo jeito que eu vejo, isso tira o trabalho chato (organizar, transcrever) e sobra tempo pra parte criativa. Tem gente que acha que vira muleta.\n\nVocês usariam um assistente desses no corte?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Adobe MAX 2026 (10 a 12/11, Miami Beach). Recursos de IA do Premiere ainda em beta.",
+ "fontes": [
+  {
+   "titulo": "Adobe MAX 2026 (10 a 12 de novembro, Miami Beach e online)",
+   "url": "https://www.adobe.com/max.html"
+  },
+  {
+   "titulo": "Premiere Pro — recursos de IA em beta (AI Assistant, Generative Remove)",
+   "url": "https://www.adobe.com/products/premiere.html"
+  }
+ ],
+ "notas": "Lâmina 1: hook gerado (pôster PT-BR). Lâminas 2 a 5: imagens oficiais da Adobe (MAX e Premiere). Data do evento confirmada (10-12/11). Recursos citados são os que já estão na BETA pública do Premiere; o Premiere 2027 ainda NÃO foi anunciado oficialmente, por isso o carrossel fala só do que já roda.",
+ "slides": [
+  {
+   "texto": "**O Adobe MAX começa amanhã** — e tudo indica que a IA vai tomar conta do Premiere.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "De **10 a 12 de novembro**, em Miami Beach e online, a Adobe faz o maior evento dela do ano.\n\nÉ ali que ela costuma mostrar o próximo Premiere.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/02-max.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   }
+  },
+  {
+   "texto": "Antes mesmo do evento, o Premiere já testa um **assistente de IA**.\n\nVocê pede em texto tipo \"separa esses clipes por cena\" e ele organiza o projeto, faz transcrição, marca e até monta um corte bruto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/03-assistente.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   }
+  },
+  {
+   "texto": "Tem também o **Generative Remove** (apaga o que você pinta no vídeo) e o **Generate Music** (trilha instrumental a partir de um texto).\n\nPor enquanto tudo em beta e gastando crédito de IA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/04-features.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Calma que o Premiere 2027 ainda **não foi anunciado** de forma oficial.\n\nO que dá pra afirmar é o que já roda na beta. O resto a gente vê a partir de amanhã.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/05-beta.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   }
+  },
+  {
+   "texto": "Do jeito que eu vejo, isso ajuda no trabalho chato (organizar, transcrever) e sobra tempo pra parte criativa.\n\nMas tem gente que acha que vira muleta.\n**Vocês usariam um assistente desses no corte?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/06-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

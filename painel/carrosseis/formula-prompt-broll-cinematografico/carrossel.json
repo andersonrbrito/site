@@ -1,0 +1,63 @@
+{
+ "slug": "formula-prompt-broll-cinematografico",
+ "dia": "2026-11-09",
+ "tipo": "educativo",
+ "titulo": "A fórmula de prompt que faz a IA entregar B-roll cinematográfico",
+ "perfil": "@ilmarlabs",
+ "legenda": "B-roll feio quase sempre é prompt vago. A ordem que funciona pra mim: sujeito + uma ação contínua + câmera/lente + movimento + luz/hora + clima, tudo numa tomada só.\n\nTem um exemplo pronto pra copiar lá no carrossel.\n\nQual parte do prompt vocês mais esquecem: a lente ou a luz?\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo (técnica de prompt). Todas as lâminas com imagem gerada em estilo pôster PT-BR, cena brasileira. Lâmina 4 traz o prompt copiável escrito na própria imagem e no texto.",
+ "slides": [
+  {
+   "texto": "**Para de pedir \"faz um vídeo bonito\" pra IA.**\n\nTem uma fórmula de prompt que muda totalmente o resultado do B-roll.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "B-roll feio quase sempre é prompt vago.\n\nA IA não adivinha a lente, a luz nem o movimento. Se você não fala, ela chuta — e aí vem a mão derretida e a cena sem alma.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/02-vago.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "A ordem que funciona pra mim:\n\n**sujeito + uma ação contínua + câmera/lente + movimento + luz/hora + clima**\n\nUma tomada só, sem \"corta pra\".",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/03-formula.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Exemplo pronto pra copiar:\n\n\"close de um café coado caindo na xícara numa padaria de bairro, lente 50mm, câmera descendo devagar, luz da manhã entrando pela janela, clima aconchegante, uma única tomada contínua\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/04-prompt.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Por que funciona: cada pedaço tira uma decisão da mão da IA.\n\n\"Uma tomada contínua\" evita o corte estranho no meio.\n\"Ação contínua\" evita a mão que vira borracha.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/05-porque.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Salva esse print pra usar no teu próximo prompt e manda pra quem edita contigo.\n\n**Qual parte do prompt vocês mais esquecem: a lente ou a luz?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/06-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

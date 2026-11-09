@@ -1,0 +1,75 @@
+{
+ "slug": "luma-dentro-do-claude-chatgpt",
+ "dia": "2026-11-09",
+ "tipo": "noticia",
+ "titulo": "Agora dá pra gerar vídeo dentro do próprio Claude",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Luma soltou um conector oficial pro Claude e pro ChatGPT: você manda uma foto no chat e ele devolve imagem de campanha e vídeo, sem abrir outro app.\n\nPra mim esse é o caminho: o editor para de pular de aba e faz tudo conversando. Mas posso estar enganado.\n\nVocês preferem gerar dentro do chat ou cada ferramenta separada?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Luma Labs (lumalabs.ai). Usa os créditos da sua conta Luma.",
+ "fontes": [
+  {
+   "titulo": "Luma Labs: new Luma MCP (conector para Claude e ChatGPT)",
+   "url": "https://lumalabs.ai/news/new-luma-mcp"
+  },
+  {
+   "titulo": "Luma: guia do conector no Claude",
+   "url": "https://lumalabs.ai/learning-center/articles/luma-claude-connector-guide"
+  }
+ ],
+ "notas": "Lâmina 1: hook gerado (pôster PT-BR). Lâminas 2, 3 e 4: imagens oficiais da Luma (site do anúncio). Lâminas 5 e 6: imagens de apoio geradas. Notícia confirmada no site da Luma (anúncio de 3/11/2026) + guia oficial do conector.",
+ "slides": [
+  {
+   "texto": "**A Luma entrou dentro do Claude e do ChatGPT.**\n\nDá pra transformar UMA foto em vídeo sem sair da conversa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luma-dentro-do-claude-chatgpt/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "No dia 3 a Luma lançou um **conector oficial** pro Claude e pro ChatGPT.\n\nVocê joga uma foto de produto no chat e ele devolve um pacote pronto: imagem de campanha e vídeo, sem abrir outro programa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luma-dentro-do-claude-chatgpt/02-luma.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Luma Labs"
+   }
+  },
+  {
+   "texto": "São dois modos:\n\n• **Luma Agent** — monta o projeto a partir de um texto que você escreve\n• **Product Shots** — faz foto de produto estilo campanha\n\nTudo dentro do chat que você já usa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luma-dentro-do-claude-chatgpt/03-productshots.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Luma Labs"
+   }
+  },
+  {
+   "texto": "Pra ligar no Claude: **Customize → Connectors** e entra com a conta da Luma.\n\nEle pede permissão antes de cada ação, então não sai gerando sozinho pelas suas costas.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luma-dentro-do-claude-chatgpt/04-conector.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Luma Labs"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O porém: gasta os **créditos da sua conta Luma**, não é de graça.\n\nE por enquanto é só a Luma por dentro; não dá pra trocar por outro modelo nesse atalho.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luma-dentro-do-claude-chatgpt/05-creditos.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Do jeito que eu vejo, é pra lá que vai: o editor para de pular de aba e resolve conversando.\n\nMas posso estar enganado.\n**Vocês preferem gerar dentro do chat ou cada ferramenta separada?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luma-dentro-do-claude-chatgpt/06-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

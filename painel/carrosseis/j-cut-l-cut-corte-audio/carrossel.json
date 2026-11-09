@@ -1,0 +1,63 @@
+{
+ "slug": "j-cut-l-cut-corte-audio",
+ "dia": "2026-11-09",
+ "tipo": "educativo",
+ "titulo": "O corte de áudio que faz seu vídeo parecer profissional (J-cut e L-cut)",
+ "perfil": "@ilmarlabs",
+ "legenda": "O que separa edição amadora de profissional muitas vezes é um truque de áudio que ninguém vê: o J-cut e o L-cut. É quando o som de uma cena entra antes (ou continua depois) da imagem dela.\n\nTem o passo a passo lá no carrossel, funciona em Premiere, DaVinci e CapCut.\n\nVocês já usavam isso sem saber o nome?\n\nSalva pra lembrar no próximo corte e manda pra quem tá começando a editar. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo (técnica de edição, evergreen). Imagens geradas em estilo pôster PT-BR mostrando a ideia da timeline (áudio invadindo o clipe vizinho). Sem citar marca de forma indevida; cita Premiere/DaVinci/CapCut só como onde funciona.",
+ "slides": [
+  {
+   "texto": "**O que separa edição amadora de profissional** muitas vezes é um truque de áudio que ninguém vê.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-corte-audio/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **J-cut** e **L-cut**.\n\nÉ quando o som de uma cena começa antes (ou continua depois) da imagem dela aparecer. O ouvido já entra na próxima cena antes do olho.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-corte-audio/02-ideia.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "**J-cut:** o áudio da próxima cena entra ANTES do corte da imagem.\n\nÓtimo pra entrevista: você já ouve a resposta enquanto ainda vê a pergunta. A conversa puxa o olho pra frente.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-corte-audio/03-jcut.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "**L-cut:** o áudio da cena atual CONTINUA depois que a imagem já cortou.\n\nServe pra deixar a conversa fluindo por cima do B-roll, sem aquele silêncio seco na troca.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-corte-audio/04-lcut.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Na prática: destrava o áudio do vídeo (unlink) e arrasta a ponta do áudio pra invadir o clipe vizinho.\n\nUns 10 a 20 quadros já mudam tudo. Funciona em Premiere, DaVinci e CapCut.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-corte-audio/05-como.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Salva pra lembrar no próximo corte e manda pra quem tá começando a editar.\n\n**Vocês já usavam J-cut e L-cut sem saber o nome?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-corte-audio/06-fim.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
