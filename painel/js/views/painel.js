@@ -9,6 +9,7 @@ import { stickySide } from "./notas.js";
 import { emailsBox } from "./emails.js";
 import { magnificBox } from "./magnific.js";
 import { QUICK, META_SCHEDULER, iconLink, favicon } from "../links.js";
+import { armMatrix } from "../matrix.js?v=20261109c";
 
 // Apelido do dia: muda todo dia (mesmo apelido o dia inteiro).
 const APELIDOS = ["mestre", "chefe", "lenda", "gênio", "craque", "monstro", "meu rei", "patrão", "campeão", "maestro", "comandante", "mito", "fera", "professor", "artista", "visionário", "diretor", "capitão", "mago da timeline", "brabo", "pai", "guerreiro", "sensei", "titã", "parceiro", "ídolo", "chefão", "rei do corte", "craque da IA", "o cara"];
@@ -121,6 +122,8 @@ export default async function inicio({ sb, refresh }) {
   const faltam = gained == null ? 0 : Math.max(0, GOAL_W - gained);
   const daysLeft = Math.max(1, Math.round((dayMs(prazo) - dayMs(today)) / 864e5) + 1);
   const hitRecente = lastHit && (dayMs(today) - dayMs(lastHit.day)) / 864e5 <= 2;
+  // Bateu os mil da semana hoje: a chuva Matrix liga até o fim do dia (em todas as telas do painel).
+  if (lastHit && lastHit.day === today) armMatrix(lastHit.day);
   const weekKey = base?.day || today;
   const nfmt = (n) => n.toLocaleString("pt-BR");
   const stat = (label, val, sub, cls) => h("div", { class: "mstat" + (cls ? " " + cls : "") }, h("span", { class: "mono" }, label), h("b", null, val), sub && h("span", { class: "muted small" }, sub));

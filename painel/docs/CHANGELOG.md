@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-09 · v3.0: identidade do site no painel
+- Visual igual ao de andersonbrito.com: UI escura do Premiere, verde Matrix (#41FF8A) no lugar do laranja, vidro, cantos grandes e botões em pílula estilo iOS; fontes do sistema/Inter + JetBrains Mono. Sem as áreas fixas do site (faixa e coluna da esquerda). Bloco "v3" no fim de `css/painel.css`.
+- Chuva de código Matrix (`js/matrix.js`) só no dia em que a meta de +1.000 seguidores da semana é batida: a home detecta a meta batida hoje e liga a chuva até 23:59 (Brasília) em todas as telas do painel naquele aparelho.
+
 ## 2026-11-09 · LeadS_: aba Pesquisas
 - Base de prospecção (`prospects`) com 118 contatos iniciais, script por segmento, botões Direct (copia e abre), WhatsApp Business (texto pronto), e-mail, status e "Pedir nova pesquisa". Migration 0039.
 

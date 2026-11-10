@@ -1,4 +1,4 @@
-/* Anderson OS (painel) · identidade MineR_: preto esverdeado, laranja #FF4F32, Geist + Geist Mono, grade técnica */
+/* Anderson OS (painel) · identidade do site andersonbrito.com (v3, 09/11/2026): UI escura do Premiere, verde Matrix, forma iOS. Tokens finais no bloco v3 no fim do arquivo. */
 :root{
   --bg:#050706; --bar:#070908; --toolbar:#070908; --side:#060807; --panel:#0b0d0c; --panel-hd:#0f1210; --row:#090b0a; --row-h:#0e110f; --input:#070908;
   --line:#1a1e1b; --line-2:#272c28; --tx:#f3f2ee; --tx-2:#adb1ab; --tx-3:#7e847d; --tx-4:#5a5f59;
@@ -326,7 +326,7 @@ a.pfcard[href]:hover{border-color:var(--accent)} .pfcard.off{opacity:.6;cursor:d
 .slotpick .flex{gap:8px;flex-wrap:wrap;margin-bottom:10px} .slotpick .input{width:auto}
 .slotgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px;margin-bottom:8px}
 .slot{height:32px;border:1px solid var(--line-2);border-radius:6px;background:transparent;color:var(--tx-2);font:13px var(--f-mono);cursor:pointer}
-.slot:hover:not(:disabled){border-color:var(--accent)} .slot.sug{border-color:rgba(255,79,50,.45);color:var(--tx)}
+.slot:hover:not(:disabled){border-color:var(--accent)} .slot.sug{border-color:rgba(var(--accent-rgb),.45);color:var(--tx)}
 .slot.on{background:var(--accent);border-color:var(--accent);color:#000} .slot:disabled{opacity:.35;cursor:not-allowed}
 .slot.occ{text-decoration:line-through;opacity:.6;background:rgba(255,255,255,.05)}
 .mono.danger{color:var(--accent)}
@@ -792,6 +792,53 @@ body{font-size:16px} .small{font-size:14.5px} .muted.small,.small.muted{font-siz
   .tabbar a{font-size:9.5px;letter-spacing:-.02em;padding:8px 1px;overflow:hidden;white-space:nowrap}
 }
 .mag-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mag-top>div{display:flex;flex-direction:column;min-width:0}
-.mag-meter,.mag-track{height:8px;border-radius:99px;background:var(--line,#2a2a2a);overflow:hidden}.mag-meter span{display:block;height:100%;background:#FF4F32}
+.mag-meter,.mag-track{height:8px;border-radius:99px;background:var(--line,#2a2a2a);overflow:hidden}.mag-meter span{display:block;height:100%;background:var(--accent)}
 .mag-track span{display:block;height:100%}.mag-bar{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:8px;align-items:center}
 .sk-uso{border-color:color-mix(in srgb,#FF4F32 45%,transparent)}.sk-essencial{color:#FF4F32}.sk-util{color:#22c55e}.sk-opcional{color:var(--muted,#888)}
+
+
+/* ═════════ v3 · Identidade do site (09/11/2026): Premiere escuro + verde Matrix, forma iOS ═════════
+   Mesmo visual de andersonbrito.com, sem as áreas fixas do site (faixa e coluna da esquerda).
+   A chuva de código só aparece no dia em que a meta de +1.000 seguidores da semana é batida (js/matrix.js). */
+:root{
+  --bg:#0B0C0E; --bar:#0d0f10; --toolbar:#0d0f10; --side:#0c0e0f; --panel:#16191a; --panel-hd:#1a1d1e; --row:#121516; --row-h:#171b1c; --input:#0e1011;
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.14); --tx:#F2F2F7; --tx-2:#A1A6AA; --tx-3:#80868a; --tx-4:#5c6266;
+  --accent:#41FF8A; --accent-2:#41FF8A; --accent-ink:#03200F; --accent-rgb:65,255,138; --ok:#41FF8A;
+  --grid:rgba(65,255,138,.07);
+  --glass:rgba(24,27,28,.74); --glass-2:rgba(30,34,35,.78); --glass-hd:rgba(255,255,255,.03); --glass-bd:rgba(255,255,255,.08); --glass-hi:rgba(255,255,255,.06); --r:20px;
+  --f-head:-apple-system,BlinkMacSystemFont,"SF Pro Display",Inter,system-ui,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"SF Pro Text",Inter,system-ui,sans-serif;
+  --f-mono:"SF Mono","JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+body{background-color:var(--bg);background-image:
+  radial-gradient(60% 45% at 100% 0%,rgba(65,255,138,.09),transparent 70%),
+  radial-gradient(50% 40% at 0% 100%,rgba(65,255,138,.07),transparent 70%),
+  radial-gradient(circle at 1px 1px,var(--grid) 1px,transparent 0);
+  background-size:100% 100%,100% 100%,22px 22px;background-attachment:fixed,fixed,scroll}
+.menubar,.toolbar,.side,.tabbar{background:rgba(18,20,21,.74);-webkit-backdrop-filter:blur(26px) saturate(160%);backdrop-filter:blur(26px) saturate(160%)}
+.panel,.kpi,.kcol,.dialog,.eco-card,.mm-bar,.mm-insp,.ag-job{border-radius:20px;background:var(--glass);-webkit-backdrop-filter:blur(22px) saturate(140%);backdrop-filter:blur(22px) saturate(140%);border:1px solid var(--glass-bd);box-shadow:none}
+.kpi:hover{box-shadow:none;border-color:rgba(65,255,138,.35)}
+.row,.reelrow{border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--glass-bd);box-shadow:none}
+.row:hover{background:rgba(65,255,138,.05);border-color:rgba(255,255,255,.14)}
+.panel-head{background:transparent;border-bottom:1px solid var(--glass-bd)}
+.panel-head h2.mono{color:var(--tx-3);letter-spacing:.09em}
+.btn{border-radius:999px;background:var(--accent);color:var(--accent-ink);box-shadow:0 0 0 1px rgba(65,255,138,.4),0 6px 22px rgba(65,255,138,.18)}
+.btn:hover{background:#6BFFA5;box-shadow:0 0 0 1px rgba(65,255,138,.6),0 8px 30px rgba(65,255,138,.3)}
+.btn-ghost{background:rgba(65,255,138,.04);border:1px solid rgba(65,255,138,.22);color:var(--tx);box-shadow:none}
+.btn-ghost:hover{background:rgba(65,255,138,.09);border-color:rgba(65,255,138,.45);box-shadow:none}
+.input,.select,.textarea,.gsearch{border-radius:14px;background:rgba(255,255,255,.05);border-color:var(--glass-bd)}
+.navlink{border-radius:12px;font-size:15.5px}
+.navlink:hover{background:rgba(255,255,255,.05)}
+.navlink[aria-current=page]{background:var(--accent);color:var(--accent-ink);box-shadow:none}
+.tabbar a[aria-current=page]{color:var(--accent)}
+.chip{border-color:var(--glass-bd);background:rgba(255,255,255,.04)}
+.logo{font:800 16px/1 var(--f-head);font-style:normal;letter-spacing:-.02em}
+.page-head h1{letter-spacing:-.03em;font-weight:800}
+.empty{border-radius:14px}
+.ver{color:var(--accent);background:rgba(65,255,138,.1);border-color:rgba(65,255,138,.3)}
+.sitebtn{border-radius:999px}
+.aos-rain{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;opacity:.7;
+  -webkit-mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.5) 30%,rgba(0,0,0,.5) 70%,#000 100%);
+          mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.5) 30%,rgba(0,0,0,.5) 70%,#000 100%)}
+@media(prefers-reduced-motion:reduce){.aos-rain{display:none}}
+@media(max-width:767px){.aviso{flex-wrap:wrap;row-gap:4px}.aviso>.mono{flex-basis:100%}.aviso b.grow{min-width:0}}

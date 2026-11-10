@@ -6,7 +6,7 @@ import { HREF } from "./views/busca.js";
 
 const NAMES = { task: "Tarefa", project: "Projeto", note: "Nota", event: "Compromisso" };
 // Versão do painel mostrada ao lado do logo (suba a cada entrega relevante).
-export const VERSAO = "v2.2";
+export const VERSAO = "v3.0";
 const href = (m) => "#/" + m.route;
 
 export function buildShell({ sb, member, go, signOut }) {

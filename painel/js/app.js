@@ -1,6 +1,7 @@
 import { h } from "./util.js";
 import { sb, configured } from "./data.js";
-import { buildShell } from "./shell.js?v=20261106f";
+import { buildShell } from "./shell.js?v=20261109c";
+import { initMatrix } from "./matrix.js?v=20261109c";
 import { visibleModules } from "./modules.js?v=20261106f";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
@@ -44,6 +45,7 @@ async function start() {
   const go = (path) => { const t = "#" + (path.startsWith("/") ? path : "/" + path); if (location.hash === t) render(); else location.hash = t; };
   const signOut = async () => { await sb.auth.signOut(); location.hash = "#/"; location.reload(); };
   const shell = buildShell({ sb, member, go, signOut });
+  initMatrix();
   document.body.className = ""; app.replaceChildren(shell.root);
 
   let seq = 0;
