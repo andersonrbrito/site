@@ -45,16 +45,20 @@ async function assetsFor(sb, slide) {
 }
 
 async function loadAll(sb) {
-  const [dbR, reqR, seedSlugs, legacySlugs] = await Promise.all([
+  const [dbR, reqR, seedSlugs, legacySlugs, arqR] = await Promise.all([
     sb.from("carrosseis").select(COLS).is("archived_at", null).order("dia", { ascending: false }).limit(200),
     sb.from("claude_requests").select("id, kind, status, result_note, payload, created_at, done_at").in("kind", ["carrossel_video", "carrossel_novo", "carrossel_ajuste"]).is("archived_at", null).order("created_at", { ascending: false }).limit(100),
     json(BASE + "diarios.json"), json(BASE + "lista.json"),
+    sb.from("carrosseis").select("slug").not("archived_at", "is", null).limit(5000),
   ]);
+  const arquivados = new Set((arqR?.data || []).map((r) => r.slug)); // postados saem da tela (ficam no banco)
   const dbOn = !dbR.error;
-  const rows = dbOn ? dbR.data || [] : [];
+  const todas = dbOn ? dbR.data || [] : [];
+  todas.filter((r) => r.status === "postado").forEach((r) => arquivados.add(r.slug)); // postados antigos também saem da tela
+  const rows = todas.filter((r) => r.status !== "postado");
   const seeds = (await Promise.all((seedSlugs || []).map((s) => json(`${BASE}${s}/carrossel.json`)))).filter(Boolean);
   const bySlug = new Map(rows.map((r) => [r.slug, { ...r, salvo: true }]));
-  for (const s of seeds) if (!bySlug.has(s.slug)) bySlug.set(s.slug, { ...s, status: s.status || "rascunho", version: 0, salvo: false });
+  for (const s of seeds) if (!bySlug.has(s.slug) && !arquivados.has(s.slug)) bySlug.set(s.slug, { ...s, status: s.status || "rascunho", version: 0, salvo: false });
   const lista = [...bySlug.values()].sort((a, b) => (b.dia || "").localeCompare(a.dia || "") || (a.tipo || "").localeCompare(b.tipo || ""));
   const legacy = (await Promise.all((legacySlugs || []).map((s) => json(`${BASE}${s}/index.json`)))).filter(Boolean);
   const reqs = reqR.error ? [] : reqR.data || [];
@@ -95,7 +99,7 @@ function listView({ sb, go, query, data }) {
   return h("div", { class: "page wide" },
     pageHead("CarrosseL_", "2 notícias + 2 educativos por dia · pedidos do PostadoR_ · visual do site · para o @ilmarlabs"),
     !data.dbOn && h("p", { class: "note" }, "A tabela de carrosséis ainda não existe no banco (migration 0028). Dá para ver e baixar, mas edição e pedido de vídeo só funcionam depois de rodar a migration no Supabase."),
-    h("div", { class: "flex wrap cz-filtros" }, chip("rascunho", `A aprovar (${nSt("rascunho")})`), chip("aprovado", `Aprovados (${nSt("aprovado")})`), chip("postado", `Postados (${nSt("postado")})`), chip("descartado", `Descartados (${nSt("descartado")})`)),
+    h("div", { class: "flex wrap cz-filtros" }, chip("rascunho", `A aprovar (${nSt("rascunho")})`), chip("aprovado", `Aprovados (${nSt("aprovado")})`), chip("descartado", `Descartados (${nSt("descartado")})`)),
     h("div", { class: "flex wrap cz-filtros" }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("pessoal", "Pessoais")),
     guiaPostagem(),
     pedidosNovos(data, go),
@@ -455,6 +459,12 @@ function editor({ sb, go, c, data }) {
     if (!data.dbOn) return toast("Rode a migration 0028 para mudar o status.", { kind: "err" });
     const antes = st.status; st.status = v; clearTimeout(timer); await save();
     if (saveInfo.textContent !== "Salvo") { st.status = antes; drawDecisao(); return; }
+    if (v === "postado") { // postado sai da tela para não pesar; o registro fica no banco (arquivado)
+      const { error } = await sb.from("carrosseis").update({ archived_at: new Date().toISOString() }).eq("id", st.id).eq("version", st.version);
+      if (error) return toast("Marcou como postado, mas não tirou da tela: " + error.message, { kind: "err" });
+      toast("Postado. Saiu da lista do CarrosseL_ (continua guardado no banco).");
+      return go("/carrosseis");
+    }
     drawDecisao(); toast(msg, { actionLabel: "Desfazer", onAction: () => setStatus(antes, "Voltou.") });
   }
   function drawDecisao() {

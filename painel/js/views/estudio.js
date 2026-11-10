@@ -64,6 +64,22 @@ export default async function estudio({ sb }) {
     return btn;
   };
 
+  // Baixar no Mac/PC: busca o arquivo e salva como MP4 com nome do carrossel (o link simples às vezes só abria o player)
+  const baixarBtn = (r, u) => {
+    const b = h("button", { class: "btn btn-sm", type: "button", onclick: async () => {
+      const rot = b.textContent; b.disabled = true; b.textContent = "Baixando…";
+      try {
+        const res = await fetch(u); if (!res.ok) throw new Error("arquivo não encontrado");
+        const url = URL.createObjectURL(await res.blob());
+        const a = h("a", { href: url, download: `${(r.payload?.slug || "video")}-${formato(u).startsWith("Reel") ? "reel-9x16" : "x-16x9"}.mp4` });
+        document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 60000);
+        toast("Vídeo baixado.");
+      } catch (e) { toast("Não baixou: " + e.message, { kind: "err" }); }
+      b.disabled = false; b.textContent = rot;
+    } }, "⬇ " + formato(u));
+    return b;
+  };
+
   const card = (r) => {
     const vids = [...new Set((r.result_note || "").match(MP4) || [])].sort(ordem), [sl, sc] = ST[r.status] || [r.status, ""];
     const titulo = r.payload?.carrossel?.titulo || r.payload?.slug || "Carrossel";
@@ -76,7 +92,7 @@ export default async function estudio({ sb }) {
         h("div", { class: "flex wrap", style: { gap: "6px", margin: "6px 0" } }, h("span", { class: `chip ${sc}` }, sl), ...vids.map((u) => h("span", { class: "chip" }, formato(u))), h("span", { class: "mono muted" }, fmtDateTime(r.done_at || r.created_at))),
         vids.length ? h("div", { class: "st-acts" },
           h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "iPhone:"), ...vids.map((u) => enviar(r, [u], formato(u))), vids.length > 1 && enviar(r, vids, "Os dois")),
-          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "Baixar:"), ...vids.map((u) => h("a", { class: "btn btn-ghost btn-sm", href: u, download: "" }, formato(u))))) : null,
+          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "Baixar:"), ...vids.map((u) => baixarBtn(r, u)))) : null,
         h("div", { class: "flex wrap", style: { marginTop: "10px", justifyContent: "space-between" } },
           r.payload?.slug ? h("a", { class: "btn btn-ghost btn-sm", href: `#/carrosseis?c=${encodeURIComponent(r.payload.slug)}` }, "Abrir carrossel") : h("span"),
           vids.length ? h("label", { class: "st-check" }, h("input", { type: "checkbox", checked: usado(r), onchange: (e) => marcarUsado(r, e.target.checked) }), usado(r) ? "Já usei (voltar para a tela)" : "Já usei · tirar da tela") : null)));

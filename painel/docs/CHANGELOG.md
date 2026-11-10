@@ -152,3 +152,4 @@
 - AprovaçõeS_: "Baixar" junta vários arquivos num .zip único (antes o Chrome bloqueava na 1ª vez); "Legenda pro iPhone" mostra QR que abre o card no iPhone com botão Copiar.
 - AprovaçõeS_: "Baixar" voltou a salvar arquivos separados (sem .zip), baixados em sequência pelo navegador.
 - CarrosseL_: botão "Pedir alteração" (pedido carrossel_ajuste, migration 0038), "Pegar mídia de outra lâmina" (trocar/copiar), e "Enviar pro iPhone" não trava mais no "Tocar de novo".
+- StúdiO_: botão "⬇" baixa o vídeo em MP4. CarrosseL_: marcar como postado tira o carrossel da tela (fica arquivado no banco); chip "Postados" saiu.
