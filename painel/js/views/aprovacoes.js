@@ -30,12 +30,18 @@ export default async function aprovacoes({ sb, query, go }) {
   let aba = ABAS.some(([k]) => k === query.aba) ? query.aba : "pendente", perfil = query.perfil || "";
 
   // URLs assinadas em lote (1 h), só para os itens que aparecem
+  // Egresso: a mesma URL assinada é reaproveitada por 23 h (guardada no navegador), então o cache HTTP do
+  // navegador serve o arquivo de novo sem baixar do Supabase. Antes cada visita gerava token novo = download novo.
   const urls = new Map();
+  const CK = "ap-signed-v1", VALIDADE = 86400, REUSO = 23 * 3600e3;
+  let guard = {}; try { guard = JSON.parse(localStorage.getItem(CK) || "{}"); } catch {}
+  for (const [p, v] of Object.entries(guard)) if (v.ate > Date.now()) urls.set(p, v.url); else delete guard[p];
   const assinar = async (paths) => {
     const falta = [...new Set(paths.filter((p) => p && !urls.has(p)))];
     if (!falta.length) return;
-    const { data: s } = await sb.storage.from(BUCKET).createSignedUrls(falta, 3600);
-    (s || []).forEach((x) => x.signedUrl && urls.set(x.path, x.signedUrl));
+    const { data: s } = await sb.storage.from(BUCKET).createSignedUrls(falta, VALIDADE);
+    (s || []).forEach((x) => { if (x.signedUrl) { urls.set(x.path, x.signedUrl); guard[x.path] = { url: x.signedUrl, ate: Date.now() + REUSO }; } });
+    try { localStorage.setItem(CK, JSON.stringify(guard)); } catch {}
   };
 
   const salvar = async (a, patch, msg) => {
@@ -51,7 +57,7 @@ export default async function aprovacoes({ sb, query, go }) {
   const media = (path, big) => {
     const u = urls.get(path);
     if (!u) return h("div", { class: "ap-empty" }, "sem prévia");
-    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
+    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "none", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
   };
 
   // Enviar pro iPhone: 1º toque baixa os arquivos (vídeo/imagens), 2º abre o compartilhar do sistema.
@@ -103,7 +109,7 @@ export default async function aprovacoes({ sb, query, go }) {
     const u = urls.get(p);
     if (!u) return h("div", { class: "ap-gal-item" }, h("div", { class: "ap-empty" }, "sem prévia"));
     return h("div", { class: "ap-gal-item" }, isVideo(p)
-      ? h("video", { src: u, controls: true, playsinline: true, preload: "metadata", loop: true })
+      ? h("video", { src: u, controls: true, playsinline: true, preload: "none", loop: true })
       : h("img", { src: u, alt: "", loading: "lazy", onclick: onOpen }));
   };
   const trilho = (paths, onOpen, cls = "") => {

@@ -24,9 +24,13 @@ async function mediaUrl(sb, m) {
   if (!m.path) return null;
   const hit = signed.get(m.path);
   if (hit && hit.until > Date.now()) return hit.url;
-  const { data } = await sb.storage.from(BUCKET).createSignedUrl(m.path, 3600);
+  let salvo = null; try { salvo = JSON.parse(localStorage.getItem("cz-signed:" + m.path) || "null"); } catch {}
+  if (salvo && salvo.until > Date.now()) { signed.set(m.path, salvo); return salvo.url; }
+  // URL estável por 23 h = cache do navegador reaproveita a mídia (menos egresso no Supabase)
+  const { data } = await sb.storage.from(BUCKET).createSignedUrl(m.path, 86400);
   if (!data?.signedUrl) return null;
-  signed.set(m.path, { url: data.signedUrl, until: Date.now() + 50 * 6e4 });
+  const v = { url: data.signedUrl, until: Date.now() + 23 * 3600e3 };
+  signed.set(m.path, v); try { localStorage.setItem("cz-signed:" + m.path, JSON.stringify(v)); } catch {}
   return data.signedUrl;
 }
 async function assetsFor(sb, slide) {
