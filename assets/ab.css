@@ -332,9 +332,10 @@ footer a:hover { color: var(--ink); }
   .layout { display: flex; flex-direction: column; align-items: stretch; gap: 14px; }
   .side, .main { display: contents; }
   #sobre { order: 1; margin-top: -48px; position: relative; z-index: 3; margin-bottom: 6px; }
-  .m-contato { order: 2; }
+  .m-contato { order: 3; }
   .main > * { order: 5; }
-  .main > .m-first { order: 3; }
+  .main > .m-first { order: 4; }
+  .main > #parcerias, .main > .topnav { order: 2; }
   .main > section { margin-top: 18px; }
   .m-redes { order: 6; margin-top: 18px; }
   .m-port { order: 7; }
