@@ -51,7 +51,10 @@ http.createServer((req, res) => {
   }
   let file = path.normalize(path.join(ROOT, p));
   if (!file.startsWith(ROOT) || /\/\.(git|env)|\/postador\//.test(file)) { res.writeHead(403); return res.end(); }
-  if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, "index.html");
+  if (fs.existsSync(file) && fs.statSync(file).isDirectory()) {
+    if (!p.endsWith("/")) { res.writeHead(301, { Location: p + "/" + url.search }); return res.end(); } // /painel → /painel/ (senão CSS/JS não carregam)
+    file = path.join(file, "index.html");
+  }
   if (!fs.existsSync(file)) { res.writeHead(404); return res.end("não encontrado"); }
   enviarArquivo(req, res, file);
 }).listen(PORT, "127.0.0.1", () => console.log(`Painel local: http://localhost:${PORT}/painel/  ·  espelho: ${MIRROR}`));

@@ -75,10 +75,12 @@ export default async function aprovacoes({ sb, query, go }) {
   // story não tem legenda pra postar: o texto é orientação interna e nunca vai pra área de transferência
   const copiavel = (a) => (a.tipo === "story" ? null : a.legenda);
 
+  // Mostra o 1º quadro (não fica tela preta). Com o link estável/cache, só baixa um pedaço do vídeo uma vez.
+  const quadro = (u) => (u.startsWith("blob:") || u.includes("#") ? u : u + "#t=0.1");
   const media = (path, big) => {
     const u = urls.get(path);
     if (!u) return h("div", { class: "ap-empty" }, "sem prévia");
-    return isVideo(path) ? h("video", { src: u, controls: true, playsinline: true, preload: "none", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
+    return isVideo(path) ? h("video", { src: quadro(u), controls: true, playsinline: true, preload: "metadata", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
   };
 
   // Enviar pro iPhone: 1º toque baixa os arquivos (vídeo/imagens), 2º abre o compartilhar do sistema.
@@ -130,7 +132,7 @@ export default async function aprovacoes({ sb, query, go }) {
     const u = urls.get(p);
     if (!u) return h("div", { class: "ap-gal-item" }, h("div", { class: "ap-empty" }, "sem prévia"));
     return h("div", { class: "ap-gal-item" }, isVideo(p)
-      ? h("video", { src: u, controls: true, playsinline: true, preload: "none", loop: true })
+      ? h("video", { src: quadro(u), controls: true, playsinline: true, preload: "metadata", loop: true })
       : h("img", { src: u, alt: "", loading: "lazy", onclick: onOpen }));
   };
   const trilho = (paths, onOpen, cls = "") => {
