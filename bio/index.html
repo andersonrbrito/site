@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/ab.css">
+  <link rel="stylesheet" href="/assets/ab.css?v=20261110a">
 </head>
 <body>
   <canvas id="bgRain" class="bg-rain" aria-hidden="true"></canvas>
@@ -125,8 +125,7 @@
           <div class="sec-h"><h2>Bio</h2></div>
           <div class="intro">
             <div class="reel">
-              <video id="reel" src="/assets/bombaatomica/BOMBAATOMICA.mp4" poster="/assets/bombaatomica/capa-hook.jpg" autoplay muted loop playsinline preload="metadata"></video>
-              <button class="reel-sound" type="button" id="reelSound" aria-pressed="false">Ativar som</button>
+              <iframe src="https://www.youtube.com/embed/ksi7zN5OogU?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=ksi7zN5OogU&amp;playsinline=1&amp;rel=0&amp;modestbranding=1" title="Bomba Atômica: vídeo de apresentação" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
             </div>
             <div class="card prose">
               <p data-en-html="Filmmaker, editor and photographer for &lt;b&gt;over 10 years&lt;/b&gt;. I started behind a camera in 2015, shooting underground rock concerts, sports and portraits.">Filmmaker, editor e fotógrafo há <b>mais de 10 anos</b>. Comecei atrás de uma câmera em 2015, fotografando shows de rock underground, esportes e retratos.</p>
@@ -196,18 +195,6 @@
     <a class="tl-wa" href="https://wa.me/5511992392104?text=Oi%20Anderson%2C%20vim%20do%20site!" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="/assets/icons.svg#i-wa"/></svg></a>
   </nav>
 
-  <script src="/assets/ab.js" defer></script>
-  <script>
-    (() => {
-      const v = document.getElementById('reel'), b = document.getElementById('reelSound');
-      b.addEventListener('click', () => {
-        v.muted = !v.muted;
-        if (!v.muted) { v.currentTime = 0; v.play(); }
-        const en = window.abLang && window.abLang() === 'en';
-        b.textContent = v.muted ? (en ? 'Unmute' : 'Ativar som') : (en ? 'Mute' : 'Silenciar');
-        b.setAttribute('aria-pressed', String(!v.muted));
-      });
-    })();
-  </script>
+  <script src="/assets/ab.js?v=20261110a" defer></script>
 </body>
 </html>

@@ -1,0 +1,75 @@
+/* Portfólios (andersonbrito.com): componentes de conteúdo em cima de /assets/ab.css.
+   A faixa superior e a coluna da esquerda são as mesmas do site; aqui só o miolo de cada portfólio. */
+
+/* Abertura do portfólio */
+.p-hero { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; padding: 20px; }
+.p-hero .eyebrow { margin-bottom: 8px; }
+.p-hero h1 { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.08; font-weight: 800; letter-spacing: -.025em; }
+.p-hero h1 em { font-style: normal; color: var(--matrix); }
+.p-hero p { color: var(--muted); font-size: 15.5px; margin-top: 10px; max-width: 60ch; }
+.p-hero p b { color: var(--ink); font-weight: 600; }
+.p-hero .p-photo { width: 168px; aspect-ratio: 4 / 5; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); }
+.p-hero .p-photo img { width: 100%; height: 100%; object-fit: cover; }
+.p-hero .btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+
+/* Faixa de números */
+.p-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.p-stats div { padding: 14px 16px; border-radius: var(--r-md); background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.p-stats b { display: block; font-size: 24px; font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
+.p-stats span { font-size: 12.5px; color: var(--faint); }
+
+/* Texto corrido dentro de card */
+.p-text { padding: 18px; color: var(--muted); font-size: 15px; line-height: 1.6; display: grid; gap: 10px; }
+.p-text b, .p-text strong { color: var(--ink); font-weight: 600; }
+.p-text ul { padding-left: 18px; display: grid; gap: 6px; }
+.p-text h3 { color: var(--ink); font-size: 17px; }
+
+/* Vídeos */
+.vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
+.vgrid.wide { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.vcard { display: flex; flex-direction: column; }
+.vcard .vbox { position: relative; aspect-ratio: 9 / 16; background: #000; overflow: hidden; }
+.vcard .vbox.h { aspect-ratio: 16 / 9; }
+.vcard .vbox.sq { aspect-ratio: 1; }
+.vcard video, .vcard iframe, .vcard .vbox > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.vcard .vcap { padding: 12px 14px 14px; display: grid; gap: 4px; }
+.vcard .vcap b, .vcard .vcap h3 { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+.vcard .vcap p, .vcard .vcap span { font-size: 13px; color: var(--muted); line-height: 1.45; }
+.vcard .vcap .tagrow { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+
+/* Destaque: vídeo grande + texto */
+.vfeature { display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 0; }
+.vfeature .vbox { position: relative; aspect-ratio: 9 / 16; background: #000; }
+.vfeature .vbox.h { aspect-ratio: 16 / 9; }
+.vfeature video, .vfeature iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.vfeature .p-text { align-content: center; }
+
+/* Casos / itens de lista */
+.cases { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.case { padding: 16px; display: grid; gap: 6px; align-content: start; }
+.case .when { font: 500 11px/1 var(--mono); letter-spacing: .06em; color: var(--matrix); text-transform: uppercase; }
+.case b, .case h3 { font-size: 16px; font-weight: 700; letter-spacing: -.01em; }
+.case p { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+
+/* Imagens soltas (galerias de prints, artes) */
+.igrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+.igrid figure { border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); background: var(--card-solid); }
+.igrid img { width: 100%; height: auto; display: block; }
+.igrid figcaption { padding: 8px 10px; font-size: 12.5px; color: var(--muted); }
+
+/* Chamada para contratar */
+.p-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; border-color: rgba(65,255,138,.25); }
+.p-cta b { display: block; font-size: 18px; font-weight: 700; letter-spacing: -.01em; }
+.p-cta span { color: var(--muted); font-size: 14px; }
+.p-cta .btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.sec-cta { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+@media (max-width: 640px) {
+  .p-hero { grid-template-columns: 1fr; }
+  .p-hero .p-photo { width: 100%; max-width: 260px; order: -1; }
+  .vgrid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .vgrid.wide { grid-template-columns: 1fr; }
+  .vfeature { grid-template-columns: 1fr; }
+  .vfeature .vbox { max-width: 340px; width: 100%; margin: 0 auto; }
+  .p-cta .btns, .p-cta .btns .btn { width: 100%; }
+}

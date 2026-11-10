@@ -1,8 +1,9 @@
 """Regenera painel/js/portfolios.js: rode na raiz do site com `python3 painel/dev/gen-portfolios.py`."""
 import os, re, subprocess, json, datetime
-skip = {"index.html", "editor.html"}
-pages = [f for f in os.listdir(".") if f.endswith(".html") and f not in skip]
-pages += [d + "/index.html" for d in os.listdir(".") if os.path.isfile(os.path.join(d, "index.html")) and d not in ("painel",)]
+# Só os portfólios de verdade (lista do Anderson, 09/11/2026). Página nova de portfólio: acrescente aqui.
+PORTFOLIOS = ["lunar/index.html", "trabalhos/index.html", "portfolio.html", "dr.html", "comp/index.html",
+              "xablau/index.html", "condzxyz/index.html", "videos-ia/index.html", "brasilparalelo/index.html"]
+pages = [p for p in PORTFOLIOS if os.path.exists(p)]
 seen, stack = set(), ["index.html"]
 while stack:
     f = stack.pop()

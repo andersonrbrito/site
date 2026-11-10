@@ -1,62 +1,196 @@
-<!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Anderson Brito Portfólio</title>
-<meta name="claude:viewport-fit-sides" content="cover">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;800&family=DM+Sans:wght@400;500&display=swap">
-<style>
-/* Layout: sala escura, vídeos verticais em grade como fitas numa ilha de edição; destaque horizontal no fim */
-:root{--bg:#0E0D0C;--panel:#1A1816;--fg:#F3EEE8;--mut:#9C948B;--line:#2C2925;--o:#FF4F32;
---disp:'Archivo',system-ui,sans-serif;--body:'DM Sans',system-ui,sans-serif;color-scheme:dark}
-*{box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:var(--body);margin:0}
-.wrap{max-width:1080px;margin:0 auto;padding-block:48px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.eyebrow{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--o);font-weight:500}
-h1{font-family:var(--disp);font-weight:800;font-size:clamp(34px,7vw,64px);line-height:.98;letter-spacing:-.03em;margin:12px 0 16px;text-wrap:balance}
-h1 em{font-style:normal;color:var(--o)}
-.lead{color:var(--mut);max-width:58ch;line-height:1.6;font-size:16px;margin:0}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:40px}
-@media(max-width:820px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-figure{margin:0;display:flex;flex-direction:column;gap:10px;min-width:0}
-video{width:100%;max-width:100%;border-radius:10px;background:var(--panel);display:block}
-.v916{aspect-ratio:9/16;object-fit:cover}
-figcaption b{font-family:var(--disp);font-weight:500;font-size:15px;display:block}
-figcaption span{color:var(--mut);font-size:13px;line-height:1.45;display:block;margin-top:3px}
-figcaption a{color:var(--o);font-size:13px;text-decoration:none;display:inline-block;margin-top:6px}
-figcaption a:focus-visible{outline:2px solid var(--o);outline-offset:2px}
-.feature{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:center;margin-top:48px;padding-top:40px;border-top:1px solid var(--line)}
-@media(max-width:720px){.feature{grid-template-columns:1fr}}
-.feature video{aspect-ratio:4/3;object-fit:cover}
-.feature h2{font-family:var(--disp);font-weight:800;font-size:28px;letter-spacing:-.02em;margin:8px 0 10px}
-.feature p{color:var(--mut);line-height:1.6;margin:0;max-width:46ch}
-footer{margin-top:56px;color:var(--mut);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;border-top:1px solid var(--line);padding-top:18px}
-footer b{color:var(--fg);font-weight:500}
-</style>
-</head><body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0C0E">
+  <title>Anderson Brito Portfólio</title>
+  <meta name="claude:viewport-fit-sides" content="cover">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ab.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/port.css?v=20261110a">
+  <style>
+    .main section > * + * { margin-top: 12px; }
+    .vcap a { color: var(--matrix); font-size: 13px; margin-top: 2px; }
+    .vfeature.hz { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+    @media (max-width: 640px) { .vfeature.hz { grid-template-columns: 1fr; } .vfeature.hz .vbox { max-width: none; } }
+  </style>
+</head>
+<body>
+  <canvas id="bgRain" class="bg-rain" aria-hidden="true"></canvas>
 
-<div class="wrap">
-<div class="eyebrow">Portfólio · vídeo com IA</div>
-<h1>Personagens, clones e clipes<br><em>feitos com IA.</em></h1>
-<p class="lead">Alguns trabalhos meus: séries 100% IA com gancho viral, personagens consistentes, clipe musical e narrativa emocional. Toque no vídeo para assistir com som.</p>
+  <div class="wrap">
+    <header class="banner">
+      <img src="/assets/cine/mitty-banner.jpg" alt="" fetchpriority="high">
+      <canvas id="rain" aria-hidden="true"></canvas>
+      <button class="lang" type="button" data-lang-toggle aria-label="Switch to English">EN</button>
+    </header>
 
-<div class="grid">
-<figure><video class="v916" src="v/kingpanda1.mp4" poster="v/kingpanda1.jpg" controls playsinline preload="metadata"></video>
-<figcaption><b>King Panda</b><span>100% IA, com gancho viral nos primeiros segundos.</span></figcaption></figure>
-<figure><video class="v916" src="v/kingpanda2.mp4" poster="v/kingpanda2.jpg" controls playsinline preload="metadata"></video>
-<figcaption><b>King Panda</b><span>Personagem consistente em série de episódios.</span></figcaption></figure>
-<figure><video class="v916" src="v/andrack.mp4" poster="v/andrack.jpg" controls playsinline preload="metadata"></video>
-<figcaption><b>Andrack</b><span>Personagem com IA no formato comentário.</span><a href="https://www.instagram.com/p/DZxKKF1x5uV/" target="_blank" rel="noopener">Ver no Instagram →</a></figcaption></figure>
-<figure><video class="v916" src="v/kairos.mp4" poster="v/kairos.jpg" controls playsinline preload="metadata"></video>
-<figcaption><b>Kairos · cantor</b><span>Clipe musical feito com IA.</span><a href="https://www.instagram.com/p/DZ55WLMPsNs/" target="_blank" rel="noopener">Ver no Instagram →</a></figcaption></figure>
-</div>
+    <div class="layout">
 
-<div class="feature">
-<video src="v/schroeder.mp4" poster="v/schroeder.jpg" controls playsinline preload="metadata"></video>
-<div><div class="eyebrow">Narrativa emocional</div><h2>Eduardo Schroeder · "Cheirin bão"</h2>
-<p>Vídeo sentimental com IA: uma história contada com emoção, que prende do começo ao fim.</p></div>
-</div>
+      <!-- Coluna da esquerda (igual em todas as páginas) -->
+      <aside class="side">
+        <section id="sobre" aria-label="Sobre">
+          <div class="avatar"><img src="/assets/cine/avatar.jpg" alt="Anderson Brito"></div>
+          <h1 class="name">Anderson Brito</h1>
+          <div class="role">
+            <span class="tag"><i style="background:var(--c-iris)"></i>Editor de vídeo</span>
+            <span class="tag"><i style="background:var(--matrix)"></i>Criador de conteúdo IA</span>
+          </div>
+          <div class="bio">
+            <p>Criador de conteúdo digital</p>
+            <p><b>Agente da Skynet</b> | Especialista em conteúdo viral: +100 milhões de views nos últimos 6 meses.</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-pr span2" type="button" data-open-form>Fazer pedido</button>
+            <a class="btn btn-ghost" href="/bio/">Saber mais</a>
+            <a class="btn btn-ghost" href="/links/">Links</a>
+          </div>
+        </section>
 
-<a href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto" target="_blank" rel="noopener" style="display:inline-block;margin-top:48px;background:var(--o);color:#fff;text-decoration:none;font-family:var(--disp);font-weight:800;font-size:18px;padding:16px 26px;border-radius:10px">Falar comigo no WhatsApp →</a>
-<footer><span><b>Anderson Brito</b> · edição e vídeo com IA</span><span>Instagram @ander.sbrito</span></footer>
-</div>
-</body></html>
+        <div class="card card-pad m-contato">
+          <div class="eyebrow"><span class="dot" style="background:#25D366"></span>Contato</div>
+          <div class="list">
+            <a class="row" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto" target="_blank" rel="noopener">
+              <span class="ico" style="background:#25D366"><svg><use href="/assets/icons.svg#i-wa"/></svg></span>
+              <span class="row-t"><b>WhatsApp</b><span>(11) 94857-7950</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+            <a class="row" href="mailto:contato@andersonbrito.com">
+              <span class="ico" style="background:var(--c-iris)"><svg><use href="/assets/icons.svg#i-mail"/></svg></span>
+              <span class="row-t"><b>E-mail</b><span>contato@andersonbrito.com</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="card m-redes">
+          <div class="scene" style="aspect-ratio: 21/8"><img src="/assets/cine/truman.jpg" alt="" loading="lazy"></div>
+          <div class="card-pad" style="padding-top:12px">
+            <div class="eyebrow"><span class="dot" style="background:var(--c-rose)"></span>O que eu tenho feito</div>
+            <div class="list">
+              <a class="row" href="https://www.instagram.com/andersonbrito.mp4" target="_blank" rel="noopener">
+                <span class="ico" style="background:linear-gradient(45deg,#F58529,#DD2A7B 55%,#8134AF)"><svg><use href="/assets/icons.svg#i-ig"/></svg></span>
+                <span class="row-t"><b>Instagram</b><span>10 mil seguidores · 1,5 mi de views/mês</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+              <a class="row" href="https://www.tiktok.com/@andersonbrito.mp4" target="_blank" rel="noopener">
+                <span class="ico" style="background:#111;border:1px solid var(--line-2)"><svg><use href="/assets/icons.svg#i-tt"/></svg></span>
+                <span class="row-t"><b>TikTok</b><span>@andersonbrito.mp4</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+              <a class="row" href="https://www.youtube.com/@andersonbrito.mp4" target="_blank" rel="noopener">
+                <span class="ico" style="background:#FF0033"><svg><use href="/assets/icons.svg#i-yt"/></svg></span>
+                <span class="row-t"><b>YouTube</b><span>@andersonbrito.mp4</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+              <a class="row" href="https://www.linkedin.com/in/andbrito/" target="_blank" rel="noopener">
+                <span class="ico" style="background:#0A66C2"><svg><use href="/assets/icons.svg#i-in"/></svg></span>
+                <span class="row-t"><b>LinkedIn</b><span>/in/andbrito</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a class="card m-port" href="/trabalhos/" id="portfolio">
+          <div class="scene"><img src="/assets/cine/mitty-portfolio.jpg" alt="Anderson Brito" loading="lazy"></div>
+          <div class="card-pad">
+            <div class="eyebrow"><span class="dot" style="background:var(--c-forest)"></span>Portfólio</div>
+            <h3>Portfólio</h3>
+            <p class="sub">Criativos, eventos, institucional, motion e IA. CV em PT e EN.</p>
+          </div>
+        </a>
+      </aside>
+
+      <!-- Conteúdo do portfólio -->
+      <main class="main">
+
+        <nav class="topnav m-first" aria-label="Menu do site">
+          <a href="/">Início</a>
+          <a href="/bio/">Bio</a>
+          <a href="/trabalhos/">Portfólio</a>
+          <a href="/#produtos">Produtos</a>
+          <a href="/aprenda.html">Guias</a>
+          <a href="/links/">Links</a>
+        </nav>
+
+        <section id="inicio" class="m-first">
+          <div class="card p-hero">
+            <div>
+              <div class="eyebrow"><span class="dot"></span>Portfólio · vídeo com IA</div>
+              <h1>Personagens, clones e clipes<br><em>feitos com IA.</em></h1>
+              <p>Alguns trabalhos meus: séries 100% IA com gancho viral, personagens consistentes, clipe musical e narrativa emocional. Toque no vídeo para assistir com som.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="trabalhos">
+          <div class="sec-h"><h2>Personagens e clipes</h2></div>
+          <div class="vgrid">
+            <div class="card vcard">
+              <div class="vbox"><video src="v/kingpanda1.mp4" poster="v/kingpanda1.jpg" controls playsinline preload="metadata"></video></div>
+              <div class="vcap"><b>King Panda</b><span>100% IA, com gancho viral nos primeiros segundos.</span></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><video src="v/kingpanda2.mp4" poster="v/kingpanda2.jpg" controls playsinline preload="metadata"></video></div>
+              <div class="vcap"><b>King Panda</b><span>Personagem consistente em série de episódios.</span></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><video src="v/andrack.mp4" poster="v/andrack.jpg" controls playsinline preload="metadata"></video></div>
+              <div class="vcap"><b>Andrack</b><span>Personagem com IA no formato comentário.</span><a href="https://www.instagram.com/p/DZxKKF1x5uV/" target="_blank" rel="noopener">Ver no Instagram →</a></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><video src="v/kairos.mp4" poster="v/kairos.jpg" controls playsinline preload="metadata"></video></div>
+              <div class="vcap"><b>Kairos · cantor</b><span>Clipe musical feito com IA.</span><a href="https://www.instagram.com/p/DZ55WLMPsNs/" target="_blank" rel="noopener">Ver no Instagram →</a></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="narrativa">
+          <div class="sec-h"><h2>Narrativa emocional</h2></div>
+          <div class="vfeature hz card">
+            <div class="vbox" style="aspect-ratio:4/3"><video src="v/schroeder.mp4" poster="v/schroeder.jpg" controls playsinline preload="metadata"></video></div>
+            <div class="p-text">
+              <h3>Eduardo Schroeder · "Cheirin bão"</h3>
+              <p>Vídeo sentimental com IA: uma história contada com emoção, que prende do começo ao fim.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contato">
+          <div class="card p-cta">
+            <div><b>Anderson Brito</b><span>edição e vídeo com IA · Instagram @ander.sbrito</span></div>
+            <div class="btns"><a class="btn btn-pr" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto" target="_blank" rel="noopener">Falar comigo no WhatsApp →</a></div>
+          </div>
+        </section>
+
+        <footer class="m-foot">
+          <span>© 2026 Anderson Brito · Alphaville, SP</span>
+          <span><a href="/bio/">Bio</a> · <a href="/links/">Links</a> · <a href="/trabalhos/">Portfólio</a> · <a href="/privacidade/">Privacidade</a></span>
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <nav class="tl" aria-label="Linha do tempo da página">
+    <div class="tl-tc"><b id="tc">00:00:00;00</b><span>Portfólio</span></div>
+    <div class="tl-track">
+      <div class="tl-ruler" aria-hidden="true"></div>
+      <div class="tl-clips">
+        <a class="clip" href="#sobre" data-sec="sobre" style="--cc:var(--c-iris)"><span>Sobre</span></a>
+        <a class="clip" href="#trabalhos" data-sec="trabalhos" style="--cc:var(--c-violet)"><span>Vídeos</span></a>
+        <a class="clip" href="#narrativa" data-sec="narrativa" style="--cc:var(--c-forest)"><span data-s="Narrat.">Narrativa</span></a>
+        <a class="clip" href="#contato" data-sec="contato" style="--cc:var(--c-rose)"><span>Contato</span></a>
+      </div>
+      <i class="tl-ph" id="ph" aria-hidden="true"></i>
+    </div>
+    <a class="tl-wa" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20vi%20seu%20portf%C3%B3lio%20e%20quero%20conversar%20sobre%20um%20projeto" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="/assets/icons.svg#i-wa"/></svg></a>
+  </nav>
+
+  <script src="/assets/ab.js?v=20261110a" defer></script>
+</body>
+</html>

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-09 (noite) · CarrosseL_: cor por tipo
+- Destaque das lâminas muda com o tipo do carrossel: notícia avermelhada (#FF3B47), educativo azulado (#3D8BFF), pessoal no verde Matrix (#41FF8A). Vale para negrito, marca-texto da lâmina 1, selo, anel do avatar, brilhos e grade do fundo, ponto do chip, botão de play e rodapé. Cores das pílulas de `assets/ab.css`.
+
+## 2026-11-10 · PortfólioS_: só os portfólios de verdade
+- `painel/dev/gen-portfolios.py` passou a usar uma lista fixa com os 9 portfólios indicados pelo Anderson (lunar, trabalhos, portfolio.html, dr.html, comp, xablau, condzxyz, videos-ia, brasilparalelo) em vez de varrer todas as páginas do site; `js/portfolios.js` regenerado.
+
 ## 2026-11-09 · CarrosseL_: lâminas com a estética do site
 - `js/carrossel-render.js` redesenhado com os tokens de `assets/ab.css`: fundo #0B0C0E com grade de pontos verdes (22 px) e brilhos verdes nos cantos, cartão de vidro (rgba(24,27,28,.74), borda fina, cantos grandes), texto #F2F2F7 e apoio #A1A6AA, SF Pro/Inter nos textos e JetBrains Mono nos rótulos (maiúsculas, espaçamento .09em). Fim do visual de print de tweet branco.
 - Topo com chip do tipo (Notícia, Educativo, Pessoal) e contador "01 / 07"; avatar com anel verde, selo verde com check escuro, @ em mono; **negrito** em verde Matrix (na lâmina 1, marca-texto verde com tinta #03200F); crédito da mídia numa pílula escura; rodapé ("arrasta pro lado →", CTAs, "comenta aqui embaixo ↓") numa pílula de contorno verde; botão de play verde nas lâminas com vídeo. Mesmas safe zones e mesmo formato 1080×1350.

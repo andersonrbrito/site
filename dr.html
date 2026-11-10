@@ -2,703 +2,364 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0C0E">
   <title>DR/VSL Portfolio — Anderson Brito | Editor de Vídeo Performance</title>
   <meta name="description" content="Portfolio exclusivo de Direct Response e VSL. Criativos de alta conversão, case studies e métricas reais.">
   <meta name="robots" content="noindex, nofollow">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-
-  <style>
-    :root {
-      --pr-menubar:     #1C1C1C;
-      --pr-toolbar:     #232325;
-      --pr-panel-bg:    #1E1E22;
-      --pr-panel-hd:    #28282E;
-      --pr-card:        #26262C;
-      --pr-border:      #000;
-      --pr-sep:         #38383F;
-      --accent:         #3DA7FF;
-      --accent-2:       #0070D1;
-      --accent-gr:      #22c55e;
-      --orange:         #FF6B35;
-      --tx-hi:          #EAEAEF;
-      --tx-mid:         #8888A0;
-      --tx-lo:      #6E6E80;
-      --f-mono:         'IBM Plex Mono', monospace;
-      --f-head:         'Exo 2', sans-serif;
-      --f-body:         'DM Sans', sans-serif;
-    }
-
-    /* LANGUAGE TOGGLE */
-    .lang-toggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      display: flex;
-      gap: 2px;
-      background: rgba(61,167,255,0.1);
-      border: 1px solid rgba(61,167,255,0.2);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-    .lang-btn {
-      padding: 8px 12px;
-      background: transparent;
-      border: none;
-      color: var(--tx-mid);
-      font-family: var(--f-mono);
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all .2s;
-      text-transform: uppercase;
-    }
-    .lang-btn.active {
-      background: var(--accent);
-      color: #000;
-    }
-    .lang-btn:hover:not(.active) {
-      color: var(--accent);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #0A0A0C;
-      color: var(--tx-hi);
-      font-family: var(--f-body);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-    a { color: inherit; text-decoration: none; }
-
-    /* HEADER */
-    .header {
-      background: var(--pr-menubar);
-      border-bottom: 1px solid var(--pr-sep);
-      padding: 40px 20px;
-      text-align: center;
-      position: relative;
-    }
-    .header::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(61,167,255,0.06) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .header-content { position: relative; max-width: 768px; margin: 0 auto; }
-    .header-label {
-      font-family: var(--f-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-    .header-title {
-      font-family: var(--f-head);
-      font-size: clamp(28px, 5vw, 48px);
-      font-weight: 900;
-      font-style: italic;
-      margin-bottom: 12px;
-      line-height: 1.05;
-    }
-    .header-sub {
-      font-size: 15px;
-      color: var(--tx-mid);
-      margin-bottom: 28px;
-      line-height: 1.7;
-    }
-    .header-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      background: rgba(34,197,94,0.1);
-      border: 1px solid rgba(34,197,94,0.2);
-      border-radius: 4px;
-      font-family: var(--f-mono);
-      font-size: 11px;
-      color: var(--accent-gr);
-      letter-spacing: 0.05em;
-    }
-
-    /* FILTER */
-    .filter-bar {
-      background: var(--pr-panel-bg);
-      border-bottom: 1px solid var(--pr-sep);
-      padding: 20px;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .filter-btn {
-      padding: 8px 16px;
-      background: var(--pr-card);
-      border: 1px solid var(--pr-sep);
-      border-radius: 3px;
-      color: var(--tx-mid);
-      font-family: var(--f-head);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all .2s;
-      text-transform: uppercase;
-    }
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--accent-2);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1px;
-      background: var(--pr-border);
-      border: 1px solid var(--pr-border);
-      margin: 40px 20px;
-      max-width: 1400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .video-card {
-      background: var(--pr-card);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: background .2s;
-    }
-    .video-card:hover { background: var(--pr-panel-hd); }
-    .video-card.hidden { display: none; }
-
-    /* VIDEO CONTAINER */
-    .video-container {
-      width: 100%;
-      padding-top: 56.25%;
-      position: relative;
-      background: #000;
-      overflow: hidden;
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* CARD CONTENT */
-    .card-content {
-      padding: 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .card-title {
-      font-family: var(--f-head);
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--tx-hi);
-      flex: 1;
-    }
-    .card-type {
-      display: inline-block;
-      padding: 4px 8px;
-      background: rgba(61,167,255,0.1);
-      border: 1px solid rgba(61,167,255,0.2);
-      border-radius: 2px;
-      font-family: var(--f-mono);
-      font-size: 9px;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .card-type.dr { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.2); color: var(--orange); }
-    .card-type.ctr { background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.2); color: var(--accent-gr); }
-    .card-type.vsl { background: rgba(61,167,255,0.1); border-color: rgba(61,167,255,0.2); color: var(--accent); }
-    .card-type.avatar-ia { background: rgba(0,191,165,0.1); border-color: rgba(0,191,165,0.2); color: #00BFA5; }
-
-    .card-desc {
-      font-size: 12px;
-      color: var(--tx-mid);
-      line-height: 1.5;
-    }
-    .card-metrics {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      padding-top: 12px;
-      border-top: 1px solid var(--pr-sep);
-    }
-    .metric {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .metric-label {
-      font-family: var(--f-mono);
-      font-size: 9px;
-      color: var(--tx-lo);
-      text-transform: uppercase;
-    }
-    .metric-value {
-      font-family: var(--f-mono);
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--accent-gr);
-    }
-
-    /* FOOTER */
-    .footer {
-      background: var(--pr-menubar);
-      border-top: 1px solid var(--pr-sep);
-      padding: 40px 20px;
-      text-align: center;
-    }
-    .footer-content { max-width: 768px; margin: 0 auto; }
-    .footer-label {
-      font-family: var(--f-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 16px;
-    }
-    .footer-heading {
-      font-family: var(--f-head);
-      font-size: 32px;
-      font-weight: 900;
-      margin-bottom: 12px;
-      line-height: 1.05;
-    }
-    .footer-sub {
-      font-size: 14px;
-      color: var(--tx-mid);
-      margin-bottom: 28px;
-    }
-    .cta-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      background: var(--accent-2);
-      color: #fff;
-      border-radius: 3px;
-      font-family: var(--f-head);
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: background .15s;
-    }
-    .cta-btn:hover { background: var(--accent); }
-
-    @media (max-width: 768px) {
-      .grid { grid-template-columns: 1fr; margin: 20px 0; }
-      .filter-bar { padding: 12px; gap: 8px; }
-      .card-metrics { grid-template-columns: 1fr; }
-      .header { padding: 28px 16px; }
-      .footer { padding: 28px 16px; }
-    }
-  </style>
-
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ab.css?v=20261110a">
+  <link rel="stylesheet" href="/assets/port.css?v=20261110a">
+  <style>
+    /* filtro de categorias: mesmo destaque da aba ativa do menu */
+    .topnav a[aria-pressed="true"] { color: var(--matrix-ink); background: var(--matrix); }
+  </style>
 </head>
 <body>
+  <canvas id="bgRain" class="bg-rain" aria-hidden="true"></canvas>
 
-  <!-- HEADER -->
-  <div class="header">
-    <div class="lang-toggle">
-      <button class="lang-btn active" data-lang="pt" onclick="setLanguage('pt')">PT</button>
-      <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
-    </div>
-    <div class="header-content">
-      <div class="header-label" data-pt="// DIRECT RESPONSE · VSL · CRIATIVOS" data-en="// DIRECT RESPONSE · VSL · CREATIVES"></div>
-      <h1 class="header-title" data-pt="Portfolio Exclusivo" data-en="Exclusive Portfolio"></h1>
-      <p class="header-sub" data-pt="Criativos e VSLs de alto desempenho. Métricas reais, resultados que convertem. Acesso restrito para recrutadores." data-en="High-performing creatives and VSLs. Real metrics, conversion-focused results. Exclusive access for recruiters."></p>
-      <div class="header-badge">
-        ✓ <span data-pt="Vídeos com CTR acima da média da plataforma" data-en="Videos with above-average platform CTR"></span>
-      </div>
+  <div class="wrap">
+    <header class="banner">
+      <img src="/assets/cine/mitty-banner.jpg" alt="" fetchpriority="high">
+      <canvas id="rain" aria-hidden="true"></canvas>
+      <button class="lang" type="button" data-lang-toggle aria-label="Switch to English">EN</button>
+    </header>
+
+    <div class="layout">
+
+      <!-- Coluna da esquerda (igual em todas as páginas) -->
+      <aside class="side">
+        <section id="sobre" aria-label="Sobre">
+          <div class="avatar"><img src="/assets/cine/avatar.jpg" alt="Anderson Brito"></div>
+          <h1 class="name">Anderson Brito</h1>
+          <div class="role">
+            <span class="tag"><i style="background:var(--c-iris)"></i>Editor de vídeo</span>
+            <span class="tag"><i style="background:var(--matrix)"></i>Criador de conteúdo IA</span>
+          </div>
+          <div class="bio">
+            <p>Criador de conteúdo digital</p>
+            <p><b>Agente da Skynet</b> | Especialista em conteúdo viral: +100 milhões de views nos últimos 6 meses.</p>
+          </div>
+          <div class="actions">
+            <button class="btn btn-pr span2" type="button" data-open-form>Fazer pedido</button>
+            <a class="btn btn-ghost" href="/bio/">Saber mais</a>
+            <a class="btn btn-ghost" href="/links/">Links</a>
+          </div>
+        </section>
+
+        <div class="card card-pad m-contato">
+          <div class="eyebrow"><span class="dot" style="background:#25D366"></span>Contato</div>
+          <div class="list">
+            <a class="row" href="https://wa.me/5511992392104?text=Oi%20Anderson%2C%20vim%20do%20site!" target="_blank" rel="noopener">
+              <span class="ico" style="background:#25D366"><svg><use href="/assets/icons.svg#i-wa"/></svg></span>
+              <span class="row-t"><b>WhatsApp</b><span>(11) 99239-2104</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+            <a class="row" href="mailto:contato@andersonbrito.com">
+              <span class="ico" style="background:var(--c-iris)"><svg><use href="/assets/icons.svg#i-mail"/></svg></span>
+              <span class="row-t"><b>E-mail</b><span>contato@andersonbrito.com</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="card m-redes">
+          <div class="scene" style="aspect-ratio: 21/8"><img src="/assets/cine/truman.jpg" alt="" loading="lazy"></div>
+          <div class="card-pad" style="padding-top:12px">
+            <div class="eyebrow"><span class="dot" style="background:var(--c-rose)"></span>O que eu tenho feito</div>
+            <div class="list">
+              <a class="row" href="https://www.instagram.com/andersonbrito.mp4" target="_blank" rel="noopener">
+                <span class="ico" style="background:linear-gradient(45deg,#F58529,#DD2A7B 55%,#8134AF)"><svg><use href="/assets/icons.svg#i-ig"/></svg></span>
+                <span class="row-t"><b>Instagram</b><span>10 mil seguidores · 1,5 mi de views/mês</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+              <a class="row" href="https://www.tiktok.com/@andersonbrito.mp4" target="_blank" rel="noopener">
+                <span class="ico" style="background:#111;border:1px solid var(--line-2)"><svg><use href="/assets/icons.svg#i-tt"/></svg></span>
+                <span class="row-t"><b>TikTok</b><span>@andersonbrito.mp4</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+              <a class="row" href="https://www.youtube.com/@andersonbrito.mp4" target="_blank" rel="noopener">
+                <span class="ico" style="background:#FF0033"><svg><use href="/assets/icons.svg#i-yt"/></svg></span>
+                <span class="row-t"><b>YouTube</b><span>@andersonbrito.mp4</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+              <a class="row" href="https://www.linkedin.com/in/andbrito/" target="_blank" rel="noopener">
+                <span class="ico" style="background:#0A66C2"><svg><use href="/assets/icons.svg#i-in"/></svg></span>
+                <span class="row-t"><b>LinkedIn</b><span>/in/andbrito</span></span>
+                <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <a class="card m-port" href="/trabalhos/" id="portfolio">
+          <div class="scene"><img src="/assets/cine/mitty-portfolio.jpg" alt="Anderson Brito" loading="lazy"></div>
+          <div class="card-pad">
+            <div class="eyebrow"><span class="dot" style="background:var(--c-forest)"></span>Portfólio</div>
+            <h3>Portfólio</h3>
+            <p class="sub">Criativos, eventos, institucional, motion e IA. CV em PT e EN.</p>
+          </div>
+        </a>
+      </aside>
+
+      <!-- Conteúdo do portfólio -->
+      <main class="main">
+
+        <nav class="topnav m-first" aria-label="Menu do site">
+          <a href="/">Início</a>
+          <a href="/bio/">Bio</a>
+          <a href="/trabalhos/" aria-current="page">Portfólio</a>
+          <a href="/#produtos">Produtos</a>
+          <a href="/aprenda.html">Guias</a>
+          <a href="/links/">Links</a>
+        </nav>
+
+        <section id="inicio" class="m-first">
+          <div class="card p-hero">
+            <div>
+              <div class="eyebrow"><span class="dot"></span><span data-en-html="Direct Response · VSL · Creatives">Direct Response · VSL · Criativos</span></div>
+              <h1 data-en-html="Exclusive Portfolio">Portfolio Exclusivo</h1>
+              <p data-en-html="High-performing creatives and VSLs. Real metrics, conversion-focused results. Exclusive access for recruiters.">Criativos e VSLs de alto desempenho. Métricas reais, resultados que convertem. Acesso restrito para recrutadores.</p>
+              <div class="btns">
+                <a class="btn btn-pr" href="https://wa.me/5511992392104?text=Hi%20Anderson%2C%20I'm%20interested%20in%20your%20video%20editing%20services" target="_blank" rel="noopener" data-en-html="Schedule a Call">Agendar Conversa</a>
+              </div>
+              <div class="role" style="margin-top:12px">
+                <span class="tag" data-en-html="✓ Videos with above-average platform CTR">✓ Vídeos com CTR acima da média da plataforma</span>
+              </div>
+            </div>
+            <div class="p-photo"><img src="/lunar/images/anderson-camera.jpg" alt="Anderson Brito"></div>
+          </div>
+
+          <nav class="topnav" aria-label="Filtrar vídeos" style="margin-top:12px">
+            <a href="#dr" role="button" data-f="all" aria-pressed="true" data-en-html="All">Todos</a>
+            <a href="#dr" role="button" data-f="dr" aria-pressed="false">Direct Response</a>
+            <a href="#ctr" role="button" data-f="ctr" aria-pressed="false">High CTR</a>
+            <a href="#vsl" role="button" data-f="vsl" aria-pressed="false">VSL</a>
+            <a href="#avatares" role="button" data-f="avatar-ia" aria-pressed="false" data-en-html="AI Avatars">Avatares IA</a>
+          </nav>
+        </section>
+
+        <section id="dr" data-type="dr">
+          <div class="sec-h"><h2>Direct Response</h2><small>DR</small></div>
+          <div class="vgrid wide">
+            <div class="card vcard" data-type="dr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/CoLNWRrsCuw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b data-en-html="Creative DR #01">Criativo DR #01</b>
+                <p data-en-html="30-second creative focused on retention and direct CTA. High performance in e-commerce campaigns.">Criativo de 30s focado em retenção e CTA direto. Performance em campanhas de e-commerce.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-mango)"></i>DR</span><span class="tag">CTR 4.2%</span><span class="tag" data-en-html="Retention 68%">Retenção 68%</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="dr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/enlFNG9VjIA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b data-en-html="Creative DR #02">Criativo DR #02</b>
+                <p data-en-html="45-second VSL with 3-second hook. Result: high engagement on cold traffic.">VSL de 45s com hook de 3 segundos. Resultado: alto engajamento em cold traffic.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-mango)"></i>DR</span><span class="tag" data-en-html="Conversion 3.8%">Conversão 3.8%</span><span class="tag" data-en-html="Retention 72%">Retenção 72%</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="dr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/Umt2V0Ke8z4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b data-en-html="Creative DR #03">Criativo DR #03</b>
+                <p data-en-html="Creative with fast transitions and power words. Tested across multiple campaigns.">Criativo com transições rápidas e power words. Testado em múltiplas campanhas.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-mango)"></i>DR</span><span class="tag">CTR 5.1%</span><span class="tag" data-en-html="Retention 75%">Retenção 75%</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ctr" data-type="ctr">
+          <div class="sec-h"><h2>High CTR</h2></div>
+          <div class="vgrid wide">
+            <div class="card vcard" data-type="ctr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/mtWVCZzy7qc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b>High CTR #01</b>
+                <p data-en-html="Creative with viral hook. 6%+ CTR performance on cold traffic.">Criativo com hook viral. Performance acima de 6% CTR em cold traffic.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--matrix)"></i>HIGH CTR</span><span class="tag">CTR 6.8%</span><span class="tag" data-en-html="Retention 82%">Retenção 82%</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="ctr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/8cYbsM5z0nQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b>High CTR #02</b>
+                <p data-en-html="Editing pattern with fast cuts and pattern interrupts. Result: qualified leads.">Padrão de edição com cortes rápidos e pattern interrupt. Resultado: leads qualificados.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--matrix)"></i>HIGH CTR</span><span class="tag">CTR 7.2%</span><span class="tag" data-en-html="Retention 79%">Retenção 79%</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="ctr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/OI1bEUcBWeM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b>High CTR #03</b>
+                <p data-en-html="Creative with dynamic text and zoom. Tested on Reels, Shorts, and TikTok.">Criativo com texto dinâmico e zoom. Testado em Reels, Shorts e TikTok.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--matrix)"></i>HIGH CTR</span><span class="tag">CTR 6.5%</span><span class="tag" data-en-html="Retention 81%">Retenção 81%</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="ctr">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/SwaB5-llGXc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b>High CTR #04</b>
+                <p data-en-html="Pattern interrupt with movement. Editing speed optimized for maximum retention.">Pattern interrupt com movimento. Velocidade de edição otimizada para retenção máxima.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--matrix)"></i>HIGH CTR</span><span class="tag">CTR 7.1%</span><span class="tag" data-en-html="Retention 80%">Retenção 80%</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="vsl" data-type="vsl">
+          <div class="sec-h"><h2>VSL</h2></div>
+          <div class="vgrid wide">
+            <div class="card vcard" data-type="vsl">
+              <div class="vbox h">
+                <iframe src="https://player.vimeo.com/video/1180743847" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b data-en-html="Sales VSL">VSL de Vendas</b>
+                <p data-en-html="8-minute Video Sales Letter with complete structure: hook, problem, solution, CTA. Result: high conversion rate.">Video Sales Letter de 8min com estrutura completa: hook, problema, solução, CTA. Resultado: alta taxa de conversão.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-iris)"></i>VSL</span><span class="tag" data-en-html="Completion Rate 64%">Taxa Conclusão 64%</span><span class="tag" data-en-html="Conversion 12.3%">Conversão 12.3%</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="vsl">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/S_AuqPdyT6w" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b>Yan — VSL Destrava e Vende</b>
+                <p data-en-html="Direct-argument VSL with conversion-focused structure for cold traffic.">VSL com argumentação direta e estrutura focada em conversão de cold traffic.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-iris)"></i>VSL</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="avatares" data-type="avatar-ia">
+          <div class="sec-h"><h2 data-en-html="AI Avatars">Avatares IA</h2></div>
+          <div class="vgrid wide">
+            <div class="card vcard" data-type="avatar-ia">
+              <div class="vbox h">
+                <iframe src="https://www.youtube.com/embed/b7Pnom09BjA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+              <div class="vcap">
+                <b data-en-html="Breno Brito — Bachata Singer">Breno Brito — Cantor de Bachata</b>
+                <p data-en-html="AI Avatar: Piauí-born bachata singer. Full visual identity.">Avatar de IA: cantor de bachata piauiense. Identidade visual completa.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-forest)"></i>AVATAR IA</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="avatar-ia">
+              <div class="vbox h">
+                <img src="/videos-ia/v/kairos.jpg" alt="Kairos" loading="lazy">
+              </div>
+              <div class="vcap">
+                <b data-en-html="Kairos — Gospel Singer">Kairos — Cantor Gospel</b>
+                <p data-en-html="AI Avatar: gospel artist with unique visual identity.">Avatar de IA: artista gospel com identidade visual única.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-forest)"></i>AVATAR IA</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="avatar-ia">
+              <div class="vbox h">
+                <img src="/assets/portfolio-avatar-pastor.jpg" alt="Pastor" loading="lazy">
+              </div>
+              <div class="vcap">
+                <b data-en-html="Pastor — Avatar in Development">Pastor — Avatar em Desenvolvimento</b>
+                <p data-en-html="AI Avatar: digital pastor with social media presence.">Avatar de IA: pastor digital com presença nas redes sociais.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-forest)"></i>AVATAR IA</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="avatar-ia">
+              <div class="vbox h">
+                <img src="/assets/thumb-eren-norway.jpg" alt="Eren Haaland" loading="lazy" style="object-position:center 20%">
+              </div>
+              <div class="vcap">
+                <b data-en-html="Eren Haaland — Digital Influencer">Eren Haaland — Influencer Digital</b>
+                <p data-en-html="AI Avatar: digital influencer with lifestyle and football content.">Avatar de IA: influencer digital com conteúdo lifestyle e futebol.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-forest)"></i>AVATAR IA</span></div>
+              </div>
+            </div>
+
+            <div class="card vcard" data-type="avatar-ia">
+              <div class="vbox h">
+                <img src="/assets/portfolio-avatar-vermelhinhos.jpg" alt="Jardim dos Vermelhinhos" loading="lazy">
+              </div>
+              <div class="vcap">
+                <b data-en-html="Little Red Garden">Jardim dos Vermelhinhos</b>
+                <p data-en-html="AI Avatar: animated 3D children's character.">Avatar de IA: personagem infantil animado em 3D.</p>
+                <div class="tagrow"><span class="tag"><i style="background:var(--c-forest)"></i>AVATAR IA</span></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contato">
+          <div class="card p-cta">
+            <div>
+              <div class="eyebrow" style="margin-bottom:8px"><span class="dot"></span><span data-en-html="Contracts &amp; Partnerships">Contrato e parceria</span></div>
+              <b data-en-html="Ready for a project?">Pronto pra um projeto?</b>
+              <span data-en-html="If your creatives need real performance and conversion, let's talk.">Se seus criativos precisam de performance real e conversão, vamos conversar.</span>
+            </div>
+            <div class="btns"><a class="btn btn-pr" href="https://wa.me/5511992392104?text=Hi%20Anderson%2C%20I'm%20interested%20in%20your%20video%20editing%20services" target="_blank" rel="noopener"><span data-en-html="Schedule a Call">Agendar Conversa</span><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          </div>
+        </section>
+
+        <footer class="m-foot">
+          <span>© 2026 Anderson Brito · Alphaville, SP</span>
+          <span><a href="/bio/">Bio</a> · <a href="/links/">Links</a> · <a href="/trabalhos/">Portfólio</a> · <a href="/privacidade/">Privacidade</a></span>
+        </footer>
+      </main>
     </div>
   </div>
 
-  <!-- FILTER -->
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterVideos('all')" data-pt="Todos" data-en="All"></button>
-    <button class="filter-btn" onclick="filterVideos('dr')" data-pt="Direct Response" data-en="Direct Response"></button>
-    <button class="filter-btn" onclick="filterVideos('ctr')" data-pt="High CTR" data-en="High CTR"></button>
-    <button class="filter-btn" onclick="filterVideos('vsl')" data-pt="VSL" data-en="VSL"></button>
-    <button class="filter-btn" onclick="filterVideos('avatar-ia')" data-pt="Avatares IA" data-en="AI Avatars"></button>
-  </div>
-
-  <!-- GRID -->
-  <div class="grid" id="videoGrid">
-    <!-- DR Videos -->
-    <div class="video-card" data-type="dr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/CoLNWRrsCuw" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <nav class="tl" aria-label="Linha do tempo da página">
+    <div class="tl-tc"><b id="tc">00:00:00;00</b><span>Portfólio</span></div>
+    <div class="tl-track">
+      <div class="tl-ruler" aria-hidden="true"></div>
+      <div class="tl-clips">
+        <a class="clip" href="#sobre" data-sec="sobre" style="--cc:var(--c-iris)"><span>Sobre</span></a>
+        <a class="clip" href="#dr" data-sec="dr" style="--cc:var(--c-violet)"><span data-en-html="Creatives">Criativos</span></a>
+        <a class="clip" href="#vsl" data-sec="vsl" style="--cc:var(--c-forest)"><span>VSL</span></a>
+        <a class="clip" href="#avatares" data-sec="avatares" style="--cc:var(--c-mango)"><span data-s="Avatares" data-en-html="AI Avatars">Avatares IA</span></a>
+        <a class="clip" href="#contato" data-sec="contato" style="--cc:var(--c-rose)"><span>Contato</span></a>
       </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Criativo DR #01" data-en="Creative DR #01"></div>
-          <div class="card-type dr">DR</div>
-        </div>
-        <div class="card-desc" data-pt="Criativo de 30s focado em retenção e CTA direto. Performance em campanhas de e-commerce." data-en="30-second creative focused on retention and direct CTA. High performance in e-commerce campaigns."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
-            <span class="metric-value">4.2%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">68%</span>
-          </div>
-        </div>
-      </div>
+      <i class="tl-ph" id="ph" aria-hidden="true"></i>
     </div>
+    <a class="tl-wa" href="https://wa.me/5511992392104?text=Hi%20Anderson%2C%20I'm%20interested%20in%20your%20video%20editing%20services" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="/assets/icons.svg#i-wa"/></svg></a>
+  </nav>
 
-    <div class="video-card" data-type="dr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/enlFNG9VjIA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Criativo DR #02" data-en="Creative DR #02"></div>
-          <div class="card-type dr">DR</div>
-        </div>
-        <div class="card-desc" data-pt="VSL de 45s com hook de 3 segundos. Resultado: alto engajamento em cold traffic." data-en="45-second VSL with 3-second hook. Result: high engagement on cold traffic."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="Conversão" data-en="Conversion"></span>
-            <span class="metric-value">3.8%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">72%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="dr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/Umt2V0Ke8z4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Criativo DR #03" data-en="Creative DR #03"></div>
-          <div class="card-type dr">DR</div>
-        </div>
-        <div class="card-desc" data-pt="Criativo com transições rápidas e power words. Testado em múltiplas campanhas." data-en="Creative with fast transitions and power words. Tested across multiple campaigns."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
-            <span class="metric-value">5.1%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">75%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- HIGH CTR Videos -->
-    <div class="video-card" data-type="ctr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/mtWVCZzy7qc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="High CTR #01" data-en="High CTR #01"></div>
-          <div class="card-type ctr">HIGH CTR</div>
-        </div>
-        <div class="card-desc" data-pt="Criativo com hook viral. Performance acima de 6% CTR em cold traffic." data-en="Creative with viral hook. 6%+ CTR performance on cold traffic."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
-            <span class="metric-value">6.8%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">82%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="ctr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/8cYbsM5z0nQ" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="High CTR #02" data-en="High CTR #02"></div>
-          <div class="card-type ctr">HIGH CTR</div>
-        </div>
-        <div class="card-desc" data-pt="Padrão de edição com cortes rápidos e pattern interrupt. Resultado: leads qualificados." data-en="Editing pattern with fast cuts and pattern interrupts. Result: qualified leads."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
-            <span class="metric-value">7.2%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">79%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="ctr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/OI1bEUcBWeM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="High CTR #03" data-en="High CTR #03"></div>
-          <div class="card-type ctr">HIGH CTR</div>
-        </div>
-        <div class="card-desc" data-pt="Criativo com texto dinâmico e zoom. Testado em Reels, Shorts e TikTok." data-en="Creative with dynamic text and zoom. Tested on Reels, Shorts, and TikTok."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
-            <span class="metric-value">6.5%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">81%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="ctr">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/SwaB5-llGXc" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="High CTR #04" data-en="High CTR #04"></div>
-          <div class="card-type ctr">HIGH CTR</div>
-        </div>
-        <div class="card-desc" data-pt="Pattern interrupt com movimento. Velocidade de edição otimizada para retenção máxima." data-en="Pattern interrupt with movement. Editing speed optimized for maximum retention."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="CTR" data-en="CTR"></span>
-            <span class="metric-value">7.1%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Retenção" data-en="Retention"></span>
-            <span class="metric-value">80%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- VSL -->
-    <div class="video-card" data-type="vsl">
-      <div class="video-container">
-        <iframe src="https://player.vimeo.com/video/1180743847" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="VSL de Vendas" data-en="Sales VSL"></div>
-          <div class="card-type vsl">VSL</div>
-        </div>
-        <div class="card-desc" data-pt="Video Sales Letter de 8min com estrutura completa: hook, problema, solução, CTA. Resultado: alta taxa de conversão." data-en="8-minute Video Sales Letter with complete structure: hook, problem, solution, CTA. Result: high conversion rate."></div>
-        <div class="card-metrics">
-          <div class="metric">
-            <span class="metric-label" data-pt="Taxa Conclusão" data-en="Completion Rate"></span>
-            <span class="metric-value">64%</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label" data-pt="Conversão" data-en="Conversion"></span>
-            <span class="metric-value">12.3%</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="vsl">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/S_AuqPdyT6w" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Yan — VSL Destrava e Vende" data-en="Yan — VSL Destrava e Vende"></div>
-          <div class="card-type vsl">VSL</div>
-        </div>
-        <div class="card-desc" data-pt="VSL com argumentação direta e estrutura focada em conversão de cold traffic." data-en="Direct-argument VSL with conversion-focused structure for cold traffic."></div>
-      </div>
-    </div>
-
-    <!-- AVATARES DE IA -->
-    <div class="video-card" data-type="avatar-ia">
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/b7Pnom09BjA" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Breno Brito — Cantor de Bachata" data-en="Breno Brito — Bachata Singer"></div>
-          <div class="card-type avatar-ia">AVATAR IA</div>
-        </div>
-        <div class="card-desc" data-pt="Avatar de IA: cantor de bachata piauiense. Identidade visual completa." data-en="AI Avatar: Piauí-born bachata singer. Full visual identity."></div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="avatar-ia">
-      <div class="video-container">
-        <img src="assets/portfolio-avatar-kairos.jpg" alt="Kairos" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Kairos — Cantor Gospel" data-en="Kairos — Gospel Singer"></div>
-          <div class="card-type avatar-ia">AVATAR IA</div>
-        </div>
-        <div class="card-desc" data-pt="Avatar de IA: artista gospel com identidade visual única." data-en="AI Avatar: gospel artist with unique visual identity."></div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="avatar-ia">
-      <div class="video-container">
-        <img src="assets/portfolio-avatar-pastor.jpg" alt="Pastor" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Pastor — Avatar em Desenvolvimento" data-en="Pastor — Avatar in Development"></div>
-          <div class="card-type avatar-ia">AVATAR IA</div>
-        </div>
-        <div class="card-desc" data-pt="Avatar de IA: pastor digital com presença nas redes sociais." data-en="AI Avatar: digital pastor with social media presence."></div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="avatar-ia">
-      <div class="video-container">
-        <img src="assets/thumb-eren-norway.jpg" alt="Eren Haaland" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;">
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Eren Haaland — Influencer Digital" data-en="Eren Haaland — Digital Influencer"></div>
-          <div class="card-type avatar-ia">AVATAR IA</div>
-        </div>
-        <div class="card-desc" data-pt="Avatar de IA: influencer digital com conteúdo lifestyle e futebol." data-en="AI Avatar: digital influencer with lifestyle and football content."></div>
-      </div>
-    </div>
-
-    <div class="video-card" data-type="avatar-ia">
-      <div class="video-container">
-        <img src="assets/portfolio-avatar-vermelhinhos.jpg" alt="Jardim dos Vermelhinhos" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;">
-      </div>
-      <div class="card-content">
-        <div class="card-header">
-          <div class="card-title" data-pt="Jardim dos Vermelhinhos" data-en="Little Red Garden"></div>
-          <div class="card-type avatar-ia">AVATAR IA</div>
-        </div>
-        <div class="card-desc" data-pt="Avatar de IA: personagem infantil animado em 3D." data-en="AI Avatar: animated 3D children's character."></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-content">
-      <div class="footer-label" data-pt="// CONTRATO E PARCERIA" data-en="// CONTRACTS & PARTNERSHIPS"></div>
-      <h2 class="footer-heading" data-pt="Pronto pra um projeto?" data-en="Ready for a project?"></h2>
-      <p class="footer-sub" data-pt="Se seus criativos precisam de performance real e conversão, vamos conversar." data-en="If your creatives need real performance and conversion, let's talk."></p>
-      <a href="https://wa.me/5511992392104?text=Hi%20Anderson%2C%20I'm%20interested%20in%20your%20video%20editing%20services" target="_blank" class="cta-btn" data-pt="Agendar Conversa" data-en="Schedule a Call">
-        <span data-pt="Agendar Conversa" data-en="Schedule a Call"></span>
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-  </div>
-
+  <script src="/assets/ab.js?v=20261110a" defer></script>
   <script>
-    // Language system
-    let currentLang = localStorage.getItem('dr-portfolio-lang') || 'pt';
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      localStorage.setItem('dr-portfolio-lang', lang);
-
-      // Update all elements with data attributes
-      document.querySelectorAll('[data-pt][data-en]').forEach(el => {
-        const text = lang === 'pt' ? el.getAttribute('data-pt') : el.getAttribute('data-en');
-
-        // For header/footer labels that don't contain text nodes
-        if (el.tagName === 'DIV' && el.className === 'header-label') {
-          el.textContent = text;
-        } else if (el.tagName === 'DIV' && el.className === 'footer-label') {
-          el.textContent = text;
-        } else if (el.tagName === 'SPAN' && el.getAttribute('data-pt')) {
-          el.textContent = text;
-        } else if (el.tagName === 'BUTTON' && el.className.includes('filter-btn')) {
-          el.textContent = text;
-        } else if (el.tagName === 'H1' || el.tagName === 'H2') {
-          el.textContent = text;
-        } else if (el.tagName === 'P') {
-          el.textContent = text;
-        } else if (el.tagName === 'DIV' && el.className.includes('card-title')) {
-          el.textContent = text;
-        } else if (el.tagName === 'DIV' && el.className.includes('card-desc')) {
-          el.textContent = text;
-        } else if (el.tagName === 'SPAN' && el.className.includes('metric-label')) {
-          el.textContent = text;
-        }
-      });
-
-      // Update button styles
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.getAttribute('data-lang') === lang) {
-          btn.classList.add('active');
-        }
-      });
-    }
-
-    function filterVideos(type) {
-      const cards = document.querySelectorAll('.video-card');
-      const buttons = document.querySelectorAll('.filter-btn');
-
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      cards.forEach(card => {
-        if (type === 'all' || card.dataset.type === type) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-    }
-
-    // Initialize language on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      setLanguage(currentLang);
-    });
+    // Filtro por categoria (Todos, Direct Response, High CTR, VSL, Avatares IA)
+    document.querySelectorAll('[data-f]').forEach(b => b.addEventListener('click', e => {
+      e.preventDefault();
+      const f = b.dataset.f;
+      document.querySelectorAll('[data-f]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      document.querySelectorAll('section[data-type]').forEach(s => { s.hidden = f !== 'all' && s.dataset.type !== f; });
+    }));
   </script>
-
 </body>
 </html>
