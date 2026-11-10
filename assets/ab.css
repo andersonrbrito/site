@@ -439,3 +439,4 @@ footer a:hover { color: var(--ink); }
 .logo .wm:has(.lg-ic) { height: 60px; margin: -7px 0; }
 .logo .lg-ic { height: 60px; }
 @media (max-width: 640px) { .logo .wm:has(.lg-ic) { height: 46px; margin: -4px 0; } .logo .lg-ic { height: 46px; } }
+.logo .lg.lg-fgv { height: 16px; }
