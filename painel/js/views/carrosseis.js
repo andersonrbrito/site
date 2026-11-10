@@ -1,6 +1,6 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
 import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
-import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109a";
+import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109c";
 
 // Carrosséis diários (identidade do site: escuro, vidro e verde Matrix) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
 // Fonte da verdade: tabela "carrosseis" (migration 0028). A rotina diária do Claude cria os rascunhos
@@ -89,7 +89,7 @@ function listView({ sb, go, query, data }) {
   };
 
   return h("div", { class: "page wide" },
-    pageHead("CarrosseL_", "2 notícias + 2 educativos por dia · pedidos do PostadoR_ · estilo print de tweet · para o @ilmarlabs"),
+    pageHead("CarrosseL_", "2 notícias + 2 educativos por dia · pedidos do PostadoR_ · visual do site · para o @ilmarlabs"),
     !data.dbOn && h("p", { class: "note" }, "A tabela de carrosséis ainda não existe no banco (migration 0028). Dá para ver e baixar, mas edição e pedido de vídeo só funcionam depois de rodar a migration no Supabase."),
     h("div", { class: "flex wrap cz-filtros" }, chip("rascunho", `A aprovar (${nSt("rascunho")})`), chip("aprovado", `Aprovados (${nSt("aprovado")})`), chip("postado", `Postados (${nSt("postado")})`), chip("descartado", `Descartados (${nSt("descartado")})`)),
     h("div", { class: "flex wrap cz-filtros" }, chip("", "Todos"), chip("noticia", "Notícias"), chip("educativo", "Educativos"), chip("pessoal", "Pessoais")),

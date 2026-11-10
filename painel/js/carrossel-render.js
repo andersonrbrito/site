@@ -1,19 +1,27 @@
 // Desenho das lâminas na identidade de andersonbrito.com: fundo escuro com grade de pontos verdes,
-// brilhos verdes nos cantos, cartão de vidro estilo iOS, verde Matrix como destaque e rótulos em mono.
+// brilhos nos cantos, cartão de vidro estilo iOS e rótulos em mono. Destaque por tipo: notícia vermelha,
+// educativo azul, pessoal verde Matrix.
 // O mesmo código desenha a prévia no painel e exporta PNG (imagem) ou vídeo (lâmina com vídeo).
 // Lâmina: { texto, midia: { tipo: "imagem"|"video", src | path, foco: 0..1, credito }, rodape }
-// Texto aceita quebra de linha e **negrito** (na lâmina 1 vira marca-texto verde; nas outras, texto verde).
-// info (opcional) = { total, tipo } para o contador "01 / 07" e o rótulo do tipo no topo.
+// Texto aceita quebra de linha e **negrito** (na lâmina 1 vira marca-texto; nas outras, texto na cor do tipo).
+// info (opcional) = { total, tipo }: contador "01 / 07" no topo e a cor de destaque do tipo.
 
 export const W = 1080, H = 1350;
 export const PERFIL = { nome: "Anderson Brito", user: "@andersonbrito.mp4", avatar: "/painel/carrosseis/perfil/avatar.jpg" };
 
 // Tokens de assets/ab.css
-const BG = "#0B0C0E", GRID = "rgba(65,255,138,.07)", CARD = "rgba(24,27,28,.74)", LINE = "rgba(255,255,255,.08)", LINE2 = "rgba(255,255,255,.14)";
-const INK = "#F2F2F7", MUTE = "#A1A6AA", FAINT = "#6B7175", MATRIX = "#41FF8A", MATRIX_INK = "#03200F";
+const BG = "#0B0C0E", CARD = "rgba(24,27,28,.74)", LINE = "rgba(255,255,255,.08)", LINE2 = "rgba(255,255,255,.14)";
+const INK = "#F2F2F7", MUTE = "#A1A6AA", FAINT = "#6B7175";
+// Cor de destaque por tipo: notícia avermelhada e educativo azulado (pílulas do site); pessoal no verde Matrix.
+// a = destaque, ink = tinta sobre o destaque, txt = negrito no texto, rgb = brilhos, grade e contornos.
+const TEMAS = {
+  noticia: { a: "#FF3B47", ink: "#2B0407", txt: "#FF6B74", rgb: "255,59,71" },
+  educativo: { a: "#3D8BFF", ink: "#04122E", txt: "#6EA8FF", rgb: "61,139,255" },
+  pessoal: { a: "#41FF8A", ink: "#03200F", txt: "#41FF8A", rgb: "65,255,138" },
+};
+const tema = (tipo) => TEMAS[tipo] || TEMAS.pessoal;
 const FONT = "'SF Pro Display', Inter, 'Helvetica Neue', Arial, sans-serif";
 const MONO = "'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace";
-const TIPO = { noticia: "Notícia", educativo: "Educativo", pessoal: "Pessoal" };
 
 // Medidas (canvas 1080 px; o cartão usa os cantos de 20 px do site na escala da lâmina)
 const MX = 40, CP = 44, AV = 104, GAP = 30, R_CARD = 44, R_MEDIA = 28;
@@ -96,23 +104,24 @@ function mono(ctx, txt, x, y, size, color, align = "left") {
   return total;
 }
 
-// Fundo do site: #0B0C0E, brilhos verdes no canto de cima à direita e embaixo à esquerda, grade de pontos a cada 22 px.
-let gridTile = null;
-function background(ctx) {
+// Fundo do site: #0B0C0E, brilhos na cor do tipo no canto de cima à direita e embaixo à esquerda, grade de pontos a cada 22 px.
+const gridTiles = new Map();
+function background(ctx, T) {
   ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
   const glow = (cx, cy, rx, ry, a) => {
     ctx.save(); ctx.translate(cx, cy); ctx.scale(1, ry / rx);
     const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
-    g.addColorStop(0, `rgba(65,255,138,${a})`); g.addColorStop(0.7, "rgba(65,255,138,0)");
+    g.addColorStop(0, `rgba(${T.rgb},${a})`); g.addColorStop(0.7, `rgba(${T.rgb},0)`);
     ctx.fillStyle = g; ctx.fillRect(-rx, -rx, rx * 2, rx * 2); ctx.restore();
   };
   glow(W, 0, W * 0.75, H * 0.5, 0.13);
   glow(0, H, W * 0.65, H * 0.45, 0.10);
-  if (!gridTile) {
-    gridTile = document.createElement("canvas"); gridTile.width = gridTile.height = 22;
-    const g = gridTile.getContext("2d"); g.fillStyle = GRID; g.beginPath(); g.arc(1.5, 1.5, 1.5, 0, Math.PI * 2); g.fill();
+  if (!gridTiles.has(T.rgb)) {
+    const t = document.createElement("canvas"); t.width = t.height = 22;
+    const g = t.getContext("2d"); g.fillStyle = `rgba(${T.rgb},.07)`; g.beginPath(); g.arc(1.5, 1.5, 1.5, 0, Math.PI * 2); g.fill();
+    gridTiles.set(T.rgb, t);
   }
-  ctx.fillStyle = ctx.createPattern(gridTile, "repeat"); ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = ctx.createPattern(gridTiles.get(T.rgb), "repeat"); ctx.fillRect(0, 0, W, H);
 }
 
 // Pílula com contorno fino (chips do topo e rodapé).
@@ -151,19 +160,14 @@ export function draw(ctx, slide, idx, assets, info = {}) {
   const mw = m ? (m.videoWidth || m.naturalWidth || m.width) : 0, mh = m ? (m.videoHeight || m.naturalHeight || m.height) : 0;
   const L = layout(ctx, slide, idx, m && mw ? { w: mw, h: mh } : null);
   ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
-  background(ctx);
+  const T = tema(info.tipo);
+  background(ctx, T);
 
-  // Topo: chip do tipo (contorno fino + ponto verde) e contador da lâmina
-  const tipo = TIPO[info.tipo] || "";
-  if (tipo) {
-    const tw = monoWidth(ctx, tipo.toUpperCase(), 22), cw = tw + 34 + 44, ch = 50, cy = TOP_BAR - ch / 2;
-    pill(ctx, MX, cy, cw, ch);
-    ctx.fillStyle = MATRIX; ctx.beginPath(); ctx.arc(MX + 26, TOP_BAR, 6, 0, Math.PI * 2); ctx.fill();
-    mono(ctx, tipo, MX + 44, TOP_BAR + 8, 22, MUTE);
-  }
+  // Topo: só o contador da lâmina, em Arial
   if (info.total) {
     const n = `${String(idx + 1).padStart(2, "0")} / ${String(info.total).padStart(2, "0")}`;
-    mono(ctx, n, W - MX - 4, TOP_BAR + 8, 22, FAINT, "right");
+    ctx.font = `400 26px Arial, "Helvetica Neue", Helvetica, sans-serif`; ctx.fillStyle = MUTE; ctx.textAlign = "right";
+    ctx.fillText(n, W - MX - 4, TOP_BAR + 9); ctx.textAlign = "left";
   }
 
   // Cartão de vidro
@@ -178,26 +182,26 @@ export function draw(ctx, slide, idx, assets, info = {}) {
   const x0 = cx + CP;
   let y = L.cardY + CP;
 
-  // Cabeçalho: foto redonda com anel verde, nome + selo verde, @ em mono
+  // Cabeçalho: foto redonda com anel e selo na cor do tipo, @ em mono
   ctx.save(); ctx.beginPath(); ctx.arc(x0 + AV / 2, y + AV / 2, AV / 2, 0, Math.PI * 2); ctx.clip();
   if (assets.avatar) ctx.drawImage(assets.avatar, x0, y, AV, AV); else { ctx.fillStyle = "#16191A"; ctx.fillRect(x0, y, AV, AV); }
   ctx.restore();
-  ctx.beginPath(); ctx.arc(x0 + AV / 2, y + AV / 2, AV / 2 + 3, 0, Math.PI * 2); ctx.lineWidth = 3; ctx.strokeStyle = "rgba(65,255,138,.55)"; ctx.stroke();
+  ctx.beginPath(); ctx.arc(x0 + AV / 2, y + AV / 2, AV / 2 + 3, 0, Math.PI * 2); ctx.lineWidth = 3; ctx.strokeStyle = `rgba(${T.rgb},.6)`; ctx.stroke();
   const nx = x0 + AV + 26;
   ctx.font = `700 38px ${FONT}`; ctx.fillStyle = INK; ctx.fillText(PERFIL.nome, nx, y + 46);
   const bx = nx + ctx.measureText(PERFIL.nome).width + 10, bs = 36 / 24;
-  ctx.save(); ctx.translate(bx, y + 16); ctx.scale(bs, bs); ctx.fillStyle = MATRIX; ctx.fill(BADGE); ctx.fillStyle = MATRIX_INK; ctx.fill(CHECK); ctx.restore();
+  ctx.save(); ctx.translate(bx, y + 16); ctx.scale(bs, bs); ctx.fillStyle = T.a; ctx.fill(BADGE); ctx.fillStyle = T.ink; ctx.fill(CHECK); ctx.restore();
   ctx.font = `500 28px ${MONO}`; ctx.fillStyle = MUTE; ctx.fillText(PERFIL.user, nx, y + 90);
   y += AV;
 
-  // Texto (negrito: marca-texto verde na lâmina 1, texto verde nas outras)
+  // Texto (negrito: marca-texto na cor do tipo na lâmina 1, texto na cor do tipo nas outras)
   if (L.textH) {
     y += GAP;
     L.lines.forEach((line, i) => {
       const by = y + L.size * (L.lh * i + 1.0);
       if (L.hook) {
         let x = x0, run = null;
-        const flush = () => { if (run) { rounded(ctx, run.x - 6, by - L.size * 0.86, run.w + 12, L.size * 1.1, 10); ctx.fillStyle = MATRIX; ctx.fill(); run = null; } };
+        const flush = () => { if (run) { rounded(ctx, run.x - 6, by - L.size * 0.86, run.w + 12, L.size * 1.1, 10); ctx.fillStyle = T.a; ctx.fill(); run = null; } };
         for (const t of line) {
           if (t.bold) { if (!run) run = { x, w: 0 }; run.w = x + t.width - run.x; } else if (!t.space || !run) flush();
           x += t.width;
@@ -207,7 +211,7 @@ export function draw(ctx, slide, idx, assets, info = {}) {
       let x = x0;
       for (const t of line) {
         ctx.font = `${weight(t, L.hook)} ${L.size}px ${FONT}`;
-        ctx.fillStyle = t.bold ? (L.hook ? MATRIX_INK : MATRIX) : INK;
+        ctx.fillStyle = t.bold ? (L.hook ? T.ink : T.txt) : INK;
         ctx.fillText(t.w, x, by); x += t.width;
       }
     });
@@ -227,8 +231,8 @@ export function draw(ctx, slide, idx, assets, info = {}) {
     if (slide.midia?.tipo === "video" && !assets.playing) {
       const pcx = x0 + bw / 2, pcy = y + bh / 2;
       ctx.fillStyle = "rgba(11,12,14,.62)"; ctx.beginPath(); ctx.arc(pcx, pcy, 56, 0, Math.PI * 2); ctx.fill();
-      ctx.lineWidth = 2; ctx.strokeStyle = "rgba(65,255,138,.5)"; ctx.stroke();
-      ctx.fillStyle = MATRIX; ctx.beginPath(); ctx.moveTo(pcx - 15, pcy - 25); ctx.lineTo(pcx + 27, pcy); ctx.lineTo(pcx - 15, pcy + 25); ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = `rgba(${T.rgb},.5)`; ctx.stroke();
+      ctx.fillStyle = T.a; ctx.beginPath(); ctx.moveTo(pcx - 15, pcy - 25); ctx.lineTo(pcx + 27, pcy); ctx.lineTo(pcx - 15, pcy + 25); ctx.fill();
     }
     if (slide.midia?.credito) {
       const cr = slide.midia.credito.toUpperCase(), tw = monoWidth(ctx, cr, 18), ph = 38, pw = tw + 28;
@@ -238,13 +242,13 @@ export function draw(ctx, slide, idx, assets, info = {}) {
     }
   }
 
-  // Rodapé: pílula com contorno verde fino
+  // Rodapé: pílula com contorno fino na cor do tipo
   if (slide.rodape) {
     let fs = 30; ctx.font = `600 ${fs}px ${FONT}`;
     while (ctx.measureText(slide.rodape).width > W - MX * 2 - 80 && fs > 22) { fs -= 1; ctx.font = `600 ${fs}px ${FONT}`; }
     const tw = ctx.measureText(slide.rodape).width, ph = 66, pw = tw + 64, py = H - 52 - ph;
-    pill(ctx, (W - pw) / 2, py, pw, ph, { fill: "rgba(65,255,138,.07)", stroke: "rgba(65,255,138,.38)" });
-    ctx.fillStyle = MATRIX; ctx.textAlign = "center"; ctx.fillText(slide.rodape, W / 2, py + ph / 2 + fs * 0.36); ctx.textAlign = "left";
+    pill(ctx, (W - pw) / 2, py, pw, ph, { fill: `rgba(${T.rgb},.08)`, stroke: `rgba(${T.rgb},.42)` });
+    ctx.fillStyle = T.txt; ctx.textAlign = "center"; ctx.fillText(slide.rodape, W / 2, py + ph / 2 + fs * 0.36); ctx.textAlign = "left";
   }
 }
 
