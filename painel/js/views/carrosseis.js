@@ -505,7 +505,9 @@ function legacyView(atual, go) {
       h("button", { class: "btn btn-sm", type: "button", onclick: () => go("/carrosseis") }, "← Todos"),
       h("button", { class: "btn btn-sm", type: "button", onclick: copiar }, "Copiar legenda")),
     h("div", { class: "carr-strip" }, ...atual.slides.map((f, i) => h("a", { href: url(f), target: "_blank", rel: "noopener", class: "carr-slide" },
-      h("img", { src: url(f), alt: `Slide ${i + 1}`, loading: "lazy" }), h("span", { class: "mono" }, String(i + 1).padStart(2, "0"))))),
+      /\.(mp4|mov)$/i.test(f)
+        ? h("video", { src: url(f), poster: url(f.replace(/\.\w+$/, ".jpg")), muted: true, loop: true, playsinline: true, autoplay: true, preload: "metadata" })
+        : h("img", { src: url(f), alt: `Slide ${i + 1}`, loading: "lazy" }), h("span", { class: "mono" }, String(i + 1).padStart(2, "0"))))),
     atual.legenda && h("section", { class: "panel", style: { marginTop: "16px" } }, h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Legenda")),
       h("div", { class: "panel-body" }, h("p", { style: { whiteSpace: "pre-wrap", margin: 0 } }, atual.legenda))));
 }

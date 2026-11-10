@@ -425,7 +425,7 @@ main>.page.wide{max-width:1400px}
 .carr-card:hover img{border-color:var(--accent)}
 .carr-strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
 .carr-slide{flex:0 0 min(320px,80vw);scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;color:var(--muted);text-decoration:none}
-.carr-slide img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px}
+.carr-slide img,.carr-slide video{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:8px}
 
 /* Início: meta em blocos grandes e layout que não corta palavras */
 .mstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:12px}
