@@ -406,6 +406,7 @@
   };
 
   $$('[data-open-form]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); openScene(); }));
+  $$('[data-open-pill]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); e.stopImmediatePropagation(); openSheet(b.dataset.openPill); }));
   addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if (sheet && sheet.classList.contains('open')) closeSheet();
