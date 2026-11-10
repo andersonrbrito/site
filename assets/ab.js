@@ -152,6 +152,16 @@
       nome: ['Vídeos com IA', 'AI videos'], cor: 'var(--blue-pill)', emoji: '🔵',
       servicos: [['🔥', 'Vídeo viral com IA', 'Viral AI video'], ['🧑‍🎤', 'Influencer ou personagem de IA', 'AI influencer or character'], ['📣', 'Anúncio com IA', 'AI ad'], ['🎞️', 'Clipe ou trailer com IA', 'AI music video or trailer'], ['🏪', 'Vídeo de IA pro meu negócio', 'AI video for my business'], ['💬', 'Outro', 'Other']],
       material: [['🖼️', 'Tenho fotos e vídeos da marca', 'I have brand photos and videos'], ['💡', 'Tenho só a ideia', 'I only have the idea'], ['🎨', 'Quero que você crie a ideia', 'I want you to create the idea'], ['🤔', 'Ainda não sei', 'Not sure yet']]
+    },
+    dr: {
+      nome: ['UGC, DR e VSL', 'UGC, DR and VSL'], cor: 'var(--red-pill)', emoji: '🎯',
+      servicos: [['📱', 'UGC', 'UGC'], ['🎯', 'Criativos de direct response', 'Direct response creatives'], ['🎬', 'VSL', 'VSL'], ['🧪', 'Variações de hook pra teste', 'Hook variations for testing'], ['💬', 'Outro', 'Other']],
+      material: [['✅', 'Tenho o bruto gravado', 'I have raw footage'], ['📝', 'Tenho só o roteiro', 'I only have the script'], ['💡', 'Preciso do roteiro também', 'I need the script too'], ['🤔', 'Ainda não sei', 'Not sure yet']]
+    },
+    ia: {
+      nome: ['Personagens com IA', 'AI characters'], cor: 'var(--blue-pill)', emoji: '🧑‍🎤',
+      servicos: [['🧑‍🎤', 'Criar um personagem de IA', 'Create an AI character'], ['📣', 'Campanha com personagem', 'Campaign with a character'], ['📲', 'Conteúdo recorrente do personagem', 'Recurring character content'], ['🏷️', 'Mascote da marca', 'Brand mascot'], ['💬', 'Outro', 'Other']],
+      material: [['🖼️', 'Tenho referências do personagem', 'I have character references'], ['💡', 'Tenho só a ideia', 'I only have the idea'], ['🎨', 'Quero que você crie do zero', 'I want you to create it from scratch'], ['🤔', 'Ainda não sei', 'Not sure yet']]
     }
   };
   const PILL_POS = { red: [25.8, 65], blue: [76, 65.5] }; // centro de cada pílula na imagem, em %
@@ -312,8 +322,8 @@
     const p = PILLS[state.pill];
     const opt = [[tr('Empresa / @', 'Company / @'), state.empresa], [tr('Referência', 'Reference'), state.ref]].filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`);
     return [
-      tr(`Oi Anderson! Vim do site e tomei a pílula ${state.pill === 'red' ? 'vermelha' : 'azul'} ${p.emoji} (${L(p.nome).toLowerCase()}).`,
-         `Hi Anderson! I came from your website and took the ${state.pill === 'red' ? 'red' : 'blue'} pill ${p.emoji} (${L(p.nome).toLowerCase()}).`),
+      (state.pill === 'red' || state.pill === 'blue') ? tr(`Oi Anderson! Vim do site e tomei a pílula ${state.pill === 'red' ? 'vermelha' : 'azul'} ${p.emoji} (${L(p.nome).toLowerCase()}).`,
+         `Hi Anderson! I came from your website and took the ${state.pill === 'red' ? 'red' : 'blue'} pill ${p.emoji} (${L(p.nome).toLowerCase()}).`) : tr(`Oi Anderson! Vim do site e quero ${L(p.nome)} ${p.emoji}.`, `Hi Anderson! I came from your website and I want ${L(p.nome)} ${p.emoji}.`),
       '',
       `• ${tr('Preciso de', 'I need')}: ${state.servicos.join(', ')}`,
       `• ${tr('Prazo', 'Deadline')}: ${state.prazo}`,
