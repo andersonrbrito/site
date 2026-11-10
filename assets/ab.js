@@ -1,5 +1,7 @@
 /* andersonbrito.com — comportamento comum (home, /bio, /links) */
 (() => {
+  // Tarja de Black Friday no topo de todas as páginas.
+  if (!document.querySelector('.bf-strip')) { const bf = document.createElement('a'); bf.className = 'bf-strip'; bf.href = '/motion.html'; bf.innerHTML = '<b>BLACK FRIDAY</b> Criativos para o seu negócio por <b>R$ 97</b>'; document.body.prepend(bf); }
   const WA = '5511992392104';
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
