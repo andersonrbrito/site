@@ -1,7 +1,9 @@
 # Motor de vídeo do CarrosseL_ (template premium cyberpunk)
 
-Transforma um carrossel em vídeo **Reel 1080x1920** e **X 1920x1080**, no manual `~/Downloads/andersonbrito_marca/design.md`
-(fundo #1E1E1E com grid pontilhado, laranja #FF8A00, pêssego #FFDCA9, Creato Display, safe zone do Reels) com a camada
+Transforma um carrossel em vídeo **Reel 1080x1920** e **X 1920x1080**, na identidade de andersonbrito.com, igual às lâminas (desde 09/11/2026)
+(fundo #0B0C0E com grade de pontos e brilho nos cantos, texto #F2F2F7, apoio #A1A6AA, Inter, safe zone do Reels;
+cor de destaque pelo tipo: notícia vermelha #FF3B47, educativo azul #3D8BFF, pessoal verde Matrix #41FF8A.
+O tipo vem do campo "tipo" do roteiro.json ("noticia" | "educativo" | "pessoal"); sem ele, da tag da 1ª cena) com a camada
 cyberpunk em todo o vídeo:
 - partículas de luz com profundidade (atrás e na frente do conteúdo);
 - grafo de nós ambiente e grafo ligando título, card e chips;
@@ -9,7 +11,7 @@ cyberpunk em todo o vídeo:
 - glitch RGB, fatias deslocadas e flash em todo corte;
 - scanlines leves e vinheta;
 - palavra gigante entrando letra por letra, ou número contando;
-- título com palavras entrando com overshoot e sublinhado laranja animado;
+- título com palavras entrando com overshoot e sublinhado animado na cor do tipo;
 - card de tweet em vidro com brilho de borda e punch-in alternado;
 - chips com pop e legenda palavra por palavra;
 - CTA com avatar e anel girando.
@@ -56,7 +58,7 @@ bash "/Volumes/ANDY 1TB/anderson_Os/07_automacoes/render-fila.sh" \
 
 Regras das cenas:
 - **Tempos:** `t0`, `t1`, `t` dos chips, da troca de mídia e do `titulo2` são em segundos da voz original. O motor divide pela `velocidade`.
-- **Destaque:** `*texto*` deixa a palavra laranja, com sublinhado animado.
+- **Destaque:** `*texto*` deixa a palavra na cor do tipo, com sublinhado animado.
 - **Tipos:**
   - `hook`: abre com número ou palavra gigante e depois mostra o card.
   - `normal` (padrão): palavra gigante, se tiver, e depois o card.

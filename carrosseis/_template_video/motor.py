@@ -1,4 +1,6 @@
-"""Motor de template do CarrosseL_ -> vídeo (Reel 9:16 e X 16:9), visual premium cyberpunk no manual do Anderson.
+"""Motor de template do CarrosseL_ -> vídeo (Reel 9:16 e X 16:9), na identidade de andersonbrito.com (desde 09/11/2026):
+fundo #0B0C0E, grade de pontos e brilho nos cantos, vidro, Inter, destaque por tipo (notícia vermelha #FF3B47,
+educativo azul #3D8BFF, pessoal verde Matrix #41FF8A). Tipo: campo "tipo" do roteiro (ou a tag da 1ª cena).
 
 Uso (sempre pela fila única de render):
   bash "/Volumes/ANDY 1TB/anderson_Os/07_automacoes/render-fila.sh" \
@@ -7,8 +9,8 @@ Uso (sempre pela fila única de render):
 Entrada: roteiro.json (formato no LEIAME.md). Saída: os caminhos "saida_reel" / "saida_x" do roteiro.
 Opcional: --quadros 1.5,9,20  (só gera PNGs de teste nesses segundos, sem vídeo)
 
-Camadas, de trás pra frente: fundo #1E1E1E + grid pontilhado em paralaxe, grafo de nós ambiente, partículas de luz com
-profundidade, conteúdo da cena (palavra gigante letra por letra, número animado, título com sublinhado laranja, card de
+Camadas, de trás pra frente: fundo #0B0C0E + grid pontilhado em paralaxe, grafo de nós ambiente, partículas de luz com
+profundidade, conteúdo da cena (palavra gigante letra por letra, número animado, título com sublinhado na cor do tipo, card de
 tweet em vidro com brilho de borda e punch-in, chips), HUD (cantos, timecode, REC, coordenadas, progresso), legenda,
 scanlines + vinheta, glitch RGB + flash nos cortes."""
 import json, math, os, random, re, subprocess, sys
@@ -21,14 +23,23 @@ MONO = '/System/Library/Fonts/Menlo.ttc'
 PEN = '/Volumes/PEN 128GB/'
 SFXD = PEN + 'SFX BIBLIOTECA/'
 FPS = 30
-BG = (30, 30, 30); CREME = (255, 243, 229); LAR = (255, 138, 0); PES = (255, 220, 169); INK = (18, 18, 18)
+# Tokens do site (assets/ab.css). CREME = texto, PES = apoio, LAR = destaque do tipo, INK = tinta sobre o destaque.
+BG = (11, 12, 14); CREME = (242, 242, 247); PES = (161, 166, 170)
+TEMAS = {'noticia': ((255, 59, 71), (43, 4, 7)), 'educativo': ((61, 139, 255), (4, 18, 46)), 'pessoal': ((65, 255, 138), (3, 32, 15))}
+LAR, INK = TEMAS['pessoal']
+def aplica_tema(R):
+    """escolhe a cor de destaque pelo tipo do carrossel (campo "tipo" do roteiro ou tag da 1ª cena)"""
+    global LAR, INK
+    t = (R.R.get('tipo') or (R.cenas[0].get('tag', '') if R.cenas else '')).lower()
+    k = 'noticia' if 'not' in t else 'educativo' if ('educ' in t or 'tutorial' in t or 'prompt' in t) else 'pessoal'
+    LAR, INK = TEMAS[k]; return k
 AVATAR = os.path.expanduser('~/Downloads/site/painel/carrosseis/perfil/avatar.jpg')
 
 # ---------------------------------------------------------------- utilidades
 _f = {}
 def F(sz, wt='Black'):
     k = (sz, wt)
-    if k not in _f: _f[k] = ImageFont.truetype(f'{FD}CreatoDisplay-{wt}.otf', int(sz))
+    if k not in _f: _f[k] = ImageFont.truetype(f'{FD}Inter-{wt}.otf', int(sz))
     return _f[k]
 def FM(sz):
     k = (sz, 'mono')
@@ -124,8 +135,12 @@ class Cena:
         # zona útil: no Reels nada nos 220px de cima e 300px de baixo
         self.top, self.bot = (230, 1610) if fmt == 'reel' else (70, 1010)
         g = Image.new('RGBA', (W + 48, H + 48), BG + (255,)); d = ImageDraw.Draw(g)
+        yy, xx = np.mgrid[0:H + 48, 0:W + 48]; D = max(W, H)
+        luz = np.clip(.16 * (1 - np.hypot(xx - (W + 48), yy) / (D * .75)), 0, 1) + np.clip(.12 * (1 - np.hypot(xx, yy - (H + 48)) / (D * .65)), 0, 1)
+        a = np.array(g, np.float32); a[..., :3] = a[..., :3] * (1 - luz[..., None]) + np.array(LAR, np.float32) * luz[..., None]
+        g = Image.fromarray(a.astype(np.uint8), 'RGBA'); d = ImageDraw.Draw(g)
         for x in range(0, W + 48, 48):
-            for y in range(0, H + 48, 48): d.point((x, y), fill=(255, 243, 229, 22)); d.point((x + 1, y), fill=(255, 243, 229, 10))
+            for y in range(0, H + 48, 48): d.ellipse([x - 2, y - 2, x + 2, y + 2], fill=LAR + (34,))
         self.grid = g
         sl = np.zeros((H, W, 4), np.uint8); sl[::3, :, 3] = 16; self.scan = Image.fromarray(sl, 'RGBA')
         yy, xx = np.mgrid[0:H, 0:W]; r = np.sqrt(((xx - W / 2) / (W / 2)) ** 2 + ((yy - H / 2) / (H / 2)) ** 2)
@@ -150,8 +165,8 @@ class Cena:
         for i in range(len(P)):
             for j in range(i + 1, len(P)):
                 dx = P[i][0] - P[j][0]; dy = P[i][1] - P[j][1]; dist = math.hypot(dx, dy)
-                if dist < 330: d.line([P[i], P[j]], fill=(255, 138, 0, int(46 * (1 - dist / 330))), width=1)
-        for x, y in P: d.rectangle([x - 3, y - 3, x + 3, y + 3], outline=(255, 220, 169, 70), width=1)
+                if dist < 330: d.line([P[i], P[j]], fill=LAR + (int(46 * (1 - dist / 330)),), width=1)
+        for x, y in P: d.rectangle([x - 3, y - 3, x + 3, y + 3], outline=PES + (70,), width=1)
     def sprite(self, r, cor):
         k = (r, cor)
         if k not in self.spr:
@@ -176,17 +191,17 @@ class Cena:
         d.rounded_rectangle([0, 0, im.width - 1, 51], 26, fill=LAR + (255,)); d.text((24, 26), txt.upper(), font=f, fill=INK, anchor='lm'); return im
     def chip(self, txt):
         f = F(40 if self.fmt == 'reel' else 36, 'Bold'); tw = f.getlength(txt); im = Image.new('RGBA', (int(tw) + 86, 78), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-        d.rounded_rectangle([0, 0, im.width - 1, 77], 20, fill=(40, 36, 32, 225), outline=(255, 138, 0, 200), width=2)
+        d.rounded_rectangle([0, 0, im.width - 1, 77], 20, fill=(24, 27, 28, 225), outline=LAR + (200,), width=2)
         d.rectangle([24, 33, 36, 45], fill=LAR); d.text((54, 39), txt, font=f, fill=CREME, anchor='lm'); return im
     def vidro(self, w, h, foto, zoom, ox, oy, cred=None):
         """card de tweet em vidro: cabeçalho do perfil, mídia com punch-in, borda com brilho"""
         pad, cab = 22, 112
         im = Image.new('RGBA', (w, h), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
-        d.rounded_rectangle([0, 0, w - 1, h - 1], 30, fill=(255, 243, 229, 26))
+        d.rounded_rectangle([0, 0, w - 1, h - 1], 30, fill=CREME + (26,))
         im.alpha_composite(self.av, (pad, pad + 4))
         d.text((pad + 104, pad + 26), 'Anderson Brito', font=F(34, 'Bold'), fill=CREME, anchor='lm')
         vx = pad + 104 + F(34, 'Bold').getlength('Anderson Brito') + 22
-        d.ellipse([vx - 14, pad + 12, vx + 14, pad + 40], fill=(29, 155, 240)); d.line([(vx - 7, pad + 26), (vx - 2, pad + 32), (vx + 8, pad + 20)], fill='white', width=4)
+        d.ellipse([vx - 14, pad + 12, vx + 14, pad + 40], fill=LAR); d.line([(vx - 7, pad + 26), (vx - 2, pad + 32), (vx + 8, pad + 20)], fill=INK, width=4)
         d.text((pad + 104, pad + 66), '@andersonbrito.mp4', font=FM(26), fill=PES, anchor='lm')
         mw, mh = w - pad * 2, h - cab - pad
         if foto is not None:
@@ -195,7 +210,7 @@ class Cena:
             x0 = int((fw - mw) * (.5 + ox)); y0 = int((fh - mh) * (.5 + oy)); x0 = max(0, min(fw - mw, x0)); y0 = max(0, min(fh - mh, y0))
             fr = fr.crop((x0, y0, x0 + mw, y0 + mh)).convert('RGBA'); m = Image.new('L', (mw, mh), 0)
             ImageDraw.Draw(m).rounded_rectangle([0, 0, mw - 1, mh - 1], 20, fill=255); fr.putalpha(m); im.alpha_composite(fr, (pad, cab))
-        if cred: d.text((w - pad - 6, h - pad - 14), cred, font=FM(22), fill=(255, 243, 229, 200), anchor='rb')
+        if cred: d.text((w - pad - 6, h - pad - 14), cred, font=FM(22), fill=CREME + (200,), anchor='rb')
         if (w, h) not in self.bordas:
             borda = Image.new('RGBA', (w, h), (0, 0, 0, 0)); ImageDraw.Draw(borda).rounded_rectangle([1, 1, w - 2, h - 2], 30, outline=LAR + (255,), width=3)
             base = Image.new('RGBA', (w + 80, h + 80), (0, 0, 0, 0)); base.alpha_composite(glow(borda, 16, 2.2), (40, 40)); self.bordas[(w, h)] = (base, borda)
@@ -214,7 +229,7 @@ class Cena:
         ms = [m for m in cena.get('midia', []) if m['a'] <= t + 1e-3]
         return ms[-1] if ms else (cena['midia'][0] if cena.get('midia') else None)
 
-    # ----- título com palavras entrando + sublinhado laranja
+    # ----- título com palavras entrando + sublinhado na cor do tipo
     def titulo(self, c, txt, cx, cy, maxw, t, t0, tam, topo=None):
         toks = marcado(txt.upper())
         while True:
@@ -267,19 +282,19 @@ class Cena:
         for x, y, sx, sy in [(m, y0, 1, 1), (W - m, y0, -1, 1), (m, y1, 1, -1), (W - m, y1, -1, -1)]:
             d.line([x, y, x + 54 * sx, y], fill=LAR, width=4); d.line([x, y, x, y + 54 * sy], fill=LAR, width=4)
         f = FM(24); yt = y0 + 22
-        d.text((m + 26, yt), 'ANDERSON.BRITO // CARROSSEL_', font=f, fill=(255, 243, 229, 210))
+        d.text((m + 26, yt), 'ANDERSON.BRITO // CARROSSEL_', font=f, fill=CREME + (210,))
         tc = f'{int(t // 60):02d}:{int(t % 60):02d}:{int((t % 1) * 30):02d}'
-        d.text((W - m - 26, yt), tc, font=f, fill=(255, 243, 229, 210), anchor='ra')
+        d.text((W - m - 26, yt), tc, font=f, fill=CREME + (210,), anchor='ra')
         if int(t * 2) % 2 == 0: d.ellipse([W - m - 60 - f.getlength(tc), yt + 4, W - m - 44 - f.getlength(tc), yt + 20], fill=(255, 60, 40))
         d.text((W - m - 70 - f.getlength(tc), yt), 'REC', font=f, fill=(255, 60, 40), anchor='ra')
         yb = y1 - 46
-        d.text((m + 26, yb), f'LAT -23.5505  LON -46.6333  //  CENA {ci + 1:02d}/{ncenas:02d}', font=f, fill=(255, 220, 169, 190))
+        d.text((m + 26, yb), f'LAT -23.5505  LON -46.6333  //  CENA {ci + 1:02d}/{ncenas:02d}', font=f, fill=PES + (190,))
         bx = W - m - 26 - ncenas * 22
-        for i in range(ncenas): d.rectangle([bx + i * 22, yb + 4, bx + i * 22 + 14, yb + 18], fill=LAR if i <= ci else None, outline=(255, 220, 169, 160))
+        for i in range(ncenas): d.rectangle([bx + i * 22, yb + 4, bx + i * 22 + 14, yb + 18], fill=LAR if i <= ci else None, outline=PES + (160,))
         if tag:
             im = self.tag(tag); c.alpha_composite(im, (m + 22, int(yt + 44)))
 
-    # ----- legenda (palavra atual em laranja)
+    # ----- legenda (palavra atual na cor do tipo)
     def legenda(self, c, t):
         for grp in self.R.legendas:
             a = grp[0][1]; b = grp[-1][2] + .3
@@ -323,7 +338,7 @@ class Cena:
                 if q > 0: put(c, glow(im, 18, 1.2), W / 2, y, .5 * cl(q)); put(c, im, W / 2, y + 30 * (1 - eo(q)), cl(q * 2), .6 + .4 * back(q)); pos.append((W / 2, y))
                 y += 190 if i == 0 else 110
             d = ImageDraw.Draw(c)
-            for i in range(len(pos)): d.line([(W / 2 - 330, ya), (pos[i][0] - 330, pos[i][1])], fill=(255, 138, 0, 110), width=2); d.rectangle([W / 2 - 336, pos[i][1] - 6, W / 2 - 324, pos[i][1] + 6], fill=INK, outline=LAR, width=2)
+            for i in range(len(pos)): d.line([(W / 2 - 330, ya), (pos[i][0] - 330, pos[i][1])], fill=LAR + (110,), width=2); d.rectangle([W / 2 - 336, pos[i][1] - 6, W / 2 - 324, pos[i][1] + 6], fill=INK, outline=LAR, width=2)
             return
         # card / cheia
         m = self.midia_atual(cena, t); foto = self.foto_em(m, t) if m else None
@@ -358,13 +373,13 @@ class Cena:
         d = ImageDraw.Draw(c); vis = eo((dentro - .2) / .4)
         if vis > 0 and foto is not None:  # grafo ligando título, card e chips
             for a_, b_ in zip(nodos, nodos[1:] + nodos[:1]):
-                d.line([a_, (a_[0] + (b_[0] - a_[0]) * vis, a_[1] + (b_[1] - a_[1]) * vis)], fill=(255, 138, 0, 120), width=2)
+                d.line([a_, (a_[0] + (b_[0] - a_[0]) * vis, a_[1] + (b_[1] - a_[1]) * vis)], fill=LAR + (120,), width=2)
             for x, y in nodos: d.rectangle([x - 6, y - 6, x + 6, y + 6], fill=INK, outline=LAR, width=2)
         for i, (tc, s) in enumerate(cena['chips']):
             if t >= tc:
                 q = (t - tc) / .28; im = self.chip(s); yy = ychip + i * 96
                 put(c, im, xchip + 60 * (1 - eo(q)), yy, cl(q * 2), .7 + .3 * back(q))
-                if foto is not None and not reel: d.line([(xchip + im.width / 2 + 60 * (1 - eo(q)), yy), nodos[1]], fill=(255, 138, 0, 70), width=1)
+                if foto is not None and not reel: d.line([(xchip + im.width / 2 + 60 * (1 - eo(q)), yy), nodos[1]], fill=LAR + (70,), width=1)
 
     def quadro(self, t):
         R = self.R; W, H = self.W, self.H
@@ -433,7 +448,7 @@ def render(R, fmt, saida, mix):
 if __name__ == '__main__':
     a = sys.argv[1:]; rot = a[0]
     fmt = a[a.index('--formato') + 1] if '--formato' in a else 'ambos'
-    R = Roteiro(rot); fmts = ['reel', 'x'] if fmt == 'ambos' else [fmt]
+    R = Roteiro(rot); print('tema:', aplica_tema(R)); fmts = ['reel', 'x'] if fmt == 'ambos' else [fmt]
     if '--quadros' in a:
         ts = [float(x) for x in a[a.index('--quadros') + 1].split(',')]; od = a[a.index('--saida') + 1] if '--saida' in a else os.path.join(R.base, 'quadros')
         os.makedirs(od, exist_ok=True)
