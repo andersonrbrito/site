@@ -4,3 +4,6 @@ painel/dev/.env*
 
 # postador (local, nunca publicar)
 /postador/
+
+# espelho local das mídias de aprovação
+/.espelho-aprovacoes/

@@ -12,12 +12,54 @@
       "port": 8080
     },
     {
+      "name": "site-8093",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8093"
+      ],
+      "port": 8093
+    },
+    {
       "name": "postador",
       "runtimeExecutable": "node",
       "runtimeArgs": [
         "postador/server.js"
       ],
       "port": 4777
+    },
+    {
+      "name": "site-carrossel",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8097"
+      ],
+      "port": 8097
+    },
+    {
+      "name": "lamina",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8099",
+        "--directory",
+        "/Users/andersonbrito/Downloads/site/lamina"
+      ],
+      "port": 8099,
+      "autoPort": false
+    },
+    {
+      "name": "painel-local",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "tools/painel_local.mjs"
+      ],
+      "port": 8090,
+      "autoPort": false
     }
   ]
 }

@@ -35,10 +35,31 @@ export default async function aprovacoes({ sb, query, go }) {
   const urls = new Map();
   const CK = "ap-signed-v1", VALIDADE = 86400, REUSO = 23 * 3600e3;
   let guard = {}; try { guard = JSON.parse(localStorage.getItem(CK) || "{}"); } catch {}
-  for (const [p, v] of Object.entries(guard)) if (v.ate > Date.now()) urls.set(p, v.url); else delete guard[p];
+  for (const [p, v] of Object.entries(guard)) if (v.ate > Date.now()) { if (location.port !== "8090") urls.set(p, v.url); } else delete guard[p];
+  // Painel local (node tools/painel_local.mjs): a mídia vem do espelho no disco; o que faltar é baixado
+  // do Supabase UMA vez e guardado lá. Fora do localhost, segue pelo link assinado.
+  const LOCAL = /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && location.port === "8090";
+  const doDisco = async (paths) => {
+    const resto = [];
+    await Promise.all(paths.map(async (p) => {
+      const lu = "/_local/" + p;
+      if ((await fetch(lu, { method: "HEAD" }).catch(() => null))?.ok) urls.set(p, lu); else resto.push(p);
+    }));
+    if (!resto.length) return;
+    const { data: s } = await sb.storage.from(BUCKET).createSignedUrls(resto, 3600);
+    await Promise.all((s || []).map(async (x) => {
+      if (!x.signedUrl) return;
+      try {
+        const blob = await (await fetch(x.signedUrl)).blob();
+        const r = await fetch("/_local/" + x.path, { method: "POST", body: blob });
+        urls.set(x.path, r.ok ? "/_local/" + x.path : URL.createObjectURL(blob));
+      } catch { urls.set(x.path, x.signedUrl); }
+    }));
+  };
   const assinar = async (paths) => {
     const falta = [...new Set(paths.filter((p) => p && !urls.has(p)))];
     if (!falta.length) return;
+    if (LOCAL) return doDisco(falta);
     const { data: s } = await sb.storage.from(BUCKET).createSignedUrls(falta, VALIDADE);
     (s || []).forEach((x) => { if (x.signedUrl) { urls.set(x.path, x.signedUrl); guard[x.path] = { url: x.signedUrl, ate: Date.now() + REUSO }; } });
     try { localStorage.setItem(CK, JSON.stringify(guard)); } catch {}
