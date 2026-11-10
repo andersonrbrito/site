@@ -4,18 +4,18 @@
  "tipo": "educativo",
  "titulo": "Como aproximar a animação estilo Kurzgesagt com IA (sem equipe)",
  "perfil": "@ilmarlabs",
- "legenda": "Aquele estilo de animação de ciência (formas chapadas, fundo escuro, um elemento entrando por vez) que leva muitas horas com uma equipe inteira dá pra PROTOTIPAR em minutos pedindo pra IA montar em código.\n\nNão fica igual ao canal original, mas serve de base pra você entrar com a sua narração e o seu ritmo. Montei o passo a passo do jeito que eu faço.\n\nSalva pra testar no próximo explicativo e manda pra quem anima contigo. Qual ideia você explicaria primeiro?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "legenda": "Aquele estilo de animação de ciência (formas chapadas, fundo escuro, um elemento entrando por vez) que leva muitas horas com uma equipe inteira dá pra PROTOTIPAR em minutos pedindo pra IA montar em código.\n\nNão fica igual ao canal original, mas serve de base pra você entrar com a sua narração e o seu ritmo. Montei o passo a passo do jeito que eu faço.\n\nO prompt completo (o mesmo que eu uso no Fato Indigesto) e o passo a passo tão no guia de prompts do meu site — tem até uma versão em ebook pra quem quer o pacote pronto.\n\nSalva pra testar no próximo explicativo e manda pra quem anima contigo. Qual ideia você explicaria primeiro?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
  "fontes": [
   {
    "titulo": "Inspirado em testes de animação por código que circularam no X (nov/2026)",
    "url": "https://x.com"
   }
  ],
- "notas": "Educativo. Técnica refeita com o jeito dele, sem copiar prompt de ninguém. Lâminas geradas no ChatGPT (Images 2.6), estilo flat minimalista (formas geométricas, 3 cores chapadas, fundo escuro) espelhando a estética ensinada, PT-BR, sem rostos reais.",
+ "notas": "Educativo. Técnica refeita com o jeito dele, sem copiar prompt de ninguém. Lâminas geradas no ChatGPT (Images 2.6), estilo flat minimalista (formas geométricas, 3 cores chapadas, fundo escuro) espelhando a estética ensinada, PT-BR. Ajuste 10/11: lâmina 1 trocada para caricatura do Sérgio Sacani em estilo Kurzgesagt (01-sacani.jpg, ChatGPT) como hook famoso de ciência; carrossel passou a apontar para o guia/ebook /fato-indigesto.html (prompt completo do Fato Indigesto).",
  "slides": [
   {
-   "texto": "Animação de ciência que levava **mil horas** com uma equipe inteira... dá pra prototipar em minutos com IA.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/01-hook.jpg", "foco": 0.4 },
+   "texto": "Sabe aquele vídeo de ciência todo animado, tipo Kurzgesagt? Levava **mil horas** e uma equipe inteira. Dá pra prototipar em minutos com IA.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/01-sacani.jpg", "foco": 0.35 },
    "rodape": "arrasta pro lado →"
   },
   {
@@ -36,7 +36,7 @@
    "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/05-camadas.jpg", "foco": 0.4 }
   },
   {
-   "texto": "Passo 4 — exporte e entre com a **sua narração** e o seu ritmo.\n\nSalva esse passo a passo pro próximo explicativo e manda pra quem anima contigo.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "texto": "Passo 4 — exporte e entre com a **sua narração** e o seu ritmo.\n\nO prompt completo (o mesmo que eu uso no Fato Indigesto) tá no guia de prompts do meu site.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
    "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/06-fim.jpg", "foco": 0.4 },
    "rodape": "comenta aqui embaixo ↓"
   }

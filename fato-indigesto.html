@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animação de notícia estilo toon com IA: o prompt completo | Anderson Brito</title>
+  <meta name="description" content="O prompt completo que eu uso nos vídeos do Fato Indigesto: notícia animada em código, estilo toon, fundo papel creme, caricaturas e sincronia por palavra. Passo a passo e o pacote pronto em ebook.">
+  <meta name="keywords" content="animação em código, notícia animada IA, estilo toon, Fato Indigesto, prompt Claude Code, Kurzgesagt com IA, Anderson Brito">
+  <meta name="author" content="Anderson Brito">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://andersonbrito.com/fato-indigesto.html">
+  <meta property="og:title" content="Animação de notícia estilo toon com IA — o prompt completo">
+  <meta property="og:description" content="O método e o prompt completo dos vídeos do Fato Indigesto: notícia virando desenho animado em código, com a sua narração.">
+  <meta property="og:image" content="https://andersonbrito.com/assets/fato-indigesto/capa.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="canonical" href="https://andersonbrito.com/fato-indigesto.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F0E9DB; --card: #FFFFFF; --ink: #161514; --muted: #6E665E; --line: #161514;
+      --red: #E23A2E; --green: #1CA858; --peach: #F5DEB8; --soft: #F0E9DB;
+      --radius: 0px; --shadow: 6px 6px 0 #161514;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--paper); background-image: radial-gradient(rgba(120,95,60,.22) 1px, transparent 1px); background-size: 24px 24px; color: var(--ink); font-family: 'Plus Jakarta Sans', system-ui, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); width: 0; z-index: 50; }
+    header.top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; font-size: 14px; }
+    header.top a { text-decoration: none; color: var(--muted); }
+    header.top b { color: var(--ink); }
+    .eyebrow { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500; letter-spacing: .04em; color: var(--red); }
+    .eyebrow b { color: var(--ink); }
+    h1 { font-size: clamp(38px, 7.5vw, 76px); line-height: .96; font-weight: 800; letter-spacing: -.03em; text-transform: uppercase; margin: 14px 0 16px; }
+    h1 em { font-style: normal; color: var(--red); }
+    .lead { font-size: 18px; color: #3b3631; max-width: 660px; }
+    .hero { padding: 36px 0 20px; }
+    .cover { margin: 26px 0 10px; display: grid; grid-template-columns: 180px 1fr; gap: 20px; align-items: center; background: var(--card); border: 3px solid var(--ink); box-shadow: var(--shadow); padding: 18px; }
+    .cover img { width: 100%; display: block; border: 2px solid var(--ink); aspect-ratio: 9/16; object-fit: cover; }
+    .cover .pitch b { font-size: 20px; }
+    .cover .pitch p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+    .meta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 12.5px; text-transform: uppercase; padding: 7px 12px; border: 2px solid var(--ink); }
+    .chip.dark { background: var(--ink); color: var(--paper); }
+    section { padding: 40px 0; }
+    h2 { font-size: clamp(28px, 5vw, 46px); font-weight: 800; letter-spacing: -.02em; text-transform: uppercase; line-height: 1; margin-bottom: 8px; }
+    .sub { color: var(--muted); margin-bottom: 24px; max-width: 640px; }
+    .toc { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 8px; }
+    .toc a { text-decoration: none; background: var(--card); border: 2px solid var(--ink); padding: 12px 14px; font-weight: 600; font-size: 15px; }
+    .toc a span { color: var(--red); font-weight: 800; margin-right: 6px; }
+    .step { background: var(--card); border: 3px solid var(--ink); box-shadow: var(--shadow); padding: 28px; margin-bottom: 16px; scroll-margin-top: 20px; }
+    .step .n { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--red); }
+    .step h3 { font-size: 28px; line-height: 1.05; font-weight: 800; margin: 6px 0 10px; text-transform: uppercase; letter-spacing: .01em; }
+    .step p, .step li { color: #3b3631; font-size: 16px; }
+    .step ul { padding-left: 20px; margin: 10px 0; }
+    .step li { margin: 4px 0; }
+    .tip { background: var(--peach); border: 2px solid var(--ink); padding: 14px 16px; margin-top: 14px; font-size: 15px; }
+    .tip b { color: var(--red); }
+    .prompt { position: relative; margin-top: 14px; background: #fff; border: 2px solid var(--ink); }
+    .prompt .bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: var(--ink); font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--paper); letter-spacing: .06em; text-transform: uppercase; }
+    .prompt .dots i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; }
+    .prompt pre { font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 13.5px; white-space: pre-wrap; padding: 14px 16px; color: var(--ink); max-height: 460px; overflow: auto; }
+    .copy { border: 0; background: var(--red); color: #fff; font: inherit; font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+    .copy.ok { background: var(--green); }
+    .ebook { background: var(--ink); color: var(--paper); border: 3px solid var(--ink); box-shadow: 6px 6px 0 var(--red); padding: 30px; }
+    .ebook .eyebrow { color: #ffb3ad; }
+    .ebook h2 { color: var(--paper); }
+    .ebook ul { padding-left: 20px; margin: 14px 0 20px; }
+    .ebook li { margin: 6px 0; color: #e7e2d6; font-size: 16px; }
+    .ebook .price { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: #ffb3ad; margin-bottom: 14px; }
+    .ebook .price s { color: #8a857b; margin-right: 8px; }
+    .ebook .price b { color: var(--paper); font-size: 30px; }
+    .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; border: 0; background: var(--red); color: #fff; font: inherit; font-weight: 700; font-size: 15px; padding: 14px 20px; cursor: pointer; font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; }
+    .btn.ghost { background: transparent; color: var(--paper); border: 2px solid #4a463f; }
+    .btn:focus-visible, .copy:focus-visible { outline: 3px solid var(--peach); outline-offset: 2px; }
+    .ebook .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+    footer { padding: 40px 0 60px; color: var(--muted); font-size: 14px; text-align: center; }
+    footer .who { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 14px; color: var(--ink); font-weight: 700; }
+    footer img { width: 54px; height: 54px; border-radius: 50%; border: 3px solid var(--red); object-fit: cover; }
+    @media (max-width: 560px) { .step { padding: 22px 18px; } .hero { padding-top: 18px; } .cover { grid-template-columns: 1fr; } .cover img { max-width: 220px; margin: 0 auto; } }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="wrap">
+    <header class="top">
+      <a href="index.html"><b>Anderson Brito</b></a>
+      <a href="ia.html">Guias e prompts</a>
+    </header>
+
+    <div class="hero">
+      <span class="eyebrow">O prompt completo · <b>Fato Indigesto</b></span>
+      <h1>Notícia virando <em>desenho animado</em>, feita em código</h1>
+      <p class="lead">É assim que eu animo os vídeos do Fato Indigesto: a notícia vira um toon de fundo papel, com caricaturas, carimbo e tudo sincronizado com a narração — sem desenhar quadro a quadro e sem equipe. Aqui está o método inteiro e o prompt que eu colo pra IA montar.</p>
+      <div class="cover">
+        <img src="assets/fato-indigesto/capa.jpg" alt="Quadro de um vídeo do Fato Indigesto em estilo toon">
+        <div class="pitch">
+          <b>Do roteiro ao MP4, animando em código.</b>
+          <p>O que levava uma equipe inteira de motion, você prototipa em minutos pedindo pra IA montar a animação. Não fica igual ao canal original — vira a sua versão, com a sua voz e o seu ritmo.</p>
+        </div>
+      </div>
+      <div class="meta"><span class="chip">Claude Code</span><span class="chip">Voz clonada</span><span class="chip">Canvas + Python</span><span class="chip dark">9:16 · Reels</span></div>
+    </div>
+
+    <section>
+      <h2>O passo a passo</h2>
+      <p class="sub">Na primeira vez, leia na ordem. Depois use como checklist. Cada passo tem o prompt pronto pra copiar.</p>
+      <nav class="toc" id="toc"></nav>
+    </section>
+
+    <section id="passos" style="padding-top:0"></section>
+
+    <section id="ebook">
+      <div class="ebook">
+        <span class="eyebrow">Pacote pronto</span>
+        <h2>Pega tudo mastigado</h2>
+        <p style="color:#e7e2d6;max-width:620px">A página acima ensina o método inteiro, de graça. O ebook é pra quem quer pular a parte chata e já sair montando: vem o pacote completo em PDF, com os arquivos prontos.</p>
+        <ul>
+          <li>O <b>prompt mestre</b> completo (o mesmo desta página, formatado pra colar)</li>
+          <li>O motor <code style="color:#ffb3ad">lib.js</code> comentado + o fundo papel creme pronto</li>
+          <li>O prompt de <b>caricatura em PT-BR</b> pro ChatGPT (rosto consistente)</li>
+          <li>A lista de SFX e o passo do render (voz + efeitos + trilha)</li>
+          <li>Checklist de entrega e os erros que me fizeram perder tempo</li>
+        </ul>
+        <div class="price"><s>R$ 47</s> por <b>R$ 17</b> · PDF + arquivos</div>
+        <div class="btns">
+          <a class="btn" href="https://wa.me/5511948577950?text=Oi%20Anderson%2C%20quero%20o%20ebook%20de%20R%2417%20do%20Fato%20Indigesto%20(anima%C3%A7%C3%A3o%20de%20not%C3%ADcia%20com%20IA)." target="_blank" rel="noopener">Quero o ebook (R$ 17)</a>
+          <a class="btn ghost" href="ia.html">Ver outros prompts</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="who"><img src="assets/fato-indigesto/perfil.jpg" alt="Anderson Brito" width="54" height="54"> @andersonbrito.mp4</div>
+      <p>Fez a sua versão? Me marca que eu quero ver. Qual notícia você animaria primeiro?</p>
+      <p style="margin-top:8px"><a href="ia.html">Mais guias e prompts</a> · <a href="https://www.instagram.com/andersonbrito.mp4/" target="_blank" rel="noopener">Instagram</a></p>
+    </footer>
+  </div>
+
+  <script>
+  const STEPS = [
+    ['O roteiro indigesto', `<p>Comece pelo texto, não pelo desenho. Uma notícia de economia ou política contada em <b>30 a 50 segundos</b>, direto, com humor seco e uma pergunta no fim pra puxar comentário. A animação só fica boa quando a frase é clara: é ela que decide o que entra na tela.</p><ul><li>1 frase de gancho (o absurdo da notícia)</li><li>2 a 4 frases explicando o que mudou e pra quem</li><li>1 pergunta final ("?")</li></ul>`, `Escreva um roteiro de 40 segundos no estilo "Fato Indigesto": uma notícia de [ASSUNTO] contada de forma direta, com humor seco e sem lado partidário. Comece pelo absurdo da notícia, explique o que muda e pra quem, e termine com uma pergunta pro público. Só fatos confirmados; marque com [FONTE] cada número que eu preciso checar.`],
+    ['A sua voz (clonada)', `<p>Grave a narração ou gere com a <b>sua voz clonada</b>. Salve como <code>voz.wav</code> numa pasta de trabalho. Trocar a voz depois é só trocar esse arquivo — a animação se re-sincroniza sozinha no passo seguinte.</p>`, null, 'Se for voz clonada, mantenha o mesmo tom e ritmo entre os episódios: é o que dá cara de "canal".'],
+    ['Tempo por palavra', `<p>Esse é o truque que deixa tudo no ritmo. Um transcritor com timestamps (faster-whisper / mlx-whisper) lê a <code>voz.wav</code> e devolve o segundo exato em que cada palavra é dita. A animação usa isso pra fazer um elemento entrar bem na hora que a palavra é falada.</p>`, `Transcreva voz.wav com timestamps por palavra e salve em words.json como uma lista de objetos {"w":"palavra","s":segundo_inicio,"e":segundo_fim}. Use isso depois pra disparar cada elemento da animação na palavra certa.`],
+    ['O prompt completo (o motor)', `<p>Aqui está o coração: o prompt que eu colo no Claude Code pra ele montar a animação em <b>canvas</b> (código), no estilo da marca. Fundo papel creme, caricaturas chapadas, carimbo vermelho, uma cor de destaque por cena e tudo sincronizado com o <code>words.json</code>. Cola, troca o assunto e vai refinando por partes.</p>`, `Monte uma animação vertical 1080x1920 em um único index.html com canvas + JavaScript puro (sem bibliotecas), no estilo de desenho animado "flat" da minha marca. Regras:
+
+FUNDO (fixo em todas as cenas): papel creme #F0E9DB com grão sutil e uma grade leve de pontinhos; vinheta escura nos cantos; uma faixa de chão com uma linha vermelha #E23A2E embaixo. Desenhe isso uma vez num canvas offscreen e reaproveite.
+
+PALETA: cada cena tem uma cor de destaque (amarelo #FFD60A, laranja #FF9F43, azul #7FB2FF ou vermelho #FF5A4D). Use só UMA cor forte por cena, sobre o papel creme.
+
+PERSONAGENS (caricatura simples, "brasileiro comum"): corpo arredondado (retângulo de cantos bem redondos) + cabeça oval, 2 olhos, boca que muda entre feliz/triste/neutra, cabelo chapado. Nada de realismo. Reaproveite a mesma função pra todos.
+
+OBJETOS: moeda com "R$", nota de dinheiro, seta, balão de fala, carimbo vermelho com texto curto (tipo selo), e um "check" verde #1CA858 pra aprovação. Tudo em formas chapadas.
+
+SINCRONIA: carregue words.json e dispare cada entrada de elemento no segundo da palavra correspondente (função que acha o tempo da palavra). Animações com overshoot suave (easing tipo back/ease-out), nada robótico.
+
+RITMO: troca de cena/elemento a cada 1,5 a 3 segundos, com pop/scale na entrada e um flash curto no corte. Texto grande e curto (2 a 5 palavras) acompanhando a fala.
+
+SEGURANÇA DO REELS: nada importante nos 220px de cima nem nos 300px de baixo.
+
+SAÍDA: um canvas que roda sozinho ao abrir o HTML, com um loop de render por tempo (requestAnimationFrame + relógio próprio) pra eu capturar frame a frame depois. Comente o código em português. Me mostre primeiro a estrutura de cenas (lista de cena + tempo) antes de desenhar tudo.`, 'Refine em camadas: primeiro o fundo, depois os personagens, depois o movimento. Mexer em tudo junto quebra a cena.'],
+    ['A caricatura (opcional)', `<p>Quando a notícia tem uma pessoa específica, eu gero a caricatura dela no <b>ChatGPT</b> e uso como still dentro da animação. Prompt sempre em PT-BR, cena brasileira, pra manter o traço da marca.</p>`, `Crie uma caricatura em estilo flat/toon, formas chapadas e poucas cores, fundo transparente, de [PESSOA] — traço simpático e exagerado (cabeça maior), sem realismo. Paleta sóbria combinando com fundo de papel creme. Sem texto na imagem. Enquadramento de meio corpo, olhando pra frente.`],
+    ['Render + mix', `<p>Capture os frames do canvas, monte o vídeo mudo e junte com a voz, os efeitos sonoros (entrada de cada elemento) e uma trilha baixa — a voz sempre bem acima. Exporte em 9:16, 30fps, H.264.</p>`, `Capture os frames do canvas (1080x1920, 30fps) e gere um MP4 mudo com ffmpeg. Depois faça o mix: voz.wav por cima, efeitos sonoros curtos (whoosh/pop) na entrada dos elementos principais e uma trilha instrumental baixa (uns -20 dB) por baixo. A voz tem que ficar bem acima de tudo. Exporte em H.264, CRF 20, AAC, +faststart.`, 'Antes de entregar, confira uma grade com 1 quadro por segundo: dá pra ver se o ritmo e a sincronia bateram.'],
+  ];
+
+  const el = (tag, attrs = {}, ...kids) => { const e = document.createElement(tag); for (const [k, v] of Object.entries(attrs)) k === 'html' ? e.innerHTML = v : e.setAttribute(k, v); kids.forEach(k => e.append(k)); return e; };
+  const toc = document.getElementById('toc'), box = document.getElementById('passos'), total = STEPS.length;
+  STEPS.forEach(([title, body, prompt, tip], i) => {
+    const n = String(i + 1).padStart(2, '0'), id = 'passo-' + n;
+    toc.append(el('a', { href: '#' + id, html: `<span>${n}</span>${title}` }));
+    const card = el('article', { class: 'step', id });
+    card.append(el('div', { class: 'n', html: `> passo_${n} / ${String(total).padStart(2, '0')}` }), el('h3', {}, title), el('div', { html: body }));
+    if (prompt) {
+      const pre = el('pre', {}, prompt), b = el('button', { class: 'copy', type: 'button' }, 'Copiar prompt');
+      b.onclick = () => copyText(prompt, b);
+      card.append(el('div', { class: 'prompt' }, el('div', { class: 'bar', html: '<span class="dots"><i style="background:#ff5f56"></i><i style="background:#ffbd2e"></i><i style="background:#27c93f"></i></span><span>Prompt</span>' }), pre));
+      card.querySelector('.prompt .bar').append(b);
+    }
+    if (tip) card.append(el('div', { class: 'tip', html: `<b>Dica:</b> ${tip}` }));
+    box.append(card);
+  });
+  function copyText(t, b) { navigator.clipboard.writeText(t).then(() => { const o = b.textContent; b.textContent = 'Copiado'; b.classList.add('ok'); setTimeout(() => { b.textContent = o; b.classList.remove('ok'); }, 1600); }); }
+
+  const bar = document.getElementById('progress');
+  addEventListener('scroll', () => { const h = document.documentElement; bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%'; }, { passive: true });
+  </script>
+</body>
+</html>
