@@ -1,0 +1,39 @@
+{
+ "slug": "corte-no-ritmo-da-musica",
+ "dia": "2026-11-10",
+ "tipo": "educativo",
+ "titulo": "O corte no ritmo da música (o detalhe que faz o vídeo encaixar)",
+ "perfil": "@ilmarlabs",
+ "legenda": "Já reparou que o vídeo dos outros parece encaixar na música e o seu não? Quase sempre é isso: os cortes caem junto com a batida. É pequeno e muda tudo na sensação.\n\nMontei o passo a passo que eu uso, serve pro Premiere, CapCut ou DaVinci. Não precisa de plugin, só de ouvido.\n\nSalva pra usar na próxima edição e comenta qual trilha você mais usa pra cortar?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo de técnica de edição (sem ferramenta específica paga). Lâminas geradas no ChatGPT (Images 2.6), estilo pôster cinema × IA com timeline/forma de onda, PT-BR, sem rostos reais.",
+ "slides": [
+  {
+   "texto": "Por que o vídeo dos outros **encaixa** na música e o seu não?\n\nQuase sempre é o corte no beat.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/corte-no-ritmo-da-musica/01-hook.jpg", "foco": 0.4 },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A regra: os cortes **caem junto com a batida**.\n\nO olho gosta quando a imagem muda no mesmo instante que o som bate. Parece pouco, muda a sensação inteira.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/corte-no-ritmo-da-musica/02-regra.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Passo 1 — marque as batidas.\n\nOuça a trilha e ponha um marcador em cada batida forte. No Premiere, CapCut e DaVinci é só apertar **M** enquanto a música toca.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/corte-no-ritmo-da-musica/03-marcar.jpg", "foco": 0.4 },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 2 — corte nos marcadores.\n\nFaça cada troca de plano cair em cima de um marcador. Nos trechos rápidos, corte a cada **2 ou 4 batidas** pra não cansar.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/corte-no-ritmo-da-musica/04-cortar.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Passo 3 — respira.\n\nNem todo corte precisa bater. Deixe planos **mais longos** na parte calma e acelere na parte puxada. O contraste é o que prende.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/corte-no-ritmo-da-musica/05-respira.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Testa num Reels curto hoje e sente a diferença.\n\n**Salva** pra usar na próxima edição e **comenta** qual trilha você mais usa.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/corte-no-ritmo-da-musica/06-fim.jpg", "foco": 0.4 },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

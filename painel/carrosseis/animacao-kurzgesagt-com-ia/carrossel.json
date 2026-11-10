@@ -1,0 +1,44 @@
+{
+ "slug": "animacao-kurzgesagt-com-ia",
+ "dia": "2026-11-10",
+ "tipo": "educativo",
+ "titulo": "Como aproximar a animação estilo Kurzgesagt com IA (sem equipe)",
+ "perfil": "@ilmarlabs",
+ "legenda": "Aquele estilo de animação de ciência (formas chapadas, fundo escuro, um elemento entrando por vez) que leva muitas horas com uma equipe inteira dá pra PROTOTIPAR em minutos pedindo pra IA montar em código.\n\nNão fica igual ao canal original, mas serve de base pra você entrar com a sua narração e o seu ritmo. Montei o passo a passo do jeito que eu faço.\n\nSalva pra testar no próximo explicativo e manda pra quem anima contigo. Qual ideia você explicaria primeiro?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Inspirado em testes de animação por código que circularam no X (nov/2026)",
+   "url": "https://x.com"
+  }
+ ],
+ "notas": "Educativo. Técnica refeita com o jeito dele, sem copiar prompt de ninguém. Lâminas geradas no ChatGPT (Images 2.6), estilo flat minimalista (formas geométricas, 3 cores chapadas, fundo escuro) espelhando a estética ensinada, PT-BR, sem rostos reais.",
+ "slides": [
+  {
+   "texto": "Animação de ciência que levava **mil horas** com uma equipe inteira... dá pra prototipar em minutos com IA.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/01-hook.jpg", "foco": 0.4 },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A ideia: em vez de desenhar quadro a quadro, você descreve a cena e pede pra IA **montar a animação em código** (tipo SVG animado).\n\nNão fica igual ao canal, mas é uma base boa.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/02-ideia.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Passo 1 — roteiro curto.\n\nEscreva a cena em 3 frases: o que aparece, o que se move e a ideia que ela explica. A animação só fica boa quando a frase é clara.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/03-roteiro.jpg", "foco": 0.4 },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 2 — o prompt base (cola e adapta):\n\n**\"Crie uma animação em código, estilo flat minimalista, formas geométricas simples, 3 cores chapadas, fundo escuro, um elemento entrando por vez explicando [sua ideia]. Texto em português.\"**",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/04-prompt.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Passo 3 — refine em camadas.\n\nPeça uma coisa por vez: primeiro o fundo, depois os elementos, depois o movimento. Mexer em tudo junto quebra a cena.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/05-camadas.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Passo 4 — exporte e entre com a **sua narração** e o seu ritmo.\n\nSalva esse passo a passo pro próximo explicativo e manda pra quem anima contigo.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/06-fim.jpg", "foco": 0.4 },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

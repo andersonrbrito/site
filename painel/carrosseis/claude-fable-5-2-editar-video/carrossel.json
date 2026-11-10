@@ -1,0 +1,44 @@
+{
+ "slug": "claude-fable-5-2-editar-video",
+ "dia": "2026-11-10",
+ "tipo": "noticia",
+ "titulo": "A Anthropic lançou o Fable 5.2, o modelo que eu uso pra editar",
+ "perfil": "@ilmarlabs",
+ "legenda": "Ontem a Anthropic lançou o Claude Fable 5.2 (e o Mythos 5.2, de acesso restrito), os modelos mais fortes deles pra trabalho técnico pesado. O Fable já virou o padrão do Claude Code.\n\nPra mim importa porque é com ele que eu monto animação e corte chamando código. Não é mágica, ainda erra e precisa de revisão no olho, mas o rascunho que levava horas sai em minutos.\n\nVocê usaria IA pra montar o primeiro corte, ou só no acabamento?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Anthropic (anthropic.com/news), 09/11/2026.",
+ "fontes": [
+  {
+   "titulo": "Anthropic: Introducing Claude Fable 5.2 and Claude Mythos 5.2",
+   "url": "https://www.anthropic.com/news"
+  }
+ ],
+ "notas": "Todas as lâminas geradas no ChatGPT (Images 2.6), estilo pôster cinema × IA, verde Matrix, texto em PT-BR, sem rostos reais. Notícia confirmada na newsroom da Anthropic (anúncio de 09/11). Sem número de benchmark inventado.",
+ "slides": [
+  {
+   "texto": "Ontem a Anthropic lançou o **Claude Fable 5.2** — e é com ele que eu monto animação e corte por código.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-fable-5-2-editar-video/01-hook.jpg", "foco": 0.4 },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O que é: o **modelo mais forte** da Anthropic pra trabalho técnico pesado.\n\nMelhorou em código, finanças e ciência — e já virou o padrão do Claude Code.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-fable-5-2-editar-video/02-anuncio.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Na prática pra quem edita chamando código:\n\n• janela de **1 milhão de tokens** (ele lembra do projeto inteiro)\n• pensa mais onde o problema é mais difícil\n• fica mais estável em sessão longa",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-fable-5-2-editar-video/03-forca.jpg", "foco": 0.4 },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Veio junto o **Claude Mythos 5.2**, o irmão de acesso restrito.\n\nPra mim o recado é claro: editar chamando prompt e código deixou de ser gambiarra e virou fluxo.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-fable-5-2-editar-video/04-fluxo.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Não é mágica: ainda erra enquadramento, troca detalhe e precisa de **revisão no olho**.\n\nMas o rascunho que levava horas sai em minutos. Pode ser que eu esteja empolgado demais.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-fable-5-2-editar-video/05-revisao.jpg", "foco": 0.4 }
+  },
+  {
+   "texto": "Ainda tô testando no meu fluxo de motion e legenda.\n\n**Você usaria IA no primeiro corte, ou só no acabamento?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/claude-fable-5-2-editar-video/06-fim.jpg", "foco": 0.4 },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
