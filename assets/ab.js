@@ -8,6 +8,65 @@
   const ic = id => `<svg><use href="${ICONS}#${id}"/></svg>`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+  /* ── Idioma: português (padrão) e inglês ─────────────────── */
+  const EN = {
+    'Editor de vídeo': 'Video editor', 'Criador de conteúdo IA': 'AI content creator', 'Criador de conteúdo digital': 'Digital content creator',
+    'Agente da Skynet': 'Skynet agent', '| Especialista em conteúdo viral: +100 milhões de views nos últimos 6 meses.': '| Viral content specialist: 100M+ views in the last 6 months.',
+    'Fazer pedido': 'Start an order', 'Saber mais': 'About me', 'Início': 'Home', 'Contato': 'Contact', 'O que eu tenho feito': "What I've been up to",
+    '10 mil seguidores · 1,5 mi de views/mês': '10K followers · 1.5M views/month', 'Portfólio': 'Portfolio',
+    'Criativos, eventos, institucional, motion e IA. CV em PT e EN.': 'Ads, events, corporate, motion and AI. Resume in PT and EN.',
+    'Produtos': 'Products', 'Guias': 'Guides', 'Parcerias': 'Partners', 'Pedido': 'Order', 'Fazer um pedido': 'Start an order',
+    'Responda 5 perguntas rápidas e eu farei uma oferta que você não vai poder recusar.': "Answer 5 quick questions and I'll make you an offer you can't refuse.",
+    'Começar': 'Start', 'Criativos para o seu negócio': 'Ad creatives for your business', 'Pronto em 24h. 2 alterações inclusas.': 'Ready in 24h. 2 revisions included.',
+    'Vídeo de IA viral': 'Viral AI video', 'Seja um influencer artificial, ou tenha o seu.': 'Become an AI influencer, or get your own.',
+    'Direct response para tráfego pago.': 'Direct response for paid traffic.', 'Projetos com IA': 'AI projects', 'Personagens e campanhas com IA.': 'AI characters and campaigns.',
+    'Imagem e vídeo': 'Image and video', 'Imagem, vídeo e voz': 'Image, video and voice', 'X, LinkedIn e Threads': 'X, LinkedIn and Threads', 'Cortes com IA': 'AI clips',
+    'Guias e prompts grátis': 'Free guides and prompts', 'Editar com IA, carrossel, restauração 4K.': 'AI editing, carousels, 4K restoration.',
+    'Por onde passei': "Where I've worked", 'Vice-Presidência': 'Vice-Presidency', 'Comunicação institucional': 'Corporate communications',
+    'Criativos e eventos': 'Ads and events', 'Criador de conteúdo': 'Content creator', 'IA generativa': 'Generative AI', 'Formação': 'Education',
+    'Executive MBA e Bacharelado': "Executive MBA and Bachelor's", 'Marketing e mídias digitais': 'Marketing and digital media', 'Certificação': 'Certificate',
+    'Cinema e direção': 'Film and directing', 'Centro Universitário': 'University Center', 'Comunicação audiovisual': 'Audiovisual communication',
+    '© 2026 Anderson Brito · Alphaville, SP': '© 2026 Anderson Brito · São Paulo, Brazil', 'Privacidade': 'Privacy', 'Sobre': 'About',
+    'Sequência 01': 'Sequence 01', 'Sequência 02': 'Sequence 02', 'Fotos': 'Photos', 'Islândia': 'Iceland', 'Acima das nuvens': 'Above the clouds',
+    'Fotógrafo': 'Photographer', 'Estúdio': 'Studio', 'Trajetória': 'Career', 'Vídeo': 'Video', 'Ativar som': 'Unmute', 'Silenciar': 'Mute',
+    '+100 mi': '100M+', 'views em 6 meses': 'views in 6 months', '1,5 mi': '1.5M', 'views por mês no IG': 'monthly IG views', '10+ anos': '10+ years',
+    'de audiovisual': 'in film and video', 'Atual': 'Now', 'Desde 2015': 'Since 2015',
+    'Conteúdo com IA generativa, do roteiro à publicação. Vídeos virais para CazéTV e TNT Sports.': 'Generative AI content, from script to publishing. Viral videos for CazéTV and TNT Sports.',
+    'Criativos, Reels, videoaulas e eventos para cerca de 200 franquias.': 'Ads, Reels, video lessons and events for about 200 franchises.',
+    'Editor e produtor': 'Editor and producer', 'Criativos, VSL e direct response para Instagram, TikTok e YouTube.': 'Ads, VSLs and direct response for Instagram, TikTok and YouTube.',
+    'FGV · Vice-Presidência': 'FGV · Vice-Presidency', 'Redes sociais, site, palestras, entrevistas e audiências públicas.': 'Social media, website, talks, interviews and public hearings.',
+    'Shows, esportes, eventos e retratos.': 'Concerts, sports, events and portraits.', 'Gestão com ênfase em marketing e mídias digitais.': 'Management with a focus on marketing and digital media.',
+    'Bacharelado em Marketing': "Bachelor's in Marketing", 'Redes': 'Social', 'Ferramentas de IA': 'AI tools', 'Mais': 'More', 'Pronto em 24h': 'Ready in 24h',
+    'Seja um influencer artificial, ou tenha o seu': 'Become an AI influencer, or get your own', 'Personagens e campanhas': 'Characters and campaigns',
+    'Vídeo de apresentação e trajetória': 'Intro video and career', 'Trabalhos e CV': 'Work and resume', 'Editar com IA, carrossel, restauração 4K': 'AI editing, carousels, 4K restoration',
+    'Entrar no site': 'Visit the website', 'Ganhe treinando robôs': 'Get paid to train robots', 'Loja': 'Shop', 'Carreira': 'Career', 'Estudos': 'Studies'
+  };
+  const TITLES = {
+    '/': 'Anderson Brito — Video Editor, Motion and AI | Viral Content, Ads and VSL',
+    '/bio/': 'Bio — Anderson Brito | Video Editor, Viral Content and AI',
+    '/links/': 'Links — Anderson Brito'
+  };
+  let LANG = 'pt';
+  try { LANG = new URLSearchParams(location.search).get('lang') || localStorage.getItem('ab_lang') || 'pt'; } catch {}
+  if (LANG !== 'en') LANG = 'pt';
+  const tr = (pt, en) => (LANG === 'en' ? en : pt);
+  const ptText = new WeakMap(), ptTitle = document.title;
+  const applyLang = () => {
+    document.documentElement.lang = LANG === 'en' ? 'en' : 'pt-BR';
+    document.title = LANG === 'en' ? (TITLES[location.pathname] || ptTitle) : ptTitle;
+    const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => (n.parentElement && !n.parentElement.closest('script,style,.pills,.sheet-wrap,[data-en-html]') ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT) });
+    for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+      if (!ptText.has(n)) { const k = n.nodeValue.trim(); if (!EN[k]) continue; ptText.set(n, n.nodeValue); }
+      const pt = ptText.get(n), k = pt.trim();
+      n.nodeValue = LANG === 'en' ? pt.replace(k, EN[k]) : pt;
+    }
+    $$('[data-en-html]').forEach(el => { if (!el.dataset.ptHtml) el.dataset.ptHtml = el.innerHTML; el.innerHTML = LANG === 'en' ? el.dataset.enHtml : el.dataset.ptHtml; });
+    $$('[data-s]').forEach(el => { if (!el.dataset.sPt) el.dataset.sPt = el.dataset.s; el.dataset.s = LANG === 'en' ? (EN[el.dataset.sPt] || el.dataset.sPt) : el.dataset.sPt; });
+    $$('[data-lang-toggle]').forEach(b => { b.textContent = LANG === 'en' ? 'PT' : 'EN'; b.setAttribute('aria-label', LANG === 'en' ? 'Mudar para português' : 'Switch to English'); });
+    document.dispatchEvent(new CustomEvent('ab:lang', { detail: LANG }));
+  };
+  window.abLang = () => LANG;
+
   /* ── Chuva de código (Matrix) ───────────────────────────── */
   const GLYPHS = 'アイウエオカキクケコサシスセソタチツテト01ABRITO<>/{}=+*';
   const rain = (cv, o) => {
@@ -85,14 +144,14 @@
   /* ── Pedido: primeiro a escolha das pílulas, depois o formulário ── */
   const PILLS = {
     red: {
-      nome: 'Edição de vídeo', cor: 'var(--red-pill)', emoji: '🔴',
-      servicos: [['🎯', 'Criativos pra anúncio'], ['🎬', 'VSL'], ['📱', 'Reels e conteúdo recorrente'], ['✨', 'Vídeo motion'], ['🎤', 'Cobertura de evento'], ['📷', 'Fotografia'], ['💬', 'Outro']],
-      material: [['✅', 'Sim, tenho o bruto'], ['🧩', 'Tenho uma parte'], ['🎥', 'Não, preciso gravar'], ['🤔', 'Ainda não sei']]
+      nome: ['Edição de vídeo', 'Video editing'], cor: 'var(--red-pill)', emoji: '🔴',
+      servicos: [['🎯', 'Criativos pra anúncio', 'Ad creatives'], ['🎬', 'VSL', 'VSL'], ['📱', 'Reels e conteúdo recorrente', 'Reels and recurring content'], ['✨', 'Vídeo motion', 'Motion video'], ['🎤', 'Cobertura de evento', 'Event coverage'], ['📷', 'Fotografia', 'Photography'], ['💬', 'Outro', 'Other']],
+      material: [['✅', 'Sim, tenho o bruto', 'Yes, I have raw footage'], ['🧩', 'Tenho uma parte', 'I have some of it'], ['🎥', 'Não, preciso gravar', 'No, it needs to be shot'], ['🤔', 'Ainda não sei', 'Not sure yet']]
     },
     blue: {
-      nome: 'Vídeos com IA', cor: 'var(--blue-pill)', emoji: '🔵',
-      servicos: [['🔥', 'Vídeo viral com IA'], ['🧑‍🎤', 'Influencer ou personagem de IA'], ['📣', 'Anúncio com IA'], ['🎞️', 'Clipe ou trailer com IA'], ['🏪', 'Vídeo de IA pro meu negócio'], ['💬', 'Outro']],
-      material: [['🖼️', 'Tenho fotos e vídeos da marca'], ['💡', 'Tenho só a ideia'], ['🎨', 'Quero que você crie a ideia'], ['🤔', 'Ainda não sei']]
+      nome: ['Vídeos com IA', 'AI videos'], cor: 'var(--blue-pill)', emoji: '🔵',
+      servicos: [['🔥', 'Vídeo viral com IA', 'Viral AI video'], ['🧑‍🎤', 'Influencer ou personagem de IA', 'AI influencer or character'], ['📣', 'Anúncio com IA', 'AI ad'], ['🎞️', 'Clipe ou trailer com IA', 'AI music video or trailer'], ['🏪', 'Vídeo de IA pro meu negócio', 'AI video for my business'], ['💬', 'Outro', 'Other']],
+      material: [['🖼️', 'Tenho fotos e vídeos da marca', 'I have brand photos and videos'], ['💡', 'Tenho só a ideia', 'I only have the idea'], ['🎨', 'Quero que você crie a ideia', 'I want you to create the idea'], ['🤔', 'Ainda não sei', 'Not sure yet']]
     }
   };
   const PILL_POS = { red: [25.8, 65], blue: [76, 65.5] }; // centro de cada pílula na imagem, em %
@@ -104,15 +163,15 @@
     el.className = 'pills';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-modal', 'true');
-    el.setAttribute('aria-label', 'Escolha uma pílula');
+    el.setAttribute('aria-label', tr('Escolha uma pílula', 'Choose a pill'));
     el.innerHTML = `
-      <button class="pills-x" type="button" aria-label="Fechar">${ic('i-x')}</button>
+      <button class="pills-x" type="button" aria-label="${tr('Fechar', 'Close')}">${ic('i-x')}</button>
       <div class="pills-stage">
-        <img src="/assets/cine/pilulas.jpg" alt="Duas mãos estendidas, uma com a pílula vermelha e outra com a azul" draggable="false">
+        <img src="/assets/cine/pilulas.jpg" alt="${tr('Duas mãos estendidas, uma com a pílula vermelha e outra com a azul', 'Two outstretched hands, one holding the red pill and the other the blue pill')}" draggable="false">
         <div class="pills-dark"></div>
         <div class="pills-glow"></div>
-        <button class="pill-hit red" type="button" style="left:${PILL_POS.red[0]}%;top:${PILL_POS.red[1]}%" aria-label="Pílula vermelha: edição de vídeo"><span class="pill-label">Edição de vídeo</span></button>
-        <button class="pill-hit blue" type="button" style="left:${PILL_POS.blue[0]}%;top:${PILL_POS.blue[1]}%" aria-label="Pílula azul: vídeos com IA"><span class="pill-label">Vídeos com IA</span></button>
+        <button class="pill-hit red" type="button" style="left:${PILL_POS.red[0]}%;top:${PILL_POS.red[1]}%" aria-label="${tr('Pílula vermelha: edição de vídeo', 'Red pill: video editing')}"><span class="pill-label">${tr('Edição de vídeo', 'Video editing')}</span></button>
+        <button class="pill-hit blue" type="button" style="left:${PILL_POS.blue[0]}%;top:${PILL_POS.blue[1]}%" aria-label="${tr('Pílula azul: vídeos com IA', 'Blue pill: AI videos')}"><span class="pill-label">${tr('Vídeos com IA', 'AI videos')}</span></button>
       </div>
       <canvas class="fx" aria-hidden="true"></canvas>
       <div class="pills-flash"></div>
@@ -246,19 +305,23 @@
   };
   const sync = () => { $('#shNext', sheet).disabled = !valid(); };
 
+  const L = o => (Array.isArray(o) ? tr(o[0], o[1]) : o);
+  const opts = arr => arr.map(([e, pt, en]) => [e, en ? tr(pt, en) : pt]);
+
   const message = () => {
     const p = PILLS[state.pill];
-    const opt = [['Empresa / @', state.empresa], ['Referência', state.ref]].filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`);
+    const opt = [[tr('Empresa / @', 'Company / @'), state.empresa], [tr('Referência', 'Reference'), state.ref]].filter(([, v]) => v.trim()).map(([k, v]) => `${k}: ${v.trim()}`);
     return [
-      `Oi Anderson! Vim do site e tomei a pílula ${state.pill === 'red' ? 'vermelha' : 'azul'} ${p.emoji} (${p.nome.toLowerCase()}).`,
+      tr(`Oi Anderson! Vim do site e tomei a pílula ${state.pill === 'red' ? 'vermelha' : 'azul'} ${p.emoji} (${L(p.nome).toLowerCase()}).`,
+         `Hi Anderson! I came from your website and took the ${state.pill === 'red' ? 'red' : 'blue'} pill ${p.emoji} (${L(p.nome).toLowerCase()}).`),
       '',
-      `• Preciso de: ${state.servicos.join(', ')}`,
-      `• Prazo: ${state.prazo}`,
-      `• Volume: ${state.volume}`,
-      `• Material: ${state.material}`,
-      `• Investimento: ${state.verba}`,
+      `• ${tr('Preciso de', 'I need')}: ${state.servicos.join(', ')}`,
+      `• ${tr('Prazo', 'Deadline')}: ${state.prazo}`,
+      `• ${tr('Volume', 'Volume')}: ${state.volume}`,
+      `• ${tr('Material', 'Footage')}: ${state.material}`,
+      `• ${tr('Investimento', 'Budget')}: ${state.verba}`,
       '',
-      `Nome: ${state.nome.trim()}`,
+      `${tr('Nome', 'Name')}: ${state.nome.trim()}`,
       ...opt,
       ...(state.msg.trim() ? ['', state.msg.trim()] : [])
     ].join('\n');
@@ -268,17 +331,17 @@
     const body = $('#shBody', sheet), prog = $('#prog', sheet), next = $('#shNext', sheet), back = $('#shBack', sheet);
     const total = steps.length + 1;
     $$('i', prog).forEach((b, i) => b.classList.toggle('on', i <= cur));
-    $('#shCount', sheet).textContent = `PASSO ${cur + 1} DE ${total}`;
-    back.textContent = cur === 0 ? 'Trocar pílula' : 'Voltar';
+    $('#shCount', sheet).textContent = tr(`PASSO ${cur + 1} DE ${total}`, `STEP ${cur + 1} OF ${total}`);
+    back.textContent = cur === 0 ? tr('Trocar pílula', 'Switch pill') : tr('Voltar', 'Back');
     if (cur < steps.length) {
       const st = steps[cur];
-      next.textContent = 'Continuar';
+      next.textContent = tr('Continuar', 'Continue');
       if (st.form) {
-        body.innerHTML = `<div class="q">${st.q}</div><div class="q-hint">Só o nome é obrigatório.</div>
-          <div class="field"><label for="fNome">Nome</label><input id="fNome" autocomplete="name" value="${esc(state.nome)}" placeholder="Como posso te chamar?"></div>
-          <div class="field"><label for="fEmp">Empresa ou @ do Instagram</label><input id="fEmp" autocomplete="organization" value="${esc(state.empresa)}" placeholder="Opcional"></div>
-          <div class="field"><label for="fRef">Link de referência</label><input id="fRef" inputmode="url" value="${esc(state.ref)}" placeholder="Um vídeo que você gosta (opcional)"></div>
-          <div class="field"><label for="fMsg">Conte mais</label><textarea id="fMsg" placeholder="Produto, público, objetivo... (opcional)">${esc(state.msg)}</textarea></div>`;
+        body.innerHTML = `<div class="q">${st.q}</div><div class="q-hint">${tr('Só o nome é obrigatório.', 'Only your name is required.')}</div>
+          <div class="field"><label for="fNome">${tr('Nome', 'Name')}</label><input id="fNome" autocomplete="name" value="${esc(state.nome)}" placeholder="${tr('Como posso te chamar?', 'What should I call you?')}"></div>
+          <div class="field"><label for="fEmp">${tr('Empresa ou @ do Instagram', 'Company or Instagram @')}</label><input id="fEmp" autocomplete="organization" value="${esc(state.empresa)}" placeholder="${tr('Opcional', 'Optional')}"></div>
+          <div class="field"><label for="fRef">${tr('Link de referência', 'Reference link')}</label><input id="fRef" inputmode="url" value="${esc(state.ref)}" placeholder="${tr('Um vídeo que você gosta (opcional)', 'A video you like (optional)')}"></div>
+          <div class="field"><label for="fMsg">${tr('Conte mais', 'Tell me more')}</label><textarea id="fMsg" placeholder="${tr('Produto, público, objetivo... (opcional)', 'Product, audience, goal... (optional)')}">${esc(state.msg)}</textarea></div>`;
         [['fNome', 'nome'], ['fEmp', 'empresa'], ['fRef', 'ref'], ['fMsg', 'msg']].forEach(([id, k]) => $('#' + id, body).addEventListener('input', e => { state[k] = e.target.value; sync(); }));
       } else {
         const sel = v => st.multi ? state[st.k].includes(v) : state[st.k] === v;
@@ -300,12 +363,12 @@
         }));
       }
     } else {
-      next.textContent = 'Enviar no WhatsApp';
-      const rows = [['Escolha', PILLS[state.pill].nome], ['Preciso de', state.servicos.join(', ')], ['Prazo', state.prazo], ['Volume', state.volume], ['Material', state.material], ['Investimento', state.verba], ['Nome', state.nome]];
-      if (state.empresa.trim()) rows.push(['Empresa', state.empresa]);
-      body.innerHTML = `<div class="q">Resumo</div><div class="q-hint">Abre o WhatsApp com a mensagem pronta.</div>
+      next.textContent = tr('Enviar no WhatsApp', 'Send on WhatsApp');
+      const rows = [[tr('Escolha', 'Choice'), L(PILLS[state.pill].nome)], [tr('Preciso de', 'I need'), state.servicos.join(', ')], [tr('Prazo', 'Deadline'), state.prazo], [tr('Volume', 'Volume'), state.volume], [tr('Material', 'Footage'), state.material], [tr('Investimento', 'Budget'), state.verba], [tr('Nome', 'Name'), state.nome]];
+      if (state.empresa.trim()) rows.push([tr('Empresa', 'Company'), state.empresa]);
+      body.innerHTML = `<div class="q">${tr('Resumo', 'Summary')}</div><div class="q-hint">${tr('Abre o WhatsApp com a mensagem pronta.', 'Opens WhatsApp with the message ready.')}</div>
         <div class="list sum">${rows.map(([k, v]) => `<div class="row"><span class="row-t"><span>${k}</span><b>${esc(v)}</b></span></div>`).join('')}</div>
-        <p class="q-hint" style="margin-top:14px">Prefere e-mail? <a style="color:var(--matrix)" href="mailto:contato@andersonbrito.com?subject=${encodeURIComponent('Pedido pelo site — ' + state.nome.trim())}&body=${encodeURIComponent(message())}">Enviar por e-mail</a></p>`;
+        <p class="q-hint" style="margin-top:14px">${tr('Prefere e-mail?', 'Prefer email?')} <a style="color:var(--matrix)" href="mailto:contato@andersonbrito.com?subject=${encodeURIComponent(tr('Pedido pelo site — ', 'Website order — ') + state.nome.trim())}&body=${encodeURIComponent(message())}">${tr('Enviar por e-mail', 'Send by email')}</a></p>`;
     }
     body.scrollTop = 0;
     sync();
@@ -317,18 +380,18 @@
     state.pill = pill;
     const p = PILLS[pill];
     steps = [
-      { k: 'servicos', q: 'O que você precisa?', hint: 'Pode marcar mais de uma opção.', multi: true, two: true, opts: p.servicos },
-      { k: 'prazo', q: 'Pra quando?', opts: [['⚡', 'Urgente (até 3 dias)'], ['📅', 'Nesta semana'], ['🗓️', 'Neste mês'], ['🌿', 'Sem pressa']] },
-      { k: 'volume', q: 'Quantos vídeos?', opts: [['1️⃣', '1 vídeo'], ['🔢', 'De 2 a 5'], ['📦', 'De 6 a 10'], ['🔁', 'Recorrente todo mês']] },
-      { k: 'material', q: pill === 'red' ? 'Já tem material gravado?' : 'O que você já tem?', opts: p.material },
-      { k: 'verba', q: 'Quanto pretende investir?', opts: [['💵', 'Até R$ 500'], ['💰', 'R$ 500 a R$ 1.500'], ['🏦', 'R$ 1.500 a R$ 5.000'], ['🚀', 'Acima de R$ 5.000'], ['📝', 'Prefiro receber um orçamento']] },
-      { k: 'dados', q: 'Seus dados', form: true }
+      { k: 'servicos', q: tr('O que você precisa?', 'What do you need?'), hint: tr('Pode marcar mais de uma opção.', 'You can pick more than one.'), multi: true, two: true, opts: opts(p.servicos) },
+      { k: 'prazo', q: tr('Pra quando?', 'When do you need it?'), opts: opts([['⚡', 'Urgente (até 3 dias)', 'Urgent (within 3 days)'], ['📅', 'Nesta semana', 'This week'], ['🗓️', 'Neste mês', 'This month'], ['🌿', 'Sem pressa', 'No rush']]) },
+      { k: 'volume', q: tr('Quantos vídeos?', 'How many videos?'), opts: opts([['1️⃣', '1 vídeo', '1 video'], ['🔢', 'De 2 a 5', '2 to 5'], ['📦', 'De 6 a 10', '6 to 10'], ['🔁', 'Recorrente todo mês', 'Monthly, ongoing']]) },
+      { k: 'material', q: pill === 'red' ? tr('Já tem material gravado?', 'Do you have footage?') : tr('O que você já tem?', 'What do you have so far?'), opts: opts(p.material) },
+      { k: 'verba', q: tr('Quanto pretende investir?', "What's your budget?"), opts: opts([['💵', 'Até R$ 500', 'Up to R$ 500'], ['💰', 'R$ 500 a R$ 1.500', 'R$ 500 to R$ 1,500'], ['🏦', 'R$ 1.500 a R$ 5.000', 'R$ 1,500 to R$ 5,000'], ['🚀', 'Acima de R$ 5.000', 'Over R$ 5,000'], ['📝', 'Prefiro receber um orçamento', "I'd rather get a quote"]]) },
+      { k: 'dados', q: tr('Seus dados', 'Your details'), form: true }
     ];
     cur = 0;
     sheet.dataset.pill = pill;
     sheet.style.setProperty('--pc', p.cor);
     $('.sh-title i', sheet).style.background = p.cor;
-    $('.sh-title span', sheet).textContent = p.nome;
+    $('.sh-title span', sheet).textContent = L(p.nome);
     $('#prog', sheet).innerHTML = steps.map(() => '<i></i>').join('') + '<i></i>';
     render();
     sheet.classList.add('open');
@@ -348,5 +411,16 @@
     if (sheet && sheet.classList.contains('open')) closeSheet();
     else if (scene && scene.classList.contains('show')) closeScene();
   });
+
+  // Botão de idioma (canto da faixa superior): troca na hora e lembra a escolha.
+  // A cena das pílulas e o formulário são montados de novo no idioma escolhido.
+  $$('[data-lang-toggle]').forEach(b => b.addEventListener('click', () => {
+    LANG = LANG === 'en' ? 'pt' : 'en';
+    try { localStorage.setItem('ab_lang', LANG); } catch {}
+    if (scene) { scene.parentNode.removeChild(scene); scene = null; }
+    if (sheet) { sheet.parentNode.removeChild(sheet); sheet = null; state.servicos = []; state.prazo = state.volume = state.material = state.verba = ''; }
+    applyLang();
+  }));
+  applyLang();
   if (location.hash === '#pedido-guiado') openScene();
 })();

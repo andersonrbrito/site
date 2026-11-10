@@ -7,6 +7,7 @@ const AFILIADOS = [
   { nome: "Otto", desc: "Rascunho e publicação no X, LinkedIn e Threads", link: "https://otto.doti.gg/r/01a18caedc21766d8a697836e4b8a8a8", painel: "https://otto.doti.gg/affiliates" },
   { nome: "Magnific", desc: "Imagem, vídeo e voz com IA (Seedream 5 Pro, Kling, ElevenLabs)", link: "https://referral.magnific.com/mzZgkW9", cupom: "GMRPOCT52142" },
   { nome: "Real Oficial", desc: "Indicação Real Oficial", link: "https://realoficial.com.br?ref=anderson-483bc4", painel: "https://realoficial.firstpromoter.com/home" },
+  { nome: "Hub", desc: "Hub Data: ganhe treinando robôs", link: "https://app.hub.xyz/r/VWTC5J4R" },
 ];
 
 export default async function afiliacoes() {

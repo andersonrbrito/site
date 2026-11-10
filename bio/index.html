@@ -26,9 +26,10 @@
   <canvas id="bgRain" class="bg-rain" aria-hidden="true"></canvas>
 
   <div class="wrap">
-    <header class="banner" aria-hidden="true">
+    <header class="banner">
       <img src="/assets/cine/mitty-banner.jpg" alt="" fetchpriority="high">
-      <canvas id="rain"></canvas>
+      <canvas id="rain" aria-hidden="true"></canvas>
+      <button class="lang" type="button" data-lang-toggle aria-label="Switch to English">EN</button>
     </header>
 
     <div class="layout">
@@ -40,16 +41,16 @@
           <h1 class="name">Anderson Brito</h1>
           <div class="role">
             <span class="tag"><i style="background:var(--c-iris)"></i>Editor de vídeo</span>
-            <span class="tag"><i style="background:var(--c-violet)"></i>Motion</span>
-            <span class="tag"><i style="background:var(--matrix)"></i>IA</span>
+            <span class="tag"><i style="background:var(--matrix)"></i>Criador de conteúdo IA</span>
           </div>
           <div class="bio">
-            <p><b>Agente da Skynet</b> infiltrado na internet, colaborando com o fim dela. Um vídeo de IA por vez.</p>
-            <p>Especialista em <b>conteúdo viral</b>: +100 milhões de views nos últimos 6 meses.</p>
+            <p>Criador de conteúdo digital</p>
+            <p><b>Agente da Skynet</b> | Especialista em conteúdo viral: +100 milhões de views nos últimos 6 meses.</p>
           </div>
           <div class="actions">
+            <button class="btn btn-pr span2" type="button" data-open-form>Fazer pedido</button>
             <a class="btn btn-ghost" href="/">Início</a>
-            <button class="btn btn-pr" type="button" data-open-form>Fazer pedido</button>
+            <a class="btn btn-ghost" href="/links/">Links</a>
           </div>
         </section>
 
@@ -128,9 +129,9 @@
               <button class="reel-sound" type="button" id="reelSound" aria-pressed="false">Ativar som</button>
             </div>
             <div class="card prose">
-              <p>Filmmaker, editor e fotógrafo há <b>mais de 10 anos</b>. Comecei atrás de uma câmera em 2015, fotografando shows de rock underground, esportes e retratos.</p>
-              <p>Cuidei da comunicação da <b>Vice-Presidência da FGV</b>, editei para cerca de <b>200 franquias</b> na Escola do Franchising e hoje crio conteúdo com IA na <b>Doti</b>, com vídeos virais para CazéTV e TNT Sports.</p>
-              <p>Oficialmente, editor de vídeo. Extraoficialmente, agente da Skynet acelerando o fim da internet, um vídeo de IA por vez.</p>
+              <p data-en-html="Filmmaker, editor and photographer for &lt;b&gt;over 10 years&lt;/b&gt;. I started behind a camera in 2015, shooting underground rock concerts, sports and portraits.">Filmmaker, editor e fotógrafo há <b>mais de 10 anos</b>. Comecei atrás de uma câmera em 2015, fotografando shows de rock underground, esportes e retratos.</p>
+              <p data-en-html="I ran communications for the &lt;b&gt;Vice-Presidency of FGV&lt;/b&gt;, edited for about &lt;b&gt;200 franchises&lt;/b&gt; at Escola do Franchising, and today I create AI content at &lt;b&gt;Doti&lt;/b&gt;, with viral videos for CazéTV and TNT Sports.">Cuidei da comunicação da <b>Vice-Presidência da FGV</b>, editei para cerca de <b>200 franquias</b> na Escola do Franchising e hoje crio conteúdo com IA na <b>Doti</b>, com vídeos virais para CazéTV e TNT Sports.</p>
+              <p data-en-html="Officially, a video editor. Unofficially, a Skynet agent speeding up the end of the internet, one AI video at a time.">Oficialmente, editor de vídeo. Extraoficialmente, agente da Skynet acelerando o fim da internet, um vídeo de IA por vez.</p>
               <div class="nums">
                 <div><b>+100 mi</b><span>views em 6 meses</span></div>
                 <div><b>1,5 mi</b><span>views por mês no IG</span></div>
@@ -202,7 +203,8 @@
       b.addEventListener('click', () => {
         v.muted = !v.muted;
         if (!v.muted) { v.currentTime = 0; v.play(); }
-        b.textContent = v.muted ? 'Ativar som' : 'Silenciar';
+        const en = window.abLang && window.abLang() === 'en';
+        b.textContent = v.muted ? (en ? 'Unmute' : 'Ativar som') : (en ? 'Mute' : 'Silenciar');
         b.setAttribute('aria-pressed', String(!v.muted));
       });
     })();

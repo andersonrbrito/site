@@ -182,7 +182,7 @@ a.row:hover { background: rgba(65,255,138,.05); }
 .prod-b p { color: var(--muted); font-size: 13.5px; }
 
 /* Afiliados: botões pequenos com logo */
-.aff { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 14px; }
+.aff { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 14px; }
 .aff a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: var(--r-md); background: var(--card); border: 1px solid var(--line); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); transition: border-color .2s, transform .15s; min-width: 0; }
 .aff a:hover { border-color: rgba(65,255,138,.4); }
 .aff a:active { transform: scale(.97); }
@@ -426,3 +426,16 @@ footer a:hover { color: var(--ink); }
 .lk .partners { justify-content: center; margin-top: 0; }
 .lk-foot { text-align: center; color: var(--faint); font-size: 12px; margin-top: 6px; }
 .lk-foot a { color: var(--muted); }
+
+/* ── 09/11 (3): ações da coluna, logos de "Por onde passei", botão de idioma ── */
+.actions .span2 { grid-column: 1 / -1; }
+.logo .lg { height: 26px; width: auto; max-width: 100%; object-fit: contain; filter: brightness(0) invert(1); opacity: .88; }
+.logo .lg-xf { height: 15px; }
+.logo .lg-ic { height: 46px; }
+.wm-d0t1 { font: 800 24px/1 var(--mono); letter-spacing: .08em; }
+.lang { position: absolute; top: 10px; right: 10px; z-index: 3; height: 30px; min-width: 44px; padding: 0 12px; border-radius: 999px; font: 600 12px/1 var(--mono); letter-spacing: .06em; color: #fff; background: rgba(0,0,0,.45); border: 1px solid rgba(255,255,255,.18); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); cursor: pointer; transition: background .2s, border-color .2s; }
+.lang:hover { background: rgba(0,0,0,.6); border-color: rgba(65,255,138,.5); }
+@media (max-width: 640px) { .logo .lg { height: 20px; } .logo .lg-xf { height: 11px; } .logo .lg-ic { height: 38px; } .wm-d0t1 { font-size: 18px; } }
+.logo .wm:has(.lg-ic) { height: 60px; margin: -7px 0; }
+.logo .lg-ic { height: 60px; }
+@media (max-width: 640px) { .logo .wm:has(.lg-ic) { height: 46px; margin: -4px 0; } .logo .lg-ic { height: 46px; } }
