@@ -1,0 +1,29 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Lâminas (prévia local)</title>
+<style>html,body{margin:0;background:#0B0C0E}canvas{display:block}</style></head><body>
+<script type="module">
+  // Prévia local das lâminas do CarrosseL_ (só teste, sem banco):
+  //   laminas.html?slugs=a,b,c&escala=0.4  → uma linha por carrossel
+  //   laminas.html?slugs=a&i=0             → só a lâmina 1 em 1080x1350
+  import { W, H, loadFonts, loadImage, draw, PERFIL } from "../js/carrossel-render.js";
+  const q = new URLSearchParams(location.search);
+  const slugs = (q.get("slugs") || "claude-financas-pessoais").split(",");
+  const only = q.has("i") ? +q.get("i") : null, k = only === null ? +(q.get("escala") || 0.4) : 1, gap = only === null ? 24 : 0;
+  await loadFonts();
+  const avatar = await loadImage(PERFIL.avatar);
+  const cs = await Promise.all(slugs.map((s) => fetch(`/painel/carrosseis/${s}/carrossel.json`).then((r) => r.json())));
+  const cols = only === null ? Math.max(...cs.map((c) => c.slides.length)) : 1;
+  const sheet = Object.assign(document.createElement("canvas"), { width: gap + cols * (W * k + gap), height: gap + cs.length * (H * k + gap) });
+  const sx = sheet.getContext("2d"); sx.fillStyle = "#050607"; sx.fillRect(0, 0, sheet.width, sheet.height);
+  const big = Object.assign(document.createElement("canvas"), { width: W, height: H }), bx = big.getContext("2d");
+  for (const [r, c] of cs.entries()) {
+    const idxs = only === null ? c.slides.map((_, i) => i) : [only];
+    for (const [col, i] of idxs.entries()) {
+      const s = c.slides[i], m = s.midia;
+      const media = m ? await loadImage(m.tipo === "video" ? m.poster : m.src) : null;
+      draw(bx, s, i, { avatar, media, poster: media }, { total: c.slides.length, tipo: c.tipo });
+      sx.drawImage(big, gap + col * (W * k + gap), gap + r * (H * k + gap), W * k, H * k);
+    }
+  }
+  document.body.append(sheet);
+  document.title = "pronto";
+</script></body></html>

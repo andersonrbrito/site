@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-11-09 · CarrosseL_: lâminas com a estética do site
+- `js/carrossel-render.js` redesenhado com os tokens de `assets/ab.css`: fundo #0B0C0E com grade de pontos verdes (22 px) e brilhos verdes nos cantos, cartão de vidro (rgba(24,27,28,.74), borda fina, cantos grandes), texto #F2F2F7 e apoio #A1A6AA, SF Pro/Inter nos textos e JetBrains Mono nos rótulos (maiúsculas, espaçamento .09em). Fim do visual de print de tweet branco.
+- Topo com chip do tipo (Notícia, Educativo, Pessoal) e contador "01 / 07"; avatar com anel verde, selo verde com check escuro, @ em mono; **negrito** em verde Matrix (na lâmina 1, marca-texto verde com tinta #03200F); crédito da mídia numa pílula escura; rodapé ("arrasta pro lado →", CTAs, "comenta aqui embaixo ↓") numa pílula de contorno verde; botão de play verde nas lâminas com vídeo. Mesmas safe zones e mesmo formato 1080×1350.
+- `draw()` e `recordVideoSlide()` aceitam `info = { total, tipo }` (opcional); a view passa o tipo e o total. Prévias com fundo escuro em `css/painel.css`.
+- `dev/laminas.html`: prévia local das lâminas de carrosséis do repositório (grade ou lâmina única em 1080×1350), para conferir o visual sem banco.
+- Rotinas `carrosseis-diarios-ilmarlabs` e `carrosseis/ROTINA-PEDIDOS.md` atualizadas: visual novo, negrito econômico e imagens geradas no clima cinema × IA com código verde quando fizer sentido.
+
 ## 2026-11-09 · v3.0: identidade do site no painel
 - Visual igual ao de andersonbrito.com: UI escura do Premiere, verde Matrix (#41FF8A) no lugar do laranja, vidro, cantos grandes e botões em pílula estilo iOS; fontes do sistema/Inter + JetBrains Mono. Sem as áreas fixas do site (faixa e coluna da esquerda). Bloco "v3" no fim de `css/painel.css`.
 - Chuva de código Matrix (`js/matrix.js`) só no dia em que a meta de +1.000 seguidores da semana é batida: a home detecta a meta batida hoje e liga a chuva até 23:59 (Brasília) em todas as telas do painel naquele aparelho.

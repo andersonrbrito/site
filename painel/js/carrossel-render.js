@@ -1,24 +1,35 @@
-// Desenho das lâminas no estilo "print de tweet" (fundo branco, foto, nome, @ e selo de verificado).
+// Desenho das lâminas na identidade de andersonbrito.com: fundo escuro com grade de pontos verdes,
+// brilhos verdes nos cantos, cartão de vidro estilo iOS, verde Matrix como destaque e rótulos em mono.
 // O mesmo código desenha a prévia no painel e exporta PNG (imagem) ou vídeo (lâmina com vídeo).
 // Lâmina: { texto, midia: { tipo: "imagem"|"video", src | path, foco: 0..1, credito }, rodape }
-// Texto aceita quebra de linha e **negrito**.
+// Texto aceita quebra de linha e **negrito** (na lâmina 1 vira marca-texto verde; nas outras, texto verde).
+// info (opcional) = { total, tipo } para o contador "01 / 07" e o rótulo do tipo no topo.
 
 export const W = 1080, H = 1350;
 export const PERFIL = { nome: "Anderson Brito", user: "@andersonbrito.mp4", avatar: "/painel/carrosseis/perfil/avatar.jpg" };
-const PAD = 72, AV = 112, GAP = 34, FONT = "Inter, 'Helvetica Neue', Arial, sans-serif";
-const INK = "#0f1419", MUTE = "#536471", LINE = "#cfd9de", BLUE = "#1d9bf0";
+
+// Tokens de assets/ab.css
+const BG = "#0B0C0E", GRID = "rgba(65,255,138,.07)", CARD = "rgba(24,27,28,.74)", LINE = "rgba(255,255,255,.08)", LINE2 = "rgba(255,255,255,.14)";
+const INK = "#F2F2F7", MUTE = "#A1A6AA", FAINT = "#6B7175", MATRIX = "#41FF8A", MATRIX_INK = "#03200F";
+const FONT = "'SF Pro Display', Inter, 'Helvetica Neue', Arial, sans-serif";
+const MONO = "'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, monospace";
+const TIPO = { noticia: "Notícia", educativo: "Educativo", pessoal: "Pessoal" };
+
+// Medidas (canvas 1080 px; o cartão usa os cantos de 20 px do site na escala da lâmina)
+const MX = 40, CP = 44, AV = 104, GAP = 30, R_CARD = 44, R_MEDIA = 28;
+const TOP_BAR = 72, AREA_TOP = 124;
 const BADGE = new Path2D("M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91c-1.31.67-2.2 1.91-2.2 3.34s.89 2.67 2.2 3.34c-.46 1.39-.21 2.9.8 3.91s2.52 1.26 3.91.81c.67 1.31 1.91 2.19 3.34 2.19s2.68-.88 3.34-2.19c1.39.45 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34z");
 const CHECK = new Path2D("M10.54 16.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z");
 
 let fontsReady = null;
 export function loadFonts() {
   if (!fontsReady) {
-    if (!document.querySelector("link[data-inter]")) {
-      const l = document.createElement("link"); l.rel = "stylesheet"; l.dataset.inter = "1";
-      l.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap";
+    if (!document.querySelector("link[data-cz-fonts]")) {
+      const l = document.createElement("link"); l.rel = "stylesheet"; l.dataset.czFonts = "1";
+      l.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap";
       document.head.append(l);
       fontsReady = new Promise((r) => { l.onload = r; l.onerror = r; setTimeout(r, 3000); })
-        .then(() => Promise.all(["400 46px Inter", "700 46px Inter", "800 46px Inter"].map((f) => document.fonts.load(f).catch(() => {}))));
+        .then(() => Promise.all(["400 46px Inter", "600 46px Inter", "700 46px Inter", "800 46px Inter", "500 24px 'JetBrains Mono'", "600 24px 'JetBrains Mono'"].map((f) => document.fonts.load(f).catch(() => {}))));
     } else fontsReady = Promise.resolve();
   }
   return fontsReady;
@@ -55,11 +66,12 @@ function tokens(texto) {
   });
   return out;
 }
-function wrap(ctx, toks, size, maxW) {
+const weight = (t, hook) => (t.bold ? 700 : hook ? 600 : 400);
+function wrap(ctx, toks, size, maxW, hook) {
   const lines = [[]]; let x = 0;
   for (const t of toks) {
     if (t.br) { lines.push([]); x = 0; continue; }
-    ctx.font = `${t.bold ? 700 : 400} ${size}px ${FONT}`;
+    ctx.font = `${weight(t, hook)} ${size}px ${FONT}`;
     const w = ctx.measureText(t.w).width;
     if (t.space) { if (x > 0) { lines.at(-1).push({ ...t, w: " ", width: w }); x += w; } continue; }
     if (x + w > maxW && x > 0) {
@@ -73,53 +85,131 @@ function wrap(ctx, toks, size, maxW) {
 
 function rounded(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.roundRect(x, y, w, h, r); }
 
+// Texto mono em maiúsculas com espaçamento .09em, desenhado letra a letra (funciona em todo navegador).
+function monoWidth(ctx, txt, size) { ctx.font = `500 ${size}px ${MONO}`; return ctx.measureText(txt).width + Math.max(0, txt.length - 1) * size * 0.09; }
+function mono(ctx, txt, x, y, size, color, align = "left") {
+  txt = txt.toUpperCase();
+  const total = monoWidth(ctx, txt, size), sp = size * 0.09;
+  let cx = align === "right" ? x - total : align === "center" ? x - total / 2 : x;
+  ctx.font = `500 ${size}px ${MONO}`; ctx.fillStyle = color; ctx.textAlign = "left";
+  for (const ch of txt) { ctx.fillText(ch, cx, y); cx += ctx.measureText(ch).width + sp; }
+  return total;
+}
+
+// Fundo do site: #0B0C0E, brilhos verdes no canto de cima à direita e embaixo à esquerda, grade de pontos a cada 22 px.
+let gridTile = null;
+function background(ctx) {
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+  const glow = (cx, cy, rx, ry, a) => {
+    ctx.save(); ctx.translate(cx, cy); ctx.scale(1, ry / rx);
+    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+    g.addColorStop(0, `rgba(65,255,138,${a})`); g.addColorStop(0.7, "rgba(65,255,138,0)");
+    ctx.fillStyle = g; ctx.fillRect(-rx, -rx, rx * 2, rx * 2); ctx.restore();
+  };
+  glow(W, 0, W * 0.75, H * 0.5, 0.13);
+  glow(0, H, W * 0.65, H * 0.45, 0.10);
+  if (!gridTile) {
+    gridTile = document.createElement("canvas"); gridTile.width = gridTile.height = 22;
+    const g = gridTile.getContext("2d"); g.fillStyle = GRID; g.beginPath(); g.arc(1.5, 1.5, 1.5, 0, Math.PI * 2); g.fill();
+  }
+  ctx.fillStyle = ctx.createPattern(gridTile, "repeat"); ctx.fillRect(0, 0, W, H);
+}
+
+// Pílula com contorno fino (chips do topo e rodapé).
+function pill(ctx, x, y, w, h, { fill = "rgba(255,255,255,.05)", stroke = LINE2 } = {}) {
+  rounded(ctx, x, y, w, h, h / 2); ctx.fillStyle = fill; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = stroke; ctx.stroke();
+}
+
 // Mede tudo e devolve as posições. mediaSize = { w, h } natural da mídia (ou null).
 export function layout(ctx, slide, idx, mediaSize) {
-  const maxW = W - PAD * 2;
+  const maxW = W - MX * 2 - CP * 2;
   const toks = tokens(slide.texto);
-  const temRodape = !!slide.rodape;
-  const bottomReserve = temRodape ? 110 : 70;
-  let size = idx === 0 ? 58 : 46, lines, textH, mediaH = 0;
+  const hook = idx === 0;
+  const areaBottom = H - (slide.rodape ? 138 : 64);
+  const inner = areaBottom - AREA_TOP - CP * 2;
+  let size = hook ? 58 : 46, lines, textH, mediaH = 0;
+  const lh = hook ? 1.24 : 1.32;
   const natural = mediaSize ? Math.round(maxW * (mediaSize.h / mediaSize.w)) : 0;
   for (; ; size -= 2) {
-    lines = wrap(ctx, toks, size, maxW);
-    textH = toks.length ? lines.length * size * 1.3 : 0;
-    const avail = H - 70 - bottomReserve - AV - GAP - textH - (mediaSize ? GAP : 0);
-    mediaH = mediaSize ? Math.min(natural, avail, 860) : 0;
-    if (size <= 32 || !mediaSize || mediaH >= Math.min(natural, 460)) break;
+    lines = wrap(ctx, toks, size, maxW, hook);
+    textH = toks.length ? lines.length * size * lh : 0;
+    const avail = inner - AV - (textH ? GAP + textH : 0) - (mediaSize ? GAP : 0);
+    mediaH = mediaSize ? Math.min(natural, avail, 840) : 0;
+    if (size <= 32 || !mediaSize || mediaH >= Math.min(natural, 440)) break;
   }
   mediaH = Math.max(0, Math.round(mediaH));
-  const total = AV + (textH ? GAP + textH : 0) + (mediaSize ? GAP + mediaH : 0);
-  const top = Math.max(60, Math.round((H - bottomReserve + 40 - total) / 2));
-  return { size, lines, textH, mediaH, top, maxW };
+  const content = AV + (textH ? GAP + textH : 0) + (mediaSize ? GAP + mediaH : 0);
+  const cardH = content + CP * 2;
+  const cardY = Math.max(AREA_TOP, Math.round(AREA_TOP + (areaBottom - AREA_TOP - cardH) / 2));
+  return { size, lh, lines, textH, mediaH, cardY, cardH, maxW, hook, areaBottom };
 }
 
 // Desenha a lâmina. assets = { avatar: Image, media: Image|HTMLVideoElement|null }
-export function draw(ctx, slide, idx, assets) {
+export function draw(ctx, slide, idx, assets, info = {}) {
   const m = slide.midia?.tipo === "video" && !assets.playing && assets.poster ? assets.poster : assets.media;
   const mw = m ? (m.videoWidth || m.naturalWidth || m.width) : 0, mh = m ? (m.videoHeight || m.naturalHeight || m.height) : 0;
   const L = layout(ctx, slide, idx, m && mw ? { w: mw, h: mh } : null);
-  ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, W, H);
-  ctx.textBaseline = "alphabetic";
-  let y = L.top;
+  ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
+  background(ctx);
 
-  // Cabeçalho: foto redonda, nome + selo, @
-  ctx.save(); ctx.beginPath(); ctx.arc(PAD + AV / 2, y + AV / 2, AV / 2, 0, Math.PI * 2); ctx.clip();
-  if (assets.avatar) ctx.drawImage(assets.avatar, PAD, y, AV, AV); else { ctx.fillStyle = "#e7e9ea"; ctx.fillRect(PAD, y, AV, AV); }
+  // Topo: chip do tipo (contorno fino + ponto verde) e contador da lâmina
+  const tipo = TIPO[info.tipo] || "";
+  if (tipo) {
+    const tw = monoWidth(ctx, tipo.toUpperCase(), 22), cw = tw + 34 + 44, ch = 50, cy = TOP_BAR - ch / 2;
+    pill(ctx, MX, cy, cw, ch);
+    ctx.fillStyle = MATRIX; ctx.beginPath(); ctx.arc(MX + 26, TOP_BAR, 6, 0, Math.PI * 2); ctx.fill();
+    mono(ctx, tipo, MX + 44, TOP_BAR + 8, 22, MUTE);
+  }
+  if (info.total) {
+    const n = `${String(idx + 1).padStart(2, "0")} / ${String(info.total).padStart(2, "0")}`;
+    mono(ctx, n, W - MX - 4, TOP_BAR + 8, 22, FAINT, "right");
+  }
+
+  // Cartão de vidro
+  const cx = MX, cw = W - MX * 2;
+  ctx.save(); ctx.shadowColor = "rgba(0,0,0,.45)"; ctx.shadowBlur = 60; ctx.shadowOffsetY = 18;
+  rounded(ctx, cx, L.cardY, cw, L.cardH, R_CARD); ctx.fillStyle = CARD; ctx.fill(); ctx.restore();
+  const sheen = ctx.createLinearGradient(0, L.cardY, 0, L.cardY + 260);
+  sheen.addColorStop(0, "rgba(255,255,255,.045)"); sheen.addColorStop(1, "rgba(255,255,255,0)");
+  rounded(ctx, cx, L.cardY, cw, L.cardH, R_CARD); ctx.fillStyle = sheen; ctx.fill();
+  ctx.lineWidth = 2; ctx.strokeStyle = LINE; ctx.stroke();
+
+  const x0 = cx + CP;
+  let y = L.cardY + CP;
+
+  // Cabeçalho: foto redonda com anel verde, nome + selo verde, @ em mono
+  ctx.save(); ctx.beginPath(); ctx.arc(x0 + AV / 2, y + AV / 2, AV / 2, 0, Math.PI * 2); ctx.clip();
+  if (assets.avatar) ctx.drawImage(assets.avatar, x0, y, AV, AV); else { ctx.fillStyle = "#16191A"; ctx.fillRect(x0, y, AV, AV); }
   ctx.restore();
-  const nx = PAD + AV + 26;
-  ctx.font = `700 40px ${FONT}`; ctx.fillStyle = INK; ctx.fillText(PERFIL.nome, nx, y + 48);
-  const bx = nx + ctx.measureText(PERFIL.nome).width + 10, bs = 40 / 24;
-  ctx.save(); ctx.translate(bx, y + 14); ctx.scale(bs, bs); ctx.fillStyle = BLUE; ctx.fill(BADGE); ctx.fillStyle = "#fff"; ctx.fill(CHECK); ctx.restore();
-  ctx.font = `400 34px ${FONT}`; ctx.fillStyle = MUTE; ctx.fillText(PERFIL.user, nx, y + 96);
+  ctx.beginPath(); ctx.arc(x0 + AV / 2, y + AV / 2, AV / 2 + 3, 0, Math.PI * 2); ctx.lineWidth = 3; ctx.strokeStyle = "rgba(65,255,138,.55)"; ctx.stroke();
+  const nx = x0 + AV + 26;
+  ctx.font = `700 38px ${FONT}`; ctx.fillStyle = INK; ctx.fillText(PERFIL.nome, nx, y + 46);
+  const bx = nx + ctx.measureText(PERFIL.nome).width + 10, bs = 36 / 24;
+  ctx.save(); ctx.translate(bx, y + 16); ctx.scale(bs, bs); ctx.fillStyle = MATRIX; ctx.fill(BADGE); ctx.fillStyle = MATRIX_INK; ctx.fill(CHECK); ctx.restore();
+  ctx.font = `500 28px ${MONO}`; ctx.fillStyle = MUTE; ctx.fillText(PERFIL.user, nx, y + 90);
   y += AV;
 
-  // Texto
+  // Texto (negrito: marca-texto verde na lâmina 1, texto verde nas outras)
   if (L.textH) {
     y += GAP;
     L.lines.forEach((line, i) => {
-      let x = PAD; const by = y + L.size * (1.3 * i + 1.02);
-      for (const t of line) { ctx.font = `${t.bold ? 700 : 400} ${L.size}px ${FONT}`; ctx.fillStyle = INK; ctx.fillText(t.w, x, by); x += t.width; }
+      const by = y + L.size * (L.lh * i + 1.0);
+      if (L.hook) {
+        let x = x0, run = null;
+        const flush = () => { if (run) { rounded(ctx, run.x - 6, by - L.size * 0.86, run.w + 12, L.size * 1.1, 10); ctx.fillStyle = MATRIX; ctx.fill(); run = null; } };
+        for (const t of line) {
+          if (t.bold) { if (!run) run = { x, w: 0 }; run.w = x + t.width - run.x; } else if (!t.space || !run) flush();
+          x += t.width;
+        }
+        flush();
+      }
+      let x = x0;
+      for (const t of line) {
+        ctx.font = `${weight(t, L.hook)} ${L.size}px ${FONT}`;
+        ctx.fillStyle = t.bold ? (L.hook ? MATRIX_INK : MATRIX) : INK;
+        ctx.fillText(t.w, x, by); x += t.width;
+      }
     });
     y += L.textH;
   }
@@ -130,27 +220,36 @@ export function draw(ctx, slide, idx, assets) {
     const bw = L.maxW, bh = L.mediaH, scale = Math.max(bw / mw, bh / mh);
     const sw = bw / scale, sh = bh / scale, foco = slide.midia?.foco ?? 0.5;
     const sx = (mw - sw) / 2, sy = Math.max(0, Math.min(mh - sh, (mh - sh) * foco));
-    ctx.save(); rounded(ctx, PAD, y, bw, bh, 30); ctx.clip();
-    ctx.drawImage(m, sx, sy, sw, sh, PAD, y, bw, bh); ctx.restore();
-    rounded(ctx, PAD, y, bw, bh, 30); ctx.lineWidth = 2; ctx.strokeStyle = LINE; ctx.stroke();
+    ctx.save(); rounded(ctx, x0, y, bw, bh, R_MEDIA); ctx.clip();
+    ctx.drawImage(m, sx, sy, sw, sh, x0, y, bw, bh);
+    ctx.restore();
+    rounded(ctx, x0, y, bw, bh, R_MEDIA); ctx.lineWidth = 2; ctx.strokeStyle = LINE2; ctx.stroke();
     if (slide.midia?.tipo === "video" && !assets.playing) {
-      ctx.fillStyle = "rgba(15,20,25,.7)"; ctx.beginPath(); ctx.arc(PAD + bw / 2, y + bh / 2, 54, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = "#fff"; ctx.beginPath(); ctx.moveTo(PAD + bw / 2 - 16, y + bh / 2 - 26); ctx.lineTo(PAD + bw / 2 + 28, y + bh / 2); ctx.lineTo(PAD + bw / 2 - 16, y + bh / 2 + 26); ctx.fill();
+      const pcx = x0 + bw / 2, pcy = y + bh / 2;
+      ctx.fillStyle = "rgba(11,12,14,.62)"; ctx.beginPath(); ctx.arc(pcx, pcy, 56, 0, Math.PI * 2); ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = "rgba(65,255,138,.5)"; ctx.stroke();
+      ctx.fillStyle = MATRIX; ctx.beginPath(); ctx.moveTo(pcx - 15, pcy - 25); ctx.lineTo(pcx + 27, pcy); ctx.lineTo(pcx - 15, pcy + 25); ctx.fill();
     }
     if (slide.midia?.credito) {
-      ctx.font = `400 24px ${FONT}`; ctx.fillStyle = MUTE; ctx.textAlign = "right";
-      ctx.fillText(slide.midia.credito, PAD + bw, y + bh + 34); ctx.textAlign = "left";
+      const cr = slide.midia.credito.toUpperCase(), tw = monoWidth(ctx, cr, 18), ph = 38, pw = tw + 28;
+      const px = x0 + bw - 16 - pw, py = y + bh - 16 - ph;
+      pill(ctx, px, py, pw, ph, { fill: "rgba(11,12,14,.72)", stroke: LINE2 });
+      mono(ctx, cr, px + 14, py + ph / 2 + 6, 18, MUTE);
     }
   }
 
+  // Rodapé: pílula com contorno verde fino
   if (slide.rodape) {
-    ctx.font = `600 30px ${FONT}`; ctx.fillStyle = MUTE; ctx.textAlign = "center";
-    ctx.fillText(slide.rodape, W / 2, H - 56); ctx.textAlign = "left";
+    let fs = 30; ctx.font = `600 ${fs}px ${FONT}`;
+    while (ctx.measureText(slide.rodape).width > W - MX * 2 - 80 && fs > 22) { fs -= 1; ctx.font = `600 ${fs}px ${FONT}`; }
+    const tw = ctx.measureText(slide.rodape).width, ph = 66, pw = tw + 64, py = H - 52 - ph;
+    pill(ctx, (W - pw) / 2, py, pw, ph, { fill: "rgba(65,255,138,.07)", stroke: "rgba(65,255,138,.38)" });
+    ctx.fillStyle = MATRIX; ctx.textAlign = "center"; ctx.fillText(slide.rodape, W / 2, py + ph / 2 + fs * 0.36); ctx.textAlign = "left";
   }
 }
 
 // Grava a lâmina com vídeo como MP4 (ou WebM se o navegador não gravar MP4), com o áudio do vídeo.
-export async function recordVideoSlide(slide, idx, assets, onProgress) {
+export async function recordVideoSlide(slide, idx, assets, onProgress, info = {}) {
   const v = assets.media; const c = document.createElement("canvas"); c.width = W; c.height = H;
   const ctx = c.getContext("2d");
   const stream = c.captureStream(30);
@@ -170,7 +269,7 @@ export async function recordVideoSlide(slide, idx, assets, onProgress) {
   rec.start(250);
   await new Promise((done) => {
     const tick = () => {
-      draw(ctx, slide, idx, { ...assets, playing: true });
+      draw(ctx, slide, idx, { ...assets, playing: true }, info);
       onProgress?.(Math.min(1, v.currentTime / dur));
       if (v.ended || v.currentTime >= dur) return done();
       requestAnimationFrame(tick);

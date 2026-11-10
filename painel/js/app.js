@@ -5,7 +5,7 @@ import { initMatrix } from "./matrix.js?v=20261109c";
 import { visibleModules } from "./modules.js?v=20261106f";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
-const V = "20261109b";
+const V = "20261109d";
 const VIEWS = {
   "": () => import(`./views/painel.js?v=${V}`), hoje: () => import(`./views/hoje.js?v=${V}`), tarefas: () => import(`./views/tarefas.js?v=${V}`),
   projetos: () => import(`./views/projetos.js?v=${V}`), inbox: () => import(`./views/inbox.js?v=${V}`), agenda: () => import(`./views/agenda.js?v=${V}`),

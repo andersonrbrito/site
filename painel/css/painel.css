@@ -446,14 +446,14 @@ main>.page.wide{max-width:1400px}
 /* Carrosséis diários (estilo print de tweet) */
 .cz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
 .cz-card{display:flex;flex-direction:column;gap:6px;color:inherit;text-decoration:none}
-.cz-thumb{width:100%;height:auto;aspect-ratio:4/5;border-radius:10px;border:1px solid var(--line-2);background:#fff}
+.cz-thumb{width:100%;height:auto;aspect-ratio:4/5;border-radius:10px;border:1px solid var(--line-2);background:#0B0C0E}
 .cz-card:hover .cz-thumb{border-color:var(--accent)}
 .cz-tag,.cz-st{display:inline-flex;height:20px;align-items:center;padding:0 8px;border-radius:999px;font:600 10.5px var(--f-mono);letter-spacing:.04em;text-transform:uppercase;background:var(--panel-hd);color:var(--tx-3)}
 .cz-tag.noticia{background:rgba(var(--accent-rgb),.15);color:var(--accent)} .cz-tag.educativo{background:rgba(155,135,255,.16);color:var(--violet)}
 .cz-st.aprovado{background:rgba(61,220,132,.14);color:var(--ok)} .cz-st.postado{background:rgba(61,220,132,.3);color:var(--ok)} .cz-st.descartado{color:var(--tx-4)}
 .cz-strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
 .cz-slide{flex:0 0 min(300px,72vw);scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;padding:0;border:0;background:none;cursor:pointer;text-align:left}
-.cz-slide canvas{width:100%;height:auto;aspect-ratio:4/5;border-radius:10px;border:2px solid var(--line-2);background:#fff}
+.cz-slide canvas{width:100%;height:auto;aspect-ratio:4/5;border-radius:10px;border:2px solid var(--line-2);background:#0B0C0E}
 .cz-slide.on canvas{border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.25)}
 .cz-edit{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;margin-top:16px}
 @media(max-width:860px){.cz-edit{grid-template-columns:1fr}}

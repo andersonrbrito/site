@@ -1,8 +1,8 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
 import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
-import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261106a";
+import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109a";
 
-// Carrosséis diários (estilo print de tweet) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
+// Carrosséis diários (identidade do site: escuro, vidro e verde Matrix) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
 // Fonte da verdade: tabela "carrosseis" (migration 0028). A rotina diária do Claude cria os rascunhos
 // e deixa as mídias em /painel/carrosseis/<slug>/; o que você anexar aqui vai para o Storage privado.
 // Antes da migration existir, a tela mostra os carrosséis do repositório (diarios.json) só para leitura.
@@ -155,7 +155,7 @@ function queueThumb(sb, c, cv) {
   thumbChain = thumbChain.then(async () => {
     const s = c.slides[0]; if (!s) return;
     const a = await assetsFor(sb, s);
-    draw(big.getContext("2d"), s, 0, a);
+    draw(big.getContext("2d"), s, 0, a, { total: c.slides.length, tipo: c.tipo });
     cv.getContext("2d").drawImage(big, 0, 0, cv.width, cv.height);
   }).catch(() => {});
 }
@@ -190,12 +190,13 @@ function editor({ sb, go, c, data }) {
   const touch = () => { saveInfo.textContent = "Editando…"; clearTimeout(timer); timer = setTimeout(save, 900); };
 
   // ── prévias ──
+  const info = () => ({ total: st.slides.length, tipo: st.tipo });
   const strip = h("div", { class: "cz-strip" });
   let playing = null;
   async function renderSlide(i, reload = false) {
     if (reload || !assets[i]) assets[i] = await assetsFor(sb, st.slides[i]);
     const cv = canvases[i]; if (!cv) return;
-    draw(cv.getContext("2d"), st.slides[i], i, { ...assets[i], playing: playing === i });
+    draw(cv.getContext("2d"), st.slides[i], i, { ...assets[i], playing: playing === i }, info());
   }
   function buildStrip() {
     canvases.length = 0;
@@ -212,7 +213,7 @@ function editor({ sb, go, c, data }) {
     const v = assets[i]?.media;
     if (!(v instanceof HTMLVideoElement)) return;
     playing = i; v.muted = true; v.loop = true; v.play().catch(() => {});
-    const tick = () => { if (playing !== i || !canvases[i]?.isConnected) { v.pause(); return; } draw(canvases[i].getContext("2d"), st.slides[i], i, { ...assets[i], playing: true }); requestAnimationFrame(tick); };
+    const tick = () => { if (playing !== i || !canvases[i]?.isConnected) { v.pause(); return; } draw(canvases[i].getContext("2d"), st.slides[i], i, { ...assets[i], playing: true }, info()); requestAnimationFrame(tick); };
     tick();
   }
   function select(i) {
@@ -295,13 +296,13 @@ function editor({ sb, go, c, data }) {
     const nome = `${st.slug}-${String(i + 1).padStart(2, "0")}`;
     if (st.slides[i].midia?.tipo === "video" && a.media instanceof HTMLVideoElement) {
       if (playing === i) playing = null;
-      const blob = await recordVideoSlide(st.slides[i], i, a, (p) => onInfo(`Gravando lâmina ${i + 1}… ${Math.round(p * 100)}%`));
+      const blob = await recordVideoSlide(st.slides[i], i, a, (p) => onInfo(`Gravando lâmina ${i + 1}… ${Math.round(p * 100)}%`), info());
       assets[i] = null; renderSlide(i);
       return new File([blob], `${nome}.${blob.type.includes("mp4") ? "mp4" : "webm"}`, { type: blob.type });
     }
     onInfo(`Gerando ${i + 1}…`);
     const cv = Object.assign(document.createElement("canvas"), { width: W, height: H });
-    draw(cv.getContext("2d"), st.slides[i], i, a);
+    draw(cv.getContext("2d"), st.slides[i], i, a, info());
     const tipo = formato === "jpg" ? "image/jpeg" : "image/png";
     const blob = await new Promise((r) => cv.toBlob(r, tipo, 0.95));
     if (!blob) throw new Error("imagem bloqueada pelo navegador");

@@ -19,7 +19,7 @@
 - Celular físico (só emulação de largura).
 
 ## Carrosséis diários (2026-11-05)
-- Feito e testado no harness: tela Carrosséis com lista por dia, prévia em canvas estilo print de tweet (foto, nome, selo, @), edição de texto/rodapé/mídia/recorte/ordem das lâminas com salvamento por versão, download PNG (imagem) e MP4 gravado no Chrome (lâmina com vídeo), botão "Transformar em vídeo" (pedido em `claude_requests` kind `carrossel_video`).
+- Feito e testado no harness: tela Carrosséis com lista por dia, prévia em canvas na identidade do site (fundo escuro com grade verde, cartão de vidro, verde Matrix; foto, nome, selo, @, chip do tipo e contador), edição de texto/rodapé/mídia/recorte/ordem das lâminas com salvamento por versão, download PNG (imagem) e MP4 gravado no Chrome (lâmina com vídeo), botão "Transformar em vídeo" (pedido em `claude_requests` kind `carrossel_video`).
 - Primeiro carrossel: `painel/carrosseis/claude-financas-pessoais/` (lido do repositório via `diarios.json` até existir a tabela).
 - **Pendente:** rodar `supabase/migrations/20261105000028_carrosseis.sql` no SQL Editor (tabela `carrosseis`, `payload` e novo kind em `claude_requests`, `agent_write` aceitando `carrosseis`). Sem ela a tela fica só leitura.
 - Rotina diária `carrosseis-diarios-ilmarlabs` (6h45) e rotina `carrosseis-pedidos` (a cada 2 h das 7h às 23h, segue `carrosseis/ROTINA-PEDIDOS.md`: carrossel vindo do PostadoR_ e "Transformar em vídeo") agendadas.
