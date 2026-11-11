@@ -7,3 +7,8 @@ painel/dev/.env*
 
 # espelho local das mídias de aprovação
 /.espelho-aprovacoes/
+
+# Lâmina: chaves locais
+lamina/.env
+lamina/.fila/
+.tunel-mac.txt

@@ -7,6 +7,7 @@ import http from "node:http";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawn } from "node:child_process";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ANDY = "/Volumes/ANDY 1TB/BANCO DE MIDIA";
@@ -33,6 +34,13 @@ function enviarArquivo(req, res, file) {
 http.createServer((req, res) => {
   const url = new URL(req.url, "http://localhost");
   const p = decodeURIComponent(url.pathname);
+  // Pedido vindo do túnel (internet): só leitura das mídias das aprovações, nada mais do disco
+  if (req.headers["cf-connecting-ip"]) {
+    res.setHeader("Access-Control-Allow-Origin", "https://andersonbrito.com");
+    res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Range");
+    if (req.method === "OPTIONS") { res.writeHead(204, { "Access-Control-Allow-Methods": "GET, HEAD", "Access-Control-Allow-Headers": "Range" }); return res.end(); }
+    if (!["GET", "HEAD"].includes(req.method) || !p.startsWith("/_local/aprovacoes/")) { res.writeHead(403); return res.end(); }
+  }
   if (p.startsWith("/_local/")) {
     const rel = p.slice(8);
     if (!OK_PATH.test(rel)) { res.writeHead(400); return res.end("path inválido"); }
@@ -57,4 +65,23 @@ http.createServer((req, res) => {
   }
   if (!fs.existsSync(file)) { res.writeHead(404); return res.end("não encontrado"); }
   enviarArquivo(req, res, file);
-}).listen(PORT, "127.0.0.1", () => console.log(`Painel local: http://localhost:${PORT}/painel/  ·  espelho: ${MIRROR}`));
+}).on("error", (e) => { if (e.code === "EADDRINUSE") { console.log("Já está rodando. É só abrir: http://localhost:8090/painel/"); process.exit(0); } throw e; }).listen(PORT, "127.0.0.1", () => { console.log(`Painel local: http://localhost:${PORT}/painel/  ·  espelho: ${MIRROR}`); if (process.env.TUNEL !== "0") tunel(); });
+
+// Túnel público (cloudflared, grátis, sem conta): o painel do andersonbrito.com toca os originais direto do Mac.
+// O endereço muda a cada início; o link com ?mac= é aberto aqui e fica gravado em .tunel-mac.txt (abrir 1x no celular).
+function tunel() {
+  const cf = spawn("/opt/homebrew/bin/cloudflared", ["tunnel", "--no-autoupdate", "--url", `http://127.0.0.1:${PORT}`]);
+  let achou = false;
+  const ler = (d) => {
+    const m = !achou && String(d).match(/https:\/\/[a-z0-9-]+\.trycloudflare\.com/);
+    if (!m) return;
+    achou = true;
+    const link = `https://andersonbrito.com/painel/#/aprovacoes?mac=${m[0]}`;
+    fs.writeFileSync(path.join(ROOT, ".tunel-mac.txt"), link + "\n");
+    console.log("Túnel: " + m[0] + "\nAbra 1x em cada aparelho: " + link);
+    setTimeout(() => spawn("open", [link]), 4000);
+  };
+  cf.stderr.on("data", ler); cf.stdout.on("data", ler);
+  cf.on("exit", (c) => { console.log("cloudflared saiu (" + c + "), reabrindo em 10 s"); setTimeout(tunel, 10000); });
+  process.on("exit", () => cf.kill());
+}

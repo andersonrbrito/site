@@ -57,10 +57,24 @@ export default async function aprovacoes({ sb, query, go }) {
       } catch { urls.set(x.path, x.signedUrl); }
     }));
   };
+  // Site público: o original vem do Mac pelo túnel (tools/painel_local.mjs abre o link com ?mac=, que fica guardado).
+  // Se o Mac estiver desligado ou o arquivo não estiver no espelho, cai no link assinado do Supabase.
+  let MAC = ""; try { if (query.mac) localStorage.setItem("ap-mac", query.mac); MAC = (localStorage.getItem("ap-mac") || "").replace(/\/$/, ""); } catch {}
+  if (!/^https:\/\/[a-z0-9-]+\.trycloudflare\.com$/.test(MAC)) MAC = "";
+  const doMac = async (paths) => {
+    const resto = [];
+    await Promise.all(paths.map(async (p) => {
+      const u = MAC + "/_local/" + p;
+      const ok = (await fetch(u, { method: "HEAD", cache: "no-store" }).catch(() => null))?.ok;
+      if (ok) urls.set(p, u); else resto.push(p);
+    }));
+    return resto;
+  };
   const assinar = async (paths) => {
-    const falta = [...new Set(paths.filter((p) => p && !urls.has(p)))];
+    let falta = [...new Set(paths.filter((p) => p && !urls.has(p)))];
     if (!falta.length) return;
     if (LOCAL) return doDisco(falta);
+    if (MAC) { falta = await doMac(falta); if (!falta.length) return; }
     const { data: s } = await sb.storage.from(BUCKET).createSignedUrls(falta, VALIDADE);
     (s || []).forEach((x) => { if (x.signedUrl) { urls.set(x.path, x.signedUrl); guard[x.path] = { url: x.signedUrl, ate: Date.now() + REUSO }; } });
     try { localStorage.setItem(CK, JSON.stringify(guard)); } catch {}
