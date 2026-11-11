@@ -1,0 +1,78 @@
+{
+ "slug": "tiktok-symphony-seedance-30s",
+ "dia": "2026-11-11",
+ "tipo": "noticia",
+ "titulo": "TikTok Symphony: anúncio de 30 s com Seedance",
+ "perfil": "@ilmarlabs",
+ "legenda": "O TikTok atualizou o Symphony, a ferramenta de anúncio com IA: agora gera vídeo de até 30 segundos por prompt (antes 15), aceita até 50 referências de imagem, vídeo e áudio (antes 9) e usa os modelos Seedance mais novos.\n\nDesde 9/11, anunciante fora da América do Norte pode comprar tokens da BytePlus pra usar o Seedance lá dentro. Preço não foi divulgado no anúncio.\n\nPra quem faz criativo de tráfego, é teste de variação mais rápido. Você usaria anúncio 100% gerado por IA?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: TikTok for Business (blog oficial, 08/11) e Social Media Today (09/11).",
+ "fontes": [
+  {
+   "titulo": "TikTok for Business: TikTok Symphony AI creative suite (atualização de 08/11/2026)",
+   "url": "https://ads.tiktok.com/business/en/blog/tiktok-symphony-ai-creative-suite"
+  },
+  {
+   "titulo": "Social Media Today: TikTok Updates Its AI Video Ad Tools",
+   "url": "https://www.socialmediatoday.com/news/tiktok-updates-its-ai-video-ad-tools/874209/"
+  }
+ ],
+ "notas": "Pauta: bot do Telegram (10/11, item 4). Confirmado no blog oficial do TikTok for Business (30 s, 50 referências, Seedance 2.5 no seletor, tokens BytePlus fora da América do Norte desde 9/11) e no Social Media Today. Preço não divulgado. Lâminas 2-6 = vídeos oficiais do post do TikTok (trecho e quadros); hook gerado no ChatGPT (caricatura do Shou Chew, humor, sem endosso).",
+ "slides": [
+  {
+   "texto": "O TikTok agora gera **anúncio de 30 segundos** com IA.\n\nE abriu o Seedance pra anunciante fora da América do Norte.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tiktok-symphony-seedance-30s/01-hook.jpg",
+    "foco": 0.45
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O que mudou no **Symphony**, a ferramenta de anúncio com IA do TikTok:\n\n• vídeo de até 30 s por prompt (antes 15)\n• até 50 referências de imagem, vídeo e áudio (antes 9)\n• modelos Seedance mais novos",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tiktok-symphony-seedance-30s/02-seedance.jpg",
+    "foco": 0.5,
+    "credito": "imagem: TikTok"
+   }
+  },
+  {
+   "texto": "No vídeo oficial: você escreve o briefing, sobe as referências e ele devolve **várias versões** do anúncio.\n\nSaiu também a Symphony API, pra agência gerar de dentro da ferramenta dela.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/tiktok-symphony-seedance-30s/03-video.mp4",
+    "foco": 0.5,
+    "poster": "/painel/carrosseis/tiktok-symphony-seedance-30s/03-poster.jpg",
+    "credito": "vídeo: TikTok for Business"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Desde 9/11, anunciante **fora da América do Norte** pode comprar tokens da BytePlus (empresa de tecnologia da ByteDance) pra usar o Seedance no Symphony.\n\nO preço não apareceu no anúncio.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tiktok-symphony-seedance-30s/04-briefing.jpg",
+    "foco": 0.5,
+    "credito": "imagem: TikTok"
+   }
+  },
+  {
+   "texto": "Pra mim, quem faz criativo de tráfego ganha **teste de variação** sem gravar tudo de novo.\n\nMas 30 s gerados ainda pedem corte no gancho, legenda e som. A IA entrega o bruto, a edição decide se vende.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tiktok-symphony-seedance-30s/05-versoes.jpg",
+    "foco": 0.5,
+    "credito": "imagem: TikTok"
+   }
+  },
+  {
+   "texto": "Ainda não testei o Symphony com o Seedance novo, então fico curioso.\n\n**Você usaria anúncio 100% gerado por IA no seu tráfego?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tiktok-symphony-seedance-30s/06-fim.jpg",
+    "foco": 0.5,
+    "credito": "imagem: TikTok"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

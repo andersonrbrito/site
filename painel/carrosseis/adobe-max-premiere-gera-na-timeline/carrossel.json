@@ -1,0 +1,94 @@
+{
+ "slug": "adobe-max-premiere-gera-na-timeline",
+ "dia": "2026-11-11",
+ "tipo": "noticia",
+ "titulo": "Adobe MAX: o Premiere agora gera vídeo e som dentro da timeline",
+ "perfil": "@ilmarlabs",
+ "legenda": "Ontem, no Adobe MAX 2026, o Premiere ganhou o Generative Media: gerar vídeo, efeito sonoro, ambiente e música direto na timeline, com Firefly ou modelos do Google, Kling, Runway e Luma.\n\nE a Adobe mostrou uma prévia de MCP pra agentes como Claude e ChatGPT mexerem em Premiere, Photoshop, Illustrator e After Effects (beta fechado só no começo de 2027).\n\nPra mim é ótimo pra tapar buraco de B-roll e rascunhar trilha. Entrega final ainda pede olho. Você deixaria um agente mexer no seu projeto?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFontes: Adobe Video (YouTube, 10/11), TechCrunch, RedShark News, The Next Web.",
+ "fontes": [
+  {
+   "titulo": "Adobe Video (oficial): What's New in Premiere | Fall 2026",
+   "url": "https://www.youtube.com/watch?v=XvGCh-4BzxA"
+  },
+  {
+   "titulo": "TechCrunch: Adobe brings AI agents and new creative tools to Photoshop, Premiere, and Firefly",
+   "url": "https://techcrunch.com/2026/11/10/adobe-adds-more-ai-to-its-products-and-launches-an-mcp/"
+  },
+  {
+   "titulo": "RedShark News: Adobe MAX 2026 Premiere updates: Color Mode, MCP",
+   "url": "https://www.redsharknews.com/adobe-max-2026-premiere-color-mode-mcp"
+  },
+  {
+   "titulo": "The Next Web: Adobe will let outside AI agents edit Photoshop and Premiere files",
+   "url": "https://thenextweb.com/news/adobe-mcp-integrations-photoshop-premiere-ai-agents"
+  }
+ ],
+ "notas": "Pauta: Google/TechCrunch + bot do Telegram (Adobe MAX 10/11). Fato confirmado no vídeo oficial do canal Adobe Video (descrição lista Color Mode, Generative Media Tool, AI Sound Tools, AI Assistant beta) e em TechCrunch/RedShark/TNW/Digital Production. O MCP é PRÉVIA, beta fechado previsto pro começo de 2027 (sem mês). Sem preço divulgado. Lâminas 2-5 e 7 = quadros e trecho do vídeo oficial da Adobe; 1 e 6 geradas no ChatGPT (caricatura Dario Amodei e Sam Altman, humor, sem endosso). helpx.adobe.com bloqueou o acesso automático.",
+ "slides": [
+  {
+   "texto": "A Adobe colocou a IA pra **gerar vídeo dentro da timeline** do Premiere.\n\nE ainda mostrou Claude e ChatGPT mexendo no projeto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/01-hook.jpg",
+    "foco": 0.45
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Ontem, no Adobe MAX 2026, saiu a atualização do Premiere.\n\nA principal é o **Generative Media**: você escreve o que quer e ele gera vídeo, efeito sonoro, ambiente ou música ali na timeline.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/02-gerar.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   }
+  },
+  {
+   "texto": "Dá pra escolher o modelo: o Firefly da Adobe ou parceiros como **Google, Kling, Runway e Luma**.\n\nPra mim o uso é tapar buraco de B-roll e rascunhar trilha sem sair do projeto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/03-modelos.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   }
+  },
+  {
+   "texto": "No vídeo oficial dá pra ver a geração na timeline e as ferramentas de áudio.\n\nO **Color Mode** saiu do beta, e o Enhance Audio separa diálogo, ambiente, música e efeito em controles.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/04-video.mp4",
+    "foco": 0.5,
+    "poster": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/04-poster.jpg",
+    "credito": "vídeo: Adobe Video"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Veio também o **Separate Crosstalk**, que separa duas pessoas falando ao mesmo tempo em faixas diferentes.\n\nQuem edita podcast e entrevista sabe o quanto isso dói hoje.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/05-audio.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   }
+  },
+  {
+   "texto": "A parte que mais me chamou atenção: uma **prévia de MCP** pra agentes como Claude e ChatGPT mexerem no Premiere, Photoshop, Illustrator e After Effects.\n\nRoda no seu computador e o projeto continua editável. Mas o beta fechado só vem no começo de 2027.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/06-agente.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Do jeito que eu vejo, o editor não some: vira quem dirige e revisa. Mas posso estar errado.\n\n**Você deixaria um agente mexer no seu projeto do Premiere?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/adobe-max-premiere-gera-na-timeline/07-fim.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Adobe"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

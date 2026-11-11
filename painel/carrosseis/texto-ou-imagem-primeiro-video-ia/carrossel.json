@@ -1,0 +1,71 @@
+{
+ "slug": "texto-ou-imagem-primeiro-video-ia",
+ "dia": "2026-11-11",
+ "tipo": "educativo",
+ "titulo": "Vídeo com IA: começar pelo texto ou pela imagem?",
+ "perfil": "@ilmarlabs",
+ "legenda": "Antes de gerar qualquer vídeo com IA, vale decidir por onde começar.\n\nTexto pra vídeo: a IA inventa tudo, bom pra clima e teste de ideia. Imagem pra vídeo: você trava rosto, roupa e luz no primeiro quadro, bom pra personagem e produto.\n\nNas lâminas tem os dois prompts prontos. Salva pra usar no próximo vídeo. Você começa pelo texto ou pela imagem?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: post do @auramode.ai (texto ou imagem antes de gerar vídeo de IA), refeito do jeito do Anderson com prompts próprios em PT-BR; sem copiar texto nem visual. Salvos do IG não abriram nesta rodada. Imagens geradas no ChatGPT (hook com caricatura do Neymar, meme liberado).",
+ "slides": [
+  {
+   "texto": "Antes de gerar vídeo com IA, decide uma coisa: **texto ou imagem primeiro?**\n\nIsso muda o resultado inteiro.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/01-hook.jpg",
+    "foco": 0.45
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "**Texto pra vídeo**: você descreve e a IA inventa tudo. Rosto, roupa, lugar.\n\nBom pra explorar ideia e B-roll sem personagem fixo.\nRuim quando o mesmo rosto precisa aparecer em várias cenas.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/02-texto.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "**Imagem pra vídeo**: você gera (ou fotografa) o primeiro quadro e a IA só anima.\n\nRosto, roupa e luz ficam travados. É o caminho pra personagem, produto e marca.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/03-imagem.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "A regra que eu uso:\n\nTem **pessoa ou produto que precisa ser igual** em mais de uma cena? Começo pela imagem.\n\nÉ clima, paisagem ou teste de ideia? Vou de texto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/04-regra.jpg",
+    "foco": 0.45
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Prompt do primeiro quadro (imagem):\n\n**\"retrato de mulher brasileira de 30 anos, cabelo cacheado, camiseta verde, cozinha de apartamento em São Paulo, luz de janela lateral, lente 35mm, vertical\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/03-imagem.jpg",
+    "foco": 0.2
+   }
+  },
+  {
+   "texto": "Prompt do vídeo (só movimento):\n\n**\"ela vira pra câmera e sorri, push-in lento, mantém rosto e roupa, sem cortes\"**\n\nNa imagem pra vídeo, o prompt fala de movimento. Descrever o rosto de novo costuma bagunçar.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/06-movimento.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Salva pra usar no próximo vídeo e manda pra quem edita contigo.\n\n**Você começa pelo texto ou pela imagem?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-ou-imagem-primeiro-video-ia/01-hook.jpg",
+    "foco": 0.75
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

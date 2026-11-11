@@ -1,0 +1,71 @@
+{
+ "slug": "live-vira-ganchos-de-reels-prompt",
+ "dia": "2026-11-11",
+ "tipo": "educativo",
+ "titulo": "O prompt que acha 5 Reels dentro de uma live",
+ "perfil": "@ilmarlabs",
+ "legenda": "Uma live, call ou podcast de 1 hora quase sempre tem trecho bom pra Reels. O problema é achar sem assistir tudo de novo.\n\nO caminho é trabalhar em cima da transcrição: a IA acha as frases fortes (copiadas sem mudar nada, com o minuto) e sugere o gancho. O corte e o ritmo continuam sendo seus.\n\nOs prompts estão nas lâminas. Salva pra próxima live. Qual parte da edição de corte mais te toma tempo?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: 'prompt do dia' do bot do Telegram (10/11), reescrito com prompts próprios do Anderson e o passo de edição dele. Imagens geradas no ChatGPT (hook com caricatura do Casimiro, streamer brasileiro, humor).",
+ "slides": [
+  {
+   "texto": "Uma live de 1 hora tem **vários Reels escondidos**.\n\nEsse prompt acha pra você em minutos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/01-hook.jpg",
+    "foco": 0.45
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Ninguém tem tempo de assistir 1 hora de novo pra achar o trecho bom.\n\nA saída é trabalhar em cima da **transcrição**, não do vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/02-transcricao.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Passo 1: tira a transcrição com minutagem.\n\nO YouTube gera sozinho, ou você usa um transcritor (o Whisper é de graça). Cola tudo num chat de IA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/02-transcricao.jpg",
+    "foco": 0.15
+   }
+  },
+  {
+   "texto": "Passo 2, o prompt:\n\n**\"Leia a transcrição abaixo e me devolva as 5 frases mais fortes, copiadas sem mudar nenhuma palavra, com o minuto de cada uma.\"**\n\nCopiada igual é o segredo: assim você acha o trecho na timeline.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/04-prompt.jpg",
+    "foco": 0.45
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 3, o gancho:\n\n**\"Pra cada frase, escreva um gancho de até 12 palavras pro primeiro segundo do Reels, sem prometer o que o trecho não entrega.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/05-ganchos.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Passo 4, na edição: corta uns segundos antes da frase, põe o gancho na tela no primeiro segundo e legenda simples.\n\nA IA acha o trecho. **O corte e o ritmo** continuam sendo seus.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/05-ganchos.jpg",
+    "foco": 0.8
+   }
+  },
+  {
+   "texto": "Salva pra próxima live e manda pra quem grava podcast contigo.\n\n**Qual parte da edição de corte mais te toma tempo?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/live-vira-ganchos-de-reels-prompt/01-hook.jpg",
+    "foco": 0.75
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
