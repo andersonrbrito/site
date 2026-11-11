@@ -3,6 +3,7 @@
 // Cada formato tem nome (não número), botão de baixar e de enviar pro iPhone (um, outro ou os dois),
 // e "Já usei" tira o vídeo da tela (fica guardado em payload.estudio_ok, recuperável em "Mostrar os já usados").
 import { h, fmtDateTime } from "../util.js";
+import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261111a";
 import { pageHead, toast, copiarTexto } from "../ui.js?v=20261107b";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
@@ -66,7 +67,9 @@ export default async function estudio({ sb }) {
 
   // Baixar no Mac/PC: busca o arquivo e salva como MP4 com nome do carrossel (o link simples às vezes só abria o player)
   const baixarBtn = (r, u) => {
+    const nome = `${(r.payload?.slug || "video")}-${formato(u).startsWith("Reel") ? "reel-9x16" : "x-16x9"}.mp4`;
     const b = h("button", { class: "btn btn-sm", type: "button", onclick: async () => {
+      if (CELULAR) return salvarNaGaleria(b, (info) => { info("Preparando…"); return urlParaFile(u, nome).then((f) => [f]); });
       const rot = b.textContent; b.disabled = true; b.textContent = "Baixando…";
       try {
         const res = await fetch(u); if (!res.ok) throw new Error("arquivo não encontrado");

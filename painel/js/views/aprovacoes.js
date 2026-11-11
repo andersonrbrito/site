@@ -3,6 +3,7 @@
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
 import { toast, pageHead, copiarTexto } from "../ui.js?v=20261107b";
+import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261111a";
 
 const BUCKET = "anderson-os-arquivos";
 const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
@@ -201,6 +202,7 @@ export default async function aprovacoes({ sb, query, go }) {
       await assinar(paths);
       const ok = paths.filter((p) => urls.get(p));
       if (!ok.length) return toast("Não achei os arquivos (recarregue a página).", { kind: "err" });
+      if (CELULAR) return salvarNaGaleria(btn, (info) => { info("Preparando…"); return Promise.all(ok.map((p) => urlParaFile(urls.get(p), p.split("/").pop()))); });
       const rot = btn.textContent; btn.disabled = true; btn.textContent = "Baixando…";
       try {
         const files = await Promise.all(ok.map(async (p) => { const r = await fetch(urls.get(p)); if (!r.ok) throw new Error(p.split("/").pop()); return { name: p.split("/").pop(), data: new Uint8Array(await r.arrayBuffer()) }; }));
@@ -209,7 +211,7 @@ export default async function aprovacoes({ sb, query, go }) {
         toast(files.length > 1 ? `${files.length} arquivos baixados. Se o Chrome perguntar sobre vários downloads, clique em Permitir (só na 1ª vez).` : "Baixado.", files.length > 1 ? { ms: 7000 } : undefined);
       } catch (e) { toast("Falhou ao baixar: " + e.message, { kind: "err" }); }
       btn.disabled = false; btn.textContent = rot;
-    } }, paths.length > 1 ? `Baixar (${paths.length})` : "Baixar");
+    } }, CELULAR ? (paths.length > 1 ? `Salvar na galeria (${paths.length})` : "Salvar na galeria") : paths.length > 1 ? `Baixar (${paths.length})` : "Baixar");
     return btn;
   };
 

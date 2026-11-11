@@ -1,5 +1,6 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
 import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
+import { CELULAR, ROTULO_GALERIA, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261111a";
 import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109c";
 
 // Carrosséis diários (identidade do site: escuro, vidro e verde Matrix) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
@@ -293,9 +294,9 @@ function editor({ sb, go, c, data }) {
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: () => move(1), disabled: sel === st.slides.length - 1 }, "Mover →"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: dup }, "Duplicar"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: nova }, "+ Lâmina depois"),
-        h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: (e) => baixar([sel], e.currentTarget) }, s.midia?.tipo === "video" ? "Baixar (vídeo)" : "Baixar (PNG)"),
+        h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: (e) => baixar([sel], e.currentTarget) }, CELULAR ? ROTULO_GALERIA : s.midia?.tipo === "video" ? "Baixar (vídeo)" : "Baixar (PNG)"),
         h("button", { type: "button", class: "btn btn-ghost btn-sm cz-del", onclick: del }, "Tirar lâmina")));
-    if (!data.dbOn) form.querySelectorAll("textarea,input,button").forEach((el) => { if (!/Baixar/.test(el.textContent)) el.disabled = true; });
+    if (!data.dbOn) form.querySelectorAll("textarea,input,button").forEach((el) => { if (!/Baixar|galeria/.test(el.textContent)) el.disabled = true; });
   }
 
   // ── arquivos das lâminas (imagem: PNG ou JPG; lâmina com vídeo: gravada em MP4) ──
@@ -319,7 +320,21 @@ function editor({ sb, go, c, data }) {
 
   // ── downloads ──
   const salvarArquivo = (blob, nome) => { const a = h("a", { href: URL.createObjectURL(blob), download: nome }); document.body.append(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 4000); };
+  // No celular: JPG pela folha de compartilhar (vai pra galeria). Guarda o que já gerou para o toque abrir na hora.
+  const jpgs = new Map();
+  async function jpgCel(i, onInfo) {
+    const k = JSON.stringify([i, st.slides.length, st.slides[i]]);
+    if (!jpgs.has(k)) jpgs.set(k, await gerarArquivo(i, "jpg", onInfo));
+    return jpgs.get(k);
+  }
+  async function preGerarCel() { // lâminas de imagem ficam prontas em segundo plano; vídeo só grava quando pedir
+    for (let i = 0; i < st.slides.length; i++) {
+      if (st.slides[i].midia?.tipo === "video") continue;
+      try { await jpgCel(i, () => {}); } catch { /* gera de novo no toque */ }
+    }
+  }
   async function baixar(idxs, btn) {
+    if (CELULAR) return salvarNaGaleria(btn, async (info) => { const fs = []; for (const i of idxs) fs.push(await jpgCel(i, info)); return fs; });
     const label = btn.textContent; btn.disabled = true;
     try {
       for (const i of idxs) {
@@ -446,7 +461,9 @@ function editor({ sb, go, c, data }) {
           h("div", { class: "flex wrap" }, h("span", { class: "cz-st " + (p.status === "feito" ? "aprovado" : "rascunho") }, S[p.status] || p.status),
             h("span", { class: "muted small" }, (p.payload?.formatos || []).map((f) => (f === "x" ? "X" : "Reel")).join(" + "), " · pedido ", fmtDateTime(p.created_at))),
           p.result_note && h("p", { class: "small", style: { margin: "6px 0 0", whiteSpace: "pre-wrap" } }, p.result_note.replace(/\/painel\/carrosseis\/[\w./-]+\.mp4/g, "").trim()),
-          vids.length ? h("div", { class: "cz-vids" }, ...vids.map((u) => h("div", null, h("video", { src: u, controls: true, playsinline: true, preload: "metadata" }), h("a", { class: "small", href: u, download: "" }, "Baixar")))) : null);
+          vids.length ? h("div", { class: "cz-vids" }, ...vids.map((u) => h("div", null, h("video", { src: u, controls: true, playsinline: true, preload: "metadata" }), CELULAR
+            ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => salvarNaGaleria(e.currentTarget, async () => [await urlParaFile(u, u.split("/").pop())]) }, ROTULO_GALERIA)
+            : h("a", { class: "small", href: u, download: "" }, "Baixar")))) : null);
       }))));
   }
 
@@ -480,11 +497,12 @@ function editor({ sb, go, c, data }) {
   const leg = h("textarea", { class: "textarea", rows: 8 }); leg.value = st.legenda || "";
   leg.addEventListener("input", () => { st.legenda = leg.value; touch(); });
   const copiar = () => copiarTexto(st.legenda || "", "Legenda copiada.");
-  const baixarTudo = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => baixar(st.slides.map((_, i) => i), e.currentTarget) }, "Baixar lâminas");
+  const baixarTudo = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => baixar(st.slides.map((_, i) => i), e.currentTarget) }, CELULAR ? "Salvar lâminas na galeria" : "Baixar lâminas");
   if (!data.dbOn) [titulo, leg].forEach((el) => { el.disabled = true; });
 
   buildStrip(); drawForm(); drawPedidos(); drawAjustes();
   if (st.slides[0]?.midia?.tipo === "video") select(0);
+  if (CELULAR) setTimeout(preGerarCel, 1500);
 
   return h("div", { class: "page wide" },
     pageHead(st.titulo, `${TIPO[st.tipo] || st.tipo} · ${st.perfil || "@ilmarlabs"} · ${fmtDate(st.dia)} · 1080×1350`),
