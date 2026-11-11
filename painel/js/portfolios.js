@@ -57,7 +57,7 @@ export const PORTFOLIOS = [
   "updated": "2026-07-10"
  },
  {
-  "path": "dr.html",
+  "path": "dr/",
   "title": "DR/VSL Portfolio — Anderson Brito | Editor de Vídeo Performance",
   "online": true,
   "linked": true,
