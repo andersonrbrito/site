@@ -1,145 +1,198 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0B0C0E">
-<meta name="robots" content="noindex, nofollow">
-<title>Anderson Brito · Portfólio Audiovisual · XP Educação</title>
-<meta name="description" content="Portfólio de eventos corporativos, imersões, cobertura institucional e IA generativa.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0B0C0E; --ink:#F5F5F5; --mut:#9aa0a6; --line:#1f2126; --card:#15171c;
-    --ac:#00E0A4; --ac2:#7cf5d0;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;line-height:1.55}
-  a{color:var(--ac);text-decoration:none}
-  a:hover{color:var(--ac2)}
-  .wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
-  header.hero{border-bottom:1px solid var(--line);padding-bottom:28px;margin-bottom:32px}
-  h1{font-size:34pt;letter-spacing:-.8px;margin:0 0 4px}
-  .sub{color:var(--ac);font-weight:600;font-size:13pt;margin-bottom:10px}
-  .contact{color:var(--mut);font-size:10.5pt}
-  .contact a{color:inherit;border-bottom:1px dotted var(--mut)}
-  .intro{color:#ddd;font-size:11.5pt;margin:18px 0 0;max-width:780px}
-  .intro b{color:#fff}
-
-  .seals{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 0}
-  .seal{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;display:flex;flex-direction:column;gap:2px;min-width:180px}
-  .seal .lbl{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;color:var(--mut)}
-  .seal .val{font-weight:700;font-size:13pt;color:#fff}
-  .seal .ext{color:var(--ac);font-size:10pt}
-
-  h2.sec{font-size:11pt;text-transform:uppercase;letter-spacing:2px;color:var(--ac);margin:42px 0 14px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-
-  .co-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-  .co{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
-  .co .when{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;color:var(--mut)}
-  .co h3{margin:6px 0 6px;font-size:14pt;color:#fff}
-  .co p{margin:0;color:#c9ccd1;font-size:10.5pt}
-
-  .v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-  .v{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
-  .v .frame{aspect-ratio:9/16;background:#000}
-  .v .frame.h{aspect-ratio:16/9}
-  .v iframe,.v video{width:100%;height:100%;border:0;display:block}
-  .v .cap{padding:12px 14px 14px}
-  .v .eye{font-size:9pt;text-transform:uppercase;letter-spacing:1.4px;color:var(--ac)}
-  .v h4{margin:4px 0 4px;font-size:12pt;color:#fff}
-  .v p{margin:0;color:#aeb2b8;font-size:10pt}
-
-  footer{margin-top:60px;color:var(--mut);font-size:10pt;text-align:center}
-
-  @media (max-width:800px){
-    .co-grid,.v-grid{grid-template-columns:1fr 1fr}
-    h1{font-size:28pt}
-  }
-  @media (max-width:520px){
-    .co-grid,.v-grid{grid-template-columns:1fr}
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0C0E">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Anderson Brito · Portfólio Audiovisual · XP Educação</title>
+  <meta name="description" content="Portfólio para a vaga de Analista Audiovisual da XP Educação. Eventos corporativos, imersões, estúdio e IA.">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/ab.css?v=20261110f">
+  <link rel="stylesheet" href="/assets/port.css?v=20261110b">
+  <style>
+    .topnav a[aria-pressed="true"] { color: var(--matrix-ink); background: var(--matrix); }
+  </style>
 </head>
 <body>
-<div class="wrap">
+  <canvas id="bgRain" class="bg-rain" aria-hidden="true"></canvas>
 
-  <header class="hero">
-    <h1>Anderson Brito</h1>
-    <div class="sub">Analista Audiovisual · Eventos Corporativos · Estúdio · IA</div>
-    <div class="contact">Osasco, SP · (11) 94857-7950 · <a href="mailto:contato@andersonbrito.com">contato@andersonbrito.com</a> · <a href="https://www.linkedin.com/in/andbrito">linkedin.com/in/andbrito</a></div>
-    <p class="intro"><b>11 anos em produção de vídeo</b>, com <b>9 anos na FGV</b>, cobertura de imersões e eventos do <b>Clube do Franchising (Grupo A Trinca — Joel Jota, Flávio Augusto e Caio Carneiro)</b> e, nos últimos 2 anos, pipeline AI-first para campanhas e peças cinematográficas. Captação, estúdio, lives, motion e edição final.</p>
+  <div class="wrap">
+    <header class="banner">
+      <img src="/assets/cine/mitty-banner.jpg" alt="" fetchpriority="high">
+      <canvas id="rain" aria-hidden="true"></canvas>
+      <button class="lang" type="button" data-lang-toggle aria-label="Switch to English">EN</button>
+    </header>
 
-    <div class="seals" aria-label="Formação">
-      <div class="seal"><span class="lbl">Formação</span><span class="val">FGV</span><span class="ext">Marketing</span></div>
-      <div class="seal"><span class="lbl">Formação</span><span class="val">Instituto de Cinema</span><span class="ext">Cinema</span></div>
-      <div class="seal"><span class="lbl">Formação</span><span class="val">FAM</span><span class="ext">Publicidade</span></div>
-    </div>
-  </header>
+    <div class="layout">
 
-  <h2 class="sec">Empresas</h2>
-  <div class="co-grid">
-    <div class="co">
-      <span class="when">2015 — 2024 · 9 anos</span>
-      <h3>FGV</h3>
-      <p>Editor e produtor audiovisual. Eventos corporativos, aulas, entrevistas com executivos, estúdio e lives. Conteúdo com partners como CazéTV e TNT Sports (25M+ views).</p>
-    </div>
-    <div class="co">
-      <span class="when">2025 — 2026 · Franquias</span>
-      <h3>Escola do Franchising · Clube do Franchising</h3>
-      <p>Grupo A Trinca (Flávio Augusto, Joel Jota, Caio Carneiro). Cobertura de imersões, jantares e eventos; criativos, Reels e videoaulas para ~200 franqueados (Boali, Cheirin Bão).</p>
-    </div>
-    <div class="co">
-      <span class="when">2024 — 2026 · Agência</span>
-      <h3>WooB</h3>
-      <p>Edição de criativos de tráfego e campanhas 100% IA — personagens consistentes, motion e voz clonada para Meta e TikTok.</p>
+      <aside class="side">
+        <section id="sobre" aria-label="Sobre">
+          <div class="avatar"><img src="/assets/cine/avatar.jpg" alt="Anderson Brito"></div>
+          <h1 class="name">Anderson Brito</h1>
+          <div class="role">
+            <span class="tag"><i style="background:var(--c-iris)"></i>Analista Audiovisual</span>
+            <span class="tag"><i style="background:var(--matrix)"></i>Eventos · Estúdio · IA</span>
+          </div>
+          <div class="bio">
+            <p><b>Graduado em Marketing</b> · FGV</p>
+            <p><b>Cursou Cinema</b> · Instituto de Cinema</p>
+            <p><b>Produção Audiovisual</b> · Faculdade das Américas (FAM)</p>
+            <p>9 anos como assessor de comunicação na vice-presidência da FGV.</p>
+            <p>Cobertura de imersões e eventos do Clube do Franchising (Grupo A Trinca — Joel Jota, Flávio Augusto e Caio Carneiro).</p>
+            <p>São Paulo · SP</p>
+          </div>
+          <div class="actions">
+            <a class="btn btn-pr span2" href="mailto:contato@andersonbrito.com?subject=Vaga%20Analista%20Audiovisual%20XP%20Educa%C3%A7%C3%A3o">Falar comigo</a>
+            <a class="btn btn-ghost" href="/bio/">Saber mais</a>
+            <a class="btn btn-ghost" href="/portfolio">Portfólio</a>
+          </div>
+        </section>
+
+        <div class="card card-pad m-contato">
+          <div class="eyebrow"><span class="dot" style="background:#25D366"></span>Contato</div>
+          <div class="list">
+            <a class="row" href="https://wa.me/5511992392104?text=Oi%20Anderson%2C%20vim%20do%20portf%C3%B3lio%20XP" target="_blank" rel="noopener">
+              <span class="ico" style="background:#25D366"><svg><use href="/assets/icons.svg#i-wa"/></svg></span>
+              <span class="row-t"><b>WhatsApp</b><span>(11) 99239-2104</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+            <a class="row" href="mailto:contato@andersonbrito.com">
+              <span class="ico" style="background:var(--c-iris)"><svg><use href="/assets/icons.svg#i-mail"/></svg></span>
+              <span class="row-t"><b>E-mail</b><span>contato@andersonbrito.com</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+            <a class="row" href="https://www.linkedin.com/in/andbrito/" target="_blank" rel="noopener">
+              <span class="ico" style="background:#0A66C2"><svg><use href="/assets/icons.svg#i-in"/></svg></span>
+              <span class="row-t"><b>LinkedIn</b><span>/in/andbrito</span></span>
+              <svg class="chev"><use href="/assets/icons.svg#i-chev"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="card card-pad m-redes">
+          <div class="eyebrow"><span class="dot" style="background:var(--c-rose)"></span>Formação</div>
+          <div class="list">
+            <div class="row"><span class="row-t"><b>FGV</b><span>Marketing</span></span></div>
+            <div class="row"><span class="row-t"><b>Instituto de Cinema</b><span>Cinema</span></span></div>
+            <div class="row"><span class="row-t"><b>FAM</b><span>Produção Audiovisual</span></span></div>
+          </div>
+        </div>
+
+        <a class="card m-port" href="/portfolio" id="portfolio-link">
+          <div class="scene"><img src="/assets/cine/mitty-portfolio.jpg" alt="Anderson Brito" loading="lazy"></div>
+          <div class="card-pad">
+            <div class="eyebrow"><span class="dot" style="background:var(--c-forest)"></span>Portfólio geral</div>
+            <h3>Portfólio completo</h3>
+            <p class="sub">Todos os trabalhos — criativos, eventos, institucional, motion e IA.</p>
+          </div>
+        </a>
+      </aside>
+
+      <main class="main">
+        <nav class="topnav m-first" aria-label="Menu do site">
+          <a href="/">Home</a><a href="/bio/">Bio</a><a href="/portfolio">Portfólio</a><a href="/xp/" aria-current="page">XP</a><a href="/ia.html">Guias</a>
+        </nav>
+
+        <section id="inicio" class="m-first">
+          <div class="card p-hero">
+            <div>
+              <div class="eyebrow"><span class="dot"></span>Analista Audiovisual · Eventos · Estúdio · IA</div>
+              <h1>Portfólio · XP Educação</h1>
+              <p><b>11 anos em produção de vídeo</b>, com <b>9 anos na FGV</b> cobrindo eventos corporativos, aulas, imersões, entrevistas com executivos e conteúdo institucional. Nos últimos 2 anos, pipeline AI-first para campanhas e peças cinematográficas. Captação multicâmera, estúdio, lives (OBS/StreamYard), motion e edição final.</p>
+              <div class="role" style="margin-top:12px"><span class="tag">Faria Lima · híbrido</span><span class="tag">Premiere · After · OBS</span><span class="tag">Início imediato</span></div>
+            </div>
+            <div class="p-photo"><img src="/lunar/images/anderson-camera.jpg" alt="Anderson Brito"></div>
+          </div>
+        </section>
+
+        <section id="eventos">
+          <div class="sec-h"><h2>Eventos corporativos · Clube do Franchising</h2><small>3 vídeos</small></div>
+          <div class="vgrid">
+            <div class="card vcard">
+              <div class="vbox"><iframe src="https://www.youtube.com/embed/OI1bEUcBWeM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+              <div class="vcap"><b>Porsche Cup · Eduardo Schroeder</b><p>Cobertura em Interlagos para o Clube do Franchising. Captação e edição.</p><div class="tagrow"><span class="tag">Evento</span><span class="tag">Esporte</span></div></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox h"><iframe src="https://www.youtube.com/embed/6ANWvn9R2yY" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+              <div class="vcap"><b>Imersão Visão de Dono</b><p>Cobertura de imersão presencial com Joel Jota. Multicâmera, bastidores, entrevistas e aftermovie.</p><div class="tagrow"><span class="tag">Imersão</span><span class="tag">Multicâmera</span></div></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><iframe src="https://www.youtube.com/embed/1n-zMyC3rE4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+              <div class="vcap"><b>Aftermovie · Jantar dez/2025</b><p>Aftermovie do jantar do Clube do Franchising. Captação multicâmera e edição.</p><div class="tagrow"><span class="tag">Aftermovie</span><span class="tag">Evento</span></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="varejo">
+          <div class="sec-h"><h2>Cliente varejo · Boali</h2><small>3 vídeos</small></div>
+          <div class="vgrid">
+            <div class="card vcard">
+              <div class="vbox"><video src="/portfolio-v/boali-inauguracao.mp4" poster="/portfolio-v/boali-inauguracao.jpg" controls playsinline preload="none"></video></div>
+              <div class="vcap"><b>Inauguração · Vila Olímpia</b><p>Cobertura da inauguração da unidade. Rede de alimentação saudável, cliente da Escola do Franchising.</p><div class="tagrow"><span class="tag">Evento</span><span class="tag">Varejo</span></div></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><video src="/portfolio-v/boali-rodrigo-adriano.mp4" poster="/portfolio-v/boali-rodrigo-adriano.jpg" controls playsinline preload="none"></video></div>
+              <div class="vcap"><b>Rodrigo &amp; Adriano · franqueados</b><p>Depoimento de franqueados Boali para a comunicação da rede.</p><div class="tagrow"><span class="tag">Depoimento</span></div></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><video src="/portfolio-v/boali-competidor.mp4" poster="/portfolio-v/boali-competidor.jpg" controls playsinline preload="none"></video></div>
+              <div class="vcap"><b>Competidor · case Boali</b><p>Conteúdo institucional comparando posicionamento no varejo de alimentação saudável.</p><div class="tagrow"><span class="tag">Institucional</span></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="ia">
+          <div class="sec-h"><h2>IA generativa</h2><small>3 vídeos</small></div>
+          <div class="vgrid">
+            <div class="card vcard">
+              <div class="vbox"><iframe src="https://www.youtube.com/embed/wR-MDqYlc6I" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+              <div class="vcap"><b>Teaser · Jantar Clube do Franchising</b><p>Teaser 100% IA para o evento, estilo cinematográfico.</p><div class="tagrow"><span class="tag">Teaser</span><span class="tag">100% IA</span></div></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox h"><video src="/dr/videos/viva-america.mp4" poster="/dr/images/viva-america.jpg" controls playsinline preload="none"></video></div>
+              <div class="vcap"><b>Viva America · filme</b><p>Filme curto 100% IA — imigração aos EUA. Personagens consistentes em cena.</p><div class="tagrow"><span class="tag">Filme</span><span class="tag">100% IA</span></div></div>
+            </div>
+            <div class="card vcard">
+              <div class="vbox"><iframe src="https://www.youtube.com/embed/ksi7zN5OogU" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+              <div class="vcap"><b>Peça conceitual</b><p>Exploração de linguagem visual com IA generativa.</p><div class="tagrow"><span class="tag">Conceitual</span><span class="tag">IA</span></div></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="como">
+          <div class="sec-h"><h2>Como eu trabalho</h2></div>
+          <div class="card card-pad"><div class="list">
+            <div class="row"><span class="row-t"><b>Eventos</b><span>Captação multicâmera, direção de arte, entrevistas com executivos. Entrega em tempo real durante o evento.</span></span></div>
+            <div class="row"><span class="row-t"><b>Estúdio</b><span>Operação de câmera, iluminação, áudio lavalier/boom, teleprompter. Gravação de aulas, depoimentos e vinhetas.</span></span></div>
+            <div class="row"><span class="row-t"><b>Lives</b><span>OBS e StreamYard. Teste de áudio, vídeo e transmissão.</span></span></div>
+            <div class="row"><span class="row-t"><b>Edição e motion</b><span>Premiere Pro, After Effects e DaVinci. CapCut para redes.</span></span></div>
+            <div class="row"><span class="row-t"><b>IA no fluxo</b><span>Kling, Seedance, Veo, Nano Banana, ElevenLabs. Velocidade sem perder qualidade.</span></span></div>
+          </div></div>
+        </section>
+      </main>
     </div>
   </div>
 
-  <h2 class="sec">Eventos · Clube do Franchising</h2>
-  <div class="v-grid">
-    <div class="v">
-      <div class="frame"><iframe src="https://www.youtube.com/embed/OI1bEUcBWeM" title="Porsche Cup" allowfullscreen></iframe></div>
-      <div class="cap"><div class="eye">Cobertura de evento</div><h4>Porsche Cup · Eduardo Schroeder</h4><p>Cobertura audiovisual para o Clube do Franchising em Interlagos.</p></div>
+  <nav class="tl" aria-label="Linha do tempo da página">
+    <div class="tl-tc"><b id="tc">00:00:00;00</b><span>XP Educação</span></div>
+    <div class="tl-track">
+      <div class="tl-ruler" aria-hidden="true"></div>
+      <div class="tl-clips">
+        <a class="clip" href="#sobre" data-sec="sobre" style="--cc:var(--c-iris)"><span>Home</span></a>
+        <a class="clip" href="#eventos" data-sec="eventos" style="--cc:var(--c-forest)"><span>Eventos</span></a>
+        <a class="clip" href="#varejo" data-sec="varejo" style="--cc:var(--c-mango)"><span>Varejo</span></a>
+        <a class="clip" href="#ia" data-sec="ia" style="--cc:var(--c-violet)"><span>IA</span></a>
+        <a class="clip" href="#como" data-sec="como" style="--cc:var(--c-rose)"><span>Como</span></a>
+      </div>
+      <i class="tl-ph" id="ph" aria-hidden="true"></i>
     </div>
-    <div class="v">
-      <div class="frame h"><iframe src="https://www.youtube.com/embed/6ANWvn9R2yY" title="Imersão Visão de Dono" allowfullscreen></iframe></div>
-      <div class="cap"><div class="eye">Imersão</div><h4>Imersão Visão de Dono</h4><p>Cobertura e edição de imersão presencial com Joel Jota e cia.</p></div>
-    </div>
-    <div class="v">
-      <div class="frame"><iframe src="https://www.youtube.com/embed/1n-zMyC3rE4" title="Aftermovie Jantar Clube do Franchising" allowfullscreen></iframe></div>
-      <div class="cap"><div class="eye">Aftermovie</div><h4>Jantar Clube do Franchising · dez/2025</h4><p>Aftermovie da noite — captação multicâmera e edição.</p></div>
-    </div>
-  </div>
+    <a class="tl-wa" href="https://wa.me/5511992392104?text=Oi%20Anderson%2C%20vim%20do%20portf%C3%B3lio%20XP" target="_blank" rel="noopener" aria-label="Falar no WhatsApp"><svg><use href="/assets/icons.svg#i-wa"/></svg></a>
+  </nav>
 
-  <h2 class="sec">Cliente · Boali (Escola do Franchising)</h2>
-  <div class="v-grid">
-    <div class="v" style="grid-column:span 2">
-      <div class="frame h"><video src="/trabalhos/videos/boali.mp4" poster="/trabalhos/images/poster-boali.jpg" controls playsinline preload="none"></video></div>
-      <div class="cap"><div class="eye">Cobertura de evento · varejo</div><h4>Boali · inauguração Vila Olímpia</h4><p>Rede de alimentação saudável, cliente da Escola do Franchising. Cobertura do evento virando conteúdo para as redes.</p></div>
-    </div>
-  </div>
-
-  <h2 class="sec">IA Generativa</h2>
-  <div class="v-grid">
-    <div class="v">
-      <div class="frame"><iframe src="https://www.youtube.com/embed/wR-MDqYlc6I" title="Teaser Jantar Clube do Franchising" allowfullscreen></iframe></div>
-      <div class="cap"><div class="eye">Teaser · IA</div><h4>Jantar Clube do Franchising</h4><p>Teaser 100% IA para o evento, estilo cinematográfico.</p></div>
-    </div>
-    <div class="v">
-      <div class="frame h"><video src="/dr/videos/viva-america.mp4" poster="/dr/images/viva-america.jpg" controls playsinline preload="none"></video></div>
-      <div class="cap"><div class="eye">Filme · IA</div><h4>Viva America</h4><p>Filme curto 100% IA, narrativa para imigração aos EUA.</p></div>
-    </div>
-    <div class="v">
-      <div class="frame"><iframe src="https://www.youtube.com/embed/ksi7zN5OogU" title="Conceitual IA" allowfullscreen></iframe></div>
-      <div class="cap"><div class="eye">Conceitual · IA</div><h4>Peça conceitual</h4><p>Exploração de linguagem visual com IA generativa.</p></div>
-    </div>
-  </div>
-
-  <footer>
-    <p>Candidatura · XP Educação · Analista Audiovisual &nbsp;·&nbsp; <a href="https://andersonbrito.com">andersonbrito.com</a></p>
-  </footer>
-
-</div>
+  <script src="/assets/ab.js?v=20261110f" defer></script>
 </body>
 </html>
