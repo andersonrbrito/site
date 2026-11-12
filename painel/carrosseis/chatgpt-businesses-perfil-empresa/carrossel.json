@@ -1,0 +1,95 @@
+{
+ "slug": "chatgpt-businesses-perfil-empresa",
+ "dia": "2026-11-11",
+ "tipo": "noticia",
+ "titulo": "ChatGPT Businesses: a empresa ganha perfil e agente dentro do ChatGPT",
+ "perfil": "@ilmarlabs",
+ "legenda": "A OpenAI lançou o Businesses no ChatGPT, em beta: a empresa reivindica o próprio perfil, cuida das informações e acompanha como as pessoas chegam até ela. Algumas podem criar um agente que atende o cliente ali mesmo.\n\nPra mim, o jogo de aparecer no Google está ganhando um segundo campo: aparecer na resposta da IA. Posso estar errado.\n\nSeu negócio já aparece certo quando alguém pergunta pro ChatGPT?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: OpenAI (10/11/2026), via VentureBeat e The Next Web. Por enquanto o agente é só para empresas dos EUA.",
+ "fontes": [
+  {
+   "titulo": "VentureBeat: OpenAI lets you claim your business in ChatGPT",
+   "url": "https://venturebeat.com/technology/openai-lets-you-claim-your-business-in-chatgpt-and-set-up-a-custom-agentic-ai-customer-sales-rep"
+  },
+  {
+   "titulo": "The Next Web: OpenAI lets businesses claim ChatGPT profiles and launch their own agents",
+   "url": "https://thenextweb.com/news/openai-businesses-in-chatgpt-business-agents"
+  },
+  {
+   "titulo": "FoneArena: Businesses in ChatGPT with Business Hub and Business Agents",
+   "url": "https://www.fonearena.com/blog/496812/openai-rolls-businesses-chatgpt.html"
+  },
+  {
+   "titulo": "Post de referência (@notaboutdollar no X)",
+   "url": "https://x.com/notaboutdollar/status/2120258053547110411"
+  }
+ ],
+ "notas": "Pedido do Anderson no chat (11/11), a partir do post do @notaboutdollar. Fatos confirmados em VentureBeat, TNW, Quartz e FoneArena. Corrigido em relação ao post: o agente (Business Agent) está limitado a e-commerce e serviços online dos EUA no lançamento; o perfil vale onde o ChatGPT funciona. Imagens oficiais da OpenAI (via FoneArena).",
+ "slides": [
+  {
+   "texto": "Seu negócio agora pode ter **perfil dentro do ChatGPT**.\n\nE um agente que atende o cliente por você.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/01-hook.jpg",
+    "foco": 0.5,
+    "credito": "imagem: OpenAI"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A OpenAI lançou ontem o **Businesses no ChatGPT**, em beta.\n\nA empresa reivindica o próprio perfil, ganha o selo azul e cuida das informações que aparecem sobre ela.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/02-reivindicar.jpg",
+    "foco": 0.4,
+    "credito": "imagem: OpenAI"
+   }
+  },
+  {
+   "texto": "Quando alguém pergunta \"qual loja de brinquedo é boa?\", o ChatGPT pode mostrar o **perfil da empresa** ali na resposta, com site, entrega e produtos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/03-perfil.jpg",
+    "foco": 0.5,
+    "credito": "imagem: OpenAI"
+   }
+  },
+  {
+   "texto": "Empresas elegíveis podem criar um **Business Agent**: um agente que responde dúvida e indica produto dentro do ChatGPT.\n\nPor enquanto, só e-commerce e serviço online dos EUA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/04-agente.jpg",
+    "foco": 0.45,
+    "credito": "imagem: OpenAI"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "No **Business Hub** a empresa vê quantas vezes foi citada, os cliques no site e os assuntos que levam as pessoas até ela.\n\nA OpenAI diz que não entrega as conversas dos usuários pra empresa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/05-hub.jpg",
+    "foco": 0.3,
+    "credito": "imagem: OpenAI"
+   }
+  },
+  {
+   "texto": "Minha opinião? Por anos o jogo foi aparecer no Google. Agora tem gente perguntando **direto pra IA** onde comprar.\n\nSe o ChatGPT não sabe quem você é, ou sabe errado, você fica de fora dessa conversa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/03-perfil.jpg",
+    "foco": 0.6,
+    "credito": "imagem: OpenAI"
+   }
+  },
+  {
+   "texto": "Quando liberar no Brasil, eu faria três coisas: reivindicar o perfil antes do concorrente, revisar o que aparece sobre o negócio e escrever pensando que **uma IA vai ler**.\n\nVocê já perguntou pro ChatGPT sobre a sua empresa?\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-businesses-perfil-empresa/02-reivindicar.jpg",
+    "foco": 0.6,
+    "credito": "imagem: OpenAI"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

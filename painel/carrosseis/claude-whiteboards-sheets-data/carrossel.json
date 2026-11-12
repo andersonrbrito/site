@@ -1,0 +1,95 @@
+{
+ "slug": "claude-whiteboards-sheets-data",
+ "dia": "2026-11-11",
+ "tipo": "noticia",
+ "titulo": "Claude ganhou quadro, planilha e dados: Whiteboards, Sheets e Data",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Anthropic começou a liberar ontem três ferramentas dentro do Claude: Whiteboards (quadro pra planejar), Sheets (planilha) e Data (dashboard e história com seus dados).\n\nPra mim, o Claude está deixando de ser só chat e virando lugar de trabalho. Ainda é beta e a planilha é simples, mas o caminho ficou claro. Posso estar errado.\n\nVocê trocaria a sua planilha por essa?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Anthropic (post oficial no X, 10/11/2026). Planos pagos (Pro, Max, Team, Enterprise).",
+ "fontes": [
+  {
+   "titulo": "Claude no X: Whiteboards, Sheets e Data (post oficial)",
+   "url": "https://x.com/claudeai/status/2120206365759094857"
+  },
+  {
+   "titulo": "Tom's Guide: Claude just got 3 powerful new tools",
+   "url": "https://www.tomsguide.com/ai/claude/claude-just-got-3-powerful-new-tools-and-they-could-replace-some-of-your-favorite-apps"
+  },
+  {
+   "titulo": "Android Authority: Claude now has its own workplace tools",
+   "url": "https://www.androidauthority.com/claude-workplace-tools-sheets-data-whiteboards-3733706/"
+  },
+  {
+   "titulo": "Unite.AI: Anthropic launches Claude Whiteboards and Sheets in beta",
+   "url": "https://www.unite.ai/anthropic-launches-claude-whiteboards-and-sheets-in-beta/"
+  }
+ ],
+ "notas": "Pedido do Anderson no chat (11/11). Fatos do post oficial da @claudeai + Tom's Guide, Android Authority e Unite.AI. Whiteboards e Sheets em beta; Data é a versão final do Dashboards (beta de outubro). Limites do Sheets (100 mil células, sem tabela dinâmica nem macro) vêm da cobertura citando a documentação. Mídias: trechos e quadros do vídeo oficial.",
+ "slides": [
+  {
+   "texto": "O Claude agora tem **quadro, planilha e dashboard**.\n\nTudo dentro da conversa.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/01-video.mp4",
+    "poster": "/painel/carrosseis/claude-whiteboards-sheets-data/01-video-poster.jpg",
+    "credito": "vídeo: @claudeai"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A Anthropic começou a liberar ontem três ferramentas: **Whiteboards**, **Sheets** e **Data**.\n\nA ideia: planejar num quadro, montar controle numa planilha e contar uma história com seus dados.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/02-video.mp4",
+    "poster": "/painel/carrosseis/claude-whiteboards-sheets-data/02-video-poster.jpg",
+    "credito": "vídeo: @claudeai"
+   }
+  },
+  {
+   "texto": "**Whiteboards:** você explica um plano bagunçado e o Claude organiza num quadro com etapas, datas e responsáveis.\n\nO time edita junto e pode chamar o Claude ali mesmo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/07-board.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   }
+  },
+  {
+   "texto": "**Sheets:** a planilha do Claude. Você pede uma previsão usando os números do ano passado e ele monta.\n\nAinda é simples: sem tabela dinâmica nem macro, e com limite de 100 mil células.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/03-video.mp4",
+    "poster": "/painel/carrosseis/claude-whiteboards-sheets-data/03-video-poster.jpg",
+    "credito": "vídeo: @claudeai"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "**Data:** era o Dashboards, que estava em teste desde outubro.\n\nConecta em banco de dados e CRM e transforma os números em painel, história rolável ou até vídeo curto narrado.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/04-video.mp4",
+    "poster": "/painel/carrosseis/claude-whiteboards-sheets-data/04-video-poster.jpg",
+    "credito": "vídeo: @claudeai"
+   }
+  },
+  {
+   "texto": "Minha opinião? O Claude está deixando de ser **só um chat** e virando lugar de trabalho, de frente com Google e Microsoft.\n\nAinda é beta, mas pra quem já vive no Claude, é menos aba aberta.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/06-conectores.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   }
+  },
+  {
+   "texto": "Está liberando nos **planos pagos** (Pro, Max, Team e Enterprise), na web, no app de desktop e no celular.\n\nVocê trocaria sua planilha de sempre pela do Claude?\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-whiteboards-sheets-data/05-data.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
