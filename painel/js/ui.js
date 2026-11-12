@@ -62,7 +62,12 @@ export const PODE_COMPARTILHAR_TEXTO = typeof navigator !== "undefined" && !!nav
 export async function compartilharTexto(texto, titulo = "") {
   const t = String(texto ?? "");
   if (!navigator.share) return copiarTexto(t, "Legenda copiada.");
-  try { await navigator.share(titulo ? { text: t, title: titulo } : { text: t }); return true; }
+  // No Mac o AirDrop não aparece para texto puro: lá a legenda vai como arquivo .txt (no iPhone abre direto no Notas/Arquivos).
+  const mac = typeof matchMedia === "function" && !matchMedia("(pointer: coarse)").matches;
+  const arq = mac && typeof File === "function" ? [new File([t], "legenda.txt", { type: "text/plain" })] : null;
+  const dados = arq && navigator.canShare?.({ files: arq }) ? { files: arq } : titulo ? { text: t, title: titulo } : { text: t };
+  if (dados.files) copiarTexto(t, "Legenda copiada. No iPhone também dá pra colar direto (área de transferência universal).");
+  try { await navigator.share(dados); return true; }
   catch (e) { if (e.name !== "AbortError") return copiarTexto(t, "Legenda copiada."); return false; }
 }
 
