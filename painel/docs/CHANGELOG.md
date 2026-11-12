@@ -1,5 +1,8 @@
 # Changelog
 
+## 2026-11-12 · CarrosseL_: antigos com botões e legenda
+- Tela dos carrosséis antigos (imagens prontas) ganhou os botões dos novos: Copiar legenda, Compartilhar legenda (AirDrop no Mac), Baixar lâminas (no celular, Salvar na galeria) e um botão de baixar em cada lâmina, inclusive as de vídeo. A legenda agora aparece no topo.
+
 ## 2026-11-09 (noite) · CarrosseL_: cor por tipo
 - Destaque das lâminas muda com o tipo do carrossel: notícia avermelhada (#FF3B47), educativo azulado (#3D8BFF), pessoal no verde Matrix (#41FF8A). Vale para negrito, marca-texto da lâmina 1, selo, anel do avatar, brilhos e grade do fundo, ponto do chip, botão de play e rodapé. Cores das pílulas de `assets/ab.css`.
 - Topo sem o chip do tipo (Notícia/Educativo/Pessoal): fica só o contador "01 / 07", agora em Arial.
@@ -153,3 +156,13 @@
 - AprovaçõeS_: "Baixar" voltou a salvar arquivos separados (sem .zip), baixados em sequência pelo navegador.
 - CarrosseL_: botão "Pedir alteração" (pedido carrossel_ajuste, migration 0038), "Pegar mídia de outra lâmina" (trocar/copiar), e "Enviar pro iPhone" não trava mais no "Tocar de novo".
 - StúdiO_: botão "⬇" baixa o vídeo em MP4. CarrosseL_: marcar como postado tira o carrossel da tela (fica arquivado no banco); chip "Postados" saiu.
+
+## 2026-11-11 · GeradoR_ (nome provisório)
+- Nova página GeradoR_ (desligada em modules.js, só no harness: `dev/harness.html?on=gerador#/gerador`): gerar vídeo, imagem e áudio com IA. Coluna esquerda com tipo, modelo, modo, conexão, prompt com menção @ aos anexos (arrastar, colar ou escolher), opções por modelo e confirmação em dois cliques quando gasta créditos, cobra por uso ou passa de 720p. À direita, pedidos em andamento e galeria com filtros (texto, tipo, ferramenta, modelo, status, data, tamanho) e ordenação. Chuva Matrix só enquanto algo está gerando.
+- Catálogo em js/gerador-data.js: 10 provedores e 68 modelos (44 de vídeo, 10 de imagem, 14 de áudio) (Kling, Seedance, Wan, MiniMax, Veo, Omni Flash, Grok Imagine; Seedream, Nano Banana, ChatGPT; ElevenLabs no Magnific, Google AI, Seed Audio), com caminhos (API, MCP, Claude no Chrome) e custo por conexão. Sem Higgsfield.
+- Migration 0040 (tabela geracoes) escrita, NÃO aplicada. Execução ainda não existe: plano em docs/GERADOR.md, aguardando OK.
+- Harness: `?on=<id>` liga módulo desligado só no teste.
+
+## 2026-11-11: ForjA_ (execução)
+- GeradoR_ vira ForjA_ (provisório). Execução pelo ajudante do Mac para Magnific pelo Chrome (Unlimited), sem prévia no Supabase.
+- Catálogo: Real Oficial (vídeo, imagem, XABLAU, Real Fantasia, voz), voz Anderson Brito, Kie/fal/Kinovi bloqueados. 75 modelos.

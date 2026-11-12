@@ -529,19 +529,31 @@ function editor({ sb, go, c, data }) {
     pedidosBox);
 }
 
-// Carrosséis antigos (JPGs prontos, sem edição).
+// Carrosséis antigos (JPGs/MP4 prontos, sem edição): legenda no topo, baixar/salvar tudo ou lâmina por lâmina.
 function legacyView(atual, go) {
   const url = (f) => `${BASE}${atual.slug}/${f}`;
+  const nome = (f) => `${atual.slug}-${f}`;
   const copiar = () => copiarTexto(atual.legenda || "", "Legenda copiada.");
+  const baixarLink = (f) => { const a = h("a", { href: url(f), download: nome(f) }); document.body.append(a); a.click(); setTimeout(() => a.remove(), 2000); };
+  async function salvar(fs, btn) {
+    if (CELULAR) return salvarNaGaleria(btn, async (info) => { const out = []; for (const [k, f] of fs.entries()) { info(`Preparando ${k + 1}/${fs.length}…`); out.push(await urlParaFile(url(f), nome(f))); } return out; });
+    for (const f of fs) { baixarLink(f); await new Promise((r) => setTimeout(r, 350)); }
+    toast(fs.length > 1 ? "Lâminas baixadas." : "Lâmina baixada.");
+  }
+  const tudo = h("button", { class: "btn btn-sm", type: "button", onclick: (e) => salvar(atual.slides, e.currentTarget) }, CELULAR ? "Salvar lâminas na galeria" : "Baixar lâminas");
   return h("div", { class: "page wide" },
     pageHead(atual.titulo, `${atual.perfil} · ${atual.slides.length} slides · 1080×1350`),
-    h("div", { class: "flex", style: { gap: "8px", marginBottom: "14px" } },
-      h("button", { class: "btn btn-sm", type: "button", onclick: () => go("/carrosseis") }, "← Todos"),
-      h("button", { class: "btn btn-sm", type: "button", onclick: copiar }, "Copiar legenda")),
-    h("div", { class: "carr-strip" }, ...atual.slides.map((f, i) => h("a", { href: url(f), target: "_blank", rel: "noopener", class: "carr-slide" },
+    h("div", { class: "flex wrap", style: { gap: "8px", marginBottom: "14px" } },
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => go("/carrosseis") }, "← Todos"),
+      atual.legenda ? h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda") : null,
+      PODE_COMPARTILHAR_TEXTO && atual.legenda ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => compartilharTexto(atual.legenda) }, CELULAR ? "Compartilhar legenda" : "Legenda por AirDrop") : null,
+      tudo),
+    h("section", { class: "panel", style: { marginBottom: "16px" } }, h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Legenda")),
+      h("div", { class: "panel-body" }, h("p", { style: { whiteSpace: "pre-wrap", margin: 0 } }, atual.legenda || "Este carrossel não tem legenda salva."))),
+    h("div", { class: "carr-strip" }, ...atual.slides.map((f, i) => h("div", { class: "carr-slide" },
       /\.(mp4|mov)$/i.test(f)
         ? h("video", { src: url(f), poster: url(f.replace(/\.\w+$/, ".jpg")), muted: true, loop: true, playsinline: true, autoplay: true, preload: "metadata" })
-        : h("img", { src: url(f), alt: `Slide ${i + 1}`, loading: "lazy" }), h("span", { class: "mono" }, String(i + 1).padStart(2, "0"))))),
-    atual.legenda && h("section", { class: "panel", style: { marginTop: "16px" } }, h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Legenda")),
-      h("div", { class: "panel-body" }, h("p", { style: { whiteSpace: "pre-wrap", margin: 0 } }, atual.legenda))));
+        : h("img", { src: url(f), alt: `Slide ${i + 1}`, loading: "lazy" }),
+      h("span", { class: "mono" }, String(i + 1).padStart(2, "0")),
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", style: { marginTop: "6px", width: "100%" }, onclick: (e) => salvar([f], e.currentTarget) }, CELULAR ? ROTULO_GALERIA : /\.(mp4|mov)$/i.test(f) ? "Baixar (vídeo)" : "Baixar")))));
 }
