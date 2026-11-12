@@ -4,7 +4,7 @@
  "tipo": "noticia",
  "titulo": "Se você paga o Gemini mais barato, ele perde os modelos Pro dia 13",
  "perfil": "@ilmarlabs",
- "legenda": "A partir de quinta (13/11), usar os modelos Pro no app do Gemini e no modo IA da Busca fica só pra quem tem o plano AI Pro (uns US$ 20/mês) pra cima. No plano mais barato, o AI Plus, sobram só o Flash e o Flash-Lite.\n\nSe você usa o Gemini Pro pra roteiro, pesquisa ou gerar vídeo, vale conferir seu plano essa semana antes de bater a trava.\n\nVocê pagaria pra manter o Pro, ou trocaria de ferramenta?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: 9to5Google e ProPakistani (14 e 17/10/2026).",
+ "legenda": "A partir de sexta (13/11), usar os modelos Pro no app do Gemini e no modo IA da Busca fica só pra quem tem o plano AI Pro (uns US$ 20/mês) pra cima. No plano mais barato, o AI Plus, sobram só o Flash e o Flash-Lite.\n\nSe você usa o Gemini Pro pra roteiro, pesquisa ou gerar vídeo, vale conferir seu plano essa semana antes de bater a trava.\n\nVocê pagaria pra manter o Pro, ou trocaria de ferramenta?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: 9to5Google e ProPakistani (14 e 17/10/2026).",
  "fontes": [
   {
    "titulo": "9to5Google: Gemini AI Plus loses Pro in November",
@@ -15,33 +15,57 @@
    "url": "https://propakistani.pk/2026/10/17/google-ai-plus-to-be-severely-downgraded-after-november-13/"
   }
  ],
- "notas": "Lâminas geradas no ChatGPT (Images 2.6), estilo pôster cinema × IA, PT-BR, cena brasileira, sem rostos reais. Fato confirmado em dois veículos. Valor ~US$ 20/mês do AI Pro citado como aproximado.",
+ "notas": "Lâminas geradas no ChatGPT (Images 2.6), estilo pôster cinema × IA, PT-BR, cena brasileira, sem rostos reais. Fato confirmado em dois veículos. Valor ~US$ 20/mês do AI Pro citado como aproximado. Ajuste 12/11: hook novo com Ronaldinho Gaúcho barrado na \"ÁREA PRO\" com logo do Gemini no letreiro e no celular (ChatGPT). Corrigido o dia da semana: 13/11/2026 é sexta, não quinta (lâmina 1 e legenda).",
  "slides": [
   {
-   "texto": "Quinta (13/11) o **Gemini mais barato** perde os modelos Pro.\n\nSe é o seu caso, melhor saber antes.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/google-ai-plus-perde-pro/01-hook.jpg", "foco": 0.4 },
+   "texto": "Sexta (13/11) o **Gemini mais barato** perde os modelos Pro.\n\nSe é o seu caso, melhor saber antes.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/google-ai-plus-perde-pro/01-ronaldinho-gemini.jpg",
+    "foco": 0.4
+   },
    "rodape": "arrasta pro lado →"
   },
   {
    "texto": "O que muda: a partir de **13 de novembro**, escolher um modelo Pro no app do Gemini e no modo IA da Busca fica só pra quem tem o AI Pro pra cima.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/google-ai-plus-perde-pro/02-muda.jpg", "foco": 0.4 }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/google-ai-plus-perde-pro/02-muda.jpg",
+    "foco": 0.4
+   }
   },
   {
    "texto": "No plano mais barato (AI Plus) sobram só o **Flash e o Flash-Lite**.\n\nPra voltar ao Pro, só assinando o AI Pro, por volta de US$ 20 por mês.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/google-ai-plus-perde-pro/03-planos.jpg", "foco": 0.4 },
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/google-ai-plus-perde-pro/03-planos.jpg",
+    "foco": 0.4
+   },
    "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
   },
   {
    "texto": "Por que importa pra quem cria:\n\nse você usa o Gemini Pro pra **roteiro, pesquisa ou gerar vídeo** (Veo, Omni), parte disso pode sair do seu plano.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/google-ai-plus-perde-pro/04-criador.jpg", "foco": 0.4 }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/google-ai-plus-perde-pro/04-criador.jpg",
+    "foco": 0.4
+   }
   },
   {
    "texto": "O que dá pra fazer essa semana:\n\n• conferir qual plano você paga\n• ver se o seu uso depende do Pro\n• decidir entre **subir de plano** ou **trocar de ferramenta**",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/google-ai-plus-perde-pro/05-checklist.jpg", "foco": 0.4 }
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/google-ai-plus-perde-pro/05-checklist.jpg",
+    "foco": 0.4
+   }
   },
   {
    "texto": "Mudança de plano é sempre chata, mas é melhor decidir com calma do que no susto.\n\n**Você pagaria pra manter o Pro, ou migraria?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/google-ai-plus-perde-pro/06-fim.jpg", "foco": 0.4 },
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/google-ai-plus-perde-pro/06-fim.jpg",
+    "foco": 0.4
+   },
    "rodape": "comenta aqui embaixo ↓"
   }
  ]

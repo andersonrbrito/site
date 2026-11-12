@@ -11,33 +11,66 @@
    "url": "https://x.com"
   }
  ],
- "notas": "Educativo. Técnica refeita com o jeito dele, sem copiar prompt de ninguém. Lâminas geradas no ChatGPT (Images 2.6), estilo flat minimalista (formas geométricas, 3 cores chapadas, fundo escuro) espelhando a estética ensinada, PT-BR. Ajuste 10/11: lâmina 1 trocada para caricatura do Sérgio Sacani em estilo Kurzgesagt (01-sacani.jpg, ChatGPT) como hook famoso de ciência; carrossel passou a apontar para o guia/ebook /fato-indigesto.html (prompt completo do Fato Indigesto).",
+ "notas": "Educativo. Técnica refeita com o jeito dele, sem copiar prompt de ninguém. Lâminas geradas no ChatGPT (Images 2.6), estilo flat minimalista (formas geométricas, 3 cores chapadas, fundo escuro) espelhando a estética ensinada, PT-BR. Ajuste 10/11: lâmina 1 trocada para caricatura do Sérgio Sacani em estilo Kurzgesagt (01-sacani.jpg, ChatGPT) como hook famoso de ciência; carrossel passou a apontar para o guia/ebook /fato-indigesto.html (prompt completo do Fato Indigesto). Ajuste 12/11: carrossel refeito com base nas animações toon do Fato Indigesto (quadros reais dos eps. 09 e 10 e ficha de poses do personagem dele); hook = Lula em toon (ep. 09); lâmina 2 nova com print factual do canal Kurzgesagt (25,8 mi de inscritos em 12/11/2026); passou de 6 para 7 lâminas. Saiu o \"mil horas\" do hook (não confirmado).",
  "slides": [
   {
-   "texto": "Sabe aquele vídeo de ciência todo animado, tipo Kurzgesagt? Levava **mil horas** e uma equipe inteira. Dá pra prototipar em minutos com IA.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/01-sacani.jpg", "foco": 0.35 },
+   "texto": "Esse Lula animado não saiu de um estúdio de animação. Saiu de **um prompt e de código**.\n\nDá pra prototipar animação estilo Kurzgesagt com IA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/01-lula-toon.jpg",
+    "foco": 0.5
+   },
    "rodape": "arrasta pro lado →"
   },
   {
-   "texto": "A ideia: em vez de desenhar quadro a quadro, você descreve a cena e pede pra IA **montar a animação em código** (tipo SVG animado).\n\nNão fica igual ao canal, mas é uma base boa.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/02-ideia.jpg", "foco": 0.4 }
+   "texto": "A referência é o Kurzgesagt: **25,8 milhões de inscritos** explicando ciência com formas chapadas, fundo escuro e um elemento entrando por vez.\n\nLá tem um estúdio inteiro por trás. Aqui a ideia é prototipar sozinho.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/02-canal-kurzgesagt.jpg",
+    "foco": 0.3,
+    "credito": "print: canal Kurzgesagt no YouTube (12/11/2026)"
+   }
   },
   {
-   "texto": "Passo 1 — roteiro curto.\n\nEscreva a cena em 3 frases: o que aparece, o que se move e a ideia que ela explica. A animação só fica boa quando a frase é clara.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/03-roteiro.jpg", "foco": 0.4 },
+   "texto": "A ideia: em vez de desenhar quadro a quadro, você descreve a cena e pede pra IA **montar a animação em código**.\n\nEsse quadro é de um episódio meu do Fato Indigesto: cenário, telão e personagens, tudo montado assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/03-exemplo-nvidia.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Passo 1 — roteiro curto.\n\nEscreva cada cena em 3 frases: o que aparece, o que se move e a ideia que ela explica. No meu, cada frase da narração **troca o cenário**: cozinha, plenário, quadro de investigação.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/04-roteiro-investigacao.jpg",
+    "foco": 0.4
+   },
    "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
   },
   {
-   "texto": "Passo 2 — o prompt base (cola e adapta):\n\n**\"Crie uma animação em código, estilo flat minimalista, formas geométricas simples, 3 cores chapadas, fundo escuro, um elemento entrando por vez explicando [sua ideia]. Texto em português.\"**",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/04-prompt.jpg", "foco": 0.4 }
+   "texto": "Passo 2 — o personagem.\n\nO narrador sou eu em desenho. Uma ficha só, com **6 poses** (cruzado, bravo, explicando, garfo erguido, pensativo, rindo). A pose troca a cada frase, e isso já dá vida sem animar quadro a quadro.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/05-personagem-poses.jpg",
+    "foco": 0.5
+   }
   },
   {
-   "texto": "Passo 3 — refine em camadas.\n\nPeça uma coisa por vez: primeiro o fundo, depois os elementos, depois o movimento. Mexer em tudo junto quebra a cena.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/05-camadas.jpg", "foco": 0.4 }
+   "texto": "Passo 3 — monte em camadas, uma por vez: **cenário, personagem, telão com o texto**.\n\nPrompt base: \"Crie uma animação em código, estilo flat, formas simples, 3 cores chapadas, um elemento entrando por vez explicando [sua ideia]. Texto em português.\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/06-camadas.jpg",
+    "foco": 0.5
+   }
   },
   {
-   "texto": "Passo 4 — exporte e entre com a **sua narração** e o seu ritmo.\n\nO prompt completo (o mesmo que eu uso no Fato Indigesto) tá no guia de prompts do meu site.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
-   "midia": { "tipo": "imagem", "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/06-fim.jpg", "foco": 0.4 },
+   "texto": "Passo 4 — exporte e entre com a **sua narração** e o seu ritmo.\n\nO prompt completo (o mesmo que eu uso no Fato Indigesto) tá no guia de prompts do meu site.\n\n**Qual ideia você explicaria primeiro?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/animacao-kurzgesagt-com-ia/07-fim-toon.jpg",
+    "foco": 0.5
+   },
    "rodape": "comenta aqui embaixo ↓"
   }
  ]

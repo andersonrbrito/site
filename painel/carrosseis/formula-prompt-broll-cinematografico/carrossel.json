@@ -6,13 +6,13 @@
  "perfil": "@ilmarlabs",
  "legenda": "B-roll feio quase sempre é prompt vago. A ordem que funciona pra mim: sujeito + uma ação contínua + câmera/lente + movimento + luz/hora + clima, tudo numa tomada só.\n\nTem um exemplo pronto pra copiar lá no carrossel.\n\nQual parte do prompt vocês mais esquecem: a lente ou a luz?\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo. Segue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
  "fontes": [],
- "notas": "Educativo (técnica de prompt). Todas as lâminas com imagem gerada em estilo pôster PT-BR, cena brasileira. Lâmina 4 traz o prompt copiável escrito na própria imagem e no texto.",
+ "notas": "Educativo (técnica de prompt). Todas as lâminas com imagem gerada em estilo pôster PT-BR, cena brasileira. Lâmina 4 traz o prompt copiável escrito na própria imagem e no texto. Ajuste 12/11: hook novo com Wagner Moura de diretor de fotografia filmando um café coado numa padaria com câmera de cinema (ChatGPT).",
  "slides": [
   {
    "texto": "**Para de pedir \"faz um vídeo bonito\" pra IA.**\n\nTem uma fórmula de prompt que muda totalmente o resultado do B-roll.",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/01-hook.jpg",
+    "src": "/painel/carrosseis/formula-prompt-broll-cinematografico/01-wagner-moura.jpg",
     "foco": 0.4
    },
    "rodape": "arrasta pro lado →"

@@ -6,13 +6,13 @@
  "perfil": "@ilmarlabs",
  "legenda": "Editor de vídeo no Brasil é um dos melhores do mundo? Eu acho que sim, e não é pelo programa que ele usa.\n\nAqui a maioria manda o vídeo com um brief só: \"deixa esse vídeo bom!\". Sem objetivo, sem público, sem referência. Aí o editor vira metade técnico, metade adivinho da estratégia.\n\nVocê que edita: qual foi o brief mais vago que já recebeu?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
  "fontes": [],
- "notas": "Pedido do PostadoR_ (rascunho linkedin). Opinião dele do rascunho, sem fatos novos. Todas as imagens geradas no Magnific (Nano Banana 2).",
+ "notas": "Pedido do PostadoR_ (rascunho linkedin). Opinião dele do rascunho, sem fatos novos. Todas as imagens geradas no Magnific (Nano Banana 2). Ajuste 12/11 (ChatGPT): 1 = mesma foto do Neymar em modo editor (fone + monitor com timeline); 2 = Vini Jr de storymaker filmando modelo em Paris com iPhone 17 laranja; 3 = Anderson de detetive; 4 = Mbappé de general dando bronca no marketing; 6 = Anderson de editor com bola de cristal; 7 = Neymar olhando o iPhone 17 laranja (tela virada pra ele). Lâmina 5 mantida.",
  "slides": [
   {
    "texto": "Editor de vídeo no Brasil é **um dos melhores do mundo**?\n\nEu acho que sim. E não é pelo programa que ele usa.",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/editor-br-brief-vago/01-whatsapp.jpg",
+    "src": "/painel/carrosseis/editor-br-brief-vago/01-neymar-editor.jpg",
     "foco": 0.4
    },
    "rodape": "arrasta pro lado →"
@@ -21,7 +21,7 @@
    "texto": "É porque a maioria grava o vídeo e manda pro editor com um único brief:\n\n**\"Deixa esse vídeo bom!\"**",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/editor-br-brief-vago/02-deixa-bom.jpg",
+    "src": "/painel/carrosseis/editor-br-brief-vago/02-vini-storymaker.jpg",
     "foco": 0.4
    }
   },
@@ -29,7 +29,7 @@
    "texto": "Sem objetivo.\nSem público.\nSem referência.\n\nAí começa a investigação: **pra quem é esse vídeo? pra vender o quê?**",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/editor-br-brief-vago/03-detetive.jpg",
+    "src": "/painel/carrosseis/editor-br-brief-vago/03-eu-investigando.jpg",
     "foco": 0.4
    }
   },
@@ -37,7 +37,7 @@
    "texto": "O editor precisa entender de **growth marketing, de storytelling, de retenção**…\n\nTudo ao mesmo tempo, no mesmo vídeo.",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/editor-br-brief-vago/04-tres-chapeus.jpg",
+    "src": "/painel/carrosseis/editor-br-brief-vago/04-mbappe-general.jpg",
     "foco": 0.4
    },
    "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
@@ -54,7 +54,7 @@
    "texto": "No fim, editar aqui é **metade técnica e metade adivinhar** a estratégia que ninguém escreveu.\n\nPode ser que lá fora seja igual, mas é o que eu vejo por aqui. Concorda?",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/editor-br-brief-vago/06-bola-de-cristal.jpg",
+    "src": "/painel/carrosseis/editor-br-brief-vago/06-eu-editor.jpg",
     "foco": 0.4
    }
   },
@@ -62,7 +62,7 @@
    "texto": "Você que edita:\n**qual foi o brief mais vago que já recebeu?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
    "midia": {
     "tipo": "imagem",
-    "src": "/painel/carrosseis/editor-br-brief-vago/07-fim.jpg",
+    "src": "/painel/carrosseis/editor-br-brief-vago/07-neymar-iphone.jpg",
     "foco": 0.4
    },
    "rodape": "comenta aqui embaixo ↓"
