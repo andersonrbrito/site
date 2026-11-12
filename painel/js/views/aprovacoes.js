@@ -83,7 +83,28 @@ export default async function aprovacoes({ sb, query, go }) {
   const salvar = async (a, patch, msg) => {
     const { data: d, error: e } = await sb.from("aprovacoes").update(patch).eq("id", a.id).eq("version", a.version).select("*").maybeSingle();
     if (e || !d) return toast("Não salvou (o item mudou; recarregue).", { kind: "err" });
-    Object.assign(a, d); toast(msg); draw();
+    Object.assign(a, d);
+    if (patch.status === "publicado" || patch.status === "reprovado") { const n = await apagarMidia([a]); if (n) msg += ` Arquivo apagado do Supabase.`; }
+    toast(msg); draw();
+  };
+  // Libera espaço: apaga do Storage a mídia de peças que já saíram do fluxo (o card fica no histórico)
+  const midia = (a) => [...new Set([a.arquivo, ...(a.extras || []), a.capa].filter(Boolean))];
+  const apagarMidia = async (lista) => {
+    const paths = [...new Set(lista.flatMap(midia))];
+    let n = 0;
+    for (let i = 0; i < paths.length; i += 100) {
+      const { data, error } = await sb.storage.from(BUCKET).remove(paths.slice(i, i + 100));
+      if (error) { toast("Não apagou os arquivos: " + error.message, { kind: "err" }); break; }
+      n += (data || []).length;
+    }
+    return n;
+  };
+  const liberarEspaco = async () => {
+    const velhos = all.filter((a) => a.status === "publicado" || a.status === "reprovado");
+    if (!velhos.length) return toast("Nada para limpar: nenhum publicado ou reprovado.");
+    if (!confirm(`Apagar do Supabase os arquivos de ${velhos.length} peças publicadas/reprovadas? Os cards ficam no histórico, sem a mídia.`)) return;
+    const n = await apagarMidia(velhos);
+    toast(`${n} arquivos apagados (${velhos.length} peças).`, { ms: 6000 });
   };
   const agora = () => new Date().toISOString();
   const copiar = (t) => copiarTexto(t, "Legenda copiada.");
@@ -265,7 +286,7 @@ export default async function aprovacoes({ sb, query, go }) {
   const grid = h("div", { class: "ap-list" });
   const draw = async () => {
     const conta = (k) => all.filter((a) => a.status === k && (!perfil || a.perfil === perfil)).length;
-    tabs.replaceChildren(...ABAS.map(([k, l]) => h("button", { type: "button", class: `chip${aba === k ? " accent" : ""}`, onclick: () => { aba = k; draw(); } }, `${l} (${conta(k)})`)));
+    tabs.replaceChildren(...ABAS.map(([k, l]) => h("button", { type: "button", class: `chip${aba === k ? " accent" : ""}`, onclick: () => { aba = k; draw(); } }, `${l} (${conta(k)})`)), (aba === "publicado" || aba === "reprovado") ? h("button", { type: "button", class: "btn btn-ghost btn-sm", onclick: liberarEspaco }, "Liberar espaço") : null);
     const slugs = [...new Set(all.filter((a) => a.status === aba).map((a) => a.perfil))];
     perfis.replaceChildren(h("button", { type: "button", class: `chip${!perfil ? " accent" : ""}`, onclick: () => { perfil = ""; draw(); } }, "todos os perfis"), ...slugs.map((s) => h("button", { type: "button", class: `chip${perfil === s ? " accent" : ""}`, onclick: () => { perfil = s; draw(); } }, `${nome(s)} (${all.filter((a) => a.status === aba && a.perfil === s).length})`)));
     const quando = (a) => (a.sugestao_em ? Date.parse(a.sugestao_em) : Infinity);
