@@ -61,7 +61,7 @@ async function loadAll(sb) {
   const bySlug = new Map(rows.map((r) => [r.slug, { ...r, salvo: true }]));
   for (const s of seeds) if (!bySlug.has(s.slug) && !arquivados.has(s.slug)) bySlug.set(s.slug, { ...s, status: s.status || "rascunho", version: 0, salvo: false });
   const lista = [...bySlug.values()].sort((a, b) => (b.dia || "").localeCompare(a.dia || "") || (a.tipo || "").localeCompare(b.tipo || ""));
-  const legacy = (await Promise.all((legacySlugs || []).map((s) => json(`${BASE}${s}/index.json`)))).filter(Boolean);
+  const legacy = (await Promise.all((legacySlugs || []).filter((s) => !arquivados.has(s)).map((s) => json(`${BASE}${s}/index.json`)))).filter(Boolean); // aprovado/postado sai da tela
   const reqs = reqR.error ? [] : reqR.data || [];
   return { dbOn, lista, legacy, pedidos: reqs.filter((r) => r.kind === "carrossel_video"), novos: reqs.filter((r) => r.kind === "carrossel_novo"), ajustes: reqs.filter((r) => r.kind === "carrossel_ajuste") };
 }
@@ -72,7 +72,7 @@ export default async function carrosseis({ sb, query, go }) {
   const atual = data.lista.find((c) => c.slug === query.c);
   if (atual) return editor({ sb, go, c: atual, data });
   const velho = data.legacy.find((c) => c.slug === query.c);
-  if (velho) return legacyView(velho, go);
+  if (velho) return legacyView(velho, go, sb, data.dbOn);
   return listView({ sb, go, query, data });
 }
 
@@ -530,7 +530,7 @@ function editor({ sb, go, c, data }) {
 }
 
 // Carrosséis antigos (JPGs/MP4 prontos, sem edição): legenda no topo, baixar/salvar tudo ou lâmina por lâmina.
-function legacyView(atual, go) {
+function legacyView(atual, go, sb, dbOn) {
   const url = (f) => `${BASE}${atual.slug}/${f}`;
   const nome = (f) => `${atual.slug}-${f}`;
   const copiar = () => copiarTexto(atual.legenda || "", "Legenda copiada.");
@@ -541,6 +541,16 @@ function legacyView(atual, go) {
     toast(fs.length > 1 ? "Lâminas baixadas." : "Lâmina baixada.");
   }
   const tudo = h("button", { class: "btn btn-sm", type: "button", onclick: (e) => salvar(atual.slides, e.currentTarget) }, CELULAR ? "Salvar lâminas na galeria" : "Baixar lâminas");
+  // Aprovar: grava o antigo no banco já arquivado, e ele some da lista (fica guardado).
+  async function aprovar(btn) {
+    if (!dbOn) return toast("Sem banco: não dá para aprovar agora.", { kind: "err" });
+    btn.disabled = true;
+    const slides = atual.slides.map((f) => ({ texto: "", midia: /\.(mp4|mov)$/i.test(f) ? { tipo: "video", src: url(f), poster: url(f.replace(/\.\w+$/, ".jpg")) } : { tipo: "imagem", src: url(f) } }));
+    const { error } = await sb.from("carrosseis").insert({ slug: atual.slug, dia: atual.criado || todayISO(), tipo: "pessoal", perfil: atual.perfil || "@andersonbrito.mp4", titulo: atual.titulo, legenda: atual.legenda || null, slides, fontes: [], notas: "Carrossel antigo (imagens prontas) aprovado pelo painel.", status: "aprovado", archived_at: new Date().toISOString() });
+    if (error) { btn.disabled = false; return toast("Não aprovou: " + error.message, { kind: "err" }); }
+    toast("Aprovado. Saiu da lista do CarrosseL_ (continua guardado no banco).");
+    go("/carrosseis");
+  }
   // Enviar pro iPhone (Mac/Safari): 1º toque copia a legenda e prepara os arquivos; o compartilhar abre no mesmo toque se der, senão no 2º.
   let pacote = null;
   const iphone = h("button", { class: "btn btn-sm", type: "button", onclick: () => enviarIphone() }, "Enviar pro iPhone");
@@ -564,6 +574,7 @@ function legacyView(atual, go) {
       atual.legenda ? h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda") : null,
       PODE_COMPARTILHAR_TEXTO && atual.legenda ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => compartilharTexto(atual.legenda) }, CELULAR ? "Compartilhar legenda" : "Legenda por AirDrop") : null,
       CELULAR ? null : iphone,
+      h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: (e) => aprovar(e.currentTarget) }, "Aprovar (sai da lista)"),
       tudo),
     h("section", { class: "panel", style: { marginBottom: "16px" } }, h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Legenda")),
       h("div", { class: "panel-body" }, h("p", { style: { whiteSpace: "pre-wrap", margin: 0 } }, atual.legenda || "Este carrossel não tem legenda salva."))),

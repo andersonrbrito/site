@@ -1,7 +1,7 @@
 # Changelog
 
 ## 2026-11-12 · CarrosseL_: antigos com botões e legenda
-- Tela dos carrosséis antigos (imagens prontas) ganhou os botões dos novos: Copiar legenda, Compartilhar legenda (AirDrop no Mac), Baixar lâminas (no celular, Salvar na galeria) e um botão de baixar em cada lâmina, inclusive as de vídeo. No computador também tem "Enviar pro iPhone" (copia a legenda e abre o compartilhar com as lâminas). A legenda agora aparece no topo.
+- Tela dos carrosséis antigos (imagens prontas) ganhou os botões dos novos: Copiar legenda, Compartilhar legenda (AirDrop no Mac), Baixar lâminas (no celular, Salvar na galeria) e um botão de baixar em cada lâmina, inclusive as de vídeo. No computador também tem "Enviar pro iPhone" (copia a legenda e abre o compartilhar com as lâminas) e "Aprovar (sai da lista)", que guarda o carrossel no banco já arquivado. A legenda agora aparece no topo.
 
 ## 2026-11-09 (noite) · CarrosseL_: cor por tipo
 - Destaque das lâminas muda com o tipo do carrossel: notícia avermelhada (#FF3B47), educativo azulado (#3D8BFF), pessoal no verde Matrix (#41FF8A). Vale para negrito, marca-texto da lâmina 1, selo, anel do avatar, brilhos e grade do fundo, ponto do chip, botão de play e rodapé. Cores das pílulas de `assets/ab.css`.
