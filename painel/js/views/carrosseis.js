@@ -541,12 +541,29 @@ function legacyView(atual, go) {
     toast(fs.length > 1 ? "Lâminas baixadas." : "Lâmina baixada.");
   }
   const tudo = h("button", { class: "btn btn-sm", type: "button", onclick: (e) => salvar(atual.slides, e.currentTarget) }, CELULAR ? "Salvar lâminas na galeria" : "Baixar lâminas");
+  // Enviar pro iPhone (Mac/Safari): 1º toque copia a legenda e prepara os arquivos; o compartilhar abre no mesmo toque se der, senão no 2º.
+  let pacote = null;
+  const iphone = h("button", { class: "btn btn-sm", type: "button", onclick: () => enviarIphone() }, "Enviar pro iPhone");
+  async function enviarIphone() {
+    if (!pacote) {
+      if (atual.legenda) copiarTexto(atual.legenda, "Legenda copiada.");
+      if (!navigator.canShare) { toast("Este navegador não abre o compartilhar com arquivos. Use o Safari. Baixando as lâminas aqui.", { kind: "err" }); return salvar(atual.slides, tudo); }
+      iphone.disabled = true;
+      try { pacote = []; for (const [k, f] of atual.slides.entries()) { iphone.textContent = `Preparando ${k + 1}/${atual.slides.length}…`; pacote.push(await urlParaFile(url(f), nome(f))); } }
+      catch (e) { pacote = null; iphone.disabled = false; iphone.textContent = "Enviar pro iPhone"; return toast("Não preparou: " + e.message, { kind: "err" }); }
+      iphone.disabled = false; iphone.textContent = `Tocar de novo para enviar (${pacote.length})`;
+      return toast("Lâminas prontas. Toque de novo para abrir o compartilhar (AirDrop).");
+    }
+    try { await navigator.share({ files: pacote, title: atual.titulo }); toast(atual.legenda ? "Enviado. A legenda está copiada: é só colar no Instagram." : "Enviado."); pacote = null; iphone.textContent = "Enviar pro iPhone"; }
+    catch (e) { if (e.name !== "AbortError") toast("Não deu para compartilhar: " + e.message, { kind: "err" }); }
+  }
   return h("div", { class: "page wide" },
     pageHead(atual.titulo, `${atual.perfil} · ${atual.slides.length} slides · 1080×1350`),
     h("div", { class: "flex wrap", style: { gap: "8px", marginBottom: "14px" } },
       h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => go("/carrosseis") }, "← Todos"),
       atual.legenda ? h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda") : null,
       PODE_COMPARTILHAR_TEXTO && atual.legenda ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => compartilharTexto(atual.legenda) }, CELULAR ? "Compartilhar legenda" : "Legenda por AirDrop") : null,
+      CELULAR ? null : iphone,
       tudo),
     h("section", { class: "panel", style: { marginBottom: "16px" } }, h("div", { class: "panel-head" }, h("h2", { class: "mono" }, "Legenda")),
       h("div", { class: "panel-body" }, h("p", { style: { whiteSpace: "pre-wrap", margin: 0 } }, atual.legenda || "Este carrossel não tem legenda salva."))),
