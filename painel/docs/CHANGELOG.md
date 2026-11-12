@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-12 · Supabase no plano grátis: mídia some ao aprovar
+- AprovaçõeS_: aprovar, publicar ou reprovar apaga a mídia do Storage na hora (antes só publicar/reprovar). Sem cópia no espelho do Mac, o painel pergunta antes de apagar.
+- AprovaçõeS_: vídeo vindo do Supabase usa preload "none" com a capa de poster; só baixa ao dar play. Do espelho do Mac segue mostrando o 1º quadro.
+- "Liberar espaço" também limpa os aprovados. CarrosseL_: marcar como postado apaga a mídia das lâminas do bucket postador-media.
+- Motivo: em 12/11 o projeto foi restrito (egress 39 GB de 5, storage 1,2 GB de 1).
+
 ## 2026-11-12 · CarrosseL_: antigos com botões e legenda
 - Tela dos carrosséis antigos (imagens prontas) ganhou os botões dos novos: Copiar legenda, Compartilhar legenda (AirDrop no Mac), Baixar lâminas (no celular, Salvar na galeria) e um botão de baixar em cada lâmina, inclusive as de vídeo. No computador também tem "Enviar pro iPhone" (copia a legenda e abre o compartilhar com as lâminas) e "Aprovar (sai da lista)", que guarda o carrossel no banco já arquivado. A legenda agora aparece no topo.
 - "Legenda por AirDrop" no Mac: o macOS não mostra AirDrop para texto puro, então a legenda vai como arquivo legenda.txt (e também fica copiada; dá pra colar no iPhone pela área de transferência universal).

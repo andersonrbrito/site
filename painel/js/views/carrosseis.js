@@ -477,6 +477,8 @@ function editor({ sb, go, c, data }) {
     const antes = st.status; st.status = v; clearTimeout(timer); await save();
     if (saveInfo.textContent !== "Salvo") { st.status = antes; drawDecisao(); return; }
     if (v === "postado") { // postado sai da tela para não pesar; o registro fica no banco (arquivado)
+      const pesos = [...new Set(st.slides.map((x) => x.midia?.path).filter(Boolean))]; // postou: a mídia das lâminas sai do Supabase
+      if (pesos.length) await sb.storage.from(BUCKET).remove(pesos).catch(() => null);
       const { error } = await sb.from("carrosseis").update({ archived_at: new Date().toISOString() }).eq("id", st.id).eq("version", st.version);
       if (error) return toast("Marcou como postado, mas não tirou da tela: " + error.message, { kind: "err" });
       toast("Postado. Saiu da lista do CarrosseL_ (continua guardado no banco).");

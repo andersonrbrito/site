@@ -81,11 +81,24 @@ export default async function aprovacoes({ sb, query, go }) {
   };
 
   const salvar = async (a, patch, msg) => {
+    // Aprovar, publicar ou reprovar apaga a mídia do Supabase na hora (plano grátis: 1 GB). A cópia fica no espelho do Mac.
+    const some = ["aprovado", "publicado", "reprovado"].includes(patch.status);
+    if (patch.status === "aprovado" && midia(a).length && !(await temCopia(a)) && !confirm("Aprovar apaga o arquivo do Supabase e não achei cópia dele no Mac.\n\nSe ainda não baixou, cancele e use Baixar ou Enviar pro iPhone antes.\n\nAprovar e apagar agora?")) return;
     const { data: d, error: e } = await sb.from("aprovacoes").update(patch).eq("id", a.id).eq("version", a.version).select("*").maybeSingle();
     if (e || !d) return toast("Não salvou (o item mudou; recarregue).", { kind: "err" });
     Object.assign(a, d);
-    if (patch.status === "publicado" || patch.status === "reprovado") { const n = await apagarMidia([a]); if (n) msg += ` Arquivo apagado do Supabase.`; }
+    if (some) {
+      const n = await apagarMidia([a]); if (n) msg += " Arquivo apagado do Supabase.";
+      for (const p of midia(a)) if (!String(urls.get(p) || "").includes("/_local/")) { urls.delete(p); delete guard[p]; }
+      try { localStorage.setItem(CK, JSON.stringify(guard)); } catch {}
+    }
     toast(msg); draw();
+  };
+  // Todos os arquivos da peça estão no espelho do Mac (painel local ou túnel)?
+  const temCopia = async (a) => {
+    if (!LOCAL && !MAC) return false;
+    const r = await Promise.all(midia(a).map((p) => fetch((LOCAL ? "" : MAC) + "/_local/" + p, { method: "HEAD", cache: "no-store" }).then((x) => x.ok).catch(() => false)));
+    return r.every(Boolean);
   };
   // Libera espaço: apaga do Storage a mídia de peças que já saíram do fluxo (o card fica no histórico)
   const midia = (a) => [...new Set([a.arquivo, ...(a.extras || []), a.capa].filter(Boolean))];
@@ -100,9 +113,9 @@ export default async function aprovacoes({ sb, query, go }) {
     return n;
   };
   const liberarEspaco = async () => {
-    const velhos = all.filter((a) => a.status === "publicado" || a.status === "reprovado");
+    const velhos = all.filter((a) => ["aprovado", "publicado", "reprovado"].includes(a.status));
     if (!velhos.length) return toast("Nada para limpar: nenhum publicado ou reprovado.");
-    if (!confirm(`Apagar do Supabase os arquivos de ${velhos.length} peças publicadas/reprovadas? Os cards ficam no histórico, sem a mídia.`)) return;
+    if (!confirm(`Apagar do Supabase os arquivos de ${velhos.length} peças aprovadas/publicadas/reprovadas? Os cards ficam no histórico, sem a mídia.`)) return;
     const n = await apagarMidia(velhos);
     toast(`${n} arquivos apagados (${velhos.length} peças).`, { ms: 6000 });
   };
@@ -113,10 +126,15 @@ export default async function aprovacoes({ sb, query, go }) {
 
   // Mostra o 1º quadro (não fica tela preta). Com o link estável/cache, só baixa um pedaço do vídeo uma vez.
   const quadro = (u) => (u.startsWith("blob:") || u.includes("#") ? u : u + "#t=0.1");
-  const media = (path, big) => {
+  // Vídeo que vem do Supabase não carrega nada até dar play (cada prévia baixava um pedaço e estourava o tráfego);
+  // a capa vira o quadro parado. Do espelho do Mac continua mostrando o 1º quadro.
+  const media = (path, big, capa) => {
     const u = urls.get(path);
     if (!u) return h("div", { class: "ap-empty" }, "sem prévia");
-    return isVideo(path) ? h("video", { src: quadro(u), controls: true, playsinline: true, preload: "metadata", loop: true, class: big ? "ap-big" : "" }) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
+    const leve = !u.includes("/_local/") && !u.startsWith("blob:");
+    const va = { src: leve ? u : quadro(u), controls: true, playsinline: true, preload: leve ? "none" : "metadata", loop: true, class: big ? "ap-big" : "" };
+    if (leve && capa && !isVideo(capa) && urls.get(capa)) va.poster = urls.get(capa);
+    return isVideo(path) ? h("video", va) : h("img", { src: u, alt: "", loading: "lazy", class: big ? "ap-big ap-zoom" : "", onclick: big ? () => telaCheia([path], 0) : null });
   };
 
   // Enviar pro iPhone: 1º toque baixa os arquivos (vídeo/imagens), 2º abre o compartilhar do sistema.
@@ -273,7 +291,7 @@ export default async function aprovacoes({ sb, query, go }) {
           h("div", { class: "flex wrap" }, ...decisao))),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },
-        h("div", { class: "ap-stage" }, isPdf(a.arquivo) ? ebook(a) : a.extras?.length ? galeria([a.arquivo, ...a.extras]) : media(a.arquivo, true)),
+        h("div", { class: "ap-stage" }, isPdf(a.arquivo) ? ebook(a) : a.extras?.length ? galeria([a.arquivo, ...a.extras]) : media(a.arquivo, true, a.capa)),
         h("div", { class: "ap-text" },
           h("div", { class: "mono", style: { marginBottom: "6px" } }, a.tipo === "story" ? "Orientação do story (uso interno, não postar)" : "Legenda"),
           a.tipo === "story" ? h("p", { class: "muted small pre" }, a.legenda || "Story não leva legenda. A orientação fica na nota do horário.")
