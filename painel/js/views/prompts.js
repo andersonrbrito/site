@@ -1,5 +1,5 @@
 import { h } from "../util.js";
-import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
+import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261112a";
 import { CATS, SKILLS } from "../skills-data.js?v=20261108b";
 
 const NEC = { essencial: "Essencial", util: "Útil", opcional: "Opcional" };

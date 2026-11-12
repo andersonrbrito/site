@@ -48,25 +48,36 @@ export const toast = (text, opts = {}) => window.dispatchEvent(new CustomEvent("
 // e Clipboard API); se o navegador recusar os dois, abre uma janela com o texto já selecionado para copiar na mão.
 export function copiarTexto(texto, msg = "Copiado.") {
   const t = String(texto ?? "");
-  let ok = false;
-  try {
-    // iOS só seleciona campo editável (readonly some com a seleção) e precisa de Range explícito
-    const ta = document.createElement("textarea");
-    ta.value = t; ta.contentEditable = "true"; ta.setAttribute("aria-hidden", "true");
-    Object.assign(ta.style, { position: "fixed", top: "0", left: "0", width: "1px", height: "1px", opacity: "0", fontSize: "16px", border: "0", padding: "0" });
-    document.body.append(ta);
-    ta.focus({ preventScroll: true });
-    const r = document.createRange(); r.selectNodeContents(ta);
-    const sel = window.getSelection(); sel?.removeAllRanges(); sel?.addRange(r);
-    ta.select(); ta.setSelectionRange(0, t.length);
-    ok = document.execCommand("copy");
-    sel?.removeAllRanges(); ta.blur(); ta.remove();
-  } catch { ok = false; }
+  // 1º a Clipboard API, chamada na hora do toque (no iPhone é o caminho que funciona; o execCommand com
+  // campo escondido abria teclado e atrasava). O execCommand fica só de reserva.
   const api = navigator.clipboard?.writeText ? navigator.clipboard.writeText(t).then(() => true, () => false) : Promise.resolve(false);
   return api.then((a) => {
-    if (a || ok) { toast(`${msg.replace(/\.$/, "")} (${t.length} caracteres).`); return true; }
+    if (a || copiaExec(t)) { toast(`${msg.replace(/\.$/, "")} (${t.length} caracteres).`); return true; }
     copiaManual(t); return false;
   });
+}
+
+// Compartilhar texto pela folha do sistema (iPhone: Copiar, AirDrop, Instagram; Mac Safari: AirDrop).
+export const PODE_COMPARTILHAR_TEXTO = typeof navigator !== "undefined" && !!navigator.share;
+export async function compartilharTexto(texto, titulo = "") {
+  const t = String(texto ?? "");
+  if (!navigator.share) return copiarTexto(t, "Legenda copiada.");
+  try { await navigator.share(titulo ? { text: t, title: titulo } : { text: t }); return true; }
+  catch (e) { if (e.name !== "AbortError") return copiarTexto(t, "Legenda copiada."); return false; }
+}
+
+function copiaExec(t) {
+  let ok = false;
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = t; ta.readOnly = true; ta.setAttribute("aria-hidden", "true");
+    Object.assign(ta.style, { position: "fixed", top: "0", left: "0", width: "1px", height: "1px", opacity: "0", fontSize: "16px", border: "0", padding: "0" });
+    document.body.append(ta);
+    ta.select(); ta.setSelectionRange(0, t.length);
+    ok = document.execCommand("copy");
+    ta.remove();
+  } catch { ok = false; }
+  return ok;
 }
 
 function copiaManual(t) {

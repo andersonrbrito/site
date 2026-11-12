@@ -1,6 +1,6 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
-import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261107b";
-import { CELULAR, ROTULO_GALERIA, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261111a";
+import { pageHead, alertBox, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261112a";
+import { CELULAR, ROTULO_GALERIA, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
 import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109c";
 
 // Carrosséis diários (identidade do site: escuro, vidro e verde Matrix) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
@@ -511,7 +511,9 @@ function editor({ sb, go, c, data }) {
     h("div", { class: "panel cz-bar" },
       decisao,
       h("div", { class: "cz-acts" },
-        h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Postar"), iphone, h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda"), baixarTudo),
+        h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Postar"), CELULAR ? null : iphone, h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda"),
+          PODE_COMPARTILHAR_TEXTO && st.legenda ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => compartilharTexto(st.legenda) }, CELULAR ? "Compartilhar legenda" : "Legenda por AirDrop") : null,
+          baixarTudo),
         h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Criar"), h("button", { class: "btn btn-sm", type: "button", onclick: abrirAjuste }, "Pedir alteração"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo")))),
     ajusteBox,
     videoBox,

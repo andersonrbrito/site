@@ -4,7 +4,7 @@
 // "Salvar imagem / Salvar N imagens / Salvar vídeo" (vai direto pra galeria).
 // O compartilhar exige um toque recente: se preparar os arquivos demorar, o botão vira
 // "Toque para salvar na galeria" e o segundo toque abre a folha na hora, com tudo pronto.
-import { toast } from "./ui.js?v=20261107b";
+import { toast } from "./ui.js?v=20261112a";
 
 export const CELULAR = typeof navigator !== "undefined" && typeof navigator.canShare === "function"
   && typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches;
