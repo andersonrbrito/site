@@ -4,7 +4,7 @@
 // e "Já usei" tira o vídeo da tela (fica guardado em payload.estudio_ok, recuperável em "Mostrar os já usados").
 import { h, fmtDateTime } from "../util.js";
 import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
-import { pageHead, toast, copiarTexto } from "../ui.js?v=20261112a";
+import { pageHead, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261112a";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
 const ST = { aberto: ["na fila", "warn"], gerando: ["gerando", "accent"], feito: ["pronto", "ok"], cancelado: ["cancelado", ""] };
@@ -83,6 +83,18 @@ export default async function estudio({ sb }) {
     return b;
   };
 
+  // Sugestão de legenda (a do carrossel) com copiar e compartilhar (iPhone: folha do sistema; Mac Safari: AirDrop)
+  const legendaBox = (r) => {
+    const leg = r.payload?.carrossel?.legenda;
+    if (!leg) return null;
+    const ta = h("textarea", { class: "textarea", rows: 5, readonly: true }); ta.value = leg;
+    return h("div", { class: "st-leg", style: { marginTop: "10px" } },
+      h("span", { class: "mono" }, "Legenda sugerida"), ta,
+      h("div", { class: "flex wrap", style: { gap: "6px", marginTop: "6px" } },
+        h("button", { class: "btn btn-sm", type: "button", onclick: () => copiarTexto(leg, "Legenda copiada.") }, "Copiar legenda"),
+        PODE_COMPARTILHAR_TEXTO ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => compartilharTexto(leg) }, CELULAR ? "Compartilhar legenda" : "Legenda por AirDrop") : null));
+  };
+
   const card = (r) => {
     const vids = [...new Set((r.result_note || "").match(MP4) || [])].sort(ordem), [sl, sc] = ST[r.status] || [r.status, ""];
     const titulo = r.payload?.carrossel?.titulo || r.payload?.slug || "Carrossel";
@@ -94,8 +106,9 @@ export default async function estudio({ sb }) {
         h("b", { class: "st-title" }, titulo),
         h("div", { class: "flex wrap", style: { gap: "6px", margin: "6px 0" } }, h("span", { class: `chip ${sc}` }, sl), ...vids.map((u) => h("span", { class: "chip" }, formato(u))), h("span", { class: "mono muted" }, fmtDateTime(r.done_at || r.created_at))),
         vids.length ? h("div", { class: "st-acts" },
-          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "iPhone:"), ...vids.map((u) => enviar(r, [u], formato(u))), vids.length > 1 && enviar(r, vids, "Os dois")),
-          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "Baixar:"), ...vids.map((u) => baixarBtn(r, u)))) : null,
+          CELULAR ? null : h("div", { class: "flex wrap" }, h("span", { class: "mono" }, "iPhone:"), ...vids.map((u) => enviar(r, [u], formato(u))), vids.length > 1 && enviar(r, vids, "Os dois")),
+          h("div", { class: "flex wrap" }, h("span", { class: "mono" }, CELULAR ? "Galeria:" : "Baixar:"), ...vids.map((u) => baixarBtn(r, u)))) : null,
+        legendaBox(r),
         h("div", { class: "flex wrap", style: { marginTop: "10px", justifyContent: "space-between" } },
           r.payload?.slug ? h("a", { class: "btn btn-ghost btn-sm", href: `#/carrosseis?c=${encodeURIComponent(r.payload.slug)}` }, "Abrir carrossel") : h("span"),
           vids.length ? h("label", { class: "st-check" }, h("input", { type: "checkbox", checked: usado(r), onchange: (e) => marcarUsado(r, e.target.checked) }), usado(r) ? "Já usei (voltar para a tela)" : "Já usei · tirar da tela") : null)));
