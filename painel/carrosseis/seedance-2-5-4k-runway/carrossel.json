@@ -1,0 +1,96 @@
+{
+ "slug": "seedance-2-5-4k-runway",
+ "dia": "2026-11-12",
+ "tipo": "noticia",
+ "titulo": "Seedance 2.5 em 4K chegou na Runway",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Runway anunciou ontem (11/11) o Seedance 2.5 em 4K, já disponível na plataforma.\n\nO modelo já fazia até 30 segundos por geração, com som sincronizado e várias cenas. A novidade é a resolução.\n\nO preço do 4K eu não achei na tabela oficial da API. Quando sair eu atualizo.\n\nVocê pagaria mais pra gerar em 4K?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Runway (post oficial no X e página do Seedance 2.5) e OrcaRouter.",
+ "fontes": [
+  {
+   "titulo": "Runway no X: Seedance 2.5 in 4K is here (11/11/2026)",
+   "url": "https://x.com/runwayml/status/2120578138111656227"
+  },
+  {
+   "titulo": "Runway: página do Seedance 2.5",
+   "url": "https://runway.com/product/seedance-2.5"
+  },
+  {
+   "titulo": "Runway API: tabela de preços",
+   "url": "https://docs.dev.runwayml.com/guides/pricing/"
+  },
+  {
+   "titulo": "OrcaRouter: Seedance 2.5 vs Seedance 2",
+   "url": "https://www.orcarouter.ai/blog/seedance-2-5-vs-bytedance-seedance-2"
+  }
+ ],
+ "notas": "Pauta: perfil oficial da Runway no X (lançamento das últimas 24h). Confirmado no post oficial, na página do produto e na OrcaRouter. Preço do 4K NÃO está na tabela da API (só 480p, 720p e 1080p), por isso o slide diz que não achei. Comentários do post reclamam do custo em créditos, não citei números deles. Vídeo e quadros: anúncio oficial da Runway.",
+ "slides": [
+  {
+   "texto": "O **Seedance 2.5 em 4K** chegou na Runway.\n\nEsse é o vídeo do anúncio.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/01-video.mp4",
+    "poster": "/painel/carrosseis/seedance-2-5-4k-runway/01-poster.jpg",
+    "foco": 0.5,
+    "credito": "vídeo: @runwayml"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Ontem (11/11) a Runway anunciou: Seedance 2.5 em 4K, **já disponível** na plataforma.\n\nO modelo é da ByteDance e está na Runway desde agosto. A novidade agora é a resolução.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/02-baleia.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "O que o modelo já fazia, segundo a página da Runway:\n\nAté **30 segundos** por geração.\nSom sincronizado.\nVárias cenas no mesmo vídeo.\nAté 50 referências (texto, imagem, vídeo e áudio).",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/03-piloto.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "Um detalhe: segundo a OrcaRouter, o 4K é recurso das plataformas. Runway e Picsart anunciaram.\n\nNa API da própria ByteDance, **4K não aparece** como opção documentada.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/04-bola-gigante.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "E o preço? Na API da Runway o Seedance 2.5 custa 20 créditos por segundo em 480p, 30 em 720p e 68 em 1080p. Cada crédito vale US$ 0,01.\n\n**O 4K ainda não está na tabela.** Não achei o valor oficial.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/05-soco.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "Minha opinião de editor: 4K ajuda em telão, anúncio e corte com zoom. No Reels, o celular mal mostra a diferença.\n\nEu testaria a ideia em 480p e só fecharia em 4K a cena aprovada. **Mas posso estar errado.**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/06-rio.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "O Seedance 2.5 está nos planos pagos da Runway. Se o 4K vale pra todos eles, o anúncio não diz.\n\n**Você pagaria mais pra gerar em 4K?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedance-2-5-4k-runway/07-disponivel.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

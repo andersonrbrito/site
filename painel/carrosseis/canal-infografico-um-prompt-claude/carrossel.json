@@ -1,0 +1,84 @@
+{
+ "slug": "canal-infografico-um-prompt-claude",
+ "dia": "2026-11-12",
+ "tipo": "educativo",
+ "titulo": "Canal de infográfico com um prompt no Claude: como funciona",
+ "perfil": "@ilmarlabs",
+ "legenda": "O @sleepclip mostrou um canal de infográfico inteiro saindo de um prompt no Claude.\n\nO truque não é o prompt gigante. É a configuração que roda uma vez, salva a identidade do canal e depois só recebe tema e duração.\n\nNas lâminas tem o passo a passo e um prompt curto pra você começar. Salva pra testar.\n\nQue tema você transformaria em vídeo?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Post do @sleepclip no X (10/11/2026)",
+   "url": "https://x.com/sleepclip/status/2119975673662194100"
+  }
+ ],
+ "notas": "Pauta: curtida do Anderson no X (post do @sleepclip). Método explicado com palavras próprias, sem copiar o prompt original; prompt do slide 6 é versão curta escrita por mim. Print do post com a linha do palavrão cortada. Vídeo e quadros: @sleepclip.",
+ "slides": [
+  {
+   "texto": "Um **canal de infográfico inteiro** saindo de um prompt no Claude.\n\nO método é do @sleepclip. Te explico como funciona.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/01-video.mp4",
+    "poster": "/painel/carrosseis/canal-infografico-um-prompt-claude/01-poster.jpg",
+    "foco": 0.5,
+    "credito": "vídeo: @sleepclip"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A ideia: um prompt de configuração que roda **uma vez só** e transforma o Claude numa máquina de vídeo.\n\nDepois disso você manda só o tema e a duração, de 1 a 10 minutos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/02-post-original.jpg",
+    "foco": 0.3,
+    "credito": "post: @sleepclip"
+   }
+  },
+  {
+   "texto": "Passo 1: a configuração salva uma **skill** com quatro partes.\n\nAs regras do canal.\nA identidade (cores, estilo, apresentador).\nO código de animação, que é reaproveitado.\nA biblioteca com os quadros de estilo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/03-tres-tamanhos.jpg",
+    "foco": 0.45,
+    "credito": "imagem: @sleepclip"
+   }
+  },
+  {
+   "texto": "Passo 2: ele pergunta o modelo de imagem, a voz e o nome do canal. Aí gera os quadros de estilo e o apresentador.\n\nDepois roda um **teste de 10 segundos** e espera o seu ok antes de seguir.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/04-sala-controle.jpg",
+    "foco": 0.45,
+    "credito": "imagem: @sleepclip"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 3: as regras de animação.\n\nCenário ilustrado vazio, personagem recortado e articulado, câmera sempre em movimento, texto escrito nos objetos da cena.\n\n**Nada parado por mais de 1 segundo.**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/05-animacao.jpg",
+    "foco": 0.45,
+    "credito": "imagem: @sleepclip"
+   }
+  },
+  {
+   "texto": "Quer testar? Começa pequeno com este prompt:\n\n**\"Crie uma skill de vídeo pro meu canal. Me pergunte nome, estilo visual e voz. Salve a identidade num arquivo, gere um teste de 10 segundos e espere meu ok.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/06-inscritos.jpg",
+    "foco": 0.45,
+    "credito": "imagem: @sleepclip"
+   }
+  },
+  {
+   "texto": "Estou adaptando esse método num projeto meu. Ainda aprendendo, então pode ter jeito melhor.\n\nSalva pra testar e manda pra quem quer ter canal. **Que tema você transformaria em vídeo?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/canal-infografico-um-prompt-claude/07-estudio.jpg",
+    "foco": 0.45,
+    "credito": "imagem: @sleepclip"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

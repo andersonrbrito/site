@@ -1,0 +1,72 @@
+{
+ "slug": "look-anamorfico-prompt-video-ia",
+ "dia": "2026-11-12",
+ "tipo": "educativo",
+ "titulo": "Look anamórfico: 6 termos pro prompt de vídeo com IA",
+ "perfil": "@ilmarlabs",
+ "legenda": "Boa parte da cara de cinema vem de uma lente: a anamórfica.\n\nDá pra pedir esse visual no prompt com 6 termos: lente anamórfica, flare azul horizontal, bokeh oval, profundidade de campo rasa, grão de filme e proporção 2.39:1.\n\nNas lâminas tem cada um explicado e o prompt pronto. Salva pra usar no próximo vídeo.\n\nQual desses termos você já usava?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: post do @auramode.ai sobre lente anamórfica, refeito do jeito do Anderson com prompt próprio em PT-BR; sem copiar texto nem visual. Imagens geradas no ChatGPT (hook com Neymar, meme liberado); slide 3 é quadro real do anúncio da Runway.",
+ "slides": [
+  {
+   "texto": "Quer **cara de cinema** no vídeo de IA?\n\nSão 6 termos no prompt. Te mostro um por um.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/01-neymar-anamorfica.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Tudo vem da **lente anamórfica**, clássica do cinema.\n\nOlha a mesma cena com lente comum e com anamórfica. Muda o desfoque, o brilho das luzes e o formato do quadro.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/02-comparacao.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "1. **Flare azul horizontal.**\n\nA luz forte vira um risco azul que atravessa o quadro.\n\nNo prompt: \"flare azul horizontal de lente anamórfica\".",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/03-flare-real.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "2. **Bokeh oval.**\n\nAs luzes desfocadas do fundo ficam esticadas na vertical, não redondas.\n\nNo prompt: \"bokeh oval, profundidade de campo rasa\".",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/04-bokeh-padaria.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "3. **Quadro 2.39:1.**\n\nÉ o formato largo do cinema. No Reels ele vira faixa com barras pretas, então use com intenção.\n\nFecha com \"grão de filme\" pra tirar o aspecto de plástico.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/05-motoboy-scope.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Prompt pronto pra copiar:\n\n**\"Filmado com lente anamórfica, flare azul horizontal, bokeh oval, profundidade de campo rasa, grão de filme, proporção 2.39:1. Cena: [descreva aqui].\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/02-comparacao.jpg",
+    "foco": 0.8
+   }
+  },
+  {
+   "texto": "As imagens deste carrossel saíram com esses termos. Em vídeo o resultado varia de modelo pra modelo, então testa.\n\nSalva pra usar no próximo prompt. **Qual desses termos você já usava?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/look-anamorfico-prompt-video-ia/01-neymar-anamorfica.jpg",
+    "foco": 0.75
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "slug": "gemini-4-carbon-enxame-de-agentes",
+ "dia": "2026-11-12",
+ "tipo": "noticia",
+ "titulo": "Gemini 4 Carbon liberado: um pedido vira um enxame de agentes",
+ "perfil": "@ilmarlabs",
+ "legenda": "O Google abriu o Gemini 4 Carbon em 10/11 pra desenvolvedores pagantes da API, empresas e assinantes do Google AI Ultra.\n\nO destaque é o /swarm, em prévia no Antigravity: um pedido vira um time de agentes trabalhando em paralelo.\n\nNa API o preço de lançamento é US$ 2 e US$ 10 por milhão de tokens até 30/11. Depois dobra.\n\nVocê trocaria seu modelo atual pelo Carbon?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: blog do Google, VentureBeat e Público.",
+ "fontes": [
+  {
+   "titulo": "Google: Gemini 4 Carbon now available (10/11/2026)",
+   "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-carbon-now-available/"
+  },
+  {
+   "titulo": "Google DeepMind no X",
+   "url": "https://x.com/GoogleDeepMind/status/2120219371473617099"
+  },
+  {
+   "titulo": "VentureBeat: Gemini 4 Carbon is now publicly available",
+   "url": "https://venturebeat.com/technology/google-gemini-4-carbon-is-now-publicly-available-and-it-undercuts-claude-fable-5-2-and-opus-5-5-on-api-price"
+  },
+  {
+   "titulo": "Público: Google abre Gemini 4 Carbon ao público",
+   "url": "https://publico.pt/2026/11/11/enter/noticia/google-abre-gemini-4-carbon-publico-poe-enxames-agentes-ia-trabalhar-2194559"
+  }
+ ],
+ "notas": "Pauta: perfis oficiais do Google no X + busca. Confirmado no blog do Google, VentureBeat e Público. Preços e disponibilidade conferidos na fonte primária; não há lista de países publicada. Imagens do hook e do preço geradas no ChatGPT (caricaturas de Sundar Pichai e Dario Amodei). Vídeo e quadros: Google DeepMind.",
+ "slides": [
+  {
+   "texto": "O Google liberou o **Gemini 4 Carbon**.\n\nUm pedido seu vira um enxame de agentes trabalhando juntos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/01-pichai-enxame.jpg",
+    "foco": 0.35
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Desde 10/11 o Carbon está aberto pra desenvolvedores pagantes da API, empresas e assinantes do **Google AI Ultra**.\n\nAntes, só equipes de defesa cibernética tinham acesso (anúncio de 28/10).",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/02-video.mp4",
+    "poster": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/02-poster.jpg",
+    "foco": 0.5,
+    "credito": "vídeo: @GoogleDeepMind"
+   }
+  },
+  {
+   "texto": "O que chama atenção é o **/swarm**, em prévia no Antigravity.\n\nVocê escreve um pedido e ele monta um time: um coordenador, vários agentes em paralelo e verificadores. Dá pra acompanhar em tempo real.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/03-enxame.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Google DeepMind"
+   }
+  },
+  {
+   "texto": "Preço na API: **US$ 2** de entrada e US$ 10 de saída por milhão de tokens, até 30/11. Depois dobra: US$ 4 e US$ 20.\n\nO Claude Fable 5.2 cobra US$ 8 e US$ 40.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/04-queda-de-braco.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Limites: ele entende texto, imagem, áudio e vídeo, mas **só responde em texto**.\n\nO Ultra custa US$ 99,99 ou US$ 199,99 por mês nos EUA e a liberação ainda está em andamento. Não achei lista por país.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/05-logo.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Google DeepMind"
+   }
+  },
+  {
+   "texto": "Exemplo do próprio Google: fotos e plantas da Torre Eiffel viraram uma exposição 3D interativa.\n\nPra quem edita, vejo uso em roteiro, pesquisa e automação. **Ele não gera vídeo.** E o Google diz que o Argon segue ideal pra maioria dos trabalhos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/06-foto-vira-3d.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Google DeepMind"
+   }
+  },
+  {
+   "texto": "Preço baixo com enxame de agentes é tentador. Mas é preço de lançamento, então eu esperaria pra ver. Posso estar errado.\n\n**Você trocaria seu modelo atual pelo Carbon?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-carbon-enxame-de-agentes/01-pichai-enxame.jpg",
+    "foco": 0.75
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
