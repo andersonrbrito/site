@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#0B0C0E">
 <meta name="robots" content="index, follow">
-<title>Kit Editar com Claude: e-book, skills e prompts por R$27 | Anderson Brito</title>
-<meta name="description" content="O passo a passo que eu uso para editar vídeo com o Claude. E-book de 66 páginas, 10 skills personalizadas, biblioteca de prompts, pacote gráfico e videoaula. R$27 até 23/11.">
+<title>Kit Editar com Claude: Black Friday por R$27 | Anderson Brito</title>
+<meta name="description" content="O passo a passo que eu uso para editar vídeo com o Claude. E-book com aulas práticas, aula em vídeo, 10 skills, prompts e pacote de edição. Preço de Black Friday: R$27 até 23/11.">
 <link rel="canonical" href="https://andersonbrito.com/editar-com-claude">
 <meta property="og:type" content="product">
 <meta property="og:url" content="https://andersonbrito.com/editar-com-claude">
 <meta property="og:title" content="Kit Editar com Claude · R$27 até 23/11">
-<meta property="og:description" content="E-book, skills, prompts, pacote gráfico e videoaula. Do zero ao vídeo pronto.">
+<meta property="og:description" content="E-book com aulas práticas, aula em vídeo, skills, prompts e pacote de edição.">
 <meta property="og:image" content="https://andersonbrito.com/assets/kit-claude/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <!-- Meta Pixel -->
@@ -25,7 +25,7 @@ fbq('init','340093139794277');fbq('track','PageView');fbq('track','ViewContent',
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#0B0C0E;--g:#41FF8A;--g2:#1FD16A;--gi:#03200F;--ink:#F2F2F7;--mu:#A1A6AA;--card:rgba(24,27,28,.74);--line:rgba(255,255,255,.08);--red:#FF3B47;--blue:#3D8BFF;--r:20px}
+:root{--bg:#0B0C0E;--g:#41FF8A;--g2:#1FD16A;--gi:#03200F;--ink:#F2F2F7;--mu:#A1A6AA;--card:rgba(24,27,28,.74);--line:rgba(255,255,255,.08);--red:#FF3B47;--blue:#3D8BFF;--r:20px;--cl:#D97757}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;padding-bottom:84px}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:
@@ -35,7 +35,7 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;bac
 main,footer,.top{position:relative;z-index:1}
 a{color:inherit}
 .m{font-family:'JetBrains Mono',ui-monospace,Menlo,monospace}
-.g{color:var(--g)} .mu{color:var(--mu)} .r{color:var(--red)}
+.g{color:var(--g)} .cl{color:var(--cl);white-space:nowrap} .lg{height:.82em;width:auto;vertical-align:-.06em;margin-right:.14em} .mu{color:var(--mu)} .r{color:var(--red)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 16px}
 .top{position:sticky;top:0;z-index:30;background:rgba(11,12,14,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px}
@@ -88,6 +88,24 @@ label.ck2{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#c
 label.ck2 input{margin-top:3px;width:18px;height:18px;accent-color:var(--g);flex:none}
 .err{color:var(--red);font:600 13px Inter;min-height:18px}
 #pay{display:none}
+.locked .gate,.locked .js-buy{display:none!important}
+.unl{display:none} .locked .unl{display:inline-flex}
+.hint{font:600 13.5px 'JetBrains Mono',monospace;color:var(--mu);display:none;align-items:center;gap:8px;justify-content:center}
+.locked .hint{display:flex}
+.prog{height:4px;background:rgba(255,255,255,.08);border-radius:4px;max-width:960px;margin:-14px auto 18px;overflow:hidden;display:none}
+.locked .prog{display:block} .prog i{display:block;height:100%;width:0;background:var(--g)}
+.tools{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:0 0 18px}
+.tools span{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:7px 14px;font:700 13px Inter;color:#d7dade}
+.tools img{width:18px;height:18px}
+.bump{display:grid;gap:10px;margin-top:4px}
+.bump .bt{font:700 13px 'JetBrains Mono',monospace;color:var(--g)}
+label.bp{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;border:1px dashed rgba(65,255,138,.45);background:rgba(65,255,138,.05);border-radius:14px;padding:14px;cursor:pointer}
+label.bp input{width:20px;height:20px;accent-color:var(--g)}
+label.bp b{display:block;font:800 16px Inter} label.bp small{display:block;color:var(--mu);font-size:13.5px;line-height:1.4;margin-top:2px}
+label.bp em{font:800 16px 'JetBrains Mono',monospace;color:var(--g);font-style:normal;white-space:nowrap}
+.tot{display:flex;justify-content:space-between;font:800 17px Inter;border-top:1px solid var(--line);padding-top:12px}
+.pk{aspect-ratio:9/16;max-width:300px;margin:0 auto;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#000}
+.pk video{width:100%;height:100%;object-fit:cover;display:block}
 #pay .ok{font:700 13px 'JetBrains Mono',monospace;color:var(--g)}
 .send{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
 details{border-bottom:1px solid var(--line);padding:16px 0}
@@ -109,27 +127,29 @@ footer a{color:var(--mu)}
 </style>
 </head>
 <body>
-<div class="top"><div class="wrap"><div class="t"><b>Black November</b> · R$27 até 23/11 <span>· encerra em <b id="cdTop">--</b></span></div><a class="btn sm js-buy" href="#comprar">Quero o kit</a></div></div>
+<div class="top"><div class="wrap"><div class="t"><b>Black Friday</b> · R$27 até 23/11 <span>· encerra em <b id="cdTop">--</b></span></div><a class="btn sm js-buy" href="#comprar">Quero o kit</a><a class="btn sm ghost unl" href="#topo">Assista ao vídeo</a></div></div>
 <main>
 
-<section class="hero"><div class="wrap">
+<section class="hero" id="topo"><div class="wrap">
   <span class="lbl">&gt; kit editar com claude</span>
-  <h1>Como eu edito vídeo com o <span class="g">Claude</span>, do zero ao vídeo pronto</h1>
-  <p class="lead">Muita gente me pergunta como eu edito assim. Juntei o passo a passo num kit: e-book, as skills que eu uso, os prompts e o pacote gráfico. Assista ao vídeo, ele foi montado inteiro pelo Claude.</p>
-  <div class="vsl"><video id="vsl" controls playsinline preload="metadata" poster="/assets/kit-claude/poster.jpg"><source src="/assets/kit-claude/vsl.mp4" type="video/mp4"></video></div>
-  <div class="cta"><a class="btn js-buy" href="#comprar">Quero o kit por R$27</a><span class="note">Pix · entrega na hora pelo WhatsApp, e-mail ou Direct</span></div>
+  <h1>Como eu edito vídeo com o <span class="cl"><img class="lg" src="/assets/kit-claude/logo-claude.svg" alt="">Claude</span>, do zero ao vídeo pronto</h1>
+  <p class="lead">Muita gente me pergunta como eu edito assim. Juntei o passo a passo num kit com aula em vídeo, e-book com aulas práticas, as skills que eu uso, os prompts e um pacote de arquivos para você começar a editar. Na apresentação abaixo eu mostro o que vem em cada parte.</p>
+  <div class="tools"><span><img src="/assets/kit-claude/logo-claude.svg" alt="">Claude, da Anthropic</span><span><img src="/assets/kit-claude/logo-chatgpt.svg" alt="">ChatGPT e Codex, da OpenAI</span></div>
+  <div class="vsl"><video id="vsl" controls playsinline preload="metadata" poster="/assets/kit-claude/poster2.jpg"><source src="/assets/kit-claude/vsl2.mp4" type="video/mp4"></video></div>
+  <div class="prog"><i id="prog"></i></div>
+  <div class="cta"><span class="hint">▶ O botão de compra aparece quando a apresentação terminar.</span><a class="btn js-buy" href="#comprar">Quero o kit por R$27</a><span class="note">Preço de Black Friday até 23/11 · Pix · entrega pelo WhatsApp, e-mail ou Direct</span></div>
 </div></section>
 
 <section><div class="wrap">
   <span class="lbl">&gt; o que vem no kit</span>
-  <h2>Cinco entregas, uma compra</h2>
+  <h2>O que você recebe depois de comprar</h2>
   <div class="grid g3">
-    <div class="card"><span class="num">01</span><h3>E-book <span id="pgs">de 66 páginas</span></h3><p>Com índice clicável e fontes citadas. Começa explicando para leigo a diferença entre Claude Code, ChatGPT e Codex, modelos, planos e tokens. Depois vai do preparo da máquina ao render conferido.</p></div>
-    <div class="card"><span class="num">02</span><h3>10 skills personalizadas</h3><p>As que eu uso no dia a dia: corte seco, legenda com zona segura, motion em código, som e trilha, prévia e feedback, economia de tokens e outras. É só copiar para a pasta de skills.</p></div>
-    <div class="card"><span class="num">03</span><h3>Biblioteca de prompts</h3><p>56 prompts prontos para copiar, organizados por etapa, do preparo da máquina ao pedido de correção com tempo exato.</p></div>
-    <div class="card"><span class="num">04</span><h3>Pacote gráfico</h3><p>Fundos, sobreposições e modelos do visual verde e preto que você viu no vídeo, em 16:9 e 9:16, em uma pasta do Google Drive.</p></div>
-    <div class="card"><span class="num">05</span><h3>Modelos de arquivo</h3><p>design.md, edicao.md, CLAUDE.md, briefing de vídeo e checklist de publicação, já preenchidos com exemplo para você trocar pelo seu.</p></div>
-    <div class="card"><span class="num">+</span><h3>Videoaula</h3><p>O vídeo desta página, para rever quando quiser, junto com a lista das melhores skills gratuitas do GitHub.</p></div>
+    <div class="card"><span class="num">01</span><h3>Aula completa em vídeo</h3><p>O vídeo longo, com o processo inteiro na tela. O link é privado e só quem compra recebe.</p></div>
+    <div class="card"><span class="num">02</span><h3>E-book com 11 aulas práticas</h3><p>61 páginas. Na primeira aula você já edita um vídeo seu. Tem aula de decupagem e de cortes de vídeo longo, feita em cima de um podcast de 2h45 do YouTube.</p></div>
+    <div class="card"><span class="num">03</span><h3>Pacote de edição</h3><p>Arquivos para começar a editar: o meu gerador de legendas virais com 15 estilos, 298 ícones, 36 elementos de motion com fundo transparente, fundos, guias de zona segura e 3 modelos de projeto.</p></div>
+    <div class="card"><span class="num">04</span><h3>10 skills personalizadas</h3><p>As que eu uso no dia a dia: corte seco, legenda com zona segura, motion em código, som e trilha, prévia e feedback e outras. É só copiar para a pasta de skills.</p></div>
+    <div class="card"><span class="num">05</span><h3>Biblioteca de prompts</h3><p>56 prompts prontos para copiar, organizados por etapa, do preparo da máquina ao pedido de correção com tempo exato.</p></div>
+    <div class="card"><span class="num">06</span><h3>Modelos de arquivo</h3><p>design.md, edicao.md, CLAUDE.md, briefing de vídeo e checklist de publicação, já preenchidos com exemplo para você trocar pelo seu.</p></div>
   </div>
   <div class="cta" style="margin-top:26px"><a class="btn js-buy" href="#comprar">Quero o kit por R$27</a></div>
 </div></section>
@@ -148,21 +168,27 @@ footer a{color:var(--mu)}
 
 <section><div class="wrap"><div class="grid g2">
   <div class="card"><span class="lbl">&gt; é para você se</span><ul class="ck"><li>Você cria conteúdo e gasta horas editando.</li><li>Você é editor e quer entregar mais rápido sem perder o seu estilo.</li><li>Você nunca abriu um terminal e quer começar do zero, com tudo explicado.</li><li>Você já usa ChatGPT e quer entender onde o Claude Code e o Codex entram.</li></ul></div>
-  <div class="card"><span class="lbl r" style="color:var(--red)">&gt; não é para você se</span><ul class="ck no"><li>Você espera um botão mágico. A IA executa, mas quem dirige é você.</li><li>Você não quer assinar nenhuma IA. O método pede o plano Pro do Claude (US$ 20 por mês) ou equivalente, que não está incluso no kit.</li><li>Você quer um curso longo em vídeo. Aqui é material de consulta, direto.</li></ul></div>
+  <div class="card"><span class="lbl r" style="color:var(--red)">&gt; não é para você se</span><ul class="ck no"><li>Você espera um botão mágico. A IA executa, mas quem dirige é você.</li><li>Você não quer assinar nenhuma IA. O método pede o plano Pro do Claude (US$ 20 por mês) ou equivalente, que não está incluso no kit.</li><li>Você quer um curso completo com módulos e suporte. Ele está em produção e vem depois. Aqui é uma aula longa e material de consulta.</li></ul></div>
 </div></div></section>
 
 <section><div class="wrap">
   <span class="lbl">&gt; dentro do e-book</span>
   <h2>O que você vai aprender</h2>
+  <p class="lead">As duas dificuldades que eu mais escuto são decupar o bruto e cortar vídeo longo, como podcast. As duas têm aula prática.</p>
   <ol class="toc" id="toc">
-    <li>IA de conversa e agente: qual a diferença</li><li>Claude Code, ChatGPT e Codex, sem enrolação</li><li>Modelos, planos e preços (novembro de 2026)</li><li>Tokens e limite de uso, em português simples</li><li>Preparar a máquina: FFmpeg, Whisper, Remotion e outras</li><li>A pasta de edição</li><li>Skills, CLAUDE.md, memória e conectores</li><li>O seu gosto: design.md e edicao.md</li><li>O pedido de edição e o plano em texto</li><li>Por dentro do fluxo: do bruto ao render</li><li>Feedback com tempo exato</li><li>Regras que mudaram o meu resultado</li><li>Erros que custam caro</li><li>Casos reais</li><li>Biblioteca de prompts, checklists e glossário</li><li>Fontes</li>
+    <li>O que é o Claude Code, para leigo</li><li>O que instalar e quanto custa</li><li>Aula 1: seu primeiro vídeo editado em 20 minutos</li><li>Aula 2: decupagem</li><li>Aula 3: cortes de vídeo longo, 3 verticais de um podcast</li><li>Aula 4: cortar silêncios e erros</li><li>Aula 5: legenda e texto de destaque</li><li>Aula 6: b-roll e imagens</li><li>Aula 7: trilha e efeitos sonoros</li><li>Aula 8: motion em código</li><li>Aula 9: exportar 9:16 e 16:9</li><li>Aula 10: design.md e edicao.md</li><li>Aula 11: pedir correção com tempo exato</li><li>Modelos, planos, tokens e limite de uso</li><li>Claude Code, Codex e ChatGPT</li><li>Erros que custam caro, checklists e glossário</li>
   </ol>
 </div></section>
 
-<section><div class="wrap">
+<section id="packs" style="display:none"><div class="wrap"><div class="grid g2" style="align-items:center">
+  <div><span class="lbl">&gt; compra extra</span><h2>Packs de som para os seus vídeos</h2><p class="lead">São opcionais e você marca no formulário de compra. O Pack Impacto traz os efeitos sonoros que eu mais uso, separados por tipo. O Pack Estúdio traz os mesmos efeitos e mais trilhas instrumentais sem voz, separadas por clima.</p><ul class="ck"><li>Pack Impacto: + R$17</li><li>Pack Estúdio: + R$27</li><li>Arquivos em pasta do Google Drive, com índice</li></ul></div>
+  <div class="pk"><video id="pkv" controls playsinline preload="none" poster="/assets/kit-claude/packs-poster.jpg"><source src="/assets/kit-claude/packs.mp4" type="video/mp4"></video></div>
+</div></div></section>
+
+<section class="gate"><div class="wrap">
   <div class="card price">
-    <span class="lbl">&gt; black november · até 23/11</span>
-    <div class="old">depois de 23/11: R$67</div>
+    <span class="lbl">&gt; black friday · até 23/11</span>
+    <div class="old">preço de Black Friday · depois de 23/11: R$67</div>
     <div class="v"><small>R$</small>27</div>
     <div><div class="cd" id="cd"><div><b id="cdD">--</b><span>dias</span></div><div><b id="cdH">--</b><span>horas</span></div><div><b id="cdM">--</b><span>min</span></div><div><b id="cdS">--</b><span>seg</span></div></div></div>
     <p class="lead" style="margin:0 auto 22px">A IA muda toda semana. Ferramenta nova, modelo novo, limite novo. Quem aprende o método agora acompanha as mudanças editando. Quem deixa para depois precisa correr atrás de mais coisa.</p>
@@ -170,17 +196,17 @@ footer a{color:var(--mu)}
   </div>
 </div></section>
 
-<section><div class="wrap">
+<section class="gate"><div class="wrap">
   <span class="lbl">&gt; como funciona</span>
   <h2>Três passos</h2>
   <div class="grid g3 steps">
     <div class="card"><span class="num">01</span><h3>Preencha o formulário</h3><p>Nome, WhatsApp e e-mail. É para onde eu envio o material.</p></div>
-    <div class="card"><span class="num">02</span><h3>Pague R$27 no Pix</h3><p>O botão abre o checkout do Nubank. Lá também dá para pagar no cartão, com acréscimo.</p></div>
+    <div class="card"><span class="num">02</span><h3>Pague no Pix</h3><p>O botão abre o checkout do Nubank. Lá também dá para pagar no cartão, com acréscimo.</p></div>
     <div class="card"><span class="num">03</span><h3>Mande o comprovante</h3><p>Por WhatsApp, e-mail ou Direct. Eu respondo e libero o material na hora.</p></div>
   </div>
 </div></section>
 
-<section id="comprar"><div class="wrap" style="max-width:720px">
+<section id="comprar" class="gate"><div class="wrap" style="max-width:720px">
   <span class="lbl">&gt; comprar</span>
   <h2>Garanta o seu kit</h2>
   <div class="card" id="formCard">
@@ -199,6 +225,12 @@ footer a{color:var(--mu)}
         <label class="f">Já usa alguma IA?<select id="f_ia"><option value="">Selecione</option><option>Ainda não</option><option>ChatGPT</option><option>Claude</option><option>Claude Code ou Codex</option><option>Várias</option></select></label>
       </div>
       <label class="f">Prefiro receber por<select id="f_canal"><option value="whatsapp">WhatsApp</option><option value="email">E-mail</option></select></label>
+      <div class="bump">
+        <span class="bt">&gt; compra extra (opcional)</span>
+        <label class="bp"><input type="checkbox" id="b_sfx"><span><b>Pack Impacto · efeitos sonoros</b><small id="b_sfx_d">Os efeitos que eu mais uso, separados por tipo: whoosh, impacto, clique, riser, transição e outros.</small></span><em>+ R$17</em></label>
+        <label class="bp"><input type="checkbox" id="b_full"><span><b>Pack Estúdio · efeitos + trilhas</b><small id="b_full_d">Tudo do Pack Impacto e mais trilhas instrumentais sem voz, separadas por clima.</small></span><em>+ R$27</em></label>
+        <div class="tot"><span>Total</span><span class="g" id="tot">R$27</span></div>
+      </div>
       <label class="ck2"><input type="checkbox" id="f_termo" required><span>Li e aceito o <a href="/termo-kit-claude.html" target="_blank" rel="noopener" class="g">Termo de Aceite e a Política de Privacidade</a> desta compra, incluindo o direito de arrependimento em 7 dias.</span></label>
       <label class="ck2"><input type="checkbox" id="f_news"><span>Quero receber novidades, prompts e atualizações do material por e-mail e WhatsApp. Posso cancelar quando quiser.</span></label>
       <div class="err" id="err"></div>
@@ -208,7 +240,7 @@ footer a{color:var(--mu)}
     <div id="pay">
       <p class="ok">✓ dados recebidos</p>
       <h3 style="margin:8px 0 6px;font-size:24px">Agora é só pagar e mandar o comprovante</h3>
-      <p class="mu" style="margin-bottom:16px">1. Pague R$27 no Pix pelo botão abaixo. 2. Volte aqui e envie o comprovante por um dos três canais. Eu libero o material na hora.</p>
+      <p class="mu" style="margin-bottom:16px">1. Pague <span id="payTot">R$27</span> no Pix pelo botão abaixo. 2. Volte aqui e envie o comprovante por um dos três canais. Eu respondo com os links da aula em vídeo, do e-book e da pasta com o material.</p>
       <a class="btn block" id="payBtn" href="https://checkout.nubank.com.br/3RQ1Rfj7Ez6sj6f5" target="_blank" rel="noopener">Pagar R$27 no Pix<small>abre o checkout do Nubank</small></a>
       <div class="send">
         <a class="btn ghost" id="sWa" target="_blank" rel="noopener">Comprovante no WhatsApp</a>
@@ -227,9 +259,11 @@ footer a{color:var(--mu)}
   <details><summary>Preciso pagar o Claude à parte?</summary><p>Sim. O Claude Code não está no plano gratuito. O plano Pro custa US$ 20 por mês (valor de novembro de 2026, confira no site oficial). O kit não inclui assinatura de nenhuma ferramenta.</p></details>
   <details><summary>Funciona com ChatGPT ou Codex?</summary><p>O método é o mesmo para o Codex, que é o agente da OpenAI. O e-book compara os dois e mostra o que muda. As skills estão no formato do Claude Code.</p></details>
   <details><summary>Funciona no Windows?</summary><p>Sim. O Claude Code roda em Mac, Windows e Linux. Os comandos de instalação das ferramentas mudam um pouco e o próprio Claude faz essa parte para você.</p></details>
-  <details><summary>Como eu recebo o material?</summary><p>Depois do Pix, você me manda o comprovante por WhatsApp, e-mail ou Direct. Eu respondo com os links do e-book, das skills, dos prompts e da pasta do pacote gráfico. O atendimento é feito por mim, então de madrugada pode levar algumas horas.</p></details>
+  <details><summary>Como eu recebo o material?</summary><p>Depois do Pix, você me manda o comprovante por WhatsApp, e-mail ou Direct. Eu respondo com o link da aula em vídeo, o e-book e a pasta com as skills, os prompts e o pacote de edição. O atendimento é feito por mim, então de madrugada pode levar algumas horas.</p></details>
   <details><summary>E se eu não gostar?</summary><p>Você pode desistir em até 7 dias depois de receber, sem precisar explicar, e eu devolvo os R$27 pelo Pix. É o direito de arrependimento do artigo 49 do Código de Defesa do Consumidor.</p></details>
-  <details><summary>Até quando vale R$27?</summary><p>Até 23/11 às 23h59, horário de Brasília. Depois o kit passa a custar R$67.</p></details>
+  <details><summary>Até quando vale R$27?</summary><p>R$27 é o preço de Black Friday e vale até 23/11 às 23h59, horário de Brasília. Depois o kit passa a custar R$67.</p></details>
+  <details><summary>O que são os packs de som?</summary><p>São compras extras e opcionais. O Pack Impacto tem efeitos sonoros separados por tipo. O Pack Estúdio tem os mesmos efeitos e mais trilhas instrumentais sem voz. Você marca no formulário e o valor entra no total.</p></details>
+  <details><summary>Vai ter curso completo?</summary><p>Vai. Estou produzindo e aviso primeiro no canal do WhatsApp e para quem comprou o kit.</p></details>
   <details><summary>O material vai ser atualizado?</summary><p>Quem compra agora recebe as atualizações da versão 1 sem pagar de novo. Os modelos e preços das IAs mudam rápido, por isso cada dado do e-book tem data e fonte.</p></details>
   <div class="cta" style="margin-top:30px"><a class="btn js-buy" href="#comprar">Quero o kit por R$27</a></div>
 </div></section>
@@ -245,7 +279,7 @@ footer a{color:var(--mu)}
   <p style="margin-top:8px">Material independente. Não tem vínculo com Anthropic, OpenAI, Meta ou qualquer outra empresa citada. Claude, ChatGPT e Codex são marcas dos seus donos. Este produto não promete resultado de alcance ou de renda.</p>
 </div></footer>
 
-<div class="bar"><div class="wrap"><div><b>R$27</b><span>até 23/11 · <span id="cdBar">--</span></span></div><a class="btn sm js-buy" href="#comprar" style="font-size:16px;padding:13px 20px">Quero o kit</a></div></div>
+<div class="bar"><div class="wrap"><div><b>R$27</b><span>Black Friday até 23/11 · <span id="cdBar">--</span></span></div><a class="btn sm js-buy" href="#comprar" style="font-size:16px;padding:13px 20px">Quero o kit</a><a class="btn sm ghost unl" href="#topo">Assista ao vídeo</a></div></div>
 
 <script>
 const SUPA='https://lotdkxouotewqyiztdcd.supabase.co',KEY='sb_publishable_49Rv0Xs-x8KgKCnrQPCRFw_gYLKZfGD',WA='5511992392104';
@@ -253,12 +287,28 @@ const END=new Date('2026-11-23T23:59:59-03:00').getTime(),$=id=>document.getElem
 function tick(){let d=Math.max(0,END-Date.now()),s=Math.floor(d/1e3),D=Math.floor(s/86400),H=Math.floor(s%86400/3600),M=Math.floor(s%3600/60),S=s%60,p=n=>String(n).padStart(2,'0');
  $('cdD').textContent=p(D);$('cdH').textContent=p(H);$('cdM').textContent=p(M);$('cdS').textContent=p(S);
  const short=D>0?`${D}d ${p(H)}h ${p(M)}m`:`${p(H)}:${p(M)}:${p(S)}`;$('cdTop').textContent=short;$('cdBar').textContent=short;
- if(d<=0&&!window._over){window._over=1;document.querySelectorAll('.js-buy,#sub').forEach(b=>b.textContent='Quero o kit');document.querySelector('.price .old').textContent='Black November encerrada';document.querySelector('.price .v').innerHTML='<small>R$</small>67';$('payBtn').href=`https://wa.me/${WA}?text=${encodeURIComponent('Oi Anderson, quero o Kit Editar com Claude.')}`;$('payBtn').firstChild.textContent='Pedir o link de pagamento';}}
+ if(d<=0&&!window._over){window._over=1;document.querySelectorAll('.js-buy,#sub').forEach(b=>b.textContent='Quero o kit');document.querySelector('.price .old').textContent='Black Friday encerrada';document.querySelector('.price .v').innerHTML='<small>R$</small>67';$('payBtn').href=`https://wa.me/${WA}?text=${encodeURIComponent('Oi Anderson, quero o Kit Editar com Claude.')}`;$('payBtn').firstChild.textContent='Pedir o link de pagamento';}}
 tick();setInterval(tick,1000);
 document.querySelectorAll('.js-buy').forEach(a=>a.addEventListener('click',()=>{try{fbq('track','InitiateCheckout',{value:27,currency:'BRL'})}catch(e){}}));
 const io=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target;if(e.isIntersecting){if(!v.src)v.src=v.dataset.src;v.play().catch(()=>{})}else v.pause()}),{threshold:.25});
 document.querySelectorAll('.clips video').forEach(v=>io.observe(v));
 const u=new URLSearchParams(location.search);
+/* botão de compra só depois do vídeo */
+const V=$('vsl');let maxT=0;
+function unlock(){document.body.classList.remove('locked');try{localStorage.setItem('kitClaudeVsl','1')}catch(x){}}
+(function(){let ok=u.has('liberar');try{ok=ok||localStorage.getItem('kitClaudeVsl')||localStorage.getItem('kitClaudeLead')}catch(x){}
+ if(Date.now()>END)ok=1;if(!ok)document.body.classList.add('locked');})();
+V.addEventListener('timeupdate',()=>{if(!V.seeking&&V.currentTime>maxT)maxT=V.currentTime;if(V.duration){$('prog').style.width=(maxT/V.duration*100)+'%';if(maxT>=V.duration-1.5)unlock()}});
+V.addEventListener('seeking',()=>{if(document.body.classList.contains('locked')&&V.currentTime>maxT+1)V.currentTime=maxT});
+V.addEventListener('ended',()=>{if(maxT>=V.duration-3)unlock()});
+V.addEventListener('error',unlock);V.querySelector('source').addEventListener('error',unlock);
+/* compra extra */
+const PACKS={sfx:{n:'Pack Impacto',v:17},full:{n:'Pack Estúdio',v:27}},LINKS={27:'https://checkout.nubank.com.br/3RQ1Rfj7Ez6sj6f5'};
+function total(){return 27+($('b_full').checked?PACKS.full.v:$('b_sfx').checked?PACKS.sfx.v:0)}
+function upTot(){const t='R$'+total();$('tot').textContent=t;$('sub').textContent='Continuar para o pagamento · '+t}
+$('b_sfx').addEventListener('change',()=>{if($('b_sfx').checked)$('b_full').checked=false;upTot()});
+$('b_full').addEventListener('change',()=>{if($('b_full').checked)$('b_sfx').checked=false;upTot()});
+fetch('/assets/kit-claude/packs.mp4',{method:'HEAD'}).then(r=>{if(r.ok)$('packs').style.display=''}).catch(()=>{});
 $('f').addEventListener('submit',async e=>{e.preventDefault();
  const nome=$('f_nome').value.trim(),wa=$('f_wa').value.replace(/\D/g,''),email=$('f_email').value.trim();
  if(nome.split(/\s+/).length<2)return $('err').textContent='Escreva nome e sobrenome.';
@@ -266,15 +316,20 @@ $('f').addEventListener('submit',async e=>{e.preventDefault();
  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return $('err').textContent='Confira o e-mail.';
  if(!$('f_termo').checked)return $('err').textContent='Para continuar, aceite o termo.';
  $('err').textContent='';$('sub').disabled=true;$('sub').textContent='Enviando…';
- const p={responsavel:nome,whatsapp:wa,email,cidade:$('f_cidade').value.trim(),marca:'KIT EDITAR COM CLAUDE R$27',produto:'kit-editar-com-claude',segmento:$('f_perfil').value,objetivo:'IA que usa: '+($('f_ia').value||'não informou'),oferta:'R$27 Black November',instagram:$('f_ig').value.trim(),site:location.href,referencias:u.get('utm_source')||document.referrer||'',observacoes:'Novidades: '+($('f_news').checked?'sim':'não')+' · aceite em '+new Date().toISOString(),extras:[],canal:$('f_canal').value,aceite_termo:true};
+ const T=total(),ex=$('b_full').checked?[PACKS.full.n+' +R$'+PACKS.full.v]:$('b_sfx').checked?[PACKS.sfx.n+' +R$'+PACKS.sfx.v]:[];
+ const p={responsavel:nome,whatsapp:wa,email,cidade:$('f_cidade').value.trim(),marca:'KIT EDITAR COM CLAUDE R$'+T,produto:'kit-editar-com-claude',segmento:$('f_perfil').value,objetivo:'IA que usa: '+($('f_ia').value||'não informou'),oferta:'R$'+T+' Black Friday',instagram:$('f_ig').value.trim(),site:location.href,referencias:u.get('utm_source')||document.referrer||'',observacoes:'Novidades: '+($('f_news').checked?'sim':'não')+' · aceite em '+new Date().toISOString(),extras:ex,canal:$('f_canal').value,aceite_termo:true};
  const h={apikey:KEY,Authorization:`Bearer ${KEY}`,'Content-Type':'application/json'};
  try{await fetch(`${SUPA}/rest/v1/rpc/submit_motion_pedido`,{method:'POST',headers:h,body:JSON.stringify({p})})}catch(x){}
  if($('f_news').checked){try{await fetch(`${SUPA}/rest/v1/rpc/subscribe_newsletter`,{method:'POST',headers:h,body:JSON.stringify({p_email:email,p_consent:true,p_source:'kit-claude'})})}catch(x){}}
- try{fbq('track','Lead',{content_name:'Kit Editar com Claude',value:27,currency:'BRL'})}catch(x){}
+ try{fbq('track','Lead',{content_name:'Kit Editar com Claude',value:T,currency:'BRL'})}catch(x){}
  try{localStorage.setItem('kitClaudeLead','1')}catch(x){}
- const msg=`Oi Anderson! Comprei o Kit Editar com Claude (R$27).\nNome: ${nome}\nE-mail: ${email}\nSegue o comprovante do Pix.`;
+ const item='Kit Editar com Claude'+(ex.length?' + '+ex[0].split(' +')[0]:'');
+ const msg=`Oi Anderson! Comprei o ${item} (R$${T}).\nNome: ${nome}\nE-mail: ${email}\nSegue o comprovante do Pix.`;
  $('sWa').href=`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
  $('sMail').href=`mailto:contato@andersonbrito.com?subject=${encodeURIComponent('Comprovante Kit Editar com Claude')}&body=${encodeURIComponent(msg)}`;
+ $('payTot').textContent='R$'+T;
+ if(LINKS[T]){$('payBtn').href=LINKS[T];$('payBtn').firstChild.textContent='Pagar R$'+T+' no Pix'}
+ else{$('payBtn').href=`https://wa.me/${WA}?text=${encodeURIComponent('Oi Anderson! Quero o '+item+' (R$'+T+'). Pode me mandar o Pix?')}`;$('payBtn').firstChild.textContent='Pedir o Pix de R$'+T;$('payBtn').querySelector('small').textContent='abre o WhatsApp'}
  $('f').style.display='none';$('pay').style.display='block';$('formCard').scrollIntoView({behavior:'smooth',block:'center'});
 });
 $('payBtn').addEventListener('click',()=>{try{fbq('track','AddPaymentInfo',{value:27,currency:'BRL'})}catch(e){}});
