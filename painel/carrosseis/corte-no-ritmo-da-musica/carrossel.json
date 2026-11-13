@@ -4,9 +4,9 @@
  "tipo": "educativo",
  "titulo": "Como eu edito vídeo com IA usando o Claude",
  "perfil": "@ilmarlabs",
- "legenda": "Faz um tempo que o primeiro corte dos meus vídeos não sai da minha mão. Eu passo o briefing, o Claude transcreve, propõe o corte em texto, monta e me entrega uma prévia. Eu reviso como revisaria o trabalho de um editor.\n\nNão é mágica e não acerta de primeira. O que muda o jogo é guardar cada correção pra próxima edição já nascer certa.\n\nSalva pra testar no seu próximo vídeo. Você deixaria a IA fazer o primeiro corte?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "legenda": "Faz um tempo que o primeiro corte dos meus vídeos não sai da minha mão. Eu passo o briefing, o Claude transcreve, propõe o corte em texto, monta e me entrega uma prévia. Eu reviso como revisaria o trabalho de um editor.\n\nNão é mágica e não acerta de primeira. O que muda o jogo é guardar cada correção pra próxima edição já nascer certa.\n\nSalva pra testar no seu próximo vídeo. Você deixaria a IA fazer o primeiro corte?\n\nO passo a passo completo está no Kit Editar com Claude, que sai hoje: de R$97 por R$57 até 23/11, em andersonbrito.com/editar-com-claude\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
  "fontes": [],
- "notas": "Educativo de técnica de edição (sem ferramenta específica paga). Lâminas geradas no ChatGPT (Images 2.6), estilo pôster cinema × IA com timeline/forma de onda, PT-BR, sem rostos reais. Ajuste 12/11: tema trocado para edição de vídeo com IA usando Claude, pelo método dele (skill editar-com-ia: briefing, transcrição por palavra, corte em texto, montagem, feedback salvo). Imagens 2 a 6 reaproveitadas; hook novo com Carlo Ancelotti regendo ilha de edição futurista com código verde (ChatGPT). Título e legenda reescritos.",
+ "notas": "Educativo de técnica de edição (sem ferramenta específica paga). Lâminas geradas no ChatGPT (Images 2.6), estilo pôster cinema × IA com timeline/forma de onda, PT-BR, sem rostos reais. Ajuste 12/11: tema trocado para edição de vídeo com IA usando Claude, pelo método dele (skill editar-com-ia: briefing, transcrição por palavra, corte em texto, montagem, feedback salvo). Imagens 2 a 6 reaproveitadas; hook novo com Carlo Ancelotti regendo ilha de edição futurista com código verde (ChatGPT). Título e legenda reescritos. Ajuste 13/11: lâmina 6 nova com CTA do Kit Editar com Claude (R$57 na Black Friday até 23/11, imagem da apresentação do kit) e linha do kit na legenda; CTA de seguir do meio passou da lâmina 3 para a 4 (agora são 7).",
  "slides": [
   {
    "texto": "Eu não abro mais a timeline pra fazer o primeiro corte.\n\n**Quem monta é o Claude.** Eu dirijo.",
@@ -31,8 +31,7 @@
     "tipo": "imagem",
     "src": "/painel/carrosseis/corte-no-ritmo-da-musica/03-marcar.jpg",
     "foco": 0.4
-   },
-   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+   }
   },
   {
    "texto": "Passo 2 — o corte em texto.\n\nAntes de mexer no vídeo, ele me mostra **o que sai e o que fica**. Eu aprovo ou mudo, como faria com qualquer editor.",
@@ -40,7 +39,8 @@
     "tipo": "imagem",
     "src": "/painel/carrosseis/corte-no-ritmo-da-musica/04-cortar.jpg",
     "foco": 0.4
-   }
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
   },
   {
    "texto": "Passo 3 — montar.\n\nCortes, legenda, textos curtos na tela, efeito sonoro nas entradas e trilha baixa sob a voz. Tudo por código, **sem eu arrastar clipe**. Sai uma prévia pra eu assistir.",
@@ -49,6 +49,15 @@
     "src": "/painel/carrosseis/corte-no-ritmo-da-musica/05-respira.jpg",
     "foco": 0.4
    }
+  },
+  {
+   "texto": "Esse método inteiro virou o **Kit Editar com Claude**, que sai hoje.\n\nAula em vídeo, e-book com 11 aulas práticas, 13 skills, prompts e os arquivos pra você começar no mesmo dia.\n\nBlack Friday: de R$97 por **R$57**, até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-no-ritmo-da-musica/06-kit.jpg",
+    "foco": 0.5
+   },
+   "rodape": "andersonbrito.com/editar-com-claude →"
   },
   {
    "texto": "Passo 4 — feedback.\n\nCada correção minha fica salva num arquivo. O próximo vídeo **já nasce com essas regras**.\n\n**Você deixaria a IA fazer o primeiro corte?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
