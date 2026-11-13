@@ -44,9 +44,21 @@ const PST = { novo: "A abordar", contatado: "Contatados", respondeu: "Respondera
 const SCRIPTS = {
   igreja: (p) => "A paz, pastor! Fiz um vídeo de convite de Natal para igrejas e faço um igual para a " + p.nome + ", com o nome, a data e o horário do culto de vocês, pronto em 24h para postar e mandar no WhatsApp da igreja.\n\nO valor é R$97, com pagamento antecipado via Pix. Se quiser, é só me mandar a data do culto que eu já começo.",
   negocio: (p) => "Oi! Tudo bem? Vi o perfil da " + p.nome + " e faço vídeos motion para " + (p.segmento || "negócios").toLowerCase() + ", prontos em até 24h para anúncio, Reels, Stories e status do WhatsApp, com 2 alterações inclusas.\n\nO valor é R$97, com pagamento antecipado via Pix. Posso te mandar um exemplo do seu segmento?",
+  // Agência: abordagem do plano B2B. Sem preço na 1ª mensagem; termina em pergunta. Nunca citar WooB.
+  agencia: (p) => { const f = ficha(p), nome = f.contato ? f.contato.split(" (")[0].split(" ")[0] : "";
+    return "Olá" + (nome && !/cargo|confirmar|Direção/i.test(nome) ? ", " + nome : "") + "! Tudo bem?\n\n" + (f.vi ? "Vi que a " + p.nome + " " + f.vi.replace(/\.$/, "") + "." : "Vi o trabalho da " + p.nome + (f.faz ? " com " + f.faz.split(";").slice(0, 2).join(" e ").trim().toLowerCase() : "") + ".") +
+      " Sou Anderson, editor e produtor audiovisual. Apoio agências na edição de Reels e criativos de campanha, inclusive com IA quando faz sentido, seguindo a linguagem de cada cliente.\n\nVocês costumam terceirizar parte da edição quando a demanda aumenta?"; },
 };
-const ASSUNTO = { igreja: "Vídeo de convite de Natal para a igreja", negocio: "Vídeo motion para o seu negócio em 24h" };
-const tipoDe = (p) => /igreja/i.test(p.segmento || "") ? "igreja" : "negocio";
+// Próximos passos do funil das agências (plano B2B): resposta a interesse e follow-up de 3 a 5 dias úteis.
+const SEGUE = {
+  contatado: (p) => "Olá! Retomando minha mensagem sobre apoio externo na edição. Se a equipe da " + p.nome + " já está dando conta, sem problema. Se precisarem de reforço pontual ou recorrente, posso apresentar um piloto pago de 2 vídeos, com escopo e prazo fechados.",
+  respondeu: () => "Que bom! Para entender se consigo ajudar: qual o volume aproximado de vídeos por mês, que material vocês costumam receber (bruto de celular, câmera, criativos) e quais os prazos? Se fizer sentido, te mando 3 exemplos e uma proposta de piloto pago com 2 ou 3 vídeos.",
+};
+const ASSUNTO = { igreja: "Vídeo de convite de Natal para a igreja", negocio: "Vídeo motion para o seu negócio em 24h", agencia: "Apoio de edição de vídeo para a agência" };
+const tipoDe = (p) => /ag[eê]ncia/i.test(p.segmento || "") ? "agencia" : /igreja/i.test(p.segmento || "") ? "igreja" : "negocio";
+// notas das agências vêm como "Prioridade A · Faz: ... · Contato: ... · Vi: ... · LinkedIn: ... · Atenção: ..."
+const ficha = (p) => { const o = {}; for (const part of String(p.notas || "").split(" · ")) { const m = part.match(/^(Prioridade|Faz|Contato|Clientes|Vi|Ideia|LinkedIn|Atenção):?\s*(.*)$/); if (m) o[{ Prioridade: "pri", Faz: "faz", Contato: "contato", Clientes: "clientes", Vi: "vi", Ideia: "ideia", LinkedIn: "linkedin", "Atenção": "atencao" }[m[1]]] = m[2].trim(); } return o; };
+const GRUPOS = { agencia: "Agências", igreja: "Igrejas", negocio: "Negócios" };
 
 function pesquisas(sb, query, go, refresh, { data, error }, reqs) {
   if (error) return alertBox(/prospects/.test(error.message || "") ? "Falta aplicar a migration 0039 (prospects) no Supabase para as pesquisas aparecerem aqui." : "Não foi possível carregar as pesquisas.");
@@ -55,10 +67,12 @@ function pesquisas(sb, query, go, refresh, { data, error }, reqs) {
   const nomes = [...new Set(all.map((p) => p.pesquisa))];
   const pq = nomes.includes(query.p) ? query.p : "";
   const cid = query.c || "";
-  const base = all.filter((p) => (!pq || p.pesquisa === pq));
+  const gr = Object.keys(GRUPOS).includes(query.g) ? query.g : (all.some((p) => tipoDe(p) === "agencia") ? "agencia" : "");
+  const pri = (p) => ({ A: 0, B: 1, C: 2 }[ficha(p).pri] ?? (p.destaque ? 0 : 1));
+  const base = all.filter((p) => (!pq || p.pesquisa === pq) && (!gr || tipoDe(p) === gr)).sort((a, b) => pri(a) - pri(b));
   const cidades = [...new Set(base.map((p) => p.cidade).filter(Boolean))].sort();
   const list = base.filter((p) => p.status === st && (!cid || p.cidade === cid));
-  const url = (o) => { const q = new URLSearchParams({ f: "pesq", ...(o.p ?? pq ? { p: o.p ?? pq } : {}), ...(o.c ?? cid ? { c: o.c ?? cid } : {}), ...((o.st ?? st) !== "novo" ? { st: o.st ?? st } : {}) }); return "/leads?" + q.toString(); };
+  const url = (o) => { const q = new URLSearchParams({ f: "pesq", ...(o.p ?? pq ? { p: o.p ?? pq } : {}), ...(o.c ?? cid ? { c: o.c ?? cid } : {}), ...((o.st ?? st) !== "novo" ? { st: o.st ?? st } : {}), ...((o.g ?? gr) ? { g: o.g ?? gr } : {}) }); return "/leads?" + q.toString(); };
   const mover = async (p, status) => {
     const rows = { status }; if (status === "contatado" && !p.contatado_em) rows.contatado_em = new Date().toISOString();
     const { data: d } = await sb.from("prospects").update(rows).eq("id", p.id).eq("version", p.version).select("id").maybeSingle();
@@ -66,20 +80,27 @@ function pesquisas(sb, query, go, refresh, { data, error }, reqs) {
   };
   const copiar = async (t) => { try { await navigator.clipboard.writeText(t); return true; } catch { return false; } };
   const card = (p) => {
-    const tp = tipoDe(p), script = SCRIPTS[tp](p);
+    const tp = tipoDe(p), f = ficha(p);
+    const script = (SEGUE[p.status] && tp === "agencia" ? SEGUE[p.status] : SCRIPTS[tp])(p);
+    const rotulo = p.status === "contatado" && tp === "agencia" ? "follow-up" : p.status === "respondeu" && tp === "agencia" ? "resposta" : "abordagem";
     const ig = p.instagram && "https://ig.me/m/" + p.instagram;
+    const usar = async (url, msg) => { const ok = await copiar(script); if (url) window.open(url, "_blank", "noopener"); toast(ok ? msg : "Abra o texto e copie à mão."); };
+    const linha = (rot, v) => v && h("div", { class: "small" }, h("b", null, rot + ": "), v);
     return h("article", { class: "job" },
-      h("div", { class: "flex" }, p.destaque && h("span", { class: "ptag p-instagram" }, "prioridade"), h("b", { class: "truncate" }, p.nome), h("div", { class: "grow" }), h("span", { class: "muted small" }, [p.cidade, p.uf].filter(Boolean).join("/"))),
-      h("div", { class: "muted" }, [p.segmento, p.instagram && "@" + p.instagram, p.seguidores && p.seguidores + " seguidores", p.whatsapp && "WhatsApp " + p.whatsapp, p.site, p.notas].filter(Boolean).join(" · ")),
-      h("details", null, h("summary", { class: "small" }, "Script"), h("p", { class: "sxtext" }, script)),
+      h("div", { class: "flex" }, (f.pri || p.destaque) && h("span", { class: "ptag p-" + (f.pri === "A" || (!f.pri && p.destaque) ? "instagram" : "outro") }, f.pri ? "prioridade " + f.pri : "prioridade"),
+        h("b", { class: "truncate" }, p.nome), h("div", { class: "grow" }), h("span", { class: "muted small" }, [p.cidade, p.uf].filter(Boolean).join("/"))),
+      tp === "agencia" ? h("div", null, linha("Faz", f.faz), linha("Falar com", f.contato), linha("Clientes", f.clientes), linha("Gancho", f.vi || f.ideia), f.atencao && h("div", { class: "small muted" }, "⚠ " + f.atencao))
+        : h("div", { class: "muted" }, [p.segmento, p.instagram && "@" + p.instagram, p.seguidores && p.seguidores + " seguidores", p.whatsapp && "WhatsApp " + p.whatsapp, p.site, p.notas].filter(Boolean).join(" · ")),
+      h("details", null, h("summary", { class: "small" }, "Texto de " + rotulo), h("p", { class: "sxtext" }, script)),
       h("div", { class: "flex jbar" },
-        ig && h("button", { class: "btn btn-sm", type: "button", onclick: async () => { const ok = await copiar(script); window.open(ig, "_blank", "noopener"); toast(ok ? "Script copiado. Cole no Direct." : "Abra o Script e copie à mão."); } }, "Direct"),
         p.whatsapp && h("a", { class: "btn btn-sm", href: waLink(p.whatsapp) + "?text=" + encodeURIComponent(script), target: "_blank", rel: "noopener" }, "WhatsApp"),
+        ig && h("button", { class: "btn btn-sm", type: "button", onclick: () => usar(ig, "Texto copiado. Cole no Direct.") }, "Direct"),
         p.email && h("a", { class: "btn btn-sm", href: "mailto:" + p.email + "?subject=" + encodeURIComponent(ASSUNTO[tp]) + "&body=" + encodeURIComponent(script) }, "E-mail"),
+        f.linkedin && h("button", { class: "btn btn-sm", type: "button", onclick: () => usar(f.linkedin, "Texto copiado. Mande pelo LinkedIn.") }, "LinkedIn"),
+        h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => usar(null, "Texto copiado.") }, "Copiar texto"),
         p.instagram && h("a", { class: "btn btn-ghost btn-sm", href: "https://www.instagram.com/" + p.instagram + "/", target: "_blank", rel: "noopener" }, "Perfil"),
         p.site && h("a", { class: "btn btn-ghost btn-sm", href: /^https?:/.test(p.site) ? p.site : "https://" + p.site, target: "_blank", rel: "noopener" }, "Site"),
-        h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: async () => toast((await copiar(script)) ? "Script copiado." : "Não consegui copiar.") }, "Copiar script"),
-        ...({ novo: ["contatado"], contatado: ["respondeu"], respondeu: ["fechou"], fechou: [], descartado: ["novo"] }[p.status] || []).map((s) => h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mover(p, s) }, "→ " + PST[s])),
+        ...({ novo: ["contatado"], contatado: ["respondeu"], respondeu: ["fechou"], fechou: [], descartado: ["novo"] }[p.status] || []).map((s) => h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => mover(p, s) }, s === "contatado" ? "✓ Mandei" : "→ " + PST[s])),
         !["descartado", "fechou"].includes(p.status) && h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => mover(p, "descartado") }, "Descartar")));
   };
   const chip = (id) => h("button", { type: "button", class: "chip" + (st === id ? " on" : ""), onclick: () => go(url({ st: id })) }, PST[id], h("sup", null, base.filter((p) => p.status === id && (!cid || p.cidade === cid)).length));
@@ -99,9 +120,11 @@ function pesquisas(sb, query, go, refresh, { data, error }, reqs) {
     h("button", { class: "btn btn-sm", type: "submit" }, "Pedir nova pesquisa"));
   const pedidos = (reqs.data || []).filter((r) => r.status !== "cancelado").slice(0, 5);
   return h("div", null,
-    h("p", { class: "muted small" }, "Negócios e igrejas achados em pesquisa pública. Direct copia o script e abre a conversa (cole e envie); WhatsApp abre o seu WhatsApp Business com o texto pronto. Mande 10 a 15 por dia."),
+    h("p", { class: "muted small" }, "Base achada em pesquisa pública. WhatsApp abre o seu WhatsApp Business com o texto pronto; Direct e LinkedIn copiam o texto e abrem a conversa (cole e envie); E-mail abre com assunto e texto. Nada é enviado sozinho."),
     form,
     pedidos.length ? h("div", { class: "muted small" }, ...pedidos.map((r) => h("div", null, fmtDateTime(r.created_at) + " · " + [r.payload?.segmento, r.payload?.cidades].filter(Boolean).join(" em ") + " · " + ({ aberto: "na fila", gerando: "pesquisando", feito: "pronto" }[r.status] || r.status) + (r.result_note ? " · " + r.result_note : "")))) : null,
+    h("div", { class: "mfilters" }, ...Object.keys(GRUPOS).map((g) => h("button", { type: "button", class: "chip" + (gr === g ? " on" : ""), onclick: () => go(url({ g, p: "", c: "" })) }, GRUPOS[g], h("sup", null, all.filter((p) => tipoDe(p) === g && p.status === "novo").length)))),
+    h("p", { class: "small" }, h("b", null, "Hoje: " + all.filter((p) => p.contatado_em && new Date(p.contatado_em).toDateString() === new Date().toDateString()).length + " abordados"), gr === "agencia" ? " · meta 5 agências por dia útil. Ordem: prioridade A primeiro. Mandou? Clique em ✓ Mandei. Em Contatados o texto vira follow-up (3 a 5 dias úteis depois); em Responderam vira a pergunta de volume e prazo." : ""),
     h("div", { class: "mfilters" }, sel(pq, nomes, "Todas as pesquisas", (v) => go(url({ p: v, c: "" }))), sel(cid, cidades, "Todas as cidades", (v) => go(url({ c: v })))),
     h("div", { class: "mfilters" }, ...Object.keys(PST).map(chip)),
     list.length ? h("div", { class: "jobs" }, ...list.map(card)) : h("p", { class: "empty" }, all.length ? "Nada aqui." : "Nenhuma pesquisa ainda. Peça uma acima."));
