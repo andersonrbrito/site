@@ -12,3 +12,7 @@ painel/dev/.env*
 lamina/.env
 lamina/.fila/
 .tunel-mac.txt
+
+# fora do ar (12/11), cópia local mantida
+/condzxyz/
+/brasilparalelo/

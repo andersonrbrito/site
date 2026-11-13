@@ -29,32 +29,11 @@ export const PORTFOLIOS = [
   "updated": "2026-10-30"
  },
  {
-  "path": "comp/",
-  "title": "Anderson Brito para a Comp: contrata o Brito!",
-  "online": false,
-  "linked": false,
-  "updated": "2026-10-14"
- },
- {
   "path": "xablau/",
   "title": "Anderson Brito para o Real Oficial: professor de IA",
   "online": true,
   "linked": false,
   "updated": "2026-10-14"
- },
- {
-  "path": "brasilparalelo/",
-  "title": "Anderson Brito | Editor de Vídeo — Brasil Paralelo",
-  "online": true,
-  "linked": false,
-  "updated": "2026-07-29"
- },
- {
-  "path": "condzxyz/",
-  "title": "Anderson Brito | Criador de Conteúdo de IA e Audiovisual",
-  "online": true,
-  "linked": false,
-  "updated": "2026-07-10"
  },
  {
   "path": "dr/",
