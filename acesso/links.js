@@ -7,7 +7,7 @@ window.LINKS = {
   aula_youtube: "",
 
   // E-book em PDF (será trocado depois pela versão final)
-  ebook: "https://drive.google.com/file/d/1ITcJxc5LikNzo2iXvMv6WFFdfsYaKon6/view",
+  ebook: "https://drive.google.com/file/d/17wpd5vGnd_xWbEJr29taEzYHKv2AfkSz/view",
 
   // Manual rápido (resumo de uma página para começar)
   manual_rapido: "https://drive.google.com/file/d/1QUvQ7f17Exky5WKDtmXMBQ4pOAtZr63Z/view",
