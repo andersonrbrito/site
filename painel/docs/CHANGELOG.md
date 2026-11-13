@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-11-12 (tarde) · Banco migrado para o projeto anderson-os-2
+- O projeto antigo (avyzky..., organização Ilmar Labs) ficou restrito por cota até 19/11. Criada a organização grátis "Anderson OS" com o projeto `anderson-os-2` (ref lotdkxouotewqyiztdcd).
+- Migrations 0001 a 0039 e 0041 aplicadas; 56 tabelas (54 public, auth.users e auth.identities) copiadas, 16.073 linhas, contagem conferida igual. A 0040 (geracoes) não foi aplicada.
+- Funções `meta` e `postador` publicadas no projeto novo (JWT legado desligado, como antes). Chave dos agentes segue a mesma. Cron `postador_tick` PAUSADO até os secrets de X e LinkedIn serem recadastrados.
+- `js/config.js`, `js/links.js`, `tools/agente.py`, `supabase/functions/meta/index.ts` e as páginas motion, bombaatomica, editar-com-ia e editar-com-claude apontam para o projeto novo.
+- Mídia não foi para o Storage novo: os arquivos estão no espelho do Mac (ANDY, BANCO DE MIDIA/aprovacoes).
+- Pendente do dono: login Google no projeto novo (client secret e callback no Google Cloud) e secrets das funções.
+
 ## 2026-11-12 · Supabase no plano grátis: mídia some ao aprovar
 - AprovaçõeS_: aprovar, publicar ou reprovar apaga a mídia do Storage na hora (antes só publicar/reprovar). Sem cópia no espelho do Mac, o painel pergunta antes de apagar.
 - AprovaçõeS_: vídeo vindo do Supabase usa preload "none" com a capa de poster; só baixa ao dar play. Do espelho do Mac segue mostrando o 1º quadro.

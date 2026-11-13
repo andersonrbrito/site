@@ -9,7 +9,7 @@
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false } });
-const BASE = "https://avyzkygunshncwwbmzll.supabase.co/functions/v1/meta";
+const BASE = "https://lotdkxouotewqyiztdcd.supabase.co/functions/v1/meta";
 const PAINEL = "https://andersonbrito.com/painel/#/social";
 const IG_APP_ID = "1108793578594260";
 const FB_APP_ID = "1584718087029566";

@@ -18,7 +18,7 @@ Exemplos:
 Saída: JSON no stdout."""
 import json, os, sys, urllib.request
 
-BASE = "https://avyzkygunshncwwbmzll.supabase.co/functions/v1/"
+BASE = "https://lotdkxouotewqyiztdcd.supabase.co/functions/v1/"
 KEY = open(os.path.expanduser("~/.config/anderson-os/agent.key")).read().strip()
 
 def call(fn, body):
