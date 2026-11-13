@@ -1,0 +1,63 @@
+{
+ "slug": "frame-inicial-frame-final-video-ia",
+ "dia": "2026-11-13",
+ "tipo": "educativo",
+ "titulo": "Quadro inicial + quadro final: o vídeo de IA para de inventar",
+ "perfil": "@ilmarlabs",
+ "legenda": "O jeito que eu mais uso pra IA não inventar o movimento: entregar o quadro de início e o quadro de fim, e no prompt descrever só o caminho entre os dois.\n\nFunciona melhor com uma ação só, em tomada única.\n\nSalva pra usar no próximo vídeo e manda pra quem cria com IA.\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: método dele com Seedance (quadro inicial + final, tomada única, ação literal e contínua, sem efeito de transição). Todas as imagens geradas no ChatGPT (exemplo do açaí, Neymar no hook e no fim); lâmina 5 é a montagem dos quadros das lâminas 3 e 4.",
+ "slides": [
+  {
+   "texto": "O vídeo de IA para de inventar quando você entrega **o começo e o fim**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/frame-inicial-frame-final-video-ia/01-polaroids.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Quando você manda só o texto, ou só uma imagem, a IA decide sozinha como a cena termina.\n\nÀs vezes acerta.\nÀs vezes **o açaí vira vulcão**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/frame-inicial-frame-final-video-ia/02-caos.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Passo 1: gere o **quadro inicial**.\n\nUma imagem parada de como a cena começa. Aqui: o vendedor com o copo vazio.\n\nCapricha nela, porque o vídeo herda a luz, a roupa e o cenário.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/frame-inicial-frame-final-video-ia/03-quadro-inicial.jpg",
+    "foco": 0.45
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 2: gere o **quadro final** a partir do primeiro, mudando uma coisa só:\n\n\"Mesma cena, mesmo enquadramento e mesma luz. Muda só isso: o copo agora está cheio de açaí.\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/frame-inicial-frame-final-video-ia/04-quadro-final.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Passo 3: suba os dois no modelo de vídeo (Kling e Seedance aceitam início e fim) e descreva **só o caminho**:\n\n\"Tomada única, câmera parada. O vendedor enche o copo de açaí e estende pra câmera. Sem cortes, sem efeito de transição.\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/frame-inicial-frame-final-video-ia/05-inicio-e-fim.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Funciona melhor com uma ação só, contínua, do quadro 1 até o 2. Se pedir três coisas, ela atropela.\n\n**Salva pra usar no próximo vídeo** e manda pra quem cria com IA.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/frame-inicial-frame-final-video-ia/06-entrega.jpg",
+    "foco": 0.4
+   },
+   "rodape": "salva pra usar no próximo vídeo ↓"
+  }
+ ]
+}

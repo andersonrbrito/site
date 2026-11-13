@@ -1,0 +1,91 @@
+{
+ "slug": "runway-3d-tripo-h3-1",
+ "dia": "2026-11-13",
+ "tipo": "noticia",
+ "titulo": "Runway agora gera modelo 3D e usa como referência de vídeo",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Runway colocou 3D dentro do app: você gera um modelo a partir de texto ou imagem (com o Tripo H3.1) ou sobe o seu, escolhe o ângulo e usa essa vista como referência da próxima imagem ou vídeo.\n\nPra mim o ganho é segurar o mesmo personagem em vários ângulos. Mas posso estar errado, ainda não testei.\n\nVocê usaria 3D como referência ou continua só na imagem?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: post oficial do @runwayml.",
+ "fontes": [
+  {
+   "titulo": "Post oficial do @runwayml no X (vídeo)",
+   "url": "https://x.com/runwayml/status/2120883301833400668"
+  },
+  {
+   "titulo": "Creators Toolbox: Runway adds 3D model generation with Tripo H3.1",
+   "url": "https://creatorstoolbox.com/@scout/post/n_3v8bthltov55w"
+  },
+  {
+   "titulo": "AlphaSignal: Runway Adds Tripo H3.1 to Lock Down 3D Scene Consistency",
+   "url": "https://alphasignal.ai/news/runway-adds-tripo-h3-1-to-lock-down-3d-scene-consistency"
+  }
+ ],
+ "notas": "Pauta: perfil oficial @runwayml (12/11). Todas as mídias são do vídeo oficial (lâmina 2: primeiros 30 s; as outras, quadros). Hook sem rosto famoso: usei o close estranho do polvo do vídeo. Custo em créditos por modelo não foi divulgado, por isso o texto diz que não achou.",
+ "slides": [
+  {
+   "texto": "A Runway agora **gera modelo 3D** e usa ele como referência pro seu vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/01-olhos.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Runway"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O 3D chegou na Runway.\n\nVocê cria um modelo a partir de **texto ou imagem**, ou sobe o seu próprio arquivo, sem sair do app.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/02-video.mp4",
+    "poster": "/painel/carrosseis/runway-3d-tripo-h3-1/02-poster.jpg",
+    "credito": "vídeo: @runwayml"
+   }
+  },
+  {
+   "texto": "No vídeo oficial, o prompt é só \"orange octopus\" e sai o polvo pronto.\n\nQuem gera é o **Tripo H3.1**, modelo de outra empresa, a Tripo. A Runway colocou ele dentro da ferramenta.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/03-texto-3d.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "Também vale partir de um **rabisco**.\n\nO desenho vira um personagem em 3D que dá pra olhar de qualquer lado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/04-rabisco-3d.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Runway"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "A parte que interessa pra quem faz vídeo:\n\nvocê **escolhe o ângulo** do modelo e usa essa vista como referência da próxima imagem ou vídeo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/05-referencia.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "E dá pra **exportar**. No vídeo aparece o botão de baixar em GLB, formato que abre no Blender e em outros programas 3D.\n\nO que eu não achei: quanto cada modelo gasta de crédito.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/06-glb.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Runway"
+   }
+  },
+  {
+   "texto": "Pra mim o ganho é a consistência: mesmo personagem, vários ângulos, sem depender do prompt acertar. Mas posso estar errado, ainda não testei.\n\n**Você usaria 3D como referência ou continua só na imagem?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/runway-3d-tripo-h3-1/07-mercado.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Runway"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

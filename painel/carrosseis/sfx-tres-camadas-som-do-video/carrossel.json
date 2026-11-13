@@ -1,0 +1,63 @@
+{
+ "slug": "sfx-tres-camadas-som-do-video",
+ "dia": "2026-11-13",
+ "tipo": "educativo",
+ "titulo": "Efeito sonoro em 3 camadas (e por que o impacto tem que ser raro)",
+ "perfil": "@ilmarlabs",
+ "legenda": "Som de impacto em todo corte cansa quem assiste. Eu separo em 3 camadas (ambiente, movimento e impacto) e deixo o impacto pra 2 ou 3 momentos do vídeo.\n\nNa lâmina 5 tem o prompt que eu uso pra marcar os pontos no roteiro.\n\nSalva pra revisar o som do próximo vídeo e manda pra quem edita contigo.\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: regra dele de edição (impacto no máximo 2 a 3 por vídeo; no resto clique, papel e whoosh baixo). Todas as imagens geradas no ChatGPT, com texto em PT-BR. ATENÇÃO: no banco a legenda saiu com \"Na última lâmina tem o prompt\"; o certo é \"Na lâmina 5\" (corrigido só no arquivo).",
+ "slides": [
+  {
+   "texto": "Se todo corte do seu vídeo faz **TOOOM**, quem assiste cansa antes do fim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-tres-camadas-som-do-video/01-barulho.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O som de impacto funciona porque é raro.\n\nQuando entra em toda troca de cena, ele para de marcar o momento importante e vira barulho.\n\nMinha regra: **2 ou 3 por vídeo**, no máximo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-tres-camadas-som-do-video/02-bumbo.jpg",
+    "foco": 0.45
+   }
+  },
+  {
+   "texto": "Eu separo o som em **3 camadas**:\n\n• AMBIENTE: o fundo contínuo da cena\n• MOVIMENTO: whoosh, clique, papel, teclado\n• IMPACTO: a batida forte, só nos momentos-chave",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-tres-camadas-som-do-video/03-tres-camadas.jpg",
+    "foco": 0.35
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Volume também conta.\n\nO som de movimento fica **baixo**, mais sentido do que ouvido. A voz manda.\n\nSe o efeito disputa com a fala, abaixa o efeito.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-tres-camadas-som-do-video/04-volume.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Prompt pra marcar os pontos (cole junto a transcrição com os tempos):\n\n\"**Marque onde entra efeito sonoro neste roteiro.** No máximo 3 impactos, só em virada ou número importante. No resto, sugira whoosh, clique ou papel, em volume baixo. Devolva em lista com o tempo.\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-tres-camadas-som-do-video/05-marcacoes.jpg",
+    "foco": 0.35
+   }
+  },
+  {
+   "texto": "Depois, ouça de olho fechado. Se você nota o efeito mais do que a fala, tem efeito demais.\n\n**Salva pra revisar o som do próximo vídeo** e manda pra quem edita contigo.\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-tres-camadas-som-do-video/06-ouvir.jpg",
+    "foco": 0.35
+   },
+   "rodape": "salva e manda pra quem edita ↓"
+  }
+ ]
+}

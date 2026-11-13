@@ -1,0 +1,90 @@
+{
+ "slug": "claude-meetings-google-meet",
+ "dia": "2026-11-13",
+ "tipo": "noticia",
+ "titulo": "Claude Meetings: o Claude entra na reunião e já sai com o trabalho feito",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Anthropic lançou o Claude Meetings: você adiciona o Claude na chamada de vídeo e ele monta documento, quadro e anotações enquanto a equipe ainda tá conversando.\n\nPor enquanto é beta, só no Google Meet e só nos planos Team e Enterprise.\n\nEu penso na call de briefing: sair dela com roteiro e pendências já escritos. Mas posso estar errado.\n\nVocê deixaria uma IA na call com o seu cliente?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Anthropic (claude.com) e post oficial do @claudeai.",
+ "fontes": [
+  {
+   "titulo": "Anthropic: Introducing Claude Meetings, now in beta",
+   "url": "https://claude.com/blog/claude-meetings"
+  },
+  {
+   "titulo": "Post oficial do @claudeai no X (vídeo)",
+   "url": "https://x.com/claudeai/status/2120973994191094179"
+  },
+  {
+   "titulo": "Technology.org: Claude Meetings Brings AI Into Google Meet",
+   "url": "https://www.technology.org/2026/11/11/anthropic-claude-meetings-google-meet-beta-whiteboards/"
+  }
+ ],
+ "notas": "Pauta: curtida dele no X (post do @claudeai de 12/11). Lâmina 1: imagem gerada no ChatGPT. Lâmina 2: vídeo oficial (primeiros 30 s). Lâminas 3 a 7: quadros do vídeo oficial. Os veículos divergem na data (10 ou 12/11), por isso o texto não cita dia. Não afirmei que ele testou.",
+ "slides": [
+  {
+   "texto": "O Claude agora **entra na sua reunião** e sai de lá com o trabalho pronto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/01-reuniao.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **Claude Meetings**.\n\nVocê adiciona o Claude na chamada de vídeo e ele aparece como participante, na frente de todo mundo.\n\nDá pra pedir as coisas em voz alta ou pelo chat.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/02-video.mp4",
+    "poster": "/painel/carrosseis/claude-meetings-google-meet/02-poster.jpg",
+    "credito": "vídeo: @claudeai"
+   }
+  },
+  {
+   "texto": "Alguém fala \"Claude, abre um quadro\" e ele monta **na hora**, enquanto a conversa continua.\n\nA equipe vê o que ele tá fazendo e corrige no meio do caminho.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/04-quadro.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   }
+  },
+  {
+   "texto": "Ele também faz a parte chata:\n\n• anota a reunião\n• lista quem ficou de fazer o quê\n• guarda a transcrição\n\nDepois da chamada fica tudo numa **página da reunião** dentro do Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/05-notas.jpg",
+    "foco": 0.3,
+    "credito": "imagem: Anthropic"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Os limites, por enquanto:\n\n• só no **Google Meet**\n• beta, nos planos Team e Enterprise\n• por padrão ele fica fora de chamada com gente de fora da empresa\n• guarda transcrição e resumo, não o áudio",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/06-chamada.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   }
+  },
+  {
+   "texto": "No beta, notas e transcrição saem de graça. Documentos e quadros também, até 10 de fevereiro de 2027.\n\nPra quem edita, eu penso na **call de briefing**: sair dela com roteiro e pendências já escritos. Mas posso estar errado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/06-proximos-passos.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   }
+  },
+  {
+   "texto": "Ainda não testei. E reunião transcrita por IA pede combinar com todo mundo antes.\n\n**Você deixaria uma IA na call com o seu cliente?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/claude-meetings-google-meet/07-votos.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Anthropic"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}
