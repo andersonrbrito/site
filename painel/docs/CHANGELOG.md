@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-11-12 (noite) · AprovaçõeS_: prévias antigas pelo espelho do Mac
+- O cache de links assinados (localStorage) guardava por 23 h os links do projeto Supabase antigo e impedia a busca no espelho do Mac. Chave do cache passou para `ap-signed-v2` e a `v1` é apagada ao abrir.
+- As prévias das peças migradas dependem de `node tools/painel_local.mjs` rodando no Mac (túnel) e do link com `?mac=` aberto 1 vez em cada aparelho.
+
 ## 2026-11-12 (tarde) · Banco migrado para o projeto anderson-os-2
 - O projeto antigo (avyzky..., organização Ilmar Labs) ficou restrito por cota até 19/11. Criada a organização grátis "Anderson OS" com o projeto `anderson-os-2` (ref lotdkxouotewqyiztdcd).
 - Migrations 0001 a 0039 e 0041 aplicadas; 56 tabelas (54 public, auth.users e auth.identities) copiadas, 16.073 linhas, contagem conferida igual. A 0040 (geracoes) não foi aplicada.

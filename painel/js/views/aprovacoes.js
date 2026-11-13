@@ -34,8 +34,8 @@ export default async function aprovacoes({ sb, query, go }) {
   // Egresso: a mesma URL assinada é reaproveitada por 23 h (guardada no navegador), então o cache HTTP do
   // navegador serve o arquivo de novo sem baixar do Supabase. Antes cada visita gerava token novo = download novo.
   const urls = new Map();
-  const CK = "ap-signed-v1", VALIDADE = 86400, REUSO = 23 * 3600e3;
-  let guard = {}; try { guard = JSON.parse(localStorage.getItem(CK) || "{}"); } catch {}
+  const CK = "ap-signed-v2", VALIDADE = 86400, REUSO = 23 * 3600e3; // v2: descarta links do projeto Supabase antigo
+  let guard = {}; try { localStorage.removeItem("ap-signed-v1"); guard = JSON.parse(localStorage.getItem(CK) || "{}"); } catch {}
   for (const [p, v] of Object.entries(guard)) if (v.ate > Date.now()) { if (location.port !== "8090") urls.set(p, v.url); } else delete guard[p];
   // Painel local (node tools/painel_local.mjs): a mídia vem do espelho no disco; o que faltar é baixado
   // do Supabase UMA vez e guardado lá. Fora do localhost, segue pelo link assinado.
