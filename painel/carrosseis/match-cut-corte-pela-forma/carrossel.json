@@ -1,0 +1,71 @@
+{
+ "slug": "match-cut-corte-pela-forma",
+ "dia": "2026-11-14",
+ "tipo": "educativo",
+ "titulo": "Match cut: o corte que liga duas cenas pela forma (e o prompt pra gerar as duas)",
+ "perfil": "@ilmarlabs",
+ "legenda": "Match cut é o corte seco entre duas cenas que têm a mesma forma, no mesmo lugar da tela. O olho segue o formato e a cena muda sem efeito nenhum.\n\nNas lâminas tem o passo a passo na timeline e o prompt pra gerar o segundo quadro com IA no encaixe certo.\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo.\n\nQual foi o match cut mais bonito que você já viu?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: técnica de edição (não repetida nos últimos 14 dias: já saíram corte no ritmo, J-cut/L-cut, SFX em camadas, quadro inicial/final). Imagens geradas no ChatGPT em dípticos (quadro A em cima, quadro B embaixo); o foco escolhe a metade em algumas lâminas. Sem citar filme.",
+ "slides": [
+  {
+   "texto": "O corte que faz a bola **virar a lua** sem efeito nenhum.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/01-bola-lua.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **match cut**.\n\nÉ um corte seco entre dois planos que têm a mesma forma, no mesmo lugar da tela.\n\nO olho tá preso no formato, então a cena muda e o cérebro aceita na hora.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/02-cafe-roda.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Os três jeitos mais usados:\n\n• **forma**: bola → lua\n• **movimento**: a mão joga o celular numa cena e pega na outra\n• **som**: o barulho de uma cena continua por cima da próxima",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/03-celular.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Na timeline:\n\n1. marca onde o objeto tá no plano A\n2. no plano B, **escala e posiciona** pra ele cair no mesmo lugar e do mesmo tamanho\n3. corta seco, sem transição\n4. se quiser, um whoosh bem baixo no corte",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/01-bola-lua.jpg",
+    "foco": 0.1
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Com IA fica fácil gerar o par. Gera o quadro A e manda o B assim:\n\n**\"Mesmo enquadramento e mesma composição da imagem anexada. Troque a bola pela lua cheia, exatamente no mesmo lugar e do mesmo tamanho. Céu noturno do Rio. Nada mais muda de posição.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/01-bola-lua.jpg",
+    "foco": 0.9
+   }
+  },
+  {
+   "texto": "Onde o match cut morre:\n\n• objeto em **lugar diferente** da tela (dá um pulo)\n• transição com efeito por cima\n• plano B longo demais antes da ação\n\nCorte curto e no movimento.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/02-cafe-roda.jpg",
+    "foco": 0.9
+   }
+  },
+  {
+   "texto": "**Salva pra usar no próximo vídeo** e manda pra quem edita contigo.\n\nQual foi o match cut mais bonito que você já viu?\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/match-cut-corte-pela-forma/03-celular.jpg",
+    "foco": 0.9
+   },
+   "rodape": "salva pra usar depois ↓"
+  }
+ ]
+}

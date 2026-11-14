@@ -1,0 +1,89 @@
+{
+ "slug": "edits-curva-de-velocidade-audio-automatico",
+ "dia": "2026-11-14",
+ "tipo": "noticia",
+ "titulo": "Edits ganhou curva de velocidade e áudio que se ajusta sozinho",
+ "perfil": "@ilmarlabs",
+ "legenda": "O Edits, app de edição do Instagram, ganhou curva de velocidade: dá pra acelerar e desacelerar o clipe aos poucos com curvas prontas ou montar a sua.\n\nVeio junto o ajuste automático de áudio (fala, música e ruído) e controle do tempo das animações de texto.\n\nPra mim o speed ramp no celular, de graça, é o que mais muda pra quem edita Reels. Mas posso estar errado.\n\nVocê ainda faz rampa de velocidade no computador?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: post oficial do @creators (Meta) no Threads e Social Media Today.",
+ "fontes": [
+  {
+   "titulo": "Post oficial do @creators (Meta) no Threads: New to Edits",
+   "url": "https://www.threads.com/@creators/post/DfpcNTIG73f"
+  },
+  {
+   "titulo": "Social Media Today: Edits app gets speed curves and auto audio balancing (12/11/2026)",
+   "url": "https://www.socialmediatoday.com/news/edits-app-gets-speed-curves-and-auto-audio-balancing/874586/"
+  },
+  {
+   "titulo": "Tech Juice: Edits App Adds Speed Curves and Auto Audio Balancing Features",
+   "url": "https://www.techjuice.pk/instagram-edits-speed-curves-audio-balancing/"
+  }
+ ],
+ "notas": "Pauta: bot do Conrado no Telegram (novidades de IA 13/11, item 1). Confirmado no post oficial do @creators no Threads (12/11) e em 2 veículos. Lâmina 1 e 7: imagens geradas no ChatGPT. Lâmina 2: print do post oficial no Threads. Lâminas 3 a 6: telas oficiais do app (Meta, via Social Media Today). A Meta não disse se já chegou pra todo mundo nem em quais aparelhos, por isso o texto fala em ir chegando. Diferente do carrossel instagram-edits-no-mac (08/11), que era o Edits no computador.",
+ "slides": [
+  {
+   "texto": "O app de edição do Instagram agora faz **aquela câmera lenta que acelera** sozinha.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O **Edits** ganhou curva de velocidade.\n\nEm vez de deixar o clipe todo rápido ou todo lento, ele acelera e desacelera **aos poucos** dentro do mesmo trecho.\n\nÉ o famoso speed ramp.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/02-speed-curves.jpg",
+    "foco": 0.5,
+    "credito": "imagem: @creators (Meta)"
+   }
+  },
+  {
+   "texto": "Já vem com curvas prontas, tipo **Montage, Hero, Bullet e Jump Cut**.\n\nE se nenhuma servir, dá pra montar a sua.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/03-presets.jpg",
+    "foco": 0.75,
+    "credito": "imagem: Meta"
+   }
+  },
+  {
+   "texto": "Veio também o **ajuste automático de áudio**:\n\n• equilibra o volume da fala\n• abaixa a música por baixo da voz\n• tira ruído dos clipes",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/04-audio-automatico.jpg",
+    "foco": 0.8,
+    "credito": "imagem: Meta"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Nas animações de texto agora dá pra controlar **quanto tempo** o texto fica na tela, a velocidade de entrada e saída e o ritmo do loop.\n\nAntes era tudo no automático.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/05-animacao-texto.jpg",
+    "foco": 0.6,
+    "credito": "imagem: Meta"
+   }
+  },
+  {
+   "texto": "E a aba de inspiração deixa escolher os assuntos que você quer ver **mais ou menos**.\n\nA Meta anunciou tudo no dia 12. Não disse se já chegou pra todo mundo, então pode ir aparecendo aos poucos no seu app.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/06-inspiracao.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Meta"
+   }
+  },
+  {
+   "texto": "Pra mim, speed ramp no celular e de graça é o que mais muda pra quem edita Reels. Mas posso estar errado.\n\n**Você ainda faz rampa de velocidade no computador?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/edits-curva-de-velocidade-audio-automatico/07-final.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

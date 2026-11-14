@@ -1,0 +1,107 @@
+{
+ "slug": "world-labs-atlas-desenho-vira-mundo-3d",
+ "dia": "2026-11-14",
+ "tipo": "noticia",
+ "titulo": "Atlas aberto pra todo mundo: um desenho ou uma foto vira cenário 3D com câmera",
+ "perfil": "@ilmarlabs",
+ "legenda": "A World Labs, empresa da Fei-Fei Li, abriu o Atlas pra todo mundo: você manda um desenho, uma imagem ou fotos de um lugar real e ele monta o cenário em 3D.\n\nDepois é só desenhar o caminho da câmera e exportar imagem, vídeo ou o cenário em 3D.\n\nEu penso em quem faz cena de IA: hoje a gente sofre pra manter o mesmo lugar de um take pro outro. Mas posso estar errado, ainda não testei.\n\nVocê usaria pra montar cenário de vídeo?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: World Labs (worldlabs.ai e posts oficiais no X).",
+ "fontes": [
+  {
+   "titulo": "World Labs: Atlas, next generation world model",
+   "url": "https://www.worldlabs.ai/atlas"
+  },
+  {
+   "titulo": "Post oficial da @theworldlabs no X (abertura pra todos, vídeo)",
+   "url": "https://x.com/theworldlabs/status/2120942033401717108"
+  },
+  {
+   "titulo": "Post oficial da @theworldlabs no X (Viewfinder, até 64 fotos)",
+   "url": "https://x.com/theworldlabs/status/2120942036371349591"
+  },
+  {
+   "titulo": "Fei-Fei Li no X: Atlas disponível pra todos",
+   "url": "https://x.com/drfeifei/status/2120942509786558671"
+  },
+  {
+   "titulo": "Screenweaver: World Labs Opens Atlas (12/11/2026)",
+   "url": "https://www.screenweaver.ai/blog/world-labs-atlas-3d-sets-previz"
+  }
+ ],
+ "notas": "Pauta: busca de notícias (Google/WebSearch) de 12-13/11; confirmado no site da World Labs, nos posts oficiais e no Screenweaver. Lâmina 1: imagem gerada no ChatGPT. Lâminas 2 e 4: vídeos oficiais da @theworldlabs (primeiros 30 s e o vídeo do Viewfinder inteiro, 17 s). Demais: quadros do vídeo oficial. Preço não foi publicado, por isso o texto não cita valor. Os quadros mostram cenário estilizado e personagem; não afirmei qualidade com gente real. Não afirmei que ele testou.",
+ "slides": [
+  {
+   "texto": "Agora um **desenho no caderno vira cenário 3D** e você escolhe por onde a câmera passa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/01-caderno-vira-mundo.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **Atlas**, da World Labs (a empresa da Fei-Fei Li).\n\nFicou só pra parceiros desde setembro e agora abriu pra todo mundo.\n\nVocê manda um desenho, uma imagem ou fotos, e ele monta o lugar inteiro em 3D.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/02-video.mp4",
+    "poster": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/02-poster.jpg",
+    "credito": "vídeo: @theworldlabs"
+   }
+  },
+  {
+   "texto": "Tem um modo pra **montar o cenário no bloco**: paredes, escada, móveis.\n\nDepois você escreve o que quer (\"coloca sacadas de madeira\") e ele aplica o estilo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/03-chisel.jpg",
+    "foco": 0.5,
+    "credito": "imagem: World Labs"
+   }
+  },
+  {
+   "texto": "E tem o **Viewfinder**: você manda uma foto só, ou até 64 fotos de um lugar real, e ele reconstrói o ambiente.\n\nDá pra andar lá dentro e ver de ângulos que você nunca fotografou.",
+   "midia": {
+    "tipo": "video",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/04-viewfinder.mp4",
+    "poster": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/04-poster.jpg",
+    "credito": "vídeo: @theworldlabs"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O que sai de lá:\n\n• imagens\n• **vídeo com câmera controlada**\n• o cenário em 3D, que dá pra levar pro Blender e pra motor de jogo\n\nTambém tem API pra quem quer ligar em outras ferramentas.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/05-nuvem-de-pontos.jpg",
+    "foco": 0.5,
+    "credito": "imagem: World Labs"
+   }
+  },
+  {
+   "texto": "A parte que mais me chamou atenção: a câmera não vem de texto.\n\nVocê **desenha o caminho** (aproximar, girar em volta) e ele renderiza.\n\nÉ o pedido que o prompt de vídeo quase nunca obedece direito.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/06-camera-path.jpg",
+    "foco": 0.5,
+    "credito": "imagem: World Labs"
+   }
+  },
+  {
+   "texto": "Os limites, por enquanto:\n\n• preço não foi divulgado no anúncio\n• os exemplos mostram lugares e personagens estilizados, **não gente real**\n• documentação e API ainda aparecem como beta",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/07-cenario-jogavel.jpg",
+    "foco": 0.5,
+    "credito": "imagem: World Labs"
+   }
+  },
+  {
+   "texto": "Pra quem faz vídeo com IA, eu penso no **cenário que não muda** de um take pro outro. Mas posso estar errado, ainda não testei.\n\n**Você usaria pra montar cenário de vídeo?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/world-labs-atlas-desenho-vira-mundo-3d/08-notebook.jpg",
+    "foco": 0.5,
+    "credito": "imagem: World Labs"
+   },
+   "rodape": "comenta aqui embaixo ↓"
+  }
+ ]
+}

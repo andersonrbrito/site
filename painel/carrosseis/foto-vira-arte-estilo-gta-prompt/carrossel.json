@@ -1,0 +1,71 @@
+{
+ "slug": "foto-vira-arte-estilo-gta-prompt",
+ "dia": "2026-11-14",
+ "tipo": "educativo",
+ "titulo": "Sua foto virando arte de capa estilo GTA: o prompt passo a passo",
+ "perfil": "@ilmarlabs",
+ "legenda": "Faltam poucos dias pro GTA 6 e a timeline tá cheia de foto virando arte de capa do jogo.\n\nDeixei o prompt inteiro nas lâminas, com o jeito de trocar Miami por um lugar do Brasil e os ajustes pra o rosto não mudar.\n\nSalva pra testar no fim de semana e manda pro amigo que tá contando os dias pro jogo.\n\nQual cidade brasileira você colocaria no fundo?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: salvos dele no IG (posts de prompt estilo GTA, 'comenta GTA') + hype do lançamento do GTA 6 em 19/11. Técnica refeita do jeito dele, sem copiar texto nem visual. Todas as imagens geradas no ChatGPT (lâmina 3 e 5: antes/depois com pessoa fictícia) a partir dos prompts das lâminas (personagens fictícios, sem logo nem arte oficial da Rockstar). O prompt vai inteiro na lâmina (não é sobre o Kit Editar com Claude, então sem CTA do kit).",
+ "slides": [
+  {
+   "texto": "A trend da semana: sua foto virando **arte de capa estilo GTA**. O prompt tá aqui dentro.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O GTA 6 sai dia 19 e todo mundo quer se ver como personagem.\n\nDá pra fazer no **ChatGPT** ou no **Nano Banana**, com uma foto sua e um prompt só.\n\nEssas artes daqui saíram assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/02-entregador.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Passo 1: a foto.\n\n• corpo inteiro ou da cintura pra cima\n• luz de dia, sem filtro\n• **rosto bem visível**, sem óculos escuros\n\nFoto escura ou cortada vira personagem genérico.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/03-exemplo.jpg",
+    "foco": 0.1
+   }
+  },
+  {
+   "texto": "Passo 2: anexa a foto e cola o prompt:\n\n**\"Transforme esta foto numa ilustração no estilo das artes de capa de GTA: contorno preto, cores saturadas de fim de tarde, sombras duras. Mantenha o rosto, a roupa e a pose. Fundo com palmeiras e prédios ao pôr do sol. Formato 4:5, sem texto e sem logos.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/02-entregador.jpg",
+    "foco": 0.8
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 3: **traz pro Brasil.**\n\nTroca o fim do prompt por:\n\n\"Fundo: calçadão de Copacabana ao pôr do sol\"\nou\n\"Fundo: Avenida Paulista à noite, com neon\"\n\nO estilo continua, o lugar vira seu.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/03-exemplo.jpg",
+    "foco": 0.9
+   }
+  },
+  {
+   "texto": "Se deu errado:\n\n• rosto mudou → \"**mantenha exatamente o rosto da foto**\"\n• apareceu letreiro ou logo → \"sem texto, sem logos\"\n• cor lavada → \"cores saturadas, contraste alto\"\n\nE pede uma variação de cada vez.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/01-hook.jpg",
+    "foco": 0.8
+   }
+  },
+  {
+   "texto": "**Salva pra testar no fim de semana** e manda pro amigo que tá contando os dias pro jogo.\n\nQual cidade brasileira você colocaria no fundo?\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foto-vira-arte-estilo-gta-prompt/07-final.jpg",
+    "foco": 0.5
+   },
+   "rodape": "salva pra usar depois ↓"
+  }
+ ]
+}
