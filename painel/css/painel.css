@@ -842,3 +842,14 @@ body{background-color:var(--bg);background-image:
           mask-image:linear-gradient(90deg,#000 0%,rgba(0,0,0,.5) 30%,rgba(0,0,0,.5) 70%,#000 100%)}
 @media(prefers-reduced-motion:reduce){.aos-rain{display:none}}
 @media(max-width:767px){.aviso{flex-wrap:wrap;row-gap:4px}.aviso>.mono{flex-basis:100%}.aviso b.grow{min-width:0}}
+
+/* PersonA_ */
+.pz-hero{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:center;padding:18px}
+.pz-av{width:200px;height:auto}.pz-nome{font-size:30px;margin:0}
+.pz-feliz{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}.pz-num{font-size:44px;line-height:1;color:var(--accent)}
+.pz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.pz-list{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.pz-bars{display:flex;flex-direction:column;gap:8px}.pz-bar{display:grid;grid-template-columns:120px minmax(0,1fr) 64px;gap:8px;align-items:center}
+.pz-track{height:10px;border-radius:99px;background:var(--line,#2a2a2a);overflow:hidden}.pz-track span{display:block;height:100%}
+.pz-meta{display:flex;flex-direction:column;gap:4px}
+@media (max-width:760px){.pz-hero,.pz-grid{grid-template-columns:minmax(0,1fr)}.pz-av{width:150px;margin:auto}}

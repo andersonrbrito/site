@@ -10,7 +10,9 @@ export const MODULES = [
   { id: "miner", label: "MineR_", route: "miner", permission: "miner", enabled: true, primary: true },
   { id: "carrosseis", label: "CarrosseL_", route: "carrosseis", permission: "postador", enabled: true },
   { id: "estudio", label: "StúdiO_", route: "estudio", permission: "postador", enabled: true },
+  { id: "gerador", label: "ForjA_", route: "gerador", permission: "gerador", enabled: false, ownerOnly: true }, // nome provisório; liga quando a execução existir
   { id: "desempenho", label: "DesempenhO_", route: "desempenho", permission: "desempenho", enabled: true },
+  { id: "persona", label: "PersonA_", route: "persona", permission: "desempenho", enabled: true },
   { id: "mapa", label: "Map MentaleS_", route: "mapa", permission: "mapa", enabled: true },
   { id: "agentes", label: "AgenteS_", route: "agentes", permission: "agentes", enabled: true },
   { id: "perfis", label: "PerfiS_", route: "perfis", permission: "perfis", enabled: true },
