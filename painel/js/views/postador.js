@@ -345,6 +345,7 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
     !locked && h("div", { class: "pbar" },
       p.status === "rejected" ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => act({ status: "pending", scheduled_at: null }, "Voltou pra rascunho.") }, "Voltar pra rascunho")
         : h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => act({ status: "rejected", scheduled_at: null }, "Recusado.") }, "Recusar"),
+      p.status !== "rejected" && h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Marca como publicado quando você postou na mão, sem gastar API.", onclick: () => act({ status: "posted", posted_at: new Date().toISOString(), error: null }, "Marcado como postado.") }, "Postado"),
       h("div", { class: "grow" }),
       p.status === "approved" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => act({ status: "pending", scheduled_at: null }, "Tirado da agenda.") }, "Tirar da agenda"),
       h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: approve }, p.status === "approved" ? "Reagendar" : "Agendar"),
