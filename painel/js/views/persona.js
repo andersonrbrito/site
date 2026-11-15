@@ -62,7 +62,7 @@ export default async function persona({ sb }) {
     pageHead("PersonA_", `@andersonbrito.mp4 · dados da Meta de ${SNAP}`),
 
     h("section", { class: "panel pz-hero" },
-      avatar(FELIZ),
+      h("img", { class: "pz-av", src: "img/persona.webp", alt: "Avatar da persona", loading: "lazy" }),
       h("div", { class: "stack" },
         h("span", { class: "chip accent" }, "persona do público"),
         h("h2", { class: "pz-nome" }, "Michael Scott"),
