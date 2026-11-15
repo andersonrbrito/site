@@ -132,6 +132,9 @@
       return '<li><div><a href="' + s.url + '" target="_blank" rel="noopener">' + esc(s.nome) + '</a><p>' + esc(s.para) + ' <em>' + esc(s.obs) + '</em></p></div>' +
         '<button type="button" class="bcop mini" data-copia="' + esc(porId('preparar-skill-github').prompt.replace(/\[https:[^\]]+\]/, s.url)) + '">' + ic('copia') + '<span>copiar pedido</span></button></li>';
     }).join('');
+    var ferr = (D.FERRAMENTAS_MOTION || []).map(function (s) {
+      return '<li><div><a href="' + s.url + '" target="_blank" rel="noopener">' + esc(s.nome) + '</a> <em>' + esc(s.tipo) + '</em><p>' + esc(s.para) + ' <em>' + esc(s.obs) + '</em></p></div></li>';
+    }).join('');
     return [
       { id: 'a', t: 'Assinar o ' + CL + ' e instalar o aplicativo', min: '10 min', h:
         '<p>O plano mais barato que inclui o Claude Code é o <strong>' + pc.plano + '</strong>: <strong class="num">' + pc.valor + '</strong> no Brasil (valor conferido em ' + pc.conferido + '). O plano grátis não inclui o Claude Code. O preço pode mudar: confirme na página oficial antes de assinar.</p>' +
@@ -155,7 +158,8 @@
         '<h5>1. Skills do kit</h5>' + cp('preparar-skills-kit') +
         '<h5>2. Skills gratuitas do GitHub</h5><p>Opcionais. Instale uma por vez, só as que for usar. O pedido já manda o Claude ler a skill e avisar se ela usa serviço pago.</p>' + cp('preparar-skill-github') +
         '<p>Lista recomendada (o botão copia o pedido já com o endereço):</p><ul class="gratis">' + gratis + '</ul>' +
-        '<h5>3. Onde achar mais</h5><div class="vidro dica"><p><a href="https://skillry.dev/skills/output/video" target="_blank" rel="noopener">skillry.dev/skills/output/video</a> é um diretório de skills para agentes como o Claude Code. A página de vídeo reúne skills de filme de lançamento, motion graphics e sobreposições animadas em volta de quem fala (título atrás da pessoa, checklist, gráfico, chamada), com filtro por finalidade e um vídeo de exemplo em cada uma.</p><p>Cada skill tem um botão que copia o pedido de instalação para colar no Claude. Algumas são gratuitas e a maioria exige assinatura do site: veja qual é o caso antes de instalar.</p></div>' +
+        '<h5>3. Ferramentas de motion, 3D e som</h5><p>Bibliotecas e skills gratuitas que o Claude sabe usar. Você não precisa instalar todas: cite a ferramenta no pedido (por exemplo, "faça em three.js com partículas do three.quarks") e ele instala o que faltar.</p><ul class="gratis">' + ferr + '</ul>' +
+        '<h5>4. Onde achar mais</h5><div class="vidro dica"><p><a href="https://skillry.dev/skills/output/video" target="_blank" rel="noopener">skillry.dev/skills/output/video</a> é um diretório de skills para agentes como o Claude Code. A página de vídeo reúne skills de filme de lançamento, motion graphics e sobreposições animadas em volta de quem fala (título atrás da pessoa, checklist, gráfico, chamada), com filtro por finalidade e um vídeo de exemplo em cada uma.</p><p>Cada skill tem um botão que copia o pedido de instalação para colar no Claude. Algumas são gratuitas e a maioria exige assinatura do site: veja qual é o caso antes de instalar.</p></div>' +
         '<p class="nota">O catálogo completo, com 69 skills comentadas, está em Downloads.</p>' },
       { id: 'e', t: 'Preencher o design.md e o CLAUDE.md', min: '15 min', h:
         '<p>O <code>design.md</code> é o seu gosto por escrito: cores, fontes, tamanho de legenda, o que é proibido. O <code>CLAUDE.md</code> diz quem você é e como a pasta funciona. O Claude lê os dois antes de cada edição, então você explica uma vez só.</p>' +

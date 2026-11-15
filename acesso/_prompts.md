@@ -33,6 +33,7 @@ Por Anderson Brito (@andersonbrito.mp4)
 25. Economia de tokens (4)
 26. Preparar a máquina (7)
 27. design.md e CLAUDE.md (5)
+28. 10 estilos de animação (12)
 
 ---
 
@@ -1664,4 +1665,221 @@ Leia o design.md e a seção "Feedback acumulado" do edicao.md. Tem regra de est
 
 ```
 Aprovados os itens [1 e 3]. O item 2 fica como está.
+```
+
+## 28. 10 estilos de animação
+
+A mesma cena desenhada de 10 jeitos, tudo em código.
+
+### 92. Cena base (cole uma vez)
+
+**Quando usar:** Antes de qualquer estilo. Cria a cena uma vez só, separada do desenho. Troque o trecho entre colchetes pelo seu objeto.
+
+```
+Crie uma animação em código, sem IA de imagem. Formato: um cartão de 840x880 px dentro de uma página HTML, 30 fps, 2,25 s por estilo.
+
+CENA (a mesma para qualquer estilo): [um carro conversível em fuga acelera numa avenida de praia, sobe uma rampa e salta, com pôr do sol rosa e laranja, coqueiros e prédios ao fundo]. No canto superior direito, 5 estrelas acendem uma por uma durante a ação.
+
+Separe a cena do desenho:
+1. Um arquivo scene.js só com geometria e tempo. Uma função act(p), com p de 0 a 1, devolve posição, altura, rotação e câmera: de 0 a 0,30 o carro acelera no chão; de 0,30 a 0,46 sobe a rampa; de 0,46 a 1 voa em arco. As estrelas acendem em p = 0,10, 0,24, 0,38, 0,52 e 0,66.
+2. O perfil lateral do carro como lista de pontos (carroceria, para-brisa, banco, cabeça do motorista, faixa lateral, faróis, duas rodas). Coqueiros e prédios como listas com posição e altura, com paralaxe (coqueiro 0,5 e prédio 0,12 da velocidade do carro).
+3. Cada estilo é uma função draw(ctx, p) que lê essa mesma cena e só muda o jeito de desenhar.
+
+A página expõe setTime(t) para eu renderizar quadro a quadro: um script Node com playwright-core abre a página em Chromium headless, chama setTime(frame/30), tira screenshot e manda para o ffmpeg (libx264, yuv420p). Nada de tempo real, nada de requestAnimationFrame no render.
+
+Antes de me entregar, gere uma folha de contato com 3 momentos (p = 0,2, 0,5 e 0,95), olhe a imagem e corrija o que estiver errado.
+```
+
+**O que esperar:** Os arquivos da cena, a página com setTime e uma folha de contato com 3 momentos da ação.
+
+**Se der errado, peça assim:**
+
+```
+A ação está rápida demais para entender. Deixe o [salto] ocupar metade do tempo e me mostre a folha de contato de novo.
+```
+
+### 93. Pixel art
+
+**Quando usar:** Cara de jogo antigo em 2D.
+
+```
+Desenhe a cena em pixel art. Renderize num canvas pequeno de 140x147 px e amplie 6 vezes com imageSmoothingEnabled = false (vizinho mais próximo). Paleta fechada de 21 cores (roxos e rosas no céu, amarelo no sol, turquesa no carro). Faça o degradê do céu com dithering ordenado de Bayer 4x4, sem degradê suave. Arredonde todas as posições para pixel inteiro. Anime a 10 fps (repita cada quadro 3 vezes). Janelas dos prédios como pixels acesos, estrelas no céu, faixa da pista tracejada amarela.
+```
+
+**O que esperar:** A cena em blocos de pixel, com poucas cores e movimento picado.
+
+**Se der errado, peça assim:**
+
+```
+Está borrado, não parece pixel. Desenhe no canvas pequeno e amplie sem suavização. Arredonde as posições para pixel inteiro.
+```
+
+### 94. Lousa e giz
+
+**Quando usar:** Vídeo com cara de aula ou explicação.
+
+```
+Desenhe a cena como desenho de giz em lousa verde escura. Fundo: verde lousa com manchas claras de apagador e ruído fino. Todo traço é passado duas vezes com um pequeno desvio aleatório em cada ponto, para parecer mão humana. O desvio é sorteado de novo a 8 fps (o traço "ferve"). Depois de traçar, fure o traço com pontinhos usando globalCompositeOperation = 'destination-out' para dar a textura porosa do giz. Cores: branco, azul claro no carro, amarelo no sol e nas estrelas, rosa na rampa. Sem preenchimento sólido, só contorno e hachura. Escreva anotações de professor em fonte manuscrita (Chalkduster): "Aula 1: a fuga" e "rampa + velocidade = salto".
+```
+
+**O que esperar:** Traço branco tremido em lousa verde, com anotações de professor.
+
+**Se der errado, peça assim:**
+
+```
+O traço está liso demais, parece vetor. Passe cada linha duas vezes com desvio e fure o traço para dar textura de giz.
+```
+
+### 95. Traço neon
+
+**Quando usar:** Clima de noite, tecnologia ou anos 80.
+
+```
+Desenhe a cena só com linhas de neon em fundo quase preto (azul muito escuro). Use globalCompositeOperation = 'lighter'. Cada linha é traçada 3 vezes: uma larga e bem transparente (halo), uma média, e uma fina quase branca no centro. Cores: ciano no carro, magenta nos coqueiros e na rampa, amarelo nas estrelas. Chão como grade em perspectiva correndo para o horizonte. Sol feito de faixas horizontais com espaços entre elas. Sem preenchimento, 30 fps com movimento liso.
+```
+
+**O que esperar:** Linhas brilhantes em fundo escuro, com chão em grade.
+
+**Se der errado, peça assim:**
+
+```
+O brilho está fraco. Trace cada linha 3 vezes (halo largo, média e miolo quase branco) em modo de soma.
+```
+
+### 96. 3D de videogame antigo
+
+**Quando usar:** Nostalgia de console dos anos 90.
+
+```
+Monte a cena em three.js com cara de console dos anos 90. Renderize em 240x252 px e amplie com vizinho mais próximo. Modelos com poucos polígonos, MeshLambertMaterial com flatShading. Texturas minúsculas de 16x16 e 32x32 com NearestFilter. Altere o vertex shader (onBeforeCompile) para arredondar a posição final de cada vértice para uma grade de tela, o que gera o tremor de vértice típico da época. Depois do render, reduza a cor para 4 bits por canal com dithering de Bayer. Neblina (Fog) colorida fechando o fundo. Anime a 15 fps.
+```
+
+**O que esperar:** 3D de poucos polígonos, serrilhado e com vértices tremendo.
+
+**Se der errado, peça assim:**
+
+```
+Ficou limpo demais. Baixe a resolução interna, use texturas de 16x16 sem filtro e reduza as cores com dithering.
+```
+
+### 97. Quadrinhos
+
+**Quando usar:** Humor, ação e onomatopeia.
+
+```
+Desenhe a cena como um quadro de gibi. Contorno preto grosso em tudo (6 a 8 px), cores chapadas. Céu amarelo com retícula: pontos vermelhos em grade inclinada, maiores perto do horizonte. Linhas de velocidade atrás do carro e nuvens de fumaça redondas com contorno. Onomatopeias em português dentro de balão estourado, fonte Impact itálica com contorno: "VRUUUM!" na arrancada e "UHUUL!" no salto. Caixa de narração no canto superior esquerdo: "ENQUANTO ISSO, NA ORLA...". As 5 estrelas ficam numa tarja preta arredondada para não sumirem no amarelo. Anime a 12 fps.
+```
+
+**O que esperar:** Um quadro de gibi animado, com retícula e balão estourado.
+
+**Se der errado, peça assim:**
+
+```
+A onomatopeia está cobrindo o [carro]. Mova o balão para o canto livre e reduza 20%.
+```
+
+### 98. Vetor flat
+
+**Quando usar:** Visual limpo de explicativo e de marca.
+
+```
+Desenhe a cena em vetor flat. Nenhum contorno, nenhum degradê suave: o céu é feito de 5 ou 6 faixas horizontais de cor chapada, do roxo ao laranja. Sol como círculo creme. Coqueiros e prédios como silhuetas simples. Carro turquesa com faixa branca e rodas com calota em cruz. Sombra chapada embaixo do carro. Movimento liso a 30 fps com aceleração e desaceleração suaves (ease).
+```
+
+**O que esperar:** Formas chapadas, sem contorno, com movimento liso.
+
+**Se der errado, peça assim:**
+
+```
+Apareceu degradê e contorno. Tire os dois: só cor chapada em faixas.
+```
+
+### 99. Linha pontilhada
+
+**Quando usar:** Minimalista em preto e branco, tom reflexivo.
+
+```
+Desenhe a cena inteira só com pontos brancos em fundo preto. Percorra cada contorno (carro, rampa, sol, coqueiro) e coloque um ponto a cada 7 px, com raio de 1,6 a 2,2 px. Nada de linha contínua nem de preenchimento. O sol vira um transferidor de pontos. O rastro do carro é uma trilha de pontos que vai sumindo. Coloque uma anotação pequena em serifa itálica (Georgia) que muda com a ação: "ele acelera.", "acha a rampa.", "ele salta.", com um fio fino apontando para o carro. No rodapé do cartão, em letra pequena: "impulso + rampa = voo".
+```
+
+**O que esperar:** A cena inteira feita de pontos brancos, com uma anotação em itálico.
+
+**Se der errado, peça assim:**
+
+```
+O [carro] não dá para reconhecer. Diminua o espaço entre os pontos no contorno dele para 5 px e mantenha 7 px no resto.
+```
+
+### 100. CGI de cinema
+
+**Quando usar:** Quando você quer acabamento de filme. É o mais pesado de renderizar.
+
+```
+Monte a cena em three.js com acabamento de filme. Carro com MeshPhysicalMaterial (pintura turquesa, metalness 0,35, clearcoat) e mapa de ambiente gerado com PMREMGenerator. Sol baixo atrás do carro (contraluz) com sombras ativas e uma luz de preenchimento na frente. Prédios como silhuetas escuras bem ao longe, com neblina exponencial (FogExp2) rosada. Fumaça de pneu em sprites. Motion blur de verdade: renderize 5 subquadros por quadro e some. Bloom: copie o quadro, desfoque e some por cima em modo 'screen' com 36% de opacidade. Raios de sol saindo do disco, flare anamórfico horizontal, vinheta, grão de filme leve (7%) e barras pretas em cima e embaixo. Tone mapping ACES com exposição 1,15. Câmera baixa acompanhando o carro.
+```
+
+**O que esperar:** 3D com contraluz, bloom, motion blur e barras de cinema.
+
+**Se der errado, peça assim:**
+
+```
+Está com cara de 3D simples. Reforce o contraluz, aumente a neblina no fundo e me mostre um quadro parado antes de renderizar tudo.
+```
+
+### 101. Blocos de montar
+
+**Quando usar:** Visual de brinquedo em stop motion.
+
+```
+Monte a cena em three.js como se fosse construída com blocos de montar de plástico. Tudo é feito de caixas em múltiplos de um tamanho de bloco: o carro, os coqueiros (tronco em pilha de blocos, folhas em placas verdes) e a rampa em degraus listrada de amarelo e preto. O chão é uma placa base com os pinos em cima, feitos com InstancedMesh. Material plástico brilhante (roughness baixa). Anime como stop motion a 12 fps, sem motion blur, com um tremor mínimo de posição entre os quadros. No salto, 3 ou 4 blocos soltos voam para trás do carro. Sol grande amarelo chapado no fundo.
+```
+
+**O que esperar:** Tudo construído em blocos de plástico, andando a 12 quadros por segundo.
+
+**Se der errado, peça assim:**
+
+```
+O movimento está liso, não parece stop motion. Trave em 12 fps, sem motion blur, com um tremor mínimo entre os quadros.
+```
+
+### 102. 3D de massinha
+
+**Quando usar:** Visual fofo e leve, em fundo claro.
+
+```
+Monte a cena em three.js com cara de massinha fofa, em fundo creme liso. Formas gordinhas com cantos bem arredondados (bevel), materiais foscos (roughness alta), cores pastel: carro turquesa, rampa coral, sol laranja. Coqueiros com tronco de bolinhas empilhadas e folhas em gotas. Chão invisível com ShadowMaterial, só para receber sombra suave. Fumaça em bolinhas brancas. As 5 estrelas são objetos 3D gordinhos presos à câmera. Anime a 12 fps com squash and stretch: o carro achata ao pegar a rampa e estica no ar. Luz suave de cima, sem contraste duro.
+```
+
+**O que esperar:** Formas gordinhas em cores pastel, com achata e estica.
+
+**Se der errado, peça assim:**
+
+```
+Os objetos estão se sobrepondo ao [carro]. Afaste o que passa atrás dele e deixe as estrelas com mais espaço entre si.
+```
+
+### 103. Mesma cena, troque o estilo
+
+**Quando usar:** Você quer um estilo que não está na lista.
+
+```
+Mantenha scene.js exatamente como está (mesma função act(p), mesmos pontos, mesmo tempo e mesmas 5 estrelas). Crie uma nova função de desenho no estilo: [DESCREVA O ESTILO].
+
+Para o estilo funcionar, defina por escrito antes de programar:
+1. Paleta: quantas cores e quais.
+2. Traço: tem contorno? Qual a espessura? É liso ou tremido?
+3. Quadros por segundo: 30 (liso), 12 a 15 (stop motion, gibi) ou 8 a 10 (pixel, giz).
+4. Resolução interna: desenha direto em 840x880 ou num buffer pequeno ampliado?
+5. O truque que entrega o estilo (retícula, dithering, glow em 3 passadas, pontos no contorno, tremor de vértice, bloom).
+6. Um texto curto em português que combine com o estilo (onomatopeia, anotação, legenda).
+
+Depois gere a folha de contato com p = 0,2, 0,5 e 0,95, olhe e corrija. Só então renderize o vídeo.
+```
+
+**O que esperar:** As 6 definições do estilo por escrito, a folha de contato e depois o vídeo.
+
+**Se der errado, peça assim:**
+
+```
+Não ficou reconhecível. Me diga qual é o truque que entrega esse estilo e refaça aplicando só ele, mais forte.
 ```

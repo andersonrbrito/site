@@ -33,7 +33,8 @@
     { id: 'correcao', nome: 'Pedir correção', desc: 'Feedback com tempo exato e regra salva.' },
     { id: 'tokens', nome: 'Economia de tokens', desc: 'Gastar menos do seu limite de uso.' },
     { id: 'preparar', nome: 'Preparar a máquina', desc: 'Instalação, pasta e skills.' },
-    { id: 'estetica', nome: 'design.md e CLAUDE.md', desc: 'Ensinar o seu gosto ao Claude.' }
+    { id: 'estetica', nome: 'design.md e CLAUDE.md', desc: 'Ensinar o seu gosto ao Claude.' },
+    { id: 'estilos', nome: '10 estilos de animação', exemplo: '/assets/kit-claude/ex-estilos.mp4', desc: 'A mesma cena em pixel art, giz, neon, quadrinhos, 3D e mais, tudo em código.' }
   ];
 
   var PROMPTS = [];
@@ -557,6 +558,89 @@ Gere a v2 só com essas mudanças e me diga o que mudou em cada item.`,
     'Uma lista de ajustes para manter os dois arquivos coerentes.',
     `Aprovados os itens [1 e 3]. O item 2 fica como está.`);
 
+  /* ---------- 28. 10 ESTILOS DE ANIMAÇÃO ---------- */
+  P('estilos', 'estilos-base', 'Cena base (cole uma vez)',
+    'Antes de qualquer estilo. Cria a cena uma vez só, separada do desenho. Troque o trecho entre colchetes pelo seu objeto.',
+    `Crie uma animação em código, sem IA de imagem. Formato: um cartão de 840x880 px dentro de uma página HTML, 30 fps, 2,25 s por estilo.
+
+CENA (a mesma para qualquer estilo): [um carro conversível em fuga acelera numa avenida de praia, sobe uma rampa e salta, com pôr do sol rosa e laranja, coqueiros e prédios ao fundo]. No canto superior direito, 5 estrelas acendem uma por uma durante a ação.
+
+Separe a cena do desenho:
+1. Um arquivo scene.js só com geometria e tempo. Uma função act(p), com p de 0 a 1, devolve posição, altura, rotação e câmera: de 0 a 0,30 o carro acelera no chão; de 0,30 a 0,46 sobe a rampa; de 0,46 a 1 voa em arco. As estrelas acendem em p = 0,10, 0,24, 0,38, 0,52 e 0,66.
+2. O perfil lateral do carro como lista de pontos (carroceria, para-brisa, banco, cabeça do motorista, faixa lateral, faróis, duas rodas). Coqueiros e prédios como listas com posição e altura, com paralaxe (coqueiro 0,5 e prédio 0,12 da velocidade do carro).
+3. Cada estilo é uma função draw(ctx, p) que lê essa mesma cena e só muda o jeito de desenhar.
+
+A página expõe setTime(t) para eu renderizar quadro a quadro: um script Node com playwright-core abre a página em Chromium headless, chama setTime(frame/30), tira screenshot e manda para o ffmpeg (libx264, yuv420p). Nada de tempo real, nada de requestAnimationFrame no render.
+
+Antes de me entregar, gere uma folha de contato com 3 momentos (p = 0,2, 0,5 e 0,95), olhe a imagem e corrija o que estiver errado.`,
+    'Os arquivos da cena, a página com setTime e uma folha de contato com 3 momentos da ação.',
+    `A ação está rápida demais para entender. Deixe o [salto] ocupar metade do tempo e me mostre a folha de contato de novo.`);
+  P('estilos', 'estilos-pixel', 'Pixel art',
+    'Cara de jogo antigo em 2D.',
+    `Desenhe a cena em pixel art. Renderize num canvas pequeno de 140x147 px e amplie 6 vezes com imageSmoothingEnabled = false (vizinho mais próximo). Paleta fechada de 21 cores (roxos e rosas no céu, amarelo no sol, turquesa no carro). Faça o degradê do céu com dithering ordenado de Bayer 4x4, sem degradê suave. Arredonde todas as posições para pixel inteiro. Anime a 10 fps (repita cada quadro 3 vezes). Janelas dos prédios como pixels acesos, estrelas no céu, faixa da pista tracejada amarela.`,
+    'A cena em blocos de pixel, com poucas cores e movimento picado.',
+    `Está borrado, não parece pixel. Desenhe no canvas pequeno e amplie sem suavização. Arredonde as posições para pixel inteiro.`);
+  P('estilos', 'estilos-giz', 'Lousa e giz',
+    'Vídeo com cara de aula ou explicação.',
+    `Desenhe a cena como desenho de giz em lousa verde escura. Fundo: verde lousa com manchas claras de apagador e ruído fino. Todo traço é passado duas vezes com um pequeno desvio aleatório em cada ponto, para parecer mão humana. O desvio é sorteado de novo a 8 fps (o traço "ferve"). Depois de traçar, fure o traço com pontinhos usando globalCompositeOperation = 'destination-out' para dar a textura porosa do giz. Cores: branco, azul claro no carro, amarelo no sol e nas estrelas, rosa na rampa. Sem preenchimento sólido, só contorno e hachura. Escreva anotações de professor em fonte manuscrita (Chalkduster): "Aula 1: a fuga" e "rampa + velocidade = salto".`,
+    'Traço branco tremido em lousa verde, com anotações de professor.',
+    `O traço está liso demais, parece vetor. Passe cada linha duas vezes com desvio e fure o traço para dar textura de giz.`);
+  P('estilos', 'estilos-neon', 'Traço neon',
+    'Clima de noite, tecnologia ou anos 80.',
+    `Desenhe a cena só com linhas de neon em fundo quase preto (azul muito escuro). Use globalCompositeOperation = 'lighter'. Cada linha é traçada 3 vezes: uma larga e bem transparente (halo), uma média, e uma fina quase branca no centro. Cores: ciano no carro, magenta nos coqueiros e na rampa, amarelo nas estrelas. Chão como grade em perspectiva correndo para o horizonte. Sol feito de faixas horizontais com espaços entre elas. Sem preenchimento, 30 fps com movimento liso.`,
+    'Linhas brilhantes em fundo escuro, com chão em grade.',
+    `O brilho está fraco. Trace cada linha 3 vezes (halo largo, média e miolo quase branco) em modo de soma.`);
+  P('estilos', 'estilos-3d-antigo', '3D de videogame antigo',
+    'Nostalgia de console dos anos 90.',
+    `Monte a cena em three.js com cara de console dos anos 90. Renderize em 240x252 px e amplie com vizinho mais próximo. Modelos com poucos polígonos, MeshLambertMaterial com flatShading. Texturas minúsculas de 16x16 e 32x32 com NearestFilter. Altere o vertex shader (onBeforeCompile) para arredondar a posição final de cada vértice para uma grade de tela, o que gera o tremor de vértice típico da época. Depois do render, reduza a cor para 4 bits por canal com dithering de Bayer. Neblina (Fog) colorida fechando o fundo. Anime a 15 fps.`,
+    '3D de poucos polígonos, serrilhado e com vértices tremendo.',
+    `Ficou limpo demais. Baixe a resolução interna, use texturas de 16x16 sem filtro e reduza as cores com dithering.`);
+  P('estilos', 'estilos-quadrinhos', 'Quadrinhos',
+    'Humor, ação e onomatopeia.',
+    `Desenhe a cena como um quadro de gibi. Contorno preto grosso em tudo (6 a 8 px), cores chapadas. Céu amarelo com retícula: pontos vermelhos em grade inclinada, maiores perto do horizonte. Linhas de velocidade atrás do carro e nuvens de fumaça redondas com contorno. Onomatopeias em português dentro de balão estourado, fonte Impact itálica com contorno: "VRUUUM!" na arrancada e "UHUUL!" no salto. Caixa de narração no canto superior esquerdo: "ENQUANTO ISSO, NA ORLA...". As 5 estrelas ficam numa tarja preta arredondada para não sumirem no amarelo. Anime a 12 fps.`,
+    'Um quadro de gibi animado, com retícula e balão estourado.',
+    `A onomatopeia está cobrindo o [carro]. Mova o balão para o canto livre e reduza 20%.`);
+  P('estilos', 'estilos-flat', 'Vetor flat',
+    'Visual limpo de explicativo e de marca.',
+    `Desenhe a cena em vetor flat. Nenhum contorno, nenhum degradê suave: o céu é feito de 5 ou 6 faixas horizontais de cor chapada, do roxo ao laranja. Sol como círculo creme. Coqueiros e prédios como silhuetas simples. Carro turquesa com faixa branca e rodas com calota em cruz. Sombra chapada embaixo do carro. Movimento liso a 30 fps com aceleração e desaceleração suaves (ease).`,
+    'Formas chapadas, sem contorno, com movimento liso.',
+    `Apareceu degradê e contorno. Tire os dois: só cor chapada em faixas.`);
+  P('estilos', 'estilos-pontilhado', 'Linha pontilhada',
+    'Minimalista em preto e branco, tom reflexivo.',
+    `Desenhe a cena inteira só com pontos brancos em fundo preto. Percorra cada contorno (carro, rampa, sol, coqueiro) e coloque um ponto a cada 7 px, com raio de 1,6 a 2,2 px. Nada de linha contínua nem de preenchimento. O sol vira um transferidor de pontos. O rastro do carro é uma trilha de pontos que vai sumindo. Coloque uma anotação pequena em serifa itálica (Georgia) que muda com a ação: "ele acelera.", "acha a rampa.", "ele salta.", com um fio fino apontando para o carro. No rodapé do cartão, em letra pequena: "impulso + rampa = voo".`,
+    'A cena inteira feita de pontos brancos, com uma anotação em itálico.',
+    `O [carro] não dá para reconhecer. Diminua o espaço entre os pontos no contorno dele para 5 px e mantenha 7 px no resto.`);
+  P('estilos', 'estilos-cgi', 'CGI de cinema',
+    'Quando você quer acabamento de filme. É o mais pesado de renderizar.',
+    `Monte a cena em three.js com acabamento de filme. Carro com MeshPhysicalMaterial (pintura turquesa, metalness 0,35, clearcoat) e mapa de ambiente gerado com PMREMGenerator. Sol baixo atrás do carro (contraluz) com sombras ativas e uma luz de preenchimento na frente. Prédios como silhuetas escuras bem ao longe, com neblina exponencial (FogExp2) rosada. Fumaça de pneu em sprites. Motion blur de verdade: renderize 5 subquadros por quadro e some. Bloom: copie o quadro, desfoque e some por cima em modo 'screen' com 36% de opacidade. Raios de sol saindo do disco, flare anamórfico horizontal, vinheta, grão de filme leve (7%) e barras pretas em cima e embaixo. Tone mapping ACES com exposição 1,15. Câmera baixa acompanhando o carro.`,
+    '3D com contraluz, bloom, motion blur e barras de cinema.',
+    `Está com cara de 3D simples. Reforce o contraluz, aumente a neblina no fundo e me mostre um quadro parado antes de renderizar tudo.`);
+  P('estilos', 'estilos-blocos', 'Blocos de montar',
+    'Visual de brinquedo em stop motion.',
+    `Monte a cena em three.js como se fosse construída com blocos de montar de plástico. Tudo é feito de caixas em múltiplos de um tamanho de bloco: o carro, os coqueiros (tronco em pilha de blocos, folhas em placas verdes) e a rampa em degraus listrada de amarelo e preto. O chão é uma placa base com os pinos em cima, feitos com InstancedMesh. Material plástico brilhante (roughness baixa). Anime como stop motion a 12 fps, sem motion blur, com um tremor mínimo de posição entre os quadros. No salto, 3 ou 4 blocos soltos voam para trás do carro. Sol grande amarelo chapado no fundo.`,
+    'Tudo construído em blocos de plástico, andando a 12 quadros por segundo.',
+    `O movimento está liso, não parece stop motion. Trave em 12 fps, sem motion blur, com um tremor mínimo entre os quadros.`);
+  P('estilos', 'estilos-massinha', '3D de massinha',
+    'Visual fofo e leve, em fundo claro.',
+    `Monte a cena em three.js com cara de massinha fofa, em fundo creme liso. Formas gordinhas com cantos bem arredondados (bevel), materiais foscos (roughness alta), cores pastel: carro turquesa, rampa coral, sol laranja. Coqueiros com tronco de bolinhas empilhadas e folhas em gotas. Chão invisível com ShadowMaterial, só para receber sombra suave. Fumaça em bolinhas brancas. As 5 estrelas são objetos 3D gordinhos presos à câmera. Anime a 12 fps com squash and stretch: o carro achata ao pegar a rampa e estica no ar. Luz suave de cima, sem contraste duro.`,
+    'Formas gordinhas em cores pastel, com achata e estica.',
+    `Os objetos estão se sobrepondo ao [carro]. Afaste o que passa atrás dele e deixe as estrelas com mais espaço entre si.`);
+  P('estilos', 'estilos-trocar', 'Mesma cena, troque o estilo',
+    'Você quer um estilo que não está na lista.',
+    `Mantenha scene.js exatamente como está (mesma função act(p), mesmos pontos, mesmo tempo e mesmas 5 estrelas). Crie uma nova função de desenho no estilo: [DESCREVA O ESTILO].
+
+Para o estilo funcionar, defina por escrito antes de programar:
+1. Paleta: quantas cores e quais.
+2. Traço: tem contorno? Qual a espessura? É liso ou tremido?
+3. Quadros por segundo: 30 (liso), 12 a 15 (stop motion, gibi) ou 8 a 10 (pixel, giz).
+4. Resolução interna: desenha direto em 840x880 ou num buffer pequeno ampliado?
+5. O truque que entrega o estilo (retícula, dithering, glow em 3 passadas, pontos no contorno, tremor de vértice, bloom).
+6. Um texto curto em português que combine com o estilo (onomatopeia, anotação, legenda).
+
+Depois gere a folha de contato com p = 0,2, 0,5 e 0,95, olhe e corrija. Só então renderize o vídeo.`,
+    'As 6 definições do estilo por escrito, a folha de contato e depois o vídeo.',
+    `Não ficou reconhecível. Me diga qual é o truque que entrega esse estilo e refaça aplicando só ele, mais forte.`);
+
   /* ---------- SKILLS GRATUITAS RECOMENDADAS ---------- */
   var SKILLS_GRATIS = [
     { nome: 'Remotion Agent Skills', url: 'https://github.com/remotion-dev/skills', para: 'Ensinam o Claude a usar o Remotion (vídeo em React): criar projeto, legendas, render, mapas.', obs: 'O Remotion tem licença própria para empresas. Leia antes de usar em empresa.' },
@@ -566,6 +650,28 @@ Gere a v2 só com essas mudanças e me diga o que mudou em cada item.`,
     { nome: 'video-use', url: 'https://github.com/browser-use/video-use', para: 'Skill completa de edição por conversa: transcreve, corta, legenda e monta.', obs: 'Licença MIT. Usa uma chave paga de transcrição de terceiros. As skills do kit transcrevem no seu computador.' },
     { nome: 'svg-diagram', url: 'https://github.com/pkt-lab/svg-diagram', para: 'Diagramas e fluxogramas em SVG para usar como imagem de apoio em vídeo explicativo.', obs: 'Licença MIT.' },
     { nome: 'Skills da Anthropic', url: 'https://github.com/anthropics/skills', para: 'Repositório oficial de exemplos. Bom para ver como uma skill bem escrita é organizada.', obs: 'Licença varia por skill.' }
+  ];
+
+  /* ---------- FERRAMENTAS DE MOTION (bibliotecas e skills gratuitas, conferidas em 14/11/2026) ---------- */
+  var FERRAMENTAS_MOTION = [
+    { nome: 'motion-design-skill', url: 'https://github.com/LottieFiles/motion-design-skill', tipo: 'Skill', para: 'Ensina ao Claude tempo, aceleração e os 12 princípios de animação. É a que mais melhora o movimento de qualquer vídeo em código.', obs: 'Licença MIT. Instala como skill.' },
+    { nome: 'ai-kit (Motion)', url: 'https://github.com/motiondivision/ai-kit', tipo: 'Skill', para: 'Regras de animação com mola e revisão de movimento para a biblioteca Motion.', obs: 'Feita para o Cursor e sem licença declarada no repositório. Peça ao Claude para ler antes de usar.' },
+    { nome: 'hairline', url: 'https://hairline.lucasmarkes.com/skills', tipo: 'Skill', para: 'Desenhos de linha fina, interativos, a partir de uma ideia ou de um SVG.', obs: 'Site do autor. Veja as condições de uso na página.' },
+    { nome: 'anatomy', url: 'https://skills.wheresryan.sh/anatomy', tipo: 'Skill', para: 'Máquinas e sistemas desenhados em vista isométrica, bom para explicar como algo funciona.', obs: 'Site do autor. Veja as condições de uso na página.' },
+    { nome: 'Scenario para Blender', url: 'https://github.com/scenario-labs/blender-plugin', tipo: '3D', para: 'Liga o Claude ao Blender para montar cena, material e câmera por conversa.', obs: 'Licença GPL-3.0. Precisa do Blender instalado e de conta no Scenario, que tem plano pago.' },
+    { nome: 'three.js', url: 'https://github.com/mrdoob/three.js', tipo: '3D', para: 'Biblioteca de 3D no navegador. É a base dos estilos 3D da categoria 10 estilos de animação.', obs: 'Licença MIT.' },
+    { nome: 'react-three-rapier', url: 'https://github.com/pmndrs/react-three-rapier', tipo: '3D', para: 'Física de verdade (queda, colisão, peso) em cenas 3D feitas com React.', obs: 'Licença MIT.' },
+    { nome: 'react-postprocessing', url: 'https://github.com/pmndrs/react-postprocessing', tipo: 'Efeitos', para: 'Brilho, desfoque de profundidade e cara de filme por cima da cena 3D.', obs: 'Licença MIT.' },
+    { nome: 'three.quarks', url: 'https://github.com/Alchemist0823/three.quarks', tipo: 'Efeitos', para: 'Partículas: fumaça, faísca, rastro e explosão em cenas three.js.', obs: 'Licença MIT.' },
+    { nome: 'Tweakpane', url: 'https://github.com/cocopon/tweakpane', tipo: 'Efeitos', para: 'Painel de controles para você mexer nos valores da cena ao vivo, sem pedir de novo.', obs: 'Licença MIT.' },
+    { nome: 'GSAP', url: 'https://github.com/greensock/GSAP', tipo: 'Motion', para: 'Linha do tempo de animação para HTML e SVG. Gratuito, inclusive os plugins.', obs: 'Licença própria, sem custo. Leia os termos se for revender ferramenta feita com ele.' },
+    { nome: 'Remotion', url: 'https://github.com/remotion-dev/remotion', tipo: 'Motion', para: 'Vídeo feito em React, com render por linha de comando.', obs: 'Licença própria: gratuito para pessoa física e equipe pequena, pago para empresa maior.' },
+    { nome: 'Manim', url: 'https://github.com/ManimCommunity/manim', tipo: 'Motion', para: 'Diagramas, gráficos e equações animados, em Python. Bom para aula e explicativo.', obs: 'Licença MIT.' },
+    { nome: 'lottie-web', url: 'https://github.com/airbnb/lottie-web', tipo: 'Motion', para: 'Toca animações vetoriais leves (arquivos Lottie) dentro da página.', obs: 'Licença MIT.' },
+    { nome: 'Openverse', url: 'https://api.openverse.org/v1/', tipo: 'Som', para: 'Busca de áudio e imagem com licença aberta. Serve para achar efeito sonoro e ambiência.', obs: 'Cada arquivo tem a própria licença. Confira se permite uso comercial e se pede crédito.' },
+    { nome: 'librosa', url: 'https://github.com/librosa/librosa', tipo: 'Som', para: 'Detecta a batida da música para o corte e a animação entrarem no tempo.', obs: 'Licença ISC.' },
+    { nome: 'WhisperX', url: 'https://github.com/m-bain/whisperX', tipo: 'Som', para: 'Transcrição com o tempo de cada palavra, para legenda sincronizada.', obs: 'Licença BSD-2. Roda no seu computador.' },
+    { nome: 'FFmpeg', url: 'https://github.com/FFmpeg/FFmpeg', tipo: 'Entrega', para: 'Corta, junta, converte e exporta o arquivo final. As skills do kit já usam.', obs: 'Licença LGPL ou GPL, conforme a instalação.' }
   ];
 
   /* ---------- DOWNLOADS ---------- */
@@ -588,7 +694,7 @@ Gere a v2 só com essas mudanças e me diga o que mudou em cada item.`,
     estudio: { nome: 'Kit + Pack Estúdio', selo: 'Kit + Pack Estúdio' }
   };
 
-  var DADOS = { PRECO_CLAUDE: PRECO_CLAUDE, N_SKILLS: N_SKILLS, TIPOS: TIPOS, PROMPTS: PROMPTS, SKILLS_GRATIS: SKILLS_GRATIS, DOWNLOADS: DOWNLOADS, COMBOS: COMBOS, VENDAS: '/editar-com-claude.html#comprar' };
+  var DADOS = { PRECO_CLAUDE: PRECO_CLAUDE, N_SKILLS: N_SKILLS, TIPOS: TIPOS, PROMPTS: PROMPTS, SKILLS_GRATIS: SKILLS_GRATIS, FERRAMENTAS_MOTION: FERRAMENTAS_MOTION, DOWNLOADS: DOWNLOADS, COMBOS: COMBOS, VENDAS: '/editar-com-claude.html#comprar' };
   root.DADOS = DADOS;
   if (typeof module !== 'undefined' && module.exports) module.exports = DADOS;
 })(typeof window !== 'undefined' ? window : globalThis);
