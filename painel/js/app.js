@@ -5,7 +5,7 @@ import { initMatrix } from "./matrix.js?v=20261109c";
 import { visibleModules } from "./modules.js?v=20261106f";
 
 // versão das telas: troque a cada deploy pra o navegador não usar cópia velha em cache
-const V = "20261114p";
+const V = "20261115d";
 const VIEWS = {
   "": () => import(`./views/painel.js?v=${V}`), hoje: () => import(`./views/hoje.js?v=${V}`), tarefas: () => import(`./views/tarefas.js?v=${V}`),
   projetos: () => import(`./views/projetos.js?v=${V}`), inbox: () => import(`./views/inbox.js?v=${V}`), agenda: () => import(`./views/agenda.js?v=${V}`),
@@ -47,6 +47,7 @@ async function start() {
   const shell = buildShell({ sb, member, go, signOut });
   initMatrix();
   document.body.className = ""; app.replaceChildren(shell.root);
+  import(`./floatnotes.js?v=${V}`).then((m) => m.mountFloatNotes(sb, shell.root.querySelector(".toolbar"))).catch(() => {});
 
   let seq = 0;
   async function render() {
