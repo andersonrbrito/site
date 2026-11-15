@@ -1,0 +1,80 @@
+{
+ "slug": "nectar-agente-acha-criador",
+ "dia": "2026-11-15",
+ "tipo": "noticia",
+ "titulo": "Agora um robô escolhe qual criador a marca contrata",
+ "perfil": "@ilmarlabs",
+ "legenda": "A Nectar lançou o Creator Agent: um agente de IA que acha criador pra marca sozinho. Ele vasculha mais de 300 milhões de perfis no Instagram e no TikTok, lê seus vídeos e suas parcerias, monta um ranking e já manda a primeira mensagem.\n\nNa prática, seu perfil vai ser lido por um robô antes de uma pessoa. Se o seu nicho não tá óbvio na bio e nos últimos posts, ele não te encaixa. E já roda no mundo todo, acompanhando até quem tá começando a crescer.\n\nMinha leitura: isso não tira o trabalho do criador, muda a vitrine. Mas posso estar errado. Você acha que a gente vai ter que escrever a bio pensando no robô?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Nectar (Creator Agent), lançado em 12/11, global, Instagram e TikTok.",
+ "fontes": [
+  {
+   "titulo": "TechCrunch: Nectar launches an AI agent to automate creator discovery and outreach for brands",
+   "url": "https://tech.yahoo.com/ai/meta-ai/articles/nectar-launches-ai-agent-automate-191100465.html"
+  },
+  {
+   "titulo": "ContentGrip: Nectar Creator Agent brings AI to influencer outreach",
+   "url": "https://www.contentgrip.com/nectar-creator-agent-influencer-outreach/"
+  }
+ ],
+ "notas": "Pauta: bot de novidades de IA do Conrado (Telegram, 14/11), confirmada na TechCrunch (via Yahoo) e na ContentGrip (lançamento 12/11, global, 300M+ perfis, IG e TikTok). Todas as imagens geradas no ChatGPT a partir de prompts em português, cena brasileira, criadores fictícios e genéricos (sem pessoa real identificável), texto em PT-BR, clima cinema + verde Matrix. Não afirmei que ele testou a ferramenta.",
+ "slides": [
+  {
+   "texto": "Uma marca não precisa mais de gente pra achar criador.\n\nAgora um **agente de IA faz isso sozinho**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/01-robo-escolhe.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **Creator Agent**, da Nectar.\n\nEle vasculha mais de 300 milhões de perfis no Instagram e no TikTok, lê seus vídeos e suas parcerias, monta um ranking e já manda a primeira mensagem.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/02-varredura.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Tudo que um assistente de marketing fazia na mão, o agente faz sozinho:\n\nacha o criador, **puxa o histórico**, personaliza a mensagem e ainda acompanha a campanha.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/03-ranking.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Pra quem cria conteúdo isso pesa:\n\nseu perfil vai ser lido por um **robô antes de um humano**. Se o seu nicho não tá óbvio na bio e nos últimos posts, o agente não te encaixa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/04-bio-lida.jpg",
+    "foco": 0.4
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "E já roda no mundo todo.\n\nAcompanha até criador pequeno que tá começando a crescer. Então **seguidor não é mais o único filtro**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/02-varredura.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Minha leitura: isso não tira o trabalho do criador, muda a vitrine.\n\nQuem deixa claro **o que faz e pra quem** vira fácil de achar pela máquina. Mas posso estar errado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/03-ranking.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Será que a gente vai ter que escrever a bio pensando no robô, e não na pessoa?\n\nComenta o que você acha aqui embaixo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/nectar-agente-acha-criador/01-robo-escolhe.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "slug": "movimento-de-camera-prompt-video-ia",
+ "dia": "2026-11-15",
+ "tipo": "educativo",
+ "titulo": "Seu vídeo de IA parado? Falta dizer como a câmera se mexe",
+ "perfil": "@ilmarlabs",
+ "legenda": "Vídeo de IA que parece foto que mexe quase sempre tem o mesmo erro: você não disse como a câmera anda. No prompt, trate a câmera como um operador e peça o movimento pelo nome.\n\nSão 6 que resolvem a maioria dos casos: push in, pull back, dolly, truck, orbit (arc) e crane. Um movimento principal por clipe, que dois brigam e a IA embola. E feche com \"locked-off ending\" pra a câmera parar no fim e o corte não tremer.\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo. Qual desses você nunca tinha pedido pela IA?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: técnica de edição/IA (movimento de câmera no prompt de vídeo), diferente do carrossel de look anamórfico (14/11, que era sobre a LENTE). Não repete assunto. Imagens geradas no ChatGPT, prompts em português, texto em PT-BR, clima cinema + verde Matrix. Hook com Haaland (meme liberado). Os termos de câmera vão em inglês de propósito (é a língua do prompt), com a tradução ao lado.",
+ "slides": [
+  {
+   "texto": "Vídeo de IA que parece **foto que mexe** quase sempre tem o mesmo erro:\n\nvocê não disse como a câmera anda.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/01-haaland-camera.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "No prompt de vídeo, trate a câmera como um operador.\n\n6 movimentos que você pode pedir **pelo nome**:",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/02-push-dolly.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "**push in / pull back** — a câmera entra ou recua do assunto\n\n**dolly** — ela desliza junto, acompanhando\n\n**truck** — anda pro lado, de lado",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/02-push-dolly.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "**orbit (arc shot)** — gira em volta do assunto\n\n**crane / boom** — sobe ou desce\n\n**whip pan** — vira rápido e borra, bom pra cortar pra outra cena",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/03-orbit-crane.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Monta assim no prompt:\n\n**\"slow push in on [assunto], then orbit left, handheld, 35mm\"**.\n\nUm movimento principal por clipe. Dois brigam e a IA embola.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/04-prompt-tela.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Dica que salva:\n\nfeche com **\"locked-off ending\"** (câmera parada no fim) pra o corte na edição não tremer. E peça a velocidade: slow, smooth, fast.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/03-orbit-crane.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Qual desses você nunca tinha pedido pela IA?\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/movimento-de-camera-prompt-video-ia/01-haaland-camera.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

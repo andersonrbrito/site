@@ -1,0 +1,63 @@
+{
+ "slug": "bio-pro-agente-de-marca-prompt",
+ "dia": "2026-11-15",
+ "tipo": "educativo",
+ "titulo": "O prompt que mostra como um robô lê o seu perfil",
+ "perfil": "@ilmarlabs",
+ "legenda": "Antes de uma marca, quem lê seu perfil agora é um agente de IA. Esse prompt mostra, em segundos, o que ele entende de você e onde você tá confundindo a máquina.\n\nAbre o Claude ou o ChatGPT, cola sua bio e a legenda dos seus últimos posts e pede 4 respostas (o prompt inteiro tá na lâmina). Se o nicho que ele devolver vier diferente do que você quer ser, é hora de trocar a bio.\n\nSalva pra rodar hoje e manda pra quem posta contigo. Rodou aí? Qual nicho o robô achou que você é?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Pauta: 'prompt do dia' do bot de novidades de IA do Conrado (Telegram, 14/11), refeito com o jeito dele, sem copiar texto. Casa com a notícia do Nectar Creator Agent (agente que lê perfil de criador). Técnica, não precisa de fonte externa. Imagens geradas no ChatGPT, prompts em português, cena brasileira, texto em PT-BR, clima cinema + verde Matrix. O prompt copiável vai escrito na lâmina.",
+ "slides": [
+  {
+   "texto": "Antes de uma marca, quem lê seu perfil agora é um **agente de IA**.\n\nEsse prompt mostra o que ele entende de você.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/bio-pro-agente-de-marca-prompt/01-olho-robo.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Abre o Claude ou o ChatGPT e cola isso:\n\n**\"Leia meu perfil como um agente de marca leria. Vou colar minha bio e a legenda dos meus 9 últimos posts.\"**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/bio-pro-agente-de-marca-prompt/02-chat-prompt.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Peça 4 respostas:\n\n1) em uma frase, **qual nicho você entende que eu sou**\n2) pra que tipo de marca você me indicaria e por quê\n3) o que tá confuso ou faltando\n4) reescreva minha bio em até 150 caracteres, nicho e público claros",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/bio-pro-agente-de-marca-prompt/02-chat-prompt.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O pulo do gato:\n\nse a frase do item 1 vier **diferente do que você quer ser**, seu perfil tá confundindo a máquina (e a pessoa também). Aí é hora de trocar a bio.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/bio-pro-agente-de-marca-prompt/03-antes-depois.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Um detalhe que muda tudo:\n\npeça pra ele **não inventar** nada que você não passou. Robô gosta de preencher buraco, e bio com promessa falsa derruba a sua no primeiro contato real.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/bio-pro-agente-de-marca-prompt/03-antes-depois.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Salva esse prompt pra rodar hoje e manda pra quem posta contigo.\n\nRodou aí? Qual nicho o robô achou que você é?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/bio-pro-agente-de-marca-prompt/01-olho-robo.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

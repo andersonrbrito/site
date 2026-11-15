@@ -1,0 +1,80 @@
+{
+ "slug": "chatgpt-wallet-agente-compra",
+ "dia": "2026-11-15",
+ "tipo": "noticia",
+ "titulo": "O ChatGPT agora tem carteira e compra por você",
+ "perfil": "@ilmarlabs",
+ "legenda": "A OpenAI lançou o ChatGPT Wallet: você pede a compra no chat, o agente acha o produto, monta o carrinho e leva até o pagamento. Você só aprova com o rosto ou a digital.\n\nO número do cartão não vai pra loja nem pro agente, vai um token. Por enquanto é só nos EUA, no plano Pro.\n\nNa minha visão, a compra online vira coisa de agente, e quem vende vai ser lido por uma máquina antes de uma pessoa. Mas posso estar errado. Você deixaria o agente comprar por você?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: OpenAI (Introducing ChatGPT Wallet). Lançado em 13/11, beta só nos EUA no plano Pro, feito com Amex, Mastercard e Visa.",
+ "fontes": [
+  {
+   "titulo": "OpenAI: Introducing ChatGPT Wallet",
+   "url": "https://openai.com/index/introducing-chatgpt-wallet/"
+  },
+  {
+   "titulo": "GSMArena: ChatGPT Wallet lets OpenAI's agents buy things for you",
+   "url": "https://www.gsmarena.com/chatgpt_wallet_lets_openais_agents_buy_things_for_you-news-75481.php"
+  }
+ ],
+ "notas": "Pauta: bot de novidades de IA do Conrado (Telegram, 14/11), confirmada na página oficial da OpenAI (13/11) e na GSMArena. Todas as imagens geradas no ChatGPT (Nano Banana/GPT image) a partir de prompts em português, cena brasileira, texto em PT-BR. Hook com Neymar (meme liberado). Não cita preço de produto nem recurso não confirmado; só leitura do que a OpenAI publicou (aprovação biométrica, token no lugar do número do cartão, beta EUA/Pro).",
+ "slides": [
+  {
+   "texto": "A OpenAI acabou de botar uma **carteira dentro do ChatGPT**.\n\nAgora o agente acha o produto, monta o carrinho e passa o cartão por você.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/01-neymar-faceid.jpg",
+    "foco": 0.3
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama **ChatGPT Wallet**.\n\nVocê pede a compra no chat, ele encontra o produto, monta o carrinho e leva até o pagamento. Você só confirma.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/02-checkout.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Na hora de pagar ele te mostra a loja, os itens, o total e o cartão.\n\nE você aprova **com o rosto ou a digital**. Sem aprovar, não sai nada.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/01-neymar-faceid.jpg",
+    "foco": 0.3
+   }
+  },
+  {
+   "texto": "E o cartão?\n\nO número real **não vai pra loja nem pro agente**. O pagamento usa um token ligado ao seu cartão. Feito com Amex, Mastercard e Visa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/03-token.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Por enquanto é **só nos EUA, no plano Pro**. Ainda não chegou aqui.\n\nMas a direção tá clara: a compra online começa a virar coisa de agente, não de gente clicando.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/02-checkout.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O que isso muda pra quem vende?\n\nSeu produto vai ser lido por uma **máquina antes de um humano**. Preço, foto e descrição claros viram o que decide a venda. Pra mim é por aí, mas posso estar errado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/04-loja-escaneada.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "A loja que não falar a língua do agente pode simplesmente **não aparecer na compra**.\n\nVocê deixaria o agente comprar por você?\n\nSe você edita vídeo e quer usar IA no trabalho: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/chatgpt-wallet-agente-compra/01-neymar-faceid.jpg",
+    "foco": 0.3
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
