@@ -853,3 +853,18 @@ body{background-color:var(--bg);background-image:
 .pz-track{height:10px;border-radius:99px;background:var(--line,#2a2a2a);overflow:hidden}.pz-track span{display:block;height:100%}
 .pz-meta{display:flex;flex-direction:column;gap:4px}
 @media (max-width:760px){.pz-hero,.pz-grid{grid-template-columns:minmax(0,1fr)}.pz-av{width:150px;margin:auto}}
+/* 15/11: menu lateral mais compacto */
+.side nav{gap:1px} .navlink{padding:7px 12px}
+/* 15/11: Cursos + Ferramentas numa barra só, menor */
+.headstrip{flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:rgba(11,13,12,.8)}
+.headstrip .favs,.headstrip .quickgrid{width:auto;flex:0 1 auto;margin:0}
+.headstrip .favrow{padding:0;border:0;background:none;gap:6px 10px}
+.headstrip .quickgrid{gap:5px}
+.headstrip .fav,.headstrip .qlink{height:24px;padding:0 8px;gap:5px;font-size:12.5px;border-radius:999px}
+.headstrip .fav img,.headstrip .qlink img{width:13px;height:13px}
+.headstrip .favgrp>.mono,.headstrip .striplabel{font-size:11px}
+/* 15/11: stickies flutuantes por cima do painel inteiro */
+.fn-layer{position:fixed;inset:0;pointer-events:none;z-index:60}
+.fn{position:fixed;pointer-events:auto;display:flex;flex-direction:column;resize:both;overflow:hidden;min-width:150px;min-height:100px;box-shadow:0 14px 34px rgba(0,0,0,.6)}
+.fn-head{cursor:grab;user-select:none} .fn-head:active{cursor:grabbing}
+.fn-add{background:#f5c84c;color:#1b1a16;border-color:#f5c84c}

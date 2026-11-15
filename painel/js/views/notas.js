@@ -88,10 +88,10 @@ export async function stickySide(sb) {
   const { data, error } = await sb.from("sticky_notes").select(NOTE_COLS).is("archived_at", null).eq("tipo", "sticky").eq("fixada", true).order("updated_at", { ascending: false }).limit(20);
   if (error) return null;
   const list = h("div", { class: "sn-side" });
-  const draw = (items) => list.replaceChildren(...items.map((n) => stickyCard(sb, n, { onUnpin: (_, el) => el.remove() })), !items.length ? h("p", { class: "muted small" }, "Nenhum sticky preso. Clique em + Sticky.") : null);
+  const draw = (items) => list.replaceChildren(...items.map((n) => stickyCard(sb, n, { onUnpin: (_, el) => el.remove() })), ...(!items.length ? [h("p", { class: "muted small" }, "Nenhum sticky preso. Clique em + Sticky.")] : []));
   const items = data || []; draw(items);
   const add = async () => { const n = await createNote(sb, { tipo: "sticky", cor: ["amarelo", "rosa", "verde", "azul", "laranja"][items.length % 5], fixada: true }); if (!n) return; items.unshift(n); draw(items); list.querySelector(`[data-id="${n.id}"] textarea`)?.focus(); };
-  return h("section", { class: "panel" },
+  return h("section", { class: "panel snfloat" },
     h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "#f5c84c" } }), h("h2", { class: "mono grow" }, "Sticky NoteS_"), h("a", { class: "mono", href: "#/notas" }, "NoteS_ →")),
     h("div", { class: "panel-body" }, h("button", { class: "btn btn-sm", type: "button", style: { width: "100%", marginBottom: "10px" }, onclick: add }, "+ Sticky"), list));
 }
