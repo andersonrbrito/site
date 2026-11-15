@@ -678,7 +678,7 @@ Depois gere a folha de contato com p = 0,2, 0,5 e 0,95, olhe e corrija. Só ent�
   var DOWNLOADS = [
     { chave: 'ebook', ic: 'livro', nome: 'E-book Editar Vídeo com Claude', desc: 'As aulas práticas em PDF, do primeiro vídeo ao motion em código.', tam: 'PDF · 2,2 MB', combos: ['kit', 'impacto', 'estudio'] },
     { chave: 'manual_rapido', ic: 'raio', nome: 'Manual rápido', desc: 'O resumo para começar hoje: o que instalar, a pasta e o primeiro pedido.', tam: 'PDF · leitura de 5 minutos', combos: ['kit', 'impacto', 'estudio'] },
-    { chave: 'pacote_edicao_zip', ic: 'caixa', nome: 'Pacote de Edição', desc: '15 estilos de texto em destaque, 298 ícones, 36 elementos de motion, fundos, guias de zona segura e 3 projetos prontos.', tam: 'ZIP · 292 MB', combos: ['kit', 'impacto', 'estudio'] },
+    { chave: 'pacote_edicao_zip', ic: 'caixa', nome: 'Pacote de Edição', desc: '15 estilos de lettering, 11 estilos de legenda, 298 ícones, 36 elementos de motion, fundos, guias de zona segura e 3 projetos prontos.', tam: 'ZIP · 292 MB', combos: ['kit', 'impacto', 'estudio'] },
     { chave: 'skills_zip', ic: 'chip', nome: 'Skills do kit', desc: 'As ' + N_SKILLS + ' skills do método, prontas para copiar para a pasta de skills do Claude.', tam: 'ZIP · 40 KB', combos: ['kit', 'impacto', 'estudio'] },
     { chave: 'catalogo_skills', ic: 'lista', nome: 'Catálogo de skills', desc: '69 skills separadas por categoria: o que cada uma faz, quando usar e de onde vem.', tam: 'Documento · 22 KB', combos: ['kit', 'impacto', 'estudio'] },
     { chave: 'modelos_zip', ic: 'doc', nome: 'Modelos de arquivo', desc: 'CLAUDE.md, design.md, edicao.md, briefing de vídeo e checklist de publicação.', tam: 'ZIP · 5 arquivos de texto', combos: ['kit', 'impacto', 'estudio'] },
