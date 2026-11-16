@@ -52,13 +52,13 @@ for slug, d in P.items():
 {css}</head><body>
 <header class="hero"><div class="wrap hero-grid"><div>
 <span class="tag">{d['tag']}</span><h1>{d['h1']}</h1><p class="lead">{d['lead']}</p>
-<a class="cta" href="https://wa.me/5511948577950" target="_blank" rel="noopener">Falar com o Anderson →</a>
+<a class="cta" href="https://wa.me/5511992392104" target="_blank" rel="noopener">Falar com o Anderson →</a>
 <div class="chips">{''.join(f'<span>{c}</span>' for c in d['chips'])}</div></div>
 <div class="me"><img src="../trabalhos/images/anderson-camera.jpg" alt="Anderson Brito"></div></div></header>
 {blocos}
 <section><div class="wrap"><span class="kicker">Como eu trabalho</span><h2>O que você ganha comigo.</h2><div class="fit">{fit}</div>
 <div class="nums"><div><b>25M+</b><span>views em um vídeo (collab CazéTV)</span></div><div><b>10+ anos</b><span>de audiovisual</span></div><div><b>FGV</b><span>Marketing e MBA</span></div></div></div></section>
-<footer><div class="wrap"><h2>Pronto para começar agora.</h2><p class="contacts">contato@andersonbrito.com · (11) 94857-7950 · @andersonbrito.mp4 · <a href="../trabalhos/">portfólio completo</a></p></div></footer>
+<footer><div class="wrap"><h2>Pronto para começar agora.</h2><p class="contacts">contato@andersonbrito.com · (11) 99239-2104 · @andersonbrito.mp4 · <a href="../trabalhos/">portfólio completo</a></p></div></footer>
 </body></html>"""
     os.makedirs(f"{ROOT}/{slug}", exist_ok=True); open(f"{ROOT}/{slug}/index.html", "w").write(html)
     print("ok", slug)
