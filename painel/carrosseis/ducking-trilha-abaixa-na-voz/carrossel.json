@@ -1,0 +1,41 @@
+{
+ "slug": "ducking-trilha-abaixa-na-voz",
+ "dia": "2026-11-16",
+ "tipo": "educativo",
+ "perfil": "@ilmarlabs",
+ "titulo": "O truque de áudio que faz a narração parecer profissional",
+ "legenda": "Chama ducking: a música abaixa sozinha quando a voz entra e volta quando ela para. É por isso que a narração dos vídeos bons soa limpa, sem você espremer o volume da trilha no talo.\n\nNa prática é um número só: trilha uns 10 dB mais baixa debaixo da voz, com um fade curtinho pra não cortar seco.\n\nTesta num vídeo que você já tem e compara com o original.\n\nSalva pra lembrar no próximo corte e manda pra quem edita contigo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo de técnica de edição (ducking/sidechain). Lâminas geradas no ChatGPT na estética do site (escuro, verde Matrix, ondas de áudio). CTAs de salvar/compartilhar + Kit no fim.",
+ "slides": [
+  {
+   "texto": "Por que a narração dos vídeos profissionais soa tão **limpa**?",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ducking-trilha-abaixa-na-voz/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O erro comum: a música fica alta por cima da voz e some a fala.\n\nAí você abaixa a trilha no vídeo inteiro e o vídeo perde a energia nos pedaços sem narração."
+  },
+  {
+   "texto": "A solução chama **ducking**.\n\nA música abaixa sozinha quando a voz entra e volta ao volume normal quando a fala para. A voz manda, a trilha só sustenta."
+  },
+  {
+   "texto": "Como fazer no seu editor:\n\n• CapCut e Premiere: tem o **ducking automático** (liga e ele faz sozinho)\n• na mão: ponha keyframes na trilha e baixe uns **10 dB** debaixo da voz",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O detalhe que separa amador de profissional: **nada de corte seco**.\n\nDeixa a música respirar com um fade de uns 0,3 segundos antes e depois da voz. A queda tem que ser suave, não um tranco."
+  },
+  {
+   "texto": "Por que isso prende quem assiste:\n\no ouvido entende na hora quem é o protagonista do som. A fala fica inteligível, a trilha dá o clima, e a pessoa não se cansa e fica mais tempo no vídeo."
+  },
+  {
+   "texto": "Pega um vídeo seu e testa: trilha **10 dB** mais baixa na voz, com fade de 0,3s.\n\nCompara com o original. Sentiu a diferença?\n\n**Salva** e manda pra quem edita contigo. Comenta KIT que eu te mando o Kit Editar com Claude, de R$97 por R$57 até 23/11.",
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

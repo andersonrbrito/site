@@ -1,0 +1,50 @@
+{
+ "slug": "gemini-le-seus-gastos-google-wallet",
+ "dia": "2026-11-16",
+ "tipo": "noticia",
+ "perfil": "@ilmarlabs",
+ "titulo": "O Gemini agora lê os seus gastos",
+ "legenda": "O Google conectou o Gemini ao Google Wallet: você marca @Google Wallet no chat e pergunta sobre o seu dinheiro em linguagem normal. Ele resume gasto, acha assinatura esquecida e avisa quando o preço subiu.\n\nSemana passada foi o Claude, agora é o Google. A IA tá de olho no seu dinheiro, e pra quem assina 10 ferramentas isso dá pra usar a favor.\n\nSó leitura, ele não mexe em nada. Por enquanto só nos EUA.\n\nVocê deixaria uma IA ler os seus gastos pra achar o que você paga e não usa?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Android Authority, BetaNews e The Next Web. Beta só nos EUA, conexão pelo Plaid.",
+ "fontes": [
+  {
+   "titulo": "Android Authority: Google Wallet lets Gemini analyze your spending",
+   "url": "https://www.androidauthority.com/google-wallet-gemini-integration-us-3735150/"
+  },
+  {
+   "titulo": "The Next Web: Gemini can now read your Google Wallet to help you budget",
+   "url": "https://thenextweb.com/news/google-gemini-wallet-spending-insights-plaid"
+  }
+ ],
+ "notas": "Hook com rosto famoso (reação ao extrato) como chamariz. Lâminas geradas no ChatGPT na estética do site (escuro, verde Matrix). Ponte na lâmina 6 com a notícia do Claude Personal Finance (05/11). Sem política.",
+ "slides": [
+  {
+   "texto": "O Gemini agora **lê os seus gastos**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-le-seus-gastos-google-wallet/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O Google conectou o Gemini ao **Google Wallet**.\n\nVocê marca @Google Wallet no chat e pergunta sobre o seu dinheiro na linguagem do dia a dia, tipo \"onde eu mais gastei esse mês?\"."
+  },
+  {
+   "texto": "O que ele faz com isso:\n\n• resume os seus gastos e sugere onde dá pra economizar\n• **caça assinatura recorrente que você esqueceu**\n• avisa quando uma cobrança subiu de preço"
+  },
+  {
+   "texto": "Pensa em quem vive de criar: a gente assina **um monte de ferramenta** e esquece metade.\n\nUma IA que lê o extrato e mostra o que você paga e não abre há 30 dias é dinheiro de volta no bolso.",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Antes de surtar: o acesso é **só leitura**.\n\nEle não move dinheiro, não investe e não faz compra. O banco é opcional (conexão pelo Plaid), e por enquanto só vale nos EUA, com a memória do Gemini ligada."
+  },
+  {
+   "texto": "Repara no padrão: semana passada foi o **Claude** lendo banco, agora é o **Google**.\n\nA IA virou de vez a leitora do seu dinheiro. Dá pra usar a favor, mas pensa duas vezes no que você conecta. Posso estar errado."
+  },
+  {
+   "texto": "**Você deixaria uma IA ler os seus gastos pra achar o que você paga e não usa?**\n\nSe você edita vídeo e quer usar IA no dia a dia: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

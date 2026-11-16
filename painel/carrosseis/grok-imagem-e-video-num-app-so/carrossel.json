@@ -1,0 +1,50 @@
+{
+ "slug": "grok-imagem-e-video-num-app-so",
+ "dia": "2026-11-16",
+ "tipo": "noticia",
+ "perfil": "@ilmarlabs",
+ "titulo": "O Grok juntou imagem e vídeo num app só",
+ "legenda": "A xAI anunciou dia 14 que criar imagem e vídeo agora mora dentro do app do Grok. Não é modelo novo: é tudo no mesmo lugar. Você gera a imagem e já anima ali.\n\nPra quem faz meme e conteúdo rápido, isso é um passo a menos. Mas quem decide o que presta ainda é você, não o botão.\n\nVocê prefere tudo num app só ou gosta de usar uma ferramenta pra cada etapa?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: xAI (x.ai) e TeslaNorth. Sem preço nem limite por país divulgados.",
+ "fontes": [
+  {
+   "titulo": "xAI — Grok Imagine (anúncio oficial)",
+   "url": "https://x.ai/news/grok-imagine-1-5"
+  },
+  {
+   "titulo": "TeslaNorth: Grok brings Imagine image and video into one app (14/11)",
+   "url": "https://teslanorth.com/2026/11/15/grok-imagine-image-video-one-app/"
+  }
+ ],
+ "notas": "Hook e lâminas de cena geradas no ChatGPT (estética do site: escuro, luz de cinema, verde Matrix). Famoso no hook (Neymar) como chamariz. Sem citar política nem usar conta da ex-empresa.",
+ "slides": [
+  {
+   "texto": "O Grok acabou de juntar **imagem e vídeo** num app só.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/grok-imagem-e-video-num-app-so/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "No dia 14 a xAI avisou: **criar imagem e vídeo agora vive dentro do Grok**.\n\nAntes era uma experiência separada pra cada coisa. Agora é um lugar só pra gerar, montar e trabalhar."
+  },
+  {
+   "texto": "Na prática:\n\n• você gera a imagem (Imagine Image 2.0)\n• e **anima ela em vídeo** de 4 a 15 segundos, com som (Imagine Video 1.5)\n• dá pra usar referência de texto, imagem e até voz, com saída até 1080p"
+  },
+  {
+   "texto": "Pra quem vive de meme e conteúdo rápido, isso é **um passo a menos**.\n\nVocê sai da ideia, faz a imagem e já testa ela em movimento sem pular de app em app.",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Antes de achar que virou mágica: **não é um modelo novo**.\n\nÉ a junção do que já existia num app só. Preço e limite por país ainda não foram detalhados, e a experiência separada do Imagine continua no ar."
+  },
+  {
+   "texto": "Do jeito que eu vejo, juntar imagem e vídeo no mesmo lugar ganha tempo e tira atrito.\n\nMas a ferramenta não tem gosto: quem escolhe o corte, o ritmo e o que fica bom continua sendo você. Posso estar errado."
+  },
+  {
+   "texto": "A moda agora é todo app querer ser o \"lugar único\".\n\n**Você prefere tudo num app só ou uma ferramenta pra cada etapa?**\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

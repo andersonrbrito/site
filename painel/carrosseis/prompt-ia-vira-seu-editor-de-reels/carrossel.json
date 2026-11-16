@@ -1,0 +1,41 @@
+{
+ "slug": "prompt-ia-vira-seu-editor-de-reels",
+ "dia": "2026-11-16",
+ "tipo": "educativo",
+ "perfil": "@ilmarlabs",
+ "titulo": "O prompt que transforma a IA no seu editor de reels",
+ "legenda": "Esse é o prompt que eu uso pra IA fazer o trabalho chato antes de eu abrir o editor: ela acha o gancho dos 3 segundos, lista os cortes com o tempo certo, marca onde entra b-roll e ainda escreve o texto de tela.\n\nNão é pra aceitar tudo de olho fechado. A IA sugere, você decide o corte e o ritmo.\n\nTesta no seu próximo vídeo e me conta se economizou tempo.\n\nSalva pra usar depois e manda pra quem edita contigo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo com prompt copiável na lâmina 4. Lâminas geradas no ChatGPT na estética do site (escuro, verde Matrix, terminal). CTAs de salvar/compartilhar + Kit no fim.",
+ "slides": [
+  {
+   "texto": "A IA pode ser o seu **primeiro editor de reels** (de graça).",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/prompt-ia-vira-seu-editor-de-reels/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A parte que mais rouba tempo não é o corte bonito.\n\nÉ **caçar o gancho** e ficar arrastando a timeline atrás da repetição, da pausa e da enrolação."
+  },
+  {
+   "texto": "Passo 1: **transcreva o vídeo**.\n\nO próprio Edits, CapCut ou Premiere já geram a legenda. Copia esse texto com os tempos: é ele que você vai colar no prompt."
+  },
+  {
+   "texto": "Passo 2: cola a transcrição com este prompt:\n\n\"Você é meu editor de reels. Da transcrição abaixo, me dê: 1) o melhor gancho dos 3s + 2 versões mais fortes; 2) os cortes (repetição, pausa) com tempo de início e fim; 3) onde entra b-roll, 1 linha cada; 4) 3 textos de tela, até 6 palavras. Em lista, sem enrolar.\"",
+   "rodape": "segue o @andersonbrito.mp4 que todo dia tem prompt assim →"
+  },
+  {
+   "texto": "Em segundos ela te devolve o **roteiro do corte**:\n\no gancho, a lista de cortes com o tempo, onde colocar b-roll e o texto pra tela. Você abre o editor já sabendo o que fazer."
+  },
+  {
+   "texto": "O pulo do gato: **não aceite tudo de olho fechado**.\n\nA IA chuta o começo, você ajusta pelo ouvido e pelo ritmo. Ela tira o trabalho braçal, o corte fino continua sendo seu."
+  },
+  {
+   "texto": "**Salva** esse prompt e **manda pra quem edita contigo**.\n\nTesta no próximo vídeo: quanto tempo você acha que economiza?\n\nComenta KIT que eu te mando o Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
