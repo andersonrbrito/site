@@ -58,13 +58,13 @@ const readsLeft = (s: Record<string, any>) => Number(s.x_read_daily_limit ?? 40)
 
 // ───────── Publicação ─────────
 const splitThread = (t: string) => t.split(/\n\s*---\s*\n/).map((x) => x.trim()).filter(Boolean);
-async function mediaBlob(path: string) {
-  const { data, error } = await sb.storage.from(BUCKET).download(path);
+async function mediaBlob(path: string, bucket = BUCKET) {
+  const { data, error } = await sb.storage.from(bucket).download(path);
   if (error || !data) throw new Error(`mídia não encontrada: ${path}`);
   return data;
 }
 async function xUpload(m: { path: string; mime: string }) {
-  const blob = await mediaBlob(m.path);
+  const blob = await mediaBlob(m.path, (m as any).bucket || BUCKET);
   const isVideo = m.mime.startsWith("video/"), isGif = m.mime === "image/gif";
   if (!isVideo && !isGif) {
     const form = new FormData(); form.append("media", new Blob([blob], { type: m.mime }), "image"); form.append("media_category", "tweet_image");
@@ -111,16 +111,48 @@ async function postLinkedIn(p: any) {
   }
   const H = { Authorization: `Bearer ${token}`, "Content-Type": "application/json", "LinkedIn-Version": Deno.env.get("LINKEDIN_VERSION") || "202609", "X-Restli-Protocol-Version": "2.0.0" };
   const images: string[] = [];
+  let single: any = null; // vídeo ou documento (PDF = carrossel no LinkedIn): um por post
   for (const m of p.media || []) {
-    if (!m.mime.startsWith("image/")) throw new Error("LinkedIn: só imagens por enquanto");
-    const init = await fetch("https://api.linkedin.com/rest/images?action=initializeUpload", { method: "POST", headers: H, body: JSON.stringify({ initializeUploadRequest: { owner: author } }) });
-    if (!init.ok) throw new Error(`LinkedIn imagem ${init.status}`);
-    const { value } = await init.json();
-    const put = await fetch(value.uploadUrl, { method: "PUT", headers: { Authorization: `Bearer ${token}`, "Content-Type": m.mime }, body: await mediaBlob(m.path) });
-    if (!put.ok) throw new Error(`LinkedIn upload ${put.status}`);
-    images.push(value.image);
+    const blob = await mediaBlob(m.path, m.bucket || BUCKET);
+    if (m.mime.startsWith("image/")) {
+      const init = await fetch("https://api.linkedin.com/rest/images?action=initializeUpload", { method: "POST", headers: H, body: JSON.stringify({ initializeUploadRequest: { owner: author } }) });
+      if (!init.ok) throw new Error(`LinkedIn imagem ${init.status}`);
+      const { value } = await init.json();
+      const put = await fetch(value.uploadUrl, { method: "PUT", headers: { Authorization: `Bearer ${token}`, "Content-Type": m.mime }, body: blob });
+      if (!put.ok) throw new Error(`LinkedIn upload ${put.status}`);
+      images.push(value.image);
+    } else if (m.mime === "application/pdf") {
+      const init = await fetch("https://api.linkedin.com/rest/documents?action=initializeUpload", { method: "POST", headers: H, body: JSON.stringify({ initializeUploadRequest: { owner: author } }) });
+      if (!init.ok) throw new Error(`LinkedIn documento ${init.status}: ${(await init.text()).slice(0, 200)}`);
+      const { value } = await init.json();
+      const put = await fetch(value.uploadUrl, { method: "PUT", headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/octet-stream" }, body: blob });
+      if (!put.ok) throw new Error(`LinkedIn upload do PDF ${put.status}`);
+      single = { media: { id: value.document, title: (m.title || p.title || "Carrossel").slice(0, 200) } };
+    } else if (m.mime.startsWith("video/")) {
+      const buf = new Uint8Array(await blob.arrayBuffer());
+      const init = await fetch("https://api.linkedin.com/rest/videos?action=initializeUpload", { method: "POST", headers: H, body: JSON.stringify({ initializeUploadRequest: { owner: author, fileSizeBytes: buf.length, uploadCaptions: false, uploadThumbnail: false } }) });
+      if (!init.ok) throw new Error(`LinkedIn vídeo ${init.status}: ${(await init.text()).slice(0, 200)}`);
+      const { value } = await init.json();
+      const etags: string[] = [];
+      for (const ins of value.uploadInstructions) {
+        const put = await fetch(ins.uploadUrl, { method: "PUT", headers: { "Content-Type": "application/octet-stream" }, body: buf.subarray(ins.firstByte, ins.lastByte + 1) });
+        if (!put.ok) throw new Error(`LinkedIn upload do vídeo ${put.status}`);
+        etags.push(put.headers.get("etag") || "");
+      }
+      const fin = await fetch("https://api.linkedin.com/rest/videos?action=finalizeUpload", { method: "POST", headers: H, body: JSON.stringify({ finalizeUploadRequest: { video: value.video, uploadToken: value.uploadToken || "", uploadedPartIds: etags } }) });
+      if (!fin.ok) throw new Error(`LinkedIn finalizar vídeo ${fin.status}: ${(await fin.text()).slice(0, 200)}`);
+      // espera o LinkedIn processar (até ~50 s; se ainda processando, posta assim mesmo)
+      for (let i = 0; i < 10; i++) {
+        const st = await fetch(`https://api.linkedin.com/rest/videos/${encodeURIComponent(value.video)}`, { headers: H }).then((r) => r.json()).catch(() => ({}));
+        if (st.status === "AVAILABLE") break;
+        if (st.status === "PROCESSING_FAILED") throw new Error("LinkedIn recusou o vídeo");
+        await new Promise((r) => setTimeout(r, 5000));
+      }
+      single = { media: { id: value.video, ...(m.title ? { title: m.title.slice(0, 200) } : {}) } };
+    } else throw new Error(`LinkedIn: tipo de mídia não suportado (${m.mime})`);
   }
-  const content = images.length === 1 ? { media: { id: images[0] } } : images.length > 1 ? { multiImage: { images: images.map((id) => ({ id })) } } : undefined;
+  if (single && images.length) throw new Error("LinkedIn: vídeo ou PDF vai sozinho, sem imagens junto");
+  const content = single ? single : images.length === 1 ? { media: { id: images[0] } } : images.length > 1 ? { multiImage: { images: images.map((id) => ({ id })) } } : undefined;
   const res = await fetch("https://api.linkedin.com/rest/posts", { method: "POST", headers: H, body: JSON.stringify({
     author, commentary: p.body.replace(/[\\|{}@\[\]()<>#*_~]/g, (c: string) => "\\" + c), visibility: "PUBLIC",
     distribution: { feedDistribution: "MAIN_FEED", targetEntities: [], thirdPartyDistributionChannels: [] }, ...(content ? { content } : {}), lifecycleState: "PUBLISHED", isReshareDisabledByAuthor: false }) });

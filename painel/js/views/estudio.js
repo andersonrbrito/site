@@ -4,6 +4,7 @@
 // e "Já usei" tira o vídeo da tela (fica guardado em payload.estudio_ok, recuperável em "Mostrar os já usados").
 import { h, fmtDateTime } from "../util.js";
 import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
+import { linkedinDialog, videoDaUrl } from "../linkedin.js?v=20261116a";
 import { pageHead, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261112f";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
@@ -100,7 +101,7 @@ export default async function estudio({ sb }) {
     const titulo = r.payload?.carrossel?.titulo || r.payload?.slug || "Carrossel";
     return h("article", { class: "panel st-row" + (usado(r) ? " st-usado" : "") },
       vids.length ? h("div", { class: "st-vids" }, ...vids.map((u) => h("figure", { class: "st-fig" + (formato(u).startsWith("Reel") ? "" : " st-wide") },
-        h("figcaption", { class: "mono" }, formato(u)), h("video", { src: u, controls: true, playsinline: true, preload: "metadata" }))))
+        h("figcaption", { class: "mono" }, formato(u)), h("video", { src: u, controls: true, playsinline: true, preload: "metadata" }), h("button", { class: "btn btn-ghost btn-sm", type: "button", style: { marginTop: "6px" }, onclick: () => linkedinDialog(sb, { titulo, legenda: r.payload?.carrossel?.legenda || "", origem: `estúdio ${r.payload?.slug || ""}`, prepare: videoDaUrl(sb, u, `${r.payload?.slug || "video"}-${formato(u).startsWith("Reel") ? "reel" : "x"}`) }) }, "LinkedIn"))))
         : h("div", { class: "st-media" }, h("div", { class: "st-wait" }, h("span", { class: `chip ${sc}` }, sl))),
       h("div", { class: "panel-body st-side" },
         h("b", { class: "st-title" }, titulo),

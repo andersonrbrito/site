@@ -3,6 +3,7 @@
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
 import { toast, pageHead, copiarTexto } from "../ui.js?v=20261112f";
+import { linkedinDialog } from "../linkedin.js?v=20261116a";
 import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
 
 const BUCKET = "anderson-os-arquivos";
@@ -122,6 +123,10 @@ export default async function aprovacoes({ sb, query, go }) {
   const agora = () => new Date().toISOString();
   const copiar = (t) => copiarTexto(t, "Legenda copiada.");
   // story não tem legenda pra postar: o texto é orientação interna e nunca vai pra área de transferência
+  // Vídeos do Fato Indigesto também vão pro LinkedIn: o robô pega o arquivo direto deste bucket.
+  const fatoIndigesto = (a) => a.perfil === "noticias" || /fatoindigesto/i.test(nome(a.perfil));
+  const liBtn = (a) => isVideo(a.arquivo) && fatoIndigesto(a) ? h("button", { class: "btn btn-ghost btn-sm", type: "button", title: "Posta ou agenda este vídeo no LinkedIn",
+    onclick: () => linkedinDialog(sb, { titulo: a.titulo || "", legenda: a.legenda || "", origem: `aprovações ${a.id}`, prepare: async () => ({ media: [{ path: a.arquivo, bucket: BUCKET, mime: "video/mp4", name: a.arquivo.split("/").pop() }] }) }) }, "LinkedIn") : null;
   const copiavel = (a) => (a.tipo === "story" ? null : a.legenda);
 
   // Mostra o 1º quadro (não fica tela preta). Com o link estável/cache, só baixa um pedaço do vídeo uma vez.
@@ -287,7 +292,7 @@ export default async function aprovacoes({ sb, query, go }) {
           a.sugestao_em ? h("div", { class: "ap-when" }, h("b", null, "Postar: ", fmtDateTime(a.sugestao_em)), a.sugestao_nota && h("span", { class: "muted small" }, a.sugestao_nota))
             : h("div", { class: "ap-when muted small" }, "sem sugestão de horário")),
         h("div", { class: "ap-actions" },
-          h("div", { class: "flex wrap" }, iphone(a), baixar(a), copiavel(a) && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(copiavel(a)) }, "Copiar legenda"), legendaIphone(a)),
+          h("div", { class: "flex wrap" }, iphone(a), baixar(a), copiavel(a) && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(copiavel(a)) }, "Copiar legenda"), legendaIphone(a), liBtn(a)),
           h("div", { class: "flex wrap" }, ...decisao))),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },

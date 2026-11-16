@@ -1,6 +1,7 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
 import { pageHead, alertBox, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261112f";
 import { CELULAR, ROTULO_GALERIA, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
+import { linkedinDialog, jpegsToPdf } from "../linkedin.js?v=20261116a";
 import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109c";
 
 // Carrosséis diários (identidade do site: escuro, vidro e verde Matrix) para o @ilmarlabs: 2 notícias + 2 educativos por dia.
@@ -500,6 +501,24 @@ function editor({ sb, go, c, data }) {
   leg.addEventListener("input", () => { st.legenda = leg.value; touch(); });
   const copiar = () => copiarTexto(st.legenda || "", "Legenda copiada.");
   const baixarTudo = h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: (e) => baixar(st.slides.map((_, i) => i), e.currentTarget) }, CELULAR ? "Salvar lâminas na galeria" : "Baixar lâminas");
+  // LinkedIn: lâminas viram PDF (o LinkedIn mostra como carrossel); lâmina com vídeo entra com o quadro atual.
+  const pdfLinkedIn = async (info_) => {
+    const jpgs = [];
+    for (let i = 0; i < st.slides.length; i++) {
+      info_(`Montando lâmina ${i + 1} de ${st.slides.length}…`);
+      const a = await assetsFor(sb, st.slides[i]);
+      const cv = Object.assign(document.createElement("canvas"), { width: W, height: H });
+      draw(cv.getContext("2d"), st.slides[i], i, a, info());
+      jpgs.push(await new Promise((r) => cv.toBlob(r, "image/jpeg", 0.9)));
+    }
+    info_("Subindo o PDF…");
+    const pdf = await jpegsToPdf(jpgs, W, H);
+    const path = `linkedin/${st.slug}-${Date.now()}.pdf`;
+    const { error } = await sb.storage.from(BUCKET).upload(path, pdf, { contentType: "application/pdf" });
+    if (error) throw error;
+    return { media: [{ path, mime: "application/pdf", size: pdf.size, name: `${st.slug}.pdf`, title: st.titulo }] };
+  };
+  const btnLinkedIn = h("button", { class: "btn btn-sm", type: "button", title: "Posta ou agenda este carrossel no LinkedIn (como PDF)", onclick: () => linkedinDialog(sb, { titulo: st.titulo, legenda: st.legenda || "", origem: `carrossel ${st.slug}`, prepare: pdfLinkedIn }) }, "LinkedIn");
   if (!data.dbOn) [titulo, leg].forEach((el) => { el.disabled = true; });
 
   buildStrip(); drawForm(); drawPedidos(); drawAjustes();
@@ -515,7 +534,7 @@ function editor({ sb, go, c, data }) {
       h("div", { class: "cz-acts" },
         h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Postar"), CELULAR ? null : iphone, h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: copiar }, "Copiar legenda"),
           PODE_COMPARTILHAR_TEXTO && st.legenda ? h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => compartilharTexto(st.legenda) }, CELULAR ? "Compartilhar legenda" : "Legenda por AirDrop") : null,
-          baixarTudo),
+          baixarTudo, btnLinkedIn),
         h("div", { class: "cz-grp" }, h("span", { class: "mono" }, "Criar"), h("button", { class: "btn btn-sm", type: "button", onclick: abrirAjuste }, "Pedir alteração"), h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: abrirVideo }, "Transformar em vídeo")))),
     ajusteBox,
     videoBox,
