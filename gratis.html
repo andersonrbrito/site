@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Grátis · Editar com Claude · Anderson Brito</title>
+<meta name="description" content="Prompts e ferramentas grátis para editar vídeo e animar em código com o Claude.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5/800.css">
+<style>
+:root{--bg:#0B0C0E;--g:#41FF8A;--gi:#03200F;--ink:#F2F2F7;--mu:#A1A6AA;--card:rgba(24,27,28,.74);--line:rgba(255,255,255,.09);--line2:rgba(255,255,255,.16);--f:"Open Sauce One",Inter,system-ui,sans-serif;--mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--f);background-image:radial-gradient(900px 500px at 50% -10%,rgba(65,255,138,.10),transparent 70%)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.vidro{background:var(--card);border:1px solid var(--line);border-radius:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.rot{font:600 13px var(--mono);color:var(--g);display:block;margin-bottom:10px}
+header.topo{padding:56px 0 26px}h1{font-size:clamp(32px,7vw,54px);line-height:1.05;margin:0 0 14px;font-weight:800;letter-spacing:-.02em}h1 em{font-style:normal;color:var(--g)}
+.sub{color:var(--mu);max-width:620px;margin:0}
+nav.ind{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0}nav.ind a{color:var(--ink);text-decoration:none;border:1px solid var(--line2);border-radius:999px;padding:8px 14px;font-size:14px}nav.ind a:hover{border-color:var(--g);color:var(--g)}
+section{padding:34px 0}h2{font-size:26px;margin:0 0 6px;font-weight:800}section>.wrap>p{color:var(--mu);margin:0 0 18px}
+.pr{padding:18px;margin-bottom:14px}.pr header{display:flex;align-items:center;gap:12px}.pr .n{font:700 13px var(--mono);color:var(--g)}.pr h3{margin:0;font-size:18px;flex:1}
+.cp{font:800 13px var(--f);background:var(--g);color:var(--gi);border:0;border-radius:10px;padding:9px 14px;cursor:pointer}.cp.ok{background:transparent;color:var(--g);outline:1px solid var(--g)}
+.q{color:var(--mu);font-size:14px;margin:10px 0 0}
+pre{white-space:pre-wrap;word-break:break-word;font:13.5px/1.6 var(--mono);color:#D5DAD7;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0 0;max-height:300px;overflow:auto}
+ul.fe{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+ul.fe a{display:block;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--ink);text-decoration:none;height:100%}ul.fe a:hover{border-color:var(--g)}ul.fe b{display:block;font-size:17px}ul.fe span{display:block;color:var(--mu);font-size:14px;margin:2px 0 8px}ul.fe code{font:12px var(--mono);color:var(--g);word-break:break-all}
+.loja{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.pd{padding:20px;display:flex;flex-direction:column;gap:8px}.pd h3{margin:0;font-size:19px}.pd p{margin:0;color:var(--mu);font-size:14.5px;flex:1}.pd .pc{font-weight:800;font-size:22px}.pd .pc s{color:var(--mu);font-weight:400;font-size:15px;margin-right:6px}
+.bt{display:inline-flex;justify-content:center;background:var(--g);color:var(--gi);font:800 15px var(--f);padding:13px 18px;border-radius:14px;text-decoration:none}.bt.f{background:transparent;color:var(--ink);border:1px solid var(--line2)}
+.pd.dest{border-color:rgba(65,255,138,.45)}
+footer{padding:30px 0 60px;color:var(--mu);font-size:14px}footer a{color:var(--ink)}
+</style>
+</head>
+<body>
+<header class="topo"><div class="wrap">
+<span class="rot">&gt; grátis</span>
+<h1>Edite e anime vídeo <em>conversando com o Claude</em></h1>
+<p class="sub">Aqui estão os prompts que eu uso, de graça. Copie, cole no Claude e troque o que estiver em MAIÚSCULAS ou entre colchetes.</p>
+<nav class="ind"><a href="#estilos">Estilos de animação</a><a href="#comecar">5 prompts para começar</a><a href="#ferramentas">10 ferramentas grátis</a><a href="#mais">Quer o resto?</a></nav>
+</div></header>
+
+<section id="estilos"><div class="wrap">
+<h2>10 estilos de animação</h2>
+<p>A mesma cena desenhada de 10 jeitos, com os prompts para copiar.</p>
+<a class="bt" href="/10estilos/">Abrir os 10 estilos</a>
+</div></section>
+
+<section id="comecar"><div class="wrap">
+<h2>5 prompts para sair do bruto até a primeira prévia</h2>
+<p>Na ordem em que eu uso.</p>
+<article class="pr vidro"><header><span class="n">01</span><h3>Preparar o computador</h3><button class="cp" type="button">Copiar</button></header><pre>Prepare este computador para eu editar vídeos com você. Verifique e instale o que faltar: FFmpeg e FFprobe (confira se o FFmpeg tem os filtros ass e drawtext, usados para legenda e texto), Python 3, um transcritor com tempo por palavra (faster-whisper) e Node.js. Antes de instalar cada coisa, me diga o que é e para que serve. No fim, me mostre a lista do que foi instalado e as versões.</pre></article><article class="pr vidro"><header><span class="n">02</span><h3>Transcrever o vídeo</h3><button class="cp" type="button">Copiar</button></header><pre>Extraia o áudio de brutos/NOME.mp4 e transcreva em português com tempo por palavra. Salve em render/NOME/ e me mostre só o texto corrido, com o tempo no começo de cada frase.</pre></article><article class="pr vidro"><header><span class="n">03</span><h3>Proposta de corte</h3><button class="cp" type="button">Copiar</button></header><pre>Analise a transcrição de brutos/NOME.mp4. Me mostre a proposta de corte em texto: o que sai, com tempo, duração e motivo (erro, repetição, silêncio), e o texto corrido do que fica. Só corte depois do meu OK.</pre></article><article class="pr vidro"><header><span class="n">04</span><h3>Legenda dentro da zona segura</h3><button class="cp" type="button">Copiar</button></header><pre>Coloque legenda no vídeo já cortado. De 1 a 3 palavras por vez, dentro da zona segura (nada nos 220 px de cima nem nos 300 px de baixo, até 840 px de largura). Antes de queimar, me mostre o texto da legenda para eu revisar.</pre></article><article class="pr vidro"><header><span class="n">05</span><h3>Gancho animado</h3><button class="cp" type="button">Copiar</button></header><pre>Crie uma animação para os 3 primeiros segundos: [DESCRIÇÃO, por exemplo &quot;o título &#x27;EDITADO POR IA&#x27; digitado letra a letra com cursor piscando&quot;]. Dentro da zona segura, determinística por tempo. Mande um quadro de cada segundo para eu aprovar antes de renderizar.</pre></article>
+</div></section>
+
+<section id="ferramentas"><div class="wrap">
+<h2>10 ferramentas grátis</h2>
+<p>Todas de código aberto. Você não precisa instalar na mão: peça para o Claude instalar e explicar cada uma.</p>
+<ul class="fe"><li><a href="https://github.com/FFmpeg/FFmpeg" target="_blank" rel="noopener"><b>FFmpeg</b><span>corta, junta e exporta o arquivo final</span><code>github.com/FFmpeg/FFmpeg</code></a></li><li><a href="https://github.com/browser-use/video-use" target="_blank" rel="noopener"><b>video-use</b><span>edição inteira por conversa</span><code>github.com/browser-use/video-use</code></a></li><li><a href="https://github.com/m-bain/whisperX" target="_blank" rel="noopener"><b>WhisperX</b><span>transcreve palavra por palavra</span><code>github.com/m-bain/whisperX</code></a></li><li><a href="https://github.com/remotion-dev/remotion" target="_blank" rel="noopener"><b>Remotion</b><span>vídeo feito em React</span><code>github.com/remotion-dev/remotion</code></a></li><li><a href="https://github.com/heygen-com/hyperframes" target="_blank" rel="noopener"><b>HyperFrames</b><span>o HTML do Claude vira vídeo</span><code>github.com/heygen-com/hyperframes</code></a></li><li><a href="https://github.com/greensock/GSAP" target="_blank" rel="noopener"><b>GSAP</b><span>linha do tempo de animação</span><code>github.com/greensock/GSAP</code></a></li><li><a href="https://github.com/ManimCommunity/manim" target="_blank" rel="noopener"><b>Manim</b><span>gráfico e diagrama animado</span><code>github.com/ManimCommunity/manim</code></a></li><li><a href="https://github.com/lemomo-ai/lemo-opuscar" target="_blank" rel="noopener"><b>lemo-opuscar</b><span>curtas em código em estilos prontos</span><code>github.com/lemomo-ai/lemo-opuscar</code></a></li><li><a href="https://github.com/mrdoob/three.js" target="_blank" rel="noopener"><b>three.js</b><span>3D direto no navegador</span><code>github.com/mrdoob/three.js</code></a></li><li><a href="https://github.com/bradautomates/claude-video" target="_blank" rel="noopener"><b>claude-video</b><span>o Claude assiste um vídeo e estuda</span><code>github.com/bradautomates/claude-video</code></a></li></ul>
+</div></section>
+
+<section id="mais"><div class="wrap">
+<h2>Quer o resto?</h2>
+<p>Se isso te ajudou, o material completo está aqui.</p>
+<div class="loja">
+<div class="pd vidro dest"><h3>Kit Editar com Claude</h3><p>E-book de 67 páginas, videoaula, 13 skills, os 103 prompts (com os 10 estilos) e o pacote de edição com 11 estilos de legenda, 15 de lettering e 298 ícones.</p><div class="pc" data-promo><s>R$97</s>R$57</div><a class="bt" href="/editar-com-claude.html">Ver o kit</a></div>
+<div class="pd vidro"><h3>Kit + packs de som</h3><p>O kit com o Pack Impacto (171 efeitos sonoros) ou com o Pack Estúdio. Dá para escolher na página do kit.</p><div class="pc">a partir de R$83</div><a class="bt f" href="/editar-com-claude.html">Ver os combos</a></div>
+<div class="pd vidro"><h3>Motion sob encomenda</h3><p>Se você prefere receber o vídeo pronto, eu faço o motion do seu negócio.</p><div class="pc">R$97</div><a class="bt f" href="/motion.html">Ver exemplos</a></div>
+</div>
+</div></section>
+
+<footer><div class="wrap">Feito por Anderson Brito · <a href="https://instagram.com/andersonbrito.mp4">@andersonbrito.mp4</a> · ANDR Studios</div></footer>
+<script>
+document.querySelectorAll('.cp').forEach(b=>b.onclick=async()=>{const t=b.closest('.pr').querySelector('pre').innerText;try{await navigator.clipboard.writeText(t)}catch(e){const r=document.createRange();r.selectNodeContents(b.closest('.pr').querySelector('pre'));const s=getSelection();s.removeAllRanges();s.addRange(r)}b.textContent='Copiado';b.classList.add('ok');setTimeout(()=>{b.textContent='Copiar';b.classList.remove('ok')},1600)});
+if(new Date()>new Date('2026-11-25T23:59:00-03:00'))document.querySelectorAll('[data-promo]').forEach(x=>x.textContent='R$97');
+</script>
+</body>
+</html>
