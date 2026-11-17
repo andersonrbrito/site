@@ -1,4 +1,5 @@
 import { h } from "../util.js";
+import promptsArea from "./prompts.js?v=20261117b";
 import { pageHead, alertBox, toast, copiarTexto } from "../ui.js?v=20261117a";
 import { CATS, SKILLS } from "../skills-data.js?v=20261108b";
 
@@ -26,9 +27,13 @@ function catalogo() {
   return out;
 }
 
-export default async function skills() {
+// SkillS_ tem duas áreas: Skills (catálogo) e Prompts (salvos no banco).
+export default async function skills(ctx) {
+  const aba = ctx.query.aba === "prompts" ? "prompts" : "skills";
+  const tab = (id, l) => h("button", { type: "button", class: "chip" + (aba === id ? " on" : ""), onclick: () => ctx.go(id === "skills" ? "/skills" : "/skills?aba=prompts") }, l);
   return h("div", { class: "page" },
-    h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca"), h("h1", null, "Skills"))),
-    h("p", { class: "muted hide-sm" }, "Skills do Claude, plugins e repositórios do GitHub. \"Uso\" = instalado no anderson_Os; \"Recomendo\" = vale instalar."),
-    catalogo());
+    h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca"), h("h1", null, "SkillS_"))),
+    h("div", { class: "mfilters" }, tab("skills", "Skills"), tab("prompts", "Prompts")),
+    aba === "prompts" ? await promptsArea(ctx)
+      : h("div", { class: "stack-lg" }, h("p", { class: "muted hide-sm" }, "Skills do Claude, plugins e repositórios do GitHub. \"Uso\" = instalado no anderson_Os; \"Recomendo\" = vale instalar."), catalogo()));
 }

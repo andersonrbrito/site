@@ -29,7 +29,6 @@ export const MODULES = [
   { id: "portfolios", label: "PortfólioS_", route: "portfolios", permission: "portfolios", enabled: true },
   { id: "financeiro", label: "FinanceirO_", route: "financeiro", permission: "financeiro", enabled: true, ownerOnly: true },
   { id: "skills", label: "SkillS_", route: "skills", permission: "prompts", enabled: true, ownerOnly: true },
-  { id: "prompts", label: "PromptS_", route: "prompts", permission: "prompts", enabled: true, ownerOnly: true },
   { id: "leads", label: "LeadS_", route: "leads", permission: "leads", enabled: true, primary: true, ownerOnly: true },
   { id: "trampos", label: "TrampoS_", route: "trampos", permission: "trampos", enabled: true, ownerOnly: true },
   { id: "youtube", label: "YT downloaD_", route: "youtube", permission: "youtube", enabled: true, ownerOnly: true },

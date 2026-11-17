@@ -6,12 +6,12 @@ const favicon = (url) => { try { return `https://www.google.com/s2/favicons?doma
 
 export default async function prompts({ sb, query, go, refresh }) {
   const { data, error } = await sb.from("prompts").select("id, kind, title, url, body, tags, version, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(500);
-  if (error) return h("div", { class: "page" }, pageHead("Prompts", "biblioteca"), alertBox("Não foi possível carregar os prompts salvos."));
+  if (error) return h("div", null, alertBox("Não foi possível carregar os prompts salvos."));
   const all = data || [];
   const f = ["link", "prompt"].includes(query.f) ? query.f : "todos";
   const q = (query.q || "").toLowerCase();
   const shown = all.filter((p) => (f === "todos" || p.kind === f) && (!q || `${p.title} ${p.body || ""} ${p.tags} ${p.url || ""}`.toLowerCase().includes(q)));
-  const nav = (patch) => { const p = new URLSearchParams({ ...(f !== "todos" && { f }), ...(q && { q }), ...patch }); [...p].forEach(([k, v]) => !v && p.delete(k)); go("/prompts" + (p.toString() ? "?" + p : "")); };
+  const nav = (patch) => { const p = new URLSearchParams({ ...(f !== "todos" && { f }), ...(q && { q }), ...patch }); [...p].forEach(([k, v]) => !v && p.delete(k)); go("/skills?aba=prompts" + (p.toString() ? "&" + p : "")); };
 
   let kind = "prompt";
   const titleIn = h("input", { class: "input", placeholder: "Título (ex.: retrato cinematográfico Seedream)", required: true, maxlength: 140 });
@@ -29,7 +29,7 @@ export default async function prompts({ sb, query, go, refresh }) {
     if (kind === "prompt" && !bodyIn.value.trim()) return toast("Cole o prompt.", { kind: "err" });
     const { error: err } = await sb.from("prompts").insert({ kind, title: titleIn.value.trim(), url: kind === "link" ? url : null, body: bodyIn.value.trim() || null, tags: tagsIn.value.trim() });
     if (err) return toast("Não foi possível salvar.", { kind: "err" });
-    toast("Salvo."); go("/prompts" + (kind === "link" ? "?f=link" : ""));
+    toast("Salvo."); go("/skills?aba=prompts" + (kind === "link" ? "&f=link" : ""));
   });
 
   const archive = async (p) => {
@@ -50,8 +50,7 @@ export default async function prompts({ sb, query, go, refresh }) {
   searchIn.addEventListener("keydown", (e) => { if (e.key === "Enter") nav({ q: searchIn.value.trim() }); });
   const chip = (id, label) => h("button", { type: "button", class: "chip" + (f === id ? " on" : ""), onclick: () => nav({ f: id === "todos" ? "" : id }) }, label, h("sup", null, id === "todos" ? all.length : all.filter((p) => p.kind === id).length));
 
-  return h("div", { class: "page" },
-    h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca"), h("h1", null, "Prompts"))),
+  return h("div", { class: "stack-lg" },
     h("div", { class: "flex" }, h("div", { class: "mono sectitle grow" }, "PROMPTS E SITES SALVOS"),
       h("button", { class: "btn btn-sm", type: "button", onclick: () => { form.hidden = !form.hidden; if (!form.hidden) titleIn.focus(); } }, "+ Novo")),
     form,
