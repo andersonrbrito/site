@@ -70,7 +70,7 @@ footer{padding:30px 0 60px;color:var(--mu);font-size:14px}footer a{color:var(--i
 <footer><div class="wrap">Feito por Anderson Brito · <a href="https://instagram.com/andersonbrito.mp4">@andersonbrito.mp4</a> · ANDR Studios</div></footer>
 <script>
 document.querySelectorAll('.cp').forEach(b=>b.onclick=async()=>{const t=b.closest('.pr').querySelector('pre').innerText;try{await navigator.clipboard.writeText(t)}catch(e){const r=document.createRange();r.selectNodeContents(b.closest('.pr').querySelector('pre'));const s=getSelection();s.removeAllRanges();s.addRange(r)}b.textContent='Copiado';b.classList.add('ok');setTimeout(()=>{b.textContent='Copiar';b.classList.remove('ok')},1600)});
-if(new Date()>new Date('2026-11-25T23:59:00-03:00'))document.querySelectorAll('[data-promo]').forEach(x=>x.textContent='R$97');
+(function(){var n=Date.now(),T=function(x){return new Date(x+'-03:00').getTime()},a=n<=T('2026-11-25T23:59:59'),c=n>T('2026-11-26T20:00:00')&&n<=T('2026-11-28T23:59:59'),fim=n>T('2026-11-30T23:59:59'),z='<span class="pz" style="display:block;font-size:13.5px;font-weight:400">';document.querySelectorAll('[data-promo]').forEach(function(x){x.innerHTML=fim?'Vendas encerradas'+z+'o kit ficou à venda só em novembro</span>':(a||c)?'<s>R$97</s>R$57'+z+'Black Friday até '+(a?'25/11':'28/11')+' · kit à venda só até 30/11</span>':'R$97'+z+'à venda só até 30/11</span>'})})();
 </script>
 </body>
 </html>
