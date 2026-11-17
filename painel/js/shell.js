@@ -1,6 +1,6 @@
 import { h, fmtDateTime } from "./util.js";
 import { icon, toast } from "./ui.js";
-import { visibleModules } from "./modules.js?v=20261106f";
+import { visibleModules } from "./modules.js?v=20261117a";
 import { SOCIALS, AIS, iconLink } from "./links.js";
 import { HREF } from "./views/busca.js";
 

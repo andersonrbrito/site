@@ -2,7 +2,7 @@
 // legenda com botão de copiar, e as decisões: Aprovar, Pedir ajuste (com comentário), Reprovar, Marcar publicado.
 // Os agentes leem a decisão e o comentário pela tabela aprovacoes; reenvio volta para "pendente" e acende o ponto.
 import { h, fmtDateTime } from "../util.js";
-import { toast, pageHead, copiarTexto } from "../ui.js?v=20261112f";
+import { toast, pageHead, copiarTexto } from "../ui.js?v=20261117a";
 import { linkedinDialog } from "../linkedin.js?v=20261116a";
 import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
 

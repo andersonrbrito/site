@@ -5,7 +5,7 @@
 import { h, fmtDateTime } from "../util.js";
 import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
 import { linkedinDialog, videoDaUrl } from "../linkedin.js?v=20261116a";
-import { pageHead, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261112f";
+import { pageHead, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261117a";
 
 const MP4 = /\/painel\/carrosseis\/[\w./-]+\.mp4/g;
 const ST = { aberto: ["na fila", "warn"], gerando: ["gerando", "accent"], feito: ["pronto", "ok"], cancelado: ["cancelado", ""] };

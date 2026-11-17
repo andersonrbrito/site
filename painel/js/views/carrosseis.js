@@ -1,5 +1,5 @@
 import { h, todayISO, addDaysISO, fmtDate, fmtDateTime } from "../util.js";
-import { pageHead, alertBox, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261112f";
+import { pageHead, alertBox, toast, copiarTexto, compartilharTexto, PODE_COMPARTILHAR_TEXTO } from "../ui.js?v=20261117a";
 import { CELULAR, ROTULO_GALERIA, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
 import { linkedinDialog, jpegsToPdf } from "../linkedin.js?v=20261116a";
 import { W, H, loadFonts, loadImage, loadVideo, draw, recordVideoSlide, PERFIL } from "../carrossel-render.js?v=20261109c";

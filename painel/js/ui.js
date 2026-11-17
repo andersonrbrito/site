@@ -16,6 +16,7 @@ const P = {
   youtube: "M3 7a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3zM10 9l5 3-5 3z",
   social: "M4 4h16v12H8l-4 4zM8 9h8M8 12h5",
   prompts: "M4 6h16M4 12h10M4 18h7M17 14l3 3-3 3",
+  skills: "M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8l5.5-.8z",
   setup: "M3 5h18v11H3zM8 20h8M12 16v4",
   financeiro: "M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6",
   desempenho: "M4 19h16M6 15l4-5 4 3 5-7",

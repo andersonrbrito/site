@@ -5,7 +5,7 @@
 // ajudante local do Mac, que devolve o arquivo para o banco de mídia e atualiza a linha. Ver docs/GERADOR.md.
 // Nada aqui dispara geração paga: a página só grava o pedido.
 import { h, fmtDateTime } from "../util.js";
-import { pageHead, toast, copiarTexto } from "../ui.js?v=20261112f";
+import { pageHead, toast, copiarTexto } from "../ui.js?v=20261117a";
 import { ajudante, despachar, estado, cancelar, chaveDe, patchDoJob } from "../gerador-exec.js?v=20261111a";
 import { PROVEDORES, MODELOS, FERRAMENTAS_AUDIO, VOZES, LIGADAS } from "../gerador-data.js?v=20261117c";
 import {
