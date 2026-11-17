@@ -69,3 +69,26 @@
 - Feito e testado no harness: aba Pesquisas com filtros por pesquisa/cidade/status, script por segmento (igreja ou negócio), botões Direct (copia o script e abre ig.me), WhatsApp (wa.me com texto, abre o WhatsApp Business), E-mail (mailto com assunto e texto), mover status e "Pedir nova pesquisa" (`claude_requests` kind `pesquisa_leads`).
 - Migration `20261109000039_prospects_pesquisas.sql`: tabela `prospects` (RLS leads, sem DELETE), `agent_write` aceita `prospects` (só insert, sempre novo), carga inicial de 118 contatos (leads-5-cidades.md + igrejas de 09/11). `npm test` 39/39.
 - **Pendente:** rodar a 0039 no SQL Editor; criar a rotina `leads-pesquisas` (prompt em `leads/ROTINA-PESQUISAS.md`).
+
+## GeradoR_ (2026-11-11, nome provisório)
+- Só interface, com dados falsos no harness (`dev/harness.html?on=gerador#/gerador`). Módulo `enabled:false`, fora do menu em produção.
+- Não executa nada: nenhum provedor é chamado. Plano de execução por provedor em `docs/GERADOR.md`, aguardando OK do Anderson.
+- Migration 0040 (`geracoes`) escrita e não aplicada. Sem ela a página mostra o aviso para rodar a migration.
+- Catálogo (`js/gerador-data.js`) veio de documentação pública em 2026-11-11; itens com `conf: "parcial"` ou `"ver"` precisam de conferência na interface logada (lista Unlimited do Magnific, vozes do ElevenLabs, opções do ChatGPT e do Grok no site).
+- Testes: `dev/tests/gerador.test.js` (55 testes do painel passando).
+
+### ForjadoR_ (ex-GeradoR_, 2026-11-11, execução)
+- Nome provisório trocado para ForjadoR_ (Anderson não gostou de GeradoR_; escolher definitivo).
+- Execução construída só para Magnific pelo Chrome (Unlimited): `tools/yt-helper/gerador.py`, rotas `/gerar`, `/gerar/cancelar`, `/midia/<id>`, `js/gerador-exec.js`. Testada com Claude falso; nenhuma geração real, nenhum crédito gasto.
+- Pendente do Anderson: rodar migration 0040, reiniciar o ajudante (LaunchAgent yt-helper), autorizar teste real. Módulo segue `enabled:false`.
+- Catálogo: 75 modelos (47 vídeo, 13 imagem, 15 áudio). Real Oficial confirmado; Kie/fal/Kinovi bloqueados (sem plano). Detalhes em `docs/GERADOR.md`.
+
+### ForjadoR_: Kinovi pela API (2026-11-17)
+- `kinovi:api` ligado no ajudante e no catálogo (Seedance 2.0 Mini/Fast/Pro, Nano Banana 2, GPT Image 2). Chave no Keychain. Montagem dos pedidos e autenticação testadas; nenhuma geração paga feita.
+- Magnific pelo Chrome: teste real parou porque o Magnific estava deslogado no Browser 1 (contato). Prompt corrigido para o Browser 1.
+
+### ForjadoR_ ligado (2026-11-17)
+- Nome definitivo ForjadoR_. Migration 0040 aplicada pelo Anderson. Módulo `enabled:true`, só dono.
+- Primeira geração real pelo Magnific Unlimited (Nano Banana 2, 1K) salva no banco de mídia. O Chrome do contato é escolhido pelo deviceId (o nome Browser 1/2 troca entre sessões).
+- Link direto do Magnific dá 403: o ajudante usa o arquivo baixado pelo Chrome quando o link falha. Esse caminho ainda não foi repetido do começo ao fim.
+- Kinovi: chave no Keychain, saldo 0; geração paga só com OK.

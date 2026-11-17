@@ -182,6 +182,6 @@
 - Migration 0040 (tabela geracoes) escrita, NÃO aplicada. Execução ainda não existe: plano em docs/GERADOR.md, aguardando OK.
 - Harness: `?on=<id>` liga módulo desligado só no teste.
 
-## 2026-11-11: ForjA_ (execução)
-- GeradoR_ vira ForjA_ (provisório). Execução pelo ajudante do Mac para Magnific pelo Chrome (Unlimited), sem prévia no Supabase.
+## 2026-11-11: ForjadoR_ (execução)
+- GeradoR_ vira ForjadoR_ (provisório). Execução pelo ajudante do Mac para Magnific pelo Chrome (Unlimited), sem prévia no Supabase.
 - Catálogo: Real Oficial (vídeo, imagem, XABLAU, Real Fantasia, voz), voz Anderson Brito, Kie/fal/Kinovi bloqueados. 75 modelos.

@@ -8,6 +8,7 @@ Usa yt-dlp + ffmpeg. Use apenas para vídeos seus ou que você tem direito de ba
 """
 import json, os, subprocess, threading, uuid, shutil, re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import gerador
 
 PORT = 8765
 OUT = os.path.expanduser("~/Downloads/YouTube")
@@ -124,11 +125,50 @@ class H(BaseHTTPRequestHandler):
         self.cors()
         self.end_headers()
 
+    def midia(self, job_id):
+        # prévia da galeria: <img>/<video> não mandam Origin, então esta rota só serve arquivo pronto do banco de mídia, pelo id do pedido
+        caminho, mime = gerador.midia(job_id)
+        if not caminho:
+            return self.reply(404, {"error": "não encontrado"})
+        tam = os.path.getsize(caminho)
+        ini, fim = 0, tam - 1
+        m = re.match(r"bytes=(\d*)-(\d*)", self.headers.get("Range", ""))
+        if m and (m.group(1) or m.group(2)):
+            ini = int(m.group(1)) if m.group(1) else max(0, tam - int(m.group(2)))
+            fim = min(int(m.group(2)), tam - 1) if m.group(1) and m.group(2) else tam - 1
+        if ini > fim:
+            self.send_response(416)
+            self.end_headers()
+            return
+        self.send_response(206 if m else 200)
+        self.send_header("Content-Type", mime)
+        self.send_header("Accept-Ranges", "bytes")
+        self.send_header("Content-Length", str(fim - ini + 1))
+        if m:
+            self.send_header("Content-Range", f"bytes {ini}-{fim}/{tam}")
+        self.end_headers()
+        with open(caminho, "rb") as f:
+            f.seek(ini)
+            falta = fim - ini + 1
+            while falta > 0:
+                bloco = f.read(min(1 << 20, falta))
+                if not bloco:
+                    break
+                try:
+                    self.wfile.write(bloco)
+                except (BrokenPipeError, ConnectionResetError):
+                    return
+                falta -= len(bloco)
+
     def do_GET(self):
+        if self.path.startswith("/midia/"):
+            return self.midia(self.path[7:].split("?")[0])
         if not self.allowed():
             return
         if self.path == "/ping":
-            return self.reply(200, {"ok": True, "folder": OUT})
+            return self.reply(200, {"ok": True, "folder": OUT, "gerar": gerador.caminhos()})
+        if self.path.startswith("/job/") and self.path[5:] in gerador.JOBS:
+            return self.reply(200, gerador.JOBS[self.path[5:]])
         if self.path.startswith("/job/"):
             job = JOBS.get(self.path[5:])
             return self.reply(200 if job else 404, job or {"error": "não encontrado"})
@@ -144,9 +184,13 @@ class H(BaseHTTPRequestHandler):
                 JOBS[job_id] = {"id": job_id, "status": "verificando"}
                 threading.Thread(target=run_magnific, args=(job_id,), daemon=True).start()
                 return self.reply(200, {"job": job_id})
+            if self.path == "/gerar":
+                return self.reply(*gerador.criar(body))
+            if self.path == "/gerar/cancelar":
+                return self.reply(*gerador.cancelar(str(body.get("id") or "")))
             if self.path == "/reveal":
                 path = body.get("path") or ""
-                if path.startswith(OUT) and os.path.exists(path):
+                if (path.startswith(OUT) or path.startswith(gerador.BANCO + os.sep)) and os.path.exists(path):
                     subprocess.run(["open", "-R", path])
                     return self.reply(200, {"ok": True})
                 return self.reply(404, {"error": "arquivo não está mais na pasta"})

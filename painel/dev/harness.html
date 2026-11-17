@@ -3,5 +3,9 @@
 <script type="module">
   import { installMock } from "./mock-supabase.js"; import { CONFIG } from "../js/config.js";
   installMock(); CONFIG.supabaseUrl = "http://mock"; CONFIG.publishableKey = "mock";
+  // módulos ainda desligados (enabled:false) podem ser abertos no harness com ?on=<id>[,<id>] (ex.: harness.html?on=gerador#/gerador)
+  const on = (new URLSearchParams(location.search).get("on") || "").split(",").filter(Boolean);
+  if (on.length) { const src = await (await fetch("../js/app.js")).text(), spec = src.match(/from "(\.\/modules\.js[^"]*)"/)?.[1] || "./modules.js";
+    const { MODULES } = await import("../js/" + spec.slice(2)); MODULES.forEach((m) => { if (on.includes(m.id)) m.enabled = true; }); }
   await import("../js/app.js");
 </script></body></html>
