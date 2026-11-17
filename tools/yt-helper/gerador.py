@@ -26,7 +26,7 @@ LIGADOS = {"magnific:chrome": {"tools": "mcp__claude-in-chrome__*", "chrome": Tr
 # Kinovi: API paga por uso (1 crédito = US$ 0,005). Chave só no Keychain do macOS:
 #   security add-generic-password -U -a kinovi -s anderson-os-gerador -w
 KINOVI = "https://kinovi.ai/api/v1"
-KINOVI_MODELOS = {"seedance-2-0-mini": ("seedance2.0-mini", "seedance"), "seedance-2-0-fast": ("seedance2-fast", "seedance"), "seedance-2-0-pro": ("seedance-20", "seedance"),
+KINOVI_MODELOS = {"seedance-2-0-mini": ("seedance2.0-mini", "seedance"), "seedance-2-0-fast": ("seedance2-fast", "seedance"), "seedance-2-0-pro": ("seedance-20", "seedance"), "seedance-2-5-pro": ("seedance2-5", "seedance"),
                   "nano-banana-2": ("nanobanana2", "imagem"), "gpt-image-2-kinovi": ("gpt-image-2", "imagem")}
 ID_OK = re.compile(r"^[0-9a-f-]{8,40}$", re.I)
 MAX_ANEXO = 200 * 1024 * 1024
@@ -125,7 +125,9 @@ def kinovi_inputs(ped, urls):
     res = op.get("res") or "720p"
     if res not in ("480p", "720p"):
         raise RuntimeError("pelo painel o Kinovi só gera vídeo em 480p ou 720p")
-    inp.update(outputResolution=res, duration=int(str(op.get("dur") or "5").split()[0]), generate_audio=bool(op.get("som")))
+    inp.update(outputResolution=res, duration=int(str(op.get("dur") or "5").split()[0]))
+    if modelo != "seedance2-5":  # o 2.5 não tem esse campo na documentação do Kinovi
+        inp["generate_audio"] = bool(op.get("som"))
     imgs = [u["url"] for u in sorted((u for u in urls if u.get("tipo") == "imagem"), key=lambda u: u.get("papel") == "fim")]
     if imgs:
         inp["imageUrls"] = imgs

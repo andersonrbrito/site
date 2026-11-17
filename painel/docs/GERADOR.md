@@ -18,7 +18,7 @@
 
 ## Travas
 - Só conexões em `LIGADOS` (ajudante) e `LIGADAS` (página) executam. Hoje: `magnific:chrome` e `kinovi:api`.
-- Kinovi (2026-11-17): API paga por uso, chave só no Keychain do Mac (`security add-generic-password -U -a kinovi -s anderson-os-gerador -w`). Ligados: Seedance 2.0 Mini, Fast e Pro (480p e 720p), Nano Banana 2 (2K e 4K) e GPT Image 2. Anexos sobem para o próprio Kinovi (24 h). A API não cancela tarefa em andamento.
+- Kinovi (2026-11-17): API paga por uso, chave só no Keychain do Mac (`security add-generic-password -U -a kinovi -s anderson-os-gerador -w`). Ligados: Seedance 2.0 Mini, Fast e Pro e Seedance 2.5 (480p e 720p; o 2.5 até 30 s, sem geração real ainda), Nano Banana 2 (2K e 4K) e GPT Image 2. Anexos sobem para o próprio Kinovi (24 h). A API não cancela tarefa em andamento.
 - Kie.ai e fal.ai: sem conta nem plano (decisão adiada). Ficam no catálogo como referência e a página bloqueia o envio.
 - Uma geração por pedido, sem repetir sozinho. Nunca compra, troca de plano ou apaga.
 - Higgsfield fora do catálogo. Vozes da WooB fora da lista.

@@ -88,8 +88,6 @@ const VIDEO = [
   v("seedance-2-0-mini", "Seedance", "Seedance 2.0 Mini", [T2V, I2V, FLF, REFV(15, MIX)], [res(["480p", "720p"], "720p"), propT(S7), dur(seg(4, 15), "5 s"), som(true)], [magM, magC()], { conf: "ok" }),
   v("seedance-1-5-pro", "Seedance", "Seedance 1.5 Pro", [T2V, I2V, FLF], [res(R480, "720p"), propT(S6), dur(seg(4, 12), "5 s"), som(false)],
     [magC("Unlimited em 480p e 720p só aparece em página antiga: conferir."), fal(), kie()], { conf: "ok" }),
-  v("seedance-1-0-pro", "Seedance", "Seedance 1.0 Pro", [T2V, I2V, FLF], [res(R480, "720p"), propT(S6), dur(seg(2, 12), "5 s")], [fal(), kie()], { conf: "ok", obs: "Sem áudio." }),
-  v("seedance-1-0-lite", "Seedance", "Seedance 1.0 Lite", [T2V, I2V], [res(["480p", "720p"], "720p"), propT(S6), dur(["5 s", "10 s"])], [fal()], { conf: "ver", obs: "Não li o schema: opções a conferir." }),
 
   // ---- Wan (Alibaba)
   v("wan-3-0", "Wan", "Wan 3.0", [T2V, I2V, FLF, REFV(20, MIX)], [res(R480, "720p"), propT(W5), dur(seg(2, 30), "5 s"), som(true)], [magM, magC()], { conf: "ok", obs: "Até 10 imagens, 5 vídeos e 5 áudios de referência." }),
@@ -211,7 +209,7 @@ const RO9 = ["1:1", "16:9", "9:16", "4:5", "5:4", "4:3", "3:4", "3:2", "2:3"];
 const RO_VIAS = {
   "seedance-2-0-mini": ["6 a 13 créditos por segundo.", ["480p", "720p"]], "seedance-2-0-fast": ["12 a 25 créditos por segundo.", ["480p", "720p"]],
   "seedance-2-0-pro": ["29 a 61 créditos por segundo.", ["480p", "720p"]], "seedance-2-5-pro": ["43 a 94 créditos por segundo.", ["480p", "720p"]],
-  "seedance-1-0-pro": ["10 a 20 créditos por segundo.", ["480p", "720p"]], "kling-3-0": ["43 créditos por segundo (63 com áudio).", ["720p"]],
+  "kling-3-0": ["43 créditos por segundo (63 com áudio).", ["720p"]],
   "kling-3-0-omni": ["43 a 57 créditos por segundo. Sem imagem inicial, até 7 referências.", ["720p"]], "kling-4-0": ["63 créditos por segundo em 720p.", ["720p"]],
   "wan-3-0": ["26 a 51 créditos por segundo.", ["480p", "720p"]], "wan-2-2": ["20 créditos por segundo. Só 5 s em 16:9.", ["720p"], ["5 s"]],
   "minimax-h3": ["22 créditos por segundo.", ["768p"], ["5 s", "10 s"]], "veo-3-1-fast": ["63 créditos por segundo. Áudio sempre ligado, sem imagem inicial.", ["720p"], ["4 s", "8 s"]],
@@ -238,8 +236,9 @@ AUDIO.push(aud("ro-voz", "Real Oficial", "tts", "Voz e áudio (Real Oficial)", [
 // ---- Kinovi (API paga; preços do site em 2026-11-17). Pelo painel: vídeo só em 480p e 720p.
 const kin = (obs, so) => ({ prov: "kinovi", caminho: "api", custo: "pago", obs, so });
 const K5 = ["1:1", "4:3", "3:4", "16:9", "9:16"];
-const KIN_VIDEO = { "seedance-2-0-mini": "US$ 0,021 por segundo em 480p, US$ 0,057 em 720p.", "seedance-2-0-fast": "US$ 0,050 por segundo em 480p, US$ 0,099 em 720p.", "seedance-2-0-pro": "US$ 0,071 por segundo em 480p, US$ 0,188 em 720p." };
-for (const m of VIDEO) if (KIN_VIDEO[m.id]) m.via.push(kin(KIN_VIDEO[m.id] + " Com vídeo de referência custa cerca de 20% a mais.", { res: ["480p", "720p"], prop: S6 }));
+const KIN_VIDEO = { "seedance-2-0-mini": "US$ 0,021 por segundo em 480p, US$ 0,057 em 720p.", "seedance-2-0-fast": "US$ 0,050 por segundo em 480p, US$ 0,099 em 720p.", "seedance-2-0-pro": "US$ 0,071 por segundo em 480p, US$ 0,188 em 720p.",
+  "seedance-2-5-pro": "26 créditos por segundo em 480p (US$ 0,12), 59 em 720p (US$ 0,27). Com vídeo de referência: 16 e 35 por segundo, contando entrada e saída." };
+for (const m of VIDEO) if (KIN_VIDEO[m.id]) m.via.push(kin(KIN_VIDEO[m.id] + (m.id === "seedance-2-5-pro" ? "" : " Com vídeo de referência custa cerca de 20% a mais."), { res: ["480p", "720p"], prop: S6 }));
 IMAGEM.find((m) => m.id === "nano-banana-2").via.push(kin("US$ 0,071 por imagem em 2K, US$ 0,118 em 4K.", { res: ["2K", "4K"], prop: K5, qtd: ["1"] }));
 IMAGEM.push(img("gpt-image-2-kinovi", "ChatGPT", "GPT Image 2 (Kinovi)", [T2I, EDIT(10)],
   [res(["1K", "2K", "4K"], "1K"), prop(K5), { id: "nivel", nome: "Qualidade", valores: ["low", "medium", "high"], padrao: "low" }],

@@ -7,7 +7,7 @@
 import { h, fmtDateTime } from "../util.js";
 import { pageHead, toast, copiarTexto } from "../ui.js?v=20261112f";
 import { ajudante, despachar, estado, cancelar, chaveDe, patchDoJob } from "../gerador-exec.js?v=20261111a";
-import { PROVEDORES, MODELOS, FERRAMENTAS_AUDIO, VOZES, LIGADAS } from "../gerador-data.js?v=20261117a";
+import { PROVEDORES, MODELOS, FERRAMENTAS_AUDIO, VOZES, LIGADAS } from "../gerador-data.js?v=20261117c";
 import {
   TIPOS, ATIVOS, STATUS, ORDENS, ROTULO_CUSTO, tipoDoArquivo, proximoApelido, mencaoNoCursor, aplicarMencao, conexoes, opcoesDe,
   valoresIniciais, avisosDeGasto, alturaDe, validar, nomePadrao, fmtTamanho, filtrar, ordenar,
