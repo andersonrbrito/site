@@ -1,0 +1,43 @@
+{
+ "slug": "rampa-de-velocidade-no-corte",
+ "dia": "2026-11-17",
+ "tipo": "educativo",
+ "titulo": "Rampa de velocidade: o corte que faz parecer edição de clipe",
+ "perfil": "@ilmarlabs",
+ "legenda": "Rampa de velocidade é acelerar e desacelerar o clipe dentro da mesma cena: começa normal, dispara no meio e volta a cair. O olho sente a energia sem você trocar de plano.\n\nReceita rápida: corta o clipe em três, deixa o miolo bem rápido (2x a 4x), as pontas mais lentas, e casa o ponto mais veloz com a batida da música. O segredo é ligar o motion blur na parte acelerada, senão fica tremido e seco.\n\nSalva pra testar no próximo corte e manda pra quem edita contigo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo (técnica de edição: speed ramp). Hook gerado no ChatGPT (motociclista com motion blur, avenida noturna, verde Matrix sutil). Lâminas 2 a 5 em texto (passo a passo da técnica). Lâmina 6 reutiliza o hook. Sem política. CTA KIT até 23/11.",
+ "slides": [
+  {
+   "texto": "**Rampa de velocidade.**\n\nO truque de corte que faz um clipe comum parecer edição de videoclipe.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rampa-de-velocidade-no-corte/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O que é: acelerar e desacelerar o clipe **dentro da mesma cena**.\n\nComeça normal, dispara a velocidade no meio e volta a cair. O olho sente a energia sem você trocar de plano."
+  },
+  {
+   "texto": "Onde ela brilha:\n\nna transição entre dois planos, na hora que a música estoura, ou pra encurtar um movimento chato (alguém andando, virando, levantando da cadeira)."
+  },
+  {
+   "texto": "A receita: corta o clipe em **3 partes**.\n\nMiolo bem rápido (2x a 4x), as pontas mais lentas. Casa o ponto mais veloz com a batida. No app isso é a curva de velocidade ou o \"time remap\".",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O segredo que quase ninguém liga: o **motion blur**.\n\nSem desfoque de movimento na parte rápida, a aceleração fica tremida e seca. Com ele, a rampa fica lisa e cara de profissional."
+  },
+  {
+   "texto": "Salva pra testar no teu próximo corte e manda pra quem edita contigo.\n\n**Você já usa rampa de velocidade ou corta tudo na velocidade normal?**\n\nSe você edita vídeo e quer usar IA no dia a dia: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rampa-de-velocidade-no-corte/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

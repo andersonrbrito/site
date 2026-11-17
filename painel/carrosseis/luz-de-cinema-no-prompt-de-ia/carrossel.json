@@ -1,0 +1,53 @@
+{
+ "slug": "luz-de-cinema-no-prompt-de-ia",
+ "dia": "2026-11-17",
+ "tipo": "educativo",
+ "titulo": "Luz de cinema no prompt: a palavra que tira a cara de IA do vídeo",
+ "perfil": "@ilmarlabs",
+ "legenda": "A mesma pessoa, a mesma câmera, e a imagem muda de figura só pela luz que você descreve no prompt.\n\nQuando você não fala da luz, a IA entrega tudo chapado, sem sombra, com cara de foto de documento. Pra ter cara de cinema, descreva a fonte, a direção e a hora: \"contraluz quente atrás da cabeça, luz lateral marcando o rosto, hora dourada, sombras ricas\".\n\nTem um prompt pronto pra copiar lá no carrossel.\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo (técnica de prompt de luz pra vídeo/imagem com IA). Hook e lâminas geradas no ChatGPT na estética do site (mesma mulher, antes chapado x depois cinema, verde Matrix sutil). Lâmina 1: comparação antes/depois. Lâmina 2: o lado chapado (problema). Lâmina 3: o lado cinema (solução). Lâmina 4: prompt copiável no texto. Lâmina 6: reutiliza o antes/depois. Sem política. CTA KIT até 23/11.",
+ "slides": [
+  {
+   "texto": "**A mesma pessoa, a mesma câmera.**\n\nSó muda uma coisa no prompt: a luz. E o resultado deixa de ter cara de IA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luz-de-cinema-no-prompt-de-ia/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Quando você não fala da luz, a IA entrega isso: tudo iluminado igual, sem sombra, **cara de foto de documento**.\n\nTá nítido, mas é chapado e sem clima.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luz-de-cinema-no-prompt-de-ia/03-antes.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Agora a mesma cena pedindo luz de cinema: contraluz quente, uma lateral marcando o rosto, sombra de verdade.\n\nMesmo rosto, outra **sensação**. Isso que separa amador de cinematográfico.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luz-de-cinema-no-prompt-de-ia/02-depois.jpg",
+    "foco": 0.4
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "A receita é falar três coisas: **fonte + direção + hora**.\n\nExemplo pra copiar: \"retrato com contraluz quente atrás da cabeça, luz lateral suave marcando o rosto, hora dourada, sombras ricas, clima de filme\"."
+  },
+  {
+   "texto": "Por que funciona: você tira a decisão da luz da mão da IA.\n\n\"Contraluz\" cria o recorte no cabelo. \"Luz lateral\" dá volume no rosto. \"Hora dourada\" puxa o tom quente. Sem isso, ela chapa tudo no automático."
+  },
+  {
+   "texto": "Salva esse print pra colar no teu próximo prompt e manda pra quem edita contigo.\n\n**Você descreve a luz nos seus prompts ou deixa a IA escolher?**\n\nSe você edita vídeo e quer usar IA no dia a dia: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/luz-de-cinema-no-prompt-de-ia/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

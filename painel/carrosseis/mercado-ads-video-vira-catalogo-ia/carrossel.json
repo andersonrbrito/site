@@ -1,0 +1,63 @@
+{
+ "slug": "mercado-ads-video-vira-catalogo-ia",
+ "dia": "2026-11-17",
+ "tipo": "noticia",
+ "titulo": "Mercado Ads: seu vídeo de produto vira anúncio sozinho",
+ "perfil": "@ilmarlabs",
+ "legenda": "O Mercado Ads (do Mercado Livre) lançou o Video Catalog Ads: a IA pega os vídeos de produto que o vendedor já postou e monta catálogos de anúncio dinâmicos, já valendo pra Black Friday.\n\nO clique leva pra uma página de catálogo no Mercado Livre, e a rede estendida distribui em mais de 60 mil sites e apps na América Latina. Pra quem edita vídeo de e-commerce, dá pra entrar nessa com um bom vídeo-base.\n\nVídeo de produto montado por IA tira ou cria serviço pra quem edita?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Meio e Mensagem e Propmark (11/11/2026). Dados de conversão informados pelo Mercado Ads.",
+ "fontes": [
+  {
+   "titulo": "Meio e Mensagem: Mercado Ads estreia anúncios em vídeo no Mercado Livre",
+   "url": "https://www.meioemensagem.com.br/marketing/mercado-ads-estreia-anuncios-em-video-no-mercado-livre"
+  },
+  {
+   "titulo": "Propmark: Mercado Ads lança Video Catalog Ads para a Black Friday",
+   "url": "https://propmark.com.br/?p=136756"
+  }
+ ],
+ "notas": "Pauta: novidade de IA/mídia do Brasil (Mercado Ads, 11/11/2026), confirmada em Meio e Mensagem + Propmark. Recorte pro público dele (marcas, infoprodutores, quem edita vídeo de e-commerce). Lâmina 1: hook gerado no ChatGPT (vitrine de Black Friday, etiquetas em R$, estética do site). Lâmina 2: print da matéria do Meio e Mensagem. Lâmina 3: imagem gerada no ChatGPT (o vídeo do vendedor virando cards de catálogo). Lâminas 4 e 5 sem ilustração nesta rodada (texto). Lâmina 6: reutiliza o hook. Número de conversão (38%) é claim do Mercado Ads, sinalizado como tal. Sem política.",
+ "slides": [
+  {
+   "texto": "O Mercado Livre soltou um formato que pega o **vídeo que o vendedor já postou** e transforma em anúncio pronto pra Black Friday.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mercado-ads-video-vira-catalogo-ia/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Chama Video Catalog Ads.\n\nA IA do Mercado Ads monta **catálogos de produto em vídeo** e entrega pra quem tem mais cara de comprar. Saiu dia 11/11, já valendo na Black Friday.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mercado-ads-video-vira-catalogo-ia/02-print.jpg",
+    "foco": 0.3,
+    "credito": "print: Meio e Mensagem"
+   }
+  },
+  {
+   "texto": "O pulo do gato: ela usa os **vídeos orgânicos que a loja já tem** e junta com preço, promoção e frete atualizados.\n\nSem refilmar nada.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mercado-ads-video-vira-catalogo-ia/03-ia.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "E não fica só dentro do app.\n\nA rede estendida joga esse vídeo em **mais de 60 mil sites e apps** na América Latina, mirando gente ligada a 136 milhões de compradores do Mercado Livre.",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Do jeito que eu vejo: o vídeo orgânico virou mídia paga sem custo de produção. O que decide agora é **quem faz o vídeo-base ser bom**.\n\nA empresa fala em conversão 38% maior com vídeo, mas o número é deles, então vou com o pé atrás."
+  },
+  {
+   "texto": "Pra quem edita vídeo de produto, isso abre uma porta boa de trabalho na Black Friday.\n\n**Vídeo de e-commerce feito por IA tira ou cria serviço pra quem edita?**\n\nSe você edita vídeo e quer usar IA no dia a dia: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mercado-ads-video-vira-catalogo-ia/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

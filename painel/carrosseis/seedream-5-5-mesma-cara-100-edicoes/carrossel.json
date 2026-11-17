@@ -1,0 +1,90 @@
+{
+ "slug": "seedream-5-5-mesma-cara-100-edicoes",
+ "dia": "2026-11-17",
+ "tipo": "noticia",
+ "titulo": "Seedream 5.5: editar a mesma imagem 100 vezes sem perder a cara",
+ "perfil": "@ilmarlabs",
+ "legenda": "A ByteDance lançou o Seedream 5.5, o novo modelo de imagem deles. A promessa: editar a mesma imagem até 100 vezes mantendo o personagem, com fundo transparente nativo e texto bem mais legível.\n\nPra quem cria vídeo e personagem com IA, consistência sempre foi o maior perrengue. Se funcionar como mostram, muda o jogo. Mas os números são da própria empresa, sem teste de fora, e o lançamento ainda é limitado.\n\nVocê confia na IA pra fechar um personagem ou ainda prefere refazer na mão?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: ByteDance Seed (blog oficial) e The Decoder. Rollout limitado (Doubao, Jimeng, Volcengine); números informados pela ByteDance.",
+ "fontes": [
+  {
+   "titulo": "ByteDance Seed: Introducing Seedream 5.5 (blog oficial)",
+   "url": "https://seed.bytedance.com/en/blog/more-realistic-images-more-stable-editing-across-100-rounds-introducing-seedream-5-5"
+  },
+  {
+   "titulo": "The Decoder: Seedream 5.5 promises pixel-stable editing across 100 rounds",
+   "url": "https://the-decoder.com/bytedances-seedream-5-5-promises-pixel-stable-image-editing-across-100-rounds-without-color-drift/"
+  },
+  {
+   "titulo": "The Next Web: ByteDance Seedream 5.5 can edit one image 100 times",
+   "url": "https://thenextweb.com/news/bytedance-seedream-5-5-image-editing-100-rounds"
+  }
+ ],
+ "notas": "Pauta: novidade de IA fresca (ByteDance Seed, ~09/11/2026) confirmada no blog oficial do Seed + The Decoder + The Next Web. Lâmina 1: hook gerado no ChatGPT na estética do site (a mesma pessoa em vários looks, verde Matrix). Lâminas 2 a 7: imagens oficiais da ByteDance (demos de realismo, personagem, usos por setor, texto e benchmark; a 7 é a demo cinematográfica do carro 55). Os números (100 edições, 0,4% de erro de texto, comparativos) são claims da própria ByteDance, sem teste independente; rollout limitado a Doubao, Jimeng e Volcengine. Sem política.",
+ "slides": [
+  {
+   "texto": "A ByteDance soltou o Seedream 5.5 e a promessa é forte: editar a mesma imagem **100 vezes sem o personagem mudar de cara**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/01-hook.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O Seedream 5.5 é o novo modelo de imagem da ByteDance, a mesma do Seedance.\n\nEle gera foto realista e, segundo a empresa, **mantém o que você não mexeu** igualzinho a cada edição.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/02-realismo.jpg",
+    "foco": 0.5,
+    "credito": "imagem: ByteDance"
+   }
+  },
+  {
+   "texto": "Na prática: você troca a roupa, o fundo e os objetos, uma edição atrás da outra, e **o rosto continua o mesmo**.\n\nPra quem monta personagem com IA, isso sempre foi o maior perrengue.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/03-personagem.jpg",
+    "foco": 0.4,
+    "credito": "imagem: ByteDance"
+   }
+  },
+  {
+   "texto": "Tem mais: ele exporta imagem com **fundo transparente** nativo, ótimo pra montar lâmina e motion sem recorte na mão.\n\nE a ByteDance mostra ele forte em e-commerce, marketing e Film & TV.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/04-usos.jpg",
+    "foco": 0.5,
+    "credito": "imagem: ByteDance"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Outro ponto que pesa pra vídeo: o **texto dentro da imagem** saiu bem mais legível.\n\nNos testes da própria empresa, a taxa de erro grave de texto caiu pra 0,4%.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/05-texto.jpg",
+    "foco": 0.5,
+    "credito": "imagem: ByteDance"
+   }
+  },
+  {
+   "texto": "Do jeito que eu vejo, consistência de personagem era o que mais travava a edição com IA. Se isso funcionar mesmo, encurta muito o caminho.\n\nMas vale frear: os números são da **própria ByteDance**, sem teste de fora, e o lançamento ainda é limitado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/06-benchmark.jpg",
+    "foco": 0.5,
+    "credito": "imagem: ByteDance"
+   }
+  },
+  {
+   "texto": "Por enquanto é promessa de demonstração, não milagre. Vou testar antes de confiar.\n\n**Consistência de personagem com IA finalmente resolveu?** Ou você ainda apanha pra manter o mesmo rosto?\n\nSe você edita vídeo e quer usar IA no dia a dia: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/seedream-5-5-mesma-cara-100-edicoes/07-cinema.jpg",
+    "foco": 0.5,
+    "credito": "imagem: ByteDance"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

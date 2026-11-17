@@ -1,0 +1,4 @@
+Carrossel EDUCATIVO — Luz de cinema no prompt. @ilmarlabs. 2026-11-17.
+01-hook.jpg: ChatGPT — comparacao antes/depois, a mesma mulher brasileira, lado esquerdo luz chapada (documento) x lado direito luz de cinema (contraluz quente, hora dourada), verde Matrix sutil, sem texto.
+02-depois.jpg: recorte da metade direita (cinema). 03-antes.jpg: recorte da metade esquerda (chapado).
+Tecnica ensinada: descrever fonte + direcao + hora da luz no prompt.
