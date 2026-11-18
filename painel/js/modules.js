@@ -5,6 +5,7 @@
  */
 export const MODULES = [
   { id: "dashboard", label: "PaineL_", route: "", permission: "tarefas", enabled: true, primary: true, ownerOnly: false },
+  { id: "kitbf", label: "KIT BF", route: "kitbf", permission: "produtos", enabled: true, primary: true, ownerOnly: true },
   { id: "aprovacoes", label: "AprovaçõeS_", route: "aprovacoes", permission: "aprovacoes", enabled: true, primary: true },
   { id: "postador", label: "PostadoR_", route: "postador", permission: "postador", enabled: true, primary: true },
   { id: "miner", label: "MineR_", route: "miner", permission: "miner", enabled: true, primary: true },
