@@ -1,0 +1,83 @@
+{
+ "slug": "trailer-de-gta-no-seu-reel",
+ "dia": "2026-11-18",
+ "tipo": "educativo",
+ "perfil": "@andrstudios",
+ "titulo": "O corte que faz seu reel parecer o trailer de GTA VI",
+ "legenda": "Toda vez que sai trailer da Rockstar, a galera sente o mesmo arrepio. E dá pra levar esse ritmo pro seu reel.\n\nO truque é o corte no FLASH em cima da batida: cada plano forte entra bem no tempo da música, com 2 frames de branco e um grave seco no corte. Fecha com a cor quente de Vice City (laranja + teal).\n\nÉ o tipo de montagem que eu faço editando com IA no Claude, do roteiro ao corte. Salva o passo a passo e manda pra quem edita contigo.\n\nVocê corta no olho ou marcando a batida na linha do tempo?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Rockstar Games — Grand Theft Auto VI (referência de estética, imagens oficiais)",
+   "url": "https://www.rockstargames.com/VI"
+  }
+ ],
+ "notas": "Educativo de EDIÇÃO (técnica), tema GTA VI pra pegar o hype do lançamento. Ilustrado com screenshots OFICIAIS da Rockstar (o 'look de trailer' que a gente emula), creditadas. Leva ao Kit Editar com Claude. Sem política.",
+ "slides": [
+  {
+   "texto": "Sabe o arrepio do **trailer de GTA**?\n\nDá pra colocar esse ritmo no seu reel. Te mostro o corte.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/01-hook.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Passo 1: escolha **4 a 6 planos fortes**.\n\nPode ser b-roll seu ou gerado por IA. Cada plano precisa ter um 'uau' de 1 segundo, nada morno.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/02-broll.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Passo 2: marque a **batida da música**.\n\nCada corte entra exatamente no tempo. É a batida que dá a sensação de trailer, não o efeito.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/03-batida.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Passo 3: o segredo é o **corte no flash**.\n\n2 frames de branco no corte + um grave seco (bass hit). O olho pisca e o próximo plano já entra na batida.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/04-flash.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 4: a **cor de Vice City**.\n\nPuxa o laranja nas luzes e o teal na sombra. Aquele quente de Miami anos 80 que todo trailer da Rockstar tem.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/05-cor.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Passo 5: fecha no **título/logo** na última batida.\n\nSilêncio de meio segundo antes, pra bater com força. É o que faz parecer um trailer de verdade.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/06-sfx.jpg",
+    "foco": 0.35,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Pronto: seu reel com cara de trailer.\n\n**Você corta no olho ou marcando a batida?**\n\nSalva o passo a passo e manda pra quem edita contigo.\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/trailer-de-gta-no-seu-reel/07-fim.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

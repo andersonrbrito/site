@@ -1,0 +1,86 @@
+{
+ "slug": "gta-vi-falso-com-ia-viraliza",
+ "dia": "2026-11-18",
+ "tipo": "noticia",
+ "perfil": "@andrstudios",
+ "titulo": "A IA passou o ano recriando GTA VI (e a Rockstar começou a derrubar)",
+ "legenda": "Na véspera do lançamento, dá pra olhar pra trás: a IA passou 2026 inteiro recriando GTA VI. Teve 'vazamento' e 'gameplay' que enganaram muita gente.\n\nUm desses 'vazamentos' passou de 8 milhões de views e, depois, o próprio autor assumiu que era tudo feito por IA. A Rockstar e a Take-Two começaram a derrubar os virais por direito autoral. Só que é enxugar gelo: tira um, aparecem dez.\n\nEu uso IA todo dia e amo. Mas, do jeito que vejo, tem diferença entre homenagem assumida e passar IA como se fosse real. Posso estar errado.\n\nVocê consegue diferenciar o que é IA do que é real?\n\nSe você cria com IA e quer fazer do jeito certo: Comenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: games.gg e Player.One.",
+ "fontes": [
+  {
+   "titulo": "games.gg — AI GTA 6 'slop' racks up millions of views on social",
+   "url": "https://games.gg/news/ai-gta6-slop-millions-views-social/"
+  },
+  {
+   "titulo": "Player.One — Viral 'GTA 6' leak exposed as AI fake, creator admits misleading millions",
+   "url": "https://www.player.one/viral-gta-6-leak-exposed-ai-fake-creator-admits-misleading-millions-161681"
+  }
+ ],
+ "notas": "Pauta: véspera do GTA VI (19/11) + fenômeno real de 2026 de conteúdo de GTA VI feito por IA. Fatos conferidos em games.gg e Player.One/NME: 'vazamento' viral passou de 8 milhões de views e o autor admitiu ser IA; Take-Two/Rockstar passaram a emitir DMCA contra os virais. Datas tratadas como fenômeno de 2026 (sem cravar 'ontem') pra não enganar. Lâmina 1: hook gerado no ChatGPT (feed 'é real ou é IA', estética cinema verde Matrix); lâminas 2 a 7: screenshots OFICIAIS da Rockstar, creditadas (o jogo de verdade, pra contrastar com os fakes descritos no texto). Sem política.",
+ "slides": [
+  {
+   "texto": "A internet passou o ano inteiro inventando **GTA VI** com IA.\n\nE muita gente caiu.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Antes do jogo sair, rolou 'vazamento', 'gameplay' e cena nova quase toda semana.\n\nUm desses 'vazamentos' passou de **8 milhões de views**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/02-vazamento.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "O detalhe? Era **tudo IA**.\n\nDepois de enganar meio mundo, o próprio autor assumiu que tinha gerado por inteligência artificial. (A imagem aqui é o jogo real, da Rockstar.)",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/03-eratudoia.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "A Rockstar e a Take-Two não curtiram.\n\nComeçaram a **derrubar** os virais por direito autoral, com notificações de DMCA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/04-rockstar.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Só que derrubar é **enxugar gelo**.\n\nTira um do X, aparecem dez no TikTok e no Insta, onde a moderação é mais lenta.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/05-enxugagelo.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Eu uso IA todo dia e acho sensacional.\n\nMas, do jeito que vejo, tem diferença entre **homenagem assumida** e passar IA como se fosse vazamento real. O rótulo resolve quase tudo. Posso estar errado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/06-opiniao.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Amanhã o jogo de verdade sai e dá pra comparar.\n\n**Você diferencia IA de real?**\n\nSe você cria com IA e quer fazer do jeito certo:\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-falso-com-ia-viraliza/07-fim.jpg",
+    "foco": 0.35,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

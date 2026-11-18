@@ -1,0 +1,87 @@
+{
+ "slug": "gta-vi-lancamento-amanha",
+ "dia": "2026-11-18",
+ "tipo": "noticia",
+ "perfil": "@andrstudios",
+ "titulo": "GTA VI sai amanhã (a maior onda de conteúdo do ano)",
+ "legenda": "Amanhã, 19/11, sai GTA VI. Depois de 12 anos, a Rockstar volta pra Vice City.\n\nLançamento à meia-noite no seu horário, no PS5 e no Xbox Series X|S, uns 212 GB de download. No Brasil, R$ 449 na edição padrão e R$ 549,90 na ultimate. No começo é só digital: disco físico e versão de PC só em 2027.\n\nPra quem cria conteúdo, essa é a maior onda do ano. Eu vou editar bastante coisa em cima disso essa semana.\n\nVocê joga no dia 1 ou espera baixar com calma? E em qual plataforma?\n\nSe você edita vídeo e quer usar IA no dia a dia: Comenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: Rockstar Games (site oficial) e Forbes.",
+ "fontes": [
+  {
+   "titulo": "Rockstar Games — Grand Theft Auto VI (site oficial)",
+   "url": "https://www.rockstargames.com/VI"
+  },
+  {
+   "titulo": "Forbes — GTA VI release date, time, download size and day-one update",
+   "url": "https://www.forbes.com/sites/erikkain/2026/11/16/gta-6-release-date-time-ps5-xbox-series-x-download-size-day-one-update/"
+  }
+ ],
+ "notas": "Pauta: lançamento de GTA VI em 19/11 (confirmado no site oficial da Rockstar + Forbes). Todas as lâminas usam screenshots OFICIAIS da Rockstar (press media do rockstargames.com/VI), creditadas. Preço BR (R$449/R$549,90) e 212 GB conforme anotações do dia 17/11; data, plataformas e janela digital/PC/físico pela Rockstar e Forbes. Sem política.",
+ "slides": [
+  {
+   "texto": "Amanhã sai o jogo mais esperado da década.\n\nDepois de 12 anos, **GTA VI chegou.**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/01-hook.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "A Rockstar volta pra **Vice City**.\n\nLança 19/11, à meia-noite no seu horário, no PS5 e no Xbox Series X|S.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/02-vicecity.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "No Brasil: **R$ 449** na edição padrão e R$ 549,90 na ultimate.\n\nSão uns 212 GB de download. O pré-load já tá liberado desde o dia 10.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/03-lucia.jpg",
+    "foco": 0.35,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Um detalhe pegou muita gente: no lançamento é **só digital**.\n\nMídia física (aquele disco) só em 2027. A versão de PC também ficou pra 2027.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/04-digital.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O mapa é o maior que eles já fizeram: dizem que é quase **3x o de Red Dead 2**.\n\nDois protagonistas, Jason e Lucia, numa história que lembra Bonnie e Clyde.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/05-mapa.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Pra quem cria conteúdo, isso aqui é ouro.\n\nVai ser semana de GTA em todo lugar: meme, react, edit, teoria. **A maior onda do ano** pra pegar com vídeo e IA.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/06-onda.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Eu vou editar bastante coisa em cima disso essa semana.\n\nVocê joga no dia 1 ou espera baixar os 212 GB? **E em qual plataforma?**\n\nSe você edita vídeo e quer surfar essa onda com IA:\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-lancamento-amanha/07-fim.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "slug": "sua-rua-vira-vice-city-prompt",
+ "dia": "2026-11-18",
+ "tipo": "educativo",
+ "perfil": "@andrstudios",
+ "titulo": "Transforme a sua rua em Vice City (o prompt tá aqui)",
+ "legenda": "Com o GTA VI saindo amanhã, dá pra fazer a sua própria rua virar Vice City em 1 prompt.\n\nO segredo não é o cenário, é a LUZ: pôr do sol rosa e laranja, neon e contraste de cinema, mantendo as placas reais da sua rua (a padaria, o boteco).\n\nO prompt completo tá na lâmina, é só copiar e jogar no ChatGPT com a foto. Salva pra usar no próximo vídeo e manda pra quem edita contigo.\n\nQual bairro você ia transformar primeiro?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Rockstar Games — Grand Theft Auto VI (referência de estética, imagens oficiais)",
+   "url": "https://www.rockstargames.com/VI"
+  }
+ ],
+ "notas": "Educativo tema GTA VI (lançamento 19/11). Lâmina 1: hero gerado no ChatGPT (rua de bairro brasileiro com 'PADARIA' e 'BAR DO ZÉ' no clima de Vice City, por do sol, cena BR em PT-BR). Lâminas 2 a 7 (menos a 6): screenshots OFICIAIS da Rockstar como REFERÊNCIA de clima/luz, creditadas. Prompt completo e copiável na lâmina 4 (não promete material grátis no comentário; o convite é o Kit). Sem política.",
+ "slides": [
+  {
+   "texto": "A sua rua pode virar **isso aqui** com 1 prompt de IA.\n\n(sim, dá pra entrar em Vice City sem esperar o jogo)",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/01-hook.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O clima que a gente quer é esse: **Vice City**.\n\nLuz quente, neon, palmeira, pôr do sol. É pra onde o GTA VI volta amanhã.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/02-clima.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "A chave não é o cenário, é a **LUZ e a cor**.\n\nPôr do sol rosa e laranja, reflexo molhado no chão e contraste de cinema. É isso que vende o clima.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/03-luz.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "O prompt (é só copiar e jogar no ChatGPT com a foto da sua rua):\n\n\"Transforme esta foto da minha rua numa cena de GTA VI / Vice City: pôr do sol rosa e laranja, luz neon, palmeiras, luz de cinema e contraste alto, mantendo as placas e os prédios reais da rua. Imagem horizontal 16:9, fotorrealista, todo texto em português do Brasil.\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/04-prompt.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Dica que faz diferença: peça pra **manter as placas reais** (a padaria, o boteco) e o texto em português.\n\nÉ o que deixa a cena 'a sua rua', e não uma Miami genérica.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/05-dica.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Erro comum: pedir demais e **perder a sua rua**.\n\nVai no capricho da luz e segura os detalhes reais. Menos é mais aqui.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/06-erros.jpg",
+    "foco": 0.35,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Agora é sua vez.\n\n**Qual bairro você transformaria primeiro?**\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo.\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sua-rua-vira-vice-city-prompt/07-fim.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
