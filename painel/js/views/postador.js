@@ -60,23 +60,25 @@ export function nextSlot(posts, network, settings, now = Date.now()) {
 export default async function postador(ctx) {
   const { sb, query, go, refresh } = ctx;
   if (query.aba === "insights") { go("/desempenho"); return h("div"); }
-  const aba = ["fila", "historico", "radar", "pedidos"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
+  const aba = ["fila", "artx", "artli", "historico", "radar", "pedidos"].includes(query.aba) ? query.aba : query.aba === "calendario" ? "historico" : "fila";
   // Novo post: abre o editor vazio; só vira rascunho no banco quando você escrever algo.
   const novo = query.novo === "x" || query.novo === "linkedin" ? query.novo : null;
 
   const [postsR, setR] = await Promise.all([
-    sb.from("posts").select("id, network, title, body, notes, media, image_urls, status, scheduled_at, posted_at, external_url, error, is_viral_bet, version, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(400),
+    sb.from("posts").select("id, kind, article_id, network, title, body, notes, media, image_urls, status, scheduled_at, posted_at, external_url, error, is_viral_bet, version, created_at").is("archived_at", null).order("created_at", { ascending: false }).limit(400),
     sb.from("postador_settings").select("key, value"),
   ]);
   if (postsR.error) return h("div", { class: "page" }, pageHead("Postador", "X e LinkedIn"), alertBox("Não foi possível carregar os posts. Atualize a página."));
-  const posts = postsR.data || [];
+  const todos = postsR.data || [];
+  const posts = todos.filter((p) => p.kind !== "artigo");
+  const artigos = todos.filter((p) => p.kind === "artigo");
   const settings = { x_daily_limit: 10, x_slots: ["11:30"], linkedin_slots: ["13:30"], x_read_daily_limit: 40, ...Object.fromEntries((setR.data || []).map((r) => [r.key, r.value])) };
   const profile = { ...PROFILE_DEFAULT, ...(settings.profile || {}) };
   const today = todayISO();
   const xToday = posts.filter((p) => p.network === "x" && p.status === "posted" && p.posted_at && spDay(p.posted_at) === today).length;
   const cloudOn = !!settings.publisher_active;
 
-  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"]];
+  const TABS = [["fila", "Rascunhos", "M4 5h16v14H4zM8 9h8M8 13h5"], ["artx", "Artigos X", "M6 3h9l4 4v14H6zM9 12h7M9 16h7M9 8h3"], ["artli", "Artigos LinkedIn", "M6 3h9l4 4v14H6zM9 12h7M9 16h7M9 8h3"], ["historico", "Histórico", "M12 7v5l3 2M4 12a8 8 0 1 0 2.5-5.8M4 4v4h4"], ["radar", "Radar", "M12 21a9 9 0 1 1 0-18 9 9 0 0 1 0 18zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM12 12l6-6"], ["pedidos", "Pedir posts", "M4 5h16v11H8l-4 4zM8 10h8"]];
   const tabIcon = (d) => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.setAttribute("width", "20"); s.setAttribute("height", "20"); s.setAttribute("fill", "none"); s.setAttribute("stroke", "currentColor"); s.setAttribute("stroke-width", "1.8"); s.setAttribute("stroke-linecap", "round"); s.setAttribute("stroke-linejoin", "round"); const pa = document.createElementNS("http://www.w3.org/2000/svg", "path"); pa.setAttribute("d", d); s.append(pa); return s; };
   const pending = posts.filter((p) => p.status === "pending").length;
   const brand = h("div", { class: "pbrand" },
@@ -86,13 +88,14 @@ export default async function postador(ctx) {
     h("span", { class: "mono" }, `X hoje ${xToday}/${settings.x_daily_limit}`),
     h("span", { class: "meter" }, h("b", { style: { width: `${Math.min(100, (xToday / settings.x_daily_limit) * 100)}%` } })),
     h("a", { class: "btn btn-sm", href: "#/postador?novo=x" }, "+ X"), h("a", { class: "btn btn-ghost btn-sm", href: "#/postador?novo=linkedin" }, "+ LinkedIn"));
-  const tabs = h("nav", { class: "pbig" }, ...TABS.map(([id, l, d]) => h("a", { href: `#/postador?aba=${id}`, class: aba === id ? "on" : "" }, tabIcon(d), h("span", null, l), id === "fila" && pending ? h("b", null, pending) : null)));
+  const tabs = h("nav", { class: "pbig" }, ...TABS.map(([id, l, d]) => h("a", { href: `#/postador?aba=${id}`, class: aba === id ? "on" : "" }, tabIcon(d), h("span", null, l), id === "fila" && pending ? h("b", null, pending) : (id === "artx" || id === "artli") && artigos.filter((a) => a.status === "pending" && a.network === (id === "artx" ? "x" : "linkedin")).length ? h("b", null, artigos.filter((a) => a.status === "pending" && a.network === (id === "artx" ? "x" : "linkedin")).length) : null)));
   const warn = !cloudOn && h("p", { class: "note" }, "Publicação automática na nuvem ainda não ativada: você já pode revisar, editar e aprovar, mas nada sai até ligarmos as chaves do X no Supabase.");
 
   let body;
   if (aba === "historico") body = calendarView(posts, query, go, settings);
   else if (aba === "radar") body = await radarView(sb, query, go, refresh);
   else if (aba === "pedidos") body = await requestsView(sb, refresh);
+  else if (aba === "artx" || aba === "artli") body = await artigosView({ sb, query, refresh, artigos, posts, net: aba === "artx" ? "x" : "linkedin" });
   else body = await queueView({ sb, query, go, refresh, posts, settings, profile, today, novo });
   return h("div", { class: "page postador" }, brand, tabs, warn, body);
 }
@@ -147,7 +150,7 @@ const netBadge = (n) => h("span", { class: "netb n-" + n }, n === "x" ? "X" : "i
 
 async function signedUrls(sb, media) {
   const out = {};
-  await Promise.all((media || []).map(async (m) => { const { data } = await sb.storage.from(BUCKET).createSignedUrl(m.path, 3600); if (data) out[m.path] = data.signedUrl; }));
+  await Promise.all((media || []).map(async (m) => { const { data } = await sb.storage.from(m.bucket || BUCKET).createSignedUrl(m.path, 3600); if (data) out[m.path] = data.signedUrl; }));
   return out;
 }
 
@@ -259,7 +262,7 @@ async function editorView({ sb, p, posts, settings, profile, go, refresh, qs, on
       const { data: ja } = await sb.from("claude_requests").select("id, status").eq("kind", "carrossel_novo").in("status", ["aberto", "gerando"]).eq("payload->>post_id", p.id).limit(1);
       if (ja?.length) return toast("Este rascunho já está na fila do CarrosseL_.");
       const midia = [];
-      for (const m of p.media || []) { const { data: d } = await sb.storage.from(BUCKET).createSignedUrl(m.path, 7 * 86400); if (d) midia.push({ url_assinada: d.signedUrl, mime: m.mime, nome: m.name }); }
+      for (const m of p.media || []) { const { data: d } = await sb.storage.from(m.bucket || BUCKET).createSignedUrl(m.path, 7 * 86400); if (d) midia.push({ url_assinada: d.signedUrl, mime: m.mime, nome: m.name }); }
       const payload = { origem: "postador", post_id: p.id, rede: p.network, titulo: p.title || null, texto: p.body, midia, tipo: "auto" };
       const { error } = await sb.from("claude_requests").insert({ kind: "carrossel_novo", payload });
       if (error) return toast(/check constraint/i.test(error.message) ? "O banco ainda não aceita este pedido: rode a migration 0029 no Supabase." : "Não enviou: " + error.message, { kind: "err" });
@@ -673,3 +676,70 @@ async function requestsView(sb, refresh) {
     !(data || []).length && h("p", { class: "empty" }, "Nenhum pedido ainda."));
 }
 
+
+// ───────────────────────── Artigos (X e LinkedIn) ─────────────────────────
+// Artigo extenso, só educativo. Não passa pelo robô: o botão cria um pedido e o Claude publica pelo Chrome.
+const EDITOR_ART = { x: "https://x.com/compose/articles", linkedin: "https://www.linkedin.com/article/new/" };
+async function artigosView({ sb, query, refresh, artigos, posts, net }) {
+  const aba = net === "x" ? "artx" : "artli";
+  const lista = artigos.filter((a) => a.network === net && a.status !== "rejected");
+  const sel = lista.find((a) => a.id === query.id) || lista.find((a) => a.status === "pending") || lista[0];
+  const { data: reqs } = await sb.from("claude_requests").select("id, status, result_note, payload, created_at, done_at").eq("kind", "artigo_postar").is("archived_at", null).order("created_at", { ascending: false }).limit(60);
+  const reqDe = (id) => (reqs || []).find((r) => r.payload?.post_id === id);
+  const card = (a) => h("a", { class: "pcard" + (a.id === sel?.id ? " sel" : ""), href: `#/postador?aba=${aba}&id=${a.id}` },
+    h("div", { class: "pc-top" }, netBadge(a.network), h("span", { class: "pill " + a.status }, a.status === "posted" ? "Publicado" : reqDe(a.id)?.status === "aberto" || reqDe(a.id)?.status === "gerando" ? "Na fila do Claude" : "Rascunho"), h("span", { class: "muted" }, fmtDateTime(a.created_at))),
+    h("div", { class: "pc-t" }, a.title || "(sem título)"), h("div", { class: "pc-x" }, `${a.body.split(/\s+/).filter(Boolean).length} palavras`));
+  const listBox = h("div", { class: "qlist" }, lista.length ? lista.map(card) : h("p", { class: "empty" }, "Nenhum artigo ainda. A rotina das 5h gera um por dia."));
+  if (!sel) return h("div", { class: "qgrid" }, listBox, h("div", { class: "qeditor" }, h("div", { class: "placeholder" }, h("p", null, "Sem artigo selecionado"))));
+
+  const urls = await signedUrls(sb, sel.media);
+  const capa = (sel.media || []).find((m) => m.mime?.startsWith("image/"));
+  let version = sel.version;
+  const tIn = h("input", { class: "input", value: sel.title, placeholder: "Título manchete" });
+  const ta = h("textarea", { class: "input", rows: 22, style: { width: "100%", fontFamily: "inherit", lineHeight: "1.55" } }, sel.body);
+  const salvar = async () => {
+    const { data, error } = await sb.from("posts").update({ title: tIn.value, body: ta.value }).eq("id", sel.id).eq("version", version).select("version").maybeSingle();
+    if (error || !data) return toast("Não salvou (alguém editou antes). Atualize a página.", { kind: "err" });
+    version = data.version; sel.title = tIn.value; sel.body = ta.value; toast("Salvo.");
+  };
+  const req = reqDe(sel.id);
+  const pedir = async (btn) => {
+    await salvar();
+    btn.disabled = true;
+    const capaUrl = capa ? (await sb.storage.from(capa.bucket || BUCKET).createSignedUrl(capa.path, 7 * 86400)).data?.signedUrl : null;
+    const { error } = await sb.from("claude_requests").insert({ kind: "artigo_postar", payload: { post_id: sel.id, rede: net, titulo: tIn.value, editor: EDITOR_ART[net], capa_url: capaUrl || null } });
+    if (error) { btn.disabled = false; return toast("Não deu: " + error.message, { kind: "err" }); }
+    toast("Pedido enviado. O Claude publica pelo Chrome e avisa aqui."); refresh();
+  };
+  const setStatus = async (status, msg) => {
+    const { error } = await sb.from("posts").update({ status, ...(status === "posted" && { posted_at: new Date().toISOString() }) }).eq("id", sel.id).eq("version", version);
+    if (error) return toast("Não deu: " + error.message, { kind: "err" }); toast(msg); refresh();
+  };
+  // pedido concluído com link: marca o artigo como publicado sozinho
+  if (req?.status === "feito" && sel.status === "pending") setStatus("posted", "Artigo publicado pelo Claude.");
+  const divul = posts.filter((p) => p.article_id === sel.id);
+  const ed = h("div", { class: "panel" }, h("div", { class: "panel-body" },
+    h("div", { class: "ped-top" }, netBadge(net), h("span", { class: "mono muted" }, net === "x" ? "Artigo do X" : "Artigo do LinkedIn"), h("div", { class: "grow" }),
+      h("a", { class: "btn btn-ghost btn-sm", href: EDITOR_ART[net], target: "_blank", rel: "noopener" }, "Abrir editor ↗")),
+    capa ? h("div", null, h("img", { src: urls[capa.path] || "", alt: "Capa", style: { width: "100%", borderRadius: "8px", border: "1px solid var(--line-2)", marginBottom: "10px" } }),
+      urls[capa.path] && h("a", { class: "mono", href: urls[capa.path], download: "capa.jpg", target: "_blank" }, "Baixar capa ↗")) : h("p", { class: "note" }, "Sem capa ainda."),
+    h("label", { class: "mono muted" }, "Título"), tIn,
+    h("label", { class: "mono muted", style: { marginTop: "10px", display: "block" } }, "Texto"), ta,
+    sel.notes && h("p", { class: "muted small", style: { whiteSpace: "pre-wrap" } }, sel.notes),
+    req && h("p", { class: "note " + (req.status === "feito" ? "green" : "blue") }, req.status === "feito" ? "Publicado pelo Claude. " : req.status === "cancelado" ? "Pedido cancelado. " : "Na fila do Claude para publicar. ", req.result_note || ""),
+    h("div", { class: "flex", style: { gap: "8px", flexWrap: "wrap", marginTop: "12px" } },
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: salvar }, "Salvar"),
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => copiarTexto(tIn.value, "Título copiado.") }, "Copiar título"),
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => copiarTexto(ta.value, "Texto copiado.") }, "Copiar texto"),
+      sel.status === "pending" && h("button", { class: "btn btn-ghost btn-sm danger", type: "button", onclick: () => setStatus("rejected", "Artigo recusado.") }, "Recusar"),
+      sel.status === "pending" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => setStatus("posted", "Marcado como publicado.") }, "Já postei"),
+      sel.status === "pending" && !(req && ["aberto", "gerando"].includes(req.status)) && h("button", { class: "btn btn-sm", type: "button", onclick: (e) => pedir(e.currentTarget) }, "Claude, posta esse artigo")),
+    h("h3", { style: { marginTop: "22px" } }, "Rascunhos para divulgar o artigo"),
+    h("p", { class: "muted small" }, "Também ficam na aba Rascunhos. Copie e cole como comentário ou post."),
+    ...(divul.length ? divul.map((d) => h("div", { class: "panel", style: { padding: "10px", marginTop: "8px" } },
+      h("div", { class: "pc-top" }, netBadge(d.network), h("span", { class: "muted small" }, d.title)),
+      h("p", { style: { whiteSpace: "pre-wrap", margin: "6px 0" } }, d.body),
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => copiarTexto(d.body, "Copiado.") }, "Copiar"),
+      h("a", { class: "btn btn-ghost btn-sm", href: `#/postador?id=${d.id}` }, "Abrir no PostadoR_"))) : [h("p", { class: "empty" }, "Nenhum ainda.")])));
+  return h("div", { class: "qgrid editing" }, listBox, h("div", { class: "qeditor" }, ed));
+}

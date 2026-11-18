@@ -44,6 +44,12 @@ def subir(local, perfil):
     return path
 
 if __name__ == "__main__":
+    if sys.argv[1] == "midia_post":  # imagem/capa do PostadoR_: devolve o item pronto para o campo media do post
+        import mimetypes
+        arq = sys.argv[2]
+        print(json.dumps({"path": subir(arq, "postador"), "bucket": "anderson-os-arquivos", "mime": mimetypes.guess_type(arq)[0] or "image/jpeg",
+                          "name": os.path.basename(arq), "size": os.path.getsize(arq)}))
+        sys.exit(0)
     if sys.argv[1] == "enviar":
         perfil, arquivo, meta = sys.argv[2], sys.argv[3], json.loads(sys.argv[4])
         rest = sys.argv[5:]; capa = None; extras = []
