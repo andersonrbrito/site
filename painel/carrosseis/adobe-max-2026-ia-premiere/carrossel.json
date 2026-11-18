@@ -3,8 +3,8 @@
   "dia": "2026-11-09",
   "tipo": "noticia",
   "titulo": "O Adobe MAX mostrou a IA dentro do Premiere",
-  "perfil": "@ilmarlabs",
-  "legenda": "O Adobe MAX rolou de 10 a 12 de novembro e a IA entrou de vez no Premiere. O assistente agora organiza o projeto, sincroniza câmeras e monta um corte bruto com um pedido em texto.\n\nDo jeito que eu vejo, isso tira o trabalho chato e sobra tempo pro corte. Tem gente que acha que vira muleta.\n\nVocês usariam um assistente desses no corte?\n\nSegue @andersonbrito.mp4 e @ilmarlabs pra mais conteúdo de IA e edição.\n\nFonte: Adobe MAX 2026 (10 a 12/11). Recursos de IA do Premiere em beta; o MCP do Creative Cloud está em prévia.",
+  "perfil": "@andrstudios",
+  "legenda": "O Adobe MAX rolou de 10 a 12 de novembro e a IA entrou de vez no Premiere. O assistente agora organiza o projeto, sincroniza câmeras e monta um corte bruto com um pedido em texto.\n\nDo jeito que eu vejo, isso tira o trabalho chato e sobra tempo pro corte. Tem gente que acha que vira muleta.\n\nVocês usariam um assistente desses no corte?\n\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: Adobe MAX 2026 (10 a 12/11). Recursos de IA do Premiere em beta; o MCP do Creative Cloud está em prévia.",
   "fontes": [
     {
       "titulo": "Adobe MAX 2026 (10 a 12 de novembro, Miami Beach e online)",
@@ -23,13 +23,13 @@
       "url": "https://techcrunch.com/2026/11/10/adobe-adds-more-ai-to-its-products-and-launches-an-mcp/"
     }
   ],
-  "notas": "Lâmina 1: hook gerado (pôster PT-BR). Lâminas 2 a 5: imagens oficiais da Adobe (MAX e Premiere). Data do evento confirmada (10-12/11). Recursos citados são os que já estão na BETA pública do Premiere; o Premiere 2027 ainda NÃO foi anunciado oficialmente, por isso o carrossel fala só do que já roda. Ajuste 16/11: post atrasou, texto reescrito no passado (MAX 10-12/11 já aconteceu). Só recursos confirmados por mais de uma cobertura. Ilustrações: imagens oficiais da Adobe recortadas em 16:9. PENDENTE: lâmina 1 ainda sem gancho visual novo (ChatGPT não gerou imagem nesta rodada); o 01-hook-169 é recorte da imagem antiga.",
+  "notas": "Lâmina 1: hook gerado (pôster PT-BR). Lâminas 2 a 5: imagens oficiais da Adobe (MAX e Premiere). Data do evento confirmada (10-12/11). Recursos citados são os que já estão na BETA pública do Premiere; o Premiere 2027 ainda NÃO foi anunciado oficialmente, por isso o carrossel fala só do que já roda. Ajuste 16/11: post atrasou, texto reescrito no passado (MAX 10-12/11 já aconteceu). Só recursos confirmados por mais de uma cobertura. Ilustrações: imagens oficiais da Adobe recortadas em 16:9. PENDENTE: lâmina 1 ainda sem gancho visual novo (ChatGPT não gerou imagem nesta rodada); o 01-hook-169 é recorte da imagem antiga. | Ajuste 18/11: imagens trocadas por prints inteiros de adobe.com (Premiere e MAX), sem corte; lâmina 1 com logo Adobe Premiere e AI Assistant. Hook gerado no ChatGPT não foi refeito nesta rodada.",
   "slides": [
     {
       "texto": "**O Adobe MAX foi essa semana**, e a IA entrou de vez no Premiere.",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/01-hook-169.jpg",
+        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/01-hook-print.jpg",
         "foco": 0.5
       },
       "rodape": "arrasta pro lado →"
@@ -38,27 +38,27 @@
       "texto": "O evento rolou de **10 a 12 de novembro**, em Miami Beach e online. É ali que a Adobe mostra o que vem por aí.",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/02-max-169.jpg",
+        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/02-max-print.jpg",
         "foco": 0.5,
-        "credito": "imagem: Adobe"
+        "credito": "print: adobe.com"
       }
     },
     {
       "texto": "O **assistente de IA** do Premiere agora organiza o projeto e monta um corte bruto a partir de um pedido em texto.\n\nNuma demo, ele sincronizou três ângulos de câmera com o áudio em um único comando.",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/03-assistente-169.jpg",
-        "foco": 0.5,
-        "credito": "imagem: Adobe"
+        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/03-assistente-print.jpg",
+        "foco": 0.95,
+        "credito": "print: adobe.com"
       }
     },
     {
       "texto": "Tem também o **Generative Remove** (apaga objeto da cena, tipo boom mic e logo) e o assistente indo pro **Premiere mobile**, em beta privada.\n\nTudo ainda em beta.",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/04-features-169.jpg",
+        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/05-beta-print.jpg",
         "foco": 0.5,
-        "credito": "imagem: Adobe"
+        "credito": "print: adobe.com"
       },
       "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
     },
@@ -66,17 +66,17 @@
       "texto": "Nem tudo tá liberado. O que dá pra usar hoje é o beta.\n\nO **MCP do Creative Cloud**, que conecta a IA às ferramentas da Adobe, tá em prévia, com previsão pra 2027.",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/05-beta-169.jpg",
-        "foco": 0.5,
-        "credito": "imagem: Adobe"
+        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/01-hook-print.jpg",
+        "foco": 0.1,
+        "credito": "print: adobe.com"
       }
     },
     {
-      "texto": "Do jeito que eu vejo, isso tira o trabalho chato (organizar, transcrever) e sobra tempo pro corte. Tem gente que acha que vira muleta.\n**Vocês usariam um assistente desses no corte?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @ilmarlabs pra mais conteúdo assim.",
+      "texto": "Do jeito que eu vejo, isso tira o trabalho chato (organizar, transcrever) e sobra tempo pro corte. Tem gente que acha que vira muleta.\n**Vocês usariam um assistente desses no corte?**\n\nSe curtiu, segue o @andersonbrito.mp4 e o @andrstudios pra mais conteúdo assim.",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/06-fim-169.jpg",
-        "foco": 0.5
+        "src": "/painel/carrosseis/adobe-max-2026-ia-premiere/02-max-print.jpg",
+        "foco": 0.3
       },
       "rodape": "comenta aqui embaixo ↓"
     }
