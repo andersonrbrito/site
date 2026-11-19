@@ -16,7 +16,7 @@ window.LINKS = {
   prompts_doc: "https://docs.google.com/document/d/1qOO4ARiCtU6KJ60DUM-_od7rpGeiUamBIo_fJQNYP3Y/edit",
 
   // pacote-de-edicao.zip (legendas, ícones, motion, fundos, guias e modelos de projeto)
-  pacote_edicao_zip: "",
+  pacote_edicao_zip: "https://drive.google.com/file/d/1Ajys8HRtMpuBvi145NvFzm3fYEK8kiZY/view",
 
   // skills-anderson-brito.zip (as skills do kit)
   skills_zip: "https://drive.google.com/file/d/15gAFEn0uTMg9-lVw74Lx1RBHZOvkzQLe/view",
@@ -28,10 +28,10 @@ window.LINKS = {
   modelos_zip: "https://drive.google.com/file/d/1yHR75OWC6qGcBpzDVqqehGfruZ3oe8bw/view",
 
   // pack-impacto.zip (efeitos sonoros). Aparece só nas versões Impacto e Estúdio
-  pack_impacto_zip: "",
+  pack_impacto_zip: "https://drive.google.com/file/d/1-QYkUwNjguuGQd1IyVDynVgHp3-o-dza/view",
 
   // pack-estudio.zip (efeitos + trilhas). Aparece só na versão Estúdio
-  pack_estudio_zip: "",
+  pack_estudio_zip: "https://drive.google.com/file/d/1XT5OWeqgy1N51PP59xQxiWiZak0zCk8I/view",
 
   // Pasta do Google Drive com todo o material do kit
   pasta_drive: "https://drive.google.com/drive/folders/1mhbMdQMJa5aEZYhV2GYisU12np_Ji1T9",
