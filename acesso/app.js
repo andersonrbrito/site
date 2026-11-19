@@ -115,10 +115,31 @@
       '</div></section>';
   }
 
+
+  // Player da aula: controles próprios e uma capa por cima do vídeo, para o comprador não abrir no YouTube nem copiar o endereço.
+  function iniciaAula() {
+    var box = document.getElementById('aulaPl'); if (!box || box.dataset.ok) return; box.dataset.ok = '1';
+    var capa = box.querySelector('.pl-capa'), big = box.querySelector('.pl-big'), pp = box.querySelector('.pl-pp'), tx = box.querySelector('.pl-t'), seek = box.querySelector('.pl-seek'), vel = box.querySelector('.pl-vel'), fs = box.querySelector('.pl-fs'), yt = null, arr = false, V = [1, 1.25, 1.5, 2], vi = 0;
+    var f = function (x) { x = Math.floor(x || 0); var m = Math.floor(x / 60), s = x % 60; return m + ':' + (s < 10 ? '0' : '') + s; };
+    var toca = function () { if (!yt || !yt.getPlayerState) return; if (yt.getPlayerState() === 1) yt.pauseVideo(); else yt.playVideo(); };
+    box.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    capa.onclick = toca; pp.onclick = toca;
+    vel.onclick = function () { vi = (vi + 1) % V.length; if (yt) yt.setPlaybackRate(V[vi]); vel.textContent = V[vi] + 'x'; };
+    fs.onclick = function () { var d = document; if (d.fullscreenElement || d.webkitFullscreenElement) (d.exitFullscreen || d.webkitExitFullscreen).call(d); else (box.requestFullscreen || box.webkitRequestFullscreen || function () {}).call(box); };
+    seek.oninput = function () { arr = true; }; seek.onchange = function () { if (yt && yt.getDuration) yt.seekTo(yt.getDuration() * seek.value / 1000, true); arr = false; };
+    var cria = function () {
+      yt = new YT.Player('aulaYt', {
+        events: { onStateChange: function (e) { var on = e.data === 1 || e.data === 3; if (on) box.classList.add('ja'); pp.textContent = on ? '❚❚' : '▶'; big.style.opacity = on ? '0' : '1'; box.classList.toggle('on', on); } } });
+      setInterval(function () { if (!yt || !yt.getDuration) return; var d = yt.getDuration() || 0, c = yt.getCurrentTime() || 0; tx.textContent = f(c) + ' / ' + f(d); if (!arr && d) seek.value = Math.round(c / d * 1000); }, 500);
+    };
+    if (window.YT && YT.Player) cria(); else { var ant = window.onYouTubeIframeAPIReady; window.onYouTubeIframeAPIReady = function () { if (ant) ant(); cria(); }; var sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(sc); }
+  }
+
   function secAula() {
     var id = link('aula_youtube');
     var corpo = id
-      ? '<div class="video"><iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?rel=0" title="Aula completa do Kit Editar com Claude" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>'
+      ? '<div class="video pl" id="aulaPl" data-id="' + esc(id) + '"><iframe id="aulaYt" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) + '?enablejsapi=1&controls=0&disablekb=1&fs=0&rel=0&modestbranding=1&playsinline=1&iv_load_policy=3&origin=' + encodeURIComponent(location.origin) + '" title="Aula completa do Kit Editar com Claude" allow="autoplay; encrypted-media; picture-in-picture" tabindex="-1"></iframe><div class="pl-capa" title="Tocar ou pausar" style="background-image:url(https://i.ytimg.com/vi/' + encodeURIComponent(id) + '/hqdefault.jpg)"><span class="pl-big">▶</span></div>' +
+        '<div class="pl-bar"><button type="button" class="pl-pp" aria-label="Tocar ou pausar">▶</button><span class="pl-t">0:00 / 0:00</span><input class="pl-seek" type="range" min="0" max="1000" value="0" aria-label="Posição do vídeo"><button type="button" class="pl-vel" aria-label="Velocidade">1x</button><button type="button" class="pl-fs" aria-label="Tela cheia">⛶</button></div></div>'
       : '<div class="video vazio"><div><span class="selo-lib">em liberação</span><p><strong>A aula entra aqui.</strong></p><p>O vídeo completo está sendo publicado e aparece neste espaço, sem você precisar de outro link. Enquanto isso, comece pelo passo a passo e pelo e-book.</p></div></div>';
     return '<section id="aula"><div class="wrap">' +
       '<span class="rot">&gt; aula</span><h2>Aula completa em vídeo</h2>' +
@@ -232,8 +253,8 @@
       return u ? '<a class="bt ' + (cls || '') + '" href="' + esc(u) + '" target="_blank" rel="noopener">' + ic('zap') + txt + '</a>' : '<span class="bt off">' + txt + ' · em liberação</span>';
     }
     return '<section id="suporte"><div class="wrap"><span class="rot">&gt; suporte</span><h2>Precisa de ajuda?</h2>' +
-      '<p class="lead">Travou em alguma etapa ou um link não abriu? Me chame no WhatsApp com um print da tela. No canal eu aviso quando entra material novo.</p>' +
-      '<div class="sup">' + b('suporte_whatsapp', 'Falar no WhatsApp') + b('canal_whatsapp', 'Entrar no canal de avisos', 'fantasma') + '</div>' +
+      '<p class="lead">Travou em alguma etapa ou um link não abriu? Me chame no WhatsApp com um print da tela. Na comunidade a gente troca resultado e dúvida. No canal eu aviso quando entra material novo.</p>' +
+      '<div class="sup">' + b('suporte_whatsapp', 'Falar no WhatsApp') + b('comunidade_whatsapp', 'Entrar na comunidade') + b('canal_whatsapp', 'Entrar no canal de avisos', 'fantasma') + '</div>' +
       '<div class="vidro uso"><h3>Uso do material</h3><ul>' +
       '<li>A licença é pessoal, de quem comprou. Você pode usar as skills, os modelos, os prompts e os arquivos nos seus vídeos e nos vídeos dos seus clientes.</li>' +
       '<li>Não é permitido revender, redistribuir nem publicar o conteúdo do kit.</li>' +
@@ -245,6 +266,7 @@
   }
 
   app.innerHTML = secTopo() + '<main>' + secComecar() + secAula() + secPassos() + secDownloads() + secPrompts() + secSuporte() + '</main><div class="toast" id="toast" role="status" aria-live="polite"></div>';
+  iniciaAula();
 
   /* ---------- interações ---------- */
   var toast = document.getElementById('toast'), tt;

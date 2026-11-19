@@ -4,7 +4,7 @@
    Para arquivo do Google Drive, use o link de compartilhamento "qualquer pessoa com o link". */
 window.LINKS = {
   // Aula completa em vídeo: só o ID do YouTube não listado (o trecho depois de "v=" ou de "youtu.be/"). Ex.: "dQw4w9WgXcQ"
-  aula_youtube: "",
+  aula_youtube: "cTpFXqoijWs",
 
   // E-book em PDF (será trocado depois pela versão final)
   ebook: "https://drive.google.com/file/d/17wpd5vGnd_xWbEJr29taEzYHKv2AfkSz/view",
@@ -38,6 +38,9 @@ window.LINKS = {
 
   // Canal do WhatsApp com avisos e atualizações
   canal_whatsapp: "https://whatsapp.com/channel/0029VbDV1CDEQIakrItW4S30",
+
+  // Comunidade do WhatsApp dos compradores
+  comunidade_whatsapp: "https://chat.whatsapp.com/K7Rq23ABok3EhI9peEosaI",
 
   // WhatsApp de suporte
   suporte_whatsapp: "https://wa.me/5511992392104"
