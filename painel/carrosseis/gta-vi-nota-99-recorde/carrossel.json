@@ -1,0 +1,91 @@
+{
+ "slug": "gta-vi-nota-99-recorde",
+ "dia": "2026-11-19",
+ "tipo": "noticia",
+ "titulo": "GTA VI saiu e virou o jogo mais bem avaliado da história",
+ "perfil": "@andrstudios",
+ "legenda": "GTA VI saiu hoje, depois de 12 anos, e já entrou pra história: nota 99 no Metacritic, a maior que a plataforma já deu pra um jogo (empata com Zelda: Ocarina of Time).\n\nSaiu à meia-noite no PS5 e no Xbox Series X|S. A crítica foi quase unânime, mas também teve reclamação de preço, caixa sem disco e falta de versão de PC no lançamento.\n\nPra quem cria conteúdo, é a maior onda do ano. Valeu a espera pra você?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: Metacritic, AFP e Forbes (lançamento 19/11/2026).",
+ "fontes": [
+  {
+   "titulo": "GTA VI é lançado sob elogios quase unânimes da crítica (AFP via TradingView)",
+   "url": "https://br.tradingview.com/news/afp:637ceeeb44b4b:0/"
+  },
+  {
+   "titulo": "Grand Theft Auto 6 launches to rave reviews — Take-Two shares up 6% (Forbes)",
+   "url": "https://www.forbes.com/sites/siladityaray/2026/11/18/grand-theft-auto-6-launches-to-rave-reviews-over-15-billion-in-estimated-pre-sales/"
+  },
+  {
+   "titulo": "GTA VI draws rave reviews as gamers return to Vice City (The Japan Times)",
+   "url": "https://www.japantimes.co.jp/life/2026/11/19/digital/grand-theft-auto-5-launch-reaction-rockstar/"
+  }
+ ],
+ "notas": "Pauta: lançamento de GTA VI hoje, 19/11, e a nota 99 no Metacritic (recorde, empata com Ocarina of Time), confirmado em AFP/TradingView, Forbes e Japan Times. Preço acima de US$80 lá fora, caixa sem disco e falta de PC no lançamento também confirmados (Forbes/busca). Todas as lâminas usam arte/screenshots OFICIAIS da Rockstar (rockstargames.com/VI), creditadas. Nenhuma imagem gerada. Lâmina 6 tem [colchete] pra o Anderson colocar a opinião dele sobre o jogo. Sem política.",
+ "slides": [
+  {
+   "texto": "GTA VI saiu hoje e já é o **jogo mais bem avaliado da história**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/01-keyart.jpg",
+    "foco": 0.5,
+    "credito": "arte: Rockstar Games"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Depois de 12 anos de espera, a Rockstar voltou pra **Vice City**.\n\nO lançamento foi à meia-noite no seu horário, no PS5 e no Xbox Series X|S.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/02-cidade.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "A nota no Metacritic bateu **99 de 100**, com mais de 140 críticas.\n\nÉ a maior nota que a plataforma já registrou num jogo. Empata com Zelda: Ocarina of Time.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/03-casal-por-do-sol.jpg",
+    "foco": 0.35,
+    "credito": "arte: Rockstar Games"
+   }
+  },
+  {
+   "texto": "A crítica foi quase unânime: vários deram nota máxima e chamaram de **o melhor jogo da Rockstar**.\n\nMas nem tudo foi elogio.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/04-ocean-view.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Teve reclamação também: preço **acima de US$ 80** lá fora, caixa sem disco e nada de versão de PC no lançamento. Alguns relataram travadas no console.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/05-capa.jpg",
+    "foco": 0.5,
+    "credito": "arte: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Pra quem cria conteúdo, isso aqui é a **maior onda do ano**.\n\nSemana de meme, corte, reação e vídeo com IA em cima de Vice City.\n\nPra mim, [coloca aqui o que você achou do jogo].",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/06-conversivel.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Nota 99, 12 anos de espera e o mundo inteiro jogando ao mesmo tempo.\n\n**Valeu a espera pra você?**\n\nSe você edita vídeo e quer usar IA pra surfar essa onda: comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gta-vi-nota-99-recorde/07-posto.jpg",
+    "foco": 0.3,
+    "credito": "arte: Rockstar Games"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

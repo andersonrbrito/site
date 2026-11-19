@@ -1,0 +1,83 @@
+{
+ "slug": "card-de-cidade-gta-no-seu-video",
+ "dia": "2026-11-19",
+ "tipo": "educativo",
+ "titulo": "O letreiro de cidade do GTA no seu vídeo (passo a passo)",
+ "perfil": "@andrstudios",
+ "legenda": "Sabe o letreiro que aparece embaixo quando você chega numa cidade nova no GTA? Dá pra colocar isso no seu reel de viagem ou bastidor e deixar com cara de cinema.\n\nÉ só texto bem posicionado, um movimento curto e um som seco na entrada. Funciona no CapCut e no Premiere.\n\nSalva pra usar no próximo vídeo e manda pra quem edita contigo. Em que vídeo você usaria?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Grand Theft Auto VI — arte oficial da Rockstar Games (referência visual)",
+   "url": "https://www.rockstargames.com/VI"
+  }
+ ],
+ "notas": "Educativo de TÉCNICA de edição (letreiro/lower-third estilo GTA), surfando o lançamento de GTA VI (19/11) e ligado direto ao Kit (lettering/legenda). Ilustrações = arte/screenshots OFICIAIS da Rockstar como referência do clima, creditadas; nenhuma imagem gerada. Passo a passo copiável; CTAs de salvar/compartilhar + Kit.",
+ "slides": [
+  {
+   "texto": "Aquele **letreiro de cidade** do GTA dá pra colocar no seu vídeo.\n\nE é simples.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/01-cidade.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Sabe quando você chega numa cidade nova no jogo e aparece o **nome dela na tela**, embaixo?\n\nEsse selo deixa qualquer vídeo de viagem ou bastidor com cara de cinema.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/02-conversivel.jpg",
+    "foco": 0.45,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "**Passo 1:** escolha o momento em que a câmera abre pra mostrar o lugar (uma rua, uma praia, a cidade).\n\nÉ ali que o letreiro entra.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/03-ocean.jpg",
+    "foco": 0.4,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "**Passo 2:** no CapCut ou no Premiere, coloque um texto num canto de baixo:\n\nlinha de cima grande com o nome do lugar, linha de baixo pequena com um detalhe (bairro, horário, estado). Fonte condensada, branca.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/04-keyart.jpg",
+    "foco": 0.5,
+    "credito": "arte: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "**Passo 3:** faça o texto entrar deslizando de baixo pra cima, segure uns 2 segundos e deixe sair.\n\nUm movimento curto já dá o toque de videogame.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/05-casal.jpg",
+    "foco": 0.3,
+    "credito": "arte: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Dica: combine com um **som seco de 'tum'** na hora que o texto aparece.\n\nO olho e o ouvido batem juntos e o corte fica satisfatório.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/06-cidade2.jpg",
+    "foco": 0.5,
+    "credito": "imagem: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Pronto: seu reel de viagem ou bastidor ganha o selo estilo GTA.\n\n**Em que vídeo você usaria isso?**\n\nLettering, legenda e corte assim estão no Kit Editar com Claude: comenta KIT que eu te mando o link. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/card-de-cidade-gta-no-seu-video/07-posto.jpg",
+    "foco": 0.3,
+    "credito": "arte: Rockstar Games"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
