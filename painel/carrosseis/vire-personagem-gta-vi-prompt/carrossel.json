@@ -1,80 +1,80 @@
 {
- "slug": "vire-personagem-gta-vi-prompt",
- "dia": "2026-11-19",
- "tipo": "educativo",
- "titulo": "Vire personagem de GTA VI com a sua cara (o prompt)",
- "perfil": "@andrstudios",
- "legenda": "Com o GTA VI saindo, dá pra pegar carona: vira personagem do jogo com uma foto sua, em 3 passos.\n\nO segredo é pedir RENDER 3D de game, realista, e não ilustração. Prompt completo (cola no ChatGPT junto com a sua foto):\n\nTransform the reference image into a highly detailed cinematic 3D character render inspired by the visual language of GTA 6 and next-generation AAA open-world crime games. Keep the original person recognizable. Preserve the same identity, face structure, skin tone, hairstyle, facial expression, gaze direction, body posture, hand position, clothing silhouette, camera angle, framing and composition. Realistic high-end video game character look: detailed facial modeling, natural skin texture, realistic eyes, believable hair strands. Tropical urban atmosphere, Miami/Vice City energy, neon lights, warm sunset tones, teal shadows, magenta highlights, glossy reflections, palm trees, wet asphalt. Dramatic cinematic lighting, HDR, strong rim light. Ultra realistic AAA game render, next-gen open-world game screenshot. No text, no logos, no watermark, no cartoon style, no comic outlines, no plastic skin, no distorted hands.\n\nSalva pra fazer essa semana e manda pra quem é fã de GTA.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
- "fontes": [
-  {
-   "titulo": "Grand Theft Auto VI — site e arte oficial da Rockstar Games",
-   "url": "https://www.rockstargames.com/VI"
-  }
- ],
- "notas": "Corrigido em 19/11: prompt trocado pelo GTA_VI_Effect_Prompt (render 3D AAA, não ilustração); lâmina 1 com o Anderson (character sheet) e última com o Neymar, gerados no ChatGPT. Meio com arte oficial da Rockstar como referência.",
- "slides": [
-  {
-   "texto": "Esse sou eu virando personagem de **GTA VI**.\n\nFoi só uma foto e um prompt. Te mostro qual.",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/01-anderson-gta.jpg",
-    "foco": 0.4
-   },
-   "rodape": "arrasta pro lado →"
-  },
-  {
-   "texto": "O visual do GTA VI não é desenho: é **render 3D de game**, realista, com neon rosa e azul, pôr do sol de Miami e asfalto molhado.\n\nÉ isso que a IA tem que imitar.",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/02-capa-estilo.jpg",
-    "foco": 0.5,
-    "credito": "arte: Rockstar Games (referência de estilo)"
-   }
-  },
-  {
-   "texto": "**Passo 1:** separe uma foto sua nítida, de rosto ou meio corpo.\n\nA pose e o enquadramento da foto viram a pose do personagem.",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/03-casal-estilo.jpg",
-    "foco": 0.3,
-    "credito": "arte: Rockstar Games (referência de estilo)"
-   }
-  },
-  {
-   "texto": "**Passo 2:** no ChatGPT, suba a foto e cole (em inglês funciona melhor):\n\n\"Transform the reference image into a highly detailed cinematic 3D character render inspired by the visual language of GTA 6. Keep the original person recognizable: same face, skin tone, hairstyle, expression, pose, clothing and framing. Tropical Vice City atmosphere, neon lights, warm sunset, teal shadows, magenta highlights, wet asphalt reflections. Ultra realistic AAA game render. No text, no logos, no cartoon, no plastic skin.\"",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/04-keyart.jpg",
-    "foco": 0.5,
-    "credito": "arte: Rockstar Games (referência de estilo)"
-   },
-   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
-  },
-  {
-   "texto": "**Passo 3:** se o rosto fugir, mande \"preserve the facial likeness\" e gere de novo.\n\nFica com cara de print oficial do jogo, não de desenho.",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/05-mood.jpg",
-    "foco": 0.3,
-    "credito": "arte: Rockstar Games (referência de estilo)"
-   }
-  },
-  {
-   "texto": "Funciona com você, com seu amigo, com o seu cliente e até com jogador famoso.\n\n**Salva esse prompt** e manda pra quem tá esperando o GTA.",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/06-ocean.jpg",
-    "foco": 0.4,
-    "credito": "imagem: Rockstar Games (referência de estilo)"
-   }
-  },
-  {
-   "texto": "Olha o Neymar com o mesmo prompt.\n\n**Em quem você vai testar primeiro?**\n\nComenta KIT que eu te mando o link do Kit Editar com Claude, onde ensino edição + IA do zero. De R$97 por R$57 até 23/11.",
-   "midia": {
-    "tipo": "imagem",
-    "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/07-neymar-gta.jpg",
-    "foco": 0.4
-   }
-  }
- ]
+  "slug": "vire-personagem-gta-vi-prompt",
+  "dia": "2026-11-19",
+  "tipo": "educativo",
+  "titulo": "Vire personagem de GTA VI com a sua cara (o prompt)",
+  "perfil": "@andrstudios",
+  "legenda": "Com o GTA VI saindo, dá pra pegar carona: vira personagem do jogo com uma foto sua, em 3 passos.\n\nO segredo é pedir RENDER 3D de game, realista, e não ilustração. Prompt completo (cola no ChatGPT junto com a sua foto):\n\nTransform the reference image into a highly detailed cinematic 3D character render inspired by the visual language of GTA 6 and next-generation AAA open-world crime games. Keep the original person recognizable. Preserve the same identity, face structure, skin tone, hairstyle, facial expression, gaze direction, body posture, hand position, clothing silhouette, camera angle, framing and composition. Realistic high-end video game character look: detailed facial modeling, natural skin texture, realistic eyes, believable hair strands. Tropical urban atmosphere, Miami/Vice City energy, neon lights, warm sunset tones, teal shadows, magenta highlights, glossy reflections, palm trees, wet asphalt. Dramatic cinematic lighting, HDR, strong rim light. Ultra realistic AAA game render, next-gen open-world game screenshot. No text, no logos, no watermark, no cartoon style, no comic outlines, no plastic skin, no distorted hands.\n\nSalva pra fazer essa semana e manda pra quem é fã de GTA.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [
+    {
+      "titulo": "Grand Theft Auto VI — site e arte oficial da Rockstar Games",
+      "url": "https://www.rockstargames.com/VI"
+    }
+  ],
+  "notas": "Corrigido em 19/11: prompt trocado pelo GTA_VI_Effect_Prompt (render 3D AAA, não ilustração); lâmina 1 com o Anderson (character sheet) e última com o Neymar, gerados no ChatGPT. Meio com arte oficial da Rockstar como referência. | 19/11: hook com o Neymar + texto 'Se transforme em personagem...'; Anderson no fim.",
+  "slides": [
+    {
+      "texto": "Se transforme em personagem de **GTA VI** com 1 foto e 1 prompt.\n\nTe mostro o prompt inteiro.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/07-neymar-gta.jpg",
+        "foco": 0.3
+      },
+      "rodape": "arrasta pro lado →"
+    },
+    {
+      "texto": "O visual do GTA VI não é desenho: é **render 3D de game**, realista, com neon rosa e azul, pôr do sol de Miami e asfalto molhado.\n\nÉ isso que a IA tem que imitar.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/02-capa-estilo.jpg",
+        "foco": 0.5,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "**Passo 1:** separe uma foto sua nítida, de rosto ou meio corpo.\n\nA pose e o enquadramento da foto viram a pose do personagem.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/03-casal-estilo.jpg",
+        "foco": 0.3,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "**Passo 2:** no ChatGPT, suba a foto e cole (em inglês funciona melhor):\n\n\"Transform the reference image into a highly detailed cinematic 3D character render inspired by the visual language of GTA 6. Keep the original person recognizable: same face, skin tone, hairstyle, expression, pose, clothing and framing. Tropical Vice City atmosphere, neon lights, warm sunset, teal shadows, magenta highlights, wet asphalt reflections. Ultra realistic AAA game render. No text, no logos, no cartoon, no plastic skin.\"",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/04-keyart.jpg",
+        "foco": 0.5,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "**Passo 3:** se o rosto fugir, mande \"preserve the facial likeness\" e gere de novo.\n\nFica com cara de print oficial do jogo, não de desenho.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/05-mood.jpg",
+        "foco": 0.3,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "Funciona com você, com seu amigo, com o seu cliente e até com jogador famoso.\n\n**Salva esse prompt** e manda pra quem tá esperando o GTA.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/06-ocean.jpg",
+        "foco": 0.4,
+        "credito": "imagem: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "Fiz comigo com o mesmo prompt.\n\n**Em quem você vai testar primeiro?**\n\nComenta KIT que eu te mando o link do Kit Editar com Claude, onde ensino edição + IA do zero. De R$97 por R$57 até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/vire-personagem-gta-vi-prompt/01-anderson-gta.jpg",
+        "foco": 0.3
+      }
+    }
+  ]
 }
