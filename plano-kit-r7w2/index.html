@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Conferência · divulgação do Kit</title>
+<style>
+:root{--bg:#070a08;--card:#0e1410;--line:#1d2a21;--txt:#e8efe9;--mut:#8a9a8e;--g:#3dff7c;--warn:#ffb84d;--bad:#ff6b6b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 80px}
+h1{font-size:26px;margin:0 0 6px}
+.sub{color:var(--mut);margin:0 0 18px}
+.mono{font-family:ui-monospace,Menlo,monospace}
+nav{position:sticky;top:0;background:rgba(7,10,8,.92);backdrop-filter:blur(8px);padding:10px 0;z-index:5;display:flex;gap:6px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:22px}
+nav a{color:var(--txt);text-decoration:none;font-size:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px}
+nav a:hover{border-color:var(--g);color:var(--g)}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
+.box h2{margin:0 0 4px;font-size:19px}
+.tag{display:inline-block;font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);color:var(--mut);margin-right:6px}
+.tag.ok{color:var(--g);border-color:#1f5a35}
+.tag.warn{color:var(--warn);border-color:#5a431f}
+.tag.bad{color:var(--bad);border-color:#5a1f1f}
+.day{font-size:12px;color:var(--g);letter-spacing:.04em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:18px;margin-top:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.media video{width:100%;max-width:300px;border-radius:10px;border:1px solid var(--line);display:block;background:#000}
+.strip{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.strip img{height:300px;border-radius:8px;border:1px solid var(--line);cursor:zoom-in;flex:none}
+.cap{white-space:pre-wrap;background:#0a0f0c;border:1px solid var(--line);border-radius:10px;padding:12px;font-size:14px;margin:6px 0 10px}
+.lbl{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;display:flex;justify-content:space-between;align-items:center}
+button{background:none;border:1px solid var(--line);color:var(--g);border-radius:8px;padding:3px 9px;font-size:11px;cursor:pointer}
+button:hover{border-color:var(--g)}
+.note{font-size:13px;color:var(--warn);margin-top:8px}
+.note.bad{color:var(--bad)}
+ul{margin:6px 0;padding-left:20px}
+li{margin:3px 0}
+#zoom{position:fixed;inset:0;background:rgba(0,0,0,.92);display:none;align-items:center;justify-content:center;z-index:20;cursor:zoom-out}
+#zoom img{max-width:96vw;max-height:96vh}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:500;font-size:12px}
+@media(max-width:700px){#cal{display:block;overflow-x:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Divulgação do Kit Editar com Claude</h1>
+<p class="sub">Tudo na ordem de postagem. Nada foi publicado. Confere cada peça, copia a legenda no botão e me fala o que muda. Black Friday R$57 até 25/11 23h59. Kit disponível só até 30 de novembro, 23h59.</p>
+<nav id="nav"></nav>
+
+<div class="box" id="resumo">
+<h2>Calendário</h2>
+<table id="cal"><tr><th>Dia</th><th>Peça</th><th>Onde</th><th>CTA</th><th>Estado</th></tr></table>
+</div>
+
+<div id="posts"></div>
+
+<div class="box" id="dm">
+<h2>Mensagem padrão do Direct</h2>
+<p class="sub">Para quem comentar KIT ou ESTILOS. Manda manual, uma por uma.</p>
+<div class="lbl"><span>Direct</span><button data-c="dm1">copiar</button></div>
+<div class="cap" id="dm1">Oi! Vi seu comentário. Aqui está o link do Kit Editar com Claude:
+https://andersonbrito.com/editar-com-claude.html
+
+Tem e-book de 67 páginas, videoaula, 13 skills, 103 prompts e o pacote de edição. Está R$57 na Black Friday, até dia 25/11. Depois volta para R$97. E o kit só fica disponível até 30 de novembro, dia 30/11 eu tiro do ar. Qualquer dúvida me chama aqui.</div>
+<div class="lbl"><span>Resposta no comentário</span><button data-c="dm2">copiar</button></div>
+<div class="cap" id="dm2">Te mandei no Direct 👊</div>
+</div>
+
+<div class="box" id="pasta"><h2>Onde estão os vídeos</h2><p class="sub">Cada vídeo tem um botão "baixar vídeo" embaixo, que baixa direto do seu Google Drive (precisa estar logado na conta contato). A pasta com os 10 vídeos:</p><a style="display:inline-block;margin:8px 8px 0 0;padding:9px 14px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--g);font:600 13px/1 inherit;text-decoration:none" target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/13pjELs7F-6BQLetIcT_o3Pxl1eUTnGtv">abrir a pasta no Drive</a></div>
+
+<div class="box" id="links">
+<h2>Todos os links do kit</h2>
+<p class="sub" style="margin:14px 0 4px"><b>Vender</b></p>
+<ul>
+<li><a href="https://andersonbrito.com/editar-com-claude.html" target="_blank" rel="noopener" style="color:var(--g)">Página de vendas</a> · o link que vai na DM e na bio<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/editar-com-claude.html</span></li>
+<li><a href="https://andersonbrito.com/editar-com-claude.html?liberar" target="_blank" rel="noopener" style="color:var(--g)">Página de vendas com formulário liberado</a> · para conferir preços e totais sem ver a apresentação<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/editar-com-claude.html?liberar</span></li>
+<li><a href="https://andersonbrito.com/links/" target="_blank" rel="noopener" style="color:var(--g)">Links da bio</a> · kit em primeiro (falta publicar)<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/links/</span></li>
+</ul>
+<p class="sub" style="margin:14px 0 4px"><b>Páginas grátis (iscas)</b></p>
+<ul>
+<li><a href="https://andersonbrito.com/10estilos/" target="_blank" rel="noopener" style="color:var(--g)">10 estilos de animação</a> · quem comenta ESTILOS<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/10estilos/</span></li>
+<li><a href="https://andersonbrito.com/repos/" target="_blank" rel="noopener" style="color:var(--g)">20 repositórios</a> · quem comenta REPOS<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/repos/</span></li>
+<li><a href="https://andersonbrito.com/gratis.html" target="_blank" rel="noopener" style="color:var(--g)">Ferramentas e materiais grátis</a> · quem comenta LISTA<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/gratis.html</span></li>
+</ul>
+<p class="sub" style="margin:14px 0 4px"><b>Pagamento (Nubank)</b></p>
+<ul>
+<li><a href="https://checkout.nubank.com.br/nnBc7Yo2d46sj6f5" target="_blank" rel="noopener" style="color:var(--g)">Só o kit · R$57</a> · conferir se o valor do link é 57<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://checkout.nubank.com.br/nnBc7Yo2d46sj6f5</span></li>
+<li><a href="https://checkout.nubank.com.br/oPz74kqKq96sj6f5" target="_blank" rel="noopener" style="color:var(--g)">Kit + Pack Impacto · R$83</a> · conferir se o valor do link é 83<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://checkout.nubank.com.br/oPz74kqKq96sj6f5</span></li>
+<li><a href="https://checkout.nubank.com.br/xB30acWjt46sj6f5" target="_blank" rel="noopener" style="color:var(--g)">Kit + Pack Estúdio · R$97</a> · conferir se o valor do link é 97<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://checkout.nubank.com.br/xB30acWjt46sj6f5</span></li>
+</ul>
+<p class="sub" style="margin:14px 0 4px"><b>Acesso do comprador (mandar depois do pagamento)</b></p>
+<ul>
+<li><a href="https://andersonbrito.com/acesso/kit-c7m2/" target="_blank" rel="noopener" style="color:var(--g)">Quem comprou só o kit</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/acesso/kit-c7m2/</span></li>
+<li><a href="https://andersonbrito.com/acesso/kit-impacto-p4x9/" target="_blank" rel="noopener" style="color:var(--g)">Quem comprou kit + Pack Impacto</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/acesso/kit-impacto-p4x9/</span></li>
+<li><a href="https://andersonbrito.com/acesso/kit-estudio-t8q3/" target="_blank" rel="noopener" style="color:var(--g)">Quem comprou kit + Pack Estúdio</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://andersonbrito.com/acesso/kit-estudio-t8q3/</span></li>
+</ul>
+<p class="sub" style="margin:14px 0 4px"><b>Arquivos do kit</b></p>
+<ul>
+<li><a href="https://drive.google.com/drive/folders/1mhbMdQMJa5aEZYhV2GYisU12np_Ji1T9" target="_blank" rel="noopener" style="color:var(--g)">Pasta do Drive com tudo</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://drive.google.com/drive/folders/1mhbMdQMJa5aEZYhV2GYisU12np_Ji1T9</span></li>
+<li><a href="https://drive.google.com/file/d/17wpd5vGnd_xWbEJr29taEzYHKv2AfkSz/view" target="_blank" rel="noopener" style="color:var(--g)">E-book (PDF)</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://drive.google.com/file/d/17wpd5vGnd_xWbEJr29taEzYHKv2AfkSz/view</span></li>
+<li><a href="https://drive.google.com/file/d/1QUvQ7f17Exky5WKDtmXMBQ4pOAtZr63Z/view" target="_blank" rel="noopener" style="color:var(--g)">Manual rápido</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://drive.google.com/file/d/1QUvQ7f17Exky5WKDtmXMBQ4pOAtZr63Z/view</span></li>
+<li><a href="https://docs.google.com/document/d/1qOO4ARiCtU6KJ60DUM-_od7rpGeiUamBIo_fJQNYP3Y/edit" target="_blank" rel="noopener" style="color:var(--g)">Prompts (Docs)</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://docs.google.com/document/d/1qOO4ARiCtU6KJ60DUM-_od7rpGeiUamBIo_fJQNYP3Y/edit</span></li>
+<li><a href="https://drive.google.com/file/d/15gAFEn0uTMg9-lVw74Lx1RBHZOvkzQLe/view" target="_blank" rel="noopener" style="color:var(--g)">Skills (zip)</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://drive.google.com/file/d/15gAFEn0uTMg9-lVw74Lx1RBHZOvkzQLe/view</span></li>
+<li><a href="https://docs.google.com/document/d/1wzVlTy6zy4Hf3uErYw2-kSKKBQv2QXceO43dILGJLnk/edit" target="_blank" rel="noopener" style="color:var(--g)">Catálogo de skills</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://docs.google.com/document/d/1wzVlTy6zy4Hf3uErYw2-kSKKBQv2QXceO43dILGJLnk/edit</span></li>
+<li><a href="https://drive.google.com/file/d/1yHR75OWC6qGcBpzDVqqehGfruZ3oe8bw/view" target="_blank" rel="noopener" style="color:var(--g)">Modelos (zip)</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://drive.google.com/file/d/1yHR75OWC6qGcBpzDVqqehGfruZ3oe8bw/view</span></li>
+</ul>
+<p class="sub" style="margin:14px 0 4px"><b>Contato e controle</b></p>
+<ul>
+<li><a href="https://whatsapp.com/channel/0029VbDV1CDEQIakrItW4S30" target="_blank" rel="noopener" style="color:var(--g)">Canal do WhatsApp do kit</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://whatsapp.com/channel/0029VbDV1CDEQIakrItW4S30</span></li>
+<li><a href="https://wa.me/5511992392104" target="_blank" rel="noopener" style="color:var(--g)">WhatsApp de suporte</a><br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://wa.me/5511992392104</span></li>
+<li><a href="https://www.notion.so/26ab1f9f4c5f80b18d3bd10a6b1d2f4e" target="_blank" rel="noopener" style="color:var(--g)">Checklist de lançamento no Notion</a> · pode estar atrás do plano; o plano é a referência<br><span style="color:var(--mut);font-size:12.5px;word-break:break-all">https://www.notion.so/26ab1f9f4c5f80b18d3bd10a6b1d2f4e</span></li>
+</ul>
+<p class="sub" style="margin:14px 0 4px"><b>Ainda sem link (botão aparece desativado para o comprador)</b></p>
+<ul><li>Videoaula no YouTube (não listado)</li><li>pacote-de-edicao.zip no Drive</li><li>pack-impacto.zip no Drive</li><li>pack-estudio.zip no Drive</li></ul>
+</div>
+
+
+
+<div class="box" id="pend">
+<h2>O que falta para lançar</h2>
+<ul>
+<li><b>Publicar a página de vendas</b>: links Nubank (R$57, R$83, R$97) e prazo 25/11 já estão no arquivo, falta seu OK para subir o site.</li>
+<li><b>Arquivos grandes</b>: subir os zips (pacote de edição de 309 MB, Pack Impacto, Pack Estúdio) no Drive com "qualquer pessoa com o link" e me passar os links.</li>
+<li><b>Videoaula</b>: subir no YouTube (não listado) e me passar o endereço.</li>
+<li><b>@andrstudios</b>: confirmar que o @ do Instagram já foi trocado.</li>
+<li><b>Vídeo falado dos 4 passos</b> (seg 23/11): gravar com o roteiro desta página.</li>
+</ul>
+</div>
+</div>
+<div id="zoom"><img alt=""></div>
+
+<script>
+const DRV={"v3_black-friday_v2.mp4": "1kidu3ws0NedvONyW113rafzeqOvq8rfb", "packs-video_v2.mp4": "1Tu-OwMCVm4OAw-NovzhoE7NsG0odgEp4", "v1_dor_v2.mp4": "1PyLE-VObkjKjm_MKoX-e564vv7f2H7PW", "v2_kit_v3.mp4": "1klFB4YXYN5-sOAArvSqRQ79yHt2DLnpl", "lettering-estilos_v3.mp4": "1tumyizmfQ8jURsyx5OKxnSWZSJmla-P1", "pack-impacto-ouca_v1.mp4": "1SB8nc2Roeh7Axa0S8NmRqgEjInVXzLIu", "reel_editar-com-claude_v3.mp4": "1eiGpcm79lk-dl8v0U5wZQfFLF-yN1Nsp", "10-estilos-claude_v5-gratis.mp4": "1M9cyIlW1UwELeosVuyIbpAMQ20xNe3l8", "legendas-estilos_v3.mp4": "17cxQscZV0KB2_Df6oCLgtOUWZ09cUI5U", "ferramentas-cards_v1.mp4": "14NpYGPEGFAlH4Fzn3Kx9uYiJfRxi63WY"};
+
+const P=[
+{id:'d4',dia:'Dia 1 · ter 17/11',t:'Reel: 10 estilos de animação',onde:'Reels + TikTok + Shorts + X',cta:'ESTILOS (grátis)',st:'ok',stt:'pronto (v5 grátis)',
+ vid:'10-estilos-claude_v5-gratis.mp4',poster:'capa_v4.jpg',
+ cap:`A mesma cena em 10 estilos de animação, tudo feito em código no Claude. Pixel art, giz, neon, 3D antigo, quadrinhos, vetor, pontilhado, cinema, blocos e massinha.
+
+A cena é uma só. O que muda é o pedido.
+
+Comenta ESTILOS que eu te mando os prompts de graça.`,
+ x:`A mesma cena em 10 estilos de animação. Tudo em código, feito no Claude. Nenhum gerador de imagem ou vídeo.
+
+A cena é uma só, o que muda é o pedido.`,
+ nota:'Quem comentar ESTILOS recebe na DM o link andersonbrito.com/10estilos (os 10 prompts de graça, com botão para o kit).'},
+{id:'d1',dia:'Dia 2 · qua 18/11',t:'Carrossel: Como eu edito vídeo com o Claude',onde:'Instagram feed (@andersonbrito.mp4, collab @andrstudios) + LinkedIn (PDF)',cta:'KIT',st:'ok',stt:'pronto, atualizado',
+ imgs:['c1','c2','c3','c4','c5','c6','c7','c8'],
+ cap:`Muita gente me pergunta como eu edito vídeo com o Claude. Juntei o passo a passo que eu uso todo dia nesse carrossel.
+
+Resumo: eu jogo o bruto na pasta, explico o que eu quero e ensino meu gosto num arquivo de texto. Ele corta, legenda e me mostra a prévia. Eu só corrijo.
+
+Montei tudo num kit, com e-book, videoaula, 13 skills e 103 prompts. Comenta KIT que eu te mando o link.
+
+Segue @andersonbrito.mp4 e @andrstudios.`,
+ x:`Como eu edito vídeo com o Claude, em 4 passos:
+
+1. Jogo o bruto numa pasta
+2. Explico o vídeo como explicaria pra um editor
+3. Ensino meu gosto num arquivo de texto
+4. Vejo a prévia e corrijo
+
+Juntei o passo a passo num kit. Link na resposta.`},
+{id:'d1s',dia:'Dia 2 · qua 18/11',t:'Stories de abertura (3)',onde:'Instagram stories, com adesivo de link no terceiro',cta:'link no story',st:'ok',stt:'pronto, atualizado',
+ imgs:['story-1','story-2','story-3'],
+ nota:'Story vai sem legenda. No terceiro, colar o adesivo de link para a página de vendas no espaço marcado.'},
+{id:'d2',dia:'Dia 3 · qui 19/11',t:'Vertical: a dor de editar',onde:'Reels + TikTok + Shorts',cta:'KIT',st:'ok',stt:'pronto',
+ vid:'v1_dor_v2.mp4',poster:'v1_dor_v2_capa.jpg',
+ cap:`Eu passava horas cortando silêncio e arrumando legenda. Hoje eu explico o que eu quero e o Claude monta a primeira versão. Eu fico só com a parte de dirigir.
+
+Juntei o jeito que eu faço num kit. Comenta KIT que eu te mando o link.`},
+{id:'d3',dia:'Dia 4 · sex 20/11',t:'Vertical: o que vem no kit',onde:'Reels + TikTok + Shorts',cta:'KIT',st:'ok',stt:'refeito (v3)',
+ vid:'v2_kit_v3.mp4',poster:'v2_kit_v3_capa.jpg',
+ cap:`O que vem no Kit Editar com Claude:
+
+E-book de 67 páginas
+Videoaula completa
+13 skills que eu uso
+103 prompts prontos
+Pacote de edição
+
+Comenta KIT que eu te mando o link.`},
+{id:'d6',dia:'Dia 5 · sáb 21/11',t:'Reel principal de 50 s',onde:'Reels + TikTok + Shorts + LinkedIn',cta:'KIT',st:'ok',stt:'refeito (v3)',
+ vid:'reel_editar-com-claude_v3.mp4',
+ cap:`Como eu saio do vídeo bruto pro vídeo pronto usando o Claude. Mostro a pasta, o pedido, o arquivo com o meu gosto e a prévia.
+
+Comenta KIT que eu te mando o link do kit.`},
+{id:'d5',dia:'Dia 6 · dom 22/11',t:'Vídeo: Packs de som',onde:'Reels + stories',cta:'KIT',st:'ok',stt:'pronto',
+ vid:'packs-video_v2.mp4',
+ cap:`Junto com o kit dá pra levar meus packs de som. Pack Impacto com 171 efeitos separados por tipo, e Pack Estúdio com 354 efeitos e 33 trilhas sem voz.
+
+É compra extra, marcada na hora de pegar o Kit Editar com Claude. Comenta KIT que eu te mando o link.`},
+{id:'d7',dia:'Dia 9 · qua 25/11',t:'Vertical: reta final da promoção',onde:'Reels + stories (stories de manhã e à noite)',cta:'KIT',st:'ok',stt:'pronto',
+ vid:'v3_black-friday_v2.mp4',poster:'v3_black-friday_v2_capa.jpg',
+ cap:`O Kit Editar com Claude está R$57 só até hoje, 25/11, às 23h59. Depois volta para R$97.
+
+E ele só fica disponível até 30 de novembro. Dia 30/11 eu tiro do ar.
+
+Comenta KIT que eu te mando o link.`},
+{id:'n1',dia:'Dia 2 · qua 18/11 (2º post)',t:'Reel novo: 11 estilos de legenda',onde:'Reels + TikTok + Shorts + X',cta:'KIT',st:'ok',stt:'refeito (v2), fundo real',
+ vid:'legendas-estilos_v3.mp4',poster:'legendas-estilos_v2_capa.jpg',
+ cap:`11 estilos de legenda, todos feitos em código no Claude. Uma palavra por vez, negativo, três palavras, serifa, tarja e mais.
+
+Eu escolho o estilo pelo nome e ele aplica no vídeo inteiro.
+
+O pack vem no Kit Editar com Claude. Comenta KIT que eu te mando o link.`,
+ x:`11 estilos de legenda feitos em código no Claude. Eu peço pelo nome e ele aplica no vídeo inteiro.`},
+{id:'n2',dia:'Dia 3 · qui 19/11 (2º post)',t:'Reel novo: 15 estilos de lettering',onde:'Reels + TikTok + Shorts + X',cta:'KIT',st:'ok',stt:'refeito (v2), fundo real',
+ vid:'lettering-estilos_v3.mp4',poster:'lettering-estilos_v2_capa.jpg',
+ cap:`15 estilos de lettering pra gancho e frase de impacto. Vermelho com brilho, amarelo condensado, serifa dourada, máquina de escrever e mais.
+
+É o texto que segura os 3 primeiros segundos do vídeo.
+
+Vem no Kit Editar com Claude. Comenta KIT que eu te mando o link.`,
+ x:`15 estilos de lettering pra gancho, feitos em código no Claude. O texto dos 3 primeiros segundos sai pronto.`},
+{id:'n3',dia:'Dia 4 · sex 20/11 (2º post)',t:'Reel novo: 10 ferramentas grátis',onde:'Reels + TikTok + Shorts + X + LinkedIn',cta:'LISTA (grátis)',st:'ok',stt:'pronto (v2 grátis)',
+ vid:'ferramentas-cards_v1.mp4',poster:'ferramentas-cards_v1_capa.jpg',
+ cap:`10 ferramentas grátis que eu uso pra editar vídeo com o Claude. Todas de código aberto, todas no GitHub.
+
+Corte: FFmpeg e video-use
+Legenda: WhisperX
+Motion: Remotion, HyperFrames, GSAP e Manim
+Estilo: lemo-opuscar e three.js
+Referência: claude-video
+
+Você não precisa instalar uma por uma. Pede pro Claude e ele instala.
+
+Comenta LISTA que eu te mando os links e os prompts de graça.`,
+ x:`10 ferramentas grátis pra editar vídeo com o Claude:
+
+Corte: FFmpeg, video-use
+Legenda: WhisperX
+Motion: Remotion, HyperFrames, GSAP, Manim
+Estilo: lemo-opuscar, three.js
+Referência: claude-video
+
+Todas de código aberto. Pede pro Claude instalar e ele instala.`,
+ nota:'Quem comentar LISTA recebe na DM o link andersonbrito.com/gratis.html#ferramentas.'},
+{id:'n4',dia:'Dia 5 · sáb 21/11 (2º post)',t:'Reel novo: ouça 10 efeitos do Pack Impacto',onde:'Reels + TikTok + Shorts + stories',cta:'KIT',st:'ok',stt:'novo (v1)',
+ vid:'pack-impacto-ouca_v1.mp4',poster:'pack-impacto-ouca_v1_capa.jpg',
+ cap:`Aumenta o som. Esses são 10 dos 171 efeitos do Pack Impacto, um de cada tipo: whoosh, clique, teclado, papel, câmera, dinheiro, notificação, glitch, brilho e impacto.
+
+Eu separo por tipo pra achar rápido na hora de editar. O Claude lê o índice e escolhe o som pela cena.
+
+O pack entra junto com o Kit Editar com Claude. Comenta KIT que eu te mando o link.`,
+ x:`10 dos 171 efeitos sonoros que eu uso pra editar. Um de cada tipo. Aumenta o som.`},
+{id:'am',dia:'Dia 6 · dom 22/11 (2º post)',t:'Grátis: 5 prompts do kit',onde:'X (fio) + LinkedIn + stories com caixinha',cta:'KIT',st:'ok',stt:'texto pronto',
+ txt:[['Fio no X (1 post por bloco)',`Vou deixar aqui 5 dos 103 prompts que eu uso pra editar vídeo com o Claude. Dá pra sair do bruto até a primeira prévia só com eles.
+
+1. Preparar o computador
+"Prepare este computador para eu editar vídeos com você. Verifique e instale o que faltar: FFmpeg, Python 3, um transcritor com tempo por palavra e Node.js. Antes de instalar cada coisa, me diga o que é e para que serve."
+
+2. Transcrever
+"Extraia o áudio de brutos/NOME.mp4 e transcreva em português com tempo por palavra. Me mostre só o texto corrido, com o tempo no começo de cada frase."
+
+3. Proposta de corte
+"Analise a transcrição. Me mostre a proposta de corte em texto: o que sai, com tempo e motivo, e o que fica. Só corte depois do meu OK."
+
+4. Legenda na zona segura
+"Coloque legenda no vídeo já cortado. De 1 a 3 palavras por vez, nada nos 220 px de cima nem nos 300 px de baixo. Antes de queimar, me mostre o texto pra eu revisar."
+
+5. Gancho animado
+"Crie uma animação para os 3 primeiros segundos: [DESCRIÇÃO]. Mande um quadro de cada segundo pra eu aprovar antes de renderizar."
+
+Os outros 98 estão no Kit Editar com Claude. Link na resposta.`],
+ ['LinkedIn (com imagem: quadro do reel de 50 s)',`Separei 5 dos prompts que eu uso todo dia pra editar vídeo com o Claude. Estão nos comentários, pode copiar.
+
+O que eu aprendi usando: o pedido bom é o que manda a IA mostrar antes de fazer. "Me mostre a proposta de corte e só corte depois do meu OK" mudou meu resultado mais do que qualquer ferramenta.
+
+Com esses 5 dá pra sair do vídeo bruto até a primeira prévia. O kit completo tem 103, mais e-book, videoaula e as skills que eu uso. O link está no primeiro comentário.`]],
+ nota:'Arquivo completo dos 5 prompts: divulgacao/AMOSTRA-GRATIS.md. Nos stories: 1 prompt por story, texto grande, e no último o adesivo de link.'},
+{id:'gb',dia:'Dia 7 · seg 23/11',t:'Vídeo falado: 4 passos (você grava)',onde:'Reels + TikTok + Shorts + X + LinkedIn',cta:'KIT',st:'warn',stt:'falta gravar',
+ txt:[['Roteiro (cerca de 45 s, olhando pra câmera)',`GANCHO (mostrar a tela com um vídeo sendo montado, 3 s)
+"Esse vídeo foi cortado e legendado por uma conversa."
+
+1. A PASTA
+"Primeiro eu crio uma pasta e jogo o vídeo bruto dentro. O Claude trabalha só ali."
+
+2. AS FERRAMENTAS
+"Depois eu peço pra ele instalar o que precisa. FFmpeg pra cortar, um transcritor pra legenda. Eu não instalo nada na mão."
+
+3. O MEU GOSTO
+"Eu escrevo num arquivo de texto como eu gosto do vídeo. Fonte, cor, ritmo de corte, o que eu não quero. Ele lê isso antes de cada edição."
+
+4. A PRÉVIA
+"Aí eu peço o vídeo. Ele me mostra o corte em texto, eu aprovo, ele monta e me manda a prévia. O que eu corrigir, ele anota pra não repetir."
+
+FECHAMENTO
+"Juntei esse passo a passo num kit, com os prompts e as skills que eu uso. Comenta KIT que eu te mando."`],
+ ['Legenda',`Como eu edito vídeo com o Claude, em 4 passos: a pasta, as ferramentas, o arquivo com o meu gosto e a prévia.
+
+O que mais muda o resultado é o terceiro. Sem ele a edição sai genérica.
+
+Montei tudo no Kit Editar com Claude. Comenta KIT que eu te mando o link.`]],
+ nota:'Grava em pé ou andando, sem ficar parado olhando pra câmera o tempo todo. Manda o bruto que eu corto, ponho os cartões de cada passo e a legenda.'},
+{id:'d8',dia:'Dia 8 · ter 24/11',t:'Repost dos melhores + faltam 2 dias',onde:'Reels (repostar o reel com mais alcance) + stories + X',cta:'KIT',st:'ok',stt:'texto pronto',
+ txt:[['Legenda do repost',`Faltam 2 dias. O Kit Editar com Claude fica em R$57 até amanhã, 25/11, às 23h59. Depois volta para R$97.
+
+O kit só fica disponível até 30 de novembro. Dia 30/11 sai do ar.
+
+Comenta KIT que eu te mando o link.`],
+ ['X',`Amanhã às 23h59 o Kit Editar com Claude volta de R$57 para R$97.
+
+E-book de 67 páginas, videoaula, 13 skills, 103 prompts e o pacote de edição com legendas, lettering e ícones.`]]},
+{id:'xs',dia:'Todos os dias',t:'Pauta contextual: GTA VI, Matrix e memes',onde:'X + legenda de story falado + Threads. Sem preço e sem link',cta:'',st:'ok',stt:'rascunho pra você ajustar',
+ txt:[['Ter 17/11 · véspera do GTA VI',`Amanhã sai GTA VI. Como editor, o que eu mais quero ver é a montagem das cenas. Trailer da Rockstar sempre foi aula de corte.
+
+---
+
+A chuva de código do Matrix tem mais de 25 anos e continua sendo a identidade visual de tecnologia mais forte que eu conheço. O visual do meu site veio dali.`],
+ ['Qua 18/11 · lançamento',`Dia de GTA VI. A internet inteira vai virar corte de gameplay essa semana. Quem edita rápido agora cresce.
+
+---
+
+(com vídeo) Transformei um vídeo do meu celular em jogo de mundo aberto. Minimapa, missão e barra de vida feitos em código, por cima da gravação.`],
+ ['Qui 19/11',`Pra quem vai postar corte de GTA: os 3 primeiros segundos têm que ser a ação, nunca a introdução. Legenda grande e uma ideia por corte.
+
+---
+
+(com o meme do Silvio, do @seufofudo) O Silvio Santos perguntando sobre GTA VI no Show do Milhão. Depois eu mostro como esse tipo de meme é feito.`],
+ ['Sex 20/11',`Pílula azul: abrir o programa e arrastar clipe por 4 horas.
+Pílula vermelha: explicar o vídeo em texto e corrigir a prévia.
+
+Esse ano eu escolhi a vermelha.
+
+---
+
+Dois dias de GTA VI. [sua opinião real em 1 frase: o que mais te surpreendeu no jogo]
+
+---
+
+(validação, com print real) O mesmo personagem de IA puxou [número do dia] no Facebook e 10 mil seguidores no Instagram. Gerado em 480p, som montado na mão. A cena prende mais que a qualidade.`],
+ ['Sáb 21/11',`Todo meme viral tem a mesma estrutura: uma imagem que todo mundo reconhece e uma frase que ninguém esperava. Quase nada de edição. O que segura é a ideia.
+
+---
+
+Uma coisa que eu sempre reparei no GTA: a rádio. A música certa muda a cena inteira. Em vídeo curto é igual.`],
+ ['Dom 22/11',`(fio dos 5 prompts grátis, único post do dia que fala do kit)
+
+---
+
+[bastidor real do seu domingo: o que você jogou, assistiu ou fez com a família. 1 frase e 1 foto]`],
+ ['Seg 23/11',`Neo aprendeu kung fu em 10 segundos com um cabo na nuca. Eu levei uns meses pra aprender a pedir vídeo pro Claude do jeito certo. Sem cabo.
+
+---
+
+Primeira semana de GTA VI. [eu pesquiso no dia os cortes que mais viralizaram e a gente comenta o que eles têm em comum na edição]`],
+ ['Ter 24/11',`O que eu aprendi vendo corte de GTA a semana inteira: quem cresceu não foi quem jogou melhor. Foi quem cortou mais rápido e legendou direito.
+
+---
+
+Amanhã às 23h59 o meu kit de edição volta para R$97. E ele só fica à venda até 30/11. Quem quiser, o link está no perfil.`],
+ ['Qua 25/11',`Hoje às 23h59 o kit volta de R$57 para R$97. Link no perfil. Ele só fica à venda até 30/11.
+
+---
+
+Obrigado a quem acompanhou a semana. As dúvidas eu respondo uma por uma.`]],
+ nota:'São rascunhos na sua voz: troca o que não for sua opinião. Onde tem [colchete] eu preciso de você ou de pesquisa no dia. GTA: só material oficial da Rockstar ou recriação nossa em código.'},
+{id:'li',dia:'Qua, sex, seg e qua',t:'Posts de LinkedIn (4)',onde:'LinkedIn, sempre com imagem ou vídeo',cta:'kit só no 1º comentário, quando encaixa',st:'ok',stt:'rascunho pra você ajustar',
+ txt:[['Qua 18/11 · GTA VI (com imagem oficial da Rockstar)',`Hoje todo mundo fala de GTA VI. Eu queria falar dos trailers.
+
+A Rockstar monta trailer como poucos estúdios de cinema: o corte entra na batida, a música conta a história e nenhuma cena dura mais do que precisa.
+
+Para quem trabalha com vídeo de marca, a lição cabe em qualquer orçamento. Ritmo e som certo valem mais que efeito.
+
+[sua opinião real: a cena do trailer que você mais reviu e por quê]`],
+ ['Sex 20/11 · validação (com print real dos números)',`Um personagem de IA que eu criei passou de [número real do dia] visualizações em um único vídeo no Facebook. O mesmo personagem também puxa o meu Instagram.
+
+O vídeo foi gerado em 480p e sem som. O áudio eu montei na mão, efeito por efeito.
+
+O que eu aprendi: a qualidade da geração não prende ninguém. O que prende é a cena, e a cena vem de uma ideia simples que a pessoa reconhece em 1 segundo.
+
+Hoje eu edito esses vídeos conversando com o Claude. O passo a passo está no primeiro comentário.`],
+ ['Seg 23/11 · processo (com o vídeo falado)',`Uma lição de quem edita vídeo com IA todo dia: peça para ver antes de fazer.
+
+Antes de cortar, eu peço a proposta de corte em texto. Antes de renderizar uma animação, eu peço um quadro de cada segundo. Antes de queimar a legenda, eu leio o texto.
+
+São três aprovações de um minuto. Elas evitam refazer o vídeo inteiro, que é onde o tempo vai embora.
+
+No vídeo eu mostro os 4 passos do meu processo.`],
+ ['Qua 25/11 · único post de oferta (com a imagem do kit)',`O Kit Editar com Claude está R$57 até hoje às 23h59. Depois volta para R$97. E ele só fica disponível até 30 de novembro, dia 30/11 sai do ar.
+
+Dentro tem o e-book de 67 páginas, a videoaula, 13 skills, 103 prompts e o pacote de edição com 11 estilos de legenda, 15 de lettering e 298 ícones.
+
+É o material que eu queria ter tido quando comecei a editar por conversa. O link está no primeiro comentário.`]],
+ nota:'O número do post de sexta sai do relatório do dia (o reel do Silvio estava em 778 mil em 17/11). Print só se for real.'},
+{id:'st',dia:'Todos os dias',t:'Stories: você falando, sem cartão',onde:'Instagram stories, celular na mão, sem legenda',cta:'',st:'ok',stt:'roteiro',
+ txt:[['Roteiro (15 s cada, gravado na hora, sem refazer)',`Ter 17: "Amanhã sai GTA VI e eu já sei que não vou editar nada à noite." + enquete: vai jogar no dia? (cartão de enquete pronto serve)
+Qua 18: tela do jogo ou do trailer oficial atrás de você, sua primeira reação. Depois o vídeo do HUD em código.
+Qui 19: reposta o meme do Silvio do @seufofudo e conta em 15 s como ele é feito. Caixinha: "manda uma frase que eu devolvo em lettering".
+Sex 20: pílula azul ou vermelha (enquete). Você escolhendo a vermelha na frente do computador.
+Sáb 21: aumenta o som: trecho do reel dos efeitos. "Qual desses você ouve em todo vídeo?"
+Dom 22: os 5 prompts grátis (cartões prontos) e 1 story com link. Único dia com link até terça.
+Seg 23: bastidor da gravação dos 4 passos, erro incluído.
+Ter 24: uma dúvida real respondida em vídeo. No fim: "amanhã acaba o preço de lançamento".
+Qua 25: de manhã "último dia", às 21h "faltam 3 horas". Só esses dois falam de venda.`]],
+ nota:'Os cartões prontos ficam em divulgacao-kit/m/stories_17nov até stories_25nov. Usa só enquete, caixinha e os 5 prompts; o resto é você falando.'},
+{id:'ex',dia:'Extras',t:'Thumb e capa do e-book',onde:'YouTube (videoaula) e página de vendas',cta:'',st:'ok',stt:'pronto, atualizado',imgs:['thumb','capa']}
+];
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+P.forEach(p=>{
+  $('#nav').insertAdjacentHTML('beforeend',`<a href="#${p.id}">${p.dia.split(' · ')[0]} ${p.t.split(':')[0]}</a>`);
+  $('#cal').insertAdjacentHTML('beforeend',`<tr><td class="mono">${p.dia}</td><td><a href="#${p.id}" style="color:var(--txt)">${p.t}</a></td><td>${p.onde}</td><td class="mono">${p.cta}</td><td><span class="tag ${p.st}">${p.stt}</span></td></tr>`);
+  if(p.txt){p.txt.forEach((b,i)=>{p['t'+i]=b[1]})}
+  let m=p.txt?'':p.vid?`<div class="media"><a href="https://drive.google.com/file/d/${DRV[p.vid]}/view" target="_blank" rel="noopener">${p.poster?`<img loading="lazy" style="width:100%;display:block;border-radius:12px" src="m/${p.poster}" alt="">`:`<div style="aspect-ratio:9/16;display:grid;place-items:center;border:1px solid var(--line);border-radius:12px;color:var(--g)">▶ ver vídeo</div>`}</a></div><div><a style="font:600 13px/1 inherit;text-decoration:none;display:inline-block;margin:8px 8px 0 0;padding:9px 14px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--g)" href="https://drive.google.com/uc?export=download&id=${DRV[p.vid]}">⬇ baixar vídeo</a><a style="font:600 13px/1 inherit;text-decoration:none;display:inline-block;margin:8px 8px 0 0;padding:9px 14px;border:1px solid var(--line);border-radius:9px;background:var(--card);color:var(--g)" target="_blank" rel="noopener" href="https://drive.google.com/file/d/${DRV[p.vid]}/view">▶ assistir</a></div>`:`<div class="strip">${p.imgs.map(i=>`<img loading="lazy" src="m/${i}.png" alt="${i}">`).join('')}</div>`;
+  let r='';
+  if(p.cap)r+=`<div class="lbl"><span>Legenda Instagram / TikTok</span><button data-c="${p.id}c">copiar</button></div><div class="cap" id="${p.id}c">${esc(p.cap)}</div>`;
+  if(p.x)r+=`<div class="lbl"><span>Texto X / LinkedIn</span><button data-c="${p.id}x">copiar</button></div><div class="cap" id="${p.id}x">${esc(p.x)}</div>`;
+  if(p.txt)p.txt.forEach((b,i)=>{r+=`<div class="lbl"><span>${b[0]}</span><button data-c="${p.id}t${i}">copiar</button></div><div class="cap" id="${p.id}t${i}">${esc(b[1])}</div>`});
+  if(p.nota)r+=`<div class="note ${p.st=='bad'?'bad':''}">${p.nota}</div>`;
+  const body=p.vid?`<div class="grid">${m}<div>${r}</div></div>`:`<div style="margin-top:14px">${m}${r}</div>`;
+  $('#posts').insertAdjacentHTML('beforeend',`<div class="box" id="${p.id}"><div class="day">${p.dia}</div><h2>${p.t}</h2><span class="tag ${p.st}">${p.stt}</span><span class="tag">${p.onde}</span>${p.cta?`<span class="tag mono">palavra: ${p.cta}</span>`:''}${body}</div>`);
+});
+$('#nav').insertAdjacentHTML('beforeend','<a href="#dm">Direct</a><a href="#pend">Pendências</a>');
+document.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-c]');
+  if(b){navigator.clipboard.writeText(document.getElementById(b.dataset.c).textContent);b.textContent='copiado';setTimeout(()=>b.textContent='copiar',1200);return}
+  if(e.target.matches('.strip img')){$('#zoom img').src=e.target.src;$('#zoom').style.display='flex';return}
+  if(e.target.closest('#zoom'))$('#zoom').style.display='none';
+});
+</script>
+</body>
+</html>

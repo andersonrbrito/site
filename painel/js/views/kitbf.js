@@ -60,6 +60,7 @@ export default async function kitbf() {
   const copiar = (u, b) => navigator.clipboard.writeText(u).then(() => { b.textContent = "copiado"; setTimeout(() => (b.textContent = "copiar"), 1200); });
   return h("div", { class: "page" },
     pageHead("KIT BF", "Kit Editar com Claude · disponível só até 30 de novembro"),
+    h("a", { href: "/plano-kit-r7w2/", target: "_blank", rel: "noopener", style: { display: "block", textAlign: "center", padding: "14px 16px", margin: "0 0 14px", border: "1px solid #41ff8a", borderRadius: "12px", color: "#41ff8a", fontWeight: "700", textDecoration: "none" } }, "Abrir o plano de divulgação (legendas, vídeos e DMs)"),
     h("div", { class: "pfgrid" }, h("div", { class: "pfcard" }, h("span", { class: "mono muted" }, "preço na página agora"), h("b", null, preco), h("span", { class: "muted small" }, txt))),
     tarefas(),
     ...G.map(([t, L]) => h("div", { style: { marginTop: "18px" } },
@@ -71,5 +72,5 @@ export default async function kitbf() {
         h("div", null, h("button", { type: "button", class: "chip", onclick: (e) => copiar(u, e.currentTarget) }, "copiar"))))))),
     h("div", { style: { marginTop: "18px" } }, h("div", { class: "mono muted", style: { marginBottom: "8px" } }, "Ainda sem link"),
       h("ul", { class: "muted small" }, ...FALTA.map((x) => h("li", null, x)))),
-    h("p", { class: "muted small", style: { marginTop: "12px" } }, "As legendas e os vídeos ficam no plano de divulgação, que está só no Mac (pasta divulgacao-kit)."));
+    h("p", { class: "muted small", style: { marginTop: "12px" } }, "As legendas e os vídeos ficam no plano de divulgação, no botão do topo desta página."));
 }
