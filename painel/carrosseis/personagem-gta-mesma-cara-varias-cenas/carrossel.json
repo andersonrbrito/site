@@ -1,0 +1,80 @@
+{
+  "slug": "personagem-gta-mesma-cara-varias-cenas",
+  "dia": "2026-11-20",
+  "tipo": "educativo",
+  "titulo": "Seu personagem de GTA em 5 cenas sem mudar a cara",
+  "perfil": "@andrstudios",
+  "legenda": "Quer o mesmo personagem (seu, do cliente, ou um de IA) aparecendo em várias cenas de GTA sem mudar a cara? O segredo é o character sheet.\n\nVocê faz uma prancha do personagem primeiro (rosto de frente, de lado e de 3/4, mesmo cabelo e mesma roupa) e anexa ela em toda cena nova, pedindo 'mesma pessoa'. Se o rosto começar a fugir, volta pra prancha em vez de insistir na imagem torta.\n\nEm quantas cenas você ia botar o seu?\n\nSalva esse método e manda pra quem cria personagem com IA.\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [
+    {
+      "titulo": "Grand Theft Auto VI — arte oficial da Rockstar Games (referência de estilo)",
+      "url": "https://www.rockstargames.com/VI"
+    }
+  ],
+  "notas": "Educativo técnico (consistência de personagem com character sheet) com gancho no GTA VI. Lâmina 2 mostra a prancha real do Anderson (carrosseis/_refs/character-sheet-anderson). Mídia: renders já aprovados no estilo GTA + prancha. Hook com Neymar. Sem gerar imagem nova.",
+  "slides": [
+    {
+      "texto": "Seu personagem de GTA em 5 cenas **sem mudar a cara**.\n\nO truque é um só: character sheet. Te mostro como.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/01-neymar.jpg",
+        "foco": 0.3
+      },
+      "rodape": "arrasta pro lado →"
+    },
+    {
+      "texto": "O erro de quase todo mundo: gerar cada cena do zero. Aí o rosto muda toda hora.\n\nA solução é fazer **uma prancha** do personagem primeiro e usar ela de referência em tudo.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/02-sheet.jpg",
+        "foco": 0.5
+      }
+    },
+    {
+      "texto": "**Passo 1 — a prancha.** Gere o personagem numa imagem só, mostrando o rosto de frente, de lado e de 3/4, com o mesmo cabelo e a mesma roupa.\n\nEssa prancha vira a 'identidade' dele.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/03-anderson.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "**Passo 2 — travar o rosto.** Em cada cena nova, anexe a prancha e peça 'mesma pessoa, mesmo rosto e cabelo'.\n\nO modelo copia a cara da referência em vez de inventar uma nova.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/04-cena.jpg",
+        "foco": 0.5,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "**Passo 3 — só muda o cenário.** Troca a rua, a luz, a roupa e a câmera, mas mantém a prancha anexada.\n\nAssim ele anda por Vice City inteira sendo a mesma pessoa.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/05-cidade.jpg",
+        "foco": 0.4,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "Dica que salva tempo: se o rosto começar a fugir, **volta pra prancha** e gera de novo, não insiste na imagem torta.\n\nUma referência boa vale mais que 10 tentativas.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/06-casal.jpg",
+        "foco": 0.3,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "Serve pra você, pro cliente e pro personagem de IA que você criar.\n\n**Em quantas cenas você ia botar o seu?**\n\nSalva esse método e manda pra quem cria personagem com IA.\nComenta KIT que eu te mando o link do Kit Editar com Claude, onde ensino edição + IA do zero. De R$97 por R$57 até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/personagem-gta-mesma-cara-varias-cenas/07-posto.jpg",
+        "foco": 0.4,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}

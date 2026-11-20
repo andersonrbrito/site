@@ -1,0 +1,81 @@
+{
+  "slug": "tela-verde-do-gta-no-seu-video",
+  "dia": "2026-11-20",
+  "tipo": "educativo",
+  "titulo": "Põe qualquer coisa na tela do celular (estilo GTA VI)",
+  "perfil": "@andrstudios",
+  "legenda": "A tela verde do celular no estilo GTA VI virou trend, e dá pra fazer com qualquer vídeo: você põe o que quiser na telinha que o personagem segura.\n\nO truque é chroma key (tira o verde) + rastreio dos 4 cantos (Corner Pin). Um detalhe que engana o olho: abaixar um tico o brilho da sua tela e pôr um reflexo leve.\n\nQue vídeo você ia botar nessa tela?\n\nSalva pra testar e manda pra quem edita contigo.\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [
+    {
+      "titulo": "Grand Theft Auto VI — arte oficial da Rockstar Games (referência de estilo)",
+      "url": "https://www.rockstargames.com/VI"
+    }
+  ],
+  "notas": "Educativo técnico (chroma key + motion tracking) com gancho no GTA VI. Pauta tirada das curtidas do Anderson no X em 20/11 (@MurdoinkGS, 'tela verde do celular de GTA VI + padrão de rastreamento'). Mídia: renders já aprovados no estilo GTA (reaproveitados do vire-personagem e gta-vi-nota); hook com Neymar e fim com o Anderson (character sheet). Sem gerar imagem nova.",
+  "slides": [
+    {
+      "texto": "Põe **qualquer coisa** na telinha de celular do seu vídeo, estilo GTA VI.\n\nÉ chroma key com rastreio. Te mostro o passo a passo.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/01-neymar.jpg",
+        "foco": 0.3
+      },
+      "rodape": "arrasta pro lado →"
+    },
+    {
+      "texto": "A sacada: a tela fica **verde** e com uns pontinhos de marcação.\n\nO verde some no chroma, e os pontinhos dizem pro programa onde a tela está em cada quadro.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/02-tela.jpg",
+        "foco": 0.5,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "**Passo 1 — a base.** Grave (ou gere) a cena com uma tela verde na mão, parada ou em movimento.\n\nQuanto mais marcas na tela verde, mais fácil o rastreio depois.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/03-cidade.jpg",
+        "foco": 0.4,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "**Passo 2 — rastrear.** No editor (CapCut, Premiere ou DaVinci), use o Tracker em cima da tela verde.\n\nEle gruda os 4 cantos no celular e segue o movimento sozinho.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/04-track.jpg",
+        "foco": 0.4,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "**Passo 3 — encaixar.** Chroma key pra tirar o verde e Corner Pin (ou Mocha) pra prender o seu vídeo nos 4 cantos.\n\nAí a sua tela anda junto com a mão.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/05-comp.jpg",
+        "foco": 0.3,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "O acabamento que engana o olho:\n\nbaixa um tiquinho o brilho da sua tela e põe um **reflexo leve** por cima, pra não parecer colado. É esse detalhe que vende o efeito.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/06-luz.jpg",
+        "foco": 0.4,
+        "credito": "arte: Rockstar Games (referência de estilo)"
+      }
+    },
+    {
+      "texto": "Fiz com a minha cara aqui.\n\n**Que vídeo você ia botar nessa tela?**\n\nSalva pra testar e manda pra quem edita contigo.\nComenta KIT que eu te mando o link do Kit Editar com Claude, onde ensino edição + IA do zero. De R$97 por R$57 até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/tela-verde-do-gta-no-seu-video/07-anderson.jpg",
+        "foco": 0.3
+      },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}

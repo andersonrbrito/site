@@ -1,0 +1,85 @@
+{
+  "slug": "suno-visuals-musica-vira-clipe",
+  "dia": "2026-11-20",
+  "tipo": "noticia",
+  "titulo": "A Suno agora faz o clipe da música sozinha",
+  "perfil": "@andrstudios",
+  "legenda": "A Suno lançou o Visuals: a IA que cria a música agora também gera o clipe em cima dela. Trechos de até 15 segundos, dá pra estender, editar por texto e juntar num vídeo inteiro, mais capa de álbum e vídeo de letra com a boca sincronizada.\n\nRoda no H3 Move (base no H3 da MiniMax). O vídeo gasta crédito à parte, tem plano pago novo e sai com marca d'água, e bloqueia rosto de famoso e marca com direito. Pra quem faz Reels encurta o caminho, mas não substitui edição de verdade. Posso estar errado.\n\nVocê usaria um clipe feito 100% por IA no seu vídeo?\n\nSe você edita e quer usar IA no dia a dia: Comenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: Bloomberg e Digital Music News (17/11/2026).",
+  "fontes": [
+    {
+      "titulo": "AI Music Startup Suno Offers Video Generation for Songs — Bloomberg",
+      "url": "https://www.bloomberg.com/news/articles/2026-11-17/ai-music-generator-suno-to-let-users-create-music-videos"
+    },
+    {
+      "titulo": "Suno Launches 'Visuals' for Music Video Creation — Digital Music News",
+      "url": "https://www.digitalmusicnews.com/2026/11/17/suno-visuals-launch/"
+    }
+  ],
+  "notas": "Notícia de ferramenta na visão de editor/criador. Fato confirmado em Bloomberg + Digital Music News (lançou 17/11). Mídia: imagem oficial da Suno (og) baixada de suno.com, reaproveitada em várias lâminas, + chuva matrix do site nas lâminas de opinião. Sem gerar imagem nova.",
+  "slides": [
+    {
+      "texto": "A Suno agora **faz o clipe da música** pra você.\n\nChama Visuals: a mesma IA que cria a música gera o vídeo em cima dela.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/suno-og.jpg",
+        "foco": 0.5,
+        "credito": "imagem: Suno"
+      },
+      "rodape": "arrasta pro lado →"
+    },
+    {
+      "texto": "Como funciona:\n\nVocê escolhe um trecho da sua música e ela gera um clipe de até **15 segundos**. Dá pra estender, editar e trocar com texto, e depois juntar vários num clipe inteiro.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/suno-og.jpg",
+        "foco": 0.5,
+        "credito": "imagem: Suno"
+      }
+    },
+    {
+      "texto": "Não é só o clipe.\n\nTambém faz vídeo de letra com a **boca sincronizada**, capa de álbum e miniatura, tudo puxando o clima da sua faixa, sem sair da Suno.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/suno-og.jpg",
+        "foco": 0.5,
+        "credito": "imagem: Suno"
+      }
+    },
+    {
+      "texto": "Por baixo roda o **H3 Move**, uma versão do H3 da MiniMax que a Suno ajustou com os dados dela.\n\nÉ a leva de modelo que anda resolvendo bem texto e boca em vídeo.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/matrix.png",
+        "foco": 0.5
+      },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "Os limites, pra não se empolgar:\n\no vídeo **gasta crédito à parte** e tem plano pago novo. E tem trava: bloqueia rosto de famoso, personagem e marca com direito, e todo vídeo sai com marca d'água.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/suno-og.jpg",
+        "foco": 0.5,
+        "credito": "imagem: Suno"
+      }
+    },
+    {
+      "texto": "Pra quem faz Reels, do jeito que eu vejo, isso encurta demais o caminho: música e clipe no mesmo lugar.\n\nNão substitui edição de verdade, mas acaba com o 'tela parada só com a música tocando'. Mas posso estar errado.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/matrix.png",
+        "foco": 0.5
+      }
+    },
+    {
+      "texto": "Vale um aviso: gravadoras ainda processam a Suno por voz e imagem de artista, então fica de olho no que dá pra usar comercialmente.\n\n**Você usaria um clipe feito 100% por IA no seu vídeo?**\n\nSe você edita e quer usar IA no dia a dia: Comenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/suno-visuals-musica-vira-clipe/suno-og.jpg",
+        "foco": 0.5,
+        "credito": "imagem: Suno"
+      },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}

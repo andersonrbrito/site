@@ -1,0 +1,84 @@
+{
+  "slug": "claude-code-mesa-de-edicao",
+  "dia": "2026-11-20",
+  "tipo": "noticia",
+  "titulo": "Editor tá trocando o CapCut por código",
+  "perfil": "@andrstudios",
+  "legenda": "Tá rolando uma onda entre editores: montar uma mesa de edição inteira com o Claude Code e uns repositórios grátis do GitHub (yt-dlp, WhisperX, auto-editor e um MCP do DaVinci Resolve).\n\nO clipe bruto entra, o código faz a parte chata (transcrever, tirar silêncio, renderizar) e o corte sai quase pronto. Pra mim não mata o editor de timeline, vira mais uma ferramenta na mesa. Mas posso estar errado.\n\nVocê editaria um vídeo só conversando com a IA?\n\nSe você edita vídeo e quer usar IA no dia a dia: Comenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: GitHub (davinci-resolve-mcp, auto-editor, WhisperX, yt-dlp) e Blackmagic (DaVinci Resolve 21.1 com MCP nativo).",
+  "fontes": [
+    {
+      "titulo": "DaVinci Resolve MCP (samuelgursky) — GitHub",
+      "url": "https://github.com/samuelgursky/davinci-resolve-mcp"
+    },
+    {
+      "titulo": "auto-editor — GitHub",
+      "url": "https://github.com/WyattBlue/auto-editor"
+    },
+    {
+      "titulo": "Claude Code + DaVinci Resolve: cinco tarefas de edição (implicator.ai)",
+      "url": "https://www.implicator.ai/claude-code-davinci-resolve-five-editing-tasks/"
+    }
+  ],
+  "notas": "Notícia na visão de editor (não é tutorial). Pauta tirada das curtidas do Anderson no X em 20/11 (@Y0urDumble e @anstap, posts sobre repos grátis virando mesa de edição). Mídia reutilizada do banco: hook e fim com memes de editor (Neymar) + chuva matrix do site; lâminas do meio com memes de edição. Sem gerar imagem nova (ChatGPT não foi usado nesta rodada; usei mídia já aprovada do banco).",
+  "slides": [
+    {
+      "texto": "Muita gente que edita vídeo tá **trocando o CapCut por código**.\n\nClaude Code + uns repositórios grátis viraram uma mesa de edição inteira.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/01-neymar.jpg",
+        "foco": 0.3
+      },
+      "rodape": "arrasta pro lado →"
+    },
+    {
+      "texto": "A ideia é simples: o clipe bruto entra, o Claude roda uns programas de código aberto e o corte sai **quase pronto**.\n\nSem assinatura e sem ficar exportando de um app pro outro.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/02-matrix.png",
+        "foco": 0.5
+      }
+    },
+    {
+      "texto": "O que esses repositórios grátis fazem (todos no GitHub):\n\n• **yt-dlp** baixa o vídeo de quase qualquer lugar\n• **WhisperX** transcreve a fala com o tempo certo\n• **auto-editor** tira os silêncios sozinho\n• um MCP do DaVinci Resolve deixa o Claude mexer na timeline",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/03-mesa.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "Não é mágica: **você ainda decide** o ritmo, o gancho e o que corta.\n\nO código faz a parte chata (transcrever, tirar pausa, renderizar) e sobra tempo pra pensar no vídeo.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/04-repos.jpg",
+        "foco": 0.3
+      },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "Pra mim isso muda o jogo pra quem edita muito: menos clique repetido, mais cabeça no conteúdo.\n\nMas tem curva: é terminal, dá erro e no começo **assusta um pouco**.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/05-fluxo.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "Não acho que isso mata o editor de timeline.\n\nDo jeito que eu vejo, vira **mais uma ferramenta na mesa**, do lado do Premiere e do CapCut. Mas posso estar errado.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/06-opiniao.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "E não é só coisa de nerd: o próprio DaVinci Resolve já saiu com um MCP nativo pra isso. A onda é real.\n\n**Você editaria um vídeo só conversando com a IA?**\n\nComenta KIT que eu te mando o link do Kit Editar com Claude, onde ensino edição + IA do zero. De R$97 por R$57 até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/claude-code-mesa-de-edicao/07-fim.png",
+        "foco": 0.5
+      },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}
