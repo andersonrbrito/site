@@ -1,0 +1,75 @@
+{
+  "slug": "baixe-os-personagens-do-gta-vi",
+  "dia": "2026-11-20",
+  "tipo": "educativo",
+  "titulo": "Baixe os personagens do GTA VI",
+  "perfil": "@andrstudios",
+  "legenda": "Pack grátis com 7 character sheets de personagens do GTA VI pra você usar nas suas criações com IA.\n\nComo usar: anexa a prancha no ChatGPT, Flow, Seedance ou Kling, descreve a cena e pede pra manter rosto, corpo e roupa iguais. A mesma prancha em todas as cenas segura a cara do personagem.\n\nLink do pack: andersonbrito.com/personagens-gta-vi\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [
+    {
+      "titulo": "Grand Theft Auto VI — Rockstar Games",
+      "url": "https://www.rockstargames.com/VI"
+    }
+  ],
+  "notas": "CARROSSEL ESPECIAL: a capa postada é o arquivo 00-capa-especial-4x5.png (4:5 inteiro, aprovado como C2 em 20/11), não a lâmina 1 renderizada. Página do pack: /personagens-gta-vi/",
+  "slides": [
+    {
+      "texto": "Baixe os personagens do **GTA VI**.\n\nPack grátis pra usar na sua IA.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/01-capa.jpg",
+        "foco": 0.35
+      },
+      "rodape": "arrasta pro lado →"
+    },
+    {
+      "texto": "Isso é um **character sheet**: o personagem de frente, perfil, costas e rosto numa prancha só.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/sheet-01.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "A IA não lembra de um personagem. Toda geração começa do zero.\n\nA prancha é o que **segura a cara** de uma cena pra outra.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/sheet-02.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "Como usar: anexa a prancha no ChatGPT, Flow, Seedance ou Kling e descreve **só a cena**: lugar, ação e enquadramento.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/sheet-03.jpg",
+        "foco": 0.3
+      },
+      "rodape": "segue @andersonbrito.mp4"
+    },
+    {
+      "texto": "No prompt, pede pra manter **rosto, corpo e roupa** iguais aos da prancha. Uma prancha por personagem, sempre a mesma.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/sheet-05.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "São **7 personagens** no pack, em 2048x2048.\n\nLink: andersonbrito.com/personagens-gta-vi",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/sheet-07.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "Quer editar o vídeo com IA também?\n\nComenta **KIT** e te mando o Kit Editar com Claude, de R$97 por **R$57** até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/01-capa.jpg",
+        "foco": 0.6
+      }
+    }
+  ]
+}
