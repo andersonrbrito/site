@@ -1,0 +1,71 @@
+{
+  "slug": "video-de-ia-com-cara-de-fake",
+  "dia": "2026-11-21",
+  "tipo": "educativo",
+  "titulo": "Por que seu vídeo de IA parece fake",
+  "perfil": "@andrstudios",
+  "legenda": "O Will Smith comendo espaguete virou meme em 2023. Hoje os modelos estão muito melhores, mas a maioria dos vídeos de IA ainda tem cara de fake. Quase sempre o problema está no prompt, não na ferramenta.\n\n4 ajustes que eu uso:\n1. Fala como diretor de fotografia: lente, altura da câmera e movimento.\n2. Dá direção pra luz: de onde vem, a cor e a hora do dia.\n3. Personagem sempre com character sheet anexado.\n4. Uma ação por take. Movimento demais num take só é onde a IA derrete.\n\nSalva pra usar no próximo vídeo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [],
+  "notas": "21/11: primeiro no padrão novo (educativo, capa tela cheia estilo v4company, famoso/marca/Anderson em todas). Imagens: capa e set no ChatGPT; Neymar GTA e sheet reaproveitados.",
+  "slides": [
+    {
+      "capa": true,
+      "texto": "Por que seu vídeo de IA parece **FAKE**",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/01-capa.jpg",
+        "foco": 0.3
+      },
+      "rodape": "arrasta →"
+    },
+    {
+      "texto": "O Will Smith comendo espaguete virou meme em 2023.\n\nOs modelos melhoraram muito. Mas o vídeo de quase todo mundo ainda tem cara de fake, e o problema quase sempre é o **prompt**.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/01-capa.jpg",
+        "foco": 0.25
+      }
+    },
+    {
+      "texto": "**1. Fala como diretor de fotografia.**\n\n\"Câmera bonita\" não diz nada. Diz a lente (35mm, 85mm), a altura da câmera e o movimento: parada, travelling lento, na mão.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/03-set.jpg",
+        "foco": 0.4
+      }
+    },
+    {
+      "texto": "**2. Dá direção pra luz.**\n\nDe onde ela vem, a cor e a hora do dia. \"Luz de janela pela esquerda, fim de tarde, quente\" muda o vídeo inteiro.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/03-set.jpg",
+        "foco": 0.6
+      },
+      "rodape": "segue @andersonbrito.mp4"
+    },
+    {
+      "texto": "**3. Personagem com character sheet.**\n\nA IA não lembra de ninguém. Anexa a prancha com frente, perfil e costas em toda geração e o rosto para de mudar.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/04-sheet.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "**4. Uma ação por take.**\n\nAndar, virar, sentar e falar no mesmo take é onde a IA derrete. Uma ação só, e junta os takes na edição.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/05-neymar.jpg",
+        "foco": 0.3
+      }
+    },
+    {
+      "texto": "O resto é edição: corte no tempo certo, som e cor.\n\nComenta **KIT** e te mando o Kit Editar com Claude, de R$97 por **R$57** até 23/11.",
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/video-de-ia-com-cara-de-fake/07-anderson.jpg",
+        "foco": 0.3
+      }
+    }
+  ]
+}
