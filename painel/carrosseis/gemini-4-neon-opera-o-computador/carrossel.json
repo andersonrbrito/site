@@ -1,0 +1,76 @@
+{
+ "slug": "gemini-4-neon-opera-o-computador",
+ "dia": "2026-11-21",
+ "tipo": "noticia",
+ "titulo": "O Gemini agora mexe no seu computador sozinho",
+ "perfil": "@andrstudios",
+ "legenda": "O Google soltou o Gemini 4 Neon (18/11) e, no dia seguinte, ligou o Computer Use no app do Gemini pra Mac: a IA abre programa, mexe em arquivo e clica na tela no seu lugar.\n\nPra mim o recado pra quem edita é esse: a parte chata (renomear take, exportar, organizar pasta) é o próximo alvo da automação. Mas delegar clique ainda me deixa com um pé atrás.\n\nPor enquanto é só Mac com chip Apple, começando nos EUA e em plano pago. Você deixaria uma IA clicar nos seus programas? Por quê?\n\nSe você edita vídeo e quer usar IA no dia a dia: Comenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: The Decoder, Unite.AI e a documentação do Google Cloud.",
+ "fontes": [
+  {
+   "titulo": "The Decoder: Google ships Gemini 4 Neon, its fourth new Gemini model in a month",
+   "url": "https://the-decoder.com/google-ships-gemini-4-neon-its-fourth-new-gemini-model-in-a-month/"
+  },
+  {
+   "titulo": "Unite.AI: Google Launches Gemini 4 Neon for Coding, Knowledge Work and Science",
+   "url": "https://www.unite.ai/google-launches-gemini-4-neon-for-coding-knowledge-work-and-science/"
+  },
+  {
+   "titulo": "Google Cloud: Gemini 4 Neon (Computer use: Supported)",
+   "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/4-neon"
+  }
+ ],
+ "notas": "Pauta: Google lancou o Gemini 4 Neon em 18/11/2026 (quarto modelo Gemini em um mes), focado em trabalho de agente de longa duracao; contexto ~1 milhao de tokens, US$3/US$15 por milhao de tokens. Em 19/11 adicionou o 'Computer Use' no app Gemini para macOS (so Apple Silicon, EUA primeiro, ingles, plano pago): a IA opera arquivos, apps e a web no lugar do usuario. Benchmarks sao alegacoes do proprio Google (1o no Artificial Analysis Coding Agent Index 58,6; 1o no AutomationBench 56,3%; 2o no Vals Index 70,9%). Confirmado em The Decoder, Unite.AI e docs do Google Cloud. Imagens on-brand geradas no ChatGPT (sem logos reais). Angulo pro editor: automatizar tarefa repetitiva de edicao. Sem politica.",
+ "slides": [
+  {
+   "texto": "O Google lançou uma IA que **opera o seu computador** sozinha: abre app, mexe em arquivo e clica na tela.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-neon-opera-o-computador/01-neon.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Na terça (18/11) saiu o **Gemini 4 Neon**, o quarto modelo do Gemini em um mês só.\n\nE no dia seguinte o Google ligou o Computer Use no app do Gemini pra Mac.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-neon-opera-o-computador/02-tela.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Na prática: você pede e a IA **navega, clica e digita** nos seus arquivos, nos seus programas e na web, no seu lugar.\n\nÉ aquele estagiário que mexe no computador por você.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-neon-opera-o-computador/01-neon.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O Neon foi feito pra tarefa longa, com muitas ferramentas: contexto de quase **1 milhão de tokens** e preço de US$ 3 por milhão de tokens na entrada.\n\n(As notas de recorde em benchmark são o próprio Google que diz.)",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-neon-opera-o-computador/02-tela.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O que isso vale pra quem edita?\n\nA parte chata (renomear take, exportar, organizar pasta) é o **próximo alvo da automação**. Mas delegar clique ainda me deixa com um pé atrás.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-neon-opera-o-computador/01-neon.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Por enquanto é só Mac com chip Apple, começando nos EUA e em plano pago.\n**Você deixaria uma IA clicar nos seus programas?**\n\nSe você edita vídeo e quer usar IA no dia a dia: Comenta **KIT** que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/gemini-4-neon-opera-o-computador/02-tela.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

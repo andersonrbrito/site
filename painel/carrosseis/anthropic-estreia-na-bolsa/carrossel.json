@@ -1,0 +1,76 @@
+{
+ "slug": "anthropic-estreia-na-bolsa",
+ "dia": "2026-11-21",
+ "tipo": "noticia",
+ "titulo": "A dona do Claude estreou na bolsa e disparou 34%",
+ "perfil": "@andrstudios",
+ "legenda": "A Anthropic, que faz o Claude, estreou na Nasdaq na quinta (19/11) com o código ANT. Saiu a US$ 83, abriu a US$ 111,50 e bateu quase US$ 115 antes de fechar em US$ 97,17. Uma das maiores estreias de IA da história.\n\nPra mim o recado é esse: IA no trabalho virou infraestrutura, não moda passageira. Eu edito vídeo com o Claude todo dia. Mas posso estar errado.\n\nSerá que o preço da ferramenta pra gente sobe junto, ou a concorrência segura? O que você acha?\n\nSe você edita vídeo e quer usar IA no dia a dia: Comenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFonte: TechRepublic, Reuters/Yahoo Finance e StockAnalysis.",
+ "fontes": [
+  {
+   "titulo": "TechRepublic: Anthropic IPO opens at $111.50 in record Nasdaq debut",
+   "url": "https://www.techrepublic.com/article/news-anthropic-ipo-nasdaq-trading-debut/"
+  },
+  {
+   "titulo": "StockAnalysis: Anthropic opens 34% above IPO price",
+   "url": "https://stockanalysis.com/news/anthropic-opens-34-percent-above-ipo-price/"
+  },
+  {
+   "titulo": "Yahoo Finance: Anthropic shares open 34% above IPO price",
+   "url": "https://finance.yahoo.com/news/anthropic-shares-open-34-above-170830437.html"
+  }
+ ],
+ "notas": "Pauta: a Anthropic (dona do Claude) estreou na Nasdaq em 19/11/2026, ticker ANT, abriu a US$ 111,50 (+34% sobre os US$ 83 do IPO), bateu US$ 114,99 e fechou a US$ 97,17 (+17%); receita 12 meses ~US$ 35 bi; avaliacao na casa do trilhao. Tudo confirmado em TechRepublic, StockAnalysis e Yahoo/Reuters. Noticia 'enorme' que entra na semana de foco GTA+Kit por tocar direto na ferramenta que ele usa (Editar com Claude) e puxar pro Kit. Imagens on-brand geradas no ChatGPT (ticker ANT e figura simbolica), sem logos reais. Sem politica.",
+ "slides": [
+  {
+   "texto": "A empresa dona do **Claude** estreou na bolsa e disparou **+34%** no primeiro dia.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/anthropic-estreia-na-bolsa/01-ant.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Na quinta (19/11), a Anthropic, que faz o Claude, abriu na Nasdaq com o código **ANT**.\n\nSaiu a US$ 83, abriu a US$ 111,50 e ainda bateu quase US$ 115 no começo do dia.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/anthropic-estreia-na-bolsa/01-ant.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "No fim do dia fechou em US$ 97,17, ainda 17% acima.\n\nA receita dos últimos 12 meses passa de **US$ 35 bilhões**. Virou uma das maiores estreias de IA da história.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/anthropic-estreia-na-bolsa/02-sino.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O que isso muda pra quem cria?\n\nMais dinheiro entrando é **mais servidor e mais pesquisa**. A ferramenta que a gente usa pra trabalhar fica mais robusta e os recursos novos saem mais rápido.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/anthropic-estreia-na-bolsa/01-ant.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Pra mim é sinal de que **IA no trabalho não é moda**, é infraestrutura.\n\nEu edito vídeo com o Claude todo dia e isso só tende a melhorar. Mas posso estar errado.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/anthropic-estreia-na-bolsa/02-sino.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Virou empresa de trilhão. Será que o preço da ferramenta pra gente vai subir junto, ou a concorrência segura?\n**O que você acha?**\n\nSe você edita vídeo e quer usar IA no dia a dia: Comenta **KIT** que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/anthropic-estreia-na-bolsa/01-ant.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

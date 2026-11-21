@@ -1,0 +1,65 @@
+{
+ "slug": "mesma-cara-ficha-de-personagem",
+ "dia": "2026-11-21",
+ "tipo": "educativo",
+ "titulo": "A mesma cara em toda geração: ficha de personagem",
+ "perfil": "@andrstudios",
+ "legenda": "O maior problema de gerar personagem com IA é que toda imagem sai com uma cara diferente. A ficha de personagem resolve: você monta uma folha com vários ângulos do MESMO rosto e anexa ela como referência em toda geração nova.\n\nAí dá pra se transformar em personagem de GTA, de desenho, de anúncio, sem virar outra pessoa a cada clique.\n\nSalva esse post pra não perder a receita. Qual personagem você quer travar primeiro?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo tecnico de IA (GTA VI so como gancho). Ensina o metodo de ficha de personagem (character sheet) pra manter o mesmo rosto em todas as geracoes. Lamina 1 = ficha do Anderson (character-sheet, ja gerada). Lamina 2 = imagem gerada no ChatGPT mostrando o problema (3 rostos parecidos mas diferentes). Lamina 4 = still do elenco GTA (Rockstar). Lamina 5 = cena do casal GTA (Rockstar). Laminas 3 e 6 reusam a ficha. Prompt copiavel na lamina 4. Incentiva salvar e comentar. CTA do Kit ate 23/11.",
+ "slides": [
+  {
+   "texto": "Como manter **a mesma cara** em toda geração de IA, usando uma ficha de personagem.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mesma-cara-ficha-de-personagem/01-ficha-anderson.jpg",
+    "foco": 0.3
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O problema que todo mundo tem: você gera o mesmo personagem três vezes e **saem três pessoas diferentes**.\n\nO rosto muda, a idade muda, o nariz muda. A IA não lembra de ninguém.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mesma-cara-ficha-de-personagem/02-estranhos.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "A solução é a **ficha de personagem**.\n\nVocê gera uma imagem só com vários ângulos do mesmo rosto: de frente, de lado, sorrindo, sério. Vira a identidade oficial daquela pessoa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mesma-cara-ficha-de-personagem/01-ficha-anderson.jpg",
+    "foco": 0.3
+   }
+  },
+  {
+   "texto": "Agora é só **anexar essa ficha como referência** em toda geração nova e escrever:\n\n\"Mantenha o mesmo rosto, a mesma estrutura facial e o mesmo tom de pele da imagem de referência.\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mesma-cara-ficha-de-personagem/05-elenco-gta.jpg",
+    "foco": 0.5,
+    "credito": "cena: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Com a ficha presa, dá pra virar **personagem de GTA**, de desenho ou de anúncio, trocar roupa e cenário, e continuar sendo a mesma pessoa.\n\nÉ assim que nasce consistência de verdade.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mesma-cara-ficha-de-personagem/06-cena-gta.jpg",
+    "foco": 0.5,
+    "credito": "cena: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Monta a ficha uma vez e usa pra sempre.\n\nSalva pra não perder. **Qual personagem você quer travar primeiro?**\n\nComenta **KIT** que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/mesma-cara-ficha-de-personagem/01-ficha-anderson.jpg",
+    "foco": 0.3
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

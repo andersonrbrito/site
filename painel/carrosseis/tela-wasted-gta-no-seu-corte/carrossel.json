@@ -1,0 +1,65 @@
+{
+ "slug": "tela-wasted-gta-no-seu-corte",
+ "dia": "2026-11-21",
+ "tipo": "educativo",
+ "titulo": "Como botar a tela de WASTED do GTA no seu corte",
+ "perfil": "@andrstudios",
+ "legenda": "A tela de WASTED do GTA dá pra recriar em qualquer editor, sem plugin. É só congelar o frame, tirar a cor, jogar um vermelho por cima, escrever WASTED na fonte certa e fechar com um som grave.\n\nÉ um efeito simples que segura o dedo de quem tá rolando o feed. Funciona em meme, em bastidor e em corte de gameplay.\n\nSalva esse post pra usar no próximo vídeo. E me conta: qual efeito de game você quer o passo a passo?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo tecnico de edicao (GTA VI so como gancho estetico). Ensina a recriar a tela de morte 'WASTED' do GTA em qualquer editor, com receita copiavel. Lamina 1 = imagem gerada no ChatGPT (resultado do efeito, rua molhada com WASTED). Laminas 2 e 4 = still oficial da Rockstar (rua neon). Laminas 3, 5 e 6 reusam a imagem do efeito. Incentiva salvar e comentar. CTA final do Kit ate 23/11.",
+ "slides": [
+  {
+   "texto": "Como botar a tela de **WASTED** do GTA em cima do seu corte (sem plugin).",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tela-wasted-gta-no-seu-corte/01-wasted.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "O efeito é aquela tela de morte do GTA: a imagem **congela, perde a cor** e um vermelho escuro toma conta.\n\nServe pra meme, bastidor e fim de corte. E dá pra fazer em qualquer editor.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tela-wasted-gta-no-seu-corte/02-cena.jpg",
+    "foco": 0.45,
+    "credito": "cena: Rockstar Games"
+   }
+  },
+  {
+   "texto": "Passo 1 — **congela o último frame**.\n\nPega o quadro onde a ação \"morre\" e segura ele parado por mais ou menos 1 segundo e meio. É esse freeze que vende o efeito.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tela-wasted-gta-no-seu-corte/01-wasted.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Passo 2 — **tira a cor e joga um vermelho por cima**.\n\nDerruba a saturação quase toda e põe uma camada vermelha escura no modo \"multiply\", opacidade lá pela metade. A imagem fica sangrada.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tela-wasted-gta-no-seu-corte/02-cena.jpg",
+    "foco": 0.5,
+    "credito": "cena: Rockstar Games"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Passo 3 — a palavra **WASTED** centralizada.\n\nBranca, tudo em maiúscula, numa fonte **serifada condensada**, com uma sombra bem leve. É a fonte certa que faz o cérebro reconhecer na hora.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tela-wasted-gta-no-seu-corte/01-wasted.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Passo 4 — fecha com um **som grave** batendo junto do freeze e a música abafada.\n\nSalva pra usar no próximo corte. Qual efeito de game você quer o passo a passo?\n\nComenta **KIT** que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tela-wasted-gta-no-seu-corte/01-wasted.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
