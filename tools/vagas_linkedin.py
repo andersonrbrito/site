@@ -9,14 +9,18 @@ Uso:  python3 tools/vagas_linkedin.py [horas=24] > candidatas.json
 """
 import html, json, re, subprocess, sys, time, urllib.parse
 
-HORAS = int(sys.argv[1]) if len(sys.argv) > 1 else 24
+HORAS = int(sys.argv[1]) if len(sys.argv) > 1 else 72
 TERMOS = ["editor de vídeo", "editor de video", "video editor", "editor de criativos", "editor de anúncios",
           "videomaker", "criador de conteúdo", "criador de conteúdo IA", "editor de vídeo IA", "vídeo com IA",
           "AI video", "content creator video", "direct response video", "UGC editor", "editor reels",
           "edição de vídeo", "pós-produção", "editor de vídeo remoto", "editor de vídeo home office", "editor de vídeo freelancer",
           "editor de vídeo júnior", "editor de vídeo pleno", "editor de vídeo sênior", "short form video editor", "youtube video editor",
-          "video editor remote", "ads video editor", "creative video editor", "inteligência artificial vídeo", "produtor de vídeo"]
-REGIOES = {"Brasil": "106057199"}  # só Brasil (pedido do Anderson, 04/11)
+          "video editor remote", "ads video editor", "creative video editor", "inteligência artificial vídeo", "produtor de vídeo",
+          "editor de vídeo para anúncios", "editor de vídeo tráfego pago", "editor capcut", "editor de vídeos curtos", "editor de vídeo social media",
+          "editor de vídeo marketing", "editor de vídeo performance", "editor de vídeo e motion", "audiovisual remoto", "editor de conteúdo vídeo"]
+# 2ª passada SEM o filtro remoto do LinkedIn (empresa BR raramente marca): só entra se o texto disser remoto/home office
+MODOS = [("2", True), (None, False)]
+REGIOES = {"Brasil": "106057199"}  # 21/11: LinkedIn só Brasil; gringa só se não exigir inglês
 PAGINAS = [0, 25, 50]
 # título precisa ter um destes e nenhum dos proibidos
 INCLUI = re.compile(r"edi[çc][ãa]o|editor|video|vídeo|videomaker|filmmaker|criador|creator|conte[úu]do|content|ugc|criativ|reels|audiovisual", re.I)
@@ -43,9 +47,12 @@ def ja_vistas():
 def listar():
     achadas = {}
     for termo in TERMOS:
+      for wt, marcado in MODOS:
         for regiao, geo in REGIOES.items():
             for start in PAGINAS:
-                q = urllib.parse.urlencode({"keywords": termo, "f_WT": "2", "f_TPR": f"r{HORAS*3600}", "geoId": geo, "sortBy": "DD", "start": start})
+                prm = {"keywords": termo, "f_TPR": f"r{HORAS*3600}", "geoId": geo, "sortBy": "DD", "start": start}
+                if wt: prm["f_WT"] = wt
+                q = urllib.parse.urlencode(prm)
                 pag = get("https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?" + q)
                 blocos = pag.split("<li>")[1:]
                 for b in blocos:
@@ -56,12 +63,13 @@ def listar():
                     if jid in achadas or not INCLUI.search(t) or EXCLUI.search(t): continue
                     achadas[jid] = {"id": jid, "titulo": t, "empresa": campo(b, "base-search-card__subtitle"),
                                     "local": campo(b, "job-search-card__location"), "salario_lista": campo(b, "job-search-card__salary-info"),
-                                    "busca": f"{termo} · {regiao}"}
+                                    "busca": f"{termo} · {regiao}" + ("" if marcado else " · sem filtro remoto"), "linkedin_marca_remoto": marcado}
                 if len(blocos) < 10: break  # sem 2ª página
                 time.sleep(0.8)
     return achadas
 
 INGLES_FORTE = re.compile(r"fluent english|english fluency|strong english|excellent english|advanced english|native english|inglês fluente|inglês avançado|ingl[êe]s (?:intermedi[áa]rio|avan[çc]ado|fluente)|C1|C2|calls? in english", re.I)
+INGLES_AVANCADO = re.compile(r"strong english|good english|proficient english|proficiency in english|english proficiency|excellent communication skills in english|english[- ]speaking|communicate in english|written and spoken english|spoken english|calls? in english|ingl[êe]s (?:intermedi[áa]rio|bom|conversa)|fluent english|english fluency|fluency in english|excellent english|advanced english|native english|native[- ]level|bilingual|inglês fluente|inglês avançado|ingl[êe]s (?:avan[çc]ado|fluente)|\bC1\b|\bC2\b", re.I)
 REMOTO = re.compile(r"100% remot|remot[oa]|home[ -]?office|trabalho à distância|\bremote\b|work from home|wfh|anywhere", re.I)
 PRESENCIAL = re.compile(r"presencial|on-site|onsite|in-office|in office|h[íi]brid|hybrid|\d ?x na semana no escrit|dias? (?:no|de) escrit|resid(?:ir|ente|a) (?:na|em) (?:grande )?[A-Z]", re.I)
 
@@ -91,8 +99,11 @@ if __name__ == "__main__":
         # o filtro "remoto" do LinkedIn não é confiável: só passa se a própria vaga disser que é remota
         # vaga sem a palavra "remoto" no texto ainda entra (o LinkedIn marca remoto), mas sinalizada
         d["remoto_no_texto"] = bool(REMOTO.search(d["titulo"] + " " + d["descricao_completa"]))
-        if d["idioma"] != "pt": continue  # só vaga brasileira, em português
-        if not re.search(r"brasil|brazil", d["local"], re.I): continue
+        if not d["linkedin_marca_remoto"] and not d["remoto_no_texto"]: continue  # sem filtro: exige remoto no texto
+        # 21/11: vaga gringa quase nunca serve; só passa vaga em português, ou em inglês que aceite Brasil/português sem exigir fluência
+        if INGLES_AVANCADO.search(d["descricao_completa"]): continue
+        if d.get("local") and not re.search(r"brasil|brazil|latin|latam|am[ée]rica", d["local"], re.I): continue  # local do anúncio tem que ser Brasil
+        if d.get("idioma") != "pt" and not re.search(r"brazil|brasil|portugu[eê]s|portuguese|latam|latin america", d["descricao_completa"], re.I): continue
         d.pop("descricao_completa", None)
         saida.append(d)
     print(json.dumps({"janela_horas": HORAS, "ja_no_painel": len(vistas), "encontradas": len(novas), "candidatas": saida}, ensure_ascii=False, indent=1))
