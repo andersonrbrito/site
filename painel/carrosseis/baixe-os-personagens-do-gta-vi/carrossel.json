@@ -14,13 +14,13 @@
   "notas": "CARROSSEL ESPECIAL: a capa postada é o arquivo 00-capa-especial-4x5.png (4:5 inteiro, aprovado como C2 em 20/11), não a lâmina 1 renderizada. Página do pack: /personagens-gta-vi/",
   "slides": [
     {
-      "texto": "Baixe os personagens do **GTA VI**.\n\nPack grátis pra usar na sua IA.",
+      "capa": true,
+      "texto": "",
       "midia": {
         "tipo": "imagem",
-        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/01-capa.jpg",
-        "foco": 0.35
-      },
-      "rodape": "arrasta pro lado →"
+        "src": "/painel/carrosseis/baixe-os-personagens-do-gta-vi/00-capa-especial-4x5.png",
+        "foco": 0.5
+      }
     },
     {
       "texto": "Isso é um **character sheet**: o personagem de frente, perfil, costas e rosto numa prancha só.",

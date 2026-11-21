@@ -158,6 +158,7 @@ export function layout(ctx, slide, idx, mediaSize) {
 export function draw(ctx, slide, idx, assets, info = {}) {
   const m = slide.midia?.tipo === "video" && !assets.playing && assets.poster ? assets.poster : assets.media;
   const mw = m ? (m.videoWidth || m.naturalWidth || m.width) : 0, mh = m ? (m.videoHeight || m.naturalHeight || m.height) : 0;
+  if (slide.capa && m && mw) return drawCapa(ctx, slide, m, mw, mh, tema(info.tipo));
   const L = layout(ctx, slide, idx, m && mw ? { w: mw, h: mh } : null);
   ctx.textBaseline = "alphabetic"; ctx.textAlign = "left";
   const T = tema(info.tipo);
@@ -250,6 +251,39 @@ export function draw(ctx, slide, idx, assets, info = {}) {
     pill(ctx, (W - pw) / 2, py, pw, ph, { fill: `rgba(${T.rgb},.08)`, stroke: `rgba(${T.rgb},.42)` });
     ctx.fillStyle = T.txt; ctx.textAlign = "center"; ctx.fillText(slide.rodape, W / 2, py + ph / 2 + fs * 0.36); ctx.textAlign = "left";
   }
+}
+
+// Capa tela cheia (slide.capa = true): mídia ocupa a lâmina inteira 4:5, degradê embaixo e headline curto
+// em caixa alta. Se a arte já tem o título escrito, deixe "texto" vazio e sai só a imagem.
+function drawCapa(ctx, slide, m, mw, mh, T) {
+  const scale = Math.max(W / mw, H / mh), sw = W / scale, sh = H / scale, foco = slide.midia?.foco ?? 0.5;
+  const sx = (mw - sw) / 2, sy = Math.max(0, Math.min(mh - sh, (mh - sh) * foco));
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+  ctx.drawImage(m, sx, sy, sw, sh, 0, 0, W, H);
+  if (!slide.texto) return;
+  const g = ctx.createLinearGradient(0, H * 0.45, 0, H);
+  g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.55, "rgba(0,0,0,.72)"); g.addColorStop(1, "rgba(0,0,0,.92)");
+  ctx.fillStyle = g; ctx.fillRect(0, H * 0.45, W, H * 0.55);
+  const toks = tokens(slide.texto.toUpperCase()), maxW = W - 120;
+  let size = 112, lines;
+  for (; size > 56; size -= 4) {
+    ctx.font = `900 ${size}px ${FONT}`;
+    lines = wrap(ctx, toks, size, maxW, true);
+    if (lines.length <= 4) break;
+  }
+  const lh = size * 1.02, bottom = H - 130;
+  ctx.textAlign = "left"; ctx.textBaseline = "alphabetic";
+  ctx.shadowColor = "rgba(0,0,0,.6)"; ctx.shadowBlur = 24;
+  lines.forEach((line, i) => {
+    let x = 60; const by = bottom - (lines.length - 1 - i) * lh;
+    for (const t of line) {
+      ctx.font = `900 ${size}px ${FONT}`;
+      ctx.fillStyle = t.bold ? T.a : INK; ctx.fillText(t.w, x, by); x += ctx.measureText(t.w).width;
+    }
+  });
+  ctx.shadowBlur = 0;
+  mono(ctx, PERFIL.user, 60, H - 62, 26, "rgba(255,255,255,.75)");
+  if (slide.rodape) mono(ctx, slide.rodape, W - 60, H - 62, 26, "rgba(255,255,255,.75)", "right");
 }
 
 // Grava a lâmina com vídeo como MP4 (ou WebM se o navegador não gravar MP4), com o áudio do vídeo.
