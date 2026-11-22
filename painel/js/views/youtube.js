@@ -70,7 +70,7 @@ export default async function youtube({ sb, refresh }) {
 
   return h("div", { class: "page" },
     pageHead("YouTube download", "vídeo MP4 ou áudio MP3, salvo no seu Mac"),
-    !online && h("div", { class: "alert" }, "O ajudante do Mac está desligado. Abra o Terminal e rode: python3 ~/Downloads/site/tools/yt-helper/server.py (ou reinicie o Mac, que ele liga sozinho). Funciona só no navegador do próprio Mac."),
+    !online && h("div", { class: "alert" }, "O ajudante do Mac está desligado. Abra o Terminal e rode: python3 "/Volumes/ANDY 1TB/anderson_Os/site"/tools/yt-helper/server.py (ou reinicie o Mac, que ele liga sozinho). Funciona só no navegador do próprio Mac."),
     h("section", { class: "panel" }, h("div", { class: "panel-body stack" },
       h("div", { class: "flex" }, urlIn, h("button", { class: "btn btn-ghost", type: "button", onclick: look }, "Ver vídeo")),
       preview, opts,

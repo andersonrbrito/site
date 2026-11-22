@@ -1,6 +1,6 @@
 # Gera páginas de portfólio por vaga (andersonbrito.com/<slug>/) a partir do estilo de /trabalhos/
 import re, os
-ROOT = os.path.expanduser("~/Downloads/site")
+ROOT = os.path.expanduser("/Volumes/ANDY 1TB/anderson_Os/site")
 base = open(f"{ROOT}/trabalhos/index.html").read()
 css = re.search(r"<style>[\s\S]*?</style>", base).group(0)
 V = {  # vídeo: (arquivo relativo à raiz do site, poster, rótulo, título, texto)

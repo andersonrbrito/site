@@ -1,7 +1,7 @@
 // Painel local: serve o site em http://localhost:8090/painel/ e as mídias das aprovações direto do disco.
 // GET  /_local/aprovacoes/<perfil>/<arquivo>  → arquivo do espelho (com Range, para vídeo) ou 404
 // POST /_local/aprovacoes/<perfil>/<arquivo>  → guarda no espelho (o painel manda na 1ª vez que baixa do Supabase)
-// Espelho: /Volumes/ANDY 1TB/BANCO DE MIDIA/aprovacoes/<perfil>/ (se o ANDY não estiver montado, ~/Downloads/site/.espelho-aprovacoes)
+// Espelho: /Volumes/ANDY 1TB/BANCO DE MIDIA/aprovacoes/<perfil>/ (se o ANDY não estiver montado, /Volumes/ANDY 1TB/anderson_Os/site/.espelho-aprovacoes)
 // Rodar: node tools/painel_local.mjs   (escuta só em 127.0.0.1)
 import http from "node:http";
 import fs from "node:fs";

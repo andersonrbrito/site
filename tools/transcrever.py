@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Assiste um vídeo pelo áudio: baixa (link do Instagram, X, YouTube ou arquivo local) e transcreve com faster-whisper.
-Uso: ~/Downloads/site/woob/_tools/venv/bin/python ~/Downloads/site/tools/transcrever.py <link-ou-arquivo> [--modelo small]
+Uso: "/Volumes/ANDY 1TB/anderson_Os/site"/woob/_tools/venv/bin/python "/Volumes/ANDY 1TB/anderson_Os/site"/tools/transcrever.py <link-ou-arquivo> [--modelo small]
 Saída: a transcrição com tempos no stdout (e .txt ao lado do áudio em /tmp/transcricoes/)."""
 import os, subprocess, sys, hashlib
 from faster_whisper import WhisperModel

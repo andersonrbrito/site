@@ -7,7 +7,7 @@
 Abra o Terminal/PowerShell e rode:
 
 ```bash
-cd /Users/andersonbrito/Downloads/site
+cd "/Volumes/ANDY 1TB/anderson_Os/site"
 npm install
 ```
 

@@ -15,6 +15,7 @@ Horário sugerido: 9h, 14h e 20h (America/Sao_Paulo).
 - LGPD: gravar só o que a pessoa mandou para o perfil (nome público, @, texto, link). DM só entra se tiver intenção
   comercial (abaixo); conversa pessoal (amigos, família) não é gravada. Nada de buscar dados da pessoa fora dali.
 - Se aparecer login, captcha ou checagem de segurança: parar e avisar, sem tentar contornar.
+- Uma guia só do Chrome para tudo (posts e caixa) e fechar a guia ao terminar.
 
 ## Passos
 1. Posts recentes: `python3 tools/agente.py select ig_media '{"select":"shortcode,permalink,comments,posted_at","order":"posted_at","limit":12}'`.

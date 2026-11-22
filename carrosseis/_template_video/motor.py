@@ -4,7 +4,7 @@ educativo azul #3D8BFF, pessoal verde Matrix #41FF8A). Tipo: campo "tipo" do rot
 
 Uso (sempre pela fila única de render):
   bash "/Volumes/ANDY 1TB/anderson_Os/07_automacoes/render-fila.sh" \
-    python3 ~/Downloads/site/carrosseis/_template_video/motor.py <roteiro.json> --formato ambos
+    python3 /Volumes/ANDY 1TB/anderson_Os/site/carrosseis/_template_video/motor.py <roteiro.json> --formato ambos
 
 Entrada: roteiro.json (formato no LEIAME.md). Saída: os caminhos "saida_reel" / "saida_x" do roteiro.
 Opcional: --quadros 1.5,9,20  (só gera PNGs de teste nesses segundos, sem vídeo)
@@ -33,7 +33,7 @@ def aplica_tema(R):
     t = (R.R.get('tipo') or (R.cenas[0].get('tag', '') if R.cenas else '')).lower()
     k = 'noticia' if 'not' in t else 'educativo' if ('educ' in t or 'tutorial' in t or 'prompt' in t) else 'pessoal'
     LAR, INK = TEMAS[k]; return k
-AVATAR = os.path.expanduser('~/Downloads/site/painel/carrosseis/perfil/avatar.jpg')
+AVATAR = os.path.expanduser('/Volumes/ANDY 1TB/anderson_Os/site/painel/carrosseis/perfil/avatar.jpg')
 
 # ---------------------------------------------------------------- utilidades
 _f = {}

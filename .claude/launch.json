@@ -41,13 +41,9 @@
     },
     {
       "name": "lamina",
-      "runtimeExecutable": "python3",
+      "runtimeExecutable": "node",
       "runtimeArgs": [
-        "-m",
-        "http.server",
-        "8099",
-        "--directory",
-        "/Users/andersonbrito/Downloads/site/lamina"
+        "lamina/servidor-local.mjs"
       ],
       "port": 8099,
       "autoPort": false
@@ -60,6 +56,18 @@
       ],
       "port": 8090,
       "autoPort": false
+    },
+    {
+      "name": "previs-cena1",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8111",
+        "-d",
+        "/Volumes/ANDY 1TB/ADESTRADOR/previs"
+      ],
+      "port": 8111
     }
   ]
 }

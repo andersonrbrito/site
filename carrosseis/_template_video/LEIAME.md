@@ -24,7 +24,7 @@ Ritmo e som:
 ## Comando (sempre pela fila única)
 ```
 bash "/Volumes/ANDY 1TB/anderson_Os/07_automacoes/render-fila.sh" \
-  python3 ~/Downloads/site/carrosseis/_template_video/motor.py <pasta>/roteiro.json --formato ambos
+  python3 "/Volumes/ANDY 1TB/anderson_Os/site"/carrosseis/_template_video/motor.py <pasta>/roteiro.json --formato ambos
 ```
 - `--formato reel|x|ambos`.
 - `--quadros 1.5,9,20` gera só PNGs de teste em `<pasta>/quadros/` (use antes do render completo).
@@ -38,8 +38,8 @@ bash "/Volumes/ANDY 1TB/anderson_Os/07_automacoes/render-fila.sh" \
  "palavras": "words.txt",          // uma palavra por linha: "palavra inicio fim" (segundos da voz ORIGINAL)
  "velocidade": 1.12,               // se a voz foi acelerada no arquivo final (1.0 = não)
  "trilha": "/Volumes/PEN 128GB/TRILHAS/...mp3",
- "saida_reel": "~/Downloads/site/painel/carrosseis/<slug>/video-reel.mp4",
- "saida_x": "~/Downloads/site/painel/carrosseis/<slug>/video-x.mp4",
+ "saida_reel": ""/Volumes/ANDY 1TB/anderson_Os/site"/painel/carrosseis/<slug>/video-reel.mp4",
+ "saida_x": ""/Volumes/ANDY 1TB/anderson_Os/site"/painel/carrosseis/<slug>/video-x.mp4",
  "cenas": [
   {"t0": 0, "t1": 5.2, "tipo": "hook", "tag": "notícia", "numero": "99%",
    "titulo": "A Anthropic *matou* 99% dos apps", "midia": [{"src": "gancho.jpg"}]},
@@ -74,7 +74,7 @@ Regras das cenas:
 
 ## Como a rotina monta o roteiro
 1. **Narração:** escreva o roteiro e gere com a voz clonada (Magnific `audio_tts`, voiceId 183468, source "mine"). É a única voz do Anderson; não gaste crédito em mais nada.
-2. **Tempo por palavra:** `python3 ~/Downloads/site/carrosseis/_template_video/palavras.py voz.wav words.txt` (mlx_whisper, já instalado). Use `velocidade: 1.0` quando transcrever o arquivo final.
+2. **Tempo por palavra:** `python3 "/Volumes/ANDY 1TB/anderson_Os/site"/carrosseis/_template_video/palavras.py voz.wav words.txt` (mlx_whisper, já instalado). Use `velocidade: 1.0` quando transcrever o arquivo final.
 3. **Cenas:** uma por lâmina do carrossel, mais as cenas `cta` do meio e do fim. Os tempos saem de `words.txt`.
 4. **Teste:** gere `--quadros` em 6 a 10 segundos, monte a grade e confira a lista do passo 4 de `ROTINA-PEDIDOS.md`.
 5. **Render:** rode o render completo e confira a grade de quadros (1 por segundo) antes de entregar.
