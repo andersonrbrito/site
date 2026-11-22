@@ -1,0 +1,45 @@
+{
+  "slug": "personagem-de-ia-que-fala",
+  "dia": "2026-11-22",
+  "tipo": "educativo",
+  "titulo": "Faça seu personagem de IA falar",
+  "perfil": "@andrstudios",
+  "legenda": "Gerar a cara do personagem já virou o fácil. O difícil é fazer ele abrir a boca certo, sem cara de boneco. E quase sempre isso é o passo a passo, não a ferramenta.\n\nO caminho que eu uso: faço a voz primeiro (áudio limpo, sem música), levo foto + áudio pra uma ferramenta de lip sync e dou a direção no prompt pra cabeça não balançar demais.\n\nSalva pra testar no seu próximo personagem. Boca de robô ou já dá pra confundir com gravação real? Qual lip sync você já testou?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [],
+  "notas": "22/11 (educativo, capa tela cheia estilo v4company, GTA como gancho). Hook: famoso de GTA falando. Inner: famosos GTA reaproveitados; capa gerada no ChatGPT (fallback = famoso GTA).",
+  "slides": [
+    {
+      "capa": true,
+      "texto": "Faça seu personagem de IA **FALAR**",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/01-capa.jpg", "foco": 0.3 },
+      "rodape": "arrasta →"
+    },
+    {
+      "texto": "Gerar a cara já virou o fácil.\n\nO difícil é fazer o personagem **abrir a boca certo**, sem aquela cara de boneco. E isso não é a ferramenta, é o passo a passo.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/02-neymar.jpg", "foco": 0.3 }
+    },
+    {
+      "texto": "**1. Faça a voz primeiro.**\n\nGrava, clona ou usa um TTS bom. Exporta o áudio limpo, sem música. A boca vai seguir esse áudio: áudio ruim = boca errada.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/06-anderson.jpg", "foco": 0.35 }
+    },
+    {
+      "texto": "**2. Leva pra uma ferramenta de lip sync.**\n\nVocê sobe uma foto nítida de frente e o áudio. Kling, Veo e apps de lip sync fazem a boca seguir a fala sozinha.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/04-mbappe.jpg", "foco": 0.4 },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "**3. Dá a direção certa.**\n\nPede rosto de frente, boca sincronizada com o áudio e pouco movimento de cabeça. Mexer demais é o que estraga a sincronia.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/02-neymar.jpg", "foco": 0.5 }
+    },
+    {
+      "texto": "Prompt que eu colo:\n\n**\"close-up portrait, talking to camera, lips perfectly synced to the audio, subtle natural micro-expressions, head steady, no exaggerated motion\"**\n\nSalva pra usar no próximo.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/06-anderson.jpg", "foco": 0.3 },
+      "rodape": "salva pra não perder"
+    },
+    {
+      "texto": "Boca travada de robô ou dá pra confundir com gravação de verdade?\n\nQual ferramenta de lip sync você já testou?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/personagem-de-ia-que-fala/04-mbappe.jpg", "foco": 0.5 },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}

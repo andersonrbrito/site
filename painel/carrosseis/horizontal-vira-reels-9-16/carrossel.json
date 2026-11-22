@@ -1,0 +1,45 @@
+{
+  "slug": "horizontal-vira-reels-9-16",
+  "dia": "2026-11-22",
+  "tipo": "educativo",
+  "titulo": "Vídeo horizontal vira Reels sem cortar cabeça",
+  "perfil": "@andrstudios",
+  "legenda": "Pegou um vídeo deitado (16:9) e no Reels corta a cabeça de todo mundo? Tem jeito de virar 9:16 mantendo quem importa sempre no quadro, e não é só esticar.\n\nComeça deixando o auto-reframe (Premiere, CapCut) seguir o rosto; corrige na mão só os trechos em que a câmera pula, com keyframe no início e no fim do movimento. Quando duas pessoas não cabem, faz dois planos fechados e alterna com quem está falando.\n\nRegra de ouro: o olho fica no terço de cima, nunca no centro, pra sobrar espaço pra legenda. Salva pra montar seu próximo Reels. Você reenquadra na mão ou confia no automático?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [],
+  "notas": "22/11 (educativo, capa tela cheia estilo v4company, GTA como gancho). Técnica de edição (reframe). Inner: famosos GTA reaproveitados; capa gerada no ChatGPT (fallback = famoso GTA).",
+  "slides": [
+    {
+      "capa": true,
+      "texto": "Horizontal vira **REELS 9:16**",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/01-capa.jpg", "foco": 0.3 },
+      "rodape": "arrasta →"
+    },
+    {
+      "texto": "Pegou um vídeo deitado (16:9) e no Reels corta a cabeça de todo mundo?\n\nDá pra virar 9:16 mantendo quem importa **sempre no quadro**. E não é só esticar.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/02-messi.jpg", "foco": 0.35 }
+    },
+    {
+      "texto": "**1. Deixa a IA reenquadrar.**\n\nO auto-reframe do Premiere e do CapCut segue o rosto sozinho. Resolve 80% dos casos em segundos. Começa por aqui.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/04-neymar.jpg", "foco": 0.4 }
+    },
+    {
+      "texto": "**2. Corrige na mão onde errou.**\n\nQuando a câmera \"pula\", põe keyframe no início e no fim do movimento e trava no rosto. Dá pra consertar só os trechos ruins.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/02-messi.jpg", "foco": 0.5 },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "**3. Quando não cabe todo mundo, corta.**\n\nDuas pessoas conversando não cabem em 9:16. Em vez de afastar, faz dois planos fechados e alterna com quem está falando.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/06-messi.jpg", "foco": 0.4 }
+    },
+    {
+      "texto": "**Regra de ouro:**\n\no olho da pessoa fica no terço de cima, nunca no centro. Sobra espaço embaixo pra legenda sem tampar o rosto. Salva pra montar seu próximo Reels.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/04-neymar.jpg", "foco": 0.55 },
+      "rodape": "salva isso"
+    },
+    {
+      "texto": "Você reenquadra na mão ou confia no automático?\n\nOnde isso mais dá errado pra você?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/horizontal-vira-reels-9-16/06-messi.jpg", "foco": 0.5 },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}

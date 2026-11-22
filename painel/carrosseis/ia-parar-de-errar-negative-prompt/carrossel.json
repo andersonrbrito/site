@@ -1,0 +1,45 @@
+{
+  "slug": "ia-parar-de-errar-negative-prompt",
+  "dia": "2026-11-22",
+  "tipo": "educativo",
+  "titulo": "O que escrever pra IA parar de errar",
+  "perfil": "@andrstudios",
+  "legenda": "Mão com 7 dedos, rosto derretendo, texto embolado. Na maioria das vezes o problema não é a ferramenta: é que faltou dizer o que você NÃO quer. Isso tem nome: negative prompt.\n\nÉ uma lista do que a IA deve evitar. Em vários geradores tem um campo \"negative\" separado; onde não tem, você joga no fim do prompt. E o pulo do gato: negative não é lixeira, o que você quer de verdade vai no prompt principal.\n\nSalva o pacote que mata 90% dos defeitos. Qual erro de IA mais te irrita: mão, rosto ou texto?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+  "fontes": [],
+  "notas": "22/11 (educativo, capa tela cheia estilo v4company, GTA como gancho). Técnica de prompt (negative). Inner: famosos GTA reaproveitados; capa gerada no ChatGPT (fallback = famoso GTA).",
+  "slides": [
+    {
+      "capa": true,
+      "texto": "Faça a IA **PARAR DE ERRAR**",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/01-capa.jpg", "foco": 0.3 },
+      "rodape": "arrasta →"
+    },
+    {
+      "texto": "Mão com 7 dedos, rosto derretendo, texto embolado.\n\nQuase sempre o problema não é a ferramenta: faltou dizer o que você **não quer**. Isso tem nome: negative prompt.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/02-neymar.jpg", "foco": 0.35 }
+    },
+    {
+      "texto": "**O que é.**\n\nUma lista do que a IA deve evitar. Em vários geradores tem um campo \"negative\" separado. Onde não tem, você escreve no fim: \"avoid: ...\".",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/06-anderson.jpg", "foco": 0.35 }
+    },
+    {
+      "texto": "**O que colar sempre.**\n\nO pacote que mata 90% dos defeitos de pessoa e cena. Copia e cola igual em toda geração e já muda o resultado.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/04-mbappe.jpg", "foco": 0.4 },
+      "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+    },
+    {
+      "texto": "Negative prompt:\n\n**\"deformed hands, extra fingers, melting face, warped eyes, flicker, blurry, distorted text, morphing\"**\n\nAjusta pro seu caso, mas essa base resolve quase tudo.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/02-neymar.jpg", "foco": 0.5 }
+    },
+    {
+      "texto": "**Dica que quase ninguém faz:**\n\nnegative não é lixeira. O que você quer de verdade vai no prompt principal, não aqui. Lista grande demais confunde a IA. Salva essa.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/06-anderson.jpg", "foco": 0.3 },
+      "rodape": "salva isso"
+    },
+    {
+      "texto": "Qual erro de IA mais te irrita: mão, rosto ou texto?\n\nMe conta aqui embaixo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
+      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/ia-parar-de-errar-negative-prompt/04-mbappe.jpg", "foco": 0.5 },
+      "rodape": "comenta KIT ↓"
+    }
+  ]
+}
