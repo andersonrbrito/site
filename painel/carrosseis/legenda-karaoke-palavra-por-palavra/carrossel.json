@@ -1,0 +1,72 @@
+{
+ "slug": "legenda-karaoke-palavra-por-palavra",
+ "dia": "2026-11-23",
+ "tipo": "educativo",
+ "perfil": "@andrstudios",
+ "titulo": "A legenda que segura o dedo nos 3 primeiros segundos",
+ "legenda": "Testei legenda de bloco contra legenda palavra por palavra no mesmo corte. A palavra por palavra prendeu bem mais, porque obriga a pessoa a acompanhar a fala.\n\nÉ o tipo de detalhe pequeno que muda a retenção sem mudar o vídeo. Pelo menos foi o que vi aqui.\n\nVocê já edita a legenda assim ou ainda joga o bloco inteiro na tela?\n\nSalva pra usar no próximo corte.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo de edição (legenda karaokê). Capa tela cheia com rosto famoso + headline curto. Imagens geradas no ChatGPT, Anderson reutiliza o asset fixo.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "A **legenda** que segura o dedo",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Legenda de bloco inteiro o cérebro bate o olho e já sabe o que vem.\n\nPalavra por palavra ele **precisa acompanhar** a fala pra não se perder. É isso que segura o dedo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/02-hook.jpg",
+    "foco": 0.35
+   }
+  },
+  {
+   "texto": "Como fazer:\n\n• a legenda aparece **no ritmo da voz**, uma a três palavras por vez\n• a palavra que está sendo falada ganha destaque (cor ou tamanho)\n• CapCut faz com \"legendas automáticas\" + estilo karaokê; no Premiere/DaVinci dá pra montar na transcrição",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/04-demo.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "As regras que eu sigo:\n\n• **1 a 3 palavras** por tela, nunca a frase toda\n• fonte grossa, contorno preto, bem legível no mudo\n• destaque só na palavra-chave, não em tudo",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/06-anderson.jpg",
+    "foco": 0.3
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato é **não colorir tudo**.\n\nSe toda palavra pisca cor, vira bagunça. Destaca só a palavra que carrega a ideia e deixa o resto branco.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/02-hook.jpg",
+    "foco": 0.35
+   }
+  },
+  {
+   "texto": "Os erros que mais vejo:\n\n• legenda cobrindo a boca/o rosto\n• rápido demais, ninguém lê\n• sem contorno, some no fundo claro",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/06-anderson.jpg",
+    "foco": 0.3
+   }
+  },
+  {
+   "texto": "No fim é ritmo: a legenda tem que bater junto com a voz.\n\n**Você já faz palavra por palavra ou ainda usa o bloco inteiro?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.\nDe R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/legenda-karaoke-palavra-por-palavra/04-demo.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

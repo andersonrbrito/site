@@ -1,0 +1,72 @@
+{
+ "slug": "foco-raso-bokeh-prompt-video-ia",
+ "dia": "2026-11-23",
+ "tipo": "educativo",
+ "perfil": "@andrstudios",
+ "titulo": "O prompt que dá cara de lente de cinema no vídeo de IA",
+ "legenda": "Muito vídeo de IA parece chapado porque está tudo em foco. Lente de verdade desfoca o fundo, e é esse desfoque (bokeh) que o olho lê como cinema.\n\nComecei a pedir abertura e foco raso no prompt e o realismo subiu bastante. Pode ser impressão minha, mas aqui mudou.\n\nVocê já pede lente e abertura no prompt ou deixa a IA escolher?\n\nSalva pra colar no próximo prompt.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo de prompt (foco raso/bokeh). Capa tela cheia: rosto famoso em foco com fundo brasileiro desfocado em bokeh. Imagens no ChatGPT, texto na imagem em PT-BR.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "**Desfoque** de cinema no prompt",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Vídeo de IA chapado quase sempre tem o mesmo problema: **está tudo em foco**.\n\nLente de verdade separa a pessoa do fundo. O fundo borra, as luzes viram bolinhas. Isso é bokeh.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/02-hook.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "O que pedir no prompt:\n\n• o nome da **lente** (ex.: 85mm)\n• a **abertura** baixa (f/1.4, f/2)\n• \"foco raso no rosto, fundo desfocado\"\n• \"luzes do fundo em bokeh\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/04-demo.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Prompt pronto pra copiar:\n\n\"**retrato, lente 85mm, f/1.4, foco raso no rosto, fundo totalmente desfocado, luzes de fundo em bokeh, profundidade de campo rasa**\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/06-anderson.jpg",
+    "foco": 0.3
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato: **f-stop baixo = mais desfoque**.\n\nSe não quiser decorar lente, só \"foco raso, fundo desfocado\" já muda o resultado. O nome da lente é o tempero.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/02-hook.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "O erro que mata o efeito:\n\npedir \"**tudo nítido, 4k ultra detalhado, fundo em foco**\" junto.\n\nAí a IA deixa tudo chapado de novo e o bokeh some.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/06-anderson.jpg",
+    "foco": 0.3
+   }
+  },
+  {
+   "texto": "Desfoque de fundo é o truque mais rápido pra tirar a cara de render.\n\n**Você já pede lente e abertura ou deixa a IA no automático?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.\nDe R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/foco-raso-bokeh-prompt-video-ia/04-demo.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

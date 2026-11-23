@@ -1,0 +1,72 @@
+{
+ "slug": "slow-motion-interpolacao-frames",
+ "dia": "2026-11-23",
+ "tipo": "educativo",
+ "perfil": "@andrstudios",
+ "titulo": "Câmera lenta suave sem travar o vídeo",
+ "legenda": "Quando você diminui a velocidade de um clipe normal, ele trava, porque falta frame. A interpolação resolve: o software inventa os frames que faltam e a câmera lenta fica lisa.\n\nTem no Premiere, no DaVinci, no CapCut e de graça no Flowframes. Uso bastante e salva clipe que seria descartado.\n\nVocê já usa interpolação ou ainda sofre com a câmera lenta travada?\n\nSalva pra testar no próximo corte.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo de edição (interpolação de frames/slow motion). Capa tela cheia: rosto famoso em câmera lenta/respingo congelado + headline. Imagens no ChatGPT.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "**Câmera lenta** que não trava",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Por que a câmera lenta trava?\n\nUm clipe de 30fps tem 30 frames por segundo. Quando você **estica** ele, o editor repete frame e o movimento engasga.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/02-hook.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "A solução é **interpolação de frames**.\n\nEm vez de repetir, o software calcula o movimento e **inventa os frames do meio**. A câmera lenta fica lisa, de cinema.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/04-demo.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Onde ligar isso:\n\n• Premiere: **Optical Flow** no Time Interpolation\n• DaVinci: **Optical Flow / Speed Warp**\n• CapCut: \"suavizar câmera lenta\"\n• de graça: **Flowframes / RIFE**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/06-anderson.jpg",
+    "foco": 0.3
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato é não depender só do software.\n\nQuando der, **grave ou gere em 60fps+**. Com frame sobrando, a lentidão nem precisa inventar nada e fica perfeita.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/02-hook.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde a interpolação erra:\n\nmovimento muito rápido ou bagunçado (mão na frente do rosto, água) a IA chuta errado e a imagem **derrete**.\n\nNesses trechos, melhor câmera lenta normal.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/06-anderson.jpg",
+    "foco": 0.3
+   }
+  },
+  {
+   "texto": "Interpolação salva clipe que ia pro lixo por estar travado.\n\n**Você já usa Optical Flow ou ainda estica o clipe na mão?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.\nDe R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/slow-motion-interpolacao-frames/04-demo.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

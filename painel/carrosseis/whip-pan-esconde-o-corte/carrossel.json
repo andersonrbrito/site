@@ -1,0 +1,72 @@
+{
+ "slug": "whip-pan-esconde-o-corte",
+ "dia": "2026-11-23",
+ "tipo": "educativo",
+ "perfil": "@andrstudios",
+ "titulo": "A transição que esconde o corte sem nenhum plugin",
+ "legenda": "Whip pan é aquele giro rápido da câmera que borra tudo. Você corta no meio do borrão e emenda com outro clipe que também começa girando. O olho não vê o corte, só sente o movimento.\n\nDá pra fazer no celular, no editor ou pedindo o movimento no prompt da IA. Funciona nos três, do meu jeito de ver.\n\nVocê usa transição de movimento ou ainda vai no corte seco?\n\nManda pra quem edita contigo.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [],
+ "notas": "Educativo de edição (whip pan). Capa tela cheia com rosto famoso em movimento borrado + headline. Imagens no ChatGPT.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Esconde o **corte** com movimento",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/01-capa.jpg",
+    "foco": 0.5
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Whip pan é um **giro rápido** da câmera que borra a imagem.\n\nVocê corta no frame mais borrado e começa o próximo clipe também girando. A emenda some dentro do movimento.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/02-hook.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Passo a passo:\n\n• clipe A **termina** girando pra um lado\n• clipe B **começa** girando pro mesmo lado\n• corta no frame mais borrado dos dois\n• o giro tem que ser na mesma direção, senão não casa",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/04-demo.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Sem câmera na mão? Pede no vídeo de IA.\n\nPrompt pra copiar:\n\n\"**câmera gira rápido para a direita, motion blur forte, movimento de chicote, whip pan**\"",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/06-anderson.jpg",
+    "foco": 0.3
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Pra vender de vez, adiciona um **blur direcional** leve só no ponto do corte.\n\nNo Premiere/DaVinci é \"directional/motion blur\". Dois ou três frames já resolvem.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/02-hook.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Os erros clássicos:\n\n• girar pra lados diferentes (o olho percebe o corte)\n• cortar longe do borrão, no frame ainda nítido\n• giro lento demais, aí não disfarça nada",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/06-anderson.jpg",
+    "foco": 0.3
+   }
+  },
+  {
+   "texto": "É a transição mais barata que existe: só movimento, zero plugin.\n\n**Você usa whip pan ou prefere o corte seco mesmo?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.\nDe R$97 por R$57 até 23/11.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/whip-pan-esconde-o-corte/04-demo.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
