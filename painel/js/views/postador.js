@@ -652,11 +652,12 @@ async function requestsView(sb, refresh) {
   const topic = h("textarea", { class: "textarea", rows: 4, placeholder: "Sobre o que você quer posts? Ex.: \"meu teste do Kling 4.0 contra o Seedance, com o carro voando na Paulista\" ou \"opinião sobre o debate de ontem, só no X\"", maxlength: 2000 });
   const nets = h("select", { class: "select select-sm" }, h("option", { value: "x" }, "Só X"), h("option", { value: "linkedin" }, "Só LinkedIn"), h("option", { value: "ambos" }, "X e LinkedIn"));
   const qty = h("select", { class: "select select-sm" }, ...[1, 2, 3, 5].map((n) => h("option", { value: n, selected: n === 3 }, `${n} versões`)));
+  const fmt = h("select", { class: "select select-sm", onchange: () => { qty.disabled = fmt.value === "artigo"; } }, h("option", { value: "post" }, "Post"), h("option", { value: "artigo" }, "Artigo"));
   const send = async () => {
     if (!topic.value.trim()) return toast("Escreva o assunto.", { kind: "err" });
-    const { error: err } = await sb.from("post_requests").insert({ topic: topic.value.trim(), networks: nets.value, quantity: Number(qty.value) });
+    const { error: err } = await sb.from("post_requests").insert({ topic: (fmt.value === "artigo" ? "[ARTIGO] " : "") + topic.value.trim(), networks: nets.value, quantity: fmt.value === "artigo" ? 1 : Number(qty.value) });
     if (err) return toast("Não foi possível enviar o pedido.", { kind: "err" });
-    toast("Pedido enviado. Os rascunhos aparecem em Rascunhos."); refresh();
+    toast(fmt.value === "artigo" ? "Pedido de artigo enviado. Ele aparece na aba de Artigos." : "Pedido enviado. Os rascunhos aparecem em Rascunhos."); refresh();
   };
   const cancel = async (r) => {
     const { data: d } = await sb.from("post_requests").update({ status: "cancelado" }).eq("id", r.id).eq("version", r.version).select("id").maybeSingle();
@@ -667,10 +668,10 @@ async function requestsView(sb, refresh) {
     h("section", { class: "panel" },
       h("div", { class: "panel-head" }, h("span", { class: "pd", style: { background: "var(--accent)" } }), h("h2", { class: "mono grow" }, "Novo pedido")),
       h("div", { class: "panel-body stack" }, topic,
-        h("div", { class: "flex wrap" }, nets, qty, h("div", { class: "grow" }), h("button", { class: "btn", type: "button", onclick: send }, "Pedir rascunhos")),
+        h("div", { class: "flex wrap" }, fmt, nets, qty, h("div", { class: "grow" }), h("button", { class: "btn", type: "button", onclick: send }, "Pedir rascunhos")),
         h("p", { class: "muted small" }, "O Claude lê os pedidos de hora em hora (das 5h às 22h) e na rotina das 5h, escreve no seu tom e deixa os rascunhos aqui no Postador. Nada é publicado sem você aprovar."))),
     h("div", { class: "stack" }, ...(data || []).map((r) => h("div", { class: "row" },
-      h("div", { class: "grow" }, h("div", { class: "title" }, r.topic), h("div", { class: "muted small" }, `${r.networks === "ambos" ? "X e LinkedIn" : r.networks === "x" ? "X" : "LinkedIn"} · ${r.quantity} versões · ${fmtDateTime(r.created_at)}`, r.result_note ? ` · ${r.result_note}` : "")),
+      h("div", { class: "grow" }, h("div", { class: "title" }, /^\[ARTIGO\] /.test(r.topic) ? [h("span", { class: "chip accent", style: { marginRight: "6px" } }, "Artigo"), r.topic.slice(10)] : r.topic), h("div", { class: "muted small" }, `${r.networks === "ambos" ? "X e LinkedIn" : r.networks === "x" ? "X" : "LinkedIn"} · ${r.quantity} versões · ${fmtDateTime(r.created_at)}`, r.result_note ? ` · ${r.result_note}` : "")),
       h("span", { class: "pill " + (r.status === "feito" ? "posted" : r.status === "aberto" ? "approved" : "") }, LBL[r.status]),
       r.status === "aberto" && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => cancel(r) }, "Cancelar")))),
     !(data || []).length && h("p", { class: "empty" }, "Nenhum pedido ainda."));
@@ -696,7 +697,7 @@ async function artigosView({ sb, query, refresh, artigos, posts, net }) {
   const capa = (sel.media || []).find((m) => m.mime?.startsWith("image/"));
   let version = sel.version;
   const tIn = h("input", { class: "input", value: sel.title, placeholder: "Título manchete" });
-  const ta = h("textarea", { class: "input", rows: 22, style: { width: "100%", fontFamily: "inherit", lineHeight: "1.55" } }, sel.body);
+  const ta = h("textarea", { class: "textarea", rows: 22, style: { width: "100%", minHeight: "60vh", fontFamily: "inherit", lineHeight: "1.6", fontSize: "15px" } }, sel.body);
   const salvar = async () => {
     const { data, error } = await sb.from("posts").update({ title: tIn.value, body: ta.value }).eq("id", sel.id).eq("version", version).select("version").maybeSingle();
     if (error || !data) return toast("Não salvou (alguém editou antes). Atualize a página.", { kind: "err" });

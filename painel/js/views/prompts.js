@@ -16,7 +16,7 @@ export default async function prompts({ sb, query, go, refresh }) {
   let kind = "prompt";
   const titleIn = h("input", { class: "input", placeholder: "Título (ex.: retrato cinematográfico Seedream)", required: true, maxlength: 140 });
   const urlIn = h("input", { class: "input", type: "url", placeholder: "Link (https://…)", hidden: true });
-  const bodyIn = h("textarea", { class: "input", rows: 6, placeholder: "Cole o prompt aqui" });
+  const bodyIn = h("textarea", { class: "textarea", rows: 6, placeholder: "Cole o prompt aqui" });
   const tagsIn = h("input", { class: "input", placeholder: "Tags (ex.: seedream, retrato, 9:16)", maxlength: 200 });
   const kindBtns = [["prompt", "Meu prompt"], ["link", "Link de site"]].map(([id, l]) => h("button", { type: "button", class: "chip" + (id === kind ? " on" : ""),
     onclick: (e) => { kind = id; kindBtns.forEach((b) => b.classList.toggle("on", b === e.currentTarget)); urlIn.hidden = kind !== "link"; bodyIn.placeholder = kind === "link" ? "Nota (opcional)" : "Cole o prompt aqui"; } }, l));

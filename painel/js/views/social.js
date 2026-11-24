@@ -53,7 +53,7 @@ async function inbox(sb, query, go, refresh) {
     if (!d) return toast("Recarregue a página.", { kind: "err" }); refresh();
   };
   const item = (it) => {
-    const ta = h("textarea", { class: "input", rows: 2, placeholder: it.kind === "dm" ? "Responder na DM" : "Responder o comentário" });
+    const ta = h("textarea", { class: "textarea", rows: 2, placeholder: it.kind === "dm" ? "Responder na DM" : "Responder o comentário" });
     const send = async (e) => {
       const b = e.currentTarget; b.disabled = true;
       try { await callMeta(sb, "reply", { id: it.id, text: ta.value }); toast("Respondido."); refresh(); }
@@ -111,7 +111,7 @@ async function rules(sb, refresh) {
   if (error) return alertBox("Não foi possível carregar as respostas automáticas.");
   const kw = h("input", { class: "input", placeholder: "Palavra-chave (ex.: PROMPT)", required: true, maxlength: 60 });
   const pl = h("select", { class: "input" }, h("option", { value: "ambos" }, "Instagram e Facebook"), h("option", { value: "instagram" }, "Só Instagram"), h("option", { value: "facebook" }, "Só Facebook"));
-  const dm = h("textarea", { class: "input", rows: 3, placeholder: "Mensagem da DM (ex.: aqui está o prompt: ...)" });
+  const dm = h("textarea", { class: "textarea", rows: 3, placeholder: "Mensagem da DM (ex.: aqui está o prompt: ...)" });
   const cr = h("input", { class: "input", placeholder: "Resposta pública no comentário (opcional, ex.: te mandei na DM!)", maxlength: 300 });
   const form = h("form", { class: "panel" }, h("div", { class: "panel-body stack" }, h("div", { class: "flex" }, kw, pl), dm, cr, h("div", null, h("button", { class: "btn", type: "submit" }, "Criar resposta automática"))));
   form.addEventListener("submit", async (e) => {
