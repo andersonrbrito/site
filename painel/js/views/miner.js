@@ -32,7 +32,7 @@ export default async function miner({ sb, query, go, refresh }) {
   const today = todayISO();
   const collections = [...new Set(all.map((l) => l.collection))].sort();
   const shown = all.filter((l) => (status === "todos" || l.status === status) && (!col || l.collection === col) && (!q || `${l.url} ${l.note} ${l.author || ""}`.toLowerCase().includes(q)));
-  const nav = (patch) => { const p = new URLSearchParams({ ...(status !== "todos" && { status }), ...(col && { col }), ...(q && { q }), ...patch }); [...p].forEach(([k, v]) => !v && p.delete(k)); go("/miner" + (p.toString() ? "?" + p : "")); };
+  const nav = (patch) => { const p = new URLSearchParams({ ...(query.grade && { grade: "1" }), ...(status !== "todos" && { status }), ...(col && { col }), ...(q && { q }), ...patch }); [...p].forEach(([k, v]) => !v && p.delete(k)); go("/miner" + (p.toString() ? "?" + p : "")); };
 
   // ---- formulário: colar novo link ----
   const urlIn = h("input", { class: "input", name: "url", type: "url", placeholder: "Cole o link do post, reel ou vídeo", required: true, autocomplete: "off" });
@@ -111,6 +111,9 @@ export default async function miner({ sb, query, go, refresh }) {
     p.photo || autoPhoto(p.url, p.handle) ? h("img", { src: p.photo || autoPhoto(p.url, p.handle), alt: "", loading: "lazy", referrerpolicy: "no-referrer", onerror: (e) => e.target.replaceWith(h("span", { class: "av" })) }) : h("span", { class: "av" }),
     h("div", { class: "grow", style: { minWidth: 0 } }, h("div", { class: "truncate" }, p.display_name || p.handle), h("div", { class: "muted small truncate" }, p.handle, p.followers != null ? ` · ${p.followers >= 1e6 ? (p.followers / 1e6).toFixed(1).replace(".", ",") + " mi" : p.followers >= 1e3 ? Math.round(p.followers / 1e3) + " mil" : p.followers} seguidores` : "")));
 
+  // ---- modo reel (padrão): vídeos baixados por tools/miner_baixar.py em aprovacoes/miner/<id>.mp4 ----
+  if (!query.grade) return reelMode({ sb, all: shown, collections, nav, refresh });
+
   const savedToday = all.filter((l) => dayOf(l.saved_at) === today).length;
   const last7 = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); const k = todayISO(d); return all.filter((l) => dayOf(l.saved_at) === k).length; });
   const maxBar = Math.max(1, ...last7);
@@ -131,6 +134,7 @@ export default async function miner({ sb, query, go, refresh }) {
       h("section", null,
         h("div", { class: "page-head" },
           h("div", null, h("div", { class: "mono eyebrow" }, "// biblioteca de referências"), h("h1", null, "Garimpo criativo.")),
+          h("button", { class: "btn btn-ghost", type: "button", onclick: () => nav({ grade: "" }) }, "▶ Modo reel"),
           h("button", { class: "btn", type: "button", onclick: () => { addForm.hidden = !addForm.hidden; if (!addForm.hidden) urlIn.focus(); } }, "Colar novo link ↗")),
         addForm,
         (() => { const ideas = all.filter((l) => l.idea && l.status !== "usado").slice(0, 6); return ideas.length ? hideable("miner_replicar", h("section", { class: "panel", style: { marginBottom: "16px" } },
@@ -141,4 +145,109 @@ export default async function miner({ sb, query, go, refresh }) {
           h("div", { class: "grow" }), searchIn),
         shown.length ? h("div", { class: "mcards" }, ...shown.map(card))
           : h("p", { class: "empty" }, all.length ? "Nada com esse filtro." : "Nenhum link ainda. Cole o primeiro em “Colar novo link”."))));
+}
+
+const BUCKET = "anderson-os-arquivos", PASTA = "aprovacoes/miner";
+let somLigado = false;
+
+async function reelMode({ sb, all, collections, nav, refresh }) {
+  // quais links já têm vídeo no Storage
+  const { data: arqs } = await sb.storage.from(BUCKET).list(PASTA, { limit: 1000 });
+  const tem = new Set((arqs || []).map((f) => f.name));
+  const itens = all.filter((l) => tem.has(l.id + ".mp4"));
+  const paths = itens.map((l) => `${PASTA}/${l.id}.mp4`);
+  const urls = new Map();
+  for (let i = 0; i < paths.length; i += 100) {
+    const { data } = await sb.storage.from(BUCKET).createSignedUrls(paths.slice(i, i + 100), 3600);
+    (data || []).forEach((d) => d.signedUrl && urls.set(d.path, d.signedUrl));
+  }
+  const copias = new Map();
+  const pegaCopia = async (l) => {
+    if (copias.has(l.id)) return copias.get(l.id);
+    const { data } = await sb.storage.from(BUCKET).download(`${PASTA}/${l.id}.txt`);
+    const t = data ? (await data.text()).trim() : "";
+    copias.set(l.id, t); return t;
+  };
+  const tirar = (slide) => { const prox = slide.nextElementSibling || slide.previousElementSibling; slide.remove(); prox?.scrollIntoView({ behavior: "smooth" }); if (!feed.querySelector(".rslide")) refresh(); };
+  const update = async (l, patch) => {
+    const { data, error } = await sb.from("miner_links").update(patch).eq("id", l.id).eq("version", l.version).select("id, version").maybeSingle();
+    if (error || !data) { toast("O link mudou enquanto você olhava. Recarregue.", { kind: "err" }); return false; }
+    l.version = data.version; return true;
+  };
+
+  const botao = (ic, rot, fn, extra = "") => h("button", { class: "rbtn " + extra, type: "button", "aria-label": rot, onclick: (e) => { e.stopPropagation(); fn(e); } }, h("span", { class: "ri" }, ic), h("small", null, rot));
+
+  const slide = (l) => {
+    const src = urls.get(`${PASTA}/${l.id}.mp4`);
+    const v = h("video", { "data-src": src, loop: true, playsinline: true, muted: true, preload: "none", poster: l.thumbnail_url || undefined });
+    v.muted = true;
+    const legenda = h("p", { class: "rcopy" }, l.note || "");
+    pegaCopia(l).then((t) => { if (t) legenda.textContent = t; });
+    const s = h("section", { class: "rslide" },
+      v,
+      h("div", { class: "rinfo" }, h("b", null, l.author || PLAT[l.platform]), h("span", { class: "rcol" }, l.collection), legenda),
+      h("div", { class: "rside" },
+        botao("♥", "Curtir", () => escolherCategoria(l, s), "like"),
+        botao("⧉", "Copy", async () => {
+          const t = copias.get(l.id) ?? "";
+          try { await navigator.clipboard.writeText(t || l.url); toast(t ? "Copy copiada." : "Sem copy, copiei o link."); } catch { toast("Não deu pra copiar.", { kind: "err" }); }
+        }),
+        botao("↓", "Baixar", async () => {
+          const { data } = await sb.storage.from(BUCKET).createSignedUrl(`${PASTA}/${l.id}.mp4`, 600, { download: `${(l.author || "garimpo").replace("@", "")}_${l.id.slice(0, 6)}.mp4` });
+          if (!data) return toast("Não foi possível baixar.", { kind: "err" });
+          const a = h("a", { href: data.signedUrl }); document.body.append(a); a.click(); a.remove();
+        }),
+        botao("↗", "Abrir", () => window.open(l.url, "_blank", "noopener")),
+        botao("✕", "Excluir", async () => {
+          if (!(await update(l, { archived_at: new Date().toISOString() }))) return;
+          sb.storage.from(BUCKET).remove([`${PASTA}/${l.id}.mp4`, `${PASTA}/${l.id}.txt`]);
+          toast("Excluído do garimpo."); tirar(s);
+        }, "del")),
+      h("div", { class: "rsom" }, "🔇"));
+    s.addEventListener("click", () => {
+      if (v.muted) { somLigado = true; feed.querySelectorAll("video").forEach((x) => (x.muted = false)); s.querySelector(".rsom").textContent = "🔊"; return; }
+      v.paused ? v.play() : v.pause();
+    });
+    return s;
+  };
+
+  // curtir = mandar pra uma categoria (coleção)
+  const escolherCategoria = (l, s) => {
+    const nova = h("input", { class: "input", placeholder: "Nova categoria" });
+    const fechar = () => dlg.remove();
+    const mandar = async (c) => {
+      if (!c) return;
+      if (!(await update(l, { collection: c }))) return;
+      l.collection = c; s.querySelector(".rcol").textContent = c; s.querySelector(".like").classList.add("on");
+      if (!collections.includes(c)) collections.push(c);
+      toast(`Mandado pra ${c}.`); fechar();
+    };
+    const dlg = h("div", { class: "rdlg", onclick: (e) => e.target === dlg && fechar() },
+      h("div", { class: "rdlg-box" }, h("h3", null, "Mandar pra qual categoria?"),
+        h("div", { class: "rcats" }, ...collections.map((c) => h("button", { type: "button", class: "chip" + (c === l.collection ? " on" : ""), onclick: () => mandar(c) }, c))),
+        h("form", { class: "flex", style: { gap: "8px", marginTop: "12px" }, onsubmit: (e) => { e.preventDefault(); mandar(nova.value.trim()); } }, nova, h("button", { class: "btn btn-sm" }, "Mandar"))));
+    document.body.append(dlg); nova.focus();
+  };
+
+  const feed = h("div", { class: "rfeed" }, ...itens.map(slide));
+  // toca sozinho o vídeo que está na tela, pausa os outros, pré-carrega o próximo
+  const io = new IntersectionObserver((ents) => ents.forEach((e) => {
+    const v = e.target.querySelector("video");
+    if (e.isIntersecting) {
+      [e.target, e.target.nextElementSibling].forEach((x) => { const vv = x?.querySelector("video"); if (vv && !vv.src) { vv.src = vv.dataset.src; vv.preload = "auto"; } });
+      v.muted = !somLigado; v.currentTime = 0; v.play().catch(() => { v.muted = true; v.play().catch(() => {}); });
+    } else v.pause();
+  }), { root: feed, threshold: 0.6 });
+  feed.querySelectorAll(".rslide").forEach((s) => io.observe(s));
+  const tecla = (e) => {
+    if (!document.body.contains(feed)) return document.removeEventListener("keydown", tecla);
+    if (document.querySelector(".rdlg") || /INPUT|TEXTAREA/.test(document.activeElement?.tagName)) return;
+    if (["ArrowDown", "ArrowUp", "j", "k"].includes(e.key)) { e.preventDefault(); feed.scrollBy({ top: (["ArrowDown", "j"].includes(e.key) ? 1 : -1) * feed.clientHeight, behavior: "smooth" }); }
+  };
+  document.addEventListener("keydown", tecla);
+
+  return h("div", { class: "page miner-reel" },
+    h("div", { class: "rtop" }, h("span", { class: "mono" }, `MineR_ · ${itens.length} vídeos`), h("div", { class: "grow" }),
+      h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => nav({ grade: "1" }) }, "▦ Grade e links")),
+    itens.length ? feed : h("p", { class: "empty" }, "Nenhum vídeo baixado ainda. Rode tools/miner_baixar.py no Mac pra baixar os garimpados."));
 }
