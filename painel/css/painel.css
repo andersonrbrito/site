@@ -947,7 +947,7 @@ body{background-color:var(--bg);background-image:
 .of-run.falha { border-color: rgba(255,92,92,.5); }
 @media (max-width: 600px) { .of-kpis { width: 100%; } .of-kpis > div { flex: 1; min-width: 0; } .of-floor { grid-template-columns: 1fr; } }
 /* The OfficE_: cena isométrica */
-.of-scene { position: relative; height: 72vh; min-height: 420px; border: 1px solid rgba(0,255,102,.25); border-radius: 14px; overflow: hidden; background: #030805; margin-top: 16px; touch-action: none; }
+.of-scene { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 82vh; min-height: 320px; border: 1px solid rgba(0,255,102,.25); border-radius: 14px; overflow: hidden; background: #030805; margin-top: 16px; touch-action: none; }
 .of-canvas { display: block; cursor: grab; }
 .of-hint { position: absolute; left: 12px; bottom: 10px; font-size: 11px; color: rgba(0,255,102,.7); pointer-events: none; }
 .of-overlay { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
@@ -963,3 +963,7 @@ body{background-color:var(--bg);background-image:
 .prcard.sk-avaliar { border-color: rgba(255,201,77,.45); }
 .sk-arqs { margin: 6px 0 0; padding-left: 16px; max-height: 160px; overflow: auto; }
 .sk-kpis { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.of-cams .btn.on { background: #7a1010; border-color: #ff4d4d; color: #fff; }
+.of-aviso { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.8); border: 1px solid #d4a017; color: #ffd84d; padding: 6px 12px; border-radius: 8px; font-size: 12px; pointer-events: none; }
+.of-scene:focus { outline: none; }
