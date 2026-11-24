@@ -3,6 +3,7 @@
 // o que fez (execuções), o que está fazendo e o que vai fazer. A sala do chefe (Michael = Anderson) junta o que precisa dele.
 import { h, fmtDateTime } from "../util.js";
 import { toast } from "../ui.js";
+import { montarCena } from "./office3d.js";
 
 const ago = (ts) => { if (!ts) return "nunca"; const m = Math.round((Date.now() - Date.parse(ts)) / 60000); return m < 1 ? "agora" : m < 60 ? `há ${m} min` : m < 1440 ? `há ${Math.round(m / 60)} h` : `há ${Math.round(m / 1440)} d`; };
 const ate = (ts) => { if (!ts) return ""; const m = Math.round((Date.parse(ts) - Date.now()) / 60000); return m <= 0 ? "a qualquer momento" : m < 60 ? `em ${m} min` : m < 1440 ? `em ${Math.round(m / 60)} h` : `em ${Math.round(m / 1440)} d`; };
@@ -125,11 +126,18 @@ export default async function office({ sb, refresh }) {
       : h("p", { class: "of-calm" }, "Nenhum recado. A equipe está funcionando sem você. Isso é ótimo... ou preocupante."),
     destaque ? h("p", { class: "of-award" }, "🏆 Funcionário da semana: ", h("b", null, destaque.titulo), ` (${placar[0][1]} entregas). Discurso na próxima reunião, que ninguém pediu.`) : null);
 
+  // ---- andar em pixel isométrico (Habbo/Gather): bonecos clicáveis ----
+  const CORES = ["#123a2a", "#1d2a44", "#3a1d33", "#3a321a", "#1a3a3a", "#2c1d44", "#3a241a", "#24361a"];
+  const deptos = [...grupos.values()].sort((a, b) => b.js.length - a.js.length).map((g, i) => ({ ...g, cor: CORES[i % CORES.length], js: g.js.map((j) => Object.assign(j, { _estado: estado(j)[2], _fala: fala(j) })) }));
+  const FALAS_CHEFE = ["Eu declaro... reunião!", "Isso é o que ela disse.", "Ninguém sai até bater a meta.", "Eu não sou supersticioso, mas sou um pouco."];
+  const cena = h("div", { class: "of-scene" }, h("div", { class: "of-hint mono" }, "arraste pra girar · botão direito move · roda = zoom · clique num funcionário"));
+  setTimeout(() => montarCena(cena, { deptos, onClick: abrir, chefe: { fala: () => FALAS_CHEFE[Math.floor(Math.random() * FALAS_CHEFE.length)], onClick: () => chefe.scrollIntoView({ behavior: "smooth" }) } }).catch((e) => { console.error("office3d", e); cena.append(h("p", { class: "empty" }, "Não deu pra carregar o 3D: " + e.message)); }));
+
   return h("div", { class: "page office" },
     h("div", { class: "of-rain", "aria-hidden": "true" }),
     h("div", { class: "page-head" }, h("div", null, h("div", { class: "mono eyebrow" }, "// anderson_Os · filial Matrix"), h("h1", null, "The OfficE_")),
       h("span", { class: "mono muted" }, `${jobs.length} funcionários · ${grupos.size} departamentos`)),
     chefe,
-    jobs.length ? h("div", { class: "of-floor" }, ...salas) : h("p", { class: "empty" }, "O escritório está vazio. A sincronização dos agentes ainda não rodou."),
+    jobs.length ? cena : h("p", { class: "empty" }, "O escritório está vazio. A sincronização dos agentes ainda não rodou."),
     gaveta);
 }
