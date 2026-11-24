@@ -1,0 +1,81 @@
+{
+ "slug": "remover-objeto-pessoa-video-ia",
+ "dia": "2026-11-24",
+ "tipo": "educativo",
+ "titulo": "Apaga qualquer coisa do vídeo com IA",
+ "perfil": "@andrstudios",
+ "legenda": "Apareceu um microfone, uma placa ou um estranho no fundo da sua melhor tomada? Hoje a IA faz inpainting: você marca o que quer tirar e ela reconstrói o fundo que estava escondido atrás, frame a frame.\n\nTem no DaVinci (Magic Mask + Patch Replacer), no After Effects (Content-Aware Fill) e no Runway. Funciona melhor com fundo parado; se a câmera mexe muito, marca em poucos frames de cada vez.\n\nO que você mais precisa apagar dos seus vídeos?\n\nSalva pra usar na próxima limpeza.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — Content-Aware Fill for video (After Effects)",
+   "url": "https://helpx.adobe.com/after-effects/using/content-aware-fill.html"
+  },
+  {
+   "titulo": "Blackmagic DaVinci Resolve — Magic Mask",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  }
+ ],
+ "notas": "Educativo de edição/VFX (remover objeto ou pessoa, inpainting). Capa tela cheia: rosto famoso com algo sendo apagado da cena (clima cinema/verde Matrix) + headline. Imagens no ChatGPT, 4:5. Famoso do dia escolhido pelo assunto (meme/cena): famoso de humor/meme, evitando Neymar e sem repetir famoso dos últimos 7 dias. Observação: exemplo de marca d'água é sempre de vídeo PRÓPRIO.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Apaga o que **sobrou** na cena",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Apareceu um **microfone**, uma placa ou um estranho no fundo da sua melhor tomada?\n\nNão precisa recortar máscara na mão. A IA pinta por cima e some com a coisa.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/03-wide.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Chama **inpainting**: você marca o que quer tirar e a IA reconstrói o fundo que estava escondido atrás, frame a frame.\n\nComo se nunca tivesse estado lá.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde fazer:\n\n• DaVinci: **Magic Mask + Patch Replacer**\n• After Effects: **Content-Aware Fill**\n• Runway / CapCut: \"remover objeto\"\n\nSalva tomada boa com um detalhe atrapalhando.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/03-wide.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Funciona melhor com **fundo parado**.\n\nSe a câmera se mexe muito ou o fundo é complexo, a IA borra. Nesses casos, marca em poucos frames de cada vez pra ela acertar.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/01-capa.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Serve pra muita coisa:\n\ntirar logo, apagar a sombra do tripé, sumir com o turista no fundo, limpar a marca d'água de um vídeo **seu**.\n\nUm detalhe a menos já muda o nível.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Dá pra limpar a cena sem recortar máscara no osso.\n\n**O que você mais precisa apagar dos seus vídeos?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/remover-objeto-pessoa-video-ia/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

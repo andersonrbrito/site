@@ -1,0 +1,81 @@
+{
+ "slug": "tirar-ruido-eco-voz-ia",
+ "dia": "2026-11-24",
+ "tipo": "educativo",
+ "titulo": "Tira o chiado e o eco da voz com IA",
+ "perfil": "@andrstudios",
+ "legenda": "Gravou a narração e veio chiado, ar-condicionado e eco do quarto junto? Hoje a IA isola a voz e joga fora o resto em segundos, e a fala fica seca como se fosse em cabine.\n\nUso o Voice Isolator do ElevenLabs, o Enhance Speech da Adobe e o Voice Isolation do DaVinci. O segredo é não exagerar: passada leve, senão a voz fica robótica.\n\nVocê regrava ou limpa na edição?\n\nSalva pra usar na próxima narração.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "ElevenLabs — Voice Isolator",
+   "url": "https://elevenlabs.io/voice-isolator"
+  },
+  {
+   "titulo": "Adobe — Enhance Speech (Podcast)",
+   "url": "https://podcast.adobe.com/enhance"
+  }
+ ],
+ "notas": "Educativo de áudio (isolar voz / tirar ruído e eco). Capa tela cheia: rosto famoso de cantor(a) no microfone com clima cinema/verde Matrix + headline. Imagens no ChatGPT, 4:5. Famoso do dia escolhido pelo assunto (música/voz): cantor(a) icônico(a), evitando Neymar e sem repetir famoso dos últimos 7 dias.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Tira o **chiado** da voz",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Gravou a narração e veio chiado, ar-condicionado e **eco do quarto** junto?\n\nAntigamente era regravar. Hoje a IA separa a voz do resto em segundos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/03-wide.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O truque é **isolar a voz**: a IA entende o que é fala e joga fora o resto (ruído de fundo, eco, estalo).\n\nA voz fica seca, como se fosse em cabine.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde fazer de graça ou barato:\n\n• **Voice Isolator** do ElevenLabs\n• Adobe **Enhance Speech**\n• DaVinci: **Voice Isolation** no Fairlight\n\nUso na voz clonada antes de montar.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/03-wide.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Depois de limpar, não exagera.\n\nSe apertar demais, a voz fica **robótica** e metálica. Uma passada leve já tira 90% do problema e mantém o natural.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/01-capa.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Ordem que funciona pra mim:\n\n1. isola a voz\n2. corta as respirações longas\n3. só então põe a **trilha por baixo**\n\nAí a música abaixa na hora da fala e a voz fica na frente.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Dá pra gravar no quarto e entregar com som de estúdio.\n\n**Você regrava ou limpa na edição?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/tirar-ruido-eco-voz-ia/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

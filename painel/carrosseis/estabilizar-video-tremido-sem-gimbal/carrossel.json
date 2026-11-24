@@ -1,0 +1,81 @@
+{
+ "slug": "estabilizar-video-tremido-sem-gimbal",
+ "dia": "2026-11-24",
+ "tipo": "educativo",
+ "titulo": "Tira o tremido do vídeo sem gimbal",
+ "perfil": "@andrstudios",
+ "legenda": "Gravou na mão e ficou tudo tremendo? Não precisa de gimbal: o estabilizador analisa o movimento quadro a quadro e reposiciona a imagem, e a câmera na mão vira travelling liso.\n\nTem o Warp Stabilizer no Premiere, o Stabilization no DaVinci e o \"estabilizar\" do CapCut. Só cuidado com o crop (ele dá zoom e corta as bordas) e com o efeito gelatina quando o tremido é forte demais.\n\nVocê estabiliza na edição ou só filma com gimbal?\n\nSalva pra lembrar no próximo corte.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — Warp Stabilizer (Premiere Pro)",
+   "url": "https://helpx.adobe.com/premiere-pro/using/stabilize-motion-warp-stabilizer.html"
+  },
+  {
+   "titulo": "Blackmagic DaVinci Resolve — Stabilization",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  }
+ ],
+ "notas": "Educativo de edição (estabilização / warp stabilizer). Capa tela cheia: rosto famoso de ação em movimento (clima cinema/verde Matrix) + headline. Imagens no ChatGPT, 4:5. Famoso do dia escolhido pelo assunto (ação/câmera na mão): ator de ação, evitando Neymar e sem repetir famoso dos últimos 7 dias.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Tira o **tremido** sem gimbal",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Gravou na mão correndo atrás da cena e ficou tudo **tremendo**?\n\nNão precisa de gimbal nem regravar. O editor conserta depois, e hoje em poucos cliques.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/03-wide.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O **estabilizador** analisa o movimento quadro a quadro e reposiciona a imagem pra anular o tranco.\n\nO que era câmera na mão vira travelling liso.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde ligar:\n\n• Premiere: **Warp Stabilizer** no clip\n• DaVinci: **Stabilization** no Inspector\n• CapCut: \"estabilizar\"\n\nDeixo rodar e já resolve 80% do tremido.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/03-wide.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Cuidado com o **crop**: pra estabilizar, o editor dá zoom e corta as bordas.\n\nSe o vídeo treme muito, filma com folga na margem pra não perder a cena no corte.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/01-capa.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde ele erra:\n\ntremida muito forte vira aquele efeito **gelatina**, a imagem entorta.\n\nNesses casos, baixa a suavização ou corta o trecho pior na mão.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Dá pra salvar cena que parecia perdida de tão tremida.\n\n**Você estabiliza na edição ou só filma com gimbal?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/estabilizar-video-tremido-sem-gimbal/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

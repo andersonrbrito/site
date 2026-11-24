@@ -1,0 +1,81 @@
+{
+ "slug": "upscale-ia-480p-vira-4k",
+ "dia": "2026-11-24",
+ "tipo": "educativo",
+ "titulo": "Transforme 480p em 4K com IA",
+ "perfil": "@andrstudios",
+ "legenda": "Quase todo vídeo de IA bom sai em baixa resolução pra não torrar crédito. O upscale com IA resolve: ele reconstrói o detalhe que faltava em vez de só esticar o pixel, e o 480p vira 4K nítido.\n\nTem no DaVinci (Super Scale), no Topaz e até no CapCut. Eu gero de propósito em 480p e amplio só no final, depois de cortar e colorir.\n\nVocê amplia antes ou depois de editar?\n\nSalva pra testar no próximo render.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Blackmagic DaVinci Resolve — Super Scale",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  },
+  {
+   "titulo": "Topaz Video AI",
+   "url": "https://www.topazlabs.com/topaz-video"
+  }
+ ],
+ "notas": "Educativo de edição (upscale com IA). Capa tela cheia: rosto famoso em close nítido com clima cinema/verde Matrix + headline. Imagens no ChatGPT, 4:5. Famoso do dia: Keanu Reeves (clima Matrix, on-brand com a estética do site), evitando Neymar (já saturado na semana).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Transforme **480p** em 4K",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Quase todo vídeo de IA bom sai em **baixa resolução** pra não gastar crédito.\n\nAí você amplia na mão e vira aquela papa borrada. Dá pra resolver sem perder qualidade.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/03-wide.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O **upscale com IA** não estica o pixel: ele reconstrói o detalhe que faltava (textura de pele, fio de cabelo, borda).\n\n480p entra, 4K nítido sai.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde fazer:\n\n• DaVinci: **Super Scale** no clip (Enhanced)\n• Topaz Video AI (o mais forte)\n• CapCut: \"melhorar resolução\"\n\nEu gero em 480p de propósito e amplio depois.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/03-wide.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato: amplie **no final**, depois de cortar e colorir.\n\nSe você upa antes, ainda vai recomprimir tudo na exportação e perde a nitidez que ganhou.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/01-capa.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Onde o upscale erra:\n\ntexto pequeno e rosto muito longe, a IA inventa detalhe errado e fica **plástico**.\n\nNesses casos, segura a mão e deixa um pouco mais leve.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/02-demo.jpg",
+    "foco": 0.4
+   }
+  },
+  {
+   "texto": "Upscale bem feito salva clipe de IA que parecia amador.\n\n**Você amplia antes ou depois de editar?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/upscale-ia-480p-vira-4k/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
