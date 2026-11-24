@@ -6,39 +6,67 @@
   "perfil": "@andrstudios",
   "legenda": "Aquele visual de Vice City (pôr do sol rosa, sombra azul, néon estourado) não vem da câmera cara. Vem do color grade. Dá pra chegar perto em qualquer vídeo, de graça, no Lumetri do Premiere ou no DaVinci.\n\nA ordem que eu sigo: acerto exposição e balanço de branco primeiro, depois puxo sombra pro teal e luz alta pro quente, saturo só o néon e fecho com grão leve e vinheta.\n\nSalva esse passo a passo. Você faz color grade ou solta o vídeo como sai da câmera?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude (de R$97 por R$57 até 23/11).\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
   "fontes": [],
-  "notas": "22/11 (educativo, capa tela cheia estilo v4company, GTA como gancho). Técnica de color grade (não é prompt). Inner: famosos GTA reaproveitados; capa gerada no ChatGPT (fallback = famoso GTA).",
+  "notas": "22/11 (educativo, capa tela cheia estilo v4company, GTA como gancho). Técnica de color grade (não é prompt). Inner: famosos GTA reaproveitados; capa gerada no ChatGPT (fallback = famoso GTA). | 24/11 ajuste: 7 imagens novas no ChatGPT (uma por lâmina, famosos variados: Gosling, Chalamet, Pascal, Momoa, DiCaprio, Murphy + Anderson pelo sheet), capa sem espaço vazio no topo.",
   "slides": [
     {
       "capa": true,
       "texto": "Cor de **GTA VI** no seu vídeo",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/01-capa.jpg", "foco": 0.3 },
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/01-capa.jpg",
+        "foco": 0.35
+      },
       "rodape": "arrasta →"
     },
     {
       "texto": "Não é a câmera, é a **cor**.\n\nPôr do sol rosa, sombra azul, néon estourado: esse look de Vice City você consegue em qualquer vídeo no color grade. Sem gastar com equipamento.",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/02-neymar.jpg", "foco": 0.35 }
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/02-chalamet.jpg",
+        "foco": 0.5
+      }
     },
     {
       "texto": "**1. Acerta a base primeiro.**\n\nExposição e balanço de branco certos antes de qualquer coisa. Grade em cima de imagem torta não salva. Deixa a pele natural pra depois estilizar.",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/04-neymar-dir.jpg", "foco": 0.4 }
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/03-pascal.jpg",
+        "foco": 0.5
+      }
     },
     {
       "texto": "**2. Puxa o contraste de cor.**\n\nSombra pro azul/teal, luz alta pro quente (rosa/laranja). Esse \"teal & orange\" é a alma do look de Vice City.",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/02-neymar.jpg", "foco": 0.5 },
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/04-momoa.jpg",
+        "foco": 0.5
+      },
       "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
     },
     {
       "texto": "**3. Satura com seletor.**\n\nNão joga saturação geral. Realça só o néon: rosa, roxo e ciano. O resto fica mais apagado pra esses estourarem.",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/06-anderson.jpg", "foco": 0.35 }
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/05-dicaprio.jpg",
+        "foco": 0.5
+      }
     },
     {
       "texto": "Toque final: **grão leve e vinheta suave**.\n\nTira o \"digital limpo demais\" e dá textura de jogo. Faz no Lumetri (Premiere) ou no DaVinci. Salva esse passo a passo.",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/04-neymar-dir.jpg", "foco": 0.55 },
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/06-murphy.jpg",
+        "foco": 0.5
+      },
       "rodape": "salva pra usar depois"
     },
     {
       "texto": "Você faz color grade ou solta o vídeo como sai da câmera?\n\nO que mais te trava nessa parte?\n\nComenta KIT que eu te mando o link do Kit Editar com Claude. De R$97 por R$57 até 23/11.",
-      "midia": { "tipo": "imagem", "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/06-anderson.jpg", "foco": 0.5 },
+      "midia": {
+        "tipo": "imagem",
+        "src": "/painel/carrosseis/cor-de-gta-vi-color-grade/07-anderson.jpg",
+        "foco": 0.5
+      },
       "rodape": "comenta KIT ↓"
     }
   ]
