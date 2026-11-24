@@ -15,6 +15,7 @@ export const MODULES = [
   { id: "desempenho", label: "DesempenhO_", route: "desempenho", permission: "desempenho", enabled: true },
   { id: "persona", label: "PersonA_", route: "persona", permission: "desempenho", enabled: true },
   { id: "mapa", label: "Map MentaleS_", route: "mapa", permission: "mapa", enabled: true },
+  { id: "office", label: "The OfficE_", route: "office", permission: "agentes", enabled: true },
   { id: "agentes", label: "AgenteS_", route: "agentes", permission: "agentes", enabled: true },
   { id: "perfis", label: "PerfiS_", route: "perfis", permission: "perfis", enabled: true },
   { id: "notas", label: "NoteS_", route: "notas", permission: "notas", enabled: true },
