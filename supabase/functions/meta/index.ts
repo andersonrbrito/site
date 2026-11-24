@@ -16,7 +16,7 @@ const FB_APP_ID = "1584718087029566";
 const V = "v23.0";
 const AD_ACCOUNT = "act_324933977585877";
 const VERIFY_TOKEN = "anderson-os-meta-webhook"; // só confirma a assinatura do webhook; os eventos são validados pela chave secreta
-const IG_SCOPES = "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_manage_insights";
+const IG_SCOPES = "instagram_business_basic,instagram_business_manage_messages,instagram_business_manage_comments,instagram_business_manage_insights,instagram_business_content_publish";
 const FB_SCOPES = "pages_show_list,pages_read_engagement,read_insights,business_management"; // só leitura (views e comentários da Página); responder comentários exige permissão que a Meta não liberou para este app
 const CORS = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, content-type, x-cron-key, apikey, x-client-info", "Access-Control-Allow-Methods": "GET, POST, OPTIONS" };
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { ...CORS, "Content-Type": "application/json" } });
@@ -34,11 +34,13 @@ const post = (url: string, body: unknown) => api(url, { method: "POST", headers:
 
 // A conta Meta tem várias Páginas; a do painel é a "Anderson Brito Fotografia".
 const PAGE_NAME = "anderson brito fotografia";
+const MAIN_IG = "@andersonbrito.mp4";
 async function account(kind: "instagram" | "page") {
-  const { data } = await sb.from("meta_accounts").select("account_id, name, token").eq("kind", kind).order("updated_at", { ascending: false }).limit(50);
+  const { data } = await sb.from("meta_accounts").select("account_id, name, token, perfil").eq("kind", kind).order("updated_at", { ascending: false }).limit(50);
   const list = data || [];
   if (kind === "page") return list.find((a) => (a.name || "").toLowerCase().includes(PAGE_NAME)) || list[0] || null;
-  return list[0] || null;
+  // várias contas do Instagram (uma por perfil): leitura/DMs/números seguem na principal
+  return list.find((a: any) => (a.name || "").toLowerCase() === MAIN_IG) || list.find((a: any) => !a.perfil) || list[0] || null;
 }
 
 // ───────── autorização ─────────
@@ -92,9 +94,13 @@ async function callbackIg(u: URL) {
   const short = await api("https://api.instagram.com/oauth/access_token", form({ client_id: IG_APP_ID, client_secret: secret("IG_APP_SECRET"), grant_type: "authorization_code", redirect_uri: `${BASE}/callback-ig`, code }));
   const long = await api(`https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${secret("IG_APP_SECRET")}&access_token=${short.access_token}`);
   const me = await api(`https://graph.instagram.com/${V}/me?fields=user_id,username&access_token=${long.access_token}`);
-  await sb.from("meta_accounts").upsert({ kind: "instagram", account_id: String(me.user_id), name: "@" + me.username, token: long.access_token, expires_at: new Date(Date.now() + (long.expires_in || 5184000) * 1000).toISOString(), updated_at: new Date().toISOString() }, { onConflict: "kind,account_id" });
+  // liga a conta ao perfil do painel pelo @ (perfis.handle)
+  const { data: pfs } = await sb.from("perfis").select("slug, handle").is("archived_at", null);
+  const alvo = (h: string) => (h || "").toLowerCase().replace(/^@/, "").trim();
+  const perfil = (pfs || []).find((p: any) => alvo(p.handle) === alvo(me.username))?.slug || null;
+  await sb.from("meta_accounts").upsert({ kind: "instagram", account_id: String(me.user_id), perfil, name: "@" + me.username, token: long.access_token, expires_at: new Date(Date.now() + (long.expires_in || 5184000) * 1000).toISOString(), updated_at: new Date().toISOString() }, { onConflict: "kind,account_id" });
   await api(`https://graph.instagram.com/${V}/me/subscribed_apps?subscribed_fields=comments,messages&access_token=${long.access_token}`, { method: "POST" }).catch(() => null);
-  return back(`Instagram @${me.username} conectado.`);
+  return back(`Instagram @${me.username} conectado${perfil ? "" : " (sem perfil no painel com esse @: não vai agendar)"}.`);
 }
 
 async function callbackFb(u: URL) {
@@ -458,6 +464,75 @@ async function agente(req: Request) {
   }
 }
 
+// ───────── publicar no Instagram (AprovaçõeS_ agendados) ─────────
+// Fluxo da Meta: cria o contêiner (a Meta baixa a mídia por URL), espera processar (vídeo leva minutos) e publica.
+// Cada chamada do cron avança um passo; o id do contêiner fica em aprovacoes.ig_container entre um minuto e outro.
+const BUCKET = "anderson-os-arquivos";
+const ehVideo = (p: string) => /\.(mp4|mov|m4v)$/i.test(p || "");
+async function assinada(path: string) {
+  const { data, error } = await sb.storage.from(BUCKET).createSignedUrl(path, 4 * 3600);
+  if (error || !data?.signedUrl) throw new Error(`arquivo não está no Supabase: ${path}`);
+  return data.signedUrl;
+}
+const igPost = (path: string, params: Record<string, string>, token: string) =>
+  api(`https://graph.instagram.com/${V}/${path}`, form({ ...params, access_token: token }));
+
+async function criarContainer(a: any, conta: { account_id: string; token: string }) {
+  const me = conta.account_id, tk = conta.token;
+  const arqs = [a.arquivo, ...(a.extras || [])].filter(Boolean);
+  const legenda = a.tipo === "story" ? undefined : (a.legenda || "");
+  if (a.tipo === "carrossel" || arqs.length > 1) {
+    if (arqs.length > 10) throw new Error("carrossel com mais de 10 lâminas");
+    const filhos: string[] = [];
+    for (const p of arqs) {
+      const u = await assinada(p);
+      const c = await igPost(`${me}/media`, ehVideo(p) ? { media_type: "VIDEO", video_url: u, is_carousel_item: "true" } : { image_url: u, is_carousel_item: "true" }, tk);
+      filhos.push(c.id);
+    }
+    return (await igPost(`${me}/media`, { media_type: "CAROUSEL", children: filhos.join(","), caption: legenda || "" }, tk)).id;
+  }
+  const u = await assinada(a.arquivo);
+  const p: Record<string, string> = a.tipo === "story"
+    ? (ehVideo(a.arquivo) ? { media_type: "STORIES", video_url: u } : { media_type: "STORIES", image_url: u })
+    : ehVideo(a.arquivo) ? { media_type: "REELS", video_url: u, share_to_feed: "true", caption: legenda || "" } : { image_url: u, caption: legenda || "" };
+  if (p.media_type === "REELS" && a.capa && !ehVideo(a.capa)) p.cover_url = await assinada(a.capa);
+  return (await igPost(`${me}/media`, p, tk)).id;
+}
+
+async function publicarAgendados() {
+  const { data: fila } = await sb.from("aprovacoes").select("*").eq("status", "agendado").is("archived_at", null)
+    .lte("agendar_em", new Date().toISOString()).is("ig_erro", null).order("agendar_em").limit(4);
+  const out: any[] = [];
+  for (const a of fila || []) {
+    const marca = async (patch: Record<string, unknown>) => { await sb.from("aprovacoes").update(patch).eq("id", a.id).eq("status", "agendado"); };
+    try {
+      const { data: contas } = await sb.from("meta_accounts").select("account_id, name, token, perfil").eq("kind", "instagram").eq("perfil", a.perfil).limit(1);
+      const conta = contas?.[0];
+      if (!conta) throw new Error(`Instagram do perfil "${a.perfil}" não está conectado`);
+      if (String(a.ig_container || "").startsWith("publicando:")) { out.push({ id: a.id, etapa: "publicando" }); continue; }
+      let cid = a.ig_container;
+      if (!cid) { cid = await criarContainer(a, conta); await marca({ ig_container: cid }); }
+      const st = await api(`https://graph.instagram.com/${V}/${cid}?fields=status_code,status&access_token=${conta.token}`);
+      if (st.status_code === "ERROR" || st.status_code === "EXPIRED") throw new Error(`a Meta recusou a mídia: ${st.status || st.status_code}`);
+      if (st.status_code && st.status_code !== "FINISHED") { out.push({ id: a.id, etapa: "processando" }); continue; }
+      // trava: só uma chamada do cron publica este contêiner (evita post duplicado)
+      const { data: trava } = await sb.from("aprovacoes").update({ ig_container: "publicando:" + cid }).eq("id", a.id).eq("ig_container", cid).select("id");
+      if (!trava?.length) { out.push({ id: a.id, etapa: "outra chamada publicando" }); continue; }
+      const pub = await igPost(`${conta.account_id}/media_publish`, { creation_id: cid }, conta.token);
+      const info = await api(`https://graph.instagram.com/${V}/${pub.id}?fields=permalink&access_token=${conta.token}`).catch(() => ({}));
+      await marca({ status: "publicado", publicado_em: new Date().toISOString(), url_publicado: (info as any).permalink || null, ig_container: null });
+      // publicado: a mídia sai do Storage (plano grátis), como no painel
+      await sb.storage.from(BUCKET).remove([...new Set([a.arquivo, ...(a.extras || []), a.capa].filter(Boolean))]).catch(() => null);
+      out.push({ id: a.id, publicado: (info as any).permalink || pub.id, conta: conta.name });
+    } catch (e) {
+      const msg = (e as Error).message.slice(0, 900);
+      await marca({ ig_erro: msg, ig_container: null });
+      out.push({ id: a.id, erro: msg });
+    }
+  }
+  return { publicados: out };
+}
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: CORS });
   const u = new URL(req.url);
@@ -515,6 +590,11 @@ Deno.serve(async (req) => {
       return json({ video_insights: a, campos: b, insights: c });
     }
     if (action === "daily") return json(await daily());
+    if (action === "publicar") return json(await publicarAgendados());
+    if (action === "contas_ig") {  // contas ligadas a perfis (sem token) para o painel
+      const { data } = await sb.from("meta_accounts").select("account_id, name, perfil, expires_at").eq("kind", "instagram");
+      return json(data || []);
+    }
     if (action === "ads") return json(await ads());
     if (action === "status") return json({ ig_secret: !!Deno.env.get("IG_APP_SECRET"), fb_secret: !!Deno.env.get("FB_APP_SECRET") });
     return json({ error: "ação desconhecida" }, 400);

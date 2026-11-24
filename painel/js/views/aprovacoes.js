@@ -7,8 +7,8 @@ import { linkedinDialog } from "../linkedin.js?v=20261116a";
 import { CELULAR, salvarNaGaleria, urlParaFile } from "../galeria.js?v=20261112a";
 
 const BUCKET = "anderson-os-arquivos";
-const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
-const ST = { pendente: ["para aprovar", "warn"], ajustar: ["ajuste pedido", "accent"], aprovado: ["aprovado", "ok"], publicado: ["publicado", "ok"], reprovado: ["reprovado", "danger"] };
+const ABAS = [["pendente", "Para aprovar"], ["ajustar", "Ajustes pedidos"], ["aprovado", "Aprovados (publicar)"], ["agendado", "Agendados (Instagram)"], ["publicado", "Publicados"], ["reprovado", "Reprovados"]];
+const ST = { pendente: ["para aprovar", "warn"], ajustar: ["ajuste pedido", "accent"], aprovado: ["aprovado", "ok"], agendado: ["agendado no Instagram", "accent"], publicado: ["publicado", "ok"], reprovado: ["reprovado", "danger"] };
 const isVideo = (p) => /\.(mp4|mov|m4v|webm)$/i.test(p || "");
 const isPdf = (p) => /\.pdf$/i.test(p || "");
 
@@ -28,6 +28,9 @@ export default async function aprovacoes({ sb, query, go }) {
     if (!data || data.length < 1000 || de >= 20000) break;
   }
   const { data: pf } = await sb.from("perfis").select("slug, handle").is("archived_at", null);
+  // contas do Instagram conectadas, uma por perfil (meta_accounts.perfil); sem conta, o card não mostra "Agendar"
+  const { data: igc } = await sb.from("meta_accounts").select("perfil, name").eq("kind", "instagram");
+  const contaIg = (s) => (igc || []).find((c) => c.perfil === s);
   const nome = (s) => (pf || []).find((p) => p.slug === s)?.handle || s;
   let aba = ABAS.some(([k]) => k === query.aba) ? query.aba : "pendente", perfil = query.perfil || "";
 
@@ -273,10 +276,33 @@ export default async function aprovacoes({ sb, query, go }) {
     return btn;
   };
 
+  // Agendar no Instagram: a mídia fica no Supabase até a publicação; a função "meta" publica no horário e marca publicado.
+  const paraInput = (iso) => { const d = iso ? new Date(iso) : new Date(Date.now() + 15 * 60e3); return new Date(d.getTime() - d.getTimezoneOffset() * 60e3).toISOString().slice(0, 16); };
+  const agendarBtn = (a) => {
+    const c = contaIg(a.perfil);
+    if (!c || isPdf(a.arquivo) || !midia(a).length) return null;
+    return h("button", { class: "btn btn-sm ap-ok", type: "button", title: `Publica sozinho em ${c.name} no horário escolhido`, onclick: () => {
+      const inp = h("input", { class: "input", type: "datetime-local", value: paraInput(a.sugestao_em && Date.parse(a.sugestao_em) > Date.now() ? a.sugestao_em : null) });
+      const dlg = h("dialog", { class: "copy-dlg" }, h("b", null, `Agendar em ${c.name}`), h("p", { class: "muted small" }, a.titulo), inp,
+        a.tipo === "story" ? h("p", { class: "muted small" }, "Story sai só com a mídia (sem stickers).") : null,
+        h("div", { class: "flex", style: { justifyContent: "flex-end" } },
+          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => dlg.close() }, "Cancelar"),
+          h("button", { class: "btn", type: "button", onclick: async () => {
+            const t = new Date(inp.value); if (isNaN(t)) return toast("Escolha data e hora.", { kind: "err" });
+            dlg.close();
+            await salvar(a, { status: "agendado", agendar_em: t.toISOString(), ig_erro: null, ig_container: null, decidido_em: agora(), comentario: null }, `Agendado em ${c.name} para ${fmtDateTime(t.toISOString())}.`);
+          } }, "Agendar")));
+      dlg.addEventListener("close", () => dlg.remove()); document.body.append(dlg); dlg.showModal();
+    } }, `Agendar em ${c.name}`);
+  };
   const card = (a) => {
     const [sl, sc] = ST[a.status] || ST.pendente;
-    const decisao = a.status === "pendente" || a.status === "ajustar"
-      ? [h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => salvar(a, { status: "aprovado", decidido_em: agora(), comentario: null }, "Aprovado. Está na aba Aprovados (publicar).") }, "Aprovar"),
+    const decisao = a.status === "agendado"
+      ? [a.ig_erro ? h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => salvar(a, { ig_erro: null, ig_container: null }, "Vai tentar publicar de novo no próximo minuto.") }, "Tentar de novo") : null,
+         agendarBtn(a) && h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => agendarBtn(a).click() }, "Mudar horário"),
+         h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente", agendar_em: null, ig_erro: null, ig_container: null }, "Agendamento cancelado. Voltou para aprovação.") }, "Cancelar agendamento")]
+      : a.status === "pendente" || a.status === "ajustar"
+      ? [agendarBtn(a), h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => salvar(a, { status: "aprovado", decidido_em: agora(), comentario: null }, "Aprovado. Está na aba Aprovados (publicar).") }, "Aprovar"),
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("O que ajustar? (o agente lê isso)", a.comentario || ""); if (c?.trim()) salvar(a, { status: "ajustar", comentario: c.trim(), decidido_em: agora() }, "Ajuste pedido."); } }, "Pedir ajuste"),
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("Motivo (opcional):", ""); if (c !== null) salvar(a, { status: "reprovado", comentario: c.trim() || null, decidido_em: agora() }, "Reprovado."); } }, "Reprovar")]
       : a.status === "aprovado"
@@ -294,6 +320,8 @@ export default async function aprovacoes({ sb, query, go }) {
         h("div", { class: "ap-actions" },
           h("div", { class: "flex wrap" }, iphone(a), baixar(a), copiavel(a) && h("button", { class: "btn btn-sm ap-copy", type: "button", onclick: () => copiar(copiavel(a)) }, "Copiar legenda"), legendaIphone(a), liBtn(a)),
           h("div", { class: "flex wrap" }, ...decisao))),
+      a.status === "agendado" && h("p", { class: "small", style: { margin: "0 16px 12px" } }, h("b", null, "Publica em: ", fmtDateTime(a.agendar_em)), " · ", contaIg(a.perfil)?.name || "conta não conectada"),
+      a.ig_erro && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px", color: "var(--danger)" } }, "Não publicou: ", a.ig_erro),
       a.comentario && h("p", { class: "small ap-coment", style: { margin: "0 16px 12px" } }, "Seu comentário: ", a.comentario),
       h("div", { class: "ap-body" },
         h("div", { class: "ap-stage" }, isPdf(a.arquivo) ? ebook(a) : a.extras?.length ? galeria([a.arquivo, ...a.extras]) : media(a.arquivo, true, a.capa)),
