@@ -112,7 +112,7 @@ export default async function miner({ sb, query, go, refresh }) {
     h("div", { class: "grow", style: { minWidth: 0 } }, h("div", { class: "truncate" }, p.display_name || p.handle), h("div", { class: "muted small truncate" }, p.handle, p.followers != null ? ` · ${p.followers >= 1e6 ? (p.followers / 1e6).toFixed(1).replace(".", ",") + " mi" : p.followers >= 1e3 ? Math.round(p.followers / 1e3) + " mil" : p.followers} seguidores` : "")));
 
   // ---- modo reel (padrão): vídeos baixados por tools/miner_baixar.py em aprovacoes/miner/<id>.mp4 ----
-  if (!query.grade) return reelMode({ sb, all: shown, collections, nav, refresh });
+  if (!query.grade) return reelMode({ sb, all: shown, collections, nav, refresh, perfis: profiles.data || [] });
 
   const savedToday = all.filter((l) => dayOf(l.saved_at) === today).length;
   const last7 = [...Array(7)].map((_, i) => { const d = new Date(); d.setDate(d.getDate() - 6 + i); const k = todayISO(d); return all.filter((l) => dayOf(l.saved_at) === k).length; });
@@ -150,7 +150,15 @@ export default async function miner({ sb, query, go, refresh }) {
 const BUCKET = "anderson-os-arquivos", PASTA = "aprovacoes/miner";
 let somLigado = false;
 
-async function reelMode({ sb, all, collections, nav, refresh }) {
+async function reelMode({ sb, all, collections, nav, refresh, perfis = [] }) {
+  const fotoDe = (l) => {
+    const hd = (l.author || "").replace(/^@/, "").toLowerCase();
+    const p = perfis.find((q) => (q.handle || "").replace(/^@/, "").toLowerCase() === hd);
+    if (p?.photo) return p.photo;
+    const pl = l.platform === "twitter" ? "x" : l.platform;
+    return hd && ["instagram", "x", "tiktok", "youtube"].includes(pl) ? `https://unavatar.io/${pl}/${hd}` : null;
+  };
+  const passa = (d) => feed.scrollBy({ top: d * feed.clientHeight, behavior: "smooth" });
   // quais links já têm vídeo no Storage
   const { data: arqs } = await sb.storage.from(BUCKET).list(PASTA, { limit: 1000 });
   const tem = new Set((arqs || []).map((f) => f.name));
@@ -185,7 +193,8 @@ async function reelMode({ sb, all, collections, nav, refresh }) {
     pegaCopia(l).then((t) => { if (t) legenda.textContent = t; });
     const s = h("section", { class: "rslide" },
       v,
-      h("div", { class: "rinfo" }, h("b", null, l.author || PLAT[l.platform]), h("span", { class: "rcol" }, l.collection), legenda),
+      h("div", { class: "rinfo" }, h("div", { class: "rautor" }, fotoDe(l) ? h("img", { class: "ravatar", src: fotoDe(l), alt: "", loading: "lazy", onerror: (e) => e.target.remove() }) : null, h("b", null, l.author || PLAT[l.platform])), h("span", { class: "rcol" }, l.collection), legenda),
+      h("div", { class: "rnav" }, botao("▲", "Anterior", () => passa(-1)), botao("▼", "Próximo", () => passa(1))),
       h("div", { class: "rside" },
         botao("♥", "Curtir", () => escolherCategoria(l, s), "like"),
         botao("⧉", "Copy", async () => {
@@ -242,7 +251,7 @@ async function reelMode({ sb, all, collections, nav, refresh }) {
   const tecla = (e) => {
     if (!document.body.contains(feed)) return document.removeEventListener("keydown", tecla);
     if (document.querySelector(".rdlg") || /INPUT|TEXTAREA/.test(document.activeElement?.tagName)) return;
-    if (["ArrowDown", "ArrowUp", "j", "k"].includes(e.key)) { e.preventDefault(); feed.scrollBy({ top: (["ArrowDown", "j"].includes(e.key) ? 1 : -1) * feed.clientHeight, behavior: "smooth" }); }
+    if (["ArrowDown", "ArrowUp", "j", "k"].includes(e.key)) { e.preventDefault(); passa(["ArrowDown", "j"].includes(e.key) ? 1 : -1); }
   };
   document.addEventListener("keydown", tecla);
 
