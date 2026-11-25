@@ -153,8 +153,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   vidroParede(tp.x0, 0, tp.x0, FUNDO); vidroParede(tp.x0, FUNDO, tp.x1, FUNDO, true);
   { const tap = new THREE.Mesh(new THREE.PlaneGeometry(11.8, FUNDO - 0.2), M("#5a1220", { roughness: 1 })); tap.rotation.x = -Math.PI / 2; tap.position.set(tp.x, 0.015, FUNDO / 2); tap.receiveShadow = true; scene.add(tap); }
   const trono = { x: tp.x, z: 2.0 };
-  box(1.6, 0.25, 1.4, ouro, trono.x, 0.12, trono.z - 0.1); // degrau
-  cadeira(trono.x, trono.z, 0, ouro, true);
+  cadeira(trono.x, trono.z, 0, M("#1a1a1a"), true);
   const mesaM = { x: tp.x, z: 3.3 };
   const mesaV = { x: tp.x - 3.6, z: 3.0 };
   box(1.8, 0.07, 0.9, mat.mesaTampo, mesaV.x, 0.76, mesaV.z); box(1.7, 0.7, 0.06, M("#b0325a"), mesaV.x, 0.38, mesaV.z + 0.42);
@@ -289,7 +288,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   box(0.03, 0.03, 0.2, M("#222"), 0.17, 0.22, 0.1, mb.cabeca); box(0.05, 0.05, 0.05, M("#222"), 0.08, 0.17, 0.2, mb.cabeca);
   { const ch = new THREE.Group(); ch.position.set(0, -0.66, 0.05); mb.bracoD.add(ch); box(0.05, 0.32, 0.05, M("#4a2a14"), 0, -0.1, 0.05, ch, false); for (let i = 0; i < 4; i++) box(0.025, 0.2, 0.025, M("#2a1a0c"), 0.02 * i, -0.35 - i * 0.18, 0.05 + i * 0.03, ch, false); }
   const mestre = novo(mb, { chefe: true, est: "boss", nome: "Mestre Anderson", desk: { x: trono.x, z: trono.z, rot: 0 } });
-  mestre.root.position.set(trono.x, 0.25, trono.z); mestre.sentado = true;
+  mestre.root.position.set(trono.x, 0, trono.z); mestre.sentado = true;
 
   // recepcionista humano em greve
   const pb = boneco({ pele: "#d29a72", cabelo: "#2b1a10", camisa: "#c41e1e", calca: "#2f4a7a", barba: true, bone: "#c41e1e" });
@@ -301,8 +300,8 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   petista.root.position.set(rec.x - 0.4, 0, rec.z - 0.85); petista.root.rotation.y = 0.3;
 
   // Vanessa, a esposa ruiva do Mestre: a gostosa do RH, mesa ao lado do trono
-  const vb = boneco({ pele: "#f1c7a8", cabelo: "#c2461b", camisa: "#b0325a", calca: "#1d1d24", sapato: "#7a1030" });
-  box(0.42, 0.55, 0.1, M("#c2461b"), 0, 0.12, -0.2, vb.cabeca); box(0.06, 0.05, 0.02, M("#b0325a"), 0, 0.17, 0.19, vb.cabeca, false);
+  const vb = boneco({ pele: "#f1c7a8", cabelo: "#c2461b", camisa: "#d9c4a0", calca: "#8c7558", sapato: "#6b4e34" });
+  box(0.42, 0.55, 0.1, M("#c2461b"), 0, 0.12, -0.2, vb.cabeca); box(0.06, 0.05, 0.02, M("#d9c4a0"), 0, 0.17, 0.19, vb.cabeca, false);
   const vanessa = novo(vb, { humano: true, est: "rh", nome: "Vanessa (RH)", desk: { x: mesaV.x, z: mesaV.z - 0.9, rot: 0, cz: mesaV.z - 1.6, gx: mesaV.x }, falas: ["Mestre, o recepcionista faltou de novo.", "Os robôs pediram plano de saúde. Neguei.", "Avaliação de desempenho: todos nota 10 pro Mestre.", "Amor, o Romeu fugiu de motoquinha de novo.", "RH informa: o Lino está de plantão."] });
   vanessa.root.position.set(mesaV.x, 0, mesaV.z - 0.9); vanessa.sentado = true;
 
@@ -318,7 +317,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     { const s = placa("GERENTE", { fg: "#4da3ff", borda: "#4da3ff", alt: 0.18, fonte: "bold 40px sans-serif" }); s.position.set(0, 1.1, 0); holder.add(s); }
     const p = { root: holder, corpo: b.corpo, tronco: b.tronco, cabeca: b.cabeca, pernaE: b.pernaE, pernaD: b.pernaD, bracoE: b.bracoE, bracoD: b.bracoD, bebe: true, est: "gerente", nome: "Romeu (Gerente)", fase: 0, caminho: [], espera: 2, fala: null, falaAte: 0, apanha: 0 };
     holder.traverse((o) => { o.userData.p = p; }); pessoas.push(p);
-    holder.position.set(tp.x, 0, FUNDO + 1); return p;
+    return p;
   })();
 
   // Lino: cachorro branquinho, segurança que ronda o escritório
@@ -378,8 +377,10 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     if (p.bebe) {
       const visitas = pessoas.filter((q) => (q.j && q.sentado) || q.chefe || q === vanessa || q.cachorro);
       const q = pick(visitas); const qx = q.root.position.x, qz = q.root.position.z;
-      const via = Math.random() < 0.5 ? zBC : zFC;
-      p.caminho = [{ x: p.root.position.x, z: via }, { x: qx + 0.8, z: via }, { x: qx + 0.8, z: qz + (q.desk?.cz && q.j ? (q.desk.cz - q.desk.z) : 0.8) }];
+      const px = p.root.position.x, pz = p.root.position.z, agora = Math.abs(pz - zBC) < Math.abs(pz - zFC) ? zBC : zFC;
+      const via = q.cachorro ? agora : (Math.abs(qz - zBC) < Math.abs(qz - zFC) ? zBC : zFC);
+      const alx = Math.max(1, Math.min(W - 1, qx));
+      p.caminho = via === agora ? [{ x: px, z: agora }, { x: alx, z: via }] : [{ x: px, z: agora }, { x: gxC, z: agora }, { x: gxC, z: via }, { x: alx, z: via }];
       p.visita = q; p.espera = 3 + Math.random() * 3; return;
     }
     if (p === vanessa) { p.espera = 6 + Math.random() * 6; if (Math.random() < 0.6) { p.fala = pick(p.falas); p.falaAte = t + 4; } return; }
@@ -444,8 +445,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
       }
     } else if (p.ausente) { if (t > p.voltaEm) { p.ausente = false; r.visible = true; voltar(p); } }
     else { p.espera -= dt; if (p.espera <= 0) decide(p, t); }
-    if (p.chefe) r.position.y = p.sentado && Math.hypot(r.position.x - trono.x, r.position.z - trono.z) < 0.1 ? 0.25 : 0;
-    if (p.cachorro) {
+        if (p.cachorro) {
       const sw = andando ? Math.sin(t * 14) * 0.6 : 0;
       p.patas.forEach((m, i) => { m.rotation.x = i % 2 ? sw : -sw; });
       p.rabo.rotation.y = Math.sin(t * (andando ? 18 : 8)) * 0.6;
@@ -517,6 +517,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     copa: [new THREE.Vector3(copaX0 - 5, 7, zB + 3), new THREE.Vector3(copaX0 + COPA / 2, 0.5, (zB + zBC) / 2)],
     recepcao: [new THREE.Vector3(rec.x + 4, 4.5, zB + 5), new THREE.Vector3(rec.x, 1, rec.z)],
   };
+  romeu.root.position.set(gxC, 0, zBC);
   let voo = null;
   const voar = (k) => { if (fp) sairFp(); voo = { de: [camera.position.clone(), controls.target.clone()], para: vistas[k], t: 0 }; };
   camera.position.copy(vistas.geral[0]); controls.target.copy(vistas.geral[1]);
@@ -537,7 +538,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   const trazerMestre = (voa = true) => {
     if (fp) sairFp();
     Object.assign(mestre, { ausente: false, sumir: false, anuncia: false, caminho: [], volta: null, sentado: true, espera: 8 });
-    mestre.root.visible = true; mestre.root.position.set(trono.x, 0.25, trono.z); mestre.root.rotation.y = 0;
+    mestre.root.visible = true; mestre.root.position.set(trono.x, 0, trono.z); mestre.root.rotation.y = 0;
     mestre.fala = "Voltei. Sentiram a minha energia?"; mestre.falaAte = relogio.elapsedTime + 4;
     if (voa) voar("templo");
   };
@@ -575,10 +576,23 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   // ---------- clique / chicote / arrastar em primeira pessoa ----------
   const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
   const alvos = [];
-  pessoas.forEach((p) => p.root.traverse((o) => { if (o.isMesh) alvos.push(o); }));
+  const hitMat = new THREE.MeshBasicMaterial({ visible: false });
+  pessoas.forEach((p) => { const hb = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 2.1, 8), hitMat); hb.position.y = 1.05; hb.userData.p = p; if (p.root.scale.x < 1) hb.scale.setScalar(1 / p.root.scale.x); p.root.add(hb); alvos.push(hb); });
+  const menu = document.createElement("div"); menu.className = "of-menu"; menu.hidden = true; host.append(menu);
+  const abreMenu = (e) => {
+    const r = host.getBoundingClientRect(); menu.replaceChildren();
+    const item = (txt, fn) => { const b = document.createElement("button"); b.type = "button"; b.className = "btn btn-ghost btn-sm"; b.textContent = txt; b.onclick = () => { menu.hidden = true; fn(); }; menu.append(b); };
+    const t = relogio.elapsedTime;
+    item(fp ? "Sair do personagem" : "Primeira pessoa", () => (fp ? sairFp() : (entrarFp(), host.focus())));
+    item("Chicotear", () => { const px = mestre.root.position.x, pz = mestre.root.position.z; let m = null, dm = 4; pessoas.forEach((q) => { if (q.chefe || !q.root.visible) return; const d = Math.hypot(q.root.position.x - px, q.root.position.z - pz); if (d < dm) { m = q; dm = d; } }); if (m) chicotear(m, relogio.elapsedTime); else { mestre.fala = "Ninguém perto. Sorte deles."; mestre.falaAte = relogio.elapsedTime + 3; } });
+    item("Discursar", () => { mestre.fala = chefe.fala(); mestre.falaAte = relogio.elapsedTime + 4.5; pessoas.forEach((q) => { if (q.j && Math.random() < 0.3) { q.fala = pick(["Gratidão, Mestre!", "Anotado, Mestre.", "Que visão, Mestre!"]); q.falaAte = relogio.elapsedTime + 3.5; } }); });
+    item("Voltar à minha sala", () => trazerMestre());
+    item("Ver meu card", () => chefe.onClick());
+    menu.style.left = Math.min(e.clientX - r.left, r.width - 230) + "px"; menu.style.top = Math.min(e.clientY - r.top, r.height - 190) + "px"; menu.hidden = false;
+  };
   const achar = (e) => { const r = renderer.domElement.getBoundingClientRect(); mouse.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1); ray.setFromCamera(mouse, camera); const hit = ray.intersectObjects(alvos.filter((o) => o.userData.p.root.visible && !o.userData.p.fp), false)[0]; return hit ? hit.object.userData.p : null; };
   let down = null, ult = null;
-  renderer.domElement.addEventListener("pointerdown", (e) => { down = [e.clientX, e.clientY]; ult = [e.clientX, e.clientY]; });
+  renderer.domElement.addEventListener("pointerdown", (e) => { menu.hidden = true; down = [e.clientX, e.clientY]; ult = [e.clientX, e.clientY]; });
   renderer.domElement.addEventListener("pointermove", (e) => {
     if (fp && down && ult) { yaw -= (e.clientX - ult[0]) * 0.005; pitch = Math.max(-1.2, Math.min(1.2, pitch - (e.clientY - ult[1]) * 0.005)); ult = [e.clientX, e.clientY]; }
     hover = achar(e); renderer.domElement.style.cursor = hover ? (fp ? "crosshair" : "pointer") : fp ? "move" : "grab";
@@ -588,7 +602,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
       const p = achar(e), t = relogio.elapsedTime;
       if (p) {
         if (fp && !p.chefe) chicotear(p, t);
-        else if (p.chefe) { p.fala = chefe.fala(); p.falaAte = t + 4; chefe.onClick(); }
+        else if (p.chefe) { abreMenu(e); return void (down = ult = null); }
         else if (p.j) { p.fala = p.j._fala; p.falaAte = t + 4; onClick(p.j); }
         else { p.fala = p.cachorro ? "Au! Tem bifinho?" : p.bebe ? "Brrrum! Papá!" : p === vanessa ? pick(vanessa.falas) : pick(FALA_PETISTA); p.falaAte = t + 3.5; }
       }
