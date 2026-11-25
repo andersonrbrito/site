@@ -967,3 +967,4 @@ body{background-color:var(--bg);background-image:
 .of-cams .btn.on { background: #7a1010; border-color: #ff4d4d; color: #fff; }
 .of-aviso { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,.8); border: 1px solid #d4a017; color: #ffd84d; padding: 6px 12px; border-radius: 8px; font-size: 12px; pointer-events: none; }
 .of-scene:focus { outline: none; }
+.of-hud { position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%); background: rgba(0,0,0,.75); color: #00ff66; border: 1px solid rgba(0,255,102,.4); padding: 6px 12px; border-radius: 8px; font-size: 11px; pointer-events: none; max-width: 92%; text-align: center; }

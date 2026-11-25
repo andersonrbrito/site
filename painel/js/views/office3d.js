@@ -2,7 +2,7 @@
 // Planta horizontal: sala de reunião (com o quadro de pautas) e Templo do Mestre no fundo, baias em cruz estilo
 // Ruptura (Severance) no meio, copa à direita, recepção na frente (onde o recepcionista humano faz greve) e a estátua dourada.
 // O Mestre é o único humano divino; os funcionários são robôs com roupa da função. Lino é o segurança, Vanessa é o RH, Romeu (1 ano) é o Gerente de motoquinha.
-// Orbitar com o mouse, roda = zoom, primeira pessoa (WASD + arrastar), modo chicote, clique abre a ficha.
+// Orbitar com o mouse, roda = zoom, jogar como Mestre (WASD, arrastar, chicote no clique ou espaço), clique abre a ficha.
 
 const THREE_URL = "https://esm.sh/three@0.160.0";
 const ORBIT_URL = "https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js";
@@ -69,7 +69,9 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   };
   matTela.ok = matTela.idle; matTela.warn = matTela.idle;
 
-  const box = (w, h, d, m, x, y, z, parent = scene, sombra = true) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.castShadow = sombra; o.receiveShadow = true; parent.add(o); return o; };
+  const colisores = []; // caixas no chão que bloqueiam o Mestre (x0, x1, z0, z1)
+  const solido = (x0, x1, z0, z1) => colisores.push([Math.min(x0, x1), Math.max(x0, x1), Math.min(z0, z1), Math.max(z0, z1)]);
+  const box = (w, h, d, m, x, y, z, parent = scene, sombra = true) => { const o = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); o.position.set(x, y, z); o.castShadow = sombra; o.receiveShadow = true; parent.add(o); if (parent === scene && y + h / 2 >= 0.45 && y - h / 2 < 1.2 && w * d > 0.01) solido(x - w / 2, x + w / 2, z - d / 2, z + d / 2); return o; };
   const placa = (txt, { fg = "#00ff66", bg = "rgba(0,0,0,.85)", borda = fg, alt = 0.5, fonte = "bold 46px monospace" } = {}) => {
     const c = document.createElement("canvas"), g = c.getContext("2d"); g.font = fonte; const w = Math.ceil(g.measureText(txt).width) + 40; c.width = w; c.height = 72;
     g.fillStyle = bg; g.fillRect(0, 0, w, 72); if (borda) { g.strokeStyle = borda; g.lineWidth = 4; g.strokeRect(2, 2, w - 4, 68); } g.font = fonte; g.fillStyle = fg; g.textBaseline = "middle"; g.fillText(txt, 20, 38);
@@ -97,7 +99,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   box(0.2, 0.5, zB, mat.parede, W, 0.25, czC); box(W, 0.5, 0.2, mat.parede, cxC, 0.25, zB);
   box(W, 0.12, 0.24, mat.rodape, cxC, 0.06, 0.05, scene, false); box(0.24, 0.12, zB, mat.rodape, 0.05, 0.06, czC, scene, false);
   painel("ANDR STUDIOS", 0, 0.9, { fg: "#0d3b22", bg: "#f2f1ec", fonte: "bold 64px Georgia" }, cxC, 2.35, 0.12);
-  painel("A META É O CAMINHO. O MESTRE É A META.", 0, 0.28, { fg: "#5f8a6c", bg: "#f2f1ec", fonte: "bold 40px sans-serif" }, cxC, 1.75, 0.12);
+  painel("FOCO. CONSTÂNCIA. ENTREGA.", 0, 0.28, { fg: "#5f8a6c", bg: "#f2f1ec", fonte: "bold 40px sans-serif" }, cxC, 1.75, 0.12);
 
   const vidroParede = (xa, za, xb, zb, porta) => {
     const len = Math.hypot(xb - xa, zb - za), ang = Math.atan2(zb - za, xb - xa);
@@ -105,13 +107,14 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     seg.forEach(([a, b]) => {
       const l = b - a, m = (a + b) / 2, px = xa + Math.cos(ang) * m, pz = za + Math.sin(ang) * m;
       const v = new THREE.Mesh(new THREE.BoxGeometry(l, 2.6, 0.05), mat.vidro); v.position.set(px, 1.3, pz); v.rotation.y = -ang; scene.add(v);
+      { const hx = Math.abs(Math.cos(ang)) * l / 2 + 0.05, hz = Math.abs(Math.sin(ang)) * l / 2 + 0.05; solido(px - hx, px + hx, pz - hz, pz + hz); }
       [2.62, 0.04].forEach((y) => { const f = new THREE.Mesh(new THREE.BoxGeometry(l, 0.08, 0.08), mat.metal); f.position.set(px, y, pz); f.rotation.y = -ang; scene.add(f); });
     });
   };
 
   // ---------- mobília ----------
   function cadeira(x, z, rot, m = mat.cadeira, alto = false) {
-    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rot; scene.add(g);
+    const g = new THREE.Group(); g.position.set(x, 0, z); g.rotation.y = rot; scene.add(g); if (!alto) solido(x - 0.22, x + 0.22, z - 0.22, z + 0.22);
     box(0.5, 0.08, 0.5, m, 0, 0.47, 0, g); box(alto ? 0.9 : 0.5, alto ? 1.7 : 0.55, 0.07, m, 0, alto ? 1.3 : 0.78, -0.24, g);
     box(0.06, 0.42, 0.06, mat.metal, 0, 0.22, 0, g); box(0.5, 0.04, 0.06, mat.metal, 0, 0.03, 0, g, false); box(0.06, 0.04, 0.5, mat.metal, 0, 0.03, 0, g, false);
     return g;
@@ -161,12 +164,10 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   box(2.6, 0.08, 1.1, ouro, mesaM.x, 0.76, mesaM.z); box(2.5, 0.7, 0.08, M("#3a1a10"), mesaM.x, 0.38, mesaM.z + 0.5);
   monitor(mesaM.x - 0.5, mesaM.z - 0.2, Math.PI, matTela.run);
   { const caneca = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.13, 12), ouro); caneca.position.set(mesaM.x + 0.7, 0.87, mesaM.z); scene.add(caneca); }
-  painel("EU SOU A META", 0, 0.55, { fg: "#d4a017", bg: "#2a0a10", fonte: "bold 60px Georgia" }, tp.x, 2.2, 0.12);
-  for (let i = 0; i < 6; i++) { const v = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.3, 8), M("#f4ecd8")); v.position.set(tp.x0 + 1 + i * 0.35, 1.05, 0.5); scene.add(v); const ch = new THREE.Mesh(new THREE.SphereGeometry(0.04, 6, 6), B("#ffb347")); ch.position.set(v.position.x, 1.25, 0.5); scene.add(ch); }
-  box(2.2, 0.9, 0.5, ouro, tp.x0 + 1.9, 0.45, 0.5); // altar de velas
+  painel("ANDR STUDIOS", 0, 0.55, { fg: "#d4a017", bg: "#2a0a10", fonte: "bold 60px Georgia" }, tp.x, 2.2, 0.12);
   for (let i = 0; i < 5; i++) box(0.12, 0.3, 0.12, ouro, tp.x1 - 2.5 + i * 0.3, 1.95, 0.4);
   box(1.6, 1.8, 0.4, M("#3a1a10"), tp.x1 - 1.9, 0.9, 0.4);
-  { const s = placa("TEMPLO DO MESTRE", { fg: "#d4a017", borda: "#d4a017", alt: 0.35 }); s.position.set(tp.x, 2.85, FUNDO); scene.add(s); }
+  { const s = placa("SALA DO MESTRE", { fg: "#d4a017", borda: "#d4a017", alt: 0.35 }); s.position.set(tp.x, 2.85, FUNDO); scene.add(s); }
   const luzTemplo = new THREE.PointLight("#ffb347", 5, 9); luzTemplo.position.set(tp.x, 2.4, 2.5); scene.add(luzTemplo);
 
   // corredor do fundo: copiadora, arquivos, bebedouro
@@ -196,7 +197,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   { const s = placa("ENTRADA", { alt: 0.28 }); s.position.set(porta.x, 1.4, zB); scene.add(s); }
   const estatua = { x: cxP, z: zB - 2.2 };
   box(1.1, 0.9, 1.1, M("#2a2a2a"), estatua.x, 0.45, estatua.z);
-  { const s = placa("MESTRE ANDERSON · DIVINDADE", { fg: "#d4a017", borda: "#d4a017", alt: 0.22 }); s.position.set(estatua.x, 0.55, estatua.z + 0.62); scene.add(s); }
+  { const s = placa("MESTRE ANDERSON · FUNDADOR", { fg: "#d4a017", borda: "#d4a017", alt: 0.22 }); s.position.set(estatua.x, 0.55, estatua.z + 0.62); scene.add(s); }
   planta(0.8, zB - 0.8); planta(copaX0 - 0.8, zB - 0.8);
 
   // ---------- natal (até dia de Reis) ----------
@@ -276,11 +277,10 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     });
   });
 
-  // Mestre Anderson: o único humano divino (roupa branca, faixa dourada, óculos, headset de coach e chicote)
-  const mb = boneco({ pele: "#e0ac84", cabelo: "#1d140c", camisa: "#f6f2e8", calca: "#f6f2e8", sapato: "#d4a017", oculos: true, barba: true });
-  box(0.54, 0.08, 0.32, ouro, 0, 0.5, 0, mb.tronco); box(0.12, 0.12, 0.02, ouro, 0, 0.45, 0.17, mb.tronco);
+  // Mestre Anderson: o único humano (coach de camisa preta, óculos, headset e chicote)
+  const mb = boneco({ pele: "#e0ac84", cabelo: "#1d140c", camisa: "#141414", manga: "#141414", calca: "#2c3e5a", sapato: "#f4f4f0", oculos: true });
+  box(0.2, 0.04, 0.02, ouro, 0, 0.62, 0.16, mb.tronco, false);
   box(0.03, 0.03, 0.2, M("#222"), 0.17, 0.22, 0.1, mb.cabeca); box(0.05, 0.05, 0.05, M("#222"), 0.08, 0.17, 0.2, mb.cabeca);
-  { const halo = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.025, 8, 24), B("#ffd84d")); halo.rotation.x = Math.PI / 2; halo.position.y = 0.72; mb.cabeca.add(halo); }
   { const ch = new THREE.Group(); ch.position.set(0, -0.66, 0.05); mb.bracoD.add(ch); box(0.05, 0.32, 0.05, M("#4a2a14"), 0, -0.1, 0.05, ch, false); for (let i = 0; i < 4; i++) box(0.025, 0.2, 0.025, M("#2a1a0c"), 0.02 * i, -0.35 - i * 0.18, 0.05 + i * 0.03, ch, false); }
   const mestre = novo(mb, { chefe: true, est: "boss", nome: "Mestre Anderson", desk: { x: trono.x, z: trono.z, rot: 0 } });
   mestre.root.position.set(trono.x, 0.25, trono.z); mestre.sentado = true;
@@ -409,7 +409,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
 
   // ---------- animação ----------
   const relogio = new THREE.Clock();
-  let proxFala = 2, ultTela = 0, fp = false, chicote = false, yaw = 0, pitch = 0;
+  let proxFala = 2, ultTela = 0, fp = false, yaw = 0, pitch = 0;
   const teclas = {};
   const balaoDiv = new Map();
   const balao = (p) => { let d = balaoDiv.get(p); if (!d) { d = document.createElement("div"); d.className = "of-balao"; overlay.append(d); balaoDiv.set(p, d); } return d; };
@@ -457,14 +457,6 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     if (p.est === "bad" && p.sentado) { p.tronco.rotation.z = Math.sin(t * 2 + p.fase) * 0.05; p.cabeca.rotation.y = Math.sin(t * 7) * 0.3; }
     if (p.chefe && p.anuncia === false && p.fala && t < p.falaAte && !andando) { p.bracoE.rotation.x = -2.4 + Math.sin(t * 5) * 0.3; p.bracoE.rotation.z = 0.3; }
     if (p.chefe && p.golpe > t) { p.bracoD.rotation.x = -2.6 + (0.3 - (p.golpe - t)) * 8; }
-    if (p.bebe) {
-      const visitas = pessoas.filter((q) => (q.j && q.sentado) || q.chefe || q === vanessa || q.cachorro);
-      const q = pick(visitas); const qx = q.root.position.x, qz = q.root.position.z;
-      const via = Math.random() < 0.5 ? zBC : zFC;
-      p.caminho = [{ x: p.root.position.x, z: via }, { x: qx + 0.8, z: via }, { x: qx + 0.8, z: qz + (q.desk?.cz && q.j ? (q.desk.cz - q.desk.z) : 0.8) }];
-      p.visita = q; p.espera = 3 + Math.random() * 3; return;
-    }
-    if (p === vanessa) { p.espera = 6 + Math.random() * 6; if (Math.random() < 0.6) { p.fala = pick(p.falas); p.falaAte = t + 4; } return; }
     if (p.petista) { // encostado no balcão, braços cruzados; às vezes ergue o cartaz
       p.tronco.rotation.z = 0.18; p.root.position.y = 0;
       const ergue = p.protesto > t;
@@ -480,7 +472,8 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   const fpAnda = (dt) => {
     const f = (teclas.w || teclas.arrowup ? 1 : 0) - (teclas.s || teclas.arrowdown ? 1 : 0), s = (teclas.d || teclas.arrowright ? 1 : 0) - (teclas.a || teclas.arrowleft ? 1 : 0);
     const r = mestre.root, v = 3.2 * dt;
-    if (f || s) { r.position.x += (-Math.sin(yaw) * f + Math.cos(yaw) * s) * v; r.position.z += (-Math.cos(yaw) * f - Math.sin(yaw) * s) * v; }
+    const R = 0.28, bate = (x, z) => colisores.some(([x0, x1, z0, z1]) => x + R > x0 && x - R < x1 && z + R > z0 && z - R < z1);
+    if (f || s) { const nx = r.position.x + (-Math.sin(yaw) * f + Math.cos(yaw) * s) * v, nz = r.position.z + (-Math.cos(yaw) * f - Math.sin(yaw) * s) * v; if (!bate(nx, r.position.z)) r.position.x = nx; if (!bate(r.position.x, nz)) r.position.z = nz; }
     r.position.x = Math.min(W - 0.4, Math.max(0.4, r.position.x)); r.position.z = Math.min(zB - 0.4, Math.max(0.4, r.position.z));
     r.rotation.y = yaw + Math.PI; r.position.y = 0;
     camera.position.set(r.position.x, 1.68, r.position.z); camera.rotation.set(pitch, yaw, 0);
@@ -496,10 +489,10 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     if (fp) fpAnda(dt); else if (voo) { voo.t = Math.min(1, voo.t + 0.02); const e = 1 - Math.pow(1 - voo.t, 3); camera.position.lerpVectors(voo.de[0], voo.para[0], e); controls.target.lerpVectors(voo.de[1], voo.para[1], e); if (voo.t >= 1) voo = null; controls.update(); } else controls.update();
     for (let i = efeitos.length - 1; i >= 0; i--) if (t > efeitos[i].ate) { efeitos[i].objs.forEach((o) => { scene.remove(o); o.geometry?.dispose(); }); efeitos.splice(i, 1); }
     if (t > proxFala) { const cand = pessoas.filter((p) => p.j && p.est !== "off"); const r = Math.random(); const p = r < 0.12 && !mestre.ausente ? mestre : r < 0.22 ? petista : pick(cand); if (p && !(p.fala && t < p.falaAte)) { p.fala = p.chefe ? chefe.fala() : p.petista ? pick(FALA_PETISTA) : p.j._fala; p.falaAte = t + 4.5; } proxFala = t + 3 + Math.random() * 3; }
-    aviso.hidden = !mestre.ausente; aviso.textContent = "O Mestre saiu para dar palestra. Use “Chamar o Mestre de volta”.";
+    aviso.hidden = !mestre.ausente; aviso.textContent = "O Mestre saiu para dar palestra. Use “Voltar ao escritório”.";
     renderer.render(scene, camera);
-    pessoas.forEach((p) => { const ativo = p.fala && t < p.falaAte && p.root.visible && !(p.fp); const d = balaoDiv.get(p); if (!ativo) { if (d) d.style.display = "none"; return; } const [x, y, vis] = projeta(p.cabeca, p.cachorro ? 0.5 : 0.75); const b = balao(p); b.textContent = p.fala; b.style.display = vis ? "block" : "none"; b.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%)`; });
-    if (hover && hover.root.visible && !hover.fp) { const [x, y] = projeta(hover.root, -0.1); rotulo.style.display = "block"; rotulo.textContent = hover.nome + (chicote || fp ? (hover.cachorro || hover.bebe || hover === vanessa ? "" : " · clique para chicotear") : ""); rotulo.style.transform = `translate(${x}px, ${y}px) translate(-50%, 6px)`; } else rotulo.style.display = "none";
+    pessoas.forEach((p) => { const ativo = p.fala && t < p.falaAte && (p.root.visible || p.fp); const d = balaoDiv.get(p); if (!ativo) { if (d) d.style.display = "none"; return; } const [x, y, vis] = p.fp ? [host.clientWidth / 2, host.clientHeight - 40, true] : projeta(p.cabeca, p.cachorro ? 0.5 : 0.75); const b = balao(p); b.textContent = p.fala; b.style.display = vis ? "block" : "none"; b.style.transform = `translate(${x}px, ${y}px) translate(-50%, -100%)`; });
+    if (hover && hover.root.visible && !hover.fp) { const [x, y] = projeta(hover.root, -0.1); rotulo.style.display = "block"; rotulo.textContent = hover.nome + (fp ? (hover.cachorro || hover.bebe || hover === vanessa ? "" : " · clique para chicotear") : ""); rotulo.style.transform = `translate(${x}px, ${y}px) translate(-50%, 6px)`; } else rotulo.style.display = "none";
   };
 
   // ---------- câmeras ----------
@@ -520,13 +513,13 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   const entrarFp = () => {
     if (mestre.ausente) trazerMestre(false);
     fp = true; mestre.fp = true; mestre.caminho = []; mestre.volta = null; mestre.sentado = false; mestre.anuncia = false; mestre.sumir = false;
-    if (Math.hypot(mestre.root.position.x - trono.x, mestre.root.position.z - trono.z) < 0.5) mestre.root.position.set(trono.x + 1.9, 0, trono.z + 2);
-    mestre.root.visible = false; controls.enabled = false; voo = null; yaw = 0; pitch = -0.08; camera.fov = 70; camera.updateProjectionMatrix();
-    btnFp.textContent = "Sair da primeira pessoa"; host.focus();
+    mestre.root.position.set(trono.x + 1.9, 0, FUNDO - 1.2);
+    mestre.root.visible = false; controls.enabled = false; voo = null; yaw = Math.PI; pitch = -0.08; camera.fov = 70; camera.updateProjectionMatrix();
+    btnFp.textContent = "Sair do personagem"; btnFp.classList.add("on"); btnFp.blur(); hud.hidden = false;
   };
   const sairFp = () => {
     fp = false; mestre.fp = false; mestre.root.visible = true; controls.enabled = true; camera.fov = 38; camera.updateProjectionMatrix();
-    camera.position.copy(vistas.geral[0]); controls.target.copy(vistas.geral[1]); mestre.espera = 4; btnFp.textContent = "Primeira pessoa";
+    camera.position.copy(vistas.geral[0]); controls.target.copy(vistas.geral[1]); mestre.espera = 4; btnFp.textContent = "Jogar como Mestre"; btnFp.classList.remove("on"); hud.hidden = true; Object.keys(teclas).forEach((k) => (teclas[k] = false));
   };
   const trazerMestre = (voa = true) => {
     if (fp) sairFp();
@@ -537,16 +530,31 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   };
   const barra = document.createElement("div"); barra.className = "of-cams";
   const botao = (txt, fn, el = document.createElement("button")) => { el.type = "button"; el.className = "btn btn-ghost btn-sm"; el.textContent = txt; el.onclick = fn; barra.append(el); return el; };
-  [["geral", "Andar todo"], ["templo", "Templo do Mestre"], ["reuniao", "Reunião"], ["copa", "Copa"], ["recepcao", "Recepção"]].forEach(([k, txt]) => botao(txt, () => voar(k)));
-  botao("Primeira pessoa", () => (fp ? sairFp() : entrarFp()), btnFp);
-  botao("Modo chicote: desligado", () => { chicote = !chicote; btnCh.textContent = `Modo chicote: ${chicote ? "ligado" : "desligado"}`; btnCh.classList.toggle("on", chicote); }, btnCh);
-  botao("Chamar o Mestre de volta", () => trazerMestre());
+  [["geral", "Andar todo"], ["templo", "Sala do Mestre"], ["reuniao", "Reunião"], ["copa", "Copa"], ["recepcao", "Recepção"]].forEach(([k, txt]) => botao(txt, () => voar(k)));
+  botao("Jogar como Mestre", () => (fp ? sairFp() : entrarFp()), btnFp);
+  botao("Voltar ao escritório", () => trazerMestre());
+  const hud = document.createElement("div"); hud.className = "of-hud mono"; hud.hidden = true; hud.textContent = "WASD anda · arraste olha · ESPAÇO ou clique chicoteia · F discursa · Q volta à sala · Esc sai"; overlay.append(hud);
   host.append(barra);
   host.tabIndex = 0;
 
-  const kd = (e) => { if (!host.isConnected) { window.removeEventListener("keydown", kd); window.removeEventListener("keyup", ku); return; } if (!fp) return; const k = e.key.toLowerCase(); if (k === "escape") return sairFp(); if (["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"].includes(k)) { teclas[k] = true; e.preventDefault(); } };
-  const ku = (e) => { teclas[e.key.toLowerCase()] = false; };
-  window.addEventListener("keydown", kd); window.addEventListener("keyup", ku);
+  const MOV = ["w", "a", "s", "d", "arrowup", "arrowdown", "arrowleft", "arrowright"];
+  const chicotearFrente = () => {
+    let melhor = null, dm = 3.2; const px = mestre.root.position.x, pz = mestre.root.position.z, fx = -Math.sin(yaw), fz = -Math.cos(yaw);
+    pessoas.forEach((q) => { if (q.chefe || !q.root.visible) return; const dx = q.root.position.x - px, dz = q.root.position.z - pz, d = Math.hypot(dx, dz); if (d < dm && (dx * fx + dz * fz) / (d || 1) > 0.5) { melhor = q; dm = d; } });
+    if (melhor) chicotear(melhor, relogio.elapsedTime); else { mestre.golpe = relogio.elapsedTime + 0.3; }
+  };
+  const kd = (e) => {
+    if (!host.isConnected) { window.removeEventListener("keydown", kd, true); window.removeEventListener("keyup", ku, true); return; }
+    if (!fp || /input|textarea|select/i.test(e.target.tagName)) return;
+    const k = e.key.toLowerCase(); e.preventDefault(); e.stopPropagation();
+    if (k === "escape") return sairFp();
+    if (MOV.includes(k)) teclas[k] = true;
+    else if (k === " " && !e.repeat) chicotearFrente();
+    else if (k === "f" && !e.repeat) { mestre.fala = chefe.fala(); mestre.falaAte = relogio.elapsedTime + 4.5; pessoas.forEach((q) => { if (q.j && Math.random() < 0.3) { q.fala = pick(["Gratidão, Mestre!", "Anotado, Mestre.", "Que visão, Mestre!"]); q.falaAte = relogio.elapsedTime + 3.5; } }); }
+    else if (k === "q" && !e.repeat) { mestre.root.position.set(trono.x + 1.9, 0, FUNDO - 1.2); yaw = Math.PI; pitch = -0.08; }
+  };
+  const ku = (e) => { const k = e.key.toLowerCase(); if (k in teclas) teclas[k] = false; if (fp) e.stopPropagation(); };
+  window.addEventListener("keydown", kd, true); window.addEventListener("keyup", ku, true);
 
   const resize = () => { const w = host.clientWidth, hh = host.clientHeight; if (!w || !hh) return; renderer.setSize(w, hh); camera.aspect = w / hh; camera.updateProjectionMatrix(); };
   new ResizeObserver(resize).observe(host); resize();
@@ -560,13 +568,13 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   renderer.domElement.addEventListener("pointerdown", (e) => { down = [e.clientX, e.clientY]; ult = [e.clientX, e.clientY]; });
   renderer.domElement.addEventListener("pointermove", (e) => {
     if (fp && down && ult) { yaw -= (e.clientX - ult[0]) * 0.005; pitch = Math.max(-1.2, Math.min(1.2, pitch - (e.clientY - ult[1]) * 0.005)); ult = [e.clientX, e.clientY]; }
-    hover = achar(e); renderer.domElement.style.cursor = hover ? (chicote || fp ? "crosshair" : "pointer") : fp ? "move" : "grab";
+    hover = achar(e); renderer.domElement.style.cursor = hover ? (fp ? "crosshair" : "pointer") : fp ? "move" : "grab";
   });
   renderer.domElement.addEventListener("pointerup", (e) => {
     if (down && Math.hypot(e.clientX - down[0], e.clientY - down[1]) < 5) {
       const p = achar(e), t = relogio.elapsedTime;
       if (p) {
-        if ((chicote || fp) && !p.chefe) chicotear(p, t);
+        if (fp && !p.chefe) chicotear(p, t);
         else if (p.chefe) { p.fala = chefe.fala(); p.falaAte = t + 4; chefe.onClick(); }
         else if (p.j) { p.fala = p.j._fala; p.falaAte = t + 4; onClick(p.j); }
         else { p.fala = p.cachorro ? "Au! Tem bifinho?" : p.bebe ? "Brrrum! Papá!" : p === vanessa ? pick(vanessa.falas) : pick(FALA_PETISTA); p.falaAte = t + 3.5; }
