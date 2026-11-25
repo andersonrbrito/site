@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0B0C0E">
+<meta name="robots" content="index, follow">
+<title>Como fazer o ChatGPT editar no CapCut: tutorial completo | Anderson Brito</title>
+<meta name="description" content="Passo a passo para o Codex, do ChatGPT, montar a linha do tempo no CapCut do seu Mac: pasta, prompt pronto para copiar, revisão e versão vertical.">
+<link rel="canonical" href="https://andersonbrito.com/chatgpt-capcut">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://andersonbrito.com/chatgpt-capcut">
+<meta property="og:title" content="Como fazer o ChatGPT editar no CapCut">
+<meta property="og:description" content="Pasta, prompt pronto para copiar, revisão e versão vertical. O projeto chega editável no seu CapCut.">
+<meta property="og:image" content="https://andersonbrito.com/assets/tutorial-capcut/capa.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Open Sauce One';font-style:normal;font-display:swap;font-weight:400;src:url(https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5.3.0/files/open-sauce-one-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Open Sauce One';font-style:normal;font-display:swap;font-weight:600;src:url(https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5.3.0/files/open-sauce-one-latin-600-normal.woff2) format('woff2')}
+@font-face{font-family:'Open Sauce One';font-style:normal;font-display:swap;font-weight:800;src:url(https://cdn.jsdelivr.net/npm/@fontsource/open-sauce-one@5.3.0/files/open-sauce-one-latin-800-normal.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-display:swap;font-weight:700;src:url(https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk@5.3.0/files/space-grotesk-latin-700-normal.woff2) format('woff2')}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0B0C0E;--bg-grid:rgba(65,255,138,.07);--g:#41FF8A;--gi:#03200F;--ink:#F2F2F7;--mu:#A1A6AA;--faint:#6B7175;--card:rgba(24,27,28,.8);--line:rgba(255,255,255,.08);--line-2:rgba(255,255,255,.14);--r:20px;--cl:#D97757;
+ --f:'Open Sauce One',-apple-system,BlinkMacSystemFont,Inter,system-ui,sans-serif;--n:'Space Grotesk','Open Sauce One',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--f);background-color:var(--bg);background-image:radial-gradient(60% 45% at 100% 0%,rgba(65,255,138,.09),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(65,255,138,.07),transparent 70%),radial-gradient(circle at 1px 1px,var(--bg-grid) 1px,transparent 0);background-size:100% 100%,100% 100%,22px 22px;background-attachment:fixed,fixed,scroll;color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--g);outline-offset:2px;border-radius:6px}
+.wrap{width:min(860px,100% - 32px);margin:0 auto}
+.g{color:var(--g)} .mu{color:var(--mu)}
+.topnav{display:flex;gap:6px;flex-wrap:wrap;padding:16px 0 0}
+.topnav a{font:600 13.5px var(--f);text-decoration:none;color:var(--mu);padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:var(--card)}
+.topnav a:hover{color:var(--ink);border-color:var(--line-2)}
+.lbl{display:inline-block;font:700 12.5px var(--mono);color:var(--g);letter-spacing:.02em;margin-bottom:12px}
+header.hero{padding:38px 0 22px}
+h1{font:800 clamp(30px,6vw,48px)/1.08 var(--f);letter-spacing:-.02em;margin-bottom:14px;text-wrap:balance}
+.lead{font-size:clamp(16px,2.4vw,18.5px);color:var(--mu);max-width:640px}
+.player{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;border:1px solid var(--line-2);background:#000;box-shadow:0 30px 80px -40px rgba(65,255,138,.35)}
+.player iframe,.player video{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.cap{font-size:13.5px;color:var(--faint);margin-top:10px}
+section{padding:34px 0 6px}
+h2{font:800 clamp(22px,4vw,30px)/1.15 var(--f);letter-spacing:-.015em;margin-bottom:12px}
+p{margin-bottom:12px} section p,section li{color:#D5D8DB;font-size:16.5px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+ul.chk{list-style:none;display:grid;gap:8px}
+ul.chk li{padding-left:26px;position:relative}
+ul.chk li::before{content:"";position:absolute;left:4px;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--g)}
+.steps{display:grid;gap:14px;counter-reset:s}
+.step{counter-increment:s;position:relative;padding-left:62px}
+.step::before{content:counter(s);position:absolute;left:18px;top:18px;width:32px;height:32px;border-radius:10px;background:rgba(65,255,138,.12);border:1px solid rgba(65,255,138,.35);color:var(--g);font:700 16px/30px var(--n);text-align:center}
+.step h3{font:800 18.5px/1.25 var(--f);margin-bottom:6px}
+.step p:last-child{margin-bottom:0}
+code,.path{font:500 13.5px var(--mono);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:7px;padding:1px 6px;word-break:break-word}
+.tree{font:500 13.5px/1.7 var(--mono);color:#C9CED2;background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:14px;padding:14px 16px;overflow-x:auto;white-space:pre;margin-top:10px}
+.prompt{position:relative;margin-top:12px}
+.prompt pre{font:500 13.5px/1.65 var(--mono);color:#DDE2E5;background:rgba(0,0,0,.45);border:1px solid rgba(65,255,138,.28);border-radius:14px;padding:46px 16px 16px;white-space:pre-wrap;word-break:break-word}
+.copy{position:absolute;top:10px;right:10px;font:700 12.5px var(--f);color:var(--gi);background:var(--g);border:0;border-radius:999px;padding:7px 14px;cursor:pointer}
+.copy:active{transform:translateY(1px)}
+.note{font-size:14.5px;color:var(--mu);margin-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid2 h3{font:800 16.5px var(--f);margin-bottom:4px}
+.grid2 p{font-size:15px;margin:0;color:var(--mu)}
+.kit{margin:40px 0 10px;padding:26px 22px;border:1px solid rgba(65,255,138,.3);border-radius:var(--r);background:linear-gradient(135deg,rgba(65,255,138,.1),rgba(24,27,28,.85) 55%)}
+.kit h2{margin-bottom:8px}
+.kit p{color:#D5D8DB;max-width:600px}
+.price{font:700 15px var(--f);color:var(--mu);margin:2px 0 16px}
+.price s{color:var(--mu)} .price b{font:700 26px var(--n);color:var(--g);margin:0 4px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:800 16px var(--f);text-decoration:none;color:var(--gi);background:var(--g);border-radius:999px;padding:14px 26px}
+.btn:hover{filter:brightness(1.08)}
+footer{padding:34px 0 44px;color:var(--faint);font-size:13px}
+footer a{color:var(--mu)}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}.step{padding-left:20px;padding-top:62px}.step::before{top:18px;left:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="topnav" aria-label="Menu do site">
+    <a href="/">Home</a>
+    <a href="/portfolio">Portfólio</a>
+    <a href="/ia.html">Guias</a>
+    <a href="/editar-com-claude">Kit Editar com Claude</a>
+  </nav>
+
+  <header class="hero">
+    <span class="lbl">&gt; tutorial · chatgpt + capcut</span>
+    <h1>Como fazer o ChatGPT editar no <span class="g">CapCut</span></h1>
+    <p class="lead">Você entrega a narração, as imagens e um pedido por escrito. O Codex monta a linha do tempo e o projeto aparece editável no seu CapCut, pronto para você revisar.</p>
+  </header>
+
+  <div class="player" id="player">
+    <video controls playsinline preload="metadata" poster="/assets/tutorial-capcut/capa.jpg" src="/assets/tutorial-capcut/exemplo.mp4"></video>
+  </div>
+  <p class="cap">Vídeo de exemplo montado com este método: 11 imagens, narração, legenda palavra por palavra, trilha e efeitos.</p>
+
+  <section>
+    <h2>O que acontece por trás</h2>
+    <p>O CapCut do computador guarda cada projeto como uma pasta com arquivos de texto. A linha do tempo inteira fica num arquivo chamado <code>draft_info.json</code>: cada clipe, o momento em que entra, quanto dura, os keyframes, os textos.</p>
+    <p>O Codex é o agente do ChatGPT que lê e escreve arquivos no seu computador. Se ele escreve esse arquivo do jeito certo, o CapCut abre como um projeto normal. Não é um vídeo exportado. É a linha do tempo, com tudo solto para você mexer.</p>
+  </section>
+
+  <section>
+    <h2>O que você precisa</h2>
+    <div class="card">
+      <ul class="chk">
+        <li>Mac com o CapCut instalado. Testei nas versões 9.8 e 9.9.</li>
+        <li>App do ChatGPT com o Codex e permissão para acessar suas pastas.</li>
+        <li>Narração em áudio. Pode ser a sua voz ou uma voz de IA.</li>
+        <li>Imagens ou vídeos na ordem da história, numerados.</li>
+        <li>Trilha e efeitos sonoros, se quiser.</li>
+        <li>Um projeto qualquer já criado no seu CapCut, para servir de modelo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Passo a passo</h2>
+    <div class="steps">
+      <div class="card step">
+        <h3>Organize uma pasta só para o vídeo</h3>
+        <p>Deixe tudo num lugar fixo. O projeto guarda o caminho de cada arquivo, então se você mover a pasta depois, a mídia fica offline.</p>
+        <div class="tree">meu-video/
+  narracao.wav
+  img/01.png, 02.png, 03.png ...
+  sfx/trilha.wav, whoosh.wav, pop.mp3</div>
+      </div>
+
+      <div class="card step">
+        <h3>Crie o projeto modelo</h3>
+        <p>Abra o CapCut, crie um projeto com uma foto, um texto e um áudio na linha do tempo e salve com um nome fácil, por exemplo <code>MODELO</code>. O Codex lê esse projeto para aprender como o seu CapCut escreve cada tipo de clipe. Esse foi o ponto que mais fez diferença para o projeto abrir sem erro.</p>
+      </div>
+
+      <div class="card step">
+        <h3>Feche o CapCut</h3>
+        <p>O CapCut só lê a lista de projetos quando abre. Se ele estiver aberto, o projeto novo não aparece e ainda pode ser sobrescrito.</p>
+      </div>
+
+      <div class="card step">
+        <h3>Cole o prompt no Codex</h3>
+        <p>Troque o nome do modelo e o caminho da pasta pelos seus.</p>
+        <div class="prompt">
+          <button class="copy" type="button" data-copy="p1">Copiar</button>
+<pre id="p1">Quero que você edite direto no CapCut do meu Mac, escrevendo os arquivos do projeto.
+
+Os projetos ficam em ~/Movies/CapCut/User Data/Projects/com.lveditor.draft. Cada pasta é um projeto e o draft_info.json guarda a linha do tempo, com os tempos em microssegundos.
+
+1. Leia o projeto "MODELO" para aprender a estrutura de foto, texto, áudio e keyframe. Não altere esse projeto.
+2. Crie um projeto novo chamado "EDITADO POR IA", em 1280x720, copiando a estrutura do modelo.
+3. O material está em ~/Movies/meu-video: narracao.wav, a pasta img com as imagens numeradas na ordem da narração e a pasta sfx com trilha e efeitos.
+4. Transcreva a narração com o tempo de cada palavra. Troque de imagem no começo de cada frase.
+5. Em cada imagem, movimento de câmera suave por keyframe, alternando aproximar e afastar.
+6. Títulos curtos nos momentos fortes e legenda palavra por palavra, tudo dentro do quadro.
+7. Trilha baixa sob a voz e efeitos sonoros discretos nas trocas de imagem.
+8. Use caminho absoluto para cada arquivo e não mexa em nenhum outro projeto do CapCut.
+
+No fim, me diga quantas faixas e quantos clipes você criou.</pre>
+        </div>
+        <p class="note">No Windows a pasta dos projetos costuma ficar em <code>AppData\Local\CapCut\User Data\Projects\com.lveditor.draft</code>. Eu só testei no Mac.</p>
+      </div>
+
+      <div class="card step">
+        <h3>Abra o CapCut e revise</h3>
+        <p>O projeto novo aparece na lista. Assista inteiro e ajuste o que o seu olho pedir: um corte meio segundo antes, um título menor, um efeito a menos. Essa parte continua sendo sua.</p>
+      </div>
+
+      <div class="card step">
+        <h3>Peça a versão vertical na mesma conversa</h3>
+        <div class="prompt">
+          <button class="copy" type="button" data-copy="p2">Copiar</button>
+<pre id="p2">Agora crie a versão vertical em 720x1280, em um projeto chamado "EDITADO POR IA vertical". Mesma narração e mesmos tempos. Reenquadre cada imagem para o assunto principal ficar no centro, com movimento lateral suave, e suba a legenda para a área segura do Reels.</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Se algo der errado</h2>
+    <div class="grid2">
+      <div class="card"><h3>O projeto não aparece</h3><p>Feche o CapCut por completo e abra de novo.</p></div>
+      <div class="card"><h3>Mídia offline</h3><p>A pasta foi movida ou o caminho não é absoluto. Devolva a pasta para o lugar e peça para o Codex conferir os caminhos.</p></div>
+      <div class="card"><h3>O projeto não abre</h3><p>Peça para o Codex comparar o arquivo que ele escreveu com o do projeto modelo e corrigir os campos que faltam.</p></div>
+      <div class="card"><h3>Imagem fora do tempo</h3><p>Peça a lista de frases com o segundo de início de cada uma e diga qual troca deve mudar.</p></div>
+    </div>
+  </section>
+
+  <div class="kit" id="kit">
+    <span class="lbl">&gt; kit editar com claude</span>
+    <h2>Quer o método inteiro, com tudo pronto?</h2>
+    <p>No Kit Editar com Claude eu ensino a editar vídeo por conversa do bruto ao arquivo final: aula em vídeo, e-book com 11 aulas práticas, 13 skills, prompts e o pacote de edição com as legendas que você viu no exemplo.</p>
+    <p class="price" id="preco" hidden>Black Friday: de <s>R$150</s> por <b>R$57</b> até 28/11</p>
+    <a class="btn" href="/editar-com-claude">Conhecer o kit</a>
+  </div>
+
+  <footer>
+    <p>© 2026 Anderson Brito · <a href="/">andersonbrito.com</a> · <a href="https://instagram.com/andersonbrito.mp4" rel="noopener">@andersonbrito.mp4</a></p>
+    <p style="margin-top:8px">Material independente. Não tem vínculo com OpenAI, Anthropic, Bytedance ou qualquer outra empresa citada. ChatGPT, Codex, Claude e CapCut são marcas dos seus donos. O formato dos projetos do CapCut pode mudar em versões novas.</p>
+  </footer>
+</div>
+<script>
+/* Quando o vídeo estiver no YouTube, cole o ID aqui (o trecho depois de v=). Vazio = toca o arquivo do site. */
+const YT_ID='';
+if(YT_ID){document.getElementById('player').innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+YT_ID+'?rel=0" title="ChatGPT editando no CapCut" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'}
+const agora=Date.now(),bf=Date.parse('2026-11-28T23:59:59-03:00'),fim=Date.parse('2026-11-30T23:59:59-03:00');
+if(agora<=bf)document.getElementById('preco').hidden=false;
+if(agora>fim)document.getElementById('kit').hidden=true;
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{const t=document.getElementById(b.dataset.copy).textContent;try{await navigator.clipboard.writeText(t)}catch(e){const r=document.createRange();r.selectNode(document.getElementById(b.dataset.copy));getSelection().removeAllRanges();getSelection().addRange(r);document.execCommand('copy')}b.textContent='Copiado';setTimeout(()=>b.textContent='Copiar',1600)}));
+</script>
+</body>
+</html>

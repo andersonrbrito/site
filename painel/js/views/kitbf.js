@@ -49,10 +49,9 @@ function tarefas() {
 const T = (x) => new Date(x + "-03:00").getTime();
 function fase() {
   const n = Date.now();
-  if (n <= T("2026-11-25T23:59:59")) return ["R$57", "Black Friday até 25/11 23h59"];
-  if (n <= T("2026-11-26T20:00:00")) return ["R$97", "preço normal até 26/11 20h"];
-  if (n <= T("2026-11-28T23:59:59")) return ["R$57", "Black Friday até 28/11 23h59"];
-  if (n <= T("2026-11-30T23:59:59")) return ["R$97", "últimos dias, fecha 30/11 23h59"];
+  if (n <= T("2026-11-28T23:59:59")) return ["R$57", "Black Friday até sáb 28/11 23h59"];
+  if (n <= T("2026-11-29T23:59:59")) return ["R$150", "preço normal no domingo 29/11"];
+  if (n <= T("2026-11-30T23:59:59")) return ["R$57", "volta na seg 30/11 (não divulgar antes), fecha 23h59"];
   return ["fechado", "vendas encerradas em 30/11"];
 }
 export default async function kitbf() {
