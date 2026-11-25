@@ -1,0 +1,73 @@
+{
+ "slug": "corte-na-batida-da-musica",
+ "dia": "2026-11-25",
+ "tipo": "educativo",
+ "titulo": "Corte na batida: edição no ritmo da música",
+ "perfil": "@andrstudios",
+ "legenda": "Já reparou que alguns vídeos \"grudam\" com a música e outros parecem soltos? Quase sempre é o corte caindo (ou não) na batida.\n\nO segredo é marcar as batidas fortes da trilha e fazer os cortes baterem nesses pontos. No editor é só apertar a tecla de marcador no ritmo e depois encaixar os clipes nos marcadores.\n\nSó não corte em toda batida: isso cansa. Respeita os respiros e guarda o corte seco pros momentos de impacto.\n\nVocê corta pela batida ou corta no olho?\n\nSalva pra lembrar na próxima trilha.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — Premiere Pro",
+   "url": "https://www.adobe.com/products/premiere.html"
+  },
+  {
+   "titulo": "Blackmagic — DaVinci Resolve",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  }
+ ],
+ "notas": "Educativo de edição (corte no beat / ritmo da música). Capa tela cheia com rosto expressivo de editor brasileiro sentindo a batida (clima cinema / verde Matrix) + headline curto. Imagens geradas no ChatGPT. Famosos renderizam só como genéricos, então usei editor brasileiro expressivo na capa. Cada lâmina com imagem própria e diferente (regra 24/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Cortes **na batida** da música",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-na-batida-da-musica/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Mesma trilha, mesmas imagens, e um vídeo **gruda** e o outro fica solto.\n\nA diferença é onde o corte cai: na batida ou em qualquer lugar.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-na-batida-da-musica/02.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Primeiro passo: ouve a música e vai apertando a tecla de **marcador** em cada batida forte.\n\nAgora a linha do tempo tem o mapa do ritmo pronto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-na-batida-da-musica/03.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Agora encaixa:\n\narrasta cada corte pra cair exatamente no **marcador**.\n\nVaria o tamanho dos planos: às vezes a cada 2 batidas, às vezes a cada 4, pra não ficar mecânico.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-na-batida-da-musica/04.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Onde quase todo mundo erra:\n\ncortar em **toda** batida cansa o olho.\n\nUsa só as batidas fortes, deixa respiros e guarda o corte seco pro momento de impacto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-na-batida-da-musica/05.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Quando o corte bate com a música, o vídeo parece **profissional** sem você mexer em mais nada.\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/corte-na-batida-da-musica/06-cta.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

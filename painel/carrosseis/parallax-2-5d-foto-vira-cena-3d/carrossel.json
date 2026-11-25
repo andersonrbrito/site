@@ -1,0 +1,73 @@
+{
+ "slug": "parallax-2-5d-foto-vira-cena-3d",
+ "dia": "2026-11-25",
+ "tipo": "educativo",
+ "titulo": "Parallax 2.5D: foto parada vira cena 3D",
+ "perfil": "@andrstudios",
+ "legenda": "Aquela foto antiga que \"se mexe\" e parece ter profundidade? Isso é parallax 2.5D, e dá pra fazer em qualquer editor.\n\nA ideia: recortar a imagem em camadas (frente, meio e fundo), preencher o buraco que fica atrás do que você recortou e animar cada camada numa velocidade diferente. O que está perto anda mais, o que está longe anda menos, e o olho lê aquilo como 3D.\n\nHoje a IA gera o mapa de profundidade e separa as camadas quase sozinha, então o que levava horas sai em minutos.\n\nVocê já usou parallax nas suas fotos?\n\nSalva pra testar numa foto sua.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — After Effects",
+   "url": "https://www.adobe.com/products/aftereffects.html"
+  },
+  {
+   "titulo": "Blackmagic — DaVinci Resolve (Fusion)",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  }
+ ],
+ "notas": "Educativo de edição (parallax 2.5D / efeito 3D em foto). Capa tela cheia com rosto expressivo de editor brasileiro (clima cinema / verde Matrix) + headline curto. Lâminas de conteúdo em 3:2 geradas no ChatGPT (camadas, mapa de profundidade, antes/depois). Famosos renderizam só como genéricos, então usei editor brasileiro expressivo na capa. Cada lâmina com imagem própria e diferente (regra 24/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Foto **parada** vira cena 3D",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/parallax-2-5d-foto-vira-cena-3d/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Aquela foto que parece ter **profundidade** e se move devagar não é 3D de verdade.\n\nÉ parallax 2.5D: imagem plana dividida em camadas.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/parallax-2-5d-foto-vira-cena-3d/02.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Primeiro você **recorta** a foto em camadas: frente, meio e fundo.\n\nE preenche o buraco que fica atrás do que foi recortado, pra não aparecer vazio quando a câmera andar.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/parallax-2-5d-foto-vira-cena-3d/03.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Agora o pulo do gato:\n\nanima cada camada numa **velocidade diferente**.\n\nO que está perto anda mais, o que está longe anda menos. Um zoom leve por cima e vira cena.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/parallax-2-5d-foto-vira-cena-3d/04.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "O atalho de hoje:\n\na IA gera o **mapa de profundidade** e separa as camadas quase sozinha.\n\nO que levava horas de recorte na mão sai em minutos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/parallax-2-5d-foto-vira-cena-3d/05.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Dá pra transformar foto antiga, print e até imagem de IA em **movimento** com cara de cinema.\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/parallax-2-5d-foto-vira-cena-3d/06-cta.jpg",
+    "foco": 0.5
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

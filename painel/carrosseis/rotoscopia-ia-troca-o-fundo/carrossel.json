@@ -1,0 +1,73 @@
+{
+ "slug": "rotoscopia-ia-troca-o-fundo",
+ "dia": "2026-11-25",
+ "tipo": "educativo",
+ "titulo": "Rotoscopia com IA: troca o fundo sem tela verde",
+ "perfil": "@andrstudios",
+ "legenda": "Quer trocar o fundo de um vídeo mas não tem tela verde? Rotoscopia resolve, e hoje a IA faz o trabalho pesado.\n\nRotoscopia é recortar a pessoa do fundo quadro a quadro. Antes era na mão, frame por frame, uma tortura. Agora a IA detecta e segue a pessoa sozinha com um clique: é o Roto Brush do After Effects, a Magic Mask do DaVinci e o \"remover fundo\" do CapCut.\n\nSó fica de olho nas bordas: cabelo, dedos e movimento rápido ainda vazam. Nesses trechos você refina a máscara na mão.\n\nVocê já trocou fundo sem chroma?\n\nSalva pra usar no próximo corte.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — After Effects",
+   "url": "https://www.adobe.com/products/aftereffects.html"
+  },
+  {
+   "titulo": "Blackmagic — DaVinci Resolve (Magic Mask)",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  }
+ ],
+ "notas": "Educativo de edição (rotoscopia / troca de fundo sem chroma, com IA). Capa tela cheia com rosto expressivo de editor brasileiro e contorno de recorte verde (clima cinema / verde Matrix) + headline curto. Imagens geradas no ChatGPT. Famosos renderizam só como genéricos, então usei editor brasileiro expressivo na capa. Cada lâmina com imagem própria e diferente (regra 24/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Troca o fundo **sem tela verde**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rotoscopia-ia-troca-o-fundo/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Gravou sem chroma e quer trocar o fundo mesmo assim?\n\nDá, e o nome disso é **rotoscopia**: recortar a pessoa do fundo quadro a quadro.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rotoscopia-ia-troca-o-fundo/02.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Antes isso era feito na **mão**, frame por frame. Uma tortura de horas.\n\nHoje a IA detecta a pessoa e segue ela sozinha pela cena com um clique.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rotoscopia-ia-troca-o-fundo/03.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Onde ligar:\n\n• After Effects: **Roto Brush**\n• DaVinci: **Magic Mask**\n• CapCut: \"remover fundo\"\n\nPinta por cima da pessoa uma vez e ele rastreia o resto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rotoscopia-ia-troca-o-fundo/04.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Onde ele ainda erra:\n\n**cabelo**, dedos e movimento rápido vazam na borda.\n\nNesses trechos você volta e refina a máscara só nos frames ruins.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rotoscopia-ia-troca-o-fundo/05.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Com isso você coloca a pessoa em **qualquer cenário** sem montar estúdio.\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/rotoscopia-ia-troca-o-fundo/06-cta.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "slug": "j-cut-l-cut-o-corte-pelo-audio",
+ "dia": "2026-11-25",
+ "tipo": "educativo",
+ "titulo": "J-cut e L-cut: o corte que some no áudio",
+ "perfil": "@andrstudios",
+ "legenda": "Sabe quando a cena troca e você nem percebe o corte? Quase sempre é um J-cut ou um L-cut escondendo a emenda.\n\nNo L-cut o áudio da cena atual continua tocando depois que a imagem já trocou. No J-cut é o contrário: o som da próxima cena entra antes da imagem aparecer. O ouvido segura a transição e o olho relaxa.\n\nÉ só destravar o áudio do vídeo e arrastar a borda pra um lado. Simples assim, e muda o nível da edição.\n\nVocê já cortava assim ou sempre cortava som e imagem juntos?\n\nSalva pra testar no próximo corte.\n\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — Premiere Pro",
+   "url": "https://www.adobe.com/products/premiere.html"
+  },
+  {
+   "titulo": "Blackmagic — DaVinci Resolve",
+   "url": "https://www.blackmagicdesign.com/products/davinciresolve"
+  }
+ ],
+ "notas": "Educativo de edição (J-cut / L-cut). Capa tela cheia com rosto expressivo de editor brasileiro (clima cinema / verde Matrix) + headline curto. Imagens geradas no ChatGPT. Famosos renderizam só como genéricos, então usei editor brasileiro expressivo na capa. Cada lâmina com imagem própria e diferente (regra 24/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "O corte que o ouvido **não percebe**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-o-corte-pelo-audio/01-capa.jpg",
+    "foco": 0.4
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Cortou som e imagem no mesmo frame e ficou aquele **tranco** seco?\n\nO problema quase nunca é a imagem. É o áudio batendo no corte junto com o olho.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-o-corte-pelo-audio/02.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "No **L-cut** o áudio da cena atual continua tocando depois que a imagem já trocou.\n\nA fala segura, a imagem muda por baixo, e a transição fica invisível.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-o-corte-pelo-audio/03.jpg",
+    "foco": 0.5
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "No **J-cut** é o contrário: o som da próxima cena entra antes da imagem.\n\nVocê ouve o lugar novo um instante antes de ver. O cérebro já está lá quando a imagem chega.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-o-corte-pelo-audio/04.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "Como fazer:\n\n**destrava** o áudio do vídeo e arrasta só a borda do som pra frente ou pra trás do corte da imagem.\n\nFunciona igual no Premiere, DaVinci e CapCut.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-o-corte-pelo-audio/05.jpg",
+    "foco": 0.5
+   }
+  },
+  {
+   "texto": "É o truque que separa edição amadora de edição que **flui**.\n\nTesta num diálogo seu hoje e vê a diferença.\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/j-cut-l-cut-o-corte-pelo-audio/06-cta.jpg",
+    "foco": 0.4
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
