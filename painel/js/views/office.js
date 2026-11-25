@@ -16,7 +16,7 @@ const DEPTOS = [
   ["arte", "Arte & Carrossel", "", /carross|lâmina|lamina|thumb|capa|design|imagem/i],
   ["ti", "TI & Relatórios", "", /relat|sync|sincron|desempenho|métrica|metric|backup|painel/i],
 ];
-const deptoDe = (j) => { const t = `${j.conta || ""} ${j.titulo || ""}`; return (DEPTOS.find(([, , , re]) => re.test(t)) || DEPTOS[0]).slice(0, 3); };
+const deptoDe = (j) => { if (j._dep) return DEPTOS.find(([id]) => id === j._dep).slice(0, 3); const t = `${j.conta || ""} ${j.titulo || ""}`; return (DEPTOS.find(([, , , re]) => re.test(t)) || DEPTOS[0]).slice(0, 3); };
 // Vice City Dicas foi demitido: some do escritório
 const demitido = (j) => /vice ?city|dicasvicecity|dicas vice/i.test(`${j.conta || ""} ${j.titulo || ""}`) || j.conta === "gta";
 
@@ -48,7 +48,12 @@ export default async function office({ sb, refresh }) {
   ]);
   const pautas = ((pR && pR.data) || []).filter((p) => p.status !== "descartada").map((p) => p.titulo).filter(Boolean);
   if (jR.error || rR.error) return h("p", { class: "alert" }, "O escritório está fechado: não deu pra carregar os agentes. Atualize a página.");
-  const jobs = (jR.data || []).filter((j) => !demitido(j)), runs = rR.data || [], aprov = aR.data || [], reqs = qR.data || [];
+  const reais = (jR.data || []).filter((j) => !demitido(j));
+  // módulos do painel que ainda não têm rotina agendada também ganham um robô (clique abre o módulo)
+  const MODS = [["aprovacoes", "AprovaçõeS_", "estudio", /aprova/i], ["postador", "PostadoR_", "redacao", /postador/i], ["miner", "MineR_", "estudio", /miner/i], ["gerador", "ForjadoR_", "arte", /forjador|gerador/i], ["carrosseis", "CarrosseL_", "arte", /carross/i], ["financeiro", "FinanceirO_", "comercial", /financ/i], ["leads", "LeadS_", "comercial", /lead/i], ["trampos", "TrampoS_", "comercial", /vaga|trampo/i], ["perfis", "PerfiS_", "estudio", /perfis/i], ["desempenho", "DesempenhO_", "ti", /desempenho/i], ["skills", "SkillS_", "ti", /skill/i]];
+  const modBots = MODS.filter(([, , , re]) => !reais.some((j) => re.test(`${j.titulo || ""} ${j.task_id || ""}`)))
+    .map(([rota, titulo, dep]) => ({ task_id: "modulo-" + rota, titulo, _dep: dep, _rota: rota, enabled: true, last_status: "concluida", descricao: `Cuida do módulo ${titulo} no painel.` }));
+  const jobs = [...reais, ...modBots], runs = rR.data || [], aprov = aR.data || [], reqs = qR.data || [];
   const runsOf = (t) => runs.filter((r) => r.task_id === t);
   const semana = Date.now() - 7 * 864e5;
 
@@ -65,6 +70,7 @@ export default async function office({ sb, refresh }) {
     toast(kind === "agente_rodar" ? "Mandei trabalhar. Roda em até 1 hora." : kind === "agente_pausar" ? "Mandei de folga." : "Chamei de volta pro trabalho."); refresh();
   };
   const abrir = (j) => {
+    if (j._rota) { location.hash = "#/" + j._rota; return; }
     const rs = runsOf(j.task_id), [st, rot, cls] = estado(j), [, dnome] = deptoDe(j);
     const atual = rs.find((r) => r.status === "executando");
     gaveta.hidden = false;

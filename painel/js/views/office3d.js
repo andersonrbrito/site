@@ -180,6 +180,11 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
   box(0.15, 1.1, zB - (zBC + 1.2), mat.parede, copaX0, 0.55, (zB + zBC + 1.2) / 2);
   box(0.6, 0.9, 3.5, M("#e9e4d8"), W - 0.4, 0.45, zBC + 3); box(0.62, 0.05, 3.5, M("#3a3a3a"), W - 0.4, 0.92, zBC + 3);
   box(0.3, 0.4, 0.3, mat.preto, W - 0.4, 1.15, zBC + 2);
+  { const jarra = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.08, 0.18, 12), new THREE.MeshStandardMaterial({ color: "#3a1f0f", transparent: true, opacity: 0.85 })); jarra.position.set(W - 0.4, 1.04, zBC + 2.25); scene.add(jarra);
+    for (let i = 0; i < 6; i++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.04, 0.1, 10), M(["#f4f4f0", "#00a651", "#d4a017"][i % 3])); c.position.set(W - 0.4 + (i % 2 ? 0.1 : -0.1), 1.0, zBC + 3 + Math.floor(i / 2) * 0.18); scene.add(c); }
+    box(0.5, 0.04, 0.3, M("#5a3a1a"), W - 0.4, 0.97, zBC + 3.9, scene, false); }
+  const vapor = Array.from({ length: 4 }, (_, i) => { const m = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6, 6), new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.4 })); scene.add(m); m.userData.k = i / 4; return m; });
+  { const s = placa("CAFÉ", { fg: "#ffd84d", borda: "#ffd84d", alt: 0.24 }); s.position.set(W - 0.4, 1.75, zBC + 2); scene.add(s); }
   box(0.8, 1.9, 0.7, M("#d9d9d9", { metalness: 0.5, roughness: 0.3 }), W - 0.5, 0.95, zBC + 5.6);
   box(0.9, 1.9, 0.7, M("#2f5a44"), W - 0.5, 0.95, zBC + 6.8);
   const mesaCopa = { x: copaX0 + COPA / 2 - 0.5, z: zBC + 5 };
@@ -270,6 +275,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
       const r = ROUPA[pd.dep.id] || ROUPA.outro;
       const p = novo(boneco({ robo: true, ...r, natal }), { j, est: j._estado, nome: j.titulo, desk: { x: dx, z: cz, rot, cz: z + sz * 2.5, gx: x + sx * POD_W / 2, tz: dz } });
       p.root.position.set(dx, 0, cz); p.root.rotation.y = rot; p.sentado = true;
+      { const x = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.045, 0.11, 10), M("#f4f4f0")); x.position.set(0, -0.68, 0.08); x.visible = false; p.bracoD.add(x); p.xicara = x; }
       if (p.est === "warn") { p.root.position.x += sx * 0.5; p.sentado = false; }
       const ic = { run: ["⌨", "#00ff66"], bad: ["!", "#ff4d4d"], warn: ["✋", "#ffc94d"], off: ["z", "#9fe"] }[p.est];
       if (ic) { const s = placa(ic[0], { fg: ic[1], borda: ic[1], alt: 0.3, fonte: "bold 46px sans-serif" }); s.position.y = 2.25; p.root.add(s); p.icone = s; }
@@ -339,26 +345,30 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
 
   // ---------- rotas ----------
   const LUGARES = [
-    { x: W - 1.0, z: zBC + 2, olha: Math.PI / 2, via: "fundo" },
+    { x: W - 1.1, z: zBC + 1.6, olha: Math.PI / 2, via: "fundo", cafe: true },
+    { x: W - 1.1, z: zBC + 2.6, olha: Math.PI / 2, via: "fundo", cafe: true },
+    { x: W - 1.1, z: zBC + 3.6, olha: Math.PI / 2, via: "fundo", cafe: true },
+    { x: mesaCopa.x + 1.1, z: mesaCopa.z, olha: -Math.PI / 2, via: "fundo", cafe: true },
     { x: agua.x, z: 1.3, olha: Math.PI, via: "fundo" },
     { x: copiadora.x, z: 1.4, olha: Math.PI, via: "fundo" },
-    { x: mesaCopa.x, z: mesaCopa.z - 1.1, olha: 0, via: "fundo" },
+    { x: mesaCopa.x, z: mesaCopa.z - 1.1, olha: 0, via: "fundo", cafe: true },
     { x: reu.mid, z: FUNDO - 1.6, olha: Math.PI, via: "fundo" },
     { x: rec.x + 1.3, z: rec.z + 0.9, olha: Math.PI, via: "frente" },
     { x: estatua.x - 1.3, z: estatua.z, olha: Math.PI / 2, via: "frente" },
     ...(natal ? [{ x: arvore.x - 1.6, z: arvore.z, olha: Math.PI / 2, via: "frente" }] : []),
   ];
+  const livre = (lista) => { const ok = lista.filter((l) => !pessoas.some((q) => q.lugar === l)); return ok.length ? pick(ok) : null; };
   const sentar = (d) => ({ x: d.x, z: d.z, olha: d.rot, senta: true });
   const sair = (p, pts) => { p.caminho = pts.map((q) => ({ ...q })); p.volta = pts.slice(0, -1).reverse().map(({ x, z }) => ({ x, z })).concat([sentar(p.desk)]); p.sentado = false; };
-  const voltar = (p) => { p.caminho = p.volta; p.volta = null; p.sentado = false; };
-  const ir = (p, alvo) => { const d = p.desk, vz = alvo.via === "frente" ? zFC : zBC; sair(p, [{ x: d.x, z: d.cz }, { x: d.gx, z: d.cz }, { x: d.gx, z: vz }, { x: alvo.x, z: vz }, alvo]); };
+  const voltar = (p) => { p.caminho = p.volta; p.volta = null; p.sentado = false; p.lugar = null; if (p.xicara) p.xicara.visible = false; };
+  const ir = (p, alvo) => { if (!alvo) return; p.lugar = alvo; const d = p.desk, vz = alvo.via === "frente" ? zFC : zBC; sair(p, [{ x: d.x, z: d.cz }, { x: d.gx, z: d.cz }, { x: d.gx, z: vz }, { x: alvo.x, z: vz }, alvo]); };
   const aisles = [...new Set(pods.flatMap((p) => [p.x - POD_W / 2, p.x + POD_W / 2]))];
   const gxC = aisles.reduce((a, b) => (Math.abs(b - cxP) < Math.abs(a - cxP) ? b : a), aisles[0] ?? cxP);
   const saidaTemplo = [{ x: trono.x + 1.9, z: trono.z }, { x: trono.x + 1.9, z: FUNDO - 1 }, { x: tp.x, z: FUNDO - 1 }, { x: tp.x, z: zBC }, { x: gxC, z: zBC }, { x: gxC, z: zFC }];
 
   const decide = (p, t) => {
     if (p.fp || p.ausente) return;
-    if (p.volta) { voltar(p); p.espera = 3 + Math.random() * 5; return; }
+    if (p.volta) { voltar(p); p.espera = 12 + Math.random() * 15; return; }
     if (p.cachorro) {
       // ronda: corredor do fundo, corredor da frente, e para nas mesas pedindo bifinho
       if (Math.random() < 0.55) { const rb = pick(pessoas.filter((q) => q.j && q.sentado)); if (rb) { const d = rb.desk; p.caminho = [{ x: d.gx, z: zFC }, { x: d.gx, z: d.cz }, { x: d.x + 0.5, z: d.cz }]; p.pedeBifinho = rb; p.espera = 3; return; } }
@@ -383,8 +393,8 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
       p.espera = 6 + Math.random() * 8; return;
     }
     const naMesa = p.sentado;
-    if (p.est === "idle") { if (naMesa && Math.random() < 0.7) ir(p, pick(LUGARES)); else if (naMesa) sair(p, [{ x: p.desk.x, z: p.desk.cz }, { x: p.desk.x + (Math.random() - 0.5) * 3, z: p.desk.cz }]); p.espera = 3 + Math.random() * 6; }
-    else if (p.est === "ok") { if (naMesa && Math.random() < 0.3) ir(p, LUGARES[0]); p.espera = 8 + Math.random() * 10; }
+    if (p.est === "idle") { if (naMesa && Math.random() < 0.3) ir(p, livre(LUGARES)); else if (naMesa && Math.random() < 0.25) sair(p, [{ x: p.desk.x, z: p.desk.cz }, { x: p.desk.x + (Math.random() - 0.5) * 1.5, z: p.desk.cz }]); p.espera = 12 + Math.random() * 18; }
+    else if (p.est === "ok") { if (naMesa && Math.random() < 0.2) ir(p, livre(LUGARES.filter((l) => l.cafe))); p.espera = 15 + Math.random() * 20; }
     else p.espera = 10;
   };
 
@@ -426,6 +436,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
       if (d > v) { r.position.x += dx / d * v; r.position.z += dz / d * v; const ang = Math.atan2(dx, dz); r.rotation.y += Math.atan2(Math.sin(ang - r.rotation.y), Math.cos(ang - r.rotation.y)) * Math.min(1, dt * 10); andando = true; }
       else {
         r.position.x = alvo.x; r.position.z = alvo.z; if (alvo.olha !== undefined) r.rotation.y = alvo.olha; if (alvo.senta) p.sentado = true; p.caminho.shift();
+        if (!p.caminho.length && p.lugar?.cafe && p.xicara && p.volta) { p.xicara.visible = true; p.fala = pick(["Café passado na hora. Recarregando bateria.", "Robô também precisa de cafeína.", "Pausa de 5 minutos, não conta pro Mestre.", "Esse café tem gosto de óleo 10W40. Amei."]); p.falaAte = t + 4; }
         if (!p.caminho.length && p.visita) { const q = p.visita; p.visita = null; p.fala = pick(["Brrrrum!", "Papá!", "Gerente chegou! Bibi!", "Dá! Dá!", "Reunião de gerência: bibi fom fom."]); p.falaAte = t + 3; q.fala = q.cachorro ? "Au au! Oi, chefinho!" : q.chefe ? "Esse é o meu herdeiro. O futuro da ANDR STUDIOS." : q === vanessa ? "Filho, cuidado com a motoquinha!" : pick(["Bom dia, senhor Gerente.", "Relatório pronto, Gerente Romeu.", "Sim, chefinho. Vou acelerar."]); q.falaAte = t + 4; }
         if (!p.caminho.length && p.pedeBifinho) { const rb = p.pedeBifinho; p.pedeBifinho = null; p.fala = pick(["Au! Tem bifinho?", "Bifinho, por favor. Sou segurança.", "Olhinho pidão ativado.", "Só um bifinho e eu esqueço que você dormiu."]); p.falaAte = t + 3.5; p.pula = t + 0.8; rb.fala = pick(["Robôs não carregam bifinho, Lino.", "Toma, mas não conta pro Mestre.", "Meu protocolo proíbe bifinho."]); rb.falaAte = t + 4; }
         if (!p.caminho.length && p.anuncia) { p.anuncia = false; p.fala = chefe.fala(); p.falaAte = t + 5; }
@@ -453,6 +464,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     p.tronco.rotation.set(p.est === "off" && p.sentado ? 0.9 : 0, 0, 0);
     p.cabeca.rotation.x = p.est === "off" && p.sentado ? 0.4 : 0;
     p.cabeca.rotation.y = !andando && !p.sentado ? Math.sin(t * 0.7 + p.fase) * 0.4 : 0;
+    if (p.xicara?.visible && !andando) { p.bracoD.rotation.x = -1.3 - Math.max(0, Math.sin(t * 1.2 + p.fase)) * 0.9; }
     if (p.est === "warn" && !andando) { p.bracoD.rotation.x = -2.9; p.bracoD.rotation.z = Math.sin(t * 6) * 0.25; }
     if (p.est === "bad" && p.sentado) { p.tronco.rotation.z = Math.sin(t * 2 + p.fase) * 0.05; p.cabeca.rotation.y = Math.sin(t * 7) * 0.3; }
     if (p.chefe && p.anuncia === false && p.fala && t < p.falaAte && !andando) { p.bracoE.rotation.x = -2.4 + Math.sin(t * 5) * 0.3; p.bracoE.rotation.z = 0.3; }
@@ -484,6 +496,7 @@ export async function montarCena(host, { deptos, onClick, chefe, pautas = [], na
     requestAnimationFrame(loop);
     const dt = Math.min(0.05, relogio.getDelta()), t = relogio.elapsedTime;
     if (t - ultTela > 0.08) { pintaTela(); ultTela = t; }
+    vapor.forEach((m) => { const k = (t * 0.5 + m.userData.k) % 1; m.position.set(W - 0.4 + Math.sin(k * 8) * 0.04, 1.2 + k * 0.6, zBC + 2.25); m.material.opacity = 0.4 * (1 - k); });
     piscas.forEach((b, i) => { b.visible = (Math.floor(t * 2) + i) % 3 !== 0; });
     pessoas.forEach((p) => anima(p, dt, t));
     if (fp) fpAnda(dt); else if (voo) { voo.t = Math.min(1, voo.t + 0.02); const e = 1 - Math.pow(1 - voo.t, 3); camera.position.lerpVectors(voo.de[0], voo.para[0], e); controls.target.lerpVectors(voo.de[1], voo.para[1], e); if (voo.t >= 1) voo = null; controls.update(); } else controls.update();
