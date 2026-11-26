@@ -4,7 +4,7 @@ import os, re, subprocess, json, datetime
 PORTFOLIOS = ["lunar/index.html", "trabalhos/index.html", "portfolio.html", "dr.html",
               "xablau/index.html", "videos-ia/index.html",
               "portfolio-talking-head.html", "xp/index.html", "tie/index.html",
-              "palazzio/index.html", "novelas/index.html", "dr/index.html"]
+              "palazzio/index.html", "novelas/index.html", "dr/index.html", "condzxyz/index.html", "brasilparalelo/index.html"]
 # REGRA: todo portfólio novo criado para uma vaga entra nesta lista no mesmo commit.
 pages = [p for p in PORTFOLIOS if os.path.exists(p)]
 seen, stack = set(), ["index.html"]
