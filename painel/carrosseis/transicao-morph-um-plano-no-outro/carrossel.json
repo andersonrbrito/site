@@ -1,0 +1,88 @@
+{
+ "slug": "transicao-morph-um-plano-no-outro",
+ "dia": "2026-11-26",
+ "tipo": "educativo",
+ "titulo": "A transição que derrete um plano no outro",
+ "perfil": "@andrstudios",
+ "legenda": "A transição morph é aquela que derrete um plano no outro, tipo o clássico do Michael Jackson. Hoje tá no CapCut e no Premiere, de graça.\n\nO truque não é o efeito, é gravar os dois planos parecidos: mesma posição, mesma luz, mesmo fundo. Aí o morph engana.\n\nQuando os quadros são muito diferentes, ele borra e entrega o truque. Nessa hora prefiro um corte seco.\n\nVocê já tinha reparado nesse efeito nos vídeos por aí?\n\nSalva pra usar no próximo corte.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "Adobe — Morph Cut",
+   "url": "https://helpx.adobe.com/premiere-pro/using/morph-cut.html"
+  },
+  {
+   "titulo": "CapCut — transições",
+   "url": "https://www.capcut.com/"
+  }
+ ],
+ "notas": "Educativo de edição (transição morph / Morph Cut). Hook e todas as lâminas: fotos REAIS de Michael Jackson (referência do morph do clipe 'Black or White'), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11). Imagens reais licenciadas CC — trocar por cenas custom no ChatGPT depois.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Um plano **vira** o outro",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/01.jpg",
+    "foco": 0.35,
+    "credito": "foto: Zoran Veselinovic · Wikimedia (CC BY-SA 2.0)"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Lembra o clipe do Michael Jackson em que **uma cara vira a outra** sem corte?\n\nAquilo é morph. E hoje você faz no celular.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: Bernie Ilson, Inc., public relations, New York. · Wikimedia (Public domain)"
+   }
+  },
+  {
+   "texto": "A transição morph **mistura os pixels** de um clipe no outro em vez de cortar seco.\n\nQuando os dois planos têm o mesmo enquadramento, parece mágica.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: Xscape Of Pop · Wikimedia (CC BY 4.0)"
+   }
+  },
+  {
+   "texto": "Como fazer:\n\n• **CapCut**: transição 'Morph' entre dois clipes\n• **Premiere**: 'Morph Cut' pra talking head\n• o segredo é **enquadrar igual** os dois lados",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: Alan Light · Wikimedia (CC BY 2.0)"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato: **grave pensando na transição**.\n\nMesma posição, mesma luz, mesmo fundo nos dois planos. O morph só engana se os dois quadros forem parecidos.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: Alan Light · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Onde fica feio:\n\nfundo muito diferente ou movimento rápido, aí **borra e aparece o truque**.\n\nNesses casos um whip pan simples disfarça melhor que o morph.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: Alan Light · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Bem usado, o morph dá aquele ar de clipe caro sem plugin nenhum.\n\n**Você já tinha reparado nesse efeito?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/transicao-morph-um-plano-no-outro/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: Wikimedia Commons (CC BY-SA 4.0)"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "slug": "sfx-som-certo-da-peso-ao-corte",
+ "dia": "2026-11-26",
+ "tipo": "educativo",
+ "titulo": "O som certo faz o corte ter peso",
+ "perfil": "@andrstudios",
+ "legenda": "Passei anos achando que vídeo bom era imagem bonita. Hoje eu sei que é o som que faz o corte ter peso.\n\nTrês SFX resolvem quase tudo: whoosh na transição, impacto no texto e um click nas trocas rápidas. O segredo é jogar na batida do corte e não exagerar.\n\nSom de impacto em tudo cansa; eu uso o forte só 2 ou 3 vezes no vídeo inteiro.\n\nQual SFX você mais usa nos seus cortes?\n\nSalva pra usar na próxima edição.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "CapCut — efeitos de som",
+   "url": "https://www.capcut.com/"
+  },
+  {
+   "titulo": "Freesound — banco de SFX",
+   "url": "https://freesound.org/"
+  }
+ ],
+ "notas": "Educativo de edição/áudio (sound design / SFX no corte). Hook e todas as lâminas: fotos REAIS de Mike Tyson (som de impacto / soco), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11). Imagens reais licenciadas CC — trocar por cenas custom no ChatGPT depois.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "O corte que **soca**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/01.jpg",
+    "foco": 0.35,
+    "credito": "foto: Super Festivals · Wikimedia (CC BY 2.0)"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Dois editores, o mesmo corte. Um passa batido, o outro **soca no peito**.\n\nA diferença quase sempre é o **som**, não a imagem.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: BillCramer · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Três SFX que resolvem a maioria dos cortes:\n\n• **whoosh** na transição\n• **impacto** quando o texto entra\n• **click** ou papel em cada troca rápida",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: Toglenn · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Onde pegar sem pagar caro:\n\n• bancos de SFX (tem muita coisa grátis)\n• o próprio CapCut tem uma biblioteca boa\n• guarda os seus favoritos **numa pasta só**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: birzer · Wikimedia (CC BY 2.0)"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato: **joga o som na batida** do corte, nunca solto.\n\nE abaixa a trilha meio segundo quando entra a voz (ducking). Isso sozinho já dá cara de profissional.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: Super Festivals from Ft. Lauderdale, USA · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "O erro mais comum: **exagerar**.\n\nSom de impacto em tudo cansa e vira ruído. Eu uso o 'tooom' forte **2 ou 3 vezes** no vídeo, o resto é leve.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: Paula R. Lively from Zanesville · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Imagem boa prende o olho, mas é o som que segura o corte.\n\n**Qual SFX você mais usa nos seus cortes?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/sfx-som-certo-da-peso-ao-corte/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: Eduardo Merille · Wikimedia (CC BY-SA 2.0)"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

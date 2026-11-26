@@ -1,0 +1,88 @@
+{
+ "slug": "dublagem-ia-lip-sync-boca",
+ "dia": "2026-11-26",
+ "tipo": "educativo",
+ "titulo": "Dubla seu vídeo em qualquer língua (e a boca acompanha)",
+ "perfil": "@andrstudios",
+ "legenda": "Descobri que dublar vídeo com IA ficou simples: a ferramenta clona a sua voz, traduz e ainda ajusta a boca pra bater com o novo áudio.\n\nEu uso pra testar se um conteúdo funciona em inglês ou espanhol antes de levar a sério. Na minha visão, legenda já não basta quando dá pra entregar a sua voz em outra língua.\n\nMas tem limite: fala rápida e duas pessoas juntas ainda entregam o truque.\n\nVocê dublaria seu conteúdo pra vender lá fora?\n\nSalva pra testar no próximo vídeo.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "ElevenLabs — Dubbing",
+   "url": "https://elevenlabs.io/dubbing"
+  },
+  {
+   "titulo": "HeyGen — AI Video Translate",
+   "url": "https://www.heygen.com/"
+  }
+ ],
+ "notas": "Educativo de edição/áudio (dublagem com IA + lip-sync). Hook e todas as lâminas: fotos REAIS de Leonardo DiCaprio (cinema global, dublado no mundo todo), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível em vez de genérico (regra 25/11: o ChatGPT renderiza famoso como desconhecido). Imagens reais licenciadas CC — dá pra trocar por cenas custom no ChatGPT depois.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Seu vídeo **em 30 línguas**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/01.jpg",
+    "foco": 0.35,
+    "credito": "foto: Thore Siebrands · Wikimedia (CC BY-SA 3.0)"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Hoje dá pra pegar um vídeo em português e **dublar pra qualquer idioma** com a sua própria voz.\n\nE a boca acompanha o novo áudio. Quem faz conteúdo ganhou o mundo de público.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: Georges Biard · Wikimedia (CC BY-SA 3.0)"
+   }
+  },
+  {
+   "texto": "Como funciona, por partes:\n\n• a IA **clona a sua voz** e fala o texto traduzido\n• o lip-sync **remonta a boca** pra bater com o som\n• você exporta cada língua separada",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: Rajasekharan Parameswaran · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Onde dá pra fazer hoje:\n\n• **ElevenLabs** (dublagem + voz clonada)\n• **HeyGen** (troca a boca no vídeo)\n• **CapCut** (tradução automática pra testar)",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: Georges Biard · Wikimedia (CC BY-SA 3.0)"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "O pulo do gato: **não traduza ao pé da letra**.\n\nGíria e piada não cruzam a fronteira. Peça pra IA adaptar o sentido, senão o vídeo fica com cara de manual.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: Presidencia de la República Mexicana · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Onde ainda falha:\n\nfala muito rápida, duas pessoas falando junto e boca de perfil o lip-sync erra e **entrega o fake**.\n\nNesses trechos eu seguro o corte ou jogo um b-roll por cima.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: Colin Chou at http://www.colinchau.com/ · Wikimedia (CC BY-SA 3.0)"
+   }
+  },
+  {
+   "texto": "Dublar bem é alcançar gente que nunca ia te achar de outro jeito.\n\n**Você dublaria seu conteúdo pra vender lá fora?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/dublagem-ia-lip-sync-boca/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: David Shankbone · Wikimedia (CC BY-SA 3.0)"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}

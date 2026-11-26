@@ -1,0 +1,88 @@
+{
+ "slug": "texto-atras-da-pessoa-mascara",
+ "dia": "2026-11-26",
+ "tipo": "educativo",
+ "titulo": "O texto que passa atrás da pessoa",
+ "perfil": "@andrstudios",
+ "legenda": "O nome passando atrás da pessoa é um dos truques que mais fazem um vídeo parecer caro, e dá pra fazer até no CapCut.\n\nO segredo é camada: fundo, texto no meio, pessoa recortada por cima. Eu uso muito na abertura pra fisgar nos primeiros segundos.\n\nO trabalho mesmo é ajustar o recorte no cabelo e na mão, que é onde a IA erra.\n\nVocê usaria isso na capa do seu próximo vídeo?\n\nSalva pra testar no próximo vídeo.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.",
+ "fontes": [
+  {
+   "titulo": "CapCut — remover fundo",
+   "url": "https://www.capcut.com/"
+  },
+  {
+   "titulo": "Adobe — Rotobrush (After Effects)",
+   "url": "https://helpx.adobe.com/after-effects/using/roto-brush-refine-matte.html"
+  }
+ ],
+ "notas": "Educativo de edição (texto atrás da pessoa / máscara e recorte). Hook e todas as lâminas: fotos REAIS de Taylor Swift (estética de pôster/show, nome atrás = cara de capa de álbum), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11). Imagens reais licenciadas CC — trocar por cenas custom no ChatGPT depois, com o título escrito na arte.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Texto **atrás** de você",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/01.jpg",
+    "foco": 0.35,
+    "credito": "foto: iHeartRadioCA · Wikimedia (CC BY 3.0)"
+   },
+   "rodape": "arrasta pro lado →"
+  },
+  {
+   "texto": "Sabe aquele título que a pessoa passa **na frente dele**, tipo capa de álbum?\n\nParece coisa de motion designer caro. É mais simples do que parece.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: iHeartRadioCA · Wikimedia (CC BY 3.0)"
+   }
+  },
+  {
+   "texto": "O truque é **recortar a pessoa** e botar o texto numa camada no meio:\n\nfundo → **texto** → pessoa recortada por cima.\n\nSó isso já dá a profundidade.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: Yahoo! Music · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Como fazer sem plugin:\n\n• **CapCut**: duplica o clipe e usa 'remover fundo' no de cima\n• **Premiere/AE**: 'Rotobrush' ou máscara na pessoa\n• o texto entra **entre as duas camadas**",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: Swift,_Taylor_(2007).jpg: minds-eye derivative wor · Wikimedia (CC BY-SA 2.0)"
+   },
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →"
+  },
+  {
+   "texto": "Pra não ficar amador:\n\no texto tem que **sumir atrás** da pessoa de verdade, não só encostar.\n\nE combina a cor do texto com a cena — nada de branco estourado em tudo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: iHeartRadioCA · Wikimedia (CC BY 3.0)"
+   }
+  },
+  {
+   "texto": "Onde trava:\n\ncabelo solto e mão passando na frente a IA come o recorte.\n\nNesses quadros, **ajuste a máscara na mão** em 2 ou 3 pontos e pronto.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: Brian Cantoni · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Esse detalhe sozinho já faz a abertura do vídeo parecer profissional.\n\n**Você usaria isso na capa do seu próximo vídeo?**\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/texto-atras-da-pessoa-mascara/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: minds-eye · Wikimedia (CC BY-SA 2.0)"
+   },
+   "rodape": "comenta KIT ↓"
+  }
+ ]
+}
