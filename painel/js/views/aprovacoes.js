@@ -306,7 +306,7 @@ export default async function aprovacoes({ sb, query, go }) {
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("O que ajustar? (o agente lê isso)", a.comentario || ""); if (c?.trim()) salvar(a, { status: "ajustar", comentario: c.trim(), decidido_em: agora() }, "Ajuste pedido."); } }, "Pedir ajuste"),
          h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => { const c = prompt("Motivo (opcional):", ""); if (c !== null) salvar(a, { status: "reprovado", comentario: c.trim() || null, decidido_em: agora() }, "Reprovado."); } }, "Reprovar")]
       : a.status === "aprovado"
-        ? [h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => { const u = prompt("Link do post publicado (opcional):", ""); if (u !== null) salvar(a, { status: "publicado", publicado_em: agora(), url_publicado: u.trim() || null }, "Marcado como publicado."); } }, "Marcar publicado"),
+        ? [agendarBtn(a), h("button", { class: "btn btn-sm ap-ok", type: "button", onclick: () => { const u = prompt("Link do post publicado (opcional):", ""); if (u !== null) salvar(a, { status: "publicado", publicado_em: agora(), url_publicado: u.trim() || null }, "Marcado como publicado."); } }, "Marcar publicado"),
            h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente" }, "Voltou para aprovação.") }, "Desfazer")]
         : [a.url_publicado && h("a", { class: "btn btn-ghost btn-sm", href: a.url_publicado, target: "_blank", rel: "noopener" }, "Ver post ↗"),
            h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => salvar(a, { status: "pendente" }, "Voltou para aprovação.") }, "Voltar para aprovação")];

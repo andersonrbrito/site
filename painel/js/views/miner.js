@@ -194,7 +194,6 @@ async function reelMode({ sb, all, collections, nav, refresh, perfis = [] }) {
     const s = h("section", { class: "rslide" },
       v,
       h("div", { class: "rinfo" }, h("div", { class: "rautor" }, fotoDe(l) ? h("img", { class: "ravatar", src: fotoDe(l), alt: "", loading: "lazy", onerror: (e) => e.target.remove() }) : null, h("b", null, l.author || PLAT[l.platform])), h("span", { class: "rcol" }, l.collection), legenda),
-      h("div", { class: "rnav" }, botao("▲", "Anterior", () => passa(-1)), botao("▼", "Próximo", () => passa(1))),
       h("div", { class: "rside" },
         botao("♥", "Curtir", () => escolherCategoria(l, s), "like"),
         botao("⧉", "Copy", async () => {
@@ -258,5 +257,5 @@ async function reelMode({ sb, all, collections, nav, refresh, perfis = [] }) {
   return h("div", { class: "page miner-reel" },
     h("div", { class: "rtop" }, h("span", { class: "mono" }, `MineR_ · ${itens.length} vídeos`), h("div", { class: "grow" }),
       h("button", { class: "btn btn-ghost btn-sm", type: "button", onclick: () => nav({ grade: "1" }) }, "▦ Grade e links")),
-    itens.length ? feed : h("p", { class: "empty" }, "Nenhum vídeo baixado ainda. Rode tools/miner_baixar.py no Mac pra baixar os garimpados."));
+    itens.length ? h("div", { class: "rwrap" }, feed, h("div", { class: "rnav" }, botao("▲", "Anterior", () => passa(-1)), botao("▼", "Próximo", () => passa(1)))) : h("p", { class: "empty" }, "Nenhum vídeo baixado ainda. Rode tools/miner_baixar.py no Mac pra baixar os garimpados."));
 }

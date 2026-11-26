@@ -972,6 +972,11 @@ body{background-color:var(--bg);background-image:
 .of-menu { position: absolute; z-index: 5; display: flex; flex-direction: column; gap: 4px; background: rgba(0,0,0,.88); border: 1px solid rgba(0,255,102,.4); border-radius: 10px; padding: 8px; min-width: 220px; }
 .of-menu[hidden] { display: none; }
 .of-menu .btn { justify-content: flex-start; text-align: left; }
-.rnav { position: absolute; right: 8px; top: 50px; display: flex; flex-direction: column; gap: 10px; }
+.rwrap { display: flex; justify-content: center; align-items: center; gap: 12px; }
+.rwrap .rfeed { margin: 0; flex: 0 1 460px; }
+.rnav { display: flex; flex-direction: column; gap: 14px; }
+.rnav .rbtn { color: var(--tx, #fff); text-shadow: none; }
+.rnav .rbtn .ri { background: rgba(255,255,255,.1); }
 .rautor { display: flex; align-items: center; gap: 8px; }
 .ravatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; background: #222; flex: none; }
+@media (max-width: 600px) { .rnav { display: none; } }
