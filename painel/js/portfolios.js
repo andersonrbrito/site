@@ -1,14 +1,21 @@
 // Gerado por painel/dev/gen-portfolios.py
 export const PORTFOLIOS = [
  {
-  "path": "portfolio.html",
-  "title": "Portfólio — Anderson Brito | Editor de Vídeo e Criador de Conteúdo com IA",
+  "path": "videos-ia/",
+  "title": "Anderson Brito Portfólio",
   "online": true,
   "linked": false,
-  "updated": "2026-11-20"
+  "updated": "2026-11-26"
  },
  {
   "path": "portfolio-talking-head.html",
+  "title": "Portfólio — Anderson Brito | Editor de Vídeo e Criador de Conteúdo com IA",
+  "online": true,
+  "linked": false,
+  "updated": "2026-11-26"
+ },
+ {
+  "path": "portfolio.html",
   "title": "Portfólio — Anderson Brito | Editor de Vídeo e Criador de Conteúdo com IA",
   "online": true,
   "linked": false,
@@ -31,13 +38,6 @@ export const PORTFOLIOS = [
  {
   "path": "xablau/",
   "title": "Anderson Brito para o Real Oficial: professor de IA",
-  "online": true,
-  "linked": false,
-  "updated": "2026-11-16"
- },
- {
-  "path": "videos-ia/",
-  "title": "Anderson Brito Portfólio",
   "online": true,
   "linked": false,
   "updated": "2026-11-16"
@@ -74,13 +74,27 @@ export const PORTFOLIOS = [
   "path": "dr/",
   "title": "Anderson Brito · Portfólio Direct Response",
   "online": true,
-  "linked": true,
+  "linked": false,
   "updated": "2026-11-11"
  },
  {
   "path": "tie/",
   "title": "Anderson Brito · Portfólio TIE Digital",
   "online": true,
+  "linked": false,
+  "updated": "2026-11-10"
+ },
+ {
+  "path": "condzxyz/",
+  "title": "Anderson Brito | Criador de Conteúdo de IA e Audiovisual",
+  "online": false,
+  "linked": false,
+  "updated": "2026-11-10"
+ },
+ {
+  "path": "brasilparalelo/",
+  "title": "Anderson Brito | Editor de Vídeo — Brasil Paralelo",
+  "online": false,
   "linked": false,
   "updated": "2026-11-10"
  }
