@@ -1,0 +1,88 @@
+{
+ "slug": "ia-mesmo-cenario-em-toda-cena",
+ "dia": "2026-11-27",
+ "tipo": "educativo",
+ "titulo": "O cenário que não muda (consistência na IA)",
+ "perfil": "@andrstudios",
+ "legenda": "O que mais entrega vídeo de IA é o cenário mudar a cada cena.\n\nO truque que eu uso: uma imagem de referência do ambiente + descrever a locação IGUAL em todo prompt + travar a seed e usar o último frame como primeiro da cena seguinte.\n\nParece detalhe, mas é o que faz parecer gravado no mesmo lugar, não uma montagem.\n\nOnde a IA mais te trai: cenário ou personagem?\n\nSalva pra usar na próxima cena.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFontes: Kling AI, Google (Nano Banana / Gemini).",
+ "fontes": [
+  {
+   "titulo": "Kling AI",
+   "url": "https://klingai.com/"
+  },
+  {
+   "titulo": "Google — Nano Banana (Gemini)",
+   "url": "https://gemini.google.com/"
+  }
+ ],
+ "notas": "Educativo de IA (consistência de cenário/locação). Hook e todas as lâminas: fotos REAIS de Katy Perry (shows com cenários temáticos elaborados = mundo construído que se repete), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11). Prompt copiável em inglês na lâmina 4.",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "O cenário que **não muda**",
+   "rodape": "arrasta pro lado →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/01.jpg",
+    "foco": 0.3,
+    "credito": "foto: Suran2007 · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Você gera a cena 1 num quarto lindo.\n\nNa cena 2 a IA **inventa outro quarto**. Parece outro vídeo, e o olho sacou na hora.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: Sean MacEntee from Monaghan, Ireland · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Truque 1: gere **uma** imagem do cenário e use ela como **referência** em toda geração.\n\nO ambiente vira âncora, não sorteio a cada clique.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: LorenzorennyA · Wikimedia (CC BY 4.0)"
+   }
+  },
+  {
+   "texto": "Truque 2: descreva a locação **igual** em todo prompt, palavra por palavra. Algo como:\n\n**\"same small 90s apartment, green tiled kitchen, warm tungsten light, 24mm lens\"**",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: mattbuck ( category ) · Wikimedia (CC BY-SA 3.0)"
+   }
+  },
+  {
+   "texto": "Truque 3: trava a **seed** (o 'número da sorte' do modelo) e, quando der, usa o **último frame** de uma cena como primeiro frame da próxima. O espaço continua.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: https://www.flickr.com/photos/ashley_r/ · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Na prática: no Kling/Seedance é **imagem de referência + frame inicial e final**.\n\nNo Nano Banana, você reusa a mesma imagem-base e só muda a ação do personagem.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: dephisticate at https://www.flickr.com/photos/dephisticate · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Isso separa um vídeo com **cara de montagem** de um que parece gravado no mesmo lugar.\n\nOnde a IA mais te trai: cenário ou personagem?\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "rodape": "comenta KIT ↓",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/ia-mesmo-cenario-em-toda-cena/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: CJ A. (@ChrisAntonacci1 from Twitter) · Wikimedia (CC BY-SA 4.0)"
+   }
+  }
+ ]
+}

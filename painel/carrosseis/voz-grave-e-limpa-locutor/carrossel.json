@@ -1,0 +1,88 @@
+{
+ "slug": "voz-grave-e-limpa-locutor",
+ "dia": "2026-11-27",
+ "tipo": "educativo",
+ "titulo": "Voz de locutor em 3 passos",
+ "perfil": "@andrstudios",
+ "legenda": "A voz gravada no celular soa fina e com chiado.\n\nCom 3 ajustes ela fica grave, limpa e próxima: EQ (corta o ronco grave, encorpa), de-esser (tira o 'sss') e compressor (deixa a fala constante).\n\nNa ordem EQ → de-esser → compressor. E nenhum plugin conserta sala com eco.\n\nEm que vídeo seu a voz mais atrapalha?\n\nSalva pra usar na próxima gravação.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFontes: Adobe Audition/Premiere, CapCut.",
+ "fontes": [
+  {
+   "titulo": "Adobe — Parametric EQ e DeEsser",
+   "url": "https://helpx.adobe.com/audition/using/effects-reference.html"
+  },
+  {
+   "titulo": "CapCut — editar áudio",
+   "url": "https://www.capcut.com/"
+  }
+ ],
+ "notas": "Educativo de edição de áudio (EQ + de-esser + compressor). Hook e todas as lâminas: fotos REAIS de Ed Sheeran (cantor, voz como instrumento), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Voz de **locutor**",
+   "rodape": "arrasta pro lado →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/01.jpg",
+    "foco": 0.3,
+    "credito": "foto: Patrick Cristiano · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "A voz gravada no celular soa fina e com chiado.\n\nCom 3 ajustes ela fica **grave, limpa e próxima**, igual podcast bom.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: Patrick Cristiano · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "1) **EQ**: corta tudo abaixo de ~80Hz (tira o ronco do ambiente) e dá um reforço leve em 120-200Hz pra encorpar.\n\nAgudo demais? Baixa um pouco em 3-5kHz.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: Patrick Cristiano · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "2) **De-esser**: aquele 'ssss' estourado some tratando 5-8kHz.\n\nNo CapCut tem 'reduzir sibilância'; no Premiere, o efeito DeEsser.",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: Patrick Cristiano · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "3) **Compressor**: deixa o alto e o baixo da voz mais parelhos, então a fala fica constante e 'na sua frente'.\n\nRazão ~3:1 e um pouco de ganho de saída.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: Patrick Cristiano · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "A ordem ajuda: **EQ → de-esser → compressor**.\n\nE grava perto do micro, em lugar sem eco: **nenhum plugin conserta sala ruim**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: Oviyach · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Só isso já separa áudio amador de profissional, e ninguém repara (é esse o ponto).\n\nEm que vídeo seu a voz mais atrapalha?\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "rodape": "comenta KIT ↓",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/voz-grave-e-limpa-locutor/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: Patrick Cristiano · Wikimedia (CC BY-SA 4.0)"
+   }
+  }
+ ]
+}

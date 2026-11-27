@@ -1,0 +1,88 @@
+{
+ "slug": "congela-o-frame-no-climax",
+ "dia": "2026-11-27",
+ "tipo": "educativo",
+ "titulo": "Congela o frame no clímax",
+ "perfil": "@andrstudios",
+ "legenda": "Sabe quando o vídeo para bem no auge e entra um som seco? Isso marca o momento na cabeça de quem assiste.\n\nChama freeze frame: congela o quadro, dá um zoom rápido (punch-in) e bate um SFX de impacto na hora exata.\n\nO som faz 80% do efeito. E 1 ou 2 por vídeo, senão perde a força.\n\nOnde no seu vídeo cabia um freeze desse?\n\nSalva pra testar no próximo corte.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFontes: CapCut, Adobe Premiere Pro.",
+ "fontes": [
+  {
+   "titulo": "CapCut — congelar quadro",
+   "url": "https://www.capcut.com/"
+  },
+  {
+   "titulo": "Adobe Premiere Pro — quadro congelado",
+   "url": "https://helpx.adobe.com/premiere-pro/using/freeze-frame.html"
+  }
+ ],
+ "notas": "Educativo de edição (freeze frame + punch-in + SFX). Hook e todas as lâminas: fotos REAIS de Cristiano Ronaldo (a comemoração 'siuuu' = pose congelada no ar, freeze icônico), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "Congela no **clímax**",
+   "rodape": "arrasta pro lado →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/01.jpg",
+    "foco": 0.3,
+    "credito": "foto: Chensiyuan · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Sabe quando o vídeo para bem no auge e entra um som seco?\n\nIsso marca o momento na cabeça de quem assiste. Chama **freeze frame**.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: YantsImages · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "No ponto exato, você **congela o quadro** e segura 0,5 a 1s.\n\nNo CapCut é 'congelar'; no Premiere, 'Adicionar quadro congelado'.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: YantsImages · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Pra dar impacto, um **zoom rápido** (punch-in) de uns 110% no momento do freeze.\n\nO olho é empurrado pro ponto certo da cena.",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: Jahrenvisuals · Wikimedia (CC BY 4.0)"
+   }
+  },
+  {
+   "texto": "O som faz 80% do efeito: um **hit/impacto** seco bem na hora do congelamento (aquele 'tum').\n\nSem o som, o freeze parece bug.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: Liondartois · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "Dá pra somar um **contorno** no personagem ou uma palavra que entra no freeze.\n\nMas 1 ou 2 por vídeo: se congela toda hora, perde a força.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: Liondartois · Wikimedia (CC BY-SA 4.0)"
+   }
+  },
+  {
+   "texto": "É um truque simples que faz o corte parecer dirigido, não acidental.\n\nOnde no seu vídeo cabia um freeze desse?\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "rodape": "comenta KIT ↓",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/congela-o-frame-no-climax/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: KANO PHOTO · Wikimedia (CC BY-SA 2.0)"
+   }
+  }
+ ]
+}

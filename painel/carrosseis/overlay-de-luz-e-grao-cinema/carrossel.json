@@ -1,0 +1,88 @@
+{
+ "slug": "overlay-de-luz-e-grao-cinema",
+ "dia": "2026-11-27",
+ "tipo": "educativo",
+ "titulo": "A camada que dá cara de cinema",
+ "perfil": "@andrstudios",
+ "legenda": "Vídeo cru é limpo demais e parece câmera de celular.\n\nO que dá o 'filme' é textura: uma camada de grão + luz vazando (light leak) no modo Tela, e um glow leve nas luzes.\n\nO segredo é a mão leve: opacidade baixa, dá pra ver que você mexeu só se procurar.\n\nQual vídeo seu ia ficar melhor com essa pilha?\n\nSalva pra testar no próximo.\nComenta KIT que eu te mando o link do Kit Editar com Claude.\nSegue @andersonbrito.mp4 e @andrstudios pra mais conteúdo de IA e edição.\n\nFontes: CapCut, Adobe Premiere Pro.",
+ "fontes": [
+  {
+   "titulo": "CapCut — modos de mesclagem",
+   "url": "https://www.capcut.com/"
+  },
+  {
+   "titulo": "Adobe Premiere Pro — modos de fusão",
+   "url": "https://helpx.adobe.com/premiere-pro/using/blending-modes-track-mattes.html"
+  }
+ ],
+ "notas": "Educativo de edição (overlay de luz + grão + glow pra cara de cinema). Hook e todas as lâminas: fotos REAIS de Shakira (luz de palco/show, cena de performance), Wikimedia Commons, crédito por lâmina. Rosto famoso reconhecível (regra 25/11).",
+ "slides": [
+  {
+   "capa": true,
+   "texto": "A camada de **cinema**",
+   "rodape": "arrasta pro lado →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/01.jpg",
+    "foco": 0.3,
+    "credito": "foto: oouinouin from Nanterre, France · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Vídeo cru é limpo demais, parece câmera de celular.\n\nO que dá o 'filme' é **textura**: grão, luz vazando e um brilho nas luzes.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/02.jpg",
+    "foco": 0.3,
+    "credito": "foto: Serenity · Wikimedia (CC BY 3.0)"
+   }
+  },
+  {
+   "texto": "Passo 1: baixa um clipe de **light leak** (luz vazando) e põe por cima no modo de mescla **Tela/Screen**.\n\nO preto some, só a luz fica. Opacidade uns 30-40%.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/03.jpg",
+    "foco": 0.3,
+    "credito": "foto: oouinouin from Nanterre, France · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Passo 2: por cima, uma camada de **grão de filme**, também em Tela, opacidade 10-20%.\n\nÉ o que tira aquele aspecto 'digital liso' do celular.",
+   "rodape": "segue o @andersonbrito.mp4 pra não perder os próximos →",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/04.jpg",
+    "foco": 0.3,
+    "credito": "foto: oouinouin from Nanterre, France · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Passo 3: um **glow** leve nas luzes (bloom) faz os pontos de luz 'respirarem', tipo palco.\n\nNo CapCut é o Brilho; no Premiere/DaVinci, um blur só nas altas.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/05.jpg",
+    "foco": 0.3,
+    "credito": "foto: oouinouin from Nanterre, France · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "O erro é exagerar: se a tela toda fica embaçada e laranja, vira filtro de 2014.\n\nPra mim, **menos é mais** — quase imperceptível é o certo.",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/06.jpg",
+    "foco": 0.3,
+    "credito": "foto: oouinouin from Nanterre, France · Wikimedia (CC BY 2.0)"
+   }
+  },
+  {
+   "texto": "Essa pilha (grão + luz + glow) é o jeito mais barato de um reel parecer caro.\n\nQual vídeo seu ia ficar melhor com isso?\n\n**Comenta KIT** que eu te mando o link do Kit Editar com Claude.",
+   "rodape": "comenta KIT ↓",
+   "midia": {
+    "tipo": "imagem",
+    "src": "/painel/carrosseis/overlay-de-luz-e-grao-cinema/07.jpg",
+    "foco": 0.3,
+    "credito": "foto: oouinouin from Nanterre, France · Wikimedia (CC BY 2.0)"
+   }
+  }
+ ]
+}
